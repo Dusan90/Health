@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider as ReduxProvider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import SagaMiddlewareProvider from './components/Main/sagaMiddlewareProvider';
 import './App.css';
+import Main from './components/Main';
+import Dashboard from './components/Dashboard';
+import Register from './containers/Register';
+import Login from './containers/Login';
+import ExamForm from './components/Exam';
+import Payment from './components/Exam';
+import {Elements, StripeProvider} from 'react-stripe-elements';
+import authReducer from './reducers/authReducer';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props){
+    super(props);
+
+    const sagaMiddleware = createSagaMiddleware();
+
+    const store = createStore(
+      authReducer,
+      applyMiddleware(sagaMiddleware)
+    );
+    
+    store.runSaga = sagaMiddleware.run;
+    this.sagaMiddleware = sagaMiddleware;
+    this.store = store
+  
+  }
+  render(){
+      return (
+        <div className="App">
+           <StripeProvider apiKey="pk_test_fpfsU7cPFh5Gc4PA7Mf5Ut7F009TLATkHK"> 
+            <ReduxProvider store={this.store}>
+              <SagaMiddlewareProvider sagaMiddleware={this.sagaMiddleware}>       
+                <Router>
+                  <Route path="/" exact component={Main}/>
+                  <Route path="/register" exact component={Register} />
+                  <Route path="/login" exact component={Login} />
+                  <Route path="/dashboard" exact component={Dashboard} />
+                  <Route path="/initiate" exact component={ExamForm} />
+                  <Elements>
+                    <Route path="/checkout" exact component={Payment} />
+                  </Elements>
+                </Router>
+              </SagaMiddlewareProvider>
+            </ReduxProvider>
+          </StripeProvider>
+        </div>
+    );
+  }
 }
 
 export default App;
