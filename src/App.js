@@ -5,12 +5,11 @@ import { Provider as ReduxProvider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import SagaMiddlewareProvider from './components/Main/sagaMiddlewareProvider';
 import './App.css';
-import Main from './components/Main';
-import Dashboard from './components/Dashboard';
+import Main from './containers/Main';
+import ClientDashboard from './containers/Client/Dashboard';
 import Register from './containers/Register';
 import Login from './containers/Login';
-import ExamForm from './components/Exam';
-import Payment from './components/Exam';
+import ExamForm from './containers/Client/ExamForm';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import authReducer from './reducers/authReducer';
 
@@ -40,11 +39,11 @@ class App extends Component {
                   <Route path="/" exact component={Main}/>
                   <Route path="/register" exact component={Register} />
                   <Route path="/login" exact component={Login} />
-                  <Route path="/dashboard" exact component={Dashboard} />
+                  <Route path="/dashboard" exact component={ClientDashboard} />
                   <Route path="/initiate" exact component={ExamForm} />
-                  <Elements>
+                  {/* <Elements>
                     <Route path="/checkout" exact component={Payment} />
-                  </Elements>
+                  </Elements> */}
                 </Router>
               </SagaMiddlewareProvider>
             </ReduxProvider>

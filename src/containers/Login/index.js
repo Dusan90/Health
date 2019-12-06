@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
+import Header from '../../components/Main/Header';
+import LoginUser from '../../components/Auth/Login';
 // import { isAuthenticated, authenticate,  unauthenticate} from '../../utils/auth';
 import { userLogin, userLoggedIn } from '../../actions/authActions';
 
@@ -69,35 +70,15 @@ class Login extends Component {
     render() {
         return (
             <div className="container">
-
-                <div className="page-header">
-                    <h1><a href="/">Health Care</a> <small>Login</small></h1>
-                </div>
-                
-                <div className="row">
-
-                <form className="form-horizontal">
-                    <div className="form-group">
-                        <label className="control-label col-sm-2" htmlFor="email">Email:</label>
-                        <div className="col-sm-10">
-                            <input type="email" className="form-control" id="email" placeholder="Enter email" value={this.state.emailValue} onChange={this.handleEmail}/>
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label col-sm-2" htmlFor="pwd">Password:</label>
-                        <div className="col-sm-10"> 
-                            <input type="password" className="form-control" id="pwd" placeholder="Enter password" value={this.state.passwordValue} onChange={this.handlePassword}/>
-                        </div>
-                    </div>
-                    <div className="form-group"> 
-                        <div className="col-sm-offset-2 col-sm-10">
-                            <button type="submit" className="btn btn-default" value={this.state.submitted} onClick={this.handleSubmit}>Submit</button>
-                        </div>
-                    </div>
-                </form>
-
-                </div>
-
+                <Header />
+                <LoginUser 
+                    emailValue={this.state.emailValue}
+                    passwordValue={this.state.passwordValue}
+                    submitted={this.state.submitted}
+                    handleEmail={this.handleEmail}
+                    handlePassword={this.handlePassword}
+                    handleSubmit={this.handleSubmit}
+                />
             </div>
         )
     }

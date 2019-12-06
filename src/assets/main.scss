@@ -1,0 +1,46 @@
+.panel{
+    position: relative;
+    width: 50%;
+    height: 100px;
+    margin-left: -1em;
+    padding: 5em;
+    padding-top: 5px;
+    .row{
+        position: absolute;
+        width: 150px;
+        .name{
+            position: absolute;
+            margin-left: -40px;
+        }
+        .speciality{
+            position: absolute;
+            margin-top: 50px;
+            margin-left: -115px;
+        }
+    }
+    .profile{
+        position: relative;
+        width: 5px;
+        left: 390px;
+        bottom: -10px;
+
+        .btn {
+            color: white;
+            position: absolute;
+            
+        }
+    }
+    .consultation{
+        position: relative;
+        width: 1px;
+        left: 385px;
+        bottom: -50px;
+
+        .btn {
+            color: white;
+            position: absolute;
+        }
+    }
+}
+
+
