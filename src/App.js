@@ -10,6 +10,7 @@ import ClientDashboard from './containers/Client/Dashboard';
 import Register from './containers/Register';
 import Login from './containers/Login';
 import ExamForm from './containers/Client/ExamForm';
+import CheckoutForm from './components/Client/PaymentForm';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import authReducer from './reducers/authReducer';
 
@@ -32,7 +33,7 @@ class App extends Component {
   render(){
       return (
         <div className="App">
-           <StripeProvider apiKey="pk_test_fpfsU7cPFh5Gc4PA7Mf5Ut7F009TLATkHK"> 
+           <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3"> 
             <ReduxProvider store={this.store}>
               <SagaMiddlewareProvider sagaMiddleware={this.sagaMiddleware}>       
                 <Router>
@@ -41,9 +42,9 @@ class App extends Component {
                   <Route path="/login" exact component={Login} />
                   <Route path="/dashboard" exact component={ClientDashboard} />
                   <Route path="/initiate" exact component={ExamForm} />
-                  {/* <Elements>
-                    <Route path="/checkout" exact component={Payment} />
-                  </Elements> */}
+                  <Elements>
+                    <Route path="/checkout" exact component={CheckoutForm} />
+                  </Elements>
                 </Router>
               </SagaMiddlewareProvider>
             </ReduxProvider>

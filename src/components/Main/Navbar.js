@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import isLoggedIn from '../../reducers/authReducer';
+import { connect } from 'react-redux';
 
-const Nav = ({ register, login, reset, logout }) => (
+const Nav = ({ register, login, reset, logout, isLoggedIn }) => (
     <nav className="navbar navbar-default">
         <div className="container-fluid">                   
             <div className="navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -23,4 +23,13 @@ const Nav = ({ register, login, reset, logout }) => (
     </nav>
 )
 
-export default Nav;
+const mapStateToProps = state => {
+    const user = state.get('user');
+    const isLoggedIn = state.get('isLoggedIn');
+    return {
+        user,
+        isLoggedIn,
+    }
+  };
+
+export default connect(mapStateToProps)(Nav);

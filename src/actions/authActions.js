@@ -7,6 +7,7 @@ import {
 export function userLogin(user) {
     return {
         type: LOGIN_REQUEST,
+        isLoggedIn: false,
         user,
     };
 }
@@ -14,11 +15,13 @@ export function userLogin(user) {
 export function userLoggedIn() {
     return {
         type: LOGIN_SUCCESS,
+        isLoggedIn: true,
     };
 }
 
 export function userLoggedOut() {
     return {
         type: LOGIN_FAILURE,
+        isLoggedIn: false,
     };
 }

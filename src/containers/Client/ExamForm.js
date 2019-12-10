@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-// import {CardElement, injectStripe} from 'react-stripe-elements';
 import Header from '../../components/Main/Header';
 import InitiateExam from '../../components/Client/ExamForm';
 import axios from 'axios';
@@ -16,7 +15,6 @@ class ExamForm extends Component {
       subject: '',
       submitted: false
     };
-    // this.submit = this.submit.bind(this);
   }
 
   handleSpeciality = (e) => {
@@ -42,17 +40,6 @@ class ExamForm extends Component {
     return this.props.history.push('/checkout');
   }
 
-  // async submit(ev) {
-  //   let {token} = await this.props.stripe.createToken({name: "Name"});
-  //   let response = await fetch("/api/charge", {
-  //     method: "POST",
-  //     headers: {"Content-Type": "text/plain"},
-  //     body: token.id
-  //   });
-  
-  //   if (response.ok) this.setState({complete: true});
-  // }
-
   componentDidMount() {
     axios.get('http://0.0.0.0:8000/api/specialities/')
       .then(response => {
@@ -67,7 +54,7 @@ class ExamForm extends Component {
       .then(response => {
         console.log(response.data , 'aaa');
         const res = response.data.message.map((val) => {
-          return {value: val.id, label: val.doctor, spec: val.speciality}
+          return {value: val.id, label: val.doctor, spec: val.speciality, price: val.price}
         });
         console.log(res, 'respone');
         this.setState({doctors: res });
@@ -79,7 +66,7 @@ class ExamForm extends Component {
 
     return (
       <div className="container">
-          <Header />
+        <Header />
           <InitiateExam 
             specialities={this.state.specialities}
             doctors={this.state.doctors}
