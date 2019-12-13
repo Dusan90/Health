@@ -34,3 +34,12 @@ export const getPermission = () => {
     const user = JSON.parse(getItem(USER));
     return user.role;
 };
+
+export const isUser = () => {
+    const a = getItem(USER);
+    if (a[0] === '{') { //this is hack for production todo: fix
+        const user = JSON.parse(getItem(USER));
+        return user.role === USER_ROLE;
+    }
+    return false;
+};

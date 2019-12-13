@@ -5,14 +5,18 @@ import { Provider as ReduxProvider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import SagaMiddlewareProvider from './components/Main/sagaMiddlewareProvider';
 import './App.css';
-import Main from './containers/Main';
+import Main from './containers/Home/Home';
 import ClientDashboard from './containers/Client/Dashboard';
-import Register from './containers/Register';
-import Login from './containers/Login';
+import DoctorDashboard from './containers/Doctor/Dashboard';
+import Register from './containers/Register/register';
+import Login from './containers/Login/login';
+import Logout from './containers/Logout/logout';
 import ExamForm from './containers/Client/ExamForm';
 import CheckoutForm from './components/Client/PaymentForm';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import authReducer from './reducers/authReducer';
+import PrivateRoute from './components/Routes/PrivateRoute';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 class App extends Component {
   constructor(props){
@@ -22,7 +26,8 @@ class App extends Component {
 
     const store = createStore(
       authReducer,
-      applyMiddleware(sagaMiddleware)
+      composeWithDevTools()
+      
     );
     
     store.runSaga = sagaMiddleware.run;
@@ -40,7 +45,9 @@ class App extends Component {
                   <Route path="/" exact component={Main}/>
                   <Route path="/register" exact component={Register} />
                   <Route path="/login" exact component={Login} />
+                  <Route path="/logout" exact component={Logout} />
                   <Route path="/dashboard" exact component={ClientDashboard} />
+                  <Route path="/dashboard-doctor" exact component={DoctorDashboard}/>
                   <Route path="/initiate" exact component={ExamForm} />
                   <Elements>
                     <Route path="/checkout" exact component={CheckoutForm} />

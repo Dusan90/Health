@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE
+    LOGIN_FAILURE,
 } from '../constants/userConstants';
 
 const initialState = fromJS({

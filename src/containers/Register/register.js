@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../App.css';
 import Header from '../../components/Main/Header';
 import RegisterUser from '../../components/Auth/Register';
+import Nav from '../../components/Main/Navbar';
 
 class Register extends Component {
     constructor(props) {
@@ -101,6 +102,7 @@ class Register extends Component {
         return (
             <div className="container">  
                 <Header />
+                <Nav />
                 <input type="radio" name="userType" value="client" checked={this.state.userType === 'client' ? true : false} onChange={() => this.handleUserType('client')} style={{marginRight: 1 + 'em'}} />
                 <input type="radio" name="userType" value="doctor" checked={this.state.userType === 'doctor' ? true : false} onChange={() => this.handleUserType('doctor')} style={{marginBottom: 2 + 'em'}} />
                 <RegisterUser 

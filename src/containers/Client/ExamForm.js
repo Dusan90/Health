@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Header from '../../components/Main/Header';
 import InitiateExam from '../../components/Client/ExamForm';
+import Nav from '../../components/Main/Navbar';
 import axios from 'axios';
 
 
@@ -67,6 +68,7 @@ class ExamForm extends Component {
     return (
       <div className="container">
         <Header />
+        <Nav />
           <InitiateExam 
             specialities={this.state.specialities}
             doctors={this.state.doctors}

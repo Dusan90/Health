@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
-import moment from 'moment';
 import Header from '../../components/Main/Header';
 import LoginUser from '../../components/Auth/Login';
-// import { isAuthenticated, authenticate,  unauthenticate} from '../../utils/auth';
+import Nav from '../../components/Main/Navbar';
 import { userLogin, userLoggedIn } from '../../actions/authActions';
 
 class Login extends Component {
@@ -13,7 +11,8 @@ class Login extends Component {
         this.state = {
             emailValue: '',
             passwordValue: '',
-            submitted: false
+            submitted: false,
+            is_doctor: false
         } 
     }
 
@@ -35,26 +34,38 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        this.redirectUser();
+    }
+
+    componentDidUpdate() {
+
+    }
+
+    checkUser = () => {
+        const accessToken = sessionStorage.getItem('accessToken')
+        const expiresIn = sessionStorage.getItem('expiresIn')
+        const refreshToken = localStorage.getItem('refreshToken')
+        if (accessToken && expiresIn && refreshToken) {
+            this.props.dispatch(userLogin({
+                'access_token': accessToken,
+                'expires_in': expiresIn,
+                'refresh_token': refreshToken
+            }));
+            this.props.dispatch(userLoggedIn());
+        }
     }
 
     redirectUser = () => {
         if (this.props.isLoggedIn) {
-            this.props.history.push('/dashboard');
+            if (this.state.is_doctor === true){     
+                this.props.history.push('/dashboard-doctor');
+            }else{
+                this.props.history.push('/dashboard');
+            }
         }else{
             this.props.history.push('/login');
         }
     }
 
-    getToken = () => {
-        const accessToken = sessionStorage.getItem('accessToken')
-        const expiresIn = sessionStorage.getItem('expiresIn')
-        const refreshToken = sessionStorage.getItem('refreshToken')
-        if (accessToken && (!expiresIn || moment.unix(Number(expiresIn)).diff(moment(), 'minute') > 1)) {
-            return accessToken;
-        }
-        return refreshToken;
-    }
 
     userLogin = async () => {
         const data = await fetch('http://0.0.0.0:8000/api/auth/login/', {
@@ -69,13 +80,17 @@ class Login extends Component {
         });
 
         const jsonData = await data.json();
+        if (jsonData.is_doctor === true){
+            this.setState({is_doctor: true})
+        }else{
+            this.setState({is_doctor: false})
+        }
         console.log(jsonData);
         this.props.dispatch(userLogin(jsonData));
-        if (jsonData.access_token) {
-            // let obj = {'accessToken': jsonData.access_token, 'expiresIn': jsonData.expires_in}
-            sessionStorage.setItem('accessToken', jsonData.access_token)
-            sessionStorage.setItem('expiresIn', jsonData.expires_in)
-            localStorage.setItem('refreshToken', jsonData.refresh_token)
+        if (jsonData.data.access_token) {
+            sessionStorage.setItem('accessToken', jsonData.data.access_token)
+            sessionStorage.setItem('expiresIn', jsonData.data.expires_in)
+            localStorage.setItem('refreshToken', jsonData.data.refresh_token)
             this.props.dispatch(userLoggedIn());
             this.redirectUser();
         }
@@ -86,6 +101,7 @@ class Login extends Component {
         return (
             <div className="container">
                 <Header />
+                <Nav />
                 <LoginUser 
                     emailValue={this.state.emailValue}
                     passwordValue={this.state.passwordValue}

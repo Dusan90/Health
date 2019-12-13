@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import Register from '../Register';
-import Login from '../Login';
 import axios from 'axios';
 import "../../assets/main.scss";
-import Doctor from '../../components/Main/Doctor';
+import Doctor from '../../components/Main/Home';
 import Header from '../../components/Main/Header';
+import Nav from '../../components/Main/Navbar';
 
 class Main extends Component {
     constructor(props) {
@@ -13,14 +11,6 @@ class Main extends Component {
         this.state = {
           doctors: '',
         };
-    }
-
-    register = () => {
-        return <Route path="/register" component={Register} />
-    }
-
-    login = () => {
-        return <Route path="/login" component={Login} />
     }
 
     handleDoctor = (e) => {
@@ -44,6 +34,7 @@ class Main extends Component {
         return (
             <div className="container">
                 <Header />
+                <Nav />
                 <Doctor doctors={doctors} handleDoctor={this.handleDoctor} />
             </div>
         )
