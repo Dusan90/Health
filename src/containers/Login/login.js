@@ -29,37 +29,23 @@ class Login extends Component {
         this.userLogin();
         this.setState({
             emailValue: '',
-            passwordValue: ''
-          });
+            passwordValue: '',
+        });
     }
 
     componentDidMount() {
     }
 
     componentDidUpdate() {
-
-    }
-
-    checkUser = () => {
-        const accessToken = sessionStorage.getItem('accessToken')
-        const expiresIn = sessionStorage.getItem('expiresIn')
-        const refreshToken = localStorage.getItem('refreshToken')
-        if (accessToken && expiresIn && refreshToken) {
-            this.props.dispatch(userLogin({
-                'access_token': accessToken,
-                'expires_in': expiresIn,
-                'refresh_token': refreshToken
-            }));
-            this.props.dispatch(userLoggedIn());
-        }
+        
     }
 
     redirectUser = () => {
         if (this.props.isLoggedIn) {
-            if (this.state.is_doctor === true){     
+            if (this.state.is_doctor) {  
                 this.props.history.push('/dashboard-doctor');
             }else{
-                this.props.history.push('/dashboard');
+                this.props.history.push('/dashboard-client');
             }
         }else{
             this.props.history.push('/login');
@@ -80,16 +66,17 @@ class Login extends Component {
         });
 
         const jsonData = await data.json();
-        if (jsonData.is_doctor === true){
-            this.setState({is_doctor: true})
+        if (jsonData.is_doctor){
+            this.setState({is_doctor: true});
         }else{
-            this.setState({is_doctor: false})
+            this.setState({is_doctor: false});
         }
         console.log(jsonData);
         this.props.dispatch(userLogin(jsonData));
         if (jsonData.data.access_token) {
             sessionStorage.setItem('accessToken', jsonData.data.access_token)
             sessionStorage.setItem('expiresIn', jsonData.data.expires_in)
+            sessionStorage.setItem('is_doctor', jsonData.is_doctor)
             localStorage.setItem('refreshToken', jsonData.data.refresh_token)
             this.props.dispatch(userLoggedIn());
             this.redirectUser();

@@ -37,6 +37,7 @@ class ClientDashboard extends Component {
             <div className="container">
                 <Dashboard 
                     initiate={this.initiate}
+                    clientExams={this.clientExams}
                 />
             </div>
         )

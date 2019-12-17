@@ -17,6 +17,18 @@ class Main extends Component {
         this.setState({doctors: e.target.value})
     }
 
+    handleDashboardDoctor = () => {
+      this.props.history.push("/dashboard-doctor")
+    }
+
+    handleDashboardClient = () => {
+      this.props.history.push("/dashboard-client")
+    }
+
+    componentDidUpdate(){
+      
+    }
+
     componentDidMount() {
         axios.get('http://0.0.0.0:8000/api/doctor/list')
           .then(response => {
@@ -34,7 +46,7 @@ class Main extends Component {
         return (
             <div className="container">
                 <Header />
-                <Nav />
+                <Nav handleDashboardDoctor={this.handleDashboardDoctor} handleDashboardClient={this.handleDashboardClient}/>
                 <Doctor doctors={doctors} handleDoctor={this.handleDoctor} />
             </div>
         )

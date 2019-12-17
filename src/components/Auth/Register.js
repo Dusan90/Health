@@ -1,19 +1,21 @@
 import React from 'react'
+import Select from 'react-select';
 
 const RegisterUser = ({
     userType,
-    emailVal,
-    firstNameVal, 
-    lastNameVal,
+    emailValue,
+    firstNameValue, 
+    lastNameValue,
     passwordValue,
-    genderValue, 
     addressValue,
     birthDateValue,
     npiNumValue,
     prefixValue,
+    genderOptions,
+    genderValue,
+    specOptions,
     specValue,
     submitValue,
-    handleUserType,
     handleEmail, 
     handleFirstName,
     handleLastName,
@@ -33,19 +35,19 @@ const RegisterUser = ({
             <div className="form-group">
                 <label className="control-label col-sm-2" htmlFor="email" >Email:</label>
                 <div className="col-sm-10">
-                <input type="email" className="form-control" id="email" placeholder="Enter email" value={emailVal} onChange={handleEmail}/>
+                <input type="email" className="form-control" id="email" placeholder="Enter email" value={emailValue} onChange={handleEmail}/>
                 </div>
             </div>
             <div className="form-group">
-                <label className="control-label col-sm-2" htmlFor="firstname">First Name:</label>
+                <label className="control-label col-sm-2">First Name:</label>
                 <div className="col-sm-10"> 
-                <input type="text" className="form-control" id="firstname" placeholder="Enter first name" value={firstNameVal} onChange={handleFirstName}/>
+                <input type="text" className="form-control" id="firstname" placeholder="Enter first name" value={firstNameValue} onChange={handleFirstName}/>
                 </div>
             </div>
             <div className="form-group">
-                <label className="control-label col-sm-2" htmlFor="lastname">Last Name:</label>
+                <label className="control-label col-sm-2">Last Name:</label>
                 <div className="col-sm-10"> 
-                <input type="text" className="form-control" id="lastname" placeholder="Enter last name" value={lastNameVal} onChange={handleLastName}/>
+                <input type="text" className="form-control" id="lastname" placeholder="Enter last name" value={lastNameValue} onChange={handleLastName}/>
                 </div>
             </div>
             <div className="form-group">
@@ -56,9 +58,9 @@ const RegisterUser = ({
             </div>
             {userType === 'client' && <div>
                 <div className="form-group">
-                    <label className="control-label col-sm-2" htmlFor="gender">Gender:</label>
+                    <label className="control-label col-sm-2">Gender:</label>
                     <div className="col-sm-10"> 
-                    <input type="text" className="form-control" id="gender" placeholder="Enter Gender" value={genderValue} onChange={handleGender}/>
+                        <Select type="text" id="gender" value={genderValue} options={genderOptions} onChange={handleGender}/>
                     </div>
                 </div>
                 <div className="form-group">
@@ -78,7 +80,7 @@ const RegisterUser = ({
                 <div className="form-group">
                     <label className="control-label col-sm-2" htmlFor="npi">NPI number:</label>
                     <div className="col-sm-10"> 
-                    <input type="number" className="form-control" id="npi" placeholder="Enter NPI number" value={npiNumValue} onChange={handleNpiNum}/>
+                    <input type="text" pattern="[0-9]*" className="form-control" id="npi" placeholder="Enter NPI number" value={npiNumValue} onChange={handleNpiNum}/>
                     </div>
                 </div>
                 <div className="form-group">
@@ -90,7 +92,7 @@ const RegisterUser = ({
                 <div className="form-group">
                     <label className="control-label col-sm-2" htmlFor="speciality">Speciality:</label>
                     <div className="col-sm-10"> 
-                    <input type="text" className="form-control" id="speciality" placeholder="Enter speciality" value={specValue} onChange={handleSpec}/>
+                        <Select type="text" id="speciality" value={specValue} options={specOptions} onChange={handleSpec}/>
                     </div>
                 </div>
             </div>
@@ -98,7 +100,7 @@ const RegisterUser = ({
             
             <div className="form-group"> 
                 <div className="col-sm-offset-2 col-sm-10">
-                <button type="submit" className="btn btn-default" value={submitValue} onChange={handleSubmit}>Submit</button>
+                <button type="submit" className="btn btn-default" value={submitValue} onClick={handleSubmit}>Submit</button>
                 </div>
             </div>
             </form>

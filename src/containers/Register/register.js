@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import '../../App.css';
+import { connect } from 'react-redux';
 import Header from '../../components/Main/Header';
 import RegisterUser from '../../components/Auth/Register';
 import Nav from '../../components/Main/Navbar';
+import axios from 'axios';
+
+const options = [
+    { value: 'M', label: 'Male' },
+    { value: 'F', label: 'Female' },
+];
 
 class Register extends Component {
     constructor(props) {
@@ -10,15 +17,18 @@ class Register extends Component {
         this.state = {
             userType: 'client',
             emailValue: '',
-            firstNameVal: '',
-            lastNameVal: '',
+            firstNameValue: '',
+            lastNameValue: '',
             passwordValue: '',
-            genderValue: '',
             addressValue: '',
             birthDateValue: '',
             npiNumValue: '',
             prefixValue: '',
-            specValue: ''
+            specOptions: [],
+            specValue: '',
+            genderValue: '',
+            selectedGenderValue: '',
+            selectedSpecValue: ''
         }
         
     }
@@ -32,19 +42,22 @@ class Register extends Component {
     }
 
     handleFirstName = (e) => {
-        this.setState({firstNameVal: e.target.value});
+        this.setState({firstNameValue: e.target.value});
     }
 
     handleLastName = (e) => {
-        this.setState({lastNameVal: e.target.value});
+        this.setState({lastNameValue: e.target.value});
     }
 
     handlePass = (e) => {
         this.setState({passwordValue: e.target.value});
     }
 
-    handleGender = (e) => {
-        this.setState({genderValue: e.target.value});
+    handleGender = genderValue => {
+        this.setState({genderValue})
+        let {value, label} = genderValue;
+        console.log(value, label);
+        this.setState({selectedGenderValue: value});
     }
 
     handleAddress = (e) => {
@@ -63,38 +76,77 @@ class Register extends Component {
         this.setState({prefixValue: e.target.value});
     }
 
-    handleSpec = (e) => {
-        this.setState({specValue: e.target.value});
+    handleSpec = specValue => {
+        this.setState({specValue});
+        let {value, label} = specValue;
+        console.log(value, label);
+        this.setState({selectedSpecValue: value})
     }
 
-
     handleSubmit = (e) => {
+        e.preventDefault();
         this.userRegister();
     }
 
     componentDidMount() {
-        if (this.props.isLoggedIn) {
-            console.log('sss')
-        }
+        axios.get('http://0.0.0.0:8000/api/specialities/')
+        .then(response => {
+            console.log(response.data);
+            const res = response.data.message.map((val) => {
+                return {value: val.id, label: val.name}
+            });
+            console.log(res);
+            this.setState({ specOptions: res });
+        })
     }
 
     userRegister = async () => {
-        const data = await fetch('http://0.0.0.0:8000/api/auth/register/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({
-                email: this.state.emailValue,
-                firstName: this.state.firstNameVal,
-                lastName: this.state.lastNameVal,
-                password: this.state.passwordValue,
-            })
-        });
-
-        const jsonData = await data.json();
-        console.log(jsonData);
-        return jsonData;
+        if (this.state.userType === 'client') {
+            const client = await fetch('http://0.0.0.0:8000/api/auth/register/client/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: this.state.emailValue,
+                    first_name: this.state.firstNameValue,
+                    last_name: this.state.lastNameValue,
+                    password: this.state.passwordValue,
+                    client: {
+                        gender: this.state.selectedGenderValue,
+                        address: this.state.addressValue,
+                        birth_date: this.state.birthDateValue
+                    }   
+                })
+            });
+            this.props.history.push('/login');
+            const jsonData = await client.json();
+            console.log(jsonData);
+            return jsonData;
+        } else if (this.state.userType === 'doctor') {
+            const doctor = await fetch('http://0.0.0.0:8000/api/auth/register/doctor/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: this.state.emailValue,
+                    first_name: this.state.firstNameValue,
+                    last_name: this.state.lastNameValue,
+                    password: this.state.passwordValue,
+                    doctor: {
+                        npi_number: this.state.npiNumValue,
+                        prefix: this.state.prefixValue,
+                        speciality: this.state.selectedSpecValue
+                    }
+                    
+                })
+            });
+            this.props.history.push('/login');
+            const jsonData = await doctor.json();
+            console.log(jsonData);
+            return jsonData;
+        }
     }
     
 
@@ -107,18 +159,19 @@ class Register extends Component {
                 <input type="radio" name="userType" value="doctor" checked={this.state.userType === 'doctor' ? true : false} onChange={() => this.handleUserType('doctor')} style={{marginBottom: 2 + 'em'}} />
                 <RegisterUser 
                     userType={this.state.userType}
-                    emailVal={this.state.emailVal}
-                    firstNameVal={this.state.firstNameVal}
-                    lastNameVal={this.state.lastNameVal}
+                    emailValue={this.state.emailValue}
+                    firstNameValue={this.state.firstNameValue}
+                    lastNameValue={this.state.lastNameValue}
                     passwordValue={this.state.passwordValue}
                     genderValue={this.state.genderValue}
+                    genderOptions={options}
                     addressValue={this.state.addressValue}
                     birthDateValue={this.state.birthDateValue}
                     npiNumValue={this.state.npiNumValue}
                     prefixValue={this.state.prefixValue}
                     specValue={this.state.specValue}
+                    specOptions={this.state.specOptions}
                     submitValue={this.state.submitValue}
-                    handleUserType={this.handleUserType}
                     handleEmail={this.handleEmail}
                     handleFirstName={this.handleFirstName}
                     handleLastName={this.handleLastName}
@@ -136,4 +189,14 @@ class Register extends Component {
     }
 }
 
-export default Register;
+
+// const mapStateToProps = state => {
+//     const user = state.get('user');
+//     const isLoggedIn = state.get('isLoggedIn');
+//     return {
+//         user,
+//         isLoggedIn,
+//     }
+//   };
+
+  export default Register;

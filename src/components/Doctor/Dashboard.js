@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Main/Header';
+import Nav from '../../components/Main/Navbar';
 
-
-const Dashboard = (initiate) => (
+const Dashboard = () => (
     <div className="row">
         <Header />
+        <Nav />
         <ul className="nav nav-pills">
             <li className="disabled"><a href="#list">Exams</a></li>
         </ul>

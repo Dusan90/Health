@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
 
-const InitiateExam = ({specialities, doctors, subject, submitted,  handleSpeciality, handleDoctor, handleSubject, handleSubmit }) => (
+const InitiateExam = ({specialities, doctors, subject, submitted, handleSpeciality, handleDoctor, handleSubject, handleSubmit }) => (
     <div className="mt-5">
         <div className="row mt-5">
             <div className="form-group">

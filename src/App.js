@@ -17,6 +17,7 @@ import {Elements, StripeProvider} from 'react-stripe-elements';
 import authReducer from './reducers/authReducer';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { userLogin, userLoggedIn } from './actions/authActions';
 
 class App extends Component {
   constructor(props){
@@ -35,6 +36,29 @@ class App extends Component {
     this.store = store
   
   }
+
+  componentDidMount(){
+    this.checkUser();
+  }
+
+  componentDidUpdate(){
+    this.checkUser();
+  }
+
+  checkUser = () => {
+    const accessToken = sessionStorage.getItem('accessToken')
+    const expiresIn = sessionStorage.getItem('expiresIn')
+    const refreshToken = localStorage.getItem('refreshToken')
+    if (accessToken && expiresIn && refreshToken) {
+        this.store.dispatch(userLogin({
+            'access_token': accessToken,
+            'expires_in': expiresIn,
+            'refresh_token': refreshToken
+        }));
+        this.store.dispatch(userLoggedIn());
+    }
+  }
+
   render(){
       return (
         <div className="App">
@@ -46,7 +70,7 @@ class App extends Component {
                   <Route path="/register" exact component={Register} />
                   <Route path="/login" exact component={Login} />
                   <Route path="/logout" exact component={Logout} />
-                  <Route path="/dashboard" exact component={ClientDashboard} />
+                  <Route path="/dashboard-client" exact component={ClientDashboard} />
                   <Route path="/dashboard-doctor" exact component={DoctorDashboard}/>
                   <Route path="/initiate" exact component={ExamForm} />
                   <Elements>

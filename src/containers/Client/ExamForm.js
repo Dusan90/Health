@@ -53,12 +53,10 @@ class ExamForm extends Component {
       })
     axios.get('http://0.0.0.0:8000/api/doctor/list')
       .then(response => {
-        console.log(response.data , 'aaa');
         const res = response.data.message.map((val) => {
           return {value: val.id, label: val.doctor, spec: val.speciality, price: val.price}
         });
-        console.log(res, 'respone');
-        this.setState({doctors: res });
+        this.setState({ doctors: res });
       })
   }
 
