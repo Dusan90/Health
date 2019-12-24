@@ -3,6 +3,8 @@ import Header from '../../components/Main/Header';
 import InitiateExam from '../../components/Client/ExamForm';
 import Nav from '../../components/Main/Navbar';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { examPrice } from '../../actions/examActions';
 
 
 class ExamForm extends Component {
@@ -14,7 +16,8 @@ class ExamForm extends Component {
       doctors: [],
       filtered: [],
       subject: '',
-      submitted: false
+      submitted: false,
+      price: null
     };
   }
 
@@ -30,15 +33,16 @@ class ExamForm extends Component {
 
   handleDoctor = (e) => {
     console.log('...', e);
-      this.setState({doctors: e.value})
+    this.setState({doctors: e.value})
+    this.props.dispatch(examPrice(e.price))
   }
 
   handleSubject = (e) => {
     this.setState({subject: e.target.value});
   }
 
-  handleSubmit = (e) => {
-    return this.props.history.push('/checkout');
+  handleSubmit = () => {
+    return this.props.history.push('/checkout')
   }
 
   componentDidMount() {
@@ -62,24 +66,29 @@ class ExamForm extends Component {
 
   render() {
     if (this.state.complete) return <h1>Submit Completed</h1>;
-
     return (
       <div className="container">
         <Header />
         <Nav />
-          <InitiateExam 
-            specialities={this.state.specialities}
-            doctors={this.state.doctors}
-            subject={this.state.subject}
-            submitted={this.state.submitted}
-            handleSpeciality={this.handleSpeciality}
-            handleDoctor={this.handleDoctor}
-            handleSubject={this.handleSubject}
-            handleSubmit={this.handleSubmit}
-          />
+        <InitiateExam 
+          specialities={this.state.specialities}
+          doctors={this.state.doctors}
+          subject={this.state.subject}
+          submitted={this.state.submitted}
+          handleSpeciality={this.handleSpeciality}
+          handleDoctor={this.handleDoctor}
+          handleSubject={this.handleSubject}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     );
   }
 }
 
-export default ExamForm;
+const mapStateToProps = state => {
+  return {
+    price: state.price
+  }
+}
+
+export default connect(mapStateToProps)(ExamForm);

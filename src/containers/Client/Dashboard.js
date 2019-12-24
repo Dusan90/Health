@@ -25,7 +25,6 @@ class ClientDashboard extends Component {
                 'Accept': 'application/json'
               },
         });
-
         const jsonData = await data.json();
         console.log(jsonData)
         this.setState({exams: jsonData})

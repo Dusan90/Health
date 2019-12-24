@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider as ReduxProvider } from 'react-redux';
+import { combineReducers } from 'redux-immutable';
 import createSagaMiddleware from 'redux-saga';
 import SagaMiddlewareProvider from './components/Main/sagaMiddlewareProvider';
 import './App.css';
@@ -12,12 +13,13 @@ import Register from './containers/Register/register';
 import Login from './containers/Login/login';
 import Logout from './containers/Logout/logout';
 import ExamForm from './containers/Client/ExamForm';
-import CheckoutForm from './components/Client/PaymentForm';
+import CheckoutForm from './containers/Client/CheckoutForm';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import authReducer from './reducers/authReducer';
-import PrivateRoute from './components/Routes/PrivateRoute';
+import examReducer from './reducers/examReducer'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { userLogin, userLoggedIn } from './actions/authActions';
+
 
 class App extends Component {
   constructor(props){
@@ -25,10 +27,14 @@ class App extends Component {
 
     const sagaMiddleware = createSagaMiddleware();
 
-    const store = createStore(
+    const combinedReducers = combineReducers({
       authReducer,
+      examReducer,
+    });
+
+    const store = createStore(
+      combinedReducers,
       composeWithDevTools()
-      
     );
     
     store.runSaga = sagaMiddleware.run;
@@ -62,7 +68,7 @@ class App extends Component {
   render(){
       return (
         <div className="App">
-           <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3"> 
+           <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3">
             <ReduxProvider store={this.store}>
               <SagaMiddlewareProvider sagaMiddleware={this.sagaMiddleware}>       
                 <Router>

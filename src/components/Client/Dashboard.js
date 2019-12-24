@@ -4,7 +4,7 @@ import Header from '../../components/Main/Header';
 import Nav from '../../components/Main/Navbar';
 
 
-const Dashboard = (initiate, clientExams) => (
+const Dashboard = (initiate) => (
     <div className="row">
         <Header />
         <Nav />
@@ -16,7 +16,6 @@ const Dashboard = (initiate, clientExams) => (
         <div id="list" className="panel panel-info">
             <div className="panel-heading">Exam list</div>
             <div className="panel-body exam-list">
-                {() => clientExams}
             </div>
         </div>
     </div>

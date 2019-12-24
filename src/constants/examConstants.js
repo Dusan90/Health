@@ -1,0 +1,1 @@
+export const EXAM_PRICE = 'EXAM_PRICE';
