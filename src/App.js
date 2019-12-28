@@ -9,14 +9,21 @@ import './App.css';
 import Main from './containers/Home/Home';
 import ClientDashboard from './containers/Client/Dashboard';
 import DoctorDashboard from './containers/Doctor/Dashboard';
+import DetailExam from './containers/Doctor/DetailExam';
 import Register from './containers/Register/register';
 import Login from './containers/Login/login';
 import Logout from './containers/Logout/logout';
 import ExamForm from './containers/Client/ExamForm';
 import CheckoutForm from './containers/Client/CheckoutForm';
+import Correspondence from './containers/Doctor/Correspondence';
+import DoctorProfile from './containers/Doctor/Profile';
+import DoctorsProfile from './containers/Doctor/DoctorsProfile';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import authReducer from './reducers/authReducer';
-import examReducer from './reducers/examReducer'
+import doctorReducer from './reducers/doctorReducer';
+import subjectReducer from './reducers/subjectReducer';
+import specReducer from './reducers/specReducer';
+import examReducer from './reducers/examReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { userLogin, userLoggedIn } from './actions/authActions';
 
@@ -29,7 +36,10 @@ class App extends Component {
 
     const combinedReducers = combineReducers({
       authReducer,
-      examReducer,
+      doctorReducer,
+      subjectReducer,
+      specReducer,
+      examReducer
     });
 
     const store = createStore(
@@ -78,6 +88,10 @@ class App extends Component {
                   <Route path="/logout" exact component={Logout} />
                   <Route path="/dashboard-client" exact component={ClientDashboard} />
                   <Route path="/dashboard-doctor" exact component={DoctorDashboard}/>
+                  <Route path="/doctor/exam/detail" exact component={DetailExam}/>
+                  <Route path="/doctor/exam/correspondence" exact component={Correspondence}/>
+                  <Route path="/doctor/profile" exact component={DoctorProfile}/>
+                  <Route path="/doctor/profile/:id" exact component={DoctorsProfile}/>
                   <Route path="/initiate" exact component={ExamForm} />
                   <Elements>
                     <Route path="/checkout" exact component={CheckoutForm} />

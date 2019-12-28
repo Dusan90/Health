@@ -52,7 +52,6 @@ class Login extends Component {
         }
     }
 
-
     userLogin = async () => {
         const data = await fetch('http://0.0.0.0:8000/api/auth/login/', {
             method: 'POST',
@@ -71,7 +70,6 @@ class Login extends Component {
         }else{
             this.setState({is_doctor: false});
         }
-        console.log(jsonData);
         this.props.dispatch(userLogin(jsonData));
         if (jsonData.data.access_token) {
             sessionStorage.setItem('accessToken', jsonData.data.access_token)
@@ -79,8 +77,9 @@ class Login extends Component {
             sessionStorage.setItem('is_doctor', jsonData.is_doctor)
             localStorage.setItem('refreshToken', jsonData.data.refresh_token)
             this.props.dispatch(userLoggedIn());
-            this.redirectUser();
         }
+        console.log(jsonData)
+        this.redirectUser();
         return jsonData;
     }
 
@@ -103,8 +102,9 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-    const user = state.get('user');
-    const isLoggedIn = state.get('isLoggedIn');
+    const user = state.getIn(['authReducer', 'user']);
+    const isLoggedIn = state.getIn(['authReducer', 'isLoggedIn']);
+    console.log(isLoggedIn)
     return {
         user,
         isLoggedIn,

@@ -5,12 +5,15 @@ import { Link } from 'react-router-dom';
 
 const isDoctor = sessionStorage.getItem('is_doctor')
 
-const Nav = ({ register, login, reset, handleLogout, isLoggedIn, handleDashboardDoctor, handleDashboardClient}) => {
+const Nav = ({ register, login, reset, handleLogout, isLoggedIn, handleDashboardDoctor, handleDashboardClient, handleDoctorProfile, handleClientProfile}) => {
     let dashboardLink = null;
+    let profileLink = null;
     if (isDoctor === 'true') {
         dashboardLink = <Link to="/dashboard-doctor" onClick={() => handleDashboardDoctor}>Dashboard</Link>;
+        profileLink = <Link to="/doctor/profile" onClick={handleDoctorProfile}>Profile</Link>;
     } else {
         dashboardLink = <Link to="/dashboard-client" onClick={() => handleDashboardClient}>Dashboard</Link>;
+        profileLink = <Link to="/client/profile" onClick={handleClientProfile}>Profile</Link>;
     }
     return (
         <nav className="navbar navbar-default">
@@ -25,6 +28,7 @@ const Nav = ({ register, login, reset, handleLogout, isLoggedIn, handleDashboard
                     {isLoggedIn && 
                     <ul className="nav navbar-nav navbar-right">
                         <li>{dashboardLink}</li>
+                        <li>{profileLink}</li>
                         <li><Link to="/reset" onClick={reset}>Reset password</Link></li>
                         <li><Link to="/logout" onClick={handleLogout}>Logout</Link></li>
                     </ul>    
@@ -36,8 +40,8 @@ const Nav = ({ register, login, reset, handleLogout, isLoggedIn, handleDashboard
 }
 
 const mapStateToProps = state => {
-    const user = state.get('user');
-    const isLoggedIn = state.get('isLoggedIn');
+    const user = state.getIn(['authReducer', 'user']);
+    const isLoggedIn = state.getIn(['authReducer', 'isLoggedIn']);
     return {
         user,
         isLoggedIn,

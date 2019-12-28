@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { Alert } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 class CheckoutForm extends Component{
@@ -14,11 +15,8 @@ class CheckoutForm extends Component{
   submit = async (ev) => {
     ev.preventDefault();
     const cardElement = this.props.elements.getElement('card');
-    console.log(cardElement, 'asd')
-
     const {paymentMethod} = await this.props.stripe.createPaymentMethod({type: 'card', card: cardElement});
-    console.log(paymentMethod.id, 'milos')
-    const price = parseInt(this.props.price, 10)
+    const price = parseInt(this.props.doctor.price, 10)
 
     const response = await fetch('http://0.0.0.0:8000/api/charge/', {
         method: 'POST',
@@ -33,7 +31,10 @@ class CheckoutForm extends Component{
     );
     // await handleServerResponse(await response.json())
     const data = await response.json()
-    console.log(data)
+    if (data.message === true){
+      this.setState({complete: true})
+    }
+    console.log(this.state.complete)
   }
 
   // handleServerResponse = async (response) => {
@@ -67,8 +68,7 @@ class CheckoutForm extends Component{
   };
 
   render() {
-    if (this.state.complete) return <h1>Submit Completed</h1>;
-    console.log(this.props.price)
+    if (this.state.complete) return <h1><Link to="/dashboard-client">Submit Completed</Link></h1>;
     return (
       <div>
         <CardElement onReady={this.handleReady}/>
@@ -79,9 +79,9 @@ class CheckoutForm extends Component{
 }
 
 const mapStateToProps = state => {
-  const price = state.getIn(['examReducer', 'price']);
+  const doctor = state.getIn(['doctorReducer', 'doctor']);
   return {
-      price
+      doctor,
   }
 }
 

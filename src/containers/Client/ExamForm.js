@@ -4,7 +4,7 @@ import InitiateExam from '../../components/Client/ExamForm';
 import Nav from '../../components/Main/Navbar';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { examPrice } from '../../actions/examActions';
+import { doctor } from '../../actions/examActions';
 
 
 class ExamForm extends Component {
@@ -17,7 +17,8 @@ class ExamForm extends Component {
       filtered: [],
       subject: '',
       submitted: false,
-      price: null
+      price: null,
+      doctor_id: null
     };
   }
 
@@ -34,14 +35,31 @@ class ExamForm extends Component {
   handleDoctor = (e) => {
     console.log('...', e);
     this.setState({doctors: e.value})
-    this.props.dispatch(examPrice(e.price))
+    this.setState({doctor_id: e.iD})
+    this.props.dispatch(doctor(e))
   }
 
   handleSubject = (e) => {
     this.setState({subject: e.target.value});
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
+    const clientID = sessionStorage.getItem('iD')
+    const response = await fetch('http://0.0.0.0:8000/api/client/initiate/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          client: parseInt(clientID),
+          speciality: this.state.specialities,
+          doctor: this.state.doctor_id,
+          subject: this.state.subject
+        })
+      }
+    );
+    const data = await response.json()
+    console.log(data)
     return this.props.history.push('/checkout')
   }
 
@@ -50,7 +68,7 @@ class ExamForm extends Component {
       .then(response => {
         console.log(response.data);
         const res = response.data.message.map((val) => {
-          return {value: val.id, label: val.name}
+          return {value: val.id, iD: val.speciality_id, label: val.name}
         });
         console.log(res);
         this.setState({specialities: res });
@@ -58,7 +76,7 @@ class ExamForm extends Component {
     axios.get('http://0.0.0.0:8000/api/doctor/list')
       .then(response => {
         const res = response.data.message.map((val) => {
-          return {value: val.id, label: val.doctor, spec: val.speciality, price: val.price}
+          return {value: val.id, iD: val.doctor_id, label: val.doctor, spec: val.speciality, price: val.price}
         });
         this.setState({ doctors: res });
       })
