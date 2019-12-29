@@ -33,13 +33,6 @@ class Login extends Component {
         });
     }
 
-    componentDidMount() {
-    }
-
-    componentDidUpdate() {
-        
-    }
-
     redirectUser = () => {
         if (this.props.isLoggedIn) {
             if (this.state.is_doctor) {  

@@ -23,6 +23,8 @@ class Main extends Component {
     }
 
     handleConsultation = (e) => {
+      let doctorID = e.currentTarget.dataset.id
+      this.props.dispatch(doctor(doctorID))
       this.props.history.push("/initiate")
     }
 

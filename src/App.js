@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore } from 'redux';
 import { Provider as ReduxProvider } from 'react-redux';
 import { combineReducers } from 'redux-immutable';
 import createSagaMiddleware from 'redux-saga';
@@ -26,6 +26,8 @@ import specReducer from './reducers/specReducer';
 import examReducer from './reducers/examReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { userLogin, userLoggedIn } from './actions/authActions';
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer } from 'react-notifications';
 
 
 class App extends Component {
@@ -96,6 +98,7 @@ class App extends Component {
                   <Elements>
                     <Route path="/checkout" exact component={CheckoutForm} />
                   </Elements>
+                  <NotificationContainer />
                 </Router>
               </SagaMiddlewareProvider>
             </ReduxProvider>

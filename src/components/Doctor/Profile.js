@@ -26,19 +26,19 @@ const Profile = ({doctor, prefixValue, descriptionValue, priceValue, submitValue
                         <div className="form-group">
                             <label className="control-label col-sm-2" htmlFor="npi">Prefix:</label>
                             <div className="col-sm-30"> 
-                                <input type="text" pattern="[0-9]*" className="form-control" id="npi" placeholder="Enter NPI number" value={prefixValue} onChange={handlePrefix}/>
+                                <input type="text" pattern="[0-9]*" className="form-control" id="prefix" placeholder="Enter prefix" value={prefixValue} onChange={handlePrefix}/>
                             </div>
                         </div>
                         <div className="form-group">
                             <label className="control-label col-sm-2" htmlFor="prefix">Description:</label>
                             <div className="col-sm-30"> 
-                                <input type="text" className="form-control" id="prefix" placeholder="Enter prefix" value={descriptionValue} onChange={handleDescription}/>
+                                <input type="text" className="form-control" id="description" placeholder="Enter description" value={descriptionValue} onChange={handleDescription}/>
                             </div>
                         </div>
                         <div className="form-group">
-                            <label className="control-label col-sm-2" htmlFor="speciality">Price:</label>
+                            <label className="control-label col-sm-2" htmlFor="price">Price:</label>
                             <div className="col-sm-30"> 
-                                <input type="text" id="speciality" value={priceValue} onChange={handlePrice}/>
+                                <input type="text" id="price" value={priceValue} onChange={handlePrice}/>
                             </div>
                         </div>
                         <div className="form-group"> 

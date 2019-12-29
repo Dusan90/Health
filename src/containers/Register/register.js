@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../../App.css';
-import { connect } from 'react-redux';
 import Header from '../../components/Main/Header';
 import RegisterUser from '../../components/Auth/Register';
 import Nav from '../../components/Main/Navbar';

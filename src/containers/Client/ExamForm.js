@@ -88,7 +88,7 @@ class ExamForm extends Component {
       <div className="container">
         <Header />
         <Nav />
-        <InitiateExam 
+        <InitiateExam
           specialities={this.state.specialities}
           doctors={this.state.doctors}
           subject={this.state.subject}
@@ -104,7 +104,10 @@ class ExamForm extends Component {
 }
 
 const mapStateToProps = state => {
+  const doctor = state.getIn(['doctorReducer', 'doctor']);
+  console.log(doctor)
   return {
+    doctor,
     price: state.price
   }
 }

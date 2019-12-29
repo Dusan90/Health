@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
