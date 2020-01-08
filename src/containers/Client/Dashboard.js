@@ -22,7 +22,7 @@ class ClientDashboard extends Component {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
               },
         });
         const jsonData = await data.json();

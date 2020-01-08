@@ -11,7 +11,7 @@ const DProfile = ({doctor}) => (
         </ul>
         {doctor && doctor.map(doctor => {
                 return(
-                    <div key={doctor.id} className="panel panel-info" style={{height: "180px"}}>
+                    <div key={doctor.id} className="doctor" style={{height: "180px"}}>
                         <div className="rounded-pill"> 
                             <div>
                                 <p>Doctor: {doctor.doctor}</p>

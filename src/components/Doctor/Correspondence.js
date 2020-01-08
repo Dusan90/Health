@@ -1,34 +1,46 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Header from '../../components/Main/Header';
 import Nav from '../../components/Main/Navbar';
+import '../../assets/correspondence.scss';
 
 
-const Correspondence = ({correspondence, handleClick, messageValue, handleMessage, submitValue, handleSubmit}) => (
+const CorrespondenceMessage = ({correspondence, handleClick, messageValue, handleMessage, submitValue, handleSubmit}) => (
     <div className="row">
         <Header />
         <Nav />
         <ul className="nav nav-pills">
             <li className="disabled"><a href="#list">Correspondence</a></li>
         </ul>
-        
-        {correspondence.map(message => {
-            return(
-                <div key={message.message} className="panel panel-info" onClick={handleClick}>
-                    <div className="rounded-pill"> 
-                        <div>
-                            <p>sender: {message.sender}</p>
-                            <p>message: {message.message}</p>
-                            <p>attachments: {message.attachments}</p>
-                        </div>
-                    </div>
-                </div>
-            )
-        })}
-        <div className="col-sm-10"> 
+        <table className="correspondence">
+            {correspondence.map(message => {
+                return(
+                    <tbody key={message.message} className="tbody">
+                        <tr key={message.message} className="row1" onClick={handleClick}>         
+                            <td className="sender">Sender:{message.sender}</td>
+                            <td className="message">Message:{message.message}</td>
+                            <td className="created">Created:{message.created}</td>       
+                            <td className="attachments">Attachments:{message.attachments}</td>              
+                        </tr>
+                    </tbody>
+                )
+            })}
+        </table>
+        {/* <div className="col-sm-10"> 
             <input type="text" className="form-control" placeholder="message" value={messageValue} onChange={handleMessage}/>
             <button type="submit" className="btn btn-default" value={submitValue} onClick={handleSubmit}>Send</button>
-        </div>
+        </div> */}
     </div>
 );
 
-export default Correspondence;
+const mapStateToProps = state => {
+    const doctor = state.getIn(['doctorReducer', 'doctor']);
+    const user = state.getIn(['authReducer', 'user']);
+    
+    return {
+        doctor,
+        user
+    }
+  }
+
+export default connect(mapStateToProps)(CorrespondenceMessage);

@@ -16,8 +16,10 @@ import Logout from './containers/Logout/logout';
 import ExamForm from './containers/Client/ExamForm';
 import CheckoutForm from './containers/Client/CheckoutForm';
 import Correspondence from './containers/Doctor/Correspondence';
+import Message from './containers/Doctor/Message';
 import DoctorProfile from './containers/Doctor/Profile';
 import DoctorsProfile from './containers/Doctor/DoctorsProfile';
+import DoctorClients from './containers/Doctor/Clients';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import authReducer from './reducers/authReducer';
 import doctorReducer from './reducers/doctorReducer';
@@ -92,8 +94,10 @@ class App extends Component {
                   <Route path="/dashboard-doctor" exact component={DoctorDashboard}/>
                   <Route path="/doctor/exam/detail" exact component={DetailExam}/>
                   <Route path="/doctor/exam/correspondence" exact component={Correspondence}/>
+                  <Route path="/doctor/exam/message" exact component={Message}/>
                   <Route path="/doctor/profile" exact component={DoctorProfile}/>
                   <Route path="/doctor/profile/:id" exact component={DoctorsProfile}/>
+                  <Route path="/doctor/clients" exact component={DoctorClients}/>
                   <Route path="/initiate" exact component={ExamForm} />
                   <Elements>
                     <Route path="/checkout" exact component={CheckoutForm} />

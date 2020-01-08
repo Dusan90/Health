@@ -3,8 +3,10 @@ import Header from '../../components/Main/Header';
 import Nav from '../../components/Main/Navbar';
 import Select from 'react-select';
 import { Link } from 'react-router-dom';
+import '../../assets/detail_exam.scss';
 
-const Dashboard = ({exam, status, handleStatus, statusValue, submitValue, handleSubmit, handleLink}) => (
+
+const Detail = ({exam, status, handleStatus, statusValue, submitValue, handleSubmit, handleLink, handleLinkMessage}) => (
     
     <div className="row">
         <Header />
@@ -14,23 +16,25 @@ const Dashboard = ({exam, status, handleStatus, statusValue, submitValue, handle
         </ul>
         {exam.map(exam => {
             return (
-                <div key={exam.id} className="panel panel-info" style={{height: "250px"}}>
-                    <div className="rounded-pill"> 
-                        <div>
-                            <p>Client: {exam.client}</p>
-                            <p>Speciality: {exam.speciality}</p>
-                            <p>Created: {exam.created}</p>
-                            <p>Subject: {exam.subject}</p>
-                            <p>Status: {exam.status}</p>
-                            {!(exam.status === 'Accepted') &&
-                            <div className="col-sm-10">    
-                                <Select type="text" value={statusValue} options={status} onChange={handleStatus}/>
-                                <button type="submit" className="btn btn-default" value={submitValue} onClick={handleSubmit}>Send</button>  
-                            </div>
-                            }
-                            <Link to="/doctor/exam/correspondence" onClick={handleLink}>Messages</Link>
+                <div key={exam.id} className="detail-exam">
+                    <div className="detail">   
+                        <p>Client: {exam.client}</p>
+                        <p>Speciality: {exam.speciality}</p>
+                        <p>Created: {exam.created}</p>
+                        <p>Subject: {exam.subject}</p>
+                        <p>Status: {exam.status}</p>
+                        {!(exam.status === 'Accepted') &&
+                        <div className="col-sm-10">    
+                            <Select type="text" className="select-option" value={statusValue} options={status} onChange={handleStatus}/>
+                            <button type="submit" className="btn btn-default" value={submitValue} onClick={handleSubmit}>Send</button>  
                         </div>
-                        
+                        }
+                        {(exam.status === 'Accepted') &&
+                        <div className="message-btn">
+                            <Link to="/doctor/exam/correspondence" className="messages-link" onClick={handleLink}>Message history</Link>
+                            <Link to="/doctor/exam/message" className="message-link" onClick={handleLinkMessage}>Message</Link>
+                        </div>
+                        }
                     </div>
                 </div>
 
@@ -39,4 +43,4 @@ const Dashboard = ({exam, status, handleStatus, statusValue, submitValue, handle
     </div>
 );
 
-export default Dashboard;
+export default Detail;

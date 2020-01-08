@@ -14,6 +14,7 @@ class DoctorDashboard extends Component {
         super(props);
         this.state = {
             exams: [],
+            clients: []
         } 
         
     }
@@ -21,13 +22,21 @@ class DoctorDashboard extends Component {
     exams = () => {
         axios.get('http://0.0.0.0:8000/api/doctor/exams/', { headers: { Authorization: access_token }})
           .then(response => {
-            console.log(response.data);
             const res = response.data.message.map((val) => {
-              return {exam: val.id, client: val.client, speciality: val.speciality, subject: val.subject}
+              return {exam: val.id, client: val.client, created: val.created, subject: val.subject, status: val.status}
             });
-            console.log(res);
-            this.setState({exams: res}) 
-          })
+            this.setState({exams: res})
+        })
+    }
+
+    clients = () => {
+      axios.get('http://0.0.0.0:8000/api/doctor/clients/', { headers: { Authorization: access_token }})
+        .then(response => {
+          const res = response.data.message.map((val) => {
+            return {id: val.client_id, client: val.client}
+          });
+          this.setState({clients: res}) 
+        })
     }
 
     handleClick = (e) => {
@@ -37,6 +46,7 @@ class DoctorDashboard extends Component {
 
     componentDidMount() {
         this.exams()
+        this.clients()
     }
 
     render() {
@@ -44,7 +54,7 @@ class DoctorDashboard extends Component {
             <div className="container">
                 <Header />
                 <Nav />
-                <Dashboard exams={this.state.exams} handleClick={this.handleClick}/>
+                <Dashboard exams={this.state.exams} clients={this.state.clients} handleClick={this.handleClick}/>
             </div>
         )
     }

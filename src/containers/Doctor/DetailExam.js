@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import Dashboard from '../../components/Doctor/DetailExam';
+import Detail from '../../components/Doctor/DetailExam';
 
 const options = [
     { value: 'Accept', label: 'Accept' },
@@ -33,8 +33,12 @@ class DetailExam extends Component {
         this.doctorExam();
     }
 
-    handleLink = (e) => {
+    handleLink = () => {
         this.props.history.push("/doctor/exam/correspondence")
+    }
+
+    handleLinkMessage = () => {
+        this.props.history.push("/doctor/exam/message")
     }
 
     handleStatus = statusValue => {
@@ -49,7 +53,7 @@ class DetailExam extends Component {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': access_token
+                'Authorization': access_token,
             },
             body: JSON.stringify({
                 state: this.state.selectedStatus,
@@ -67,13 +71,14 @@ class DetailExam extends Component {
     render() {
         return (
             <div className="container">
-                <Dashboard 
+                <Detail 
                     exam={this.state.exam} 
                     status={options} 
                     handleStatus={this.handleStatus}
                     submitValue={this.state.submitValue}
                     handleSubmit={this.handleSubmit}
                     handleLink={this.handleLink}
+                    handleLinkMessage={this.handleLinkMessage}
                 />
             </div>
         )
@@ -82,7 +87,6 @@ class DetailExam extends Component {
 
 const mapStateToProps = state => {
     const examID = state.getIn(['examReducer', 'examID']);
-    console.log(examID, 'da')
     return {
         examID,
     }

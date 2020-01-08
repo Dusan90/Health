@@ -1,0 +1,36 @@
+
+.correspondence{
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid #ddd;
+    width: 100%;
+
+    .tbody{
+        position: relative;
+        width: 10px;
+        border: 1px solid #ddd;
+
+        .row1{
+            position: relative;
+            width: 5px;
+            
+            .client{
+                position: relative;
+                width: 10px;
+                padding: 10px;
+            }
+            .subject{
+                padding: 10px;
+            }
+            .created{
+                padding: 10px;
+            }
+            .status{
+                padding: 10px;
+            }
+        }
+    }
+
+    
+}

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const isDoctor = sessionStorage.getItem('is_doctor')
 
-const Nav = ({ register, login, reset, handleLogout, isLoggedIn, handleDashboardDoctor, handleDashboardClient, handleDoctorProfile, handleClientProfile}) => {
+const Nav = ({ register, login, handleLogout, isLoggedIn, handleDashboardDoctor, handleDashboardClient, handleDoctorProfile, handleClientProfile}) => {
     let dashboardLink = null;
     let profileLink = null;
     if (isDoctor === 'true') {
@@ -29,7 +29,6 @@ const Nav = ({ register, login, reset, handleLogout, isLoggedIn, handleDashboard
                     <ul className="nav navbar-nav navbar-right">
                         <li>{dashboardLink}</li>
                         <li>{profileLink}</li>
-                        <li><Link to="/reset" onClick={reset}>Reset password</Link></li>
                         <li><Link to="/logout" onClick={handleLogout}>Logout</Link></li>
                     </ul>    
                     }

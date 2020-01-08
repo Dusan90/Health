@@ -104,7 +104,7 @@ class Register extends Component {
             const client = await fetch('http://0.0.0.0:8000/api/auth/register/client/', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     email: this.state.emailValue,

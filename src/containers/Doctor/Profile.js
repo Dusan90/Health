@@ -38,7 +38,7 @@ class DoctorProfile extends Component {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': access_token
+                'Authorization': access_token,
               },
             body: JSON.stringify({
                 prefix: this.state.prefixValue,

@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import CorrespondenceMessage from '../../components/Doctor/Correspondence';
+import ExamMessage from '../../components/Doctor/Message';
 import {doctor} from '../../actions/examActions';
 
 const token = sessionStorage.getItem('accessToken')
 const access_token = 'Bearer '.concat(token)
 
-class Correspondence extends Component {
+class Message extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            correspondence: [],
-            messageValue: '', 
+            message: [],
+            messageValue: ''
         } 
     }
 
-    correspondence = () => {
-        axios.get(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/messages`, { headers: { Authorization: access_token }})
+    message = () => {
+        axios.get(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/message`, { headers: { Authorization: access_token }})
           .then(response => {
-            const res = response.data.message.map((val) => {
-                return {sender: val.sender, created: val.created, message: val.message, attachment: val.attachment}
-            });
-            this.setState({correspondence: res})
-            var sender_obj = this.state.correspondence[0].sender      
-            this.props.dispatch(doctor(sender_obj))
+              console.log(response.data)
+              return this.setState({message: Object.values(response.data)})
         }) 
     }
 
@@ -52,18 +48,18 @@ class Correspondence extends Component {
         e.preventDefault();
         this.sendMessage();
         this.setState({messageValue: ''})
-        this.correspondence();
+        this.message();
     }
 
     componentDidMount() {
-        this.correspondence()
+        this.message()
     }
 
     render() {
         return (
             <div className="container">
-                <CorrespondenceMessage 
-                    correspondence={this.state.correspondence} 
+                <ExamMessage 
+                    message={this.state.message} 
                     messageValue={this.state.messageValue}
                     handleMessage={this.handleMessage}
                     submitValue={this.state.submitValue}                
@@ -81,4 +77,4 @@ const mapStateToProps = state => {
     }
   }
 
-export default connect(mapStateToProps)(Correspondence);
+export default connect(mapStateToProps)(Message);

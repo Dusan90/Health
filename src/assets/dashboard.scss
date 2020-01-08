@@ -1,0 +1,67 @@
+.table1{
+    text-align: center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    border: 3px solid #ddd;
+    width: 75%;
+    
+    .thead{
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #4CAF50;
+        color: white; 
+        
+        .trow{
+
+            .client{
+                text-align: center;
+            }
+            .subject{
+                text-align: center;
+            }
+            .created{
+                text-align: center;
+            }
+            .status{
+                text-align: center;
+            }
+        }
+    }
+
+    .tbody{
+        :hover {background-color: #ddd;}
+    
+        .list-group{
+            border: 1px solid #ddd;
+            padding-top: 8px;
+
+            .client{
+                padding: 10px;
+            }
+            .subject{
+                padding: 10px;
+            }
+            .created{
+                padding: 10px;
+            }
+            .status{
+                padding: 10px;
+            }
+        }
+    }
+    
+}
+
+.row2{
+    width: 200px;
+    position: relative;
+    top: -8px;
+    left: -15px;
+    float: right;
+    
+    .list-group{
+        position: relative;
+        margin-bottom: 5px;
+    }
+}

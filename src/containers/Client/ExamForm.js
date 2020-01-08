@@ -48,7 +48,7 @@ class ExamForm extends Component {
     const response = await fetch('http://0.0.0.0:8000/api/client/initiate/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           client: parseInt(clientID),

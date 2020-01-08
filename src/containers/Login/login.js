@@ -49,7 +49,7 @@ class Login extends Component {
         const data = await fetch('http://0.0.0.0:8000/api/auth/login/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
               },
             body: JSON.stringify({
                 email: this.state.emailValue,

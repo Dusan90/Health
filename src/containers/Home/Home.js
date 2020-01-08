@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import "../../assets/main.scss";
+
 import Home from '../../components/Main/Home';
 import {doctor} from '../../actions/examActions';
 import { connect } from 'react-redux';

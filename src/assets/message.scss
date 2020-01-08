@@ -1,0 +1,18 @@
+.message-box {
+    border: 3px solid rgba(0, 174, 255, 0.637);
+    height: 500px;
+
+    .sender{
+        margin: 10px;
+        padding: 10px;
+        border: 2px solid rgba(33, 201, 243, 0.658);
+    }
+
+    .message{
+        margin: 10px;
+        position: relative;
+        height: 250px;
+        padding: 10px;
+        border: 2px solid rgba(33, 201, 243, 0.658);
+    }
+}
