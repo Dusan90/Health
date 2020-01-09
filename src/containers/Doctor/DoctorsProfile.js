@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import "../../assets/main.scss";
+import "../../assets/main/main.scss";
 import DProfile from '../../components/Doctor/DoctorsProfile';
 import { connect } from 'react-redux';
 
-const token = sessionStorage.getItem('accessToken')
-const access_token = 'Bearer '.concat(token)
 
 class DoctorProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          doctor: []
+          doctor: [],
+          token: sessionStorage.getItem('accessToken')
         };
     }
 
     hanldeDoctorsProfile = () => {
+        const access_token = 'Bearer '.concat(this.state.token)
         axios.get(`http://0.0.0.0:8000/api/doctor/profile/${this.props.doctor}`, { headers: { Authorization: access_token }})
               .then(response => {
                   return this.setState({doctor: Object.values(response.data)})

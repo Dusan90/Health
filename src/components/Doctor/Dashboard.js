@@ -2,7 +2,7 @@ import React from 'react';
 import '../../assets/dashboard.scss'; 
 
 
-const Dashboard = ({exams, clients, handleClick}) => (
+const Dashboard = ({exams, clients, handleClick, handleClient}) => (
         <div>
             <table className="table1">
                 <thead className="thead">
@@ -27,18 +27,18 @@ const Dashboard = ({exams, clients, handleClick}) => (
                 )}
             </table>
             
-            {/* <div className="row2">
+            <div className="row2">
                 <ul className="nav nav-pills">
                     <li className="disabled"><a href="#list">Clients</a></li>
                 </ul>
                 {clients.map(client => {
                     return (
                         <div key={client.id} className="list-group">
-                            <a href="/client" className="list-group-item">{client.client}</a>
+                            <button data-id={client.id} className="list-group-item" onClick={handleClient.bind(this)}>{client.client}</button>
                         </div>
                     )
                 })}
-            </div> */}
+            </div>
         </div>
 );
 

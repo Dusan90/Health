@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
-const isDoctor = sessionStorage.getItem('is_doctor')
-
 const Nav = ({ register, login, handleLogout, isLoggedIn, handleDashboardDoctor, handleDashboardClient, handleDoctorProfile, handleClientProfile}) => {
     let dashboardLink = null;
     let profileLink = null;
+    const isDoctor = sessionStorage.getItem('is_doctor')
     if (isDoctor === 'true') {
         dashboardLink = <Link to="/dashboard-doctor" onClick={() => handleDashboardDoctor}>Dashboard</Link>;
         profileLink = <Link to="/doctor/profile" onClick={handleDoctorProfile}>Profile</Link>;

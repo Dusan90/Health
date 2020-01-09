@@ -1,67 +1,50 @@
-.table1{
+.table2{
+    position: relative;
+    left: 12px;
     text-align: center;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     border: 3px solid #ddd;
-    width: 75%;
+    width: 50%;
     
-    .thead{
+    .client-head{
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: center;
         background-color: #4CAF50;
         color: white; 
         
-        .trow{
+        .client-row{
 
-            .client{
+            .client-doctor{
                 text-align: center;
             }
-            .subject{
+            .client-subject{
                 text-align: center;
             }
-            .created{
-                text-align: center;
-            }
-            .status{
+            .client-status{
                 text-align: center;
             }
         }
     }
 
-    .tbody{
+    .client-body{
         :hover {background-color: #ddd;}
     
         .list-group{
             border: 1px solid #ddd;
             padding-top: 8px;
 
-            .client{
+            .client-doctor{
                 padding: 10px;
             }
-            .subject{
+            .client-subject{
                 padding: 10px;
             }
-            .created{
-                padding: 10px;
-            }
-            .status{
+            .client-status{
                 padding: 10px;
             }
         }
     }
     
-}
-
-.row2{
-    width: 200px;
-    position: relative;
-    top: -600px;
-    left: -15px;
-    float: right;
-    
-    .list-group{
-        position: relative;
-        margin-bottom: 5px;
-    }
 }

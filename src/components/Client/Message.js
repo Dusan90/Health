@@ -33,6 +33,8 @@ const ExamMessage = ({message, handleClick, messageValue, handleMessage, submitV
 const mapStateToProps = state => {
     const doctor = state.getIn(['doctorReducer', 'doctor']);
     const user = state.getIn(['authReducer', 'user']);
+    console.log(doctor, 'doca')
+    console.log(user, 'usercina')
     
     return {
         doctor,

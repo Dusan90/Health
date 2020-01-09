@@ -2,29 +2,30 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import ExamMessage from '../../components/Doctor/Message';
+import {doctor} from '../../actions/examActions';
 
+const token = sessionStorage.getItem('accessToken')
+const access_token = 'Bearer '.concat(token)
 
-class Message extends Component {
+class ClientMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             message: [],
-            messageValue: '',
-            token: sessionStorage.getItem('accessToken')
+            messageValue: ''
         } 
     }
 
     message = () => {
-        const access_token = 'Bearer '.concat(this.state.token)
-        axios.get(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/message`, { headers: { Authorization: access_token }})
+        axios.get(`http://0.0.0.0:8000/api/client/exams/${this.props.examID}/message`, { headers: { Authorization: access_token }})
           .then(response => {
+              console.log(response.data)
               return this.setState({message: Object.values(response.data)})
         }) 
     }
 
     sendMessage= async () => {    
-        const access_token = 'Bearer '.concat(this.state.token)
-        const client = await fetch(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/messages/`, {
+        const client = await fetch(`http://0.0.0.0:8000/api/client/exams/${this.props.examID}/messages/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,4 +77,4 @@ const mapStateToProps = state => {
     }
   }
 
-export default connect(mapStateToProps)(Message);
+export default connect(mapStateToProps)(ClientMessage);

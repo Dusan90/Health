@@ -1,13 +1,10 @@
 import React from 'react';
-import Header from '../../components/Main/Header';
-import Nav from '../../components/Main/Navbar';
-import "../../assets/main.scss";
+import "../../assets/main/main.scss";
 
 const Home = ({ doctors, handleDoctor, handleConsultation }) => (
     <div className="container">
         <div className="row">
-            <Header />
-            <Nav />
+            
             {doctors.map(obj => {
                 return (
                     <div key={obj.id} className="panel panel-info">

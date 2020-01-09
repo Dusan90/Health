@@ -3,23 +3,24 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Dashboard from '../../components/Doctor/Dashboard';
 import { examID } from '../../actions/examActions';
+import { clientID } from '../../actions/clientActions';
 import Header from '../../components/Main/Header';
 import Nav from '../../components/Main/Navbar';
 
-const token = sessionStorage.getItem('accessToken')
-const access_token = 'Bearer '.concat(token)
 
 class DoctorDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             exams: [],
-            clients: []
+            clients: [],
+            record: [],
+            token: sessionStorage.getItem('accessToken')
         } 
-        
     }
 
     exams = () => {
+        const access_token = 'Bearer '.concat(this.state.token)
         axios.get('http://0.0.0.0:8000/api/doctor/exams/', { headers: { Authorization: access_token }})
           .then(response => {
             const res = response.data.message.map((val) => {
@@ -30,7 +31,8 @@ class DoctorDashboard extends Component {
     }
 
     clients = () => {
-      axios.get('http://0.0.0.0:8000/api/doctor/clients/', { headers: { Authorization: access_token }})
+        const access_token = 'Bearer '.concat(this.state.token)
+        axios.get('http://0.0.0.0:8000/api/doctor/clients/', { headers: { Authorization: access_token }})
         .then(response => {
           const res = response.data.message.map((val) => {
             return {id: val.client_id, client: val.client}
@@ -44,6 +46,11 @@ class DoctorDashboard extends Component {
         this.props.history.push("/doctor/exam/detail")
     }
 
+    handleClient = (e) => {
+        this.props.dispatch(clientID(e.currentTarget.dataset.id))
+        this.props.history.push("/doctor/record/detail")
+    }
+
     componentDidMount() {
         this.exams()
         this.clients()
@@ -54,7 +61,7 @@ class DoctorDashboard extends Component {
             <div className="container">
                 <Header />
                 <Nav />
-                <Dashboard exams={this.state.exams} clients={this.state.clients} handleClick={this.handleClick}/>
+                <Dashboard exams={this.state.exams} clients={this.state.clients} handleClick={this.handleClick} handleClient={this.handleClient}/>
             </div>
         )
     }
@@ -62,7 +69,7 @@ class DoctorDashboard extends Component {
 
 const mapStateToProps = state => {
     return {
-      exam: state.exam
+      exam: state.exam,
     }
   }
   

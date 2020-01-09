@@ -1,0 +1,14 @@
+.box {
+    position: relative;
+    left: 15px;
+    width: 220px;
+    border: 3px solid rgba(0, 174, 255, 0.637);
+    height: 200px;
+
+    .record-box{
+        text-align: center;
+        width: 200px;
+        margin: 5px;
+        padding: 10px;
+    }
+}

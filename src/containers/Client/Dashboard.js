@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import Header from '../../components/Main/Header';
+import Nav from '../../components/Main/Navbar';
+import { examID } from '../../actions/examActions';
 import Dashboard from '../../components/Client/Dashboard';
+
 
 class ClientDashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             exams: [],
+            token: sessionStorage.getItem('accessToken')
         } 
     }
 
@@ -14,33 +21,44 @@ class ClientDashboard extends Component {
     }
 
     componentDidMount(){
-        this.clientExams();
+        this.exams();
     }
 
-    clientExams = async () => {
-        const data = await fetch('http://0.0.0.0:8000/api/client/exams/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-              },
-        });
-        const jsonData = await data.json();
-        console.log(jsonData)
-        this.setState({exams: jsonData})
+    exams = () => {
+        const access_token = 'Bearer '.concat(this.state.token)
+        axios.get('http://0.0.0.0:8000/api/client/exams/', { headers: { Authorization: access_token }})
+          .then(response => {
+            const res = response.data.message.map((val) => {
+              return {exam: val.id, doctor: val.doctor, subject: val.subject, status: val.status}
+            });
+            this.setState({exams: res})
+        })
+    }
 
+    handleClick = (e) => {
+        this.props.dispatch(examID(e.currentTarget.dataset.id))
+        this.props.history.push("/client/exam/detail")
     }
 
     render() {
         return (
             <div className="container">
+                <Header />
+                <Nav />
                 <Dashboard 
                     initiate={this.initiate}
-                    clientExams={this.clientExams}
+                    exams={this.state.exams}
+                    handleClick={this.handleClick}
                 />
             </div>
         )
     }
 }
 
-export default ClientDashboard;
+const mapStateToProps = state => {
+    return {
+      exam: state.exam
+    }
+  }
+
+export default connect(mapStateToProps)(ClientDashboard);

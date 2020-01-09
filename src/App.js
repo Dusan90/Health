@@ -20,16 +20,22 @@ import Message from './containers/Doctor/Message';
 import DoctorProfile from './containers/Doctor/Profile';
 import DoctorsProfile from './containers/Doctor/DoctorsProfile';
 import DoctorClients from './containers/Doctor/Clients';
+import ClientRecord from './containers/Doctor/Record';
+import ClientDetailExam from './containers/Client/DetailExam';
+import ClientCorrespondence from './containers/Client/Correspondence';
+import ClientMessage from './containers/Client/Message';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import authReducer from './reducers/authReducer';
 import doctorReducer from './reducers/doctorReducer';
 import subjectReducer from './reducers/subjectReducer';
 import specReducer from './reducers/specReducer';
 import examReducer from './reducers/examReducer';
+import clientReducer from './reducers/clientReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { userLogin, userLoggedIn } from './actions/authActions';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
+import SideNavbar from './containers/Home/SideNav';
 
 
 class App extends Component {
@@ -43,7 +49,8 @@ class App extends Component {
       doctorReducer,
       subjectReducer,
       specReducer,
-      examReducer
+      examReducer,
+      clientReducer
     });
 
     const store = createStore(
@@ -68,12 +75,14 @@ class App extends Component {
   checkUser = () => {
     const accessToken = sessionStorage.getItem('accessToken')
     const expiresIn = sessionStorage.getItem('expiresIn')
+    const isDoctor = sessionStorage.getItem('is_doctor')
     const refreshToken = localStorage.getItem('refreshToken')
     if (accessToken && expiresIn && refreshToken) {
         this.store.dispatch(userLogin({
             'access_token': accessToken,
             'expires_in': expiresIn,
-            'refresh_token': refreshToken
+            'refresh_token': refreshToken,
+            'is_doctor': isDoctor
         }));
         this.store.dispatch(userLoggedIn());
     }
@@ -84,7 +93,8 @@ class App extends Component {
         <div className="App">
            <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3">
             <ReduxProvider store={this.store}>
-              <SagaMiddlewareProvider sagaMiddleware={this.sagaMiddleware}>       
+              <SagaMiddlewareProvider sagaMiddleware={this.sagaMiddleware}>
+                <SideNavbar/>    
                 <Router>
                   <Route path="/" exact component={Main}/>
                   <Route path="/register" exact component={Register} />
@@ -98,6 +108,10 @@ class App extends Component {
                   <Route path="/doctor/profile" exact component={DoctorProfile}/>
                   <Route path="/doctor/profile/:id" exact component={DoctorsProfile}/>
                   <Route path="/doctor/clients" exact component={DoctorClients}/>
+                  <Route path="/doctor/record/detail" exact component={ClientRecord}/>
+                  <Route path="/client/exam/detail" exact component={ClientDetailExam}/>
+                  <Route path="/client/exam/correspondence" exact component={ClientCorrespondence}/>
+                  <Route path="/client/exam/message" exact component={ClientMessage}/>
                   <Route path="/initiate" exact component={ExamForm} />
                   <Elements>
                     <Route path="/checkout" exact component={CheckoutForm} />

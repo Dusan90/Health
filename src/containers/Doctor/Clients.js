@@ -5,19 +5,19 @@ import Dashboard from '../../components/Doctor/Dashboard';
 import Header from '../../components/Main/Header';
 import Nav from '../../components/Main/Navbar';
 
-const token = sessionStorage.getItem('accessToken')
-const access_token = 'Bearer '.concat(token)
 
 class DoctorClients extends Component {
     constructor(props) {
         super(props);
         this.state = {
             clients: [],
+            token: sessionStorage.getItem('accessToken')
         } 
         
     }
 
     clients = () => {
+        const access_token = 'Bearer '.concat(this.state.token)
         axios.get('http://0.0.0.0:8000/api/doctor/clients/', { headers: { Authorization: access_token }})
           .then(response => {
             console.log(response.data);

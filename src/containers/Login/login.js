@@ -27,22 +27,6 @@ class Login extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.userLogin();
-        this.setState({
-            emailValue: '',
-            passwordValue: '',
-        });
-    }
-
-    redirectUser = () => {
-        if (this.props.isLoggedIn) {
-            if (this.state.is_doctor) {  
-                this.props.history.push('/dashboard-doctor');
-            }else{
-                this.props.history.push('/dashboard-client');
-            }
-        }else{
-            this.props.history.push('/login');
-        }
     }
 
     userLogin = async () => {
@@ -58,22 +42,34 @@ class Login extends Component {
         });
 
         const jsonData = await data.json();
+        console.log(jsonData.data, 'data')
         if (jsonData.is_doctor){
             this.setState({is_doctor: true});
         }else{
             this.setState({is_doctor: false});
         }
-        this.props.dispatch(userLogin(jsonData));
+        this.props.dispatch(userLogin(jsonData.data));
         if (jsonData.data.access_token) {
             sessionStorage.setItem('accessToken', jsonData.data.access_token)
             sessionStorage.setItem('expiresIn', jsonData.data.expires_in)
-            sessionStorage.setItem('is_doctor', jsonData.is_doctor)
+            sessionStorage.setItem('is_doctor', this.state.is_doctor)
             localStorage.setItem('refreshToken', jsonData.data.refresh_token)
             this.props.dispatch(userLoggedIn());
         }
-        console.log(jsonData)
         this.redirectUser();
         return jsonData;
+    }
+
+    redirectUser = () => {
+        if (this.props.isLoggedIn) {
+            if (this.state.is_doctor) {  
+                this.props.history.push('/dashboard-doctor');
+            }else{
+                this.props.history.push('/dashboard-client');
+            }
+        }else{
+            this.props.history.push('/login');
+        }
     }
 
     render() {
@@ -97,7 +93,6 @@ class Login extends Component {
 const mapStateToProps = state => {
     const user = state.getIn(['authReducer', 'user']);
     const isLoggedIn = state.getIn(['authReducer', 'isLoggedIn']);
-    console.log(isLoggedIn)
     return {
         user,
         isLoggedIn,

@@ -8,20 +8,19 @@ const options = [
     { value: 'Decline', label: 'Decline' },
 ];
 
-const token = sessionStorage.getItem('accessToken')
-const access_token = 'Bearer '.concat(token)
-
 class DetailExam extends Component {
     constructor(props) {
         super(props);
         this.state = {
             exam: [],
             statusValue: '',
-            selectedStatus: ''
+            selectedStatus: '',
+            token: sessionStorage.getItem('accessToken')
         } 
     }
 
     detail = () => {
+        const access_token = 'Bearer '.concat(this.state.token)
         axios.get(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/`, { headers: { Authorization: access_token }})
           .then(response => {
             this.setState({exam: Object.values(response.data)})
@@ -49,6 +48,7 @@ class DetailExam extends Component {
     }
 
     doctorExam = async () => {    
+        const access_token = 'Bearer '.concat(this.state.token)
         const client = await fetch(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/`, {
             method: 'PUT',
             headers: {

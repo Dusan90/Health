@@ -1,4 +1,4 @@
-export const USER = 'user';
-export const ADMIN = 'admin';
-export const DOCTOR = 'doctor';
-export const CLIENT = 'client';
+export const USER = 'USER';
+export const ADMIN = 'ADMIN';
+export const DOCTOR = 'DOCTOR';
+export const CLIENT = 'CLIENT';

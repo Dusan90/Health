@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import "../../assets/main.scss";
+import "../../assets/main/main.scss";
 import Profile from '../../components/Doctor/Profile';
 import { connect } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 
-const token = sessionStorage.getItem('accessToken')
-const access_token = 'Bearer '.concat(token)
 
 class DoctorProfile extends Component {
     constructor(props) {
@@ -16,7 +14,8 @@ class DoctorProfile extends Component {
           doctors: [],
           prefixValue: '',
           descriptionValue: '',
-          priceValue: null
+          priceValue: null,
+          token: sessionStorage.getItem('accessToken')
         };
     }
 
@@ -34,6 +33,7 @@ class DoctorProfile extends Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
+        const access_token = 'Bearer '.concat(this.state.token)
         const data = await fetch('http://0.0.0.0:8000/api/doctor/profile/', {
             method: 'PUT',
             headers: {
@@ -54,6 +54,7 @@ class DoctorProfile extends Component {
     }
 
     handleDoctorProfile = async () => {
+        const access_token = 'Bearer '.concat(this.state.token)
         axios.get(`http://0.0.0.0:8000/api/doctor/profile/`, { headers: { Authorization: access_token }})
             .then(response => {
                 return this.setState({doctor: Object.values(response.data)})

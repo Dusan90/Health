@@ -5,7 +5,7 @@ import CorrespondenceMessage from '../../components/Doctor/Correspondence';
 import {doctor} from '../../actions/examActions';
 
 const token = sessionStorage.getItem('accessToken')
-const access_token = 'Bearer '.concat(token)
+
 
 class Correspondence extends Component {
     constructor(props) {
@@ -13,10 +13,12 @@ class Correspondence extends Component {
         this.state = {
             correspondence: [],
             messageValue: '', 
+            token: sessionStorage.getItem('accessToken')
         } 
     }
 
     correspondence = () => {
+        const access_token = 'Bearer '.concat(this.state.token)
         axios.get(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/messages`, { headers: { Authorization: access_token }})
           .then(response => {
             const res = response.data.message.map((val) => {
@@ -28,7 +30,8 @@ class Correspondence extends Component {
         }) 
     }
 
-    sendMessage= async () => {    
+    sendMessage= async () => {   
+        const access_token = 'Bearer '.concat(this.state.token) 
         const client = await fetch(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/messages/`, {
             method: 'POST',
             headers: {

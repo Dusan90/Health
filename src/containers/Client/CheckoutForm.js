@@ -3,6 +3,7 @@ import { CardElement, injectStripe } from 'react-stripe-elements';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
+import "../../assets/client/checkout.scss";
 
 
 class CheckoutForm extends Component{
@@ -70,8 +71,8 @@ class CheckoutForm extends Component{
     if (this.state.complete) return <h1><Link to="/dashboard-client">Submit Completed</Link></h1>;
     return (
       <div>
-        <CardElement onReady={this.handleReady}/>
-        <button onClick={this.submit}> Submit </button>
+        <CardElement className="CardElement" onReady={this.handleReady}/>
+        <button className="btn-checkout" onClick={this.submit}> Submit </button>
       </div>
     );
   }

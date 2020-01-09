@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import ExamMessage from '../../components/Doctor/Message';
+import CorrespondenceMessage from '../../components/Client/Correspondence';
+import {doctor} from '../../actions/examActions';
 
+const token = sessionStorage.getItem('accessToken')
+const access_token = 'Bearer '.concat(token)
 
-class Message extends Component {
+class ClientCorrespondence extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: [],
-            messageValue: '',
-            token: sessionStorage.getItem('accessToken')
+            correspondence: [],
+            messageValue: '', 
         } 
     }
 
-    message = () => {
-        const access_token = 'Bearer '.concat(this.state.token)
-        axios.get(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/message`, { headers: { Authorization: access_token }})
+    correspondence = () => {
+        axios.get(`http://0.0.0.0:8000/api/client/exams/${this.props.examID}/messages`, { headers: { Authorization: access_token }})
           .then(response => {
-              return this.setState({message: Object.values(response.data)})
+            const res = response.data.messages.map((val) => {
+                return {sender: val.sender, created: val.created, message: val.message, attachment: val.attachment}
+            });
+            this.setState({correspondence: res})
+            var sender_obj = this.state.correspondence[0].sender      
+            this.props.dispatch(doctor(sender_obj))
         }) 
     }
 
     sendMessage= async () => {    
-        const access_token = 'Bearer '.concat(this.state.token)
         const client = await fetch(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/messages/`, {
             method: 'POST',
             headers: {
@@ -47,18 +52,18 @@ class Message extends Component {
         e.preventDefault();
         this.sendMessage();
         this.setState({messageValue: ''})
-        this.message();
+        this.correspondence();
     }
 
     componentDidMount() {
-        this.message()
+        this.correspondence()
     }
 
     render() {
         return (
             <div className="container">
-                <ExamMessage 
-                    message={this.state.message} 
+                <CorrespondenceMessage 
+                    correspondence={this.state.correspondence} 
                     messageValue={this.state.messageValue}
                     handleMessage={this.handleMessage}
                     submitValue={this.state.submitValue}                
@@ -76,4 +81,4 @@ const mapStateToProps = state => {
     }
   }
 
-export default connect(mapStateToProps)(Message);
+export default connect(mapStateToProps)(ClientCorrespondence);

@@ -1,12 +1,11 @@
 import React from 'react';
 import Header from '../../components/Main/Header';
 import Nav from '../../components/Main/Navbar';
-import Select from 'react-select';
 import { Link } from 'react-router-dom';
-import '../../assets/detail_exam.scss';
+import '../../assets/client/detail-exam.scss';
 
 
-const Detail = ({exam, status, handleStatus, statusValue, submitValue, handleSubmit, handleLink, handleLinkMessage}) => (
+const Detail = ({exam, handleLink, handleLinkMessage}) => (
     
     <div className="row">
         <Header />
@@ -18,25 +17,20 @@ const Detail = ({exam, status, handleStatus, statusValue, submitValue, handleSub
             return (
                 <div key={exam.id} className="detail-exam">
                     <div className="detail">   
-                        <p>Client: {exam.client}</p>
+                        <p>Doctor: {exam.doctor}</p>
                         <p>Speciality: {exam.speciality}</p>
                         <p>Created: {exam.created}</p>
                         <p>Subject: {exam.subject}</p>
                         <p>Status: {exam.status}</p>
-                        {!(exam.status === 'Accepted') &&
-                        <div className="col-sm-10">    
-                            <Select type="text" className="select-option" value={statusValue} options={status} onChange={handleStatus}/>
-                            <button type="submit" className="btn btn-default" value={submitValue} onClick={handleSubmit}>Send</button>  
-                        </div>
-                        }
                         {(exam.status === 'Accepted') &&
                         <div className="message-btn">
-                            <Link to="/doctor/exam/correspondence" className="messages-link" onClick={handleLink}>Message history</Link>
-                            <Link to="/doctor/exam/message" className="message-link" onClick={handleLinkMessage}>Message</Link>
+                            <Link to="/client/exam/correspondence" className="messages-link" onClick={handleLink}>Message history</Link>
+                            <Link to="/client/exam/message" className="message-link" onClick={handleLinkMessage}>Message</Link>
                         </div>
                         }
                     </div>
                 </div>
+
             )})
         }
     </div>
