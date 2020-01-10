@@ -5,7 +5,7 @@ import Nav from '../../components/Main/Navbar';
 import '../../assets/correspondence.scss';
 
 
-const CorrespondenceMessage = ({correspondence, handleClick, messageValue, handleMessage, submitValue, handleSubmit}) => (
+const CorrespondenceMessage = ({correspondence, handleClick}) => (
     <div className="row">
         <Header />
         <Nav />
@@ -15,8 +15,8 @@ const CorrespondenceMessage = ({correspondence, handleClick, messageValue, handl
         <table className="correspondence">
             {correspondence.map(message => {
                 return(
-                    <tbody key={message.message} className="tbody">
-                        <tr key={message.message} className="row1" onClick={handleClick}>         
+                    <tbody key={message.id} className="tbody">
+                        <tr className="row1" onClick={handleClick}>         
                             <td className="sender">Sender:{message.sender}</td>
                             <td className="message">Message:{message.message}</td>
                             <td className="created">Created:{message.created}</td>       
@@ -26,10 +26,6 @@ const CorrespondenceMessage = ({correspondence, handleClick, messageValue, handl
                 )
             })}
         </table>
-        {/* <div className="col-sm-10"> 
-            <input type="text" className="form-control" placeholder="message" value={messageValue} onChange={handleMessage}/>
-            <button type="submit" className="btn btn-default" value={submitValue} onClick={handleSubmit}>Send</button>
-        </div> */}
     </div>
 );
 

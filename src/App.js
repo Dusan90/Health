@@ -16,10 +16,11 @@ import Logout from './containers/Logout/logout';
 import ExamForm from './containers/Client/ExamForm';
 import CheckoutForm from './containers/Client/CheckoutForm';
 import Correspondence from './containers/Doctor/Correspondence';
-import Message from './containers/Doctor/Message';
+import DoctorMessage from './containers/Doctor/Message';
 import DoctorProfile from './containers/Doctor/Profile';
 import DoctorsProfile from './containers/Doctor/DoctorsProfile';
 import DoctorClients from './containers/Doctor/Clients';
+import ClientProfile from './containers/Client/Profile';
 import ClientRecord from './containers/Doctor/Record';
 import ClientDetailExam from './containers/Client/DetailExam';
 import ClientCorrespondence from './containers/Client/Correspondence';
@@ -100,15 +101,19 @@ class App extends Component {
                   <Route path="/register" exact component={Register} />
                   <Route path="/login" exact component={Login} />
                   <Route path="/logout" exact component={Logout} />
+
                   <Route path="/dashboard-client" exact component={ClientDashboard} />
                   <Route path="/dashboard-doctor" exact component={DoctorDashboard}/>
+
                   <Route path="/doctor/exam/detail" exact component={DetailExam}/>
                   <Route path="/doctor/exam/correspondence" exact component={Correspondence}/>
-                  <Route path="/doctor/exam/message" exact component={Message}/>
+                  <Route path="/doctor/exam/message" exact component={DoctorMessage}/>
                   <Route path="/doctor/profile" exact component={DoctorProfile}/>
                   <Route path="/doctor/profile/:id" exact component={DoctorsProfile}/>
                   <Route path="/doctor/clients" exact component={DoctorClients}/>
                   <Route path="/doctor/record/detail" exact component={ClientRecord}/>
+
+                  <Route path="/client/profile" exact component={ClientProfile}/>
                   <Route path="/client/exam/detail" exact component={ClientDetailExam}/>
                   <Route path="/client/exam/correspondence" exact component={ClientCorrespondence}/>
                   <Route path="/client/exam/message" exact component={ClientMessage}/>

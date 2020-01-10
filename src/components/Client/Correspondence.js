@@ -16,7 +16,7 @@ const CorrespondenceMessage = ({correspondence, handleClick, messageValue, handl
             {correspondence.map(message => {
                 return(
                     <tbody key={message.id} className="tbody">
-                        <tr key={message.message} className="row1" onClick={handleClick}>         
+                        <tr key={message.id} className="row1" onClick={handleClick}>         
                             <td className="sender">Sender:{message.sender}</td>
                             <td className="message">Message:{message.message}</td>
                             <td className="created">Created:{message.created}</td>       

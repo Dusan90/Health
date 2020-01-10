@@ -42,7 +42,6 @@ class Login extends Component {
         });
 
         const jsonData = await data.json();
-        console.log(jsonData.data, 'data')
         if (jsonData.is_doctor){
             this.setState({is_doctor: true});
         }else{

@@ -1,43 +1,26 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Header from '../../components/Main/Header';
 import Nav from '../../components/Main/Navbar';
 import '../../assets/message.scss';
 
 
-const ExamMessage = ({message, handleClick, messageValue, handleMessage, submitValue, handleSubmit}) => (
+const ExamMessage = ({client, messageValue, handleMessage, submitValue, handleSubmit, onChangeHandler}) => (
     <div className="row">
         <Header />
         <Nav />
-        <ul className="nav nav-pills">
-            <li className="disabled"><a href="#list">Message</a></li>
+        <ul className="nav-doctor">
+            <h6 href="#list">New Message</h6>
         </ul>
-        <div className="message-box">
-        {message.map(message => {
-            return(
-                <div key={message.message} className="box" onClick={handleClick}>
-                    <div className="sender">From: {message.sender}</div>
-                    <div className="message">Message: {message.message}</div>
-                    <div className="attachment">Attachments: {message.attachments}</div>
-                </div>
-            )
-        })}
-        </div>
+        {client &&
+        <h5 className="client-form">To: {client}</h5>
+        }
         <div className="input"> 
-            <input type="text" className="form-control" placeholder="message" value={messageValue} onChange={handleMessage}/>
-            <button type="submit" className="btn btn-default" value={submitValue} onClick={handleSubmit}>Send</button>
+            <textarea type="text" className="form-control" placeholder="message" value={messageValue} onChange={handleMessage}/>
+            <input type="file" name="file" onChange={onChangeHandler}/>
+            <button type="submit" className="btn btn-primary btn-md" value={submitValue} onClick={handleSubmit}>Send</button>
         </div>
     </div>
 );
 
-const mapStateToProps = state => {
-    const doctor = state.getIn(['doctorReducer', 'doctor']);
-    const user = state.getIn(['authReducer', 'user']);
-    
-    return {
-        doctor,
-        user
-    }
-  }
 
-export default connect(mapStateToProps)(ExamMessage);
+export default ExamMessage;

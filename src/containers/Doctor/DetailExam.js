@@ -60,7 +60,6 @@ class DetailExam extends Component {
             })
         });
         const jsonData = await client.json();
-        console.log(jsonData);
         return jsonData;
     }
 

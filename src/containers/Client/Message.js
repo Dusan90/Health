@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import ExamMessage from '../../components/Doctor/Message';
-import {doctor} from '../../actions/examActions';
+import ExamMessage from '../../components/Client/Message';
 
-const token = sessionStorage.getItem('accessToken')
-const access_token = 'Bearer '.concat(token)
 
 class ClientMessage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            message: [],
-            messageValue: ''
+            doctor: [],
+            messageValue: '',
+            selectedFile: null,
+            token: sessionStorage.getItem('accessToken')
         } 
     }
 
-    message = () => {
+    doctor = async () => {
+        const access_token = 'Bearer '.concat(this.state.token)
         axios.get(`http://0.0.0.0:8000/api/client/exams/${this.props.examID}/message`, { headers: { Authorization: access_token }})
           .then(response => {
-              console.log(response.data)
-              return this.setState({message: Object.values(response.data)})
-        }) 
+              return this.setState({doctor: response.data.doctor})
+        }).catch(e => {
+            console.log(e);
+        })
     }
 
     sendMessage= async () => {    
-        const client = await fetch(`http://0.0.0.0:8000/api/client/exams/${this.props.examID}/messages/`, {
+        const access_token = 'Bearer '.concat(this.state.token)
+        const doctor = await fetch(`http://0.0.0.0:8000/api/client/exams/${this.props.examID}/message/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +38,7 @@ class ClientMessage extends Component {
                 attachment: null,
             })
         });
-        const jsonData = await client.json();
+        const jsonData = await doctor.json();
         return jsonData;
     }
 
@@ -48,22 +50,30 @@ class ClientMessage extends Component {
         e.preventDefault();
         this.sendMessage();
         this.setState({messageValue: ''})
-        this.message();
+        this.doctor();
+    }
+
+    onChangeHandler = (e) => {
+        this.setState({
+            selectedFile: e.target.files[0],
+            loaded: 0,
+          })
     }
 
     componentDidMount() {
-        this.message()
+        this.doctor()
     }
 
     render() {
         return (
             <div className="container">
                 <ExamMessage 
-                    message={this.state.message} 
+                    doctor={this.state.doctor} 
                     messageValue={this.state.messageValue}
                     handleMessage={this.handleMessage}
                     submitValue={this.state.submitValue}                
                     handleSubmit={this.handleSubmit}
+                    onChangeHandler={this.onChangeHandler}
                 />
             </div>
         )

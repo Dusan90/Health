@@ -3,8 +3,6 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Detail from '../../components/Client/DetailExam';
 
-const token = sessionStorage.getItem('accessToken')
-const access_token = 'Bearer '.concat(token)
 
 class ClientDetailExam extends Component {
     constructor(props) {
@@ -12,11 +10,13 @@ class ClientDetailExam extends Component {
         this.state = {
             exam: [],
             statusValue: '',
-            selectedStatus: ''
+            selectedStatus: '',
+            token: sessionStorage.getItem('accessToken')
         } 
     }
 
     detail = () => {
+        const access_token = 'Bearer '.concat(this.state.token)
         axios.get(`http://0.0.0.0:8000/api/client/exams/${this.props.examID}/`, { headers: { Authorization: access_token }})
           .then(response => {
             this.setState({exam: Object.values(response.data)})
