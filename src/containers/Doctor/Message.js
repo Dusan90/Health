@@ -67,7 +67,6 @@ class DoctorMessage extends Component {
     }
 
     render() {
-        console.log(this.state.selectedFile, 'mhm')
         return (
             <div className="container">
                 <ExamMessage 

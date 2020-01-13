@@ -1,0 +1,22 @@
+.login-form{
+    position: relative;
+    width: 300px;
+    left: 400px;
+    top: 300px;
+
+    .form-control{
+        margin: 3px;
+    }
+
+    .login-button{
+        position: relative;
+        width: 100px;
+        left: 105px;
+        margin: 5px;
+        
+        .btn{
+            position: relative;
+            width: 100px;
+        }
+    }
+}

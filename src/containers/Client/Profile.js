@@ -11,6 +11,7 @@ class ClientProfile extends Component {
         super(props);
         this.state = {
           client: [],
+          records: [],
           addressValue: '',
           token: sessionStorage.getItem('accessToken')
         };
@@ -36,8 +37,7 @@ class ClientProfile extends Component {
         const jsonData = await data.json();
         console.log(jsonData)
         NotificationManager.success('Profile Updated!', 'Successful!', 2000);
-        this.handleDoctorProfile()
-        
+        this.handleClientProfile()   
     }
 
     handleClientProfile = async () => {
@@ -48,8 +48,18 @@ class ClientProfile extends Component {
         })
     }
 
+    record = async () => {
+        const access_token = 'Bearer '.concat(this.state.token)
+        axios.get(`http://0.0.0.0:8000/api/client/records/`, { headers: { 'Authorization': access_token }})
+            .then(response => {
+                console.log(response)
+                return this.setState({records: Object.values(response.data)})
+        })
+    }
+
     componentDidMount() {
         this.handleClientProfile()
+        this.record()
     }
 
     render() {

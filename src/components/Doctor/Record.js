@@ -2,7 +2,7 @@ import React from 'react';
 import '../../assets/record.scss';
 
 
-const Record = ({record}) => (
+const Record = ({record, detailsValue, handleDetails, teraphyValue, handleTerpahy, conditionValue, handleCondition, submitValue, handleSubmit}) => (
     <div className="row">
         <ul className="nav nav-pills">
             <li className="disabled"><a href="#list">Record</a></li>
@@ -19,6 +19,20 @@ const Record = ({record}) => (
                     </div>
                 )
             })}
+        </div>
+        <div className="r-form">
+            <div className="details"> 
+                <input type="text" className="d-details" placeholder="Enter details" value={detailsValue} onChange={handleDetails}/>
+            </div>     
+            <div className="teraphy-history"> 
+                <input type="text" className="d-teraphy" placeholder="Enter teraphy" value={teraphyValue} onChange={handleTerpahy}/>
+            </div>
+            <div className="medical-con"> 
+                <input type="text" className="d-medical" placeholder="Enter condition" value={conditionValue} onChange={handleCondition}/>
+            </div>
+            <div className="submit">
+                <button type="submit" className="btn btn-primary" value={submitValue} onClick={handleSubmit}>Submit</button>
+            </div>
         </div>
     </div>
 );

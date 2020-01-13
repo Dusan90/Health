@@ -19,7 +19,12 @@ const Detail = ({exam, handleLink, handleLinkMessage}) => (
                     <div className="detail">   
                         <p>Doctor: {exam.doctor}</p>
                         <p>Speciality: {exam.speciality}</p>
-                        <p>Created: {exam.created}</p>
+                        <p className="created">{new Intl.DateTimeFormat("en-GB", {
+                            year: "numeric",
+                            month: "long",
+                            day: "2-digit"
+                            }).format(new Date(exam.created))}
+                        </p>
                         <p>Subject: {exam.subject}</p>
                         <p>Status: {exam.status}</p>
                         {(exam.status === 'Accepted') &&

@@ -19,7 +19,6 @@ import Correspondence from './containers/Doctor/Correspondence';
 import DoctorMessage from './containers/Doctor/Message';
 import DoctorProfile from './containers/Doctor/Profile';
 import DoctorsProfile from './containers/Doctor/DoctorsProfile';
-import DoctorClients from './containers/Doctor/Clients';
 import ClientProfile from './containers/Client/Profile';
 import ClientRecord from './containers/Doctor/Record';
 import ClientDetailExam from './containers/Client/DetailExam';
@@ -36,7 +35,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { userLogin, userLoggedIn } from './actions/authActions';
 import 'react-notifications/lib/notifications.css';
 import { NotificationContainer } from 'react-notifications';
-import SideNavbar from './containers/Home/SideNav';
 
 
 class App extends Component {
@@ -94,8 +92,7 @@ class App extends Component {
         <div className="App">
            <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3">
             <ReduxProvider store={this.store}>
-              <SagaMiddlewareProvider sagaMiddleware={this.sagaMiddleware}>
-                <SideNavbar/>    
+              <SagaMiddlewareProvider sagaMiddleware={this.sagaMiddleware}>  
                 <Router>
                   <Route path="/" exact component={Main}/>
                   <Route path="/register" exact component={Register} />
@@ -110,7 +107,6 @@ class App extends Component {
                   <Route path="/doctor/exam/message" exact component={DoctorMessage}/>
                   <Route path="/doctor/profile" exact component={DoctorProfile}/>
                   <Route path="/doctor/profile/:id" exact component={DoctorsProfile}/>
-                  <Route path="/doctor/clients" exact component={DoctorClients}/>
                   <Route path="/doctor/record/detail" exact component={ClientRecord}/>
 
                   <Route path="/client/profile" exact component={ClientProfile}/>

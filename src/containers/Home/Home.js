@@ -4,6 +4,7 @@ import Home from '../../components/Main/Home';
 import {doctor} from '../../actions/examActions';
 import { connect } from 'react-redux';
 import Header from '../../components/Main/Header';
+import Footer from '../../components/Main/Footer';
 import Nav from '../../components/Main/Navbar';
 
 const token = sessionStorage.getItem('accessToken')
@@ -53,6 +54,7 @@ class Main extends Component {
                 <Header />
                 <Nav />
                 <Home doctors={this.state.doctors} handleDoctor={this.handleDoctor} handleConsultation={this.handleConsultation} />
+                <Footer />
             </div>
         )
     }

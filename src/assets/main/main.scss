@@ -1,32 +1,53 @@
+.container{
+    height: 800px;
 
-.panel{
-    position: relative;
-    width: 400px;
-    height: 150px;
-    margin-left: 0px;
-    padding: 5em;
-    padding-top: 8px;
-    margin-bottom: 3px;
-
-    .profile{
+    .row{
+        top: 100px;
+        left: 1px;
         position: relative;
-        width: 5px;
-        left: 390px;
-        bottom: -10px;
-        .btn {
-            color: white;
-            position: absolute;
+        width: 50%;
+
+        .doctor-panel{
+            position: relative;
+            border-radius: 4px;
+            width: 400px;
+            height: 100px;
+            margin-left: 0px;
+            padding: 5em;
+            padding-top: 8px;
+            margin-bottom: 3px;
+            background-color: rgba(221, 219, 231, 0.452);
+
+            .doc-panel{
+                position: relative;
+                left: -20px;
+                top: 1px;
+            }
+
+            .doc-profile{
+                position: relative;
+             
+
+                .btn {
+                    position: absolute;
+                    color: white;
+                    top: -85px;
+                    left: 215px;
+                    width: 105px;
+                }
+            }   
+            
+            .doc-consultation{
+
+                .btn {
+                    position: absolute;
+                    color: white;
+                    top: 55px;
+                    left: 285px;
+        
+                }
+            }
+            
         }
     }
-    .consultation{
-        position: relative;
-        width: 1px;
-        left: 385px;
-        bottom: -50px;
-        .btn {
-            color: white;
-            position: absolute;
-        }
-    }
-    
 }

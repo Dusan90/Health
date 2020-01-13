@@ -5,9 +5,9 @@ import '../../assets/dashboard.scss';
 const Dashboard = ({exams, clients, handleClick, handleClient}) => (
         <div>
             <table className="table1">
-                <thead className="thead">
-                    <tr className="trow">
-                        <th className='client'>Client</th>
+                <thead className="dthead">
+                    <tr className="dtrow">
+                        <th className='d-client'>Client</th>
                         <th className='subject'>Subject</th>
                         <th className='created'>Created</th>
                         <th className='status'>Status</th>
@@ -17,9 +17,14 @@ const Dashboard = ({exams, clients, handleClick, handleClient}) => (
                     return(
                     <tbody key={exam.exam} className="tbody">
                         <tr key={exam.exam} data-id={exam.exam} className="list-group" onClick={handleClick.bind(this)}>         
-                            <td className="client">{exam.client}</td>
+                            <td className="d-client">{exam.client}</td>
                             <td className='subject'>{exam.subject}</td>
-                            <td className='created'>{exam.created}</td>
+                            <td className="created">{new Intl.DateTimeFormat("en-GB", {
+                                year: "numeric",
+                                month: "long",
+                                day: "2-digit"
+                                }).format(new Date(exam.created))}
+                            </td>
                             <td className='status'>{exam.status}</td>                 
                         </tr>
                     </tbody>

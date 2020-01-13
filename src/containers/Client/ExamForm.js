@@ -16,9 +16,11 @@ class ExamForm extends Component {
       doctors: [],
       filtered: [],
       subject: '',
+      message: '',
       submitted: false,
       price: null,
-      doctor_id: null
+      doctor_id: null,
+      token: sessionStorage.getItem('accessToken')
     };
   }
 
@@ -33,7 +35,7 @@ class ExamForm extends Component {
   }
 
   handleDoctor = (e) => {
-    console.log('...', e);
+    console.log(e, 'doca');
     this.setState({doctors: e.value})
     this.setState({doctor_id: e.iD})
     this.props.dispatch(doctor(e))
@@ -42,24 +44,34 @@ class ExamForm extends Component {
   handleSubject = (e) => {
     this.setState({subject: e.target.value});
   }
+  
+  handleMessage = (e) => {
+    this.setState({message: e.target.value});
+  }
+
 
   handleSubmit = async () => {
-    const clientID = sessionStorage.getItem('iD')
+    const access_token = 'Bearer '.concat(this.state.token)
     const response = await fetch('http://0.0.0.0:8000/api/client/initiate/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': access_token,
         },
         body: JSON.stringify({
-          client: parseInt(clientID),
           speciality: this.state.specialities,
           doctor: this.state.doctor_id,
-          subject: this.state.subject
+          subject: this.state.subject,
+          message: this.state.message
         })
       }
     );
     const data = await response.json()
-    console.log(data)
+    this.toCheckout()
+    return data
+  }
+
+  toCheckout = async () => {
     return this.props.history.push('/checkout')
   }
 
@@ -78,6 +90,7 @@ class ExamForm extends Component {
         const res = response.data.message.map((val) => {
           return {value: val.id, iD: val.doctor_id, label: val.doctor, spec: val.speciality, price: val.price}
         });
+        console.log(res, 'response')
         this.setState({ doctors: res });
       })
   }
@@ -92,11 +105,13 @@ class ExamForm extends Component {
           specialities={this.state.specialities}
           doctors={this.state.doctors}
           subject={this.state.subject}
+          message={this.state.message}
           submitted={this.state.submitted}
           handleSpeciality={this.handleSpeciality}
           handleDoctor={this.handleDoctor}
           handleSubject={this.handleSubject}
           handleSubmit={this.handleSubmit}
+          handleMessage={this.handleMessage}
         />
       </div>
     );

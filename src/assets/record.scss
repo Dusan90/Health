@@ -2,7 +2,7 @@
     position: relative;
     left: 15px;
     width: 220px;
-    border: 3px solid rgba(0, 174, 255, 0.637);
+    border: 1px solid rgba(0, 174, 255, 0.637);
     height: 200px;
 
     .record-box{
@@ -10,5 +10,29 @@
         width: 200px;
         margin: 5px;
         padding: 10px;
+    }
+}
+
+.r-form{
+    margin-top: 5px;
+    padding-top: 5px;
+    position: relative;
+    left: -30px;
+    width: 50%;
+
+    .d-details{
+        height: 30px;
+        margin: 2px;
+        width: 400px;
+    }
+    .d-teraphy{
+        height: 30px;
+        margin: 2px;
+        width: 400px;
+    }
+    .d-medical{
+        height: 30px;
+        margin: 2px;
+        width: 400px;
     }
 }

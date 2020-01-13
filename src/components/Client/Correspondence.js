@@ -19,7 +19,12 @@ const CorrespondenceMessage = ({correspondence, handleClick, messageValue, handl
                         <tr key={message.id} className="row1" onClick={handleClick}>         
                             <td className="sender">Sender:{message.sender}</td>
                             <td className="message">Message:{message.message}</td>
-                            <td className="created">Created:{message.created}</td>       
+                            <td className="created">{new Intl.DateTimeFormat("en-GB", {
+                                year: "numeric",
+                                month: "long",
+                                day: "2-digit"
+                                }).format(new Date(message.created))}
+                            </td>    
                             <td className="attachments">Attachments:{message.attachments}</td>              
                         </tr>
                     </tbody>

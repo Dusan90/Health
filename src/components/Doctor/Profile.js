@@ -33,7 +33,7 @@ const Profile = ({doctor, prefixValue, descriptionValue, priceValue, submitValue
                                 <input type="text" className="price-input" placeholder="Enter price" value={priceValue} onChange={handlePrice}/>
                             </div>
                             <div className="submit">
-                                <button type="submit" className="btn" value={submitValue} onClick={handleSubmit}>Submit</button>
+                                <button type="submit" className="btn btn-primary" value={submitValue} onClick={handleSubmit}>Submit</button>
                             </div>
                         </div>
                     </div>

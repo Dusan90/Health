@@ -19,7 +19,7 @@ class Correspondence extends Component {
         axios.get(`http://0.0.0.0:8000/api/doctor/exams/${this.props.examID}/messages`, { headers: { Authorization: access_token }})
           .then(response => {
             const res = response.data.message.map((val) => {
-                return {sender: val.sender, created: val.created, message: val.message, attachment: val.attachment}
+                return {id: val.id, sender: val.sender, created: val.created, message: val.message, attachment: val.attachment}
             });
             this.setState({correspondence: res})
             var sender_obj = this.state.correspondence[0].sender      

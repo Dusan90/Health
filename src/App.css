@@ -1,5 +1,10 @@
 .App {
+  position: absolute;
+  height: 1500px;
+  width: 100%;
   text-align: center;
+  background: linear-gradient(rgba(14, 233, 241, 0.719),transparent);
+  background-color: rgba(37, 14, 241, 0.719);
 }
 
 .App-logo {
@@ -14,7 +19,6 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {

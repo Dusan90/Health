@@ -10,6 +10,13 @@ const options = [
     { value: 'F', label: 'Female' },
 ];
 
+const style = {
+    position: "relative",
+    margin: "5px",
+    left: "1px",
+    top: "200px"
+  };
+
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -154,8 +161,8 @@ class Register extends Component {
             <div className="container">  
                 <Header />
                 <Nav />
-                <input type="radio" name="userType" value="client" checked={this.state.userType === 'client' ? true : false} onChange={() => this.handleUserType('client')} style={{marginRight: 1 + 'em'}} />
-                <input type="radio" name="userType" value="doctor" checked={this.state.userType === 'doctor' ? true : false} onChange={() => this.handleUserType('doctor')} style={{marginBottom: 2 + 'em'}} />
+                <input type="radio" name="userType" value="client" checked={this.state.userType === 'client' ? true : false} onChange={() => this.handleUserType('client')} style={style} />
+                <input type="radio" name="userType" value="doctor" checked={this.state.userType === 'doctor' ? true : false} onChange={() => this.handleUserType('doctor')} style={style} />
                 <RegisterUser 
                     userType={this.state.userType}
                     emailValue={this.state.emailValue}
