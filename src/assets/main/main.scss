@@ -1,53 +1,50 @@
-.container{
-    height: 800px;
+.container {
+  min-height: 100vh;
+  position: relative;
 
-    .row{
-        top: 100px;
-        left: 1px;
+  .row {
+    top: 100px;
+    left: 1px;
+    position: relative;
+    width: 50%;
+
+    .doctor-panel {
+      position: relative;
+      border-radius: 4px;
+      width: 400px;
+      height: 100px;
+      margin-left: 0px;
+      padding: 5em;
+      padding-top: 8px;
+      margin-bottom: 3px;
+      background-color: rgba(221, 219, 231, 0.452);
+
+      .doc-panel {
         position: relative;
-        width: 50%;
+        left: -20px;
+        top: 1px;
+      }
 
-        .doctor-panel{
-            position: relative;
-            border-radius: 4px;
-            width: 400px;
-            height: 100px;
-            margin-left: 0px;
-            padding: 5em;
-            padding-top: 8px;
-            margin-bottom: 3px;
-            background-color: rgba(221, 219, 231, 0.452);
+      .doc-profile {
+        position: relative;
 
-            .doc-panel{
-                position: relative;
-                left: -20px;
-                top: 1px;
-            }
-
-            .doc-profile{
-                position: relative;
-             
-
-                .btn {
-                    position: absolute;
-                    color: white;
-                    top: -85px;
-                    left: 215px;
-                    width: 105px;
-                }
-            }   
-            
-            .doc-consultation{
-
-                .btn {
-                    position: absolute;
-                    color: white;
-                    top: 55px;
-                    left: 285px;
-        
-                }
-            }
-            
+        .btn {
+          position: absolute;
+          color: white;
+          top: -85px;
+          left: 215px;
+          width: 105px;
         }
+      }
+
+      .doc-consultation {
+        .btn {
+          position: absolute;
+          color: white;
+          top: 55px;
+          left: 285px;
+        }
+      }
     }
+  }
 }

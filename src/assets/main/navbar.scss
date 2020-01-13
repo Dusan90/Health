@@ -1,18 +1,19 @@
-
-.nav{
-    
-    .li-reg{
-    
-        .register{
-            color: white;
-            background-color: transparent;
-        }
+.nav {
+  ul {
+    display: flex;
+    float: right;
+  }
+  .li-reg {
+    .register {
+      color: white;
+      background-color: transparent;
     }
+  }
 
-    .li-log{
-        .login{
-            color: white;
-            background-color: transparent;
-        }
+  .li-log {
+    .login {
+      color: white;
+      background-color: transparent;
     }
+  }
 }

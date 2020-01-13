@@ -1,33 +1,30 @@
-.register-form{
+.register-form {
+  width: 300px;
+  margin: 30px auto;
+
+  .form-control {
+    margin: 3px;
+  }
+
+  .gender {
     position: relative;
-    left: 425px;
-    top: 225px;
-    width: 25%;
+    left: 3px;
+  }
 
-    .form-control{
-        margin: 3px;
+  .spec {
+    position: relative;
+    left: 3px;
+  }
+
+  .register-button {
+    position: relative;
+    width: 100px;
+    left: 100px;
+    margin-top: 5px;
+
+    .btn {
+      position: relative;
+      width: 100px;
     }
-
-    .gender{
-        position: relative;
-        left: 3px;
-    }
-
-    .spec{
-        position: relative;
-        left: 3px;
-    }
-
-    .register-button{
-        position: relative;
-        width: 100px;
-        left: 100px;
-        margin-top: 5px;
-        
-        .btn{
-            position: relative;
-            width: 100px;
-
-        }
-    }
+  }
 }
