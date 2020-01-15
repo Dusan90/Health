@@ -30,6 +30,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
+          <p>&copy; Copyright 2020 Health Care</p>
         </div>
         <ul>
           <h3>Visite</h3>

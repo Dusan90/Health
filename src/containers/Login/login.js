@@ -4,7 +4,7 @@ import Header from "../../components/Main/Header";
 import LoginUser from "../../components/Auth/Login";
 import Nav from "../../components/Main/Navbar";
 import { userLogin, userLoggedIn } from "../../actions/authActions";
-import Footer from "../../components/Main/Footer";
+// import Footer from "../../components/Main/Footer";
 
 class Login extends Component {
   constructor(props) {
@@ -85,7 +85,8 @@ class Login extends Component {
           handlePassword={this.handlePassword}
           handleSubmit={this.handleSubmit}
         />
-        <Footer />
+
+        {/* <Footer /> */}
       </div>
     );
   }

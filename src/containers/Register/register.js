@@ -4,7 +4,7 @@ import Header from "../../components/Main/Header";
 import RegisterUser from "../../components/Auth/Register";
 import Nav from "../../components/Main/Navbar";
 import axios from "axios";
-import Footer from "../../components/Main/Footer";
+// import Footer from "../../components/Main/Footer";
 
 const options = [
   { value: "M", label: "Male" },
@@ -209,7 +209,7 @@ class Register extends Component {
           handleSpec={this.handleSpec}
           handleSubmit={this.handleSubmit}
         />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
-import Header from '../../components/Main/Header';
-import InitiateExam from '../../components/Client/ExamForm';
-import Nav from '../../components/Main/Navbar';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { doctor } from '../../actions/examActions';
-
+import React, { Component } from "react";
+import Header from "../../components/Main/Header";
+import InitiateExam from "../../components/Client/ExamForm";
+import Nav from "../../components/Main/Navbar";
+import axios from "axios";
+import { connect } from "react-redux";
+import { doctor } from "../../actions/examActions";
+import Popup from "reactjs-popup";
+import CheckoutForm from "./CheckoutForm";
 
 class ExamForm extends Component {
   constructor(props) {
@@ -15,84 +16,93 @@ class ExamForm extends Component {
       specialities: [],
       doctors: [],
       filtered: [],
-      subject: '',
-      message: '',
+      subject: "",
+      message: "",
       submitted: false,
       price: null,
       doctor_id: null,
-      token: sessionStorage.getItem('accessToken')
+      token: sessionStorage.getItem("accessToken")
     };
   }
 
-  handleSpeciality = (e) => {
+  handleSpeciality = e => {
     console.log(e);
-    
-    const filteredDoctors = this.state.doctors.filter((doctor) => doctor.spec === e.label);
+
+    const filteredDoctors = this.state.doctors.filter(
+      doctor => doctor.spec === e.label
+    );
     this.setState({
       specialities: e.value,
-      doctors: filteredDoctors,
+      doctors: filteredDoctors
     });
-  }
+  };
 
-  handleDoctor = (e) => {
-    console.log(e, 'doca');
-    this.setState({doctors: e.value})
-    this.setState({doctor_id: e.iD})
-    this.props.dispatch(doctor(e))
-  }
+  handleDoctor = e => {
+    console.log(e, "doca");
+    this.setState({ doctors: e.value });
+    this.setState({ doctor_id: e.iD });
+    this.props.dispatch(doctor(e));
+  };
 
-  handleSubject = (e) => {
-    this.setState({subject: e.target.value});
-  }
-  
-  handleMessage = (e) => {
-    this.setState({message: e.target.value});
-  }
+  handleSubject = e => {
+    this.setState({ subject: e.target.value });
+  };
 
+  handleMessage = e => {
+    this.setState({ message: e.target.value });
+  };
 
   handleSubmit = async () => {
-    const access_token = 'Bearer '.concat(this.state.token)
-    const response = await fetch('http://0.0.0.0:8000/api/client/initiate/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': access_token,
-        },
-        body: JSON.stringify({
-          speciality: this.state.specialities,
-          doctor: this.state.doctor_id,
-          subject: this.state.subject,
-          message: this.state.message
-        })
-      }
-    );
-    const data = await response.json()
-    this.toCheckout()
-    return data
-  }
+    const access_token = "Bearer ".concat(this.state.token);
+    const response = await fetch("http://0.0.0.0:8000/api/client/initiate/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: access_token
+      },
+      body: JSON.stringify({
+        speciality: this.state.specialities,
+        doctor: this.state.doctor_id,
+        subject: this.state.subject,
+        message: this.state.message
+      })
+    });
+    const data = await response.json();
+    this.toCheckout();
+    return data;
+  };
 
   toCheckout = async () => {
-    return this.props.history.push('/checkout')
-  }
+    // return (
+    //   <Popup trigger={<button> Next </button>}>
+    //     <CheckoutForm />
+    //   </Popup>
+    // );
+    return this.props.history.push("/checkout");
+  };
 
   componentDidMount() {
-    axios.get('http://0.0.0.0:8000/api/specialities/')
-      .then(response => {
-        console.log(response.data);
-        const res = response.data.message.map((val) => {
-          return {value: val.id, iD: val.speciality_id, label: val.name}
-        });
-        console.log(res);
-        this.setState({specialities: res });
-      })
-    axios.get('http://0.0.0.0:8000/api/doctor/list')
-      .then(response => {
-        const res = response.data.message.map((val) => {
-          return {value: val.id, iD: val.doctor_id, label: val.doctor, spec: val.speciality, price: val.price}
-        });
-        console.log(res, 'response')
-        this.setState({ doctors: res });
-      })
+    axios.get("http://0.0.0.0:8000/api/specialities/").then(response => {
+      console.log(response.data);
+      const res = response.data.message.map(val => {
+        return { value: val.id, iD: val.speciality_id, label: val.name };
+      });
+      console.log(res);
+      this.setState({ specialities: res });
+    });
+    axios.get("http://0.0.0.0:8000/api/doctor/list").then(response => {
+      const res = response.data.message.map(val => {
+        return {
+          value: val.id,
+          iD: val.doctor_id,
+          label: val.doctor,
+          spec: val.speciality,
+          price: val.price
+        };
+      });
+      console.log(res, "response");
+      this.setState({ doctors: res });
+    });
   }
 
   render() {
@@ -119,12 +129,12 @@ class ExamForm extends Component {
 }
 
 const mapStateToProps = state => {
-  const doctor = state.getIn(['doctorReducer', 'doctor']);
-  console.log(doctor)
+  const doctor = state.getIn(["doctorReducer", "doctor"]);
+  console.log(doctor);
   return {
     doctor,
     price: state.price
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(ExamForm);
