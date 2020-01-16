@@ -10,7 +10,7 @@ const Footer = () => {
     <footer className="page-footer">
       <div className="mainFooter">
         <div className="logo">
-          <Link to="/">
+          <Link to="/" className="mainLogo">
             <h1>Health Care</h1>
           </Link>
           <div className="socialMedia">
@@ -36,17 +36,17 @@ const Footer = () => {
           <h3>Visite</h3>
           <li>
             <Link className="homeClass" to="/">
-              Home
+              <span>Home</span>
             </Link>
           </li>
           <li>
             <Link className="aboutClass" to="/about">
-              About
+              <span>About</span>
             </Link>
           </li>
           <li>
             <Link className="contactClass" to="/contact">
-              Contact
+              <span>Contact</span>
             </Link>
           </li>
         </ul>
