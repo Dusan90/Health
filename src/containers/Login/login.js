@@ -32,7 +32,7 @@ class Login extends Component {
 
   userLogin = async () => {
     const data = await fetch(
-      "http://health-care-backend.herokuapp.com/api/auth/login/",
+      "https://health-care-backend.herokuapp.com/api/auth/login/",
       {
         method: "POST",
         headers: {
