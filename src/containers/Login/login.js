@@ -31,16 +31,19 @@ class Login extends Component {
   };
 
   userLogin = async () => {
-    const data = await fetch("http://0.0.0.0:8000/api/auth/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: this.state.emailValue,
-        password: this.state.passwordValue
-      })
-    });
+    const data = await fetch(
+      "http://health-care-backend.herokuapp.com/api/auth/login/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: this.state.emailValue,
+          password: this.state.passwordValue
+        })
+      }
+    );
 
     const jsonData = await data.json();
     if (jsonData.is_doctor) {

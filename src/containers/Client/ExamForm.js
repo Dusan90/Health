@@ -5,8 +5,8 @@ import Nav from "../../components/Main/Navbar";
 import axios from "axios";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
-import Popup from "reactjs-popup";
-import CheckoutForm from "./CheckoutForm";
+// import Popup from "reactjs-popup";
+// import CheckoutForm from "./CheckoutForm";
 
 class ExamForm extends Component {
   constructor(props) {
@@ -54,19 +54,22 @@ class ExamForm extends Component {
 
   handleSubmit = async () => {
     const access_token = "Bearer ".concat(this.state.token);
-    const response = await fetch("http://0.0.0.0:8000/api/client/initiate/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: access_token
-      },
-      body: JSON.stringify({
-        speciality: this.state.specialities,
-        doctor: this.state.doctor_id,
-        subject: this.state.subject,
-        message: this.state.message
-      })
-    });
+    const response = await fetch(
+      "http://health-care-backend.herokuapp.com/api/client/initiate/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token
+        },
+        body: JSON.stringify({
+          speciality: this.state.specialities,
+          doctor: this.state.doctor_id,
+          subject: this.state.subject,
+          message: this.state.message
+        })
+      }
+    );
     const data = await response.json();
     this.toCheckout();
     return data;
@@ -82,27 +85,31 @@ class ExamForm extends Component {
   };
 
   componentDidMount() {
-    axios.get("http://0.0.0.0:8000/api/specialities/").then(response => {
-      console.log(response.data);
-      const res = response.data.message.map(val => {
-        return { value: val.id, iD: val.speciality_id, label: val.name };
+    axios
+      .get("http://health-care-backend.herokuapp.com/api/specialities/")
+      .then(response => {
+        console.log(response.data);
+        const res = response.data.message.map(val => {
+          return { value: val.id, iD: val.speciality_id, label: val.name };
+        });
+        console.log(res);
+        this.setState({ specialities: res });
       });
-      console.log(res);
-      this.setState({ specialities: res });
-    });
-    axios.get("http://0.0.0.0:8000/api/doctor/list").then(response => {
-      const res = response.data.message.map(val => {
-        return {
-          value: val.id,
-          iD: val.doctor_id,
-          label: val.doctor,
-          spec: val.speciality,
-          price: val.price
-        };
+    axios
+      .get("http://health-care-backend.herokuapp.com/api/doctor/list")
+      .then(response => {
+        const res = response.data.message.map(val => {
+          return {
+            value: val.id,
+            iD: val.doctor_id,
+            label: val.doctor,
+            spec: val.speciality,
+            price: val.price
+          };
+        });
+        console.log(res, "response");
+        this.setState({ doctors: res });
       });
-      console.log(res, "response");
-      this.setState({ doctors: res });
-    });
   }
 
   render() {

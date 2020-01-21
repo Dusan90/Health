@@ -1,87 +1,95 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 import "../../assets/main/main.scss";
-import Profile from '../../components/Client/Profile';
-import { connect } from 'react-redux';
-import { NotificationManager } from 'react-notifications';
-
+import Profile from "../../components/Client/Profile";
+import { connect } from "react-redux";
+import { NotificationManager } from "react-notifications";
 
 class ClientProfile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          client: [],
-          records: [],
-          addressValue: '',
-          token: sessionStorage.getItem('accessToken')
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      client: [],
+      records: [],
+      addressValue: "",
+      token: sessionStorage.getItem("accessToken")
+    };
+  }
 
-    handleAddress = (e) => {
-        this.setState({addressValue: e.target.value})
-    }
+  handleAddress = e => {
+    this.setState({ addressValue: e.target.value });
+  };
 
-    handleSubmit = async (e) => {
-        e.preventDefault();
-        const access_token = 'Bearer '.concat(this.state.token)
-        const data = await fetch('http://0.0.0.0:8000/api/client/profile/', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': access_token,
-              },
-            body: JSON.stringify({
-                address: this.state.addressValue,
-            })
-        });
-        const jsonData = await data.json();
-        console.log(jsonData)
-        NotificationManager.success('Profile Updated!', 'Successful!', 2000);
-        this.handleClientProfile()   
-    }
-
-    handleClientProfile = async () => {
-        const access_token = 'Bearer '.concat(this.state.token)
-        axios.get(`http://0.0.0.0:8000/api/client/profile/`, { headers: { 'Authorization': access_token }})
-            .then(response => {
-                return this.setState({client: Object.values(response.data)})
+  handleSubmit = async e => {
+    e.preventDefault();
+    const access_token = "Bearer ".concat(this.state.token);
+    const data = await fetch(
+      "http://health-care-backend.herokuapp.com/api/client/profile/",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token
+        },
+        body: JSON.stringify({
+          address: this.state.addressValue
         })
-    }
+      }
+    );
+    const jsonData = await data.json();
+    console.log(jsonData);
+    NotificationManager.success("Profile Updated!", "Successful!", 2000);
+    this.handleClientProfile();
+  };
 
-    record = async () => {
-        const access_token = 'Bearer '.concat(this.state.token)
-        axios.get(`http://0.0.0.0:8000/api/client/records/`, { headers: { 'Authorization': access_token }})
-            .then(response => {
-                console.log(response)
-                return this.setState({records: Object.values(response.data)})
-        })
-    }
+  handleClientProfile = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`http://health-care-backend.herokuapp.com/api/client/profile/`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        return this.setState({ client: Object.values(response.data) });
+      });
+  };
 
-    componentDidMount() {
-        this.handleClientProfile()
-        this.record()
-    }
+  record = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`http://health-care-backend.herokuapp.com/api/client/records/`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        console.log(response);
+        return this.setState({ records: Object.values(response.data) });
+      });
+  };
 
-    render() {
-        return (
-            <div className="container">
-                <Profile 
-                    client={this.state.client}
-                    addressValue={this.addressValue}
-                    submitValue={this.submitValue}
-                    handleAddress={this.handleAddress}
-                    handleSubmit={this.handleSubmit}
-                />
-            </div>
-        )
-    }
+  componentDidMount() {
+    this.handleClientProfile();
+    this.record();
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <Profile
+          client={this.state.client}
+          addressValue={this.addressValue}
+          submitValue={this.submitValue}
+          handleAddress={this.handleAddress}
+          handleSubmit={this.handleSubmit}
+        />
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
-    const doctor = state.getIn(['doctorReducer', 'doctor']);
-    return {
-        doctor,
-    }
-  }
+  const doctor = state.getIn(["doctorReducer", "doctor"]);
+  return {
+    doctor
+  };
+};
 
 export default connect(mapStateToProps)(ClientProfile);

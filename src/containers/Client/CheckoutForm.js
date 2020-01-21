@@ -20,16 +20,19 @@ class CheckoutForm extends Component {
     });
     const price = parseInt(this.props.doctor.price, 10);
 
-    const response = await fetch("http://0.0.0.0:8000/api/charge/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        payment_method_id: paymentMethod.id,
-        amount: price
-      })
-    });
+    const response = await fetch(
+      "http://health-care-backend.herokuapp.com/api/charge/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          payment_method_id: paymentMethod.id,
+          amount: price
+        })
+      }
+    );
     // await handleServerResponse(await response.json())
     const data = await response.json();
     if (data.message === true) {

@@ -40,7 +40,7 @@ class Main extends Component {
 
   componentDidMount() {
     axios
-      .get("http://0.0.0.0:8000/api/doctor/list", {
+      .get("https://health-care-backend.herokuapp.com/api/doctor/list", {
         headers: { Authorization: access_token }
       })
       .then(response => {
