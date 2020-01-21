@@ -18,7 +18,7 @@ class DoctorMessage extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `http://health-care-backend.herokuapp.com/api/doctor/exams/${this.props.examID}/message`,
+        `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.props.examID}/message`,
         { headers: { Authorization: access_token } }
       )
       .then(response => {
@@ -34,7 +34,7 @@ class DoctorMessage extends Component {
     // const data = new FormData()
     // data.append('file', this.state.selectedFile, this.state.selectedFile.name)
     const client = await fetch(
-      `http://health-care-backend.herokuapp.com/api/doctor/exams/${this.props.examID}/message/`,
+      `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.props.examID}/message/`,
       {
         method: "POST",
         headers: {

@@ -55,7 +55,7 @@ class ExamForm extends Component {
   handleSubmit = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     const response = await fetch(
-      "http://health-care-backend.herokuapp.com/api/client/initiate/",
+      "https://health-care-backend.herokuapp.com/api/client/initiate/",
       {
         method: "POST",
         headers: {
@@ -86,7 +86,7 @@ class ExamForm extends Component {
 
   componentDidMount() {
     axios
-      .get("http://health-care-backend.herokuapp.com/api/specialities/")
+      .get("https://health-care-backend.herokuapp.com/api/specialities/")
       .then(response => {
         console.log(response.data);
         const res = response.data.message.map(val => {
@@ -96,7 +96,7 @@ class ExamForm extends Component {
         this.setState({ specialities: res });
       });
     axios
-      .get("http://health-care-backend.herokuapp.com/api/doctor/list")
+      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
       .then(response => {
         const res = response.data.message.map(val => {
           return {

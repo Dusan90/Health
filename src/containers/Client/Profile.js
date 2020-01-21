@@ -24,7 +24,7 @@ class ClientProfile extends Component {
     e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
     const data = await fetch(
-      "http://health-care-backend.herokuapp.com/api/client/profile/",
+      "https://health-care-backend.herokuapp.com/api/client/profile/",
       {
         method: "PUT",
         headers: {
@@ -45,7 +45,7 @@ class ClientProfile extends Component {
   handleClientProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://health-care-backend.herokuapp.com/api/client/profile/`, {
+      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
         headers: { Authorization: access_token }
       })
       .then(response => {
@@ -56,7 +56,7 @@ class ClientProfile extends Component {
   record = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://health-care-backend.herokuapp.com/api/client/records/`, {
+      .get(`https://health-care-backend.herokuapp.com/api/client/records/`, {
         headers: { Authorization: access_token }
       })
       .then(response => {

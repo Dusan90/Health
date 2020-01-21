@@ -96,7 +96,7 @@ class Register extends Component {
 
   componentDidMount() {
     axios
-      .get("http://health-care-backend.herokuapp.com/api/specialities/")
+      .get("https://health-care-backend.herokuapp.com/api/specialities/")
       .then(response => {
         console.log(response.data);
         const res = response.data.message.map(val => {
@@ -110,7 +110,7 @@ class Register extends Component {
   userRegister = async () => {
     if (this.state.userType === "client") {
       const client = await fetch(
-        "http://health-care-backend.herokuapp.com/api/auth/register/client/",
+        "https://health-care-backend.herokuapp.com/api/auth/register/client/",
         {
           method: "POST",
           headers: {
@@ -135,7 +135,7 @@ class Register extends Component {
       return jsonData;
     } else if (this.state.userType === "doctor") {
       const doctor = await fetch(
-        "http://health-care-backend.herokuapp.com/api/auth/register/doctor/",
+        "https://health-care-backend.herokuapp.com/api/auth/register/doctor/",
         {
           method: "POST",
           headers: {

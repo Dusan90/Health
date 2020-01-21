@@ -18,7 +18,7 @@ class ClientDetailExam extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `http://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/`,
+        `https://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/`,
         { headers: { Authorization: access_token } }
       )
       .then(response => {

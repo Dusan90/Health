@@ -26,7 +26,7 @@ class ClientDashboard extends Component {
   exams = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("http://health-care-backend.herokuapp.com/api/client/exams/", {
+      .get("https://health-care-backend.herokuapp.com/api/client/exams/", {
         headers: { Authorization: access_token }
       })
       .then(response => {

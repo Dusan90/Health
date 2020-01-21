@@ -21,7 +21,7 @@ class CheckoutForm extends Component {
     const price = parseInt(this.props.doctor.price, 10);
 
     const response = await fetch(
-      "http://health-care-backend.herokuapp.com/api/charge/",
+      "https://health-care-backend.herokuapp.com/api/charge/",
       {
         method: "POST",
         headers: {

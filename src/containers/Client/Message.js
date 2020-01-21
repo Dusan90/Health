@@ -18,7 +18,7 @@ class ClientMessage extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `http://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/message`,
+        `https://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/message`,
         { headers: { Authorization: access_token } }
       )
       .then(response => {
@@ -32,7 +32,7 @@ class ClientMessage extends Component {
   sendMessage = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     const doctor = await fetch(
-      `http://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/message/`,
+      `https://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/message/`,
       {
         method: "POST",
         headers: {
