@@ -14,6 +14,7 @@ const Dashboard = ({
   handleClick,
   handleClient,
   pending,
+  handleChange,
   props
 }) => {
   let short = pending ? pending.slice(0, 3) : null;
@@ -90,7 +91,7 @@ const Dashboard = ({
           </div>
           <div className="sort">
             <label>Sort by: </label>
-            <select name="" id="">
+            <select name="" id="" onClick={handleChange}>
               <option value="latest">Latest</option>
               <option value="earliest">Earliest</option>
             </select>

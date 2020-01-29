@@ -13,7 +13,8 @@ class DoctorDashboard extends Component {
       record: [],
       token: sessionStorage.getItem("accessToken"),
       pending: "",
-      openPending: false
+      openPending: false,
+      value: ""
     };
   }
 
@@ -56,6 +57,18 @@ class DoctorDashboard extends Component {
       });
   };
 
+  handleChange = e => {
+    this.setState({ value: e.target.value });
+
+    if (this.state.value === "latest") {
+      let sort = this.state.exams.sort((a, b) => b.status - a.status);
+      console.log(sort);
+    } else {
+      let resort = this.state.exams.sort((a, b) => a.status - b.status);
+      console.log(resort);
+    }
+  };
+
   handleClick = id => {
     this.props.history.push(`/doctor/exam/detail/${id}`);
   };
@@ -68,12 +81,21 @@ class DoctorDashboard extends Component {
     this.setState({ openPending: !this.state.openPending });
   };
 
+  escBtn = e => {
+    if (e.keyCode === 27) {
+      this.setState({ openPending: false });
+    }
+  };
+
   componentDidMount() {
     this.exams();
     this.clients();
+    window.addEventListener("keydown", this.escBtn);
   }
 
   render() {
+    console.log(this.state.value);
+
     return (
       <div className="container">
         <Header />
@@ -87,6 +109,8 @@ class DoctorDashboard extends Component {
           pending={this.state.pending}
           hnlClick={this.hnlClick}
           props={this.state}
+          handleKeyPress={this.handleKeyPress}
+          handleChange={this.handleChange}
         />
       </div>
     );
