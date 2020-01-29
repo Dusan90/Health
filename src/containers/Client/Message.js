@@ -10,17 +10,17 @@ class ClientMessage extends Component {
       doctor: [],
       messageValue: "",
       selectedFile: null,
-      token: sessionStorage.getItem("accessToken")
+      token: sessionStorage.getItem("accessToken"),
+      id: this.props.match.params.id
     };
   }
 
   doctor = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/message`,
-        { headers: { Authorization: access_token } }
-      )
+      .get(`http://127.0.0.1:8000/api/client/exams/${this.state.id}/message`, {
+        headers: { Authorization: access_token }
+      })
       .then(response => {
         return this.setState({ doctor: response.data.doctor });
       })
@@ -32,7 +32,7 @@ class ClientMessage extends Component {
   sendMessage = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     const doctor = await fetch(
-      `https://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/message/`,
+      `http://127.0.0.1:8000/api/client/exams/${this.state.id}/message/`,
       {
         method: "POST",
         headers: {

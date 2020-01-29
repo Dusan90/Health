@@ -15,17 +15,17 @@ const Footer = () => {
           </Link>
           <div className="socialMedia">
             <div>
-              <a href="#">
+              <a href="/#">
                 <FaInstagram className="insta" />
               </a>
             </div>
             <div>
-              <a href="#">
+              <a href="/#">
                 <FaFacebookF className="facebook" />
               </a>
             </div>
             <div>
-              <a href="#">
+              <a href="/#">
                 <FaTwitter className="twitter" />
               </a>
             </div>

@@ -15,33 +15,39 @@ class DetailExam extends Component {
       exam: [],
       statusValue: "",
       selectedStatus: "",
-      token: sessionStorage.getItem("accessToken")
+      token: sessionStorage.getItem("accessToken"),
+      id: ""
     };
   }
 
-  detail = () => {
+  detail = id => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.props.examID}/`,
-        { headers: { Authorization: access_token } }
-      )
+      .get(`http://127.0.0.1:8000/api/doctor/exams/${id}`, {
+        headers: { Authorization: access_token }
+      })
       .then(response => {
+        console.log(response);
+
         this.setState({ exam: Object.values(response.data) });
       });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.doctorExam();
+    let id = this.props.match.params.id;
+
+    this.doctorExam(id);
   };
 
   handleLink = () => {
-    this.props.history.push("/doctor/exam/correspondence");
+    this.props.history.push(`/doctor/exam/correspondence/${this.state.id}`);
   };
 
   handleLinkMessage = () => {
-    this.props.history.push("/doctor/exam/message");
+    console.log(this.state.id);
+
+    this.props.history.push(`/doctor/exam/message/${this.state.id}`);
   };
 
   handleStatus = statusValue => {
@@ -51,10 +57,10 @@ class DetailExam extends Component {
     this.setState({ selectedStatus: value });
   };
 
-  doctorExam = async () => {
+  doctorExam = async id => {
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.props.examID}/`,
+      `http://127.0.0.1:8000/api/doctor/exams/${id}/`,
       {
         method: "PUT",
         headers: {
@@ -71,7 +77,9 @@ class DetailExam extends Component {
   };
 
   componentDidMount() {
-    this.detail();
+    let id = this.props.match.params.id;
+    this.setState({ id: id });
+    this.detail(id);
   }
 
   render() {

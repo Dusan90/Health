@@ -13,7 +13,8 @@ const InitiateExam = ({
   handleDoctor,
   handleSubject,
   handleSubmit,
-  handleMessage
+  handleMessage,
+  props
 }) => (
   <div className="exam">
     <div className="mainExam">
@@ -66,6 +67,11 @@ const InitiateExam = ({
         Submit Exam
       </Link>
     </div>
+    {/* {props.isClicked ? (
+      <Elements>
+        <CheckoutForm />
+      </Elements>
+    ) : null} */}
   </div>
 );
 

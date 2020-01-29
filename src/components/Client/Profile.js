@@ -1,7 +1,6 @@
 import React from "react";
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
-import Footer from "../../components/Main/Footer";
 // import SideNavbar from '../../containers/Home/SideNav';
 import "../../assets/client/profile.scss";
 
@@ -58,7 +57,6 @@ const Profile = ({
           </div>
         );
       })}
-    <Footer />
     {/* </div> */}
   </>
 );

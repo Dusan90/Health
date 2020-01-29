@@ -13,7 +13,8 @@ class Login extends Component {
       emailValue: "",
       passwordValue: "",
       submitted: false,
-      is_doctor: false
+      is_doctor: false,
+      invalid: false
     };
   }
 
@@ -30,37 +31,61 @@ class Login extends Component {
     this.userLogin();
   };
 
-  userLogin = async () => {
-    const data = await fetch(
-      "https://health-care-backend.herokuapp.com/api/auth/login/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: this.state.emailValue,
-          password: this.state.passwordValue
-        })
-      }
+  message = () => {
+    return (
+      <p
+        style={{
+          background: "red",
+          width: "50%",
+          margin: "0 auto",
+          color: "white"
+        }}
+      >
+        Invalid Credentials
+      </p>
     );
+  };
+
+  userLogin = async () => {
+    const data = await fetch("http://127.0.0.1:8000/api/auth/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: this.state.emailValue,
+        password: this.state.passwordValue
+      })
+    });
 
     const jsonData = await data.json();
-    if (jsonData.is_doctor) {
-      this.setState({ is_doctor: true });
+    if (
+      jsonData.detail === "Invalid credentials" ||
+      jsonData.detail === "User does not exist"
+    ) {
+      this.setState({ invalid: true });
+      let int = setInterval(() => {
+        this.setState({ invalid: false });
+        clearInterval(int);
+      }, 4000);
     } else {
-      this.setState({ is_doctor: false });
+      if (jsonData.is_doctor) {
+        this.setState({ is_doctor: true });
+      } else {
+        this.setState({ is_doctor: false });
+      }
+      this.props.dispatch(userLogin(jsonData.data));
+      if (jsonData.data.access_token) {
+        sessionStorage.setItem("accessToken", jsonData.data.access_token);
+        sessionStorage.setItem("expiresIn", jsonData.data.expires_in);
+        sessionStorage.setItem("is_doctor", this.state.is_doctor);
+        localStorage.setItem("refreshToken", jsonData.data.refresh_token);
+        this.props.dispatch(userLoggedIn());
+      }
+      this.redirectUser();
+      console.log(jsonData, "data");
+      return jsonData;
     }
-    this.props.dispatch(userLogin(jsonData.data));
-    if (jsonData.data.access_token) {
-      sessionStorage.setItem("accessToken", jsonData.data.access_token);
-      sessionStorage.setItem("expiresIn", jsonData.data.expires_in);
-      sessionStorage.setItem("is_doctor", this.state.is_doctor);
-      localStorage.setItem("refreshToken", jsonData.data.refresh_token);
-      this.props.dispatch(userLoggedIn());
-    }
-    this.redirectUser();
-    return jsonData;
   };
 
   redirectUser = () => {
@@ -80,6 +105,7 @@ class Login extends Component {
       <div className="container">
         <Header />
         <Nav />
+        {this.state.invalid ? this.message() : null}
         <LoginUser
           emailValue={this.state.emailValue}
           passwordValue={this.state.passwordValue}
@@ -88,8 +114,6 @@ class Login extends Component {
           handlePassword={this.handlePassword}
           handleSubmit={this.handleSubmit}
         />
-
-        {/* <Footer /> */}
       </div>
     );
   }

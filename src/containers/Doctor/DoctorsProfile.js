@@ -16,10 +16,9 @@ class DoctorProfile extends Component {
   hanldeDoctorsProfile = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/doctor/profile/${this.props.doctor}`,
-        { headers: { Authorization: access_token } }
-      )
+      .get(`http://127.0.0.1:8000/api/doctor/profile/${this.props.doctor}`, {
+        headers: { Authorization: access_token }
+      })
       .then(response => {
         return this.setState({ doctor: Object.values(response.data) });
       });

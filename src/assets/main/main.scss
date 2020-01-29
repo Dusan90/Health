@@ -1,5 +1,23 @@
 .container {
+  .doctor {
+    border: 1px solid white;
+    border-radius: 5px;
+
+    .rounded-pill {
+      width: 100%;
+      text-align: left;
+      padding: 5px;
+
+      p {
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        color: black;
+        text-indent: 10px;
+      }
+    }
+  }
   // height: 100vh;
+  margin-bottom: 120px;
   .doctor-panel {
     position: relative;
     border-radius: 4px;

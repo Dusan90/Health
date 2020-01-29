@@ -1,77 +1,96 @@
+.doctor {
+  display: flex;
+  .imginput {
+    margin-right: 30px;
+    .doctor-p {
+      position: relative;
+      width: 200px;
+      border: 1px solid rgb(114, 223, 250);
+      border-radius: 10px;
+      height: 180px;
+      padding: 5px;
 
-.doctor{
-    width: 200px;
-    position: relative;
+      p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+      }
+    }
+    input {
+      margin: 8px 0;
+      width: 130px;
+      border-radius: 5px;
+    }
+  }
+
+  .info {
     border: 1px solid rgb(114, 223, 250);
     border-radius: 10px;
     height: 180px;
-    margin: 10px;
     padding: 5px;
+    width: 100%;
+    text-align: start;
+    p {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      text-indent: 10px;
+      color: white;
+    }
+  }
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
 
-    .doctor-p{
-        position: relative;
+.form {
+  width: 100%;
+  margin: 30px auto;
+
+  .pref-price {
+    display: flex;
+    justify-content: center;
+
+    .prefix {
+      padding: 5px;
+
+      .prefix-input {
+        left: 100px;
+        border: 1px solid rgba(78, 190, 241, 0.548);
+        border-radius: 5px;
+        padding: 5px;
+      }
     }
 
-    .form{
-        position: absolute;
-        left: 250px;
-        top: 0px;
-        border-radius: 10px;
-        width: 500px;
-        height: 180px;
-        
-        .prefix{
-            position: absolute;
-            left: 0px;
-            padding: 5px;
-
-            .prefix-input{
-                left: 100px;
-                border: 1px solid rgba(78, 190, 241, 0.548);
-                border-radius: 5px;
-                padding: 5px;
-            }
-        }
-
-        .description{
-            position: absolute;
-            left: 180px;
-            padding: 5px;
-            grid-row: 5;
-
-            .description-input{
-                height: 135px;
-                left: 235px;
-                border: 1px solid rgba(78, 190, 241, 0.548);
-                border-radius: 5px;
-                padding: 5px;
-            }
-        }
-
-        .price{
-            position: absolute;
-            top: 50px;
-            left: 0px;
-            padding: 5px;
-
-            .price-input{
-                left: 100px;
-                border: 1px solid rgba(78, 190, 241, 0.548);
-                border-radius: 5px;
-                padding: 5px;
-            }
-        }
-
-        .submit{
-            position: absolute;
-            top: 100px;
-            left: 0px;
-            padding: 5px;
-
-            .btn{
-                width: 156px;
-                color: white;
-            }
-        }
+    .price {
+      align-self: center;
+      .price-input {
+        border: 1px solid rgba(78, 190, 241, 0.548);
+        border-radius: 5px;
+        padding: 5px;
+      }
     }
+  }
+
+  .description {
+    margin: 20px auto;
+    .description-input {
+      height: 135px;
+      width: 380px;
+      border: 1px solid rgba(78, 190, 241, 0.548);
+      border-radius: 5px;
+      padding: 5px;
+      margin: 0 auto;
+    }
+  }
+
+  .submit {
+    margin: 0 auto;
+    .btn {
+      width: 156px;
+      color: white;
+    }
+  }
 }

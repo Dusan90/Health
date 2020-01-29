@@ -20,7 +20,7 @@ const Nav = ({
     dashboardLink = (
       <Link
         to="/dashboard-doctor"
-        classNane="doc-dash"
+        className="doc-dash"
         onClick={() => handleDashboardDoctor}
       >
         Dashboard
@@ -29,7 +29,7 @@ const Nav = ({
     profileLink = (
       <Link
         to="/doctor/profile"
-        classNane="doc-profile"
+        className="doc-profile"
         onClick={handleDoctorProfile}
       >
         Profile
@@ -39,7 +39,7 @@ const Nav = ({
     dashboardLink = (
       <Link
         to="/dashboard-client"
-        classNane="cli-dash"
+        className="cli-dash"
         onClick={() => handleDashboardClient}
       >
         Dashboard
@@ -48,7 +48,7 @@ const Nav = ({
     profileLink = (
       <Link
         to="/client/profile"
-        classNane="cli-profile"
+        className="cli-profile"
         onClick={handleClientProfile}
       >
         Profile

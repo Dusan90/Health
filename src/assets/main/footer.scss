@@ -1,9 +1,8 @@
 .page-footer {
-  height: 215px;
+  height: 120px;
   width: 100%;
   border-top: 1px solid white;
-  margin-top: 30px;
-  background: transparent;
+  background: rgb(80, 80, 80);
   position: fixed;
   bottom: 0;
 
@@ -35,7 +34,7 @@
 
 .logo p {
   color: white;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .insta,
@@ -44,7 +43,7 @@
   height: 30px;
   width: 30px;
   color: white;
-  margin-top: 20px;
+  margin-top: 10px;
   transition: all 0.5s ease-in-out;
 }
 
@@ -69,7 +68,7 @@
 }
 
 .mainFooter ul li {
-  margin-top: 30px;
+  margin-top: 5px;
   list-style: none;
   color: white;
   text-decoration: none;

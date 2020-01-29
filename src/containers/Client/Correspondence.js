@@ -10,17 +10,19 @@ class ClientCorrespondence extends Component {
     this.state = {
       correspondence: [],
       messageValue: "",
-      token: sessionStorage.getItem("accessToken")
+      token: sessionStorage.getItem("accessToken"),
+      id: this.props.match.params.id,
+      obj: "",
+      active: true
     };
   }
 
   correspondence = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/messages`,
-        { headers: { Authorization: access_token } }
-      )
+      .get(`http://127.0.0.1:8000/api/client/exams/${this.state.id}/messages`, {
+        headers: { Authorization: access_token }
+      })
       .then(response => {
         const res = response.data.messages.map(val => {
           return {
@@ -31,7 +33,6 @@ class ClientCorrespondence extends Component {
             attachment: val.attachment
           };
         });
-        console.log(res, "data");
         this.setState({ correspondence: res });
         var sender_obj = this.state.correspondence[0].sender;
         this.props.dispatch(doctor(sender_obj));
@@ -42,10 +43,18 @@ class ClientCorrespondence extends Component {
     this.setState({ messageValue: e.target.value });
   };
 
+  handleClick = index => {
+    console.log(this.state.active);
+
+    let active = this.state.active;
+    this.setState({ active: !this.state.active });
+    this.setState({ obj: { ...this.state.correspondence[index], active } });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     this.setState({ messageValue: "" });
-    this.correspondence();
+    // this.correspondence();
   };
 
   componentDidMount() {
@@ -61,6 +70,8 @@ class ClientCorrespondence extends Component {
           handleMessage={this.handleMessage}
           submitValue={this.state.submitValue}
           handleSubmit={this.handleSubmit}
+          handleClick={this.handleClick}
+          props={this.state}
         />
       </div>
     );

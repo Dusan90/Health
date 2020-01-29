@@ -22,6 +22,7 @@ class ExamForm extends Component {
       price: null,
       doctor_id: null,
       token: sessionStorage.getItem("accessToken")
+      // isClicked: false
     };
   }
 
@@ -52,64 +53,60 @@ class ExamForm extends Component {
     this.setState({ message: e.target.value });
   };
 
-  handleSubmit = async () => {
+  handleSubmit = async e => {
+    // e.preventDefault();
+    // this.setState({ isClicked: !this.state.isClicked });
     const access_token = "Bearer ".concat(this.state.token);
-    const response = await fetch(
-      "https://health-care-backend.herokuapp.com/api/client/initiate/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: access_token
-        },
-        body: JSON.stringify({
-          speciality: this.state.specialities,
-          doctor: this.state.doctor_id,
-          subject: this.state.subject,
-          message: this.state.message
-        })
-      }
-    );
+    const response = await fetch("http://127.0.0.1:8000/api/client/initiate/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: access_token
+      },
+      body: JSON.stringify({
+        speciality: this.state.specialities,
+        doctor: this.state.doctor_id,
+        subject: this.state.subject,
+        message: this.state.message
+      })
+    });
     const data = await response.json();
+    console.log(data, "exam");
     this.toCheckout();
     return data;
   };
 
   toCheckout = async () => {
-    // return (
-    //   <Popup trigger={<button> Next </button>}>
-    //     <CheckoutForm />
-    //   </Popup>
-    // );
+    //   // return (
+    //   //   <Popup trigger={<button> Next </button>}>
+    //   //     <CheckoutForm />
+    //   //   </Popup>
+    //   // );
     return this.props.history.push("/checkout");
   };
 
   componentDidMount() {
-    axios
-      .get("https://health-care-backend.herokuapp.com/api/specialities/")
-      .then(response => {
-        console.log(response.data);
-        const res = response.data.message.map(val => {
-          return { value: val.id, iD: val.speciality_id, label: val.name };
-        });
-        console.log(res);
-        this.setState({ specialities: res });
+    axios.get("http://127.0.0.1:8000/api/specialities/").then(response => {
+      console.log(response.data);
+      const res = response.data.message.map(val => {
+        return { value: val.id, iD: val.speciality_id, label: val.name };
       });
-    axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
-      .then(response => {
-        const res = response.data.message.map(val => {
-          return {
-            value: val.id,
-            iD: val.doctor_id,
-            label: val.doctor,
-            spec: val.speciality,
-            price: val.price
-          };
-        });
-        console.log(res, "response");
-        this.setState({ doctors: res });
+      console.log(res);
+      this.setState({ specialities: res });
+    });
+    axios.get("http://127.0.0.1:8000/api/doctor/list").then(response => {
+      const res = response.data.message.map(val => {
+        return {
+          value: val.id,
+          iD: val.doctor_id,
+          label: val.doctor,
+          spec: val.speciality,
+          price: val.price
+        };
       });
+      console.log(res, "response");
+      this.setState({ doctors: res });
+    });
   }
 
   render() {
@@ -129,6 +126,7 @@ class ExamForm extends Component {
           handleSubject={this.handleSubject}
           handleSubmit={this.handleSubmit}
           handleMessage={this.handleMessage}
+          props={this.state}
         />
       </div>
     );

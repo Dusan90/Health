@@ -31,14 +31,14 @@ const Detail = ({ exam, handleLink, handleLinkMessage }) => (
             {exam.status === "Accepted" && (
               <div className="message-btn">
                 <Link
-                  to="/client/exam/correspondence"
+                  // to="/client/exam/correspondence"
                   className="messages-link"
                   onClick={handleLink}
                 >
                   Message history
                 </Link>
                 <Link
-                  to="/client/exam/message"
+                  // to="/client/exam/message"
                   className="message-link"
                   onClick={handleLinkMessage}
                 >

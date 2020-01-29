@@ -12,7 +12,7 @@ class CheckoutForm extends Component {
   }
 
   submit = async ev => {
-    ev.preventDefault();
+    // ev.preventDefault();
     const cardElement = this.props.elements.getElement("card");
     const { paymentMethod } = await this.props.stripe.createPaymentMethod({
       type: "card",
@@ -20,19 +20,16 @@ class CheckoutForm extends Component {
     });
     const price = parseInt(this.props.doctor.price, 10);
 
-    const response = await fetch(
-      "https://health-care-backend.herokuapp.com/api/charge/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          payment_method_id: paymentMethod.id,
-          amount: price
-        })
-      }
-    );
+    const response = await fetch("http://127.0.0.1:8000/api/charge/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        payment_method_id: paymentMethod.id,
+        amount: price
+      })
+    });
     // await handleServerResponse(await response.json())
     const data = await response.json();
     if (data.message === true) {
@@ -73,8 +70,13 @@ class CheckoutForm extends Component {
   render() {
     if (this.state.complete)
       return (
-        <h1>
-          <Link to="/dashboard-client">Submit Completed</Link>
+        <h1 style={{}}>
+          <Link
+            style={{ textDecoration: "none", color: "lightgreen" }}
+            to="/dashboard-client"
+          >
+            Submit Completed
+          </Link>
         </h1>
       );
     return (

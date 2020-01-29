@@ -109,17 +109,17 @@ class App extends Component {
                 />
 
                 <Route
-                  path="/doctor/exam/detail"
+                  path="/doctor/exam/detail/:id"
                   exact
                   component={DetailExam}
                 />
                 <Route
-                  path="/doctor/exam/correspondence"
+                  path="/doctor/exam/correspondence/:id"
                   exact
                   component={Correspondence}
                 />
                 <Route
-                  path="/doctor/exam/message"
+                  path="/doctor/exam/message/:id"
                   exact
                   component={DoctorMessage}
                 />
@@ -137,17 +137,17 @@ class App extends Component {
 
                 <Route path="/client/profile" exact component={ClientProfile} />
                 <Route
-                  path="/client/exam/detail"
+                  path="/client/exam/detail/:id"
                   exact
                   component={ClientDetailExam}
                 />
                 <Route
-                  path="/client/exam/correspondence"
+                  path="/client/exam/correspondence/:id"
                   exact
                   component={ClientCorrespondence}
                 />
                 <Route
-                  path="/client/exam/message"
+                  path="/client/exam/message/:id"
                   exact
                   component={ClientMessage}
                 />

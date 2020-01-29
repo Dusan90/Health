@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { connect } from "react-redux";
 import Dashboard from "../../components/Doctor/Dashboard";
-import { examID } from "../../actions/examActions";
-import { clientID } from "../../actions/clientActions";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 
@@ -14,20 +11,22 @@ class DoctorDashboard extends Component {
       exams: [],
       clients: [],
       record: [],
-      token: sessionStorage.getItem("accessToken")
+      token: sessionStorage.getItem("accessToken"),
+      pending: "",
+      openPending: false
     };
   }
 
   exams = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/exams/", {
+      .get("http://127.0.0.1:8000/api/doctor/exams/", {
         headers: { Authorization: access_token }
       })
       .then(response => {
         const res = response.data.message.map(val => {
           return {
-            exam: val.id,
+            id: val.id,
             client: val.client,
             created: val.created,
             subject: val.subject,
@@ -35,13 +34,18 @@ class DoctorDashboard extends Component {
           };
         });
         this.setState({ exams: res });
+        this.setState({
+          pending: [
+            ...this.state.exams.filter(res => res.status !== "Accepted")
+          ]
+        });
       });
   };
 
   clients = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/clients/", {
+      .get("http://127.0.0.1:8000/api/doctor/clients/", {
         headers: { Authorization: access_token }
       })
       .then(response => {
@@ -52,14 +56,16 @@ class DoctorDashboard extends Component {
       });
   };
 
-  handleClick = e => {
-    this.props.dispatch(examID(e.currentTarget.dataset.id));
-    this.props.history.push("/doctor/exam/detail");
+  handleClick = id => {
+    this.props.history.push(`/doctor/exam/detail/${id}`);
   };
 
   handleClient = e => {
-    this.props.dispatch(clientID(e.currentTarget.dataset.id));
     this.props.history.push("/doctor/record/detail");
+  };
+
+  hnlClick = () => {
+    this.setState({ openPending: !this.state.openPending });
   };
 
   componentDidMount() {
@@ -73,20 +79,18 @@ class DoctorDashboard extends Component {
         <Header />
         <Nav />
         <Dashboard
+          websocket={this.ws}
           exams={this.state.exams}
           clients={this.state.clients}
           handleClick={this.handleClick}
           handleClient={this.handleClient}
+          pending={this.state.pending}
+          hnlClick={this.hnlClick}
+          props={this.state}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    exam: state.exam
-  };
-};
-
-export default connect(mapStateToProps)(DoctorDashboard);
+export default DoctorDashboard;

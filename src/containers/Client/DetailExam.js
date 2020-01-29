@@ -10,28 +10,28 @@ class ClientDetailExam extends Component {
       exam: [],
       statusValue: "",
       selectedStatus: "",
-      token: sessionStorage.getItem("accessToken")
+      token: sessionStorage.getItem("accessToken"),
+      id: this.props.match.params.id
     };
   }
 
   detail = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/client/exams/${this.props.examID}/`,
-        { headers: { Authorization: access_token } }
-      )
+      .get(`http://127.0.0.1:8000/api/client/exams/${this.state.id}/`, {
+        headers: { Authorization: access_token }
+      })
       .then(response => {
         this.setState({ exam: Object.values(response.data) });
       });
   };
 
   handleLink = () => {
-    this.props.history.push("/client/exam/correspondence");
+    this.props.history.push(`/client/exam/correspondence/${this.state.id}`);
   };
 
   handleLinkMessage = () => {
-    this.props.history.push("/client/exam/message");
+    this.props.history.push(`/client/exam/message/${this.state.id}`);
   };
 
   componentDidMount() {
@@ -53,6 +53,8 @@ class ClientDetailExam extends Component {
 
 const mapStateToProps = state => {
   const examID = state.getIn(["examReducer", "examID"]);
+  console.log(examID);
+
   return {
     examID
   };
