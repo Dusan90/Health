@@ -10,7 +10,9 @@ class Correspondence extends Component {
     this.state = {
       correspondence: [],
       token: sessionStorage.getItem("accessToken"),
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
+      obj: "",
+      active: true
     };
   }
 
@@ -43,12 +45,24 @@ class Correspondence extends Component {
     console.log(this.state.id);
   }
 
+  handleClick = index => {
+    console.log(this.state.active);
+
+    let active = this.state.active;
+    this.setState({ active: !this.state.active });
+    this.setState({ obj: { ...this.state.correspondence[index], active } });
+  };
+
   render() {
     console.log(this.state.id);
 
     return (
       <div className="container">
-        <CorrespondenceMessage correspondence={this.state.correspondence} />
+        <CorrespondenceMessage
+          correspondence={this.state.correspondence}
+          props={this.state}
+          handleClick={this.handleClick}
+        />
       </div>
     );
   }

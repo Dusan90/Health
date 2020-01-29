@@ -130,7 +130,7 @@ class App extends Component {
                   component={DoctorsProfile}
                 />
                 <Route
-                  path="/doctor/record/detail"
+                  path="/doctor/record/detail/:id"
                   exact
                   component={ClientRecord}
                 />

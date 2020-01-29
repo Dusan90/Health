@@ -5,7 +5,7 @@ import { MdDateRange } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
 import { FaUserClock } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
-import { FaBan } from "react-icons/fa";
+import { FaRegClock } from "react-icons/fa";
 
 const Dashboard = ({ initiate, exams, handleClick }) => (
   <>
@@ -78,7 +78,7 @@ const Dashboard = ({ initiate, exams, handleClick }) => (
                   {exam.status === "Accepted" ? (
                     <FaCheck className="check" />
                   ) : (
-                    <FaBan className="declined" />
+                    <FaRegClock className="pendi" />
                   )}
                 </td>
               </tr>

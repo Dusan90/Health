@@ -1,38 +1,45 @@
-.box {
-    position: relative;
-    left: 15px;
-    width: 220px;
-    border: 1px solid rgba(0, 174, 255, 0.637);
-    height: 200px;
+.row {
+  .box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    width: 100%;
 
-    .record-box{
-        text-align: center;
-        width: 200px;
-        margin: 5px;
-        padding: 10px;
+    .record-box {
+      text-align: center;
+      width: 250px;
+      padding: 10px;
+      margin: 5px auto;
+      border: 1px solid white;
+      border-radius: 10px;
+
+      p {
+        color: white;
+      }
     }
-}
+  }
 
-.r-form{
+  .r-form {
     margin-top: 5px;
     padding-top: 5px;
-    position: relative;
-    left: -30px;
     width: 50%;
+    margin: 20px auto;
 
-    .d-details{
-        height: 30px;
-        margin: 2px;
-        width: 400px;
+    .d-details,
+    .d-teraphy,
+    .d-medical {
+      height: 30px;
+      margin: 2px;
+      width: 400px;
+      border-radius: 5px;
+      border: none;
+      text-indent: 10px;
     }
-    .d-teraphy{
-        height: 30px;
-        margin: 2px;
-        width: 400px;
+
+    .submit {
+      margin: 4px;
+      button {
+        width: 200px;
+      }
     }
-    .d-medical{
-        height: 30px;
-        margin: 2px;
-        width: 400px;
-    }
+  }
 }

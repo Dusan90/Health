@@ -29,7 +29,10 @@ class DoctorProfile extends Component {
   }
 
   render() {
-    console.log(this.state.doctors);
+    console.log(this.state.doctor);
+    console.log(this.props);
+    console.log(this.props.doctor);
+
     return (
       <div className="container">
         <DProfile doctor={this.state.doctor} />

@@ -52,6 +52,8 @@ class Main extends Component {
             price: val.price
           };
         });
+        console.log(res);
+
         this.setState({ doctors: res });
       });
   }

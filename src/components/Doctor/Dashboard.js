@@ -134,14 +134,15 @@ const Dashboard = ({
           })}
         </table>
       </div>
-      <div className="row2">
+      <h4 style={{ margin: "20px auto", color: "white" }}>Clients</h4>
+      <div className="row2" style={{ width: "300px" }}>
         {clients.map(client => {
           return (
             <div key={client.id} className="list-group">
               <button
                 data-id={client.id}
                 className="list-group-item"
-                onClick={handleClient.bind(this)}
+                onClick={() => handleClient(client.id)}
               >
                 {client.client}
               </button>

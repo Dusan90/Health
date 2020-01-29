@@ -1,49 +1,51 @@
+.client {
+  width: 100%;
+  border: 1px solid rgb(114, 223, 250);
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 5px;
 
-.client{
-    width: 200px;
-    position: relative;
-    border: 1px solid rgb(114, 223, 250);
-    border-radius: 10px;
-    height: 125px;
-    margin: 10px;
+  .client-p {
+    p {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 10px;
+      text-align: left;
+      text-indent: 10px;
+      color: white;
+      margin: 5px;
+    }
+  }
+}
+
+.form {
+  left: 250px;
+  top: 15px;
+  display: flex;
+
+  border-radius: 10px;
+  width: 500px;
+  height: 180px;
+
+  .address {
+    left: 0px;
     padding: 5px;
 
-    .client-p{
-        position: relative;
+    .address-input {
+      left: 100px;
+      border: 1px solid rgba(78, 190, 241, 0.548);
+      border-radius: 5px;
+      padding: 5px;
     }
+  }
 
-    .form{
-        position: absolute;
-        left: 250px;
-        top: 15px;
+  .submit {
+    top: 50px;
+    left: 108px;
+    padding: 5px;
 
-        border-radius: 10px;
-        width: 500px;
-        height: 180px;
-        
-        .address{
-            position: absolute;
-            left: 0px;
-            padding: 5px;
-
-            .address-input{
-                left: 100px;
-                border: 1px solid rgba(78, 190, 241, 0.548);
-                border-radius: 5px;
-                padding: 5px;
-            }
-        }
-
-        .submit{
-            position: absolute;
-            top: 50px;
-            left: 108px;
-            padding: 5px;
-
-            .btn{
-                width: 156px;
-                color: white;
-            }
-        }
+    .btn {
+      width: 156px;
+      color: white;
     }
+  }
 }

@@ -11,30 +11,25 @@ const Profile = ({
   submitValue,
   handleSubmit
 }) => (
-  //   <div className="row">
   <>
     <Header />
     <Nav />
-    {/* <SideNavbar /> */}
-    <ul className="nav nav-pills">
-      <li className="disabled">
-        <a href="#list">Profile</a>
-      </li>
-    </ul>
+
     {client &&
       client.map(client => {
         return (
-          <div key={client.id} className="client">
-            <div className="client-p">
-              <p>Name: {client.user}</p>
-              <p>Address: {client.address}</p>
-              <p>Gender: {client.gender}</p>
-              <p>Birth Date: {client.birth_date}</p>
+          <div key={client.id}>
+            <div className="client">
+              <div className="client-p">
+                <p>Name: {client.user}</p>
+                <p>Address: {client.address}</p>
+                <p>Gender: {client.gender}</p>
+                <p>Birth Date: {client.birth_date}</p>
+              </div>
             </div>
-
             <div className="form">
               <div className="address">
-                Change address:
+                Change address:{" "}
                 <input
                   type="text"
                   className="address-input"
@@ -57,7 +52,6 @@ const Profile = ({
           </div>
         );
       })}
-    {/* </div> */}
   </>
 );
 

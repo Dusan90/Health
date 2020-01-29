@@ -13,7 +13,8 @@ class ClientRecord extends Component {
       details: "",
       teraphy: "",
       condition: "",
-      token: sessionStorage.getItem("accessToken")
+      token: sessionStorage.getItem("accessToken"),
+      id: this.props.match.params.id
     };
   }
 
@@ -21,7 +22,7 @@ class ClientRecord extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `http://127.0.0.1:8000/api/doctor/client-records/${this.props.clientID}/`,
+        `http://127.0.0.1:8000/api/doctor/client-records/${this.state.id}/`,
         { headers: { Authorization: access_token } }
       )
       .then(response => {
@@ -29,11 +30,11 @@ class ClientRecord extends Component {
       });
   };
 
-  handleRecord = async e => {
-    e.preventDefault();
+  handleRecord = async () => {
+    // e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
     const data = await fetch(
-      `http://127.0.0.1:8000/api/doctor/client-records/${this.props.clientID}/`,
+      `http://127.0.0.1:8000/api/doctor/client-records/${this.state.id}/`,
       {
         method: "POST",
         headers: {
@@ -42,13 +43,20 @@ class ClientRecord extends Component {
         },
         body: JSON.stringify({
           details: this.state.details,
-          teraphy_history: this.state.teraphy_history,
-          medical_conditions: this.state.medical_conditions
+          teraphy_history: this.state.teraphy,
+          medical_conditions: this.state.condition
         })
       }
     );
     const jsonData = await data.json();
     console.log(jsonData);
+    this.record();
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.handleRecord();
+    this.setState({ details: "", teraphy: "", condition: "" });
   };
 
   handleDetails = e => {
@@ -68,18 +76,19 @@ class ClientRecord extends Component {
   }
 
   render() {
+    console.log(this.state.details, this.state.condition, this.state.teraphy);
+
     return (
       <div className="container">
         <Header />
         <Nav />
         <Record
           record={this.state.record}
-          detailsValue={this.state.details}
-          teraphyValue={this.state.teraphy}
-          conditionValue={this.state.condition}
           handleDetails={this.handleDetails}
           handleTerpahy={this.handleTeraphy}
           handleCondition={this.handleCondition}
+          handleSubmit={this.handleSubmit}
+          props={this.state}
         />
       </div>
     );
@@ -88,6 +97,8 @@ class ClientRecord extends Component {
 
 const mapStateToProps = state => {
   const clientID = state.getIn(["clientReducer", "clientID"]);
+  console.log(clientID);
+
   return {
     clientID
   };

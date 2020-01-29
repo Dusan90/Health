@@ -60,8 +60,8 @@ class DoctorDashboard extends Component {
     this.props.history.push(`/doctor/exam/detail/${id}`);
   };
 
-  handleClient = e => {
-    this.props.history.push("/doctor/record/detail");
+  handleClient = id => {
+    this.props.history.push(`/doctor/record/detail/${id}`);
   };
 
   hnlClick = () => {
