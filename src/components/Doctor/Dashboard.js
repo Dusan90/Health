@@ -186,6 +186,7 @@ const Dashboard = ({
               );
             })}
           </table>
+          <button onClick={hnlClick}>GO BACK</button>
         </div>
       ) : null}
     </>
