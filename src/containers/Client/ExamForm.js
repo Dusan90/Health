@@ -5,8 +5,6 @@ import Nav from "../../components/Main/Navbar";
 import axios from "axios";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
-// import Popup from "reactjs-popup";
-// import CheckoutForm from "./CheckoutForm";
 
 class ExamForm extends Component {
   constructor(props) {
@@ -21,28 +19,29 @@ class ExamForm extends Component {
       submitted: false,
       price: null,
       doctor_id: null,
-      token: sessionStorage.getItem("accessToken")
-      // isClicked: false
+      token: sessionStorage.getItem("accessToken"),
+      specDoctor: [],
+      specialSP: [],
+      resetDoctorSelect: null
     };
   }
 
   handleSpeciality = e => {
-    console.log(e);
-
-    const filteredDoctors = this.state.doctors.filter(
+    let filteredDoctors = this.state.doctors.filter(
       doctor => doctor.spec === e.label
     );
+
     this.setState({
-      specialities: e.value,
-      doctors: filteredDoctors
+      specialSP: e.value,
+      specDoctor: filteredDoctors,
+      resetDoctorSelect: null
     });
   };
 
   handleDoctor = e => {
-    console.log(e, "doca");
-    this.setState({ doctors: e.value });
-    this.setState({ doctor_id: e.iD });
     this.props.dispatch(doctor(e));
+    this.setState({ doctor_id: e.iD });
+    this.setState({ resetDoctorSelect: e });
   };
 
   handleSubject = e => {
@@ -54,8 +53,6 @@ class ExamForm extends Component {
   };
 
   handleSubmit = async e => {
-    // e.preventDefault();
-    // this.setState({ isClicked: !this.state.isClicked });
     const access_token = "Bearer ".concat(this.state.token);
     const response = await fetch("http://127.0.0.1:8000/api/client/initiate/", {
       method: "POST",
@@ -64,34 +61,27 @@ class ExamForm extends Component {
         Authorization: access_token
       },
       body: JSON.stringify({
-        speciality: this.state.specialities,
+        speciality: this.state.specialSP,
         doctor: this.state.doctor_id,
         subject: this.state.subject,
         message: this.state.message
       })
     });
     const data = await response.json();
-    console.log(data, "exam");
+
     this.toCheckout();
     return data;
   };
 
   toCheckout = async () => {
-    //   // return (
-    //   //   <Popup trigger={<button> Next </button>}>
-    //   //     <CheckoutForm />
-    //   //   </Popup>
-    //   // );
     return this.props.history.push("/checkout");
   };
 
   componentDidMount() {
     axios.get("http://127.0.0.1:8000/api/specialities/").then(response => {
-      console.log(response.data);
       const res = response.data.message.map(val => {
         return { value: val.id, iD: val.speciality_id, label: val.name };
       });
-      console.log(res);
       this.setState({ specialities: res });
     });
     axios.get("http://127.0.0.1:8000/api/doctor/list").then(response => {
@@ -104,7 +94,6 @@ class ExamForm extends Component {
           price: val.price
         };
       });
-      console.log(res, "response");
       this.setState({ doctors: res });
     });
   }
@@ -117,7 +106,6 @@ class ExamForm extends Component {
         <Nav />
         <InitiateExam
           specialities={this.state.specialities}
-          doctors={this.state.doctors}
           subject={this.state.subject}
           message={this.state.message}
           submitted={this.state.submitted}
@@ -126,7 +114,8 @@ class ExamForm extends Component {
           handleSubject={this.handleSubject}
           handleSubmit={this.handleSubmit}
           handleMessage={this.handleMessage}
-          props={this.state}
+          specDoctor={this.state.specDoctor}
+          resetDoctorSelect={this.state.resetDoctorSelect}
         />
       </div>
     );
@@ -135,7 +124,6 @@ class ExamForm extends Component {
 
 const mapStateToProps = state => {
   const doctor = state.getIn(["doctorReducer", "doctor"]);
-  console.log(doctor);
   return {
     doctor,
     price: state.price

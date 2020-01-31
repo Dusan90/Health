@@ -6,11 +6,6 @@ const DProfile = ({ doctor }) => (
   <>
     <Header />
     <Nav />
-    <ul className="nav nav-pills">
-      <li className="disabled">
-        <a href="#list">Profile</a>
-      </li>
-    </ul>
     {doctor &&
       doctor.map(doctor => {
         return (

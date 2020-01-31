@@ -36,9 +36,7 @@ class DoctorDashboard extends Component {
         });
         this.setState({ exams: res });
         this.setState({
-          pending: [
-            ...this.state.exams.filter(res => res.status !== "Accepted")
-          ]
+          pending: [...this.state.exams.filter(res => res.status === "Pending")]
         });
       });
   };
@@ -58,14 +56,18 @@ class DoctorDashboard extends Component {
   };
 
   handleChange = e => {
-    this.setState({ value: e.target.value });
-
-    if (this.state.value === "latest") {
-      let sort = this.state.exams.sort((a, b) => b.status - a.status);
-      console.log(sort);
+    if (e.target.value === "earliest") {
+      let hy = this.state.exams;
+      let sort = hy.sort(
+        (a, b) => Date.parse(a.created) - Date.parse(b.created)
+      );
+      this.setState({ exams: sort });
     } else {
-      let resort = this.state.exams.sort((a, b) => a.status - b.status);
-      console.log(resort);
+      let hello = this.state.exams;
+      let resort = hello.sort(
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
+      );
+      this.setState({ exams: resort });
     }
   };
 
@@ -94,8 +96,6 @@ class DoctorDashboard extends Component {
   }
 
   render() {
-    console.log(this.state.value);
-
     return (
       <div className="container">
         <Header />

@@ -5,8 +5,6 @@ import "../../assets/main/main.scss";
 const Home = ({ doctors, handleDoctor, handleConsultation }) => (
   <div className="row">
     {doctors.map(obj => {
-      console.log(obj);
-
       return (
         <div key={obj.id} className="doctor-panel">
           <div className="doc-panel">

@@ -36,6 +36,7 @@ class DetailExam extends Component {
   handleSubmit = e => {
     e.preventDefault();
     let id = this.props.match.params.id;
+    this.props.history.push("/dashboard-doctor");
 
     this.doctorExam(id);
   };

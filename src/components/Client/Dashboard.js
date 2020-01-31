@@ -7,7 +7,7 @@ import { FaUserClock } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa";
 
-const Dashboard = ({ initiate, exams, handleClick }) => (
+const Dashboard = ({ initiate, exams, handleClick, handleChange }) => (
   <>
     <div className="main">
       <div className="videoApp">
@@ -40,9 +40,9 @@ const Dashboard = ({ initiate, exams, handleClick }) => (
         </div>
         <div className="sort">
           <label>Sort by: </label>
-          <select name="" id="">
-            <option value="latest">Latest</option>
+          <select name="" id="" onChange={handleChange}>
             <option value="earliest">Earliest</option>
+            <option value="latest">Latest</option>
           </select>
         </div>
       </div>

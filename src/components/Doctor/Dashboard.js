@@ -91,9 +91,9 @@ const Dashboard = ({
           </div>
           <div className="sort">
             <label>Sort by: </label>
-            <select name="" id="" onClick={handleChange}>
-              <option value="latest">Latest</option>
+            <select name="" id="" onChange={handleChange}>
               <option value="earliest">Earliest</option>
+              <option value="latest">Latest</option>
             </select>
           </div>
         </div>

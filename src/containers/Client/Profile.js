@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../../assets/main/main.scss";
 import Profile from "../../components/Client/Profile";
-import { connect } from "react-redux";
 import { NotificationManager } from "react-notifications";
 
 class ClientProfile extends Component {
@@ -34,9 +33,9 @@ class ClientProfile extends Component {
       })
     });
     const jsonData = await data.json();
-    console.log(jsonData);
     NotificationManager.success("Profile Updated!", "Successful!", 2000);
     this.handleClientProfile();
+    console.log(jsonData);
   };
 
   handleClientProfile = async () => {
@@ -57,7 +56,6 @@ class ClientProfile extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        console.log(response);
         return this.setState({ records: Object.values(response.data) });
       });
   };
@@ -68,8 +66,6 @@ class ClientProfile extends Component {
   }
 
   render() {
-    console.log(this.props);
-
     return (
       <div className="container">
         <Profile
@@ -84,11 +80,4 @@ class ClientProfile extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const doctor = state.getIn(["doctorReducer", "doctor"]);
-  return {
-    doctor
-  };
-};
-
-export default connect(mapStateToProps)(ClientProfile);
+export default ClientProfile;

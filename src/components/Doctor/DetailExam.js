@@ -2,7 +2,6 @@ import React from "react";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import Select from "react-select";
-import { Link } from "react-router-dom";
 import "../../assets/detail_exam.scss";
 
 const Detail = ({
@@ -18,11 +17,7 @@ const Detail = ({
   <>
     <Header />
     <Nav />
-    <ul className="nav nav-pills">
-      <li className="disabled">
-        <a href="#list">Detail Exam</a>
-      </li>
-    </ul>
+
     {exam.map(exam => {
       return (
         <div key={exam.id} className="detail-exam">
@@ -60,20 +55,12 @@ const Detail = ({
             )}
             {exam.status === "Accepted" && (
               <div className="message-btn">
-                <Link
-                  // to="/doctor/exam/correspondence"
-                  className="messages-link"
-                  onClick={handleLink}
-                >
+                <button className="messages-link" onClick={handleLink}>
                   Message history
-                </Link>
-                <Link
-                  // to="/doctor/exam/message"
-                  className="message-link"
-                  onClick={handleLinkMessage}
-                >
+                </button>
+                <button className="message-link" onClick={handleLinkMessage}>
                   Message
-                </Link>
+                </button>
               </div>
             )}
           </div>

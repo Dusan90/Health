@@ -32,10 +32,11 @@ class CheckoutForm extends Component {
     });
     // await handleServerResponse(await response.json())
     const data = await response.json();
+    console.log(data);
+
     if (data.message === true) {
       this.setState({ complete: true });
     }
-    console.log(this.state.complete);
   };
 
   // handleServerResponse = async (response) => {
@@ -68,11 +69,12 @@ class CheckoutForm extends Component {
   };
 
   render() {
+    console.log(this.props.doctor);
     if (this.state.complete)
       return (
-        <h1 style={{}}>
+        <h1 style={{ margin: "0 auto", alignSelf: "center" }}>
           <Link
-            style={{ textDecoration: "none", color: "lightgreen" }}
+            style={{ textDecoration: "none", color: "green" }}
             to="/dashboard-client"
           >
             Submit Completed

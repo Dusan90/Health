@@ -18,37 +18,41 @@ const CorrespondenceMessage = ({
       <Header />
       <Nav />
       <table className="correspondence">
-        {correspondence.map((message, index) => {
-          return (
-            <tbody key={message.id} className="tbody">
-              <tr className="senderMain">
-                <td className="sender">Sender: {message.sender}</td>
-                <td className="created">
-                  {new Intl.DateTimeFormat("en-GB", {
-                    year: "numeric",
-                    month: "long",
-                    day: "2-digit"
-                  }).format(new Date(message.created))}
-                </td>
-              </tr>
-              <tr onClick={() => handleClick(index)} className="row1">
-                <td id={message.id} className="message">
-                  Message:{message.message}{" "}
-                </td>
-              </tr>
-              {props.obj.active && props.obj.id === message.id ? (
-                <tr className="attachments">
-                  <td>Attachments:{message.attachments}</td>
+        {correspondence.length === 0 ? (
+          <tbody style={{ color: "white" }}>
+            <tr>
+              <td>No messages...</td>
+            </tr>
+          </tbody>
+        ) : (
+          correspondence.map((message, index) => {
+            return (
+              <tbody key={message.id} className="tbody">
+                <tr className="senderMain">
+                  <td className="sender">Sender: {message.sender}</td>
+                  <td className="created">
+                    {new Intl.DateTimeFormat("en-GB", {
+                      year: "numeric",
+                      month: "long",
+                      day: "2-digit"
+                    }).format(new Date(message.created))}
+                  </td>
                 </tr>
-              ) : null}
-            </tbody>
-          );
-        })}
+                <tr onClick={() => handleClick(index)} className="row1">
+                  <td id={message.id} className="message">
+                    Message:{message.message}{" "}
+                  </td>
+                </tr>
+                {props.obj.active && props.obj.id === message.id ? (
+                  <tr className="attachments">
+                    <td>Attachments:{message.attachments}</td>
+                  </tr>
+                ) : null}
+              </tbody>
+            );
+          })
+        )}
       </table>
-      {/* <div className="col-sm-10"> 
-            <input type="text" className="form-control" placeholder="message" value={messageValue} onChange={handleMessage}/>
-            <button type="submit" className="btn btn-default" value={submitValue} onClick={handleSubmit}>Send</button>
-        </div> */}
     </>
   );
 };

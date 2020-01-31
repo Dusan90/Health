@@ -9,7 +9,8 @@ class ClientDashboard extends Component {
     super(props);
     this.state = {
       exams: [],
-      token: sessionStorage.getItem("accessToken")
+      token: sessionStorage.getItem("accessToken"),
+      dataFromServer: ""
     };
   }
 
@@ -20,24 +21,27 @@ class ClientDashboard extends Component {
   componentDidMount() {
     this.exams();
 
-    const ws = new WebSocket("ws://127.0.0.1:8000/api/client/exams");
-    // ws.send("hello from ...");
-    ws.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log("connected");
-    };
+    // const ws = new WebSocket("ws://localhost:8080");
+    // // ws.send("hello from ...");
+    // ws.onopen = e => {
+    //   console.log(e);
+    //   console.log(this.state.exams);
 
-    ws.onmessage = evt => {
-      // listen to data sent from the websocket server
-      const message = JSON.parse(evt.data);
-      this.setState({ dataFromServer: message });
-      console.log("TRDT", message);
-    };
+    //   // on connecting, do nothing but log it to the console
+    //   console.log("connected");
+    // };
 
-    ws.onclose = () => {
-      console.log("disconnected");
-      // automatically try to reconnect on connection loss
-    };
+    // ws.onmessage = evt => {
+    //   // listen to data sent from the websocket server
+    //   const message = JSON.parse(evt.data);
+    //   this.setState({ dataFromServer: message });
+    //   console.log("TRDT", message);
+    // };
+
+    // ws.onclose = () => {
+    //   console.log("disconnected");
+    //   // automatically try to reconnect on connection loss
+    // };
   }
 
   exams = () => {
@@ -64,6 +68,22 @@ class ClientDashboard extends Component {
     this.props.history.push(`/client/exam/detail/${id}`);
   };
 
+  handleChange = e => {
+    if (e.target.value === "earliest") {
+      let hy = this.state.exams;
+      let sort = hy.sort(
+        (a, b) => Date.parse(a.created) - Date.parse(b.created)
+      );
+      this.setState({ exams: sort });
+    } else {
+      let hello = this.state.exams;
+      let resort = hello.sort(
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
+      );
+      this.setState({ exams: resort });
+    }
+  };
+
   render() {
     return (
       <div className="container">
@@ -73,6 +93,7 @@ class ClientDashboard extends Component {
           initiate={this.initiate}
           exams={this.state.exams}
           handleClick={this.handleClick}
+          handleChange={this.handleChange}
         />
       </div>
     );

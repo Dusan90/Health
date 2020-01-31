@@ -1,18 +1,12 @@
 import React from "react";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import { Link } from "react-router-dom";
 import "../../assets/client/detail-exam.scss";
 
 const Detail = ({ exam, handleLink, handleLinkMessage }) => (
   <>
     <Header />
     <Nav />
-    <ul className="nav nav-pills">
-      <li className="disabled">
-        <a href="#list">Detail Exam</a>
-      </li>
-    </ul>
     {exam.map(exam => {
       return (
         <div key={exam.id} className="detail-exam">
@@ -30,20 +24,12 @@ const Detail = ({ exam, handleLink, handleLinkMessage }) => (
             <p>Status: {exam.status}</p>
             {exam.status === "Accepted" && (
               <div className="message-btn">
-                <Link
-                  // to="/client/exam/correspondence"
-                  className="messages-link"
-                  onClick={handleLink}
-                >
+                <button className="messages-link" onClick={handleLink}>
                   Message history
-                </Link>
-                <Link
-                  // to="/client/exam/message"
-                  className="message-link"
-                  onClick={handleLinkMessage}
-                >
+                </button>
+                <button className="message-link" onClick={handleLinkMessage}>
                   Message
-                </Link>
+                </button>
               </div>
             )}
           </div>

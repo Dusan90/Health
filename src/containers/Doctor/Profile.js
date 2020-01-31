@@ -48,6 +48,7 @@ class DoctorProfile extends Component {
     const jsonData = await data.json();
     console.log(jsonData);
     NotificationManager.success("Profile Updated!", "Successful!", 2000);
+    this.setState({ prefixValue: "", descriptionValue: "", priceValue: null });
     this.handleDoctorProfile();
   };
 
@@ -58,8 +59,6 @@ class DoctorProfile extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        console.log(response);
-
         return this.setState({ doctor: Object.values(response.data) });
       });
   };

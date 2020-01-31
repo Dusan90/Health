@@ -10,40 +10,43 @@ const ExamMessage = ({
   submitValue,
   handleSubmit,
   onChangeHandler
-}) => (
-  <>
-    <Header />
-    <Nav />
-    <ul className="nav-client">
-      <h6 href="#list">New Message</h6>
-    </ul>
-    <div className="mainClientMessage">
-      {doctor && <h5 className="doctor-form">To: {doctor}</h5>}
-      <div className="input">
-        <textarea
-          type="text"
-          className="form-control"
-          placeholder="message"
-          value={messageValue}
-          onChange={handleMessage}
-        />
-        <input
-          type="file"
-          name="file"
-          className="file"
-          onChange={onChangeHandler}
-        />
-        <button
-          type="submit"
-          className="btn btn-primary btn-md"
-          value={submitValue}
-          onClick={handleSubmit}
-        >
-          Send
-        </button>
+}) => {
+  console.log("nesto");
+  return (
+    <>
+      <Header />
+      <Nav />
+      <ul className="nav-client">
+        <h6 href="#list">New Message</h6>
+      </ul>
+      <div className="mainClientMessage">
+        {doctor && <h5 className="doctor-form">To: {doctor}</h5>}
+        <div className="input">
+          <textarea
+            type="text"
+            className="form-control"
+            placeholder="message"
+            value={messageValue}
+            onChange={handleMessage}
+          />
+          <input
+            type="file"
+            name="file"
+            className="file"
+            onChange={onChangeHandler}
+          />
+          <button
+            type="submit"
+            className="btn btn-primary btn-md"
+            value={submitValue}
+            onClick={handleSubmit}
+          >
+            Send
+          </button>
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 export default ExamMessage;
