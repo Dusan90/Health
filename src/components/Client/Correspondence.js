@@ -19,7 +19,7 @@ const CorrespondenceMessage = ({
       <Nav />
       <table className="correspondence">
         {correspondence.length === 0 ? (
-          <tbody style={{ color: "white" }}>
+          <tbody style={{ color: "rgb(2, 159, 250)" }}>
             <tr>
               <td>No messages...</td>
             </tr>

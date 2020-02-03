@@ -61,7 +61,7 @@ class DetailExam extends Component {
   doctorExam = async id => {
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `http://127.0.0.1:8000/api/doctor/exams/${id}/`,
+      `https://health-care-backend.herokuapp.com/api/doctor/exams/${id}/`,
       {
         method: "PUT",
         headers: {

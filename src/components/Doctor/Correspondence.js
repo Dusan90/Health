@@ -14,7 +14,7 @@ const CorrespondenceMessage = ({ correspondence, handleClick, props }) => {
 
       <table className="correspondence">
         {correspondence.length === 0 ? (
-          <tbody style={{ color: "white" }}>
+          <tbody style={{ color: "rgb(2, 159, 250)" }}>
             <tr>
               <td>No messages...</td>
             </tr>
@@ -40,7 +40,7 @@ const CorrespondenceMessage = ({ correspondence, handleClick, props }) => {
                 </tr>
                 {props.obj.active && props.obj.id === message.id ? (
                   <tr className="attachments">
-                    <td>Attachments:{message.attachments}</td>
+                    <td className="att">Attachments:{message.attachments}</td>
                   </tr>
                 ) : null}
               </tbody>

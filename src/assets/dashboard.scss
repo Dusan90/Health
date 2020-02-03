@@ -18,7 +18,7 @@
       bottom: 5px;
       left: 50%;
       transform: translate(-50%);
-      background: rgb(79, 79, 253);
+      background: rgb(0, 191, 255);
       border-radius: 5px;
       border: 0;
       padding: 5px;
@@ -41,7 +41,7 @@
     }
 
     .requestsEmail {
-      background: rgb(137, 210, 235);
+      background: rgb(0, 191, 255);
       width: 200px;
       float: right;
       border-bottom-left-radius: 5px;
@@ -51,14 +51,14 @@
       bottom: 5px;
       left: 50%;
       transform: translate(-50%);
-      background: rgb(79, 79, 253);
+      background: rgb(0, 191, 255);
       border-radius: 5px;
       border: 0;
       padding: 5px;
       transition: all 0.5s ease-in-out;
 
       &:hover {
-        background: rgb(21, 36, 250);
+        background: rgb(5, 171, 226);
         cursor: pointer;
         box-shadow: 2px 2px 10px black;
       }
@@ -78,7 +78,7 @@
       bottom: 5px;
       left: 50%;
       transform: translate(-50%);
-      background: rgb(79, 79, 253);
+      background: rgb(0, 191, 255);
       border-radius: 5px;
       border: 0;
       padding: 5px;
@@ -105,7 +105,7 @@
     border-bottom-right-radius: 0;
 
     .email {
-      background: rgb(137, 210, 235);
+      background: rgb(0, 191, 255);
     }
 
     .video {

@@ -5,18 +5,24 @@
     li {
       padding: 0;
       margin-top: 5px;
+      a {
+        color: rgb(0, 191, 255);
+        &:hover {
+          background: none;
+        }
+      }
     }
   }
   .li-reg {
     .register {
-      color: white;
+      color: rgb(0, 191, 255);
       background-color: transparent;
     }
   }
 
   .li-log {
     .login {
-      color: white;
+      color: rgb(0, 191, 255);
       background-color: transparent;
     }
   }

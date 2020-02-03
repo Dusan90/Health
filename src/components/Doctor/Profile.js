@@ -23,13 +23,17 @@ const Profile = ({
           return (
             <div
               className="mainprof"
-              style={{ margin: "20px auto" }}
+              style={{
+                margin: "20px auto",
+                display: "flex",
+                flexDirection: "column"
+              }}
               key={doctor.id}
             >
               <div className="doctor">
                 <div className="imginput">
                   <div className="doctor-p">
-                    <p>input img...</p>
+                    <p></p>
                   </div>
                   <input type="file" name="picture" id="" />
                 </div>

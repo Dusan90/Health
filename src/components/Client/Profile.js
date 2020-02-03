@@ -18,7 +18,7 @@ const Profile = ({
     {client &&
       client.map(client => {
         return (
-          <div key={client.id}>
+          <div key={client.id} className="mainClien">
             <div className="client">
               <div className="client-p">
                 <p>Name: {client.user}</p>

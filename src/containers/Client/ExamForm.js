@@ -54,19 +54,22 @@ class ExamForm extends Component {
 
   handleSubmit = async e => {
     const access_token = "Bearer ".concat(this.state.token);
-    const response = await fetch("http://127.0.0.1:8000/api/client/initiate/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: access_token
-      },
-      body: JSON.stringify({
-        speciality: this.state.specialSP,
-        doctor: this.state.doctor_id,
-        subject: this.state.subject,
-        message: this.state.message
-      })
-    });
+    const response = await fetch(
+      "https://health-care-backend.herokuapp.com/api/client/initiate/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token
+        },
+        body: JSON.stringify({
+          speciality: this.state.specialSP,
+          doctor: this.state.doctor_id,
+          subject: this.state.subject,
+          message: this.state.message
+        })
+      }
+    );
     const data = await response.json();
 
     this.toCheckout();
@@ -78,24 +81,28 @@ class ExamForm extends Component {
   };
 
   componentDidMount() {
-    axios.get("http://127.0.0.1:8000/api/specialities/").then(response => {
-      const res = response.data.message.map(val => {
-        return { value: val.id, iD: val.speciality_id, label: val.name };
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/specialities/")
+      .then(response => {
+        const res = response.data.message.map(val => {
+          return { value: val.id, iD: val.speciality_id, label: val.name };
+        });
+        this.setState({ specialities: res });
       });
-      this.setState({ specialities: res });
-    });
-    axios.get("http://127.0.0.1:8000/api/doctor/list").then(response => {
-      const res = response.data.message.map(val => {
-        return {
-          value: val.id,
-          iD: val.doctor_id,
-          label: val.doctor,
-          spec: val.speciality,
-          price: val.price
-        };
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
+      .then(response => {
+        const res = response.data.message.map(val => {
+          return {
+            value: val.id,
+            iD: val.doctor_id,
+            label: val.doctor,
+            spec: val.speciality,
+            price: val.price
+          };
+        });
+        this.setState({ doctors: res });
       });
-      this.setState({ doctors: res });
-    });
   }
 
   render() {

@@ -21,7 +21,7 @@ class DoctorDashboard extends Component {
   exams = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("http://127.0.0.1:8000/api/doctor/exams/", {
+      .get("https://health-care-backend.herokuapp.com/api/doctor/exams/", {
         headers: { Authorization: access_token }
       })
       .then(response => {
@@ -44,7 +44,7 @@ class DoctorDashboard extends Component {
   clients = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("http://127.0.0.1:8000/api/doctor/clients/", {
+      .get("https://health-care-backend.herokuapp.com/api/doctor/clients/", {
         headers: { Authorization: access_token }
       })
       .then(response => {

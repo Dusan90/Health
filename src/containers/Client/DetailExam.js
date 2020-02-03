@@ -17,9 +17,12 @@ class ClientDetailExam extends Component {
   detail = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://127.0.0.1:8000/api/client/exams/${this.state.id}/`, {
-        headers: { Authorization: access_token }
-      })
+      .get(
+        `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.id}/`,
+        {
+          headers: { Authorization: access_token }
+        }
+      )
       .then(response => {
         this.setState({ exam: Object.values(response.data) });
       });

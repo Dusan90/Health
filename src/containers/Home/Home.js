@@ -13,7 +13,8 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      doctors: []
+      doctors: [],
+      specialities: []
     };
   }
 
@@ -39,7 +40,7 @@ class Main extends Component {
 
   componentDidMount() {
     axios
-      .get("http://127.0.0.1:8000/api/doctor/list", {
+      .get("https://health-care-backend.herokuapp.com/api/doctor/list", {
         headers: { Authorization: access_token }
       })
       .then(response => {
@@ -54,9 +55,21 @@ class Main extends Component {
 
         this.setState({ doctors: res });
       });
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/specialities/", {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        const res = response.data.message.map(val => {
+          return { value: val.id, iD: val.speciality_id, label: val.name };
+        });
+        this.setState({ specialities: res });
+      });
   }
 
   render() {
+    console.log(this.state.specialities);
+
     return (
       <div className="container">
         <Header />
@@ -65,6 +78,7 @@ class Main extends Component {
           doctors={this.state.doctors}
           handleDoctor={this.handleDoctor}
           handleConsultation={this.handleConsultation}
+          props={this.state}
         />
       </div>
     );

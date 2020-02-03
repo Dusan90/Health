@@ -1,16 +1,13 @@
 .detail-exam {
-  border: 1px solid rgba(240, 108, 47, 0.349);
-  border-radius: 10px;
-  width: 100%;
-  padding: 10px;
+  border: none;
+  width: 50%;
 
   .detail {
     p {
-      background: rgba(0, 0, 0, 0.4);
       text-align: left;
-      border-radius: 10px;
+      border-bottom: 1px solid rgb(23, 23, 138);
       text-indent: 10px;
-      color: white;
+      color: rgb(23, 23, 138);
     }
 
     .select-option {

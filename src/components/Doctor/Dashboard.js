@@ -30,7 +30,7 @@ const Dashboard = ({
             <h2>Video Request</h2>
           </div>
           <div style={{ height: "2px", background: "rgb(61, 61, 248)" }}></div>
-          <div className="requestsVideo">4 new request to confirm</div>
+          <div className="requestsVideo"></div>
           <button>SEE DETAILS</button>
         </div>
         <div className="divEmail">
@@ -76,7 +76,7 @@ const Dashboard = ({
           <div
             style={{ height: "2px", background: "rgb(107, 240, 107)" }}
           ></div>
-          <div className="requestsClock">4 new request to confirm</div>
+          <div className="requestsClock"></div>
           <button>ENTER WAITING ROOM</button>
         </div>
       </div>
@@ -103,7 +103,7 @@ const Dashboard = ({
             <tr className="client-row">
               <th className="client-doctor">Client</th>
               <th className="client-subject">Subject</th>
-              <th className="client-subject">Created</th>
+              <th className="client-subject">Date</th>
               <th className="client-status">Status</th>
             </tr>
           </thead>
@@ -135,7 +135,9 @@ const Dashboard = ({
           })}
         </table>
       </div>
-      <h4 style={{ margin: "20px auto", color: "white" }}>Clients</h4>
+      <h4 style={{ margin: "20px 0 20px 0", float: "left", color: "white" }}>
+        Clients
+      </h4>
       <div className="row2" style={{ width: "300px" }}>
         {clients.map(client => {
           return (
@@ -158,7 +160,7 @@ const Dashboard = ({
               <tr className="client-row">
                 <th className="client-doctor">Client</th>
                 <th className="client-subject">Subject</th>
-                <th className="client-subject">Created</th>
+                <th className="client-subject">Date</th>
                 <th className="client-status">Status</th>
               </tr>
             </thead>

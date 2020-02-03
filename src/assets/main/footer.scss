@@ -2,7 +2,7 @@
   height: 120px;
   width: 100%;
   border-top: 1px solid white;
-  background: rgb(80, 80, 80);
+  background: rgb(216, 214, 214);
   position: fixed;
   bottom: 0;
 
@@ -55,7 +55,7 @@
 .insta:hover,
 .facebook:hover,
 .twitter:hover {
-  color: pink;
+  color: rgb(0, 191, 255);
 }
 
 .mainFooter ul {
@@ -64,7 +64,7 @@
 
 .mainFooter ul h3 {
   font-size: large;
-  color: pink;
+  color: black;
 }
 
 .mainFooter ul li {
@@ -84,7 +84,7 @@
     color: white;
     transition: all 0.5s ease-in-out;
     &:hover {
-      color: pink;
+      color: rgb(0, 191, 255);
     }
   }
   &:focus,

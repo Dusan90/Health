@@ -20,9 +20,12 @@ class ClientCorrespondence extends Component {
   correspondence = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://127.0.0.1:8000/api/client/exams/${this.state.id}/messages`, {
-        headers: { Authorization: access_token }
-      })
+      .get(
+        `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.id}/messages`,
+        {
+          headers: { Authorization: access_token }
+        }
+      )
       .then(response => {
         const res = response.data.messages.map(val => {
           return {

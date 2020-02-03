@@ -22,7 +22,7 @@ class ClientRecord extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `http://127.0.0.1:8000/api/doctor/client-records/${this.state.id}/`,
+        `https://health-care-backend.herokuapp.com/api/doctor/client-records/${this.state.id}/`,
         { headers: { Authorization: access_token } }
       )
       .then(response => {
@@ -34,7 +34,7 @@ class ClientRecord extends Component {
     // e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
     const data = await fetch(
-      `http://127.0.0.1:8000/api/doctor/client-records/${this.state.id}/`,
+      `https://health-care-backend.herokuapp.com/api/doctor/client-records/${this.state.id}/`,
       {
         method: "POST",
         headers: {

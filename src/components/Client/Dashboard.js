@@ -52,7 +52,7 @@ const Dashboard = ({ initiate, exams, handleClick, handleChange }) => (
           <tr className="client-row">
             <th className="client-doctor">Doctor</th>
             <th className="client-subject">Subject</th>
-            <th className="client-subject">Created</th>
+            <th className="client-subject">Date</th>
             <th className="client-status">Status</th>
           </tr>
         </thead>

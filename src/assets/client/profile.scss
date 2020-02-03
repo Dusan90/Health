@@ -1,51 +1,54 @@
-.client {
-  width: 100%;
-  border: 1px solid rgb(114, 223, 250);
-  border-radius: 10px;
-  margin: 20px auto;
-  padding: 5px;
-
-  .client-p {
-    p {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 10px;
-      text-align: left;
-      text-indent: 10px;
-      color: white;
-      margin: 5px;
-    }
-  }
-}
-
-.form {
-  left: 250px;
-  top: 15px;
+.mainClien {
   display: flex;
+  flex-direction: column;
 
-  border-radius: 10px;
-  width: 500px;
-  height: 180px;
+  .client {
+    width: 50%;
+    border-radius: 10px;
+    margin: 20px 0 20px 0;
+    float: left;
 
-  .address {
-    left: 0px;
-    padding: 5px;
-
-    .address-input {
-      left: 100px;
-      border: 1px solid rgba(78, 190, 241, 0.548);
-      border-radius: 5px;
-      padding: 5px;
+    .client-p {
+      p {
+        text-align: left;
+        text-indent: 10px;
+        color: rgb(24, 24, 138);
+        margin: 5px;
+        border-bottom: 1px solid rgb(20, 20, 158);
+      }
     }
   }
 
-  .submit {
-    top: 50px;
-    left: 108px;
-    padding: 5px;
+  .form {
+    left: 250px;
+    top: 15px;
+    display: flex;
 
-    .btn {
-      width: 156px;
-      color: white;
+    border-radius: 10px;
+    width: 500px;
+    height: 180px;
+
+    .address {
+      left: 0px;
+      padding: 5px;
+
+      .address-input {
+        left: 100px;
+        border: 1px solid rgba(78, 190, 241, 0.548);
+        border-radius: 5px;
+        padding: 5px;
+      }
+    }
+
+    .submit {
+      top: 50px;
+      left: 108px;
+      padding: 5px;
+
+      .btn {
+        width: 156px;
+        color: white;
+      }
     }
   }
 }

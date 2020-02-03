@@ -23,14 +23,18 @@
 
       .message {
         padding: 10px;
+        color: rgb(0, 191, 255);
       }
 
       .created {
         padding: 10px;
       }
+    }
+    .attachments {
+      padding: 10px;
 
-      .attachments {
-        padding: 10px;
+      .att {
+        color: rgb(0, 191, 255);
       }
     }
   }

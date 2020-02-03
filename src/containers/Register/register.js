@@ -95,20 +95,22 @@ class Register extends Component {
   };
 
   componentDidMount() {
-    axios.get("http://127.0.0.1:8000/api/specialities/").then(response => {
-      console.log(response.data);
-      const res = response.data.message.map(val => {
-        return { value: val.id, label: val.name };
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/specialities/")
+      .then(response => {
+        console.log(response.data);
+        const res = response.data.message.map(val => {
+          return { value: val.id, label: val.name };
+        });
+        console.log(res);
+        this.setState({ specOptions: res });
       });
-      console.log(res);
-      this.setState({ specOptions: res });
-    });
   }
 
   userRegister = async () => {
     if (this.state.userType === "client") {
       const client = await fetch(
-        "http://127.0.0.1:8000/api/auth/register/client/",
+        "https://health-care-backend.herokuapp.com/api/auth/register/client/",
         {
           method: "POST",
           headers: {
@@ -133,7 +135,7 @@ class Register extends Component {
       return jsonData;
     } else if (this.state.userType === "doctor") {
       const doctor = await fetch(
-        "http://127.0.0.1:8000/api/auth/register/doctor/",
+        "https://health-care-backend.herokuapp.com/api/auth/register/doctor/",
         {
           method: "POST",
           headers: {
