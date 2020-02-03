@@ -140,6 +140,8 @@ const Dashboard = ({
       </h4>
       <div className="row2" style={{ width: "300px" }}>
         {clients.map(client => {
+          console.log(client);
+
           return (
             <div key={client.id} className="list-group">
               <button

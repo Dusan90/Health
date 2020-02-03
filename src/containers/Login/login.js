@@ -62,6 +62,8 @@ class Login extends Component {
     );
 
     const jsonData = await data.json();
+    console.log(jsonData);
+
     if (
       jsonData.detail === "Invalid credentials" ||
       jsonData.detail === "User does not exist"
