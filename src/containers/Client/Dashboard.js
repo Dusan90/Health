@@ -43,53 +43,53 @@ class ClientDashboard extends Component {
       });
   };
 
-  // connect = () => {
-  // var ws = new WebSocket(
-  //   "ws://health-care-backend.herokuapp.com/ws/exam/status/"
-  // );
-  //   let that = this;
-  //   var connectInterval;
-  //   ws.onopen = () => {
-  //     // on connecting, do nothing but log it to the console
-  //     console.log("connected");
-  //     this.setState({ ws: ws });
-  //   };
-  //   ws.onmessage = e => {
-  //     // listen to data sent from the websocket server
-  //     this.exams();
-  //     const message = JSON.parse(e.data);
-  //     this.state.exams.map(exam => {
-  //       if (exam.exam === message.id) {
-  //         var state = message.status;
-  //         let new_exam = Object.assign({ ...exam }, exam);
-  //         new_exam.status = state;
-  //         return { new_exam };
-  //       } else {
-  //         console.log("Does not exist.");
-  //       }
-  //     });
-  //   };
-  //   ws.onclose = e => {
-  //     console.log(
-  //       `Socket is closed. Reconnect will be attempted in ${Math.min(
-  //         10000 / 1000,
-  //         (that.timeout + that.timeout) / 1000
-  //       )} second.`,
-  //       e.reason
-  //     );
-  //     that.timeout = that.timeout + that.timeout; //increment retry interval
-  //     connectInterval = setTimeout(this.check, Math.min(10000, that.timeout)); //c
-  //     // automatically try to reconnect on connection loss
-  //   };
-  //   ws.onerror = err => {
-  //     console.error(
-  //       "Socket encountered error: ",
-  //       err.message,
-  //       "Closing socket"
-  //     );
-  //     ws.close();
-  //   };
-  // };
+  connect = () => {
+    var ws = new WebSocket(
+      "ws://health-care-backend.herokuapp.com/ws/exam/status/"
+    );
+    let that = this;
+    var connectInterval;
+    ws.onopen = () => {
+      // on connecting, do nothing but log it to the console
+      console.log("connected");
+      this.setState({ ws: ws });
+    };
+    ws.onmessage = e => {
+      // listen to data sent from the websocket server
+      this.exams();
+      const message = JSON.parse(e.data);
+      this.state.exams.map(exam => {
+        if (exam.exam === message.id) {
+          var state = message.status;
+          let new_exam = Object.assign({ ...exam }, exam);
+          new_exam.status = state;
+          return { new_exam };
+        } else {
+          console.log("Does not exist.");
+        }
+      });
+    };
+    ws.onclose = e => {
+      console.log(
+        `Socket is closed. Reconnect will be attempted in ${Math.min(
+          10000 / 1000,
+          (that.timeout + that.timeout) / 1000
+        )} second.`,
+        e.reason
+      );
+      that.timeout = that.timeout + that.timeout; //increment retry interval
+      connectInterval = setTimeout(this.check, Math.min(10000, that.timeout)); //c
+      // automatically try to reconnect on connection loss
+    };
+    ws.onerror = err => {
+      console.error(
+        "Socket encountered error: ",
+        err.message,
+        "Closing socket"
+      );
+      ws.close();
+    };
+  };
 
   handleClick = id => {
     this.props.history.push(`/client/exam/detail/${id}`);
