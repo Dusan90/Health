@@ -44,21 +44,21 @@ class DoctorProfile extends Component {
         body: JSON.stringify({
           prefix: this.state.prefixValue,
           description: this.state.descriptionValue,
-          email_exam_price: this.state.priceValue
+          email_exam_price: this.state.priceValue,
+          status: "Available"
         })
       }
     );
     const jsonData = await data.json();
     console.log(jsonData);
     NotificationManager.success("Profile Updated!", "Successful!", 2000);
-    this.setState({ prefixValue: "", descriptionValue: "", priceValue: null });
     this.handleDoctorProfile();
   };
 
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/doctor/profile/`, {
+      .get("https://health-care-backend.herokuapp.com/api/doctor/profile/", {
         headers: { Authorization: access_token }
       })
       .then(response => {
