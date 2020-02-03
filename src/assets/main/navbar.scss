@@ -7,7 +7,11 @@
       margin-top: 5px;
       a {
         color: rgb(0, 191, 255);
+        background: none;
         &:hover {
+          background: none;
+        }
+        &:link {
           background: none;
         }
       }

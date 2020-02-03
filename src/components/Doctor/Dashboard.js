@@ -135,14 +135,19 @@ const Dashboard = ({
           })}
         </table>
       </div>
-      <h4 style={{ margin: "20px 0 20px 0", float: "left", color: "white" }}>
+      <h4
+        style={{
+          margin: "20px 0 20px 0",
+          float: "left",
+          color: "rgb(0, 191, 255)"
+        }}
+      >
         Clients
       </h4>
       <div className="row2" style={{ width: "300px" }}>
         {clients.map(client => {
           console.log(client);
-
-          return (
+          return client.id === null ? null : (
             <div key={client.id} className="list-group">
               <button
                 data-id={client.id}

@@ -51,6 +51,8 @@ class DoctorDashboard extends Component {
         const res = response.data.message.map(val => {
           return { id: val.client_id, client: val.client };
         });
+        console.log(res);
+
         this.setState({ clients: res });
       });
   };
@@ -101,7 +103,6 @@ class DoctorDashboard extends Component {
         <Header />
         <Nav />
         <Dashboard
-          websocket={this.ws}
           exams={this.state.exams}
           clients={this.state.clients}
           handleClick={this.handleClick}
