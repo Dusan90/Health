@@ -22,23 +22,25 @@
     margin-top: 5px;
     padding-top: 5px;
     width: 50%;
-    margin: 20px auto;
+    margin: 20px 0 20px 0;
 
     .d-details,
     .d-teraphy,
     .d-medical {
       height: 30px;
-      margin: 2px;
+      margin: 2px 0 2px 0;
       width: 400px;
       border-radius: 5px;
-      border: none;
+      border: 1px solid lightgray;
       text-indent: 10px;
+      float: left;
     }
 
     .submit {
-      margin: 4px;
       button {
+        margin: 20px 0 20px 0;
         width: 200px;
+        float: left;
       }
     }
   }
