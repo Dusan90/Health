@@ -44,19 +44,22 @@ class DoctorProfile extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
-    const data = await fetch("http://127.0.0.1:8000/api/doctor/profile/", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: access_token
-      },
-      body: JSON.stringify({
-        prefix: this.state.prefixValue,
-        description: this.state.descriptionValue,
-        email_exam_price: this.state.priceValue,
-        status: this.state.select
-      })
-    });
+    const data = await fetch(
+      "https://health-care-backend.herokuapp.com/api/doctor/profile/",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token
+        },
+        body: JSON.stringify({
+          prefix: this.state.prefixValue,
+          description: this.state.descriptionValue,
+          email_exam_price: this.state.priceValue,
+          status: this.state.select
+        })
+      }
+    );
     const jsonData = await data.json();
     console.log(jsonData);
     NotificationManager.success("Profile Updated!", "Successful!", 2000);
@@ -66,7 +69,7 @@ class DoctorProfile extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("http://127.0.0.1:8000/api/doctor/profile/", {
+      .get("https://health-care-backend.herokuapp.com/api/doctor/profile/", {
         headers: { Authorization: access_token }
       })
       .then(response => {
