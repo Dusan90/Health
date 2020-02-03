@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
 import "../../assets/doctor_profile.scss";
+import Select from "react-select";
 
 const Profile = ({
   doctor,
@@ -12,7 +13,10 @@ const Profile = ({
   handlePrefix,
   handleDescription,
   handlePrice,
-  handleSubmit
+  handleSubmit,
+  handleSelect,
+  status,
+  selectValue
 }) => {
   return (
     <>
@@ -44,6 +48,7 @@ const Profile = ({
                   <p>Prefix: {doctor.prefix}</p>
                   <p>Description: {doctor.description}</p>
                   <p>Price: {doctor.email_exam_price}</p>
+                  <p>Availability: {doctor.status}</p>
                 </div>
               </div>
               <form className="form">
@@ -55,6 +60,16 @@ const Profile = ({
                       placeholder="Enter prefix"
                       value={prefixValue}
                       onChange={handlePrefix}
+                    />
+                  </div>
+                  <div className="select" style={{ width: "200px" }}>
+                    <Select
+                      style={{ background: "black" }}
+                      type="text"
+                      className="select-option"
+                      value={selectValue}
+                      options={status}
+                      onChange={handleSelect}
                     />
                   </div>
                   <div className="price">

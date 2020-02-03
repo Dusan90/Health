@@ -9,7 +9,7 @@
       .doctor-p {
         position: relative;
         width: 200px;
-        border: 1px solid rgb(114, 223, 250);
+        border: 1px solid rgb(185, 183, 183);
         border-radius: 10px;
         height: 180px;
         padding: 5px;
@@ -59,8 +59,8 @@
 
       .description-input {
         height: 135px;
-        width: 380px;
-        border: 1px solid rgba(78, 190, 241, 0.548);
+        width: 610px;
+        border: 1px solid rgba(145, 147, 148, 0.548);
         border-radius: 5px;
         padding: 5px;
         float: left;
@@ -79,17 +79,24 @@
         margin-right: 5px;
 
         .prefix-input {
+          width: 200px;
           left: 100px;
-          border: 1px solid rgba(78, 190, 241, 0.548);
+          border: 1px solid rgba(158, 158, 158, 0.548);
           border-radius: 5px;
           padding: 5px;
+          height: 38px;
         }
       }
 
       .price {
         align-self: center;
+        margin-left: 5px;
+
         .price-input {
-          border: 1px solid rgba(78, 190, 241, 0.548);
+          width: 200px;
+          height: 38px;
+
+          border: 1px solid rgba(155, 155, 155, 0.548);
           border-radius: 5px;
           padding: 5px;
         }
