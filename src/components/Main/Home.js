@@ -38,7 +38,7 @@ const Home = ({ doctors, handleDoctor, handleConsultation, props }) => (
         </div>
       </div>
       <img
-        src="https://www.stellartransport.com/wp-content/uploads/2018/07/How-to-Get-to-Your-Next-Doctor-Appointment.jpg"
+        src="https://article.images.consumerreports.org/f_auto/prod/content/dam/cro/news_articles/health/CRO_Health_CROH_April_Online_Doctor_Chat_02-15"
         alt="slika"
       />
     </div>

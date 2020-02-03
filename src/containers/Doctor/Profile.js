@@ -7,7 +7,8 @@ import { NotificationManager } from "react-notifications";
 
 const options = [
   { value: "Available", label: "Available" },
-  { value: "Unavailable", label: "Unavailable" }
+  { value: "Away", label: "Away" },
+  { value: "Offline", label: "Offline" }
 ];
 
 class DoctorProfile extends Component {
@@ -73,6 +74,8 @@ class DoctorProfile extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
+        console.log(response);
+
         return this.setState({ doctor: Object.values(response.data) });
       });
   };
@@ -82,6 +85,8 @@ class DoctorProfile extends Component {
   }
 
   render() {
+    console.log(this.state.doctor);
+
     return (
       <div className="container">
         <Profile
