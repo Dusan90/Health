@@ -81,7 +81,7 @@ class ClientDashboard extends Component {
     //   connectInterval = setTimeout(this.check, Math.min(10000, that.timeout)); //c
     //   // automatically try to reconnect on connection loss
     // };
-    ws.onclose = function(e) {
+    ws.onclose = e => {
       console.log(
         "Socket is closed. Reconnect will be attempted in 1 second.",
         e.reason
