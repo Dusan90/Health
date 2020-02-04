@@ -30,7 +30,7 @@ class DoctorProfile extends Component {
   };
 
   handleSelect = statusValue => {
-    let { value, label } = statusValue;
+    let { value } = statusValue;
     this.setState({ select: value });
   };
 
