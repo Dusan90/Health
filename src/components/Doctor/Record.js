@@ -13,6 +13,8 @@ const Record = ({
   <div className="row">
     <div className="box">
       {record.map(data => {
+        console.log(data);
+
         return (
           <div key={data.id} className="record-box">
             <p>Client: {data.client}</p>
