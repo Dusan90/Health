@@ -86,7 +86,7 @@ class ClientDashboard extends Component {
         "Socket is closed. Reconnect will be attempted in 1 second.",
         e.reason
       );
-      setTimeout(function() {
+      setTimeout(() => {
         this.connect();
       }, 1000);
     };
