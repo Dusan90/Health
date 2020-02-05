@@ -5,6 +5,7 @@ import LoginUser from "../../components/Auth/Login";
 import Nav from "../../components/Main/Navbar";
 import { userLogin, userLoggedIn } from "../../actions/authActions";
 // import Footer from "../../components/Main/Footer";
+import { NotificationManager } from "react-notifications";
 
 class Login extends Component {
   constructor(props) {
@@ -31,21 +32,6 @@ class Login extends Component {
     this.userLogin();
   };
 
-  message = () => {
-    return (
-      <p
-        style={{
-          background: "red",
-          width: "50%",
-          margin: "0 auto",
-          color: "white"
-        }}
-      >
-        Invalid Credentials
-      </p>
-    );
-  };
-
   userLogin = async () => {
     const data = await fetch(
       "https://health-care-backend.herokuapp.com/api/auth/login/",
@@ -62,17 +48,20 @@ class Login extends Component {
     );
 
     const jsonData = await data.json();
-    console.log(jsonData);
+    console.log("jsonData", jsonData);
+    console.log("email", jsonData.email);
 
     if (
       jsonData.detail === "Invalid credentials" ||
       jsonData.detail === "User does not exist"
+      // jsonData.email[0] === "Enter a valid email address."
     ) {
-      this.setState({ invalid: true });
-      let int = setInterval(() => {
-        this.setState({ invalid: false });
-        clearInterval(int);
-      }, 4000);
+      NotificationManager.error("Invalid Credentials", "Failed!", 2000);
+    } else if (
+      this.state.emailValue === "" ||
+      this.state.passwordValue === ""
+    ) {
+      NotificationManager.error("Empty Fields", "Failed!", 2000);
     } else {
       if (jsonData.is_doctor) {
         this.setState({ is_doctor: true });
@@ -110,7 +99,6 @@ class Login extends Component {
       <div className="container">
         <Header />
         <Nav />
-        {this.state.invalid ? this.message() : null}
         <LoginUser
           emailValue={this.state.emailValue}
           passwordValue={this.state.passwordValue}

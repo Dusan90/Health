@@ -3,7 +3,7 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import "../../assets/client/detail-exam.scss";
 
-const Detail = ({ exam, handleLink, handleLinkMessage }) => (
+const Detail = ({ exam, handleLink, handleLinkMessage, handleCancel }) => (
   <>
     <Header />
     <Nav />
@@ -22,7 +22,7 @@ const Detail = ({ exam, handleLink, handleLinkMessage }) => (
             </p>
             <p>Subject: {exam.subject}</p>
             <p>Status: {exam.status}</p>
-            {exam.status === "Accepted" && (
+            {exam.status === "Accepted" ? (
               <div className="message-btn">
                 <button className="messages-link" onClick={handleLink}>
                   Message history
@@ -31,6 +31,10 @@ const Detail = ({ exam, handleLink, handleLinkMessage }) => (
                   Message
                 </button>
               </div>
+            ) : (
+              <button className="message-link" onClick={handleCancel}>
+                Cancel
+              </button>
             )}
           </div>
         </div>

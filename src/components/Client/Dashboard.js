@@ -57,6 +57,7 @@ const Dashboard = ({ initiate, exams, handleClick, handleChange }) => (
           </tr>
         </thead>
         {exams.map(exam => {
+          if (exam.status === "Canceled") return null;
           return (
             <tbody key={exam.id} className="client-body">
               <tr

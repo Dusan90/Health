@@ -5,6 +5,7 @@ import Nav from "../../components/Main/Navbar";
 import axios from "axios";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
+import { NotificationManager } from "react-notifications";
 
 class ExamForm extends Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class ExamForm extends Component {
       token: sessionStorage.getItem("accessToken"),
       specDoctor: [],
       specialSP: [],
-      resetDoctorSelect: null
+      resetDoctorSelect: null,
+      isClicked: false
     };
   }
 
@@ -54,31 +56,42 @@ class ExamForm extends Component {
 
   handleSubmit = async e => {
     const access_token = "Bearer ".concat(this.state.token);
-    const response = await fetch(
-      "https://health-care-backend.herokuapp.com/api/client/initiate/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: access_token
-        },
-        body: JSON.stringify({
-          speciality: this.state.specialSP,
-          doctor: this.state.doctor_id,
-          subject: this.state.subject,
-          message: this.state.message
-        })
-      }
-    );
-    const data = await response.json();
+    if (
+      this.state.specialSP &&
+      this.state.doctor_id &&
+      this.state.subject &&
+      this.state.message
+    ) {
+      const response = await fetch(
+        "https://health-care-backend.herokuapp.com/api/client/initiate/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: access_token
+          },
+          body: JSON.stringify({
+            speciality: this.state.specialSP,
+            doctor: this.state.doctor_id,
+            subject: this.state.subject,
+            message: this.state.message
+          })
+        }
+      );
+      const data = await response.json();
 
-    this.toCheckout();
-    return data;
+      // this.toCheckout();
+      this.setState({ isClicked: true });
+
+      return data;
+    } else {
+      NotificationManager.error("Empty Fields", "Failed!", 2000);
+    }
   };
 
-  toCheckout = async () => {
-    return this.props.history.push("/checkout");
-  };
+  // toCheckout = async () => {
+  //   return this.props.history.push("/checkout");
+  // };
 
   componentDidMount() {
     axios
@@ -123,6 +136,7 @@ class ExamForm extends Component {
           handleMessage={this.handleMessage}
           specDoctor={this.state.specDoctor}
           resetDoctorSelect={this.state.resetDoctorSelect}
+          isClicked={this.state.isClicked}
         />
       </div>
     );

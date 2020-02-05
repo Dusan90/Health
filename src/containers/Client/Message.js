@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import ExamMessage from "../../components/Client/Message";
+import { NotificationManager } from "react-notifications";
 
 class ClientMessage extends Component {
   constructor(props) {
@@ -61,6 +62,8 @@ class ClientMessage extends Component {
     this.sendMessage();
     this.setState({ messageValue: "" });
     this.doctor();
+    this.props.history.push("/dashboard-client");
+    NotificationManager.success("Message Sent", "Successful!", 2000);
   };
 
   onChangeHandler = e => {

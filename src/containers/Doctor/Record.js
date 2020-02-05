@@ -77,6 +77,7 @@ class ClientRecord extends Component {
 
   render() {
     console.log(this.state.details, this.state.condition, this.state.teraphy);
+    console.log(this.state.record);
 
     return (
       <div className="container">

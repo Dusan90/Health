@@ -11,13 +11,14 @@ const ExamMessage = ({
   handleSubmit,
   onChangeHandler
 }) => {
-  console.log("nesto");
   return (
     <>
       <Header />
       <Nav />
       <ul className="nav-client">
-        <h6 href="#list">New Message</h6>
+        <h6 href="#list" style={{ color: "rgb(0, 191, 255)" }}>
+          New Message
+        </h6>
       </ul>
       <div className="mainClientMessage">
         {doctor && <h5 className="doctor-form">To: {doctor}</h5>}

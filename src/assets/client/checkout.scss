@@ -25,10 +25,10 @@
   position: absolute;
   z-index: 20;
   // margin: 0 auto;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 80%;
+  height: 70%;
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -53,15 +53,14 @@
 .btn-checkout {
   margin: 10px auto;
   border-radius: 4px;
-  // position: relative;
   left: -5px;
   height: 40px;
   top: 25px;
-  width: 25%;
+  width: 400px;
   color: white;
-  background-color: rgba(4, 137, 245, 0.616);
+  background-color: rgb(0, 191, 255);
 
-  :hover {
-    background-color: blue;
+  &:hover {
+    background-color: rgb(5, 166, 219);
   }
 }

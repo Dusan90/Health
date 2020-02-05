@@ -69,26 +69,17 @@ class ClientDashboard extends Component {
         }
       });
     };
-    // ws.onclose = e => {
-    //   console.log(
-    //     `Socket is closed. Reconnect will be attempted in ${Math.min(
-    //       10000 / 1000,
-    //       (that.timeout + that.timeout) / 1000
-    //     )} second.`,
-    //     e.reason
-    //   );
-    //   that.timeout = that.timeout + that.timeout; //increment retry interval
-    //   connectInterval = setTimeout(this.check, Math.min(10000, that.timeout)); //c
-    //   // automatically try to reconnect on connection loss
-    // };
     ws.onclose = e => {
       console.log(
-        "Socket is closed. Reconnect will be attempted in 1 second.",
+        `Socket is closed. Reconnect will be attempted in ${Math.min(
+          10000 / 1000,
+          (that.timeout + that.timeout) / 1000
+        )} second.`,
         e.reason
       );
-      setTimeout(() => {
-        this.connect();
-      }, 1000);
+      that.timeout = that.timeout + that.timeout; //increment retry interval
+      connectInterval = setTimeout(this.check, Math.min(10000, that.timeout)); //c
+      // automatically try to reconnect on connection loss
     };
     ws.onerror = err => {
       console.error(

@@ -1,6 +1,4 @@
 .exam {
-  //   position: relative;
-  //   top: 100px;
   width: 100%;
   margin-top: 50px;
 
@@ -9,32 +7,20 @@
   }
 
   .exam-spec {
-    // position: absolute;
-    // left: 1px;
     width: 300px;
     margin: 0 10px 10px 0;
   }
 
   .exam-doc {
-    // position: absolute;
-    // left: 325px;
-    // top: 1px;
     width: 300px;
     margin-right: 10px;
   }
 
   .exam-sub {
-    // position: absolute;
-    // left: 650px;
-    // top: 1px;
     width: 490px;
   }
 
   .exam-mess {
-    // position: absolute;
-    // left: 1px;
-    // top: 50px;
-    // width: 1135px;
     height: 200px;
 
     .form-control {
@@ -47,13 +33,10 @@
   }
 
   .btn {
-    left: 500px;
-    // position: absolute;
-    // top: 260px;
     margin: 10px auto;
 
-    .submit-link {
-      color: white;
-    }
+    // .submit-link {
+    //   color: white;
+    // }
   }
 }

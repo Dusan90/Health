@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { Link } from "react-router-dom";
 import "../../assets/client/checkout.scss";
+import { NotificationManager } from "react-notifications";
+import { Redirect } from "react-router-dom";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -13,32 +14,36 @@ class CheckoutForm extends Component {
 
   submit = async ev => {
     // ev.preventDefault();
+    const price = parseInt(this.props.doctor.price, 10);
     const cardElement = this.props.elements.getElement("card");
     const { paymentMethod } = await this.props.stripe.createPaymentMethod({
       type: "card",
       card: cardElement
     });
-    const price = parseInt(this.props.doctor.price, 10);
+    if (paymentMethod === undefined) {
+      NotificationManager.error("Faild to Checkout", "Faild!", 2000);
+    } else if (paymentMethod !== undefined) {
+      const response = await fetch(
+        "https://health-care-backend.herokuapp.com/api/charge/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            payment_method_id: paymentMethod.id,
+            amount: price
+          })
+        }
+      );
+      // await handleServerResponse(await response.json())
+      const data = await response.json();
+      console.log(data);
 
-    const response = await fetch(
-      "https://health-care-backend.herokuapp.com/api/charge/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          payment_method_id: paymentMethod.id,
-          amount: price
-        })
+      if (data.message === true) {
+        this.setState({ complete: true });
+        NotificationManager.success("Checkout Completed", "Successful!", 2000);
       }
-    );
-    // await handleServerResponse(await response.json())
-    const data = await response.json();
-    console.log(data);
-
-    if (data.message === true) {
-      this.setState({ complete: true });
     }
   };
 
@@ -72,18 +77,9 @@ class CheckoutForm extends Component {
   };
 
   render() {
-    console.log(this.props.doctor);
-    if (this.state.complete)
-      return (
-        <h1 style={{ margin: "0 auto", alignSelf: "center" }}>
-          <Link
-            style={{ textDecoration: "none", color: "green" }}
-            to="/dashboard-client"
-          >
-            Submit Completed
-          </Link>
-        </h1>
-      );
+    if (this.state.complete) {
+      return <Redirect to="/dashboard-client" />;
+    }
     return (
       <div className="mainCardDiv">
         <CardElement className="CardElement" onReady={this.handleReady} />

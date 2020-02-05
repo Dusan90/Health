@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import "../../assets/client/exam-form.scss";
+import CheckoutForm from "../../containers/Client/CheckoutForm";
+import { Elements, StripeProvider } from "react-stripe-elements";
 
 const InitiateExam = ({
   specialities,
@@ -14,7 +16,8 @@ const InitiateExam = ({
   handleSubmit,
   handleMessage,
   specDoctor,
-  resetDoctorSelect
+  resetDoctorSelect,
+  isClicked
 }) => {
   return (
     <div className="exam">
@@ -59,15 +62,23 @@ const InitiateExam = ({
           onChange={handleMessage}
         />
       </div>
-      <div className="btn btn-warning">
-        <Link
-          value={submitted}
-          to="/checkout"
-          className="submit-link"
-          onClick={handleSubmit}
-        >
-          Submit Exam
-        </Link>
+      {/* <div className="btn"> */}
+      <button
+        value={submitted}
+        className="btn btn-warning"
+        onClick={handleSubmit}
+      >
+        Submit Exam
+      </button>
+      {/* </div> */}
+      <div>
+        {isClicked ? (
+          <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3">
+            <Elements>
+              <CheckoutForm />
+            </Elements>
+          </StripeProvider>
+        ) : null}
       </div>
     </div>
   );

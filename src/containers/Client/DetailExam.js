@@ -14,6 +14,29 @@ class ClientDetailExam extends Component {
     };
   }
 
+  handleCancel = async () => {
+    this.props.history.push("/dashboard-client");
+    const access_token = "Bearer ".concat(this.state.token);
+    const doctor = await fetch(
+      `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.id}/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token
+        },
+        body: JSON.stringify({
+          message: "Cancel"
+        })
+      }
+    );
+    const jsonData = await doctor.json();
+    // this.toRefund();
+    console.log(jsonData);
+
+    return jsonData;
+  };
+
   detail = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
@@ -47,6 +70,7 @@ class ClientDetailExam extends Component {
           exam={this.state.exam}
           handleLink={this.handleLink}
           handleLinkMessage={this.handleLinkMessage}
+          handleCancel={this.handleCancel}
         />
       </div>
     );

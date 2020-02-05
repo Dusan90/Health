@@ -152,9 +152,9 @@ class App extends Component {
                   component={ClientMessage}
                 />
                 <Route path="/initiate" exact component={ExamForm} />
-                <Elements>
+                {/* <Elements>
                   <Route path="/checkout" exact component={CheckoutForm} />
-                </Elements>
+                </Elements> */}
                 <Footer />
                 <NotificationContainer />
               </Router>
