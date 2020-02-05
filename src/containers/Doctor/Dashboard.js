@@ -34,7 +34,10 @@ class DoctorDashboard extends Component {
             status: val.status
           };
         });
-        this.setState({ exams: res });
+        let resort = res.sort(
+          (a, b) => Date.parse(b.created) - Date.parse(a.created)
+        );
+        this.setState({ exams: resort });
         this.setState({
           pending: [...this.state.exams.filter(res => res.status === "Pending")]
         });
@@ -59,14 +62,14 @@ class DoctorDashboard extends Component {
 
   handleChange = e => {
     if (e.target.value === "earliest") {
-      let hy = this.state.exams;
-      let sort = hy.sort(
+      let earl = this.state.exams;
+      let sort = earl.sort(
         (a, b) => Date.parse(a.created) - Date.parse(b.created)
       );
       this.setState({ exams: sort });
     } else {
-      let hello = this.state.exams;
-      let resort = hello.sort(
+      let lates = this.state.exams;
+      let resort = lates.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
       this.setState({ exams: resort });

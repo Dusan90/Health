@@ -4,6 +4,7 @@ import Header from "../../components/Main/Header";
 import RegisterUser from "../../components/Auth/Register";
 import Nav from "../../components/Main/Navbar";
 import axios from "axios";
+import { NotificationManager } from "react-notifications";
 // import Footer from "../../components/Main/Footer";
 
 const options = [
@@ -91,18 +92,40 @@ class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.userRegister();
+    if (
+      this.state.userType === "client" &&
+      this.state.emailValue &&
+      this.state.firstNameValue &&
+      this.state.lastNameValue &&
+      this.state.passwordValue &&
+      this.state.selectedGenderValue &&
+      this.state.addressValue &&
+      this.state.birthDateValue
+    ) {
+      this.userRegister();
+    } else if (
+      this.state.userType === "doctor" &&
+      this.state.emailValue &&
+      this.state.firstNameValue &&
+      this.state.lastNameValue &&
+      this.state.passwordValue &&
+      this.state.npiNumValue &&
+      this.state.prefixValue &&
+      this.state.selectedSpecValue
+    ) {
+      this.userRegister();
+    } else {
+      NotificationManager.error("Empty Fields", "Failed!", 2000);
+    }
   };
 
   componentDidMount() {
     axios
       .get("https://health-care-backend.herokuapp.com/api/specialities/")
       .then(response => {
-        console.log(response.data);
         const res = response.data.message.map(val => {
           return { value: val.id, label: val.name };
         });
-        console.log(res);
         this.setState({ specOptions: res });
       });
   }
@@ -130,6 +153,11 @@ class Register extends Component {
         }
       );
       this.props.history.push("/login");
+      NotificationManager.success(
+        "An email for confirmation will be sent shortly",
+        "Successful!",
+        4000
+      );
       const jsonData = await client.json();
       console.log(jsonData);
       return jsonData;
@@ -155,6 +183,11 @@ class Register extends Component {
         }
       );
       this.props.history.push("/login");
+      NotificationManager.success(
+        "An email for confirmation will be sent shortly",
+        "Successful!",
+        4000
+      );
       const jsonData = await doctor.json();
       console.log(jsonData);
       return jsonData;

@@ -92,8 +92,8 @@ const Dashboard = ({
           <div className="sort">
             <label>Sort by: </label>
             <select name="" id="" onChange={handleChange}>
-              <option value="earliest">Earliest</option>
               <option value="latest">Latest</option>
+              <option value="earliest">Earliest</option>
             </select>
           </div>
         </div>
