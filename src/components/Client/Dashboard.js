@@ -6,6 +6,7 @@ import { MdEmail } from "react-icons/md";
 import { FaUserClock } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa";
+import { GiCancel } from "react-icons/gi";
 
 const Dashboard = ({ initiate, exams, handleClick, handleChange }) => (
   <>
@@ -78,6 +79,8 @@ const Dashboard = ({ initiate, exams, handleClick, handleChange }) => (
                 <td className="client-status">
                   {exam.status === "Accepted" ? (
                     <FaCheck className="check" />
+                  ) : exam.status === "Declined" ? (
+                    <GiCancel className="declined" />
                   ) : (
                     <FaRegClock className="pendi" />
                   )}

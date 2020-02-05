@@ -43,11 +43,12 @@ const Profile = ({
                 </div>
                 <div className="info">
                   <p>Doctor: {doctor.doctor}</p>
+                  <p>Email: {doctor.email}</p>
                   <p>Speciality: {doctor.speciality}</p>
                   <p>NPI: {doctor.npi_number}</p>
                   <p>Prefix: {doctor.prefix}</p>
                   <p>Description: {doctor.description}</p>
-                  <p>Price: {doctor.email_exam_price}</p>
+                  <p>Price: {doctor.email_exam_price} €</p>
                   <p>Availability: {doctor.status}</p>
                 </div>
               </div>

@@ -101,7 +101,6 @@ class DoctorProfile extends Component {
           handlePrice={this.handlePrice}
           handleSubmit={this.handleSubmit}
           handleSelect={this.handleSelect}
-          z
         />
       </div>
     );
