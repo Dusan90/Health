@@ -26,6 +26,8 @@ class ClientRecord extends Component {
         { headers: { Authorization: access_token } }
       )
       .then(response => {
+        console.log(response);
+
         return this.setState({ record: Object.values(response.data)[0] });
       });
   };
@@ -76,9 +78,6 @@ class ClientRecord extends Component {
   }
 
   render() {
-    console.log(this.state.details, this.state.condition, this.state.teraphy);
-    console.log(this.state.record);
-
     return (
       <div className="container">
         <Header />
@@ -98,7 +97,6 @@ class ClientRecord extends Component {
 
 const mapStateToProps = state => {
   const clientID = state.getIn(["clientReducer", "clientID"]);
-  console.log(clientID);
 
   return {
     clientID

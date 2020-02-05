@@ -92,22 +92,20 @@
 
       .doctor-panel {
         width: 250px;
-        position: relative;
+        // position: relative;
         border-radius: 4px;
-        margin-left: 0px;
         padding: 5em;
         padding-top: 8px;
-        margin-bottom: 3px;
+        margin: 0 auto;
         background-color: rgba(221, 219, 231, 0.452);
         border-radius: 10px;
 
         .doc-panel {
           margin-top: 20px;
+          width: 100%;
         }
 
         .doc-profile {
-          position: relative;
-
           .btn {
             color: white;
             top: -85px;

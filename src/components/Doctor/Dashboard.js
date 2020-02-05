@@ -20,7 +20,7 @@ const Dashboard = ({
   let short = pending ? pending.slice(0, 3) : null;
 
   return (
-    <>
+    <div className="testic">
       <div className="main">
         <div className="divVideo">
           <div className="videoApp1">
@@ -198,7 +198,7 @@ const Dashboard = ({
           <button onClick={hnlClick}>GO BACK</button>
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
