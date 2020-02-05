@@ -59,11 +59,14 @@ class ClientMessage extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.sendMessage();
-    this.setState({ messageValue: "" });
-    this.doctor();
-    this.props.history.push("/dashboard-client");
-    NotificationManager.success("Message Sent", "Successful!", 2000);
+    if (this.state.messageValue) {
+      this.sendMessage();
+      this.setState({ messageValue: "" });
+      this.doctor();
+      NotificationManager.success("Message Sent", "Successful!", 2000);
+    } else {
+      NotificationManager.error("Empty Fields", "Failed!", 2000);
+    }
   };
 
   onChangeHandler = e => {

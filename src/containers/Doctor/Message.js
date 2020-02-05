@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { connect } from "react-redux";
 import ExamMessage from "../../components/Doctor/Message";
+import { NotificationManager } from "react-notifications";
 
 class DoctorMessage extends Component {
   constructor(props) {
@@ -25,6 +25,8 @@ class DoctorMessage extends Component {
         }
       )
       .then(response => {
+        console.log(response);
+
         return this.setState({ client: response.data.client });
       })
       .catch(e => {
@@ -70,9 +72,14 @@ class DoctorMessage extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.sendMessage();
-    this.setState({ messageValue: "" });
-    this.client();
+    if (this.state.messageValue) {
+      this.sendMessage();
+      this.setState({ messageValue: "" });
+      this.client();
+      NotificationManager.success("Message Sent", "Successful!", 2000);
+    } else {
+      NotificationManager.error("Empty Fields", "Failed!", 2000);
+    }
   };
 
   componentDidMount() {
@@ -95,13 +102,4 @@ class DoctorMessage extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const examID = state.getIn(["examReducer", "examID"]);
-  console.log(examID, "sadad");
-
-  return {
-    examID
-  };
-};
-
-export default connect(mapStateToProps)(DoctorMessage);
+export default DoctorMessage;
