@@ -12,6 +12,19 @@
   background: linear-gradient(white, white, white, rgba(14, 233, 241, 0.719));
 }
 
+.head {
+  color: rgb(0, 191, 255);
+}
+
+.clientLabel,
+.doctorLabel {
+  color: gray;
+}
+
+.clientLabel {
+  margin-right: 30px;
+}
+
 .App-logo {
   height: 40vmin;
 }

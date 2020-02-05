@@ -12,13 +12,6 @@ const options = [
   { value: "F", label: "Female" }
 ];
 
-const style = {
-  // position: "relative",
-  margin: "20px",
-  left: "1px",
-  top: "200px"
-};
-
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -199,23 +192,26 @@ class Register extends Component {
       <div className="container">
         <Header />
         <Nav />
-        <div>
+        <div className="radioDiv">
+          <h4 className="head">You are?</h4>
           <input
             type="radio"
             name="userType"
             value="client"
             checked={this.state.userType === "client" ? true : false}
             onChange={() => this.handleUserType("client")}
-            style={style}
+            style={{ margin: "0 5px 0 0" }}
           />
+          <label className="clientLabel">A Client</label>
           <input
             type="radio"
             name="userType"
             value="doctor"
             checked={this.state.userType === "doctor" ? true : false}
             onChange={() => this.handleUserType("doctor")}
-            style={style}
+            style={{ margin: "0 5px 0 0" }}
           />
+          <label className="doctorLabel">A Doctor</label>
         </div>
         <RegisterUser
           userType={this.state.userType}
