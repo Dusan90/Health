@@ -11,10 +11,14 @@ const Nav = ({
   handleDashboardDoctor,
   handleDashboardClient,
   handleDoctorProfile,
-  handleClientProfile
+  handleClientProfile,
+  handleClients,
+  doctor
 }) => {
   let dashboardLink = null;
   let profileLink = null;
+  let clientsLink = null;
+  let curDoc = null;
   const isDoctor = sessionStorage.getItem("is_doctor");
   if (isDoctor === "true") {
     dashboardLink = (
@@ -24,6 +28,16 @@ const Nav = ({
         onClick={() => handleDashboardDoctor}
       >
         Dashboard
+      </Link>
+    );
+    curDoc = <div className="initials">{doctor}</div>;
+    clientsLink = (
+      <Link
+        to="/doctors-clients"
+        className="doc-dash"
+        onClick={() => handleClients}
+      >
+        Clients
       </Link>
     );
     profileLink = (
@@ -74,12 +88,15 @@ const Nav = ({
       {isLoggedIn && (
         <ul className="nav navbar-nav navbar-right">
           <li>{dashboardLink}</li>
+          <li>{clientsLink}</li>
           <li>{profileLink}</li>
+
           <li>
             <Link to="/logout" onClick={handleLogout}>
               Logout
             </Link>
           </li>
+          <span className="inic">{curDoc}</span>
         </ul>
       )}
     </nav>
@@ -89,9 +106,12 @@ const Nav = ({
 const mapStateToProps = state => {
   const user = state.getIn(["authReducer", "user"]);
   const isLoggedIn = state.getIn(["authReducer", "isLoggedIn"]);
+  const doctor = state.getIn(["docReducer", "doctor"]);
+
   return {
     user,
-    isLoggedIn
+    isLoggedIn,
+    doctor
   };
 };
 

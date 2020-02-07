@@ -38,6 +38,10 @@ class Main extends Component {
     this.props.history.push("/dashboard-client");
   };
 
+  handleClients = () => {
+    this.props.history.push("/doctors-clients");
+  };
+
   componentDidMount() {
     axios
       .get("https://health-care-backend.herokuapp.com/api/doctor/list", {
@@ -68,8 +72,6 @@ class Main extends Component {
   }
 
   render() {
-    console.log(this.state.specialities);
-
     return (
       <div className="container">
         <Header />
@@ -78,6 +80,7 @@ class Main extends Component {
           doctors={this.state.doctors}
           handleDoctor={this.handleDoctor}
           handleConsultation={this.handleConsultation}
+          handleClients={this.handleClients}
           props={this.state}
         />
       </div>

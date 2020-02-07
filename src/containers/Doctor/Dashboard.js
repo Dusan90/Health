@@ -3,18 +3,21 @@ import axios from "axios";
 import Dashboard from "../../components/Doctor/Dashboard";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
+import curentDoc from "../../actions/docAction";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 class DoctorDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       exams: [],
-      clients: [],
       record: [],
       token: sessionStorage.getItem("accessToken"),
       pending: "",
       openPending: false,
-      value: ""
+      value: "",
+      doc: []
     };
   }
 
@@ -44,22 +47,6 @@ class DoctorDashboard extends Component {
       });
   };
 
-  clients = () => {
-    const access_token = "Bearer ".concat(this.state.token);
-    axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/clients/", {
-        headers: { Authorization: access_token }
-      })
-      .then(response => {
-        const res = response.data.message.map(val => {
-          return { id: val.client_id, client: val.client };
-        });
-        console.log(res);
-
-        this.setState({ clients: res });
-      });
-  };
-
   handleChange = e => {
     if (e.target.value === "earliest") {
       let earl = this.state.exams;
@@ -80,10 +67,6 @@ class DoctorDashboard extends Component {
     this.props.history.push(`/doctor/exam/detail/${id}`);
   };
 
-  handleClient = id => {
-    this.props.history.push(`/doctor/record/detail/${id}`);
-  };
-
   hnlClick = () => {
     this.setState({ openPending: !this.state.openPending });
   };
@@ -94,20 +77,42 @@ class DoctorDashboard extends Component {
     }
   };
 
+  handleDoctorProfile = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/doctor/profile/", {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        console.log(response, "radi");
+
+        let curentDocc = response.data.message.doctor
+          .split(" ")
+          .map(n => n[0])
+          .join(".");
+        this.props.curentDoc(curentDocc);
+        return this.setState({
+          doc: curentDocc
+        });
+      });
+  };
+
   componentDidMount() {
     this.exams();
-    this.clients();
     window.addEventListener("keydown", this.escBtn);
+    this.handleDoctorProfile();
   }
 
   render() {
+    console.log(this.state.doc);
+    console.log(this.props);
+
     return (
       <div className="container">
         <Header />
-        <Nav />
+        <Nav doc={this.state.doc} />
         <Dashboard
           exams={this.state.exams}
-          clients={this.state.clients}
           handleClick={this.handleClick}
           handleClient={this.handleClient}
           pending={this.state.pending}
@@ -121,4 +126,8 @@ class DoctorDashboard extends Component {
   }
 }
 
-export default DoctorDashboard;
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ curentDoc: curentDoc }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(DoctorDashboard);

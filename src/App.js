@@ -31,11 +31,13 @@ import subjectReducer from "./reducers/subjectReducer";
 import specReducer from "./reducers/specReducer";
 import examReducer from "./reducers/examReducer";
 import clientReducer from "./reducers/clientReducer";
+import Clients from "./containers/Doctor/Clients";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userLogin, userLoggedIn } from "./actions/authActions";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 import Footer from "./components/Main/Footer";
+import docReducer from "./reducers/docReducer";
 
 class App extends Component {
   constructor(props) {
@@ -44,6 +46,7 @@ class App extends Component {
     const sagaMiddleware = createSagaMiddleware();
 
     const combinedReducers = combineReducers({
+      docReducer,
       authReducer,
       doctorReducer,
       subjectReducer,
@@ -146,6 +149,11 @@ class App extends Component {
                   exact
                   component={ClientCorrespondence}
                 />
+                <Route
+                  path="/doctors-clients"
+                  exact
+                  component={Clients}
+                ></Route>
                 <Route
                   path="/client/exam/message/:id"
                   exact

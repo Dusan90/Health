@@ -67,6 +67,7 @@ class ClientMessage extends Component {
     } else {
       NotificationManager.error("Empty Fields", "Failed!", 2000);
     }
+    this.props.history.push(`/client/exam/correspondence/${this.state.id}`);
   };
 
   onChangeHandler = e => {

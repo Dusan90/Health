@@ -80,6 +80,7 @@ class DoctorMessage extends Component {
     } else {
       NotificationManager.error("Empty Fields", "Failed!", 2000);
     }
+    this.props.history.push(`/doctor/exam/correspondence/${this.state.id}`);
   };
 
   componentDidMount() {

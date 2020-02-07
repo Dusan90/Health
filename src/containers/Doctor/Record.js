@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { connect } from "react-redux";
 import Record from "../../components/Doctor/Record";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
@@ -78,6 +77,8 @@ class ClientRecord extends Component {
   }
 
   render() {
+    console.log(this.state.record);
+
     return (
       <div className="container">
         <Header />
@@ -95,12 +96,4 @@ class ClientRecord extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const clientID = state.getIn(["clientReducer", "clientID"]);
-
-  return {
-    clientID
-  };
-};
-
-export default connect(mapStateToProps)(ClientRecord);
+export default ClientRecord;

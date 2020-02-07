@@ -2,14 +2,30 @@
   ul {
     display: flex;
     float: right;
+
+    .inic {
+      background: lightblue;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgb(48, 100, 179);
+      .initials {
+        color: white;
+        align-self: center;
+        text-align: center;
+        // margin-top: 17px;
+      }
+    }
     li {
       padding: 0;
       margin-top: 5px;
       a {
         color: rgb(0, 191, 255);
         background: none;
+        transition: all 0.5s ease-in-out;
         &:hover {
           background: none;
+          color: rgb(3, 137, 182);
         }
         &:link {
           background: none;

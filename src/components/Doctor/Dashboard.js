@@ -8,11 +8,9 @@ import { FaCheck } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa";
 
 const Dashboard = ({
-  clients,
   exams,
   hnlClick,
   handleClick,
-  handleClient,
   pending,
   handleChange,
   props
@@ -134,30 +132,6 @@ const Dashboard = ({
             }
           })}
         </table>
-      </div>
-      <h4
-        style={{
-          margin: "20px 0 20px 0",
-          float: "left",
-          color: "rgb(0, 191, 255)"
-        }}
-      >
-        Clients
-      </h4>
-      <div className="row2" style={{ width: "300px" }}>
-        {clients.map(client => {
-          return client.id === null ? null : (
-            <div key={client.id} className="list-group">
-              <button
-                data-id={client.id}
-                className="list-group-item"
-                onClick={() => handleClient(client.id)}
-              >
-                {client.client}
-              </button>
-            </div>
-          );
-        })}
       </div>
       {props.openPending ? (
         <div className="penTable">
