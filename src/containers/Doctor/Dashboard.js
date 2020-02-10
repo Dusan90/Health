@@ -19,7 +19,9 @@ class DoctorDashboard extends Component {
       value: "",
       doc: [],
       page: "",
-      url: ""
+      url: "",
+      test: [],
+      nextPage: ""
     };
   }
 
@@ -39,7 +41,7 @@ class DoctorDashboard extends Component {
   handleClickRight = () => {
     if (this.state.page === "") {
       this.setState({ url: "?page=", page: 2 });
-    } else if (this.state.exams.length === 0) {
+    } else if (this.state.exams.length === 0 || this.state.nextPage === null) {
       return null;
     } else {
       this.setState({ page: this.state.page + 1 });
@@ -60,7 +62,7 @@ class DoctorDashboard extends Component {
         }
       )
       .then(response => {
-        console.log(response.data);
+        // console.log(response, "prviiiiiiiiiiiiii");
 
         const res = response.data.results.map(val => {
           return {
@@ -75,8 +77,33 @@ class DoctorDashboard extends Component {
           (a, b) => Date.parse(b.created) - Date.parse(a.created)
         );
         this.setState({ exams: resort });
+        return response.data.next === null
+          ? this.setState({ nextPage: null })
+          : null;
+      });
+  };
+
+  pnd = () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://health-care-backend.herokuapp.com/api/doctor/exams/req`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        const res = response.data.data.map(val => {
+          return {
+            id: val.id,
+            client: val.client,
+            created: val.created,
+            subject: val.subject,
+            status: val.status
+          };
+        });
+        let resort = res.sort(
+          (a, b) => Date.parse(b.created) - Date.parse(a.created)
+        );
         this.setState({
-          pending: [...this.state.exams.filter(res => res.status === "Pending")]
+          pending: resort.filter(rest => rest.status === "Pending")
         });
       });
   };
@@ -118,8 +145,6 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        console.log(response.data, "profillleeeee");
-
         let curentDocc = response.data.data.doctor
           .split(" ")
           .map(n => n[0])
@@ -133,13 +158,12 @@ class DoctorDashboard extends Component {
 
   componentDidMount() {
     this.exams();
+    this.pnd();
     window.addEventListener("keydown", this.escBtn);
     this.handleDoctorProfile();
   }
 
   render() {
-    console.log(this);
-
     return (
       <div className="container">
         <Header />

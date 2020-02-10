@@ -149,8 +149,6 @@ class ClientDashboard extends Component {
   };
 
   render() {
-    console.log(this.state.exams.length);
-
     return (
       <div className="container">
         <Header />
