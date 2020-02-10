@@ -21,6 +21,7 @@ const Detail = ({ exam, handleLink, handleLinkMessage, handleCancel }) => (
               }).format(new Date(exam.created))}
             </p>
             <p>Subject: {exam.subject}</p>
+            <p>Message: {exam.message}</p>
             <p>Status: {exam.status}</p>
             {exam.status === "Accepted" ? (
               <div className="message-btn">

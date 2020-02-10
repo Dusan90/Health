@@ -62,7 +62,7 @@ class DoctorDashboard extends Component {
         }
       )
       .then(response => {
-        // console.log(response, "prviiiiiiiiiiiiii");
+        console.log(response, "prviiiiiiiiiiiiii");
 
         const res = response.data.results.map(val => {
           return {
