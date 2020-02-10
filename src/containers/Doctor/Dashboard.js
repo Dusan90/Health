@@ -118,6 +118,8 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
+        console.log(response.data, "profillleeeee");
+
         let curentDocc = response.data.data.doctor
           .split(" ")
           .map(n => n[0])
