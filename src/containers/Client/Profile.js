@@ -48,7 +48,9 @@ class ClientProfile extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        return this.setState({ client: Object.values(response.data) });
+        console.log(response.data.data, "profile");
+
+        return this.setState({ client: [response.data.data] });
       });
   };
 
@@ -59,7 +61,9 @@ class ClientProfile extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        return this.setState({ records: Object.values(response.data) });
+        console.log(response, "profile2");
+
+        return this.setState({ records: [response.data.data] });
       });
   };
 

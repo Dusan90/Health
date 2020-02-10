@@ -18,10 +18,10 @@ class Main extends Component {
     };
   }
 
-  handleDoctor = e => {
-    let doctorID = e.currentTarget.dataset.id;
-    this.props.dispatch(doctor(doctorID));
-    this.props.history.push(`/doctor/profile/${doctorID}`);
+  handleDoctor = id => {
+    console.log(id);
+    this.props.dispatch(doctor(id));
+    this.props.history.push(`/client/doc/${id}`);
   };
 
   handleConsultation = e => {
@@ -48,7 +48,7 @@ class Main extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        const res = response.data.message.map(val => {
+        const res = response.data.data.map(val => {
           return {
             id: val.id,
             doctor: val.doctor,
@@ -64,7 +64,7 @@ class Main extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        const res = response.data.message.map(val => {
+        const res = response.data.data.map(val => {
           return { value: val.id, iD: val.speciality_id, label: val.name };
         });
         this.setState({ specialities: res });

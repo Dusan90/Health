@@ -47,7 +47,9 @@ class ClientDetailExam extends Component {
         }
       )
       .then(response => {
-        this.setState({ exam: Object.values(response.data) });
+        console.log(response, "detailex");
+
+        this.setState({ exam: this.state.exam.concat(response.data.message) });
       });
   };
 

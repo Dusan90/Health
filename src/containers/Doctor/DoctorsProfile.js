@@ -17,13 +17,15 @@ class DoctorProfile extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `https://health-care-backend.herokuapp.com/api/doctor/profile/${this.state.id}`,
+        `https://health-care-backend.herokuapp.com/api/client/doc/${this.state.id}`,
         {
           headers: { Authorization: access_token }
         }
       )
       .then(response => {
-        return this.setState({ doctor: Object.values(response.data) });
+        console.log(response, "doc profile");
+
+        return this.setState({ doctor: [response.data.data] });
       });
   };
 

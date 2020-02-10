@@ -7,8 +7,17 @@ import { FaUserClock } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
+import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 
-const Dashboard = ({ initiate, exams, handleClick, handleChange }) => (
+const Dashboard = ({
+  initiate,
+  exams,
+  handleClick,
+  handleChange,
+  handleClickLeft,
+  handleClickRight
+}) => (
   <>
     <div className="main">
       <div className="videoApp">
@@ -90,6 +99,14 @@ const Dashboard = ({ initiate, exams, handleClick, handleChange }) => (
           );
         })}
       </table>
+    </div>
+    <div className="pagi">
+      <div className="left" onClick={handleClickLeft}>
+        <FaChevronLeft className="iconLeft" />
+      </div>
+      <div className="right" onClick={handleClickRight}>
+        <FaChevronRight className="iconRight" />
+      </div>
     </div>
   </>
 );

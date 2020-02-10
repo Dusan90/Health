@@ -126,9 +126,13 @@ class App extends Component {
                   exact
                   component={DoctorMessage}
                 />
-                <Route path="/doctor/profile" exact component={DoctorProfile} />
                 <Route
                   path="/doctor/profile/:id"
+                  exact
+                  component={DoctorProfile}
+                />
+                <Route
+                  path="/client/doc/:id"
                   exact
                   component={DoctorsProfile}
                 />

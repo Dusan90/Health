@@ -28,7 +28,7 @@ class Correspondence extends Component {
       .then(response => {
         console.log(response);
 
-        const res = response.data.message.map(val => {
+        const res = response.data.data.map(val => {
           return {
             id: val.id,
             sender: val.sender,

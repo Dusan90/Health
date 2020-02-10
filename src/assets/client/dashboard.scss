@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  margin: 30px auto;
+  margin: 60px auto 30px auto;
   grid-gap: 10px;
 
   .videoApp,
@@ -52,6 +52,46 @@
       background: rgb(238, 237, 237);
       cursor: pointer;
       box-shadow: 2px 2px 10px black;
+    }
+  }
+}
+
+.pagi {
+  display: flex;
+  margin: 20px auto;
+  justify-content: center;
+
+  .left {
+    width: 30px;
+    height: 30px;
+    border: 1px solid lightblue;
+    margin: 10px;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      background: lightblue;
+    }
+    .iconLeft {
+      font-size: 20px;
+      margin: 4px 0 0 0;
+      color: rgb(0, 191, 255);
+    }
+  }
+
+  .right {
+    width: 30px;
+    height: 30px;
+    border: 1px solid lightblue;
+    margin: 10px;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      background: lightblue;
+    }
+    .iconRight {
+      font-size: 20px;
+      margin: 4px 0 0 0;
+      color: rgb(0, 191, 255);
     }
   }
 }

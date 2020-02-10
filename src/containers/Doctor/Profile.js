@@ -46,7 +46,7 @@ class DoctorProfile extends Component {
     e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
     const data = await fetch(
-      "https://health-care-backend.herokuapp.com/api/doctor/profile/",
+      `https://health-care-backend.herokuapp.com/api/doctor/profile/`,
       {
         method: "PUT",
         headers: {
@@ -70,13 +70,13 @@ class DoctorProfile extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/profile/", {
+      .get(`https://health-care-backend.herokuapp.com/api/doctor/profile/`, {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        console.log(response);
+        console.log(response, "doc profileee");
 
-        return this.setState({ doctor: Object.values(response.data) });
+        return this.setState({ doctor: [response.data.data] });
       });
   };
 
@@ -85,8 +85,6 @@ class DoctorProfile extends Component {
   }
 
   render() {
-    console.log(this.state.doctor);
-
     return (
       <div className="container">
         <Profile

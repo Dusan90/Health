@@ -11,7 +11,6 @@ const Nav = ({
   handleDashboardDoctor,
   handleDashboardClient,
   handleDoctorProfile,
-  handleClientProfile,
   handleClients,
   doctor
 }) => {
@@ -30,7 +29,11 @@ const Nav = ({
         Dashboard
       </Link>
     );
-    curDoc = <div className="initials">{doctor}</div>;
+    curDoc = (
+      <div className="inic">
+        <div className="initials">{doctor}</div>
+      </div>
+    );
     clientsLink = (
       <Link
         to="/doctors-clients"
@@ -42,7 +45,7 @@ const Nav = ({
     );
     profileLink = (
       <Link
-        to="/doctor/profile"
+        to="/doctor/profile/"
         className="doc-profile"
         onClick={handleDoctorProfile}
       >
@@ -60,11 +63,7 @@ const Nav = ({
       </Link>
     );
     profileLink = (
-      <Link
-        to="/client/profile"
-        className="cli-profile"
-        onClick={handleClientProfile}
-      >
+      <Link to="/client/profile/" className="cli-profile">
         Profile
       </Link>
     );
@@ -90,13 +89,13 @@ const Nav = ({
           <li>{dashboardLink}</li>
           <li>{clientsLink}</li>
           <li>{profileLink}</li>
+          <li>{curDoc}</li>
 
           <li>
             <Link to="/logout" onClick={handleLogout}>
               Logout
             </Link>
           </li>
-          <span className="inic">{curDoc}</span>
         </ul>
       )}
     </nav>

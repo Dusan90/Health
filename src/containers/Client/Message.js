@@ -26,6 +26,8 @@ class ClientMessage extends Component {
         }
       )
       .then(response => {
+        console.log(response, "message");
+
         return this.setState({ doctor: response.data.doctor });
       })
       .catch(e => {

@@ -10,7 +10,9 @@ class ClientDashboard extends Component {
     this.state = {
       exams: [],
       token: sessionStorage.getItem("accessToken"),
-      dataFromServer: ""
+      dataFromServer: "",
+      page: "",
+      url: ""
     };
   }
 
@@ -19,18 +21,50 @@ class ClientDashboard extends Component {
   };
 
   componentDidMount() {
-    this.connect();
+    // this.connect();
     this.exams();
   }
+
+  handleClickLeft = () => {
+    if (this.state.page === 2) {
+      this.setState({ url: "", page: "" });
+    } else if (this.state.page === "") {
+      return null;
+    } else {
+      this.setState({ url: "?page=", page: this.state.page - 1 });
+    }
+    let test = setInterval(() => {
+      this.exams();
+      clearInterval(test);
+    }, 10);
+  };
+  handleClickRight = () => {
+    if (this.state.page === "") {
+      this.setState({ url: "?page=", page: 2 });
+    } else if (this.state.exams.length === 0) {
+      return null;
+    } else {
+      this.setState({ page: this.state.page + 1 });
+    }
+    let test = setInterval(() => {
+      this.exams();
+      clearInterval(test);
+    }, 10);
+  };
 
   exams = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("https://health-care-backend.herokuapp.com/api/client/exams/", {
-        headers: { Authorization: access_token }
-      })
+      .get(
+        `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.url}${this.state.page}`,
+        {
+          headers: { Authorization: access_token }
+        }
+      )
       .then(response => {
-        const res = response.data.message.map(val => {
+        console.log(response.data);
+
+        const res = response.data.results.map(val => {
           return {
             id: val.id,
             doctor: val.doctor,
@@ -115,6 +149,8 @@ class ClientDashboard extends Component {
   };
 
   render() {
+    console.log(this.state.exams.length);
+
     return (
       <div className="container">
         <Header />
@@ -124,6 +160,8 @@ class ClientDashboard extends Component {
           exams={this.state.exams}
           handleClick={this.handleClick}
           handleChange={this.handleChange}
+          handleClickLeft={this.handleClickLeft}
+          handleClickRight={this.handleClickRight}
         />
       </div>
     );

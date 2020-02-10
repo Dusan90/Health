@@ -27,7 +27,7 @@ class ClientCorrespondence extends Component {
         }
       )
       .then(response => {
-        const res = response.data.messages.map(val => {
+        const res = response.data.data.map(val => {
           return {
             id: val.id,
             sender: val.sender,

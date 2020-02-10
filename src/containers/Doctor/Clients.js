@@ -41,7 +41,9 @@ export class DoctorsClients extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        const res = response.data.message.map(val => {
+        console.log(response);
+
+        const res = response.data.data.map(val => {
           return { id: val.client_id, client: val.client };
         });
         console.log(res);

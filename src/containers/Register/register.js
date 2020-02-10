@@ -116,7 +116,9 @@ class Register extends Component {
     axios
       .get("https://health-care-backend.herokuapp.com/api/specialities/")
       .then(response => {
-        const res = response.data.message.map(val => {
+        console.log(response, "registration");
+
+        const res = response.data.data.map(val => {
           return { value: val.id, label: val.name };
         });
         this.setState({ specOptions: res });

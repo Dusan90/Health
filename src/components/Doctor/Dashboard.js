@@ -6,6 +6,8 @@ import { MdEmail } from "react-icons/md";
 import { FaUserClock } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa";
+import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 
 const Dashboard = ({
   exams,
@@ -13,7 +15,9 @@ const Dashboard = ({
   handleClick,
   pending,
   handleChange,
-  props
+  props,
+  handleClickLeft,
+  handleClickRight
 }) => {
   let short = pending ? pending.slice(0, 3) : null;
 
@@ -172,6 +176,14 @@ const Dashboard = ({
           <button onClick={hnlClick}>GO BACK</button>
         </div>
       ) : null}
+      <div className="pagi">
+        <div className="left" onClick={handleClickLeft}>
+          <FaChevronLeft className="iconLeft" />
+        </div>
+        <div className="right" onClick={handleClickRight}>
+          <FaChevronRight className="iconRight" />
+        </div>
+      </div>
     </div>
   );
 };

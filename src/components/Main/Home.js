@@ -53,7 +53,6 @@ const Home = ({ doctors, handleDoctor, handleConsultation, props }) => (
       <h2>Top Specialities</h2>
       <div className="spec">
         {props.specialities.map(spec => {
-          console.log(spec.iD);
           return (
             <div key={spec.iD} className="eatchSpec">
               <div>
@@ -77,7 +76,7 @@ const Home = ({ doctors, handleDoctor, handleConsultation, props }) => (
               <button
                 className="btn btn-info"
                 data-id={obj.id}
-                onClick={handleDoctor.bind(this)}
+                onClick={() => handleDoctor(obj.id)}
               >
                 View Profile
               </button>

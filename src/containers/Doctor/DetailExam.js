@@ -29,7 +29,7 @@ class DetailExam extends Component {
       .then(response => {
         console.log(response);
 
-        this.setState({ exam: Object.values(response.data) });
+        this.setState({ exam: this.state.exam.concat(response.data.data) });
       });
   };
 

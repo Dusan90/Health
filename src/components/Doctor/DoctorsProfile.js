@@ -9,7 +9,11 @@ const DProfile = ({ doctor }) => (
     {doctor &&
       doctor.map(doctor => {
         return (
-          <div key={doctor.id} className="doctor" style={{ height: "180px" }}>
+          <div
+            key={doctor.id}
+            className="doctor"
+            style={{ height: "180px", margin: "30px 0 0 0" }}
+          >
             <div className="rounded-pill">
               <div>
                 <p>Doctor: {doctor.doctor}</p>

@@ -17,18 +17,52 @@ class DoctorDashboard extends Component {
       pending: "",
       openPending: false,
       value: "",
-      doc: []
+      doc: [],
+      page: "",
+      url: ""
     };
   }
+
+  handleClickLeft = () => {
+    if (this.state.page === 2) {
+      this.setState({ url: "", page: "" });
+    } else if (this.state.page === "") {
+      return null;
+    } else {
+      this.setState({ url: "?page=", page: this.state.page - 1 });
+    }
+    let test = setInterval(() => {
+      this.exams();
+      clearInterval(test);
+    }, 10);
+  };
+  handleClickRight = () => {
+    if (this.state.page === "") {
+      this.setState({ url: "?page=", page: 2 });
+    } else if (this.state.exams.length === 0) {
+      return null;
+    } else {
+      this.setState({ page: this.state.page + 1 });
+    }
+    let test = setInterval(() => {
+      this.exams();
+      clearInterval(test);
+    }, 10);
+  };
 
   exams = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/exams/", {
-        headers: { Authorization: access_token }
-      })
+      .get(
+        `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.state.url}${this.state.page}`,
+        {
+          headers: { Authorization: access_token }
+        }
+      )
       .then(response => {
-        const res = response.data.message.map(val => {
+        console.log(response.data);
+
+        const res = response.data.results.map(val => {
           return {
             id: val.id,
             client: val.client,
@@ -80,13 +114,11 @@ class DoctorDashboard extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/profile/", {
+      .get(`https://health-care-backend.herokuapp.com/api/doctor/profile/`, {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        console.log(response, "radi");
-
-        let curentDocc = response.data.message.doctor
+        let curentDocc = response.data.data.doctor
           .split(" ")
           .map(n => n[0])
           .join(".");
@@ -104,8 +136,7 @@ class DoctorDashboard extends Component {
   }
 
   render() {
-    console.log(this.state.doc);
-    console.log(this.props);
+    console.log(this);
 
     return (
       <div className="container">
@@ -120,6 +151,8 @@ class DoctorDashboard extends Component {
           props={this.state}
           handleKeyPress={this.handleKeyPress}
           handleChange={this.handleChange}
+          handleClickLeft={this.handleClickLeft}
+          handleClickRight={this.handleClickRight}
         />
       </div>
     );

@@ -97,7 +97,9 @@ class ExamForm extends Component {
     axios
       .get("https://health-care-backend.herokuapp.com/api/specialities/")
       .then(response => {
-        const res = response.data.message.map(val => {
+        console.log(response, "examform");
+
+        const res = response.data.data.map(val => {
           return { value: val.id, iD: val.speciality_id, label: val.name };
         });
         this.setState({ specialities: res });
@@ -105,7 +107,9 @@ class ExamForm extends Component {
     axios
       .get("https://health-care-backend.herokuapp.com/api/doctor/list")
       .then(response => {
-        const res = response.data.message.map(val => {
+        console.log(response, "examform2");
+
+        const res = response.data.data.map(val => {
           return {
             value: val.id,
             iD: val.doctor_id,
