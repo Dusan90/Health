@@ -21,7 +21,8 @@ class DoctorDashboard extends Component {
       page: "",
       url: "",
       test: [],
-      nextPage: ""
+      nextPage: "",
+      loading: true
     };
   }
 
@@ -76,7 +77,7 @@ class DoctorDashboard extends Component {
         let resort = res.sort(
           (a, b) => Date.parse(b.created) - Date.parse(a.created)
         );
-        this.setState({ exams: resort });
+        this.setState({ exams: resort, loading: false });
         return response.data.next === null
           ? this.setState({ nextPage: null })
           : null;
@@ -179,6 +180,7 @@ class DoctorDashboard extends Component {
           handleChange={this.handleChange}
           handleClickLeft={this.handleClickLeft}
           handleClickRight={this.handleClickRight}
+          loading={this.state.loading}
         />
       </div>
     );

@@ -62,11 +62,7 @@ const InitiateExam = ({
         />
       </div>
       {/* <div className="btn"> */}
-      <button
-        value={submitted}
-        className="btn btn-warning"
-        onClick={handleSubmit}
-      >
+      <button value={submitted} className="btn" onClick={handleSubmit}>
         Submit Exam
       </button>
       {/* </div> */}

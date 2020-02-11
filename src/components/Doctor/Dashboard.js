@@ -17,7 +17,8 @@ const Dashboard = ({
   handleChange,
   props,
   handleClickLeft,
-  handleClickRight
+  handleClickRight,
+  loading
 }) => {
   let short = pending ? pending.slice(0, 3) : null;
 
@@ -82,61 +83,69 @@ const Dashboard = ({
           <button>ENTER WAITING ROOM</button>
         </div>
       </div>
+      {loading ? (
+        <img
+          src="https://media.giphy.com/media/PUYgk3wpNk0WA/giphy.gif"
+          alt="loading..."
+          style={{ width: "300px", height: "300px", borderRadius: "50%" }}
+        />
+      ) : (
+        <div className="mainTabel">
+          <div className="mainConsultation">
+            <div className="icon_left">
+              <span>
+                <MdDateRange className="icon1" />
+              </span>
+              <p>My Consultations</p>
+            </div>
+            <div className="sort">
+              <label>Sort by: </label>
+              <select name="" id="" onChange={handleChange}>
+                <option value="latest">Latest</option>
+                <option value="earliest">Earliest</option>
+              </select>
+            </div>
+          </div>
 
-      <div className="mainTabel">
-        <div className="mainConsultation">
-          <div className="icon_left">
-            <span>
-              <MdDateRange className="icon1" />
-            </span>
-            <p>My Consultations</p>
-          </div>
-          <div className="sort">
-            <label>Sort by: </label>
-            <select name="" id="" onChange={handleChange}>
-              <option value="latest">Latest</option>
-              <option value="earliest">Earliest</option>
-            </select>
-          </div>
+          <table className="table2">
+            <thead className="client-head">
+              <tr className="client-row">
+                <th className="client-doctor">Client</th>
+                <th className="client-subject">Subject</th>
+                <th className="client-subject">Date</th>
+                <th className="client-status">Status</th>
+              </tr>
+            </thead>
+            {exams.map(exam => {
+              if (exam.status === "Accepted") {
+                return (
+                  <tbody key={exam.id} className="client-body">
+                    <tr
+                      data-id={exam.id}
+                      className="list-group"
+                      onClick={() => handleClick(exam.id)}
+                    >
+                      <td className="client-doctor">{exam.client}</td>
+                      <td className="client-subject">{exam.subject}</td>
+                      <td className="created">
+                        {new Intl.DateTimeFormat("en-GB", {
+                          year: "numeric",
+                          month: "long",
+                          day: "2-digit"
+                        }).format(new Date(exam.created))}
+                      </td>
+                      <td className="client-status">
+                        <FaCheck className="check" />
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              }
+            })}
+          </table>
         </div>
+      )}
 
-        <table className="table2">
-          <thead className="client-head">
-            <tr className="client-row">
-              <th className="client-doctor">Client</th>
-              <th className="client-subject">Subject</th>
-              <th className="client-subject">Date</th>
-              <th className="client-status">Status</th>
-            </tr>
-          </thead>
-          {exams.map(exam => {
-            if (exam.status === "Accepted") {
-              return (
-                <tbody key={exam.id} className="client-body">
-                  <tr
-                    data-id={exam.id}
-                    className="list-group"
-                    onClick={() => handleClick(exam.id)}
-                  >
-                    <td className="client-doctor">{exam.client}</td>
-                    <td className="client-subject">{exam.subject}</td>
-                    <td className="created">
-                      {new Intl.DateTimeFormat("en-GB", {
-                        year: "numeric",
-                        month: "long",
-                        day: "2-digit"
-                      }).format(new Date(exam.created))}
-                    </td>
-                    <td className="client-status">
-                      <FaCheck className="check" />
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            }
-          })}
-        </table>
-      </div>
       {props.openPending ? (
         <div className="penTable">
           <table className="table2 test">

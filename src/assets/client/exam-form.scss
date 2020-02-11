@@ -34,7 +34,13 @@
 
   .btn {
     margin: 10px auto;
-
+    color: white;
+    background: rgb(0, 191, 255);
+    transition: all 0.5s ease-in-out;
+    &:hover {
+      background: rgb(1, 111, 148);
+      box-shadow: 2px 2px 2px black;
+    }
     // .submit-link {
     //   color: white;
     // }

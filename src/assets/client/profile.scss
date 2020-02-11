@@ -48,6 +48,13 @@
       .btn {
         width: 156px;
         color: white;
+        background: rgb(0, 187, 250);
+        transition: all 0.5s ease-in-out;
+        border: none;
+        &:hover {
+          background: rgb(1, 113, 150);
+          box-shadow: 2px 2px 2px black;
+        }
       }
     }
   }

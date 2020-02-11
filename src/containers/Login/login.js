@@ -48,8 +48,6 @@ class Login extends Component {
     );
 
     const jsonData = await data.json();
-    console.log("jsonData", jsonData);
-    console.log("email", jsonData.email);
 
     if (
       jsonData.detail === "Invalid credentials" ||
@@ -77,7 +75,6 @@ class Login extends Component {
         this.props.dispatch(userLoggedIn());
       }
       this.redirectUser();
-      console.log(jsonData, "data");
       return jsonData;
     }
   };

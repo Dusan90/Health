@@ -5,7 +5,6 @@ import RegisterUser from "../../components/Auth/Register";
 import Nav from "../../components/Main/Navbar";
 import axios from "axios";
 import { NotificationManager } from "react-notifications";
-// import Footer from "../../components/Main/Footer";
 
 const options = [
   { value: "M", label: "Male" },
@@ -55,8 +54,8 @@ class Register extends Component {
 
   handleGender = genderValue => {
     this.setState({ genderValue });
-    let { value, label } = genderValue;
-    console.log(value, label);
+    let { value } = genderValue;
+
     this.setState({ selectedGenderValue: value });
   };
 
@@ -78,8 +77,7 @@ class Register extends Component {
 
   handleSpec = specValue => {
     this.setState({ specValue });
-    let { value, label } = specValue;
-    console.log(value, label);
+    let { value } = specValue;
     this.setState({ selectedSpecValue: value });
   };
 
@@ -116,8 +114,6 @@ class Register extends Component {
     axios
       .get("https://health-care-backend.herokuapp.com/api/specialities/")
       .then(response => {
-        console.log(response, "registration");
-
         const res = response.data.data.map(val => {
           return { value: val.id, label: val.name };
         });
@@ -154,7 +150,6 @@ class Register extends Component {
         4000
       );
       const jsonData = await client.json();
-      console.log(jsonData);
       return jsonData;
     } else if (this.state.userType === "doctor") {
       const doctor = await fetch(
@@ -184,7 +179,6 @@ class Register extends Component {
         4000
       );
       const jsonData = await doctor.json();
-      console.log(jsonData);
       return jsonData;
     }
   };
@@ -242,19 +236,9 @@ class Register extends Component {
           handleSpec={this.handleSpec}
           handleSubmit={this.handleSubmit}
         />
-        {/* <Footer /> */}
       </div>
     );
   }
 }
-
-// const mapStateToProps = state => {
-//     const user = state.get('user');
-//     const isLoggedIn = state.get('isLoggedIn');
-//     return {
-//         user,
-//         isLoggedIn,
-//     }
-//   };
 
 export default Register;

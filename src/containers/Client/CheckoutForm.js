@@ -40,7 +40,7 @@ class CheckoutForm extends Component {
       const data = await response.json();
       console.log(data);
 
-      if (data.message === true) {
+      if (data.message === "Payment completed") {
         this.setState({ complete: true });
         NotificationManager.success("Checkout Completed", "Successful!", 2000);
       }

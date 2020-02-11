@@ -141,7 +141,7 @@ const RegisterUser = ({
       <div className="register-button">
         <button
           type="submit"
-          className="btn btn-warning"
+          className="btn"
           value={submitValue}
           onClick={handleSubmit}
         >

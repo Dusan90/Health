@@ -9,6 +9,7 @@ export default function(state = initialState, action) {
     case "CURENTDOC":
       // return action.payload;
       return state.set("doctor", action.payload);
+    default:
+      return state;
   }
-  return state;
 }

@@ -16,7 +16,8 @@ const Dashboard = ({
   handleClick,
   handleChange,
   handleClickLeft,
-  handleClickRight
+  handleClickRight,
+  loading
 }) => (
   <>
     <div className="main">
@@ -39,67 +40,76 @@ const Dashboard = ({
         <h2>Enter WAITING ROOM</h2>
       </div>
     </div>
+    {loading ? (
+      <img
+        src="https://media.giphy.com/media/PUYgk3wpNk0WA/giphy.gif"
+        alt="loading..."
+        style={{ width: "300px", height: "300px", borderRadius: "50%" }}
+      />
+    ) : (
+      <div className="mainTabel">
+        <div className="mainConsultation">
+          <div className="icon_left">
+            <span>
+              <MdDateRange className="icon1" />
+            </span>
+            <p>My Consultations</p>
+          </div>
+          <div className="sort">
+            <label>Sort by: </label>
+            <select name="" id="" onChange={handleChange}>
+              <option value="latest">Latest</option>
+              <option value="earliest">Earliest</option>
+            </select>
+          </div>
+        </div>
 
-    <div className="mainTabel">
-      <div className="mainConsultation">
-        <div className="icon_left">
-          <span>
-            <MdDateRange className="icon1" />
-          </span>
-          <p>My Consultations</p>
-        </div>
-        <div className="sort">
-          <label>Sort by: </label>
-          <select name="" id="" onChange={handleChange}>
-            <option value="latest">Latest</option>
-            <option value="earliest">Earliest</option>
-          </select>
-        </div>
+        <table className="table2">
+          <thead className="client-head">
+            <tr className="client-row">
+              <th className="client-doctor">Doctor</th>
+              <th className="client-subject">Subject</th>
+              <th className="client-subject">Date</th>
+              <th className="client-status">Status</th>
+            </tr>
+          </thead>
+
+          {exams.map(exam => {
+            if (exam.status === "Canceled") return null;
+            return (
+              <tbody key={exam.id} className="client-body">
+                <tr
+                  key={exam.id}
+                  data-id={exam.id}
+                  className="list-group"
+                  onClick={() => handleClick(exam.id)}
+                >
+                  <td className="client-doctor">{exam.doctor}</td>
+                  <td className="client-subject">{exam.subject}</td>
+                  <td className="created">
+                    {new Intl.DateTimeFormat("en-GB", {
+                      year: "numeric",
+                      month: "long",
+                      day: "2-digit"
+                    }).format(new Date(exam.created))}
+                  </td>
+                  <td className="client-status">
+                    {exam.status === "Accepted" ? (
+                      <FaCheck className="check" />
+                    ) : exam.status === "Declined" ? (
+                      <GiCancel className="declined" />
+                    ) : (
+                      <FaRegClock className="pendi" />
+                    )}
+                  </td>
+                </tr>
+              </tbody>
+            );
+          })}
+        </table>
       </div>
+    )}
 
-      <table className="table2">
-        <thead className="client-head">
-          <tr className="client-row">
-            <th className="client-doctor">Doctor</th>
-            <th className="client-subject">Subject</th>
-            <th className="client-subject">Date</th>
-            <th className="client-status">Status</th>
-          </tr>
-        </thead>
-        {exams.map(exam => {
-          if (exam.status === "Canceled") return null;
-          return (
-            <tbody key={exam.id} className="client-body">
-              <tr
-                key={exam.id}
-                data-id={exam.id}
-                className="list-group"
-                onClick={() => handleClick(exam.id)}
-              >
-                <td className="client-doctor">{exam.doctor}</td>
-                <td className="client-subject">{exam.subject}</td>
-                <td className="created">
-                  {new Intl.DateTimeFormat("en-GB", {
-                    year: "numeric",
-                    month: "long",
-                    day: "2-digit"
-                  }).format(new Date(exam.created))}
-                </td>
-                <td className="client-status">
-                  {exam.status === "Accepted" ? (
-                    <FaCheck className="check" />
-                  ) : exam.status === "Declined" ? (
-                    <GiCancel className="declined" />
-                  ) : (
-                    <FaRegClock className="pendi" />
-                  )}
-                </td>
-              </tr>
-            </tbody>
-          );
-        })}
-      </table>
-    </div>
     <div className="pagi">
       <div className="left" onClick={handleClickLeft}>
         <FaChevronLeft className="iconLeft" />

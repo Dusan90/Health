@@ -35,7 +35,7 @@ const LoginUser = ({
         <div className="login-button">
           <button
             type="submit"
-            className="btn btn-warning"
+            className="btn"
             value={submitted}
             onClick={handleSubmit}
           >

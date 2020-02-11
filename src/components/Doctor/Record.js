@@ -57,7 +57,7 @@ const Record = ({
       <div className="submit">
         <button
           type="submit"
-          className="btn btn-primary"
+          className="btn"
           value={submitValue}
           onClick={handleSubmit}
         >

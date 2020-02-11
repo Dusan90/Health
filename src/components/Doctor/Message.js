@@ -36,7 +36,7 @@ const ExamMessage = ({
           />
           <button
             type="submit"
-            className="btn btn-primary btn-md"
+            className="btn btn-md"
             value={submitValue}
             onClick={handleSubmit}
           >

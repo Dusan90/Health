@@ -62,6 +62,7 @@ class ExamForm extends Component {
       this.state.subject &&
       this.state.message
     ) {
+      this.setState({ isClicked: true });
       const response = await fetch(
         "https://health-care-backend.herokuapp.com/api/client/initiate/",
         {
@@ -81,7 +82,7 @@ class ExamForm extends Component {
       const data = await response.json();
 
       // this.toCheckout();
-      this.setState({ isClicked: true });
+      console.log(data);
 
       return data;
     } else {
@@ -123,7 +124,6 @@ class ExamForm extends Component {
   }
 
   render() {
-    if (this.state.complete) return <h1>Submit Completed</h1>;
     return (
       <div className="container">
         <Header />

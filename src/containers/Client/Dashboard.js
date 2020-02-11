@@ -12,7 +12,8 @@ class ClientDashboard extends Component {
       token: sessionStorage.getItem("accessToken"),
       dataFromServer: "",
       page: "",
-      url: ""
+      url: "",
+      loading: true
     };
   }
 
@@ -23,6 +24,10 @@ class ClientDashboard extends Component {
   componentDidMount() {
     // this.connect();
     this.exams();
+  }
+
+  componentWillMount() {
+    this.connect();
   }
 
   handleClickLeft = () => {
@@ -74,7 +79,7 @@ class ClientDashboard extends Component {
         let resort = res.sort(
           (a, b) => Date.parse(b.created) - Date.parse(a.created)
         );
-        this.setState({ exams: resort });
+        this.setState({ exams: resort, loading: false });
       });
   };
 
@@ -100,7 +105,7 @@ class ClientDashboard extends Component {
           new_exam.status = state;
           return { new_exam };
         } else {
-          console.log("Does not exist.");
+          return console.log("Does not exist.");
         }
       });
     };
@@ -158,6 +163,7 @@ class ClientDashboard extends Component {
           handleChange={this.handleChange}
           handleClickLeft={this.handleClickLeft}
           handleClickRight={this.handleClickRight}
+          loading={this.state.loading}
         />
       </div>
     );
