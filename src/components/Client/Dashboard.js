@@ -9,6 +9,7 @@ import { FaRegClock } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
+import Loading from "../../img/loading-gif-png-5-original.gif";
 
 const Dashboard = ({
   initiate,
@@ -41,11 +42,7 @@ const Dashboard = ({
       </div>
     </div>
     {loading ? (
-      <img
-        src="https://media.giphy.com/media/PUYgk3wpNk0WA/giphy.gif"
-        alt="loading..."
-        style={{ width: "300px", height: "300px", borderRadius: "50%" }}
-      />
+      <img src={Loading} alt="loading..." style={{ width: "150px" }} />
     ) : (
       <div className="mainTabel">
         <div className="mainConsultation">
