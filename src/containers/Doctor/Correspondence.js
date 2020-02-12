@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import CorrespondenceMessage from "../../components/Doctor/Correspondence";
-import { doctor } from "../../actions/examActions";
+// import { doctor } from "../../actions/examActions";
 
 class Correspondence extends Component {
   constructor(props) {
@@ -38,8 +38,8 @@ class Correspondence extends Component {
           };
         });
         this.setState({ correspondence: res });
-        var sender_obj = this.state.correspondence[0].sender;
-        this.props.dispatch(doctor(sender_obj));
+        // var sender_obj = this.state.correspondence[0].sender;
+        // this.props.dispatch(doctor(sender_obj));
       });
   };
 
@@ -71,11 +71,11 @@ class Correspondence extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const examID = state.getIn(["examReducer", "examID"]);
-  return {
-    examID
-  };
-};
+// const mapStateToProps = state => {
+//   const examID = state.getIn(["examReducer", "examID"]);
+//   return {
+//     examID
+//   };
+// };
 
-export default connect(mapStateToProps)(Correspondence);
+export default Correspondence;

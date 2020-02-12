@@ -67,6 +67,8 @@ class ClientDashboard extends Component {
         }
       )
       .then(response => {
+        console.log(response);
+
         const res = response.data.results.map(val => {
           return {
             id: val.id,

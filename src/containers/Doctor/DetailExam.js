@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import Detail from "../../components/Doctor/DetailExam";
 
 const options = [
@@ -100,11 +100,11 @@ class DetailExam extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const examID = state.getIn(["examReducer", "examID"]);
-  return {
-    examID
-  };
-};
+// const mapStateToProps = state => {
+//   const examID = state.getIn(["examReducer", "examID"]);
+//   return {
+//     examID
+//   };
+// };
 
-export default connect(mapStateToProps)(DetailExam);
+export default DetailExam;

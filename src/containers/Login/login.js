@@ -48,11 +48,12 @@ class Login extends Component {
     );
 
     const jsonData = await data.json();
+    console.log(jsonData);
 
     if (
       jsonData.detail === "Invalid credentials" ||
-      jsonData.detail === "User does not exist"
-      // jsonData.email[0] === "Enter a valid email address."
+      jsonData.detail === "User does not exist" ||
+      jsonData.error
     ) {
       NotificationManager.error("Invalid Credentials", "Failed!", 2000);
     } else if (
@@ -112,6 +113,8 @@ class Login extends Component {
 const mapStateToProps = state => {
   const user = state.getIn(["authReducer", "user"]);
   const isLoggedIn = state.getIn(["authReducer", "isLoggedIn"]);
+  console.log(isLoggedIn, user, "Loginnnnnnnn");
+
   return {
     user,
     isLoggedIn

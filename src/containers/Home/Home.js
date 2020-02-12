@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Home from "../../components/Main/Home";
-import { doctor } from "../../actions/examActions";
-import { connect } from "react-redux";
+// import { doctor } from "../../actions/examActions";
+// import { connect } from "react-redux";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 
@@ -20,13 +20,13 @@ class Main extends Component {
 
   handleDoctor = id => {
     console.log(id);
-    this.props.dispatch(doctor(id));
+    // this.props.dispatch(doctor(id));
     this.props.history.push(`/client/doc/${id}`);
   };
 
   handleConsultation = e => {
-    let doctorID = e.currentTarget.dataset.id;
-    this.props.dispatch(doctor(doctorID));
+    // let doctorID = e.currentTarget.dataset.id;
+    // this.props.dispatch(doctor(doctorID));
     this.props.history.push("/initiate");
   };
 
@@ -72,6 +72,8 @@ class Main extends Component {
   }
 
   render() {
+    // console.log(this.props.doctor);
+
     return (
       <div className="container">
         <Header />
@@ -88,10 +90,10 @@ class Main extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    doctor: state.doctor
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     doctor: state.doctor
+//   };
+// };
 
-export default connect(mapStateToProps)(Main);
+export default Main;

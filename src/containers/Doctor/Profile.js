@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../../assets/main/main.scss";
 import Profile from "../../components/Doctor/Profile";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { NotificationManager } from "react-notifications";
 
 const options = [
@@ -105,11 +105,12 @@ class DoctorProfile extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const doctor = state.getIn(["doctorReducer", "doctor"]);
-  return {
-    doctor
-  };
-};
+// const mapStateToProps = state => {
+//   const doctor = state.getIn(["doctorReducer", "doctor"]);
 
-export default connect(mapStateToProps)(DoctorProfile);
+//   return {
+//     doctor
+//   };
+// };
+
+export default DoctorProfile;

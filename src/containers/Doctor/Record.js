@@ -86,8 +86,8 @@ class ClientRecord extends Component {
   };
 
   componentDidMount() {
-    this.record();
-    this.records();
+    // this.record();
+    // this.records();
   }
 
   render() {
