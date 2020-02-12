@@ -64,7 +64,7 @@ class ClientRecord extends Component {
     );
     const jsonData = await data.json();
     console.log(jsonData);
-    this.record();
+    // this.record();
   };
 
   handleSubmit = e => {
