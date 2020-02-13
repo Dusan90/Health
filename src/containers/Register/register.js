@@ -106,7 +106,7 @@ class Register extends Component {
     ) {
       this.userRegister();
     } else {
-      NotificationManager.error("Empty Fields", "Failed!", 2000);
+      NotificationManager.error("All Fields Are Required", "Failed!", 2000);
     }
   };
 
