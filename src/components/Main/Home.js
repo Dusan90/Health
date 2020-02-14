@@ -82,7 +82,7 @@ const Home = ({ doctors, handleDoctor, handleConsultation, props }) => (
               </button>
             </div>
             <div className="doc-consultation">
-              <button className="btn btn-warning" onClick={handleConsultation}>
+              <button className="btn" onClick={handleConsultation}>
                 Consultation
               </button>
             </div>

@@ -12,19 +12,25 @@ const Record = ({
 }) => (
   <div className="row">
     <div className="box">
-      {record.map(data => {
-        console.log(data);
+      {record ? (
+        record.map(data => {
+          console.log(data);
 
-        return (
-          <div key={data.id} className="record-box">
-            <p>Client: {data.client}</p>
-            <p>Speciality: {data.speciality}</p>
-            <p>Details: {data.details}</p>
-            <p>Teraphy history: {data.teraphy_history}</p>
-            <p>Medical conditions: {data.medical_conditions}</p>
-          </div>
-        );
-      })}
+          return (
+            <div key={data.id} className="record-box">
+              <p>Client: {data.client}</p>
+              <p>Speciality: {data.speciality}</p>
+              <p>Details: {data.details}</p>
+              <p>Teraphy history: {data.teraphy_history}</p>
+              <p>Medical conditions: {data.medical_conditions}</p>
+            </div>
+          );
+        })
+      ) : (
+        <p style={{ margin: "30px auto", color: "rgb(0, 191, 255)" }}>
+          No Records
+        </p>
+      )}
     </div>
     <div className="r-form">
       <div className="details">

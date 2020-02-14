@@ -20,9 +20,15 @@ class ClientDashboard extends Component {
   initiate = () => {
     this.props.history.push("/initiate");
   };
+  waitingRoom = () => {
+    this.props.history.push("/client/waiting-room");
+  };
+  VideoReq = () => {
+    this.props.history.push("/client/video-request");
+  };
 
   componentDidMount() {
-    // this.connect();
+    this.connect();
     this.exams();
   }
 
@@ -160,12 +166,14 @@ class ClientDashboard extends Component {
         <Nav />
         <Dashboard
           initiate={this.initiate}
+          waitingRoom={this.waitingRoom}
           exams={this.state.exams}
           handleClick={this.handleClick}
           handleChange={this.handleChange}
           handleClickLeft={this.handleClickLeft}
           handleClickRight={this.handleClickRight}
           loading={this.state.loading}
+          VideoReq={this.VideoReq}
         />
       </div>
     );

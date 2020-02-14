@@ -19,7 +19,6 @@ class Main extends Component {
   }
 
   handleDoctor = id => {
-    console.log(id);
     // this.props.dispatch(doctor(id));
     this.props.history.push(`/client/doc/${id}`);
   };

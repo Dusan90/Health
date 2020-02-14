@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { createStore } from "redux";
 import { Provider as ReduxProvider } from "react-redux";
-import { combineReducers } from "redux-immutable";
 import createSagaMiddleware from "redux-saga";
 import SagaMiddlewareProvider from "./components/Main/sagaMiddlewareProvider";
 import "./App.css";
@@ -21,23 +20,19 @@ import DoctorProfile from "./containers/Doctor/Profile";
 import DoctorsProfile from "./containers/Doctor/DoctorsProfile";
 import ClientProfile from "./containers/Client/Profile";
 import ClientRecord from "./containers/Doctor/Record";
+import VideoReq from "./containers/Client/VideoReq";
 import ClientDetailExam from "./containers/Client/DetailExam";
 import ClientCorrespondence from "./containers/Client/Correspondence";
 import ClientMessage from "./containers/Client/Message";
 import { StripeProvider } from "react-stripe-elements";
-import authReducer from "./reducers/authReducer";
-import doctorReducer from "./reducers/doctorReducer";
-import subjectReducer from "./reducers/subjectReducer";
-import specReducer from "./reducers/specReducer";
-import examReducer from "./reducers/examReducer";
-import clientReducer from "./reducers/clientReducer";
 import Clients from "./containers/Doctor/Clients";
+import WaitingRoom from "./containers/Client/WaitingRoom";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { userLogin, userLoggedIn } from "./actions/authActions";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 import Footer from "./components/Main/Footer";
-import docReducer from "./reducers/docReducer";
+import allReducers from "./reducers";
 
 class App extends Component {
   constructor(props) {
@@ -45,17 +40,7 @@ class App extends Component {
 
     const sagaMiddleware = createSagaMiddleware();
 
-    const combinedReducers = combineReducers({
-      docReducer,
-      authReducer,
-      doctorReducer,
-      subjectReducer,
-      specReducer,
-      examReducer,
-      clientReducer
-    });
-
-    const store = createStore(combinedReducers, composeWithDevTools());
+    const store = createStore(allReducers, composeWithDevTools());
 
     store.runSaga = sagaMiddleware.run;
     this.sagaMiddleware = sagaMiddleware;
@@ -141,12 +126,22 @@ class App extends Component {
                   exact
                   component={ClientRecord}
                 />
+                <Route
+                  path="/client/waiting-room"
+                  exact
+                  component={WaitingRoom}
+                />
 
                 <Route path="/client/profile" exact component={ClientProfile} />
                 <Route
                   path="/client/exam/detail/:id"
                   exact
                   component={ClientDetailExam}
+                />
+                <Route
+                  path="/client/video-request"
+                  exact
+                  component={VideoReq}
                 />
                 <Route
                   path="/client/exam/correspondence/:id"

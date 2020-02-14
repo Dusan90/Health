@@ -60,7 +60,7 @@ class Login extends Component {
       this.state.emailValue === "" ||
       this.state.passwordValue === ""
     ) {
-      NotificationManager.error("Empty Fields", "Failed!", 2000);
+      NotificationManager.error("All Fields Are Required", "Failed!", 2000);
     } else {
       if (jsonData.is_doctor) {
         this.setState({ is_doctor: true });

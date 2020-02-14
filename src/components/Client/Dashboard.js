@@ -13,6 +13,8 @@ import Loading from "../../img/loading-gif-png-5-original.gif";
 
 const Dashboard = ({
   initiate,
+  waitingRoom,
+  VideoReq,
   exams,
   handleClick,
   handleChange,
@@ -22,7 +24,7 @@ const Dashboard = ({
 }) => (
   <>
     <div className="main">
-      <div className="videoApp">
+      <div className="videoApp" onClick={() => VideoReq()}>
         <span className="video">
           <MdOndemandVideo className="icon" />
         </span>
@@ -34,7 +36,7 @@ const Dashboard = ({
         </span>
         <h2>Request EMAIL CONSULTATION</h2>
       </div>
-      <div className="waitRoom">
+      <div className="waitRoom" onClick={() => waitingRoom()}>
         <span className="clock">
           <FaUserClock className="icon" />
         </span>

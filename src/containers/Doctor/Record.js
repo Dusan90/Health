@@ -26,7 +26,7 @@ class ClientRecord extends Component {
       .then(response => {
         console.log(response, "nzm ni ja");
 
-        // return this.setState({ record: Object.values(response.data)[0] });
+        return this.setState({ record: response.data.data });
       });
   };
 
@@ -34,13 +34,15 @@ class ClientRecord extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `https://health-care-backend.herokuapp.com/api/doctor/records/${this.state.id}/`,
+        `https://health-care-backend.herokuapp.com/api/doctor/records/${this.state.id}/new/`,
         { headers: { Authorization: access_token } }
       )
       .then(response => {
-        console.log(response);
+        console.log(response, "nzm ni ja sta");
 
-        return this.setState({ record: Object.values(response.data)[0] });
+        return this.setState({
+          record: response.data.data
+        });
       });
   };
 
@@ -64,7 +66,7 @@ class ClientRecord extends Component {
     );
     const jsonData = await data.json();
     console.log(jsonData);
-    // this.record();
+    this.record();
   };
 
   handleSubmit = e => {
@@ -86,8 +88,8 @@ class ClientRecord extends Component {
   };
 
   componentDidMount() {
-    // this.record();
-    // this.records();
+    this.record();
+    this.records();
   }
 
   render() {
