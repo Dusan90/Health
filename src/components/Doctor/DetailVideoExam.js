@@ -3,8 +3,9 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import Select from "react-select";
 import "../../assets/detail_exam.scss";
+import moment from "moment";
 
-const Detail = ({
+const DetailVideo = ({
   exam,
   status,
   handleStatus,
@@ -19,23 +20,29 @@ const Detail = ({
     <Nav />
 
     {exam.map(exam => {
+      console.log(
+        exam,
+        "statuuuuuuuuuuuuuuusssssssssss mi dajjjjjjjjjjjjjjjjjjjjj"
+      );
+
       return (
         <div key={exam.id} className="detail-exam">
           <div className="detail">
             <p>Client: {exam.client}</p>
             <p>Speciality: {exam.speciality}</p>
             <p>
-              Created:{" "}
-              {new Intl.DateTimeFormat("en-GB", {
+              Appointed date:{" "}
+              {/* {new Intl.DateTimeFormat("en-GB", {
                 year: "numeric",
                 month: "long",
                 day: "2-digit"
-              }).format(new Date(exam.created))}
+              }).format(new Date(exam.created))} */}
+              {moment(exam.appointed_date).format("MM/DD/YYYY")}
             </p>
             <p>Subject: {exam.subject}</p>
             <p>Message: {exam.message}</p>
             <p>Status: {exam.status}</p>
-            {!(exam.status === "Accepted") && (
+            {exam.status !== "Appointed" && (
               <div style={{ display: "flex" }}>
                 <Select
                   type="text"
@@ -54,7 +61,7 @@ const Detail = ({
                 </button>
               </div>
             )}
-            {exam.status === "Accepted" && (
+            {exam.status === "Appointed" && (
               <div className="message-btn">
                 <button className="messages-link" onClick={handleLink}>
                   Message history
@@ -71,4 +78,4 @@ const Detail = ({
   </>
 );
 
-export default Detail;
+export default DetailVideo;

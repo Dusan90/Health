@@ -2,24 +2,20 @@ import React from "react";
 import "../../assets/client/waitingRoom.scss";
 import Select from "react-select";
 import CheckoutForm from "../../containers/Client/CheckoutForm";
-import { Elements, StripeProvider } from "react-stripe-elements";
+// import { Elements, StripeProvider } from "react-stripe-elements";
 
 const WaitingRoom = ({
-  specialities,
-  subject,
-  submitted,
-  notes,
   handleSpeciality,
   handleDoctor,
   handleSubject,
   handleSubmit,
   handleMessage,
-  specDoctor,
-  resetDoctorSelect,
-  isClicked,
-  credits
+  handleExitQueue,
+  props
 }) => {
-  const disabled = credits ? false : true;
+  const disabled = props.credits ? false : true;
+  const disabled2 = props.credits ? true : false;
+  const disabled3 = props.YourNumber !== 0 ? true : false;
   return (
     <div className="exam">
       <div className="mainExam">
@@ -28,7 +24,8 @@ const WaitingRoom = ({
             type="text"
             id="speciality"
             placeholder="Select Speciality..."
-            options={specialities}
+            options={props.specialities}
+            isDisabled={disabled2}
             onChange={handleSpeciality}
           />
         </div>
@@ -37,9 +34,12 @@ const WaitingRoom = ({
             type="text"
             id="doctor"
             placeholder="Select Doctor..."
-            options={specDoctor}
+            options={props.specDoctor}
+            isDisabled={disabled2}
             onChange={handleDoctor}
-            value={specDoctor.length === 0 ? null : [resetDoctorSelect]}
+            value={
+              props.specDoctor.length === 0 ? null : [props.resetDoctorSelect]
+            }
           />
         </div>
         <div className="exam-sub">
@@ -48,7 +48,7 @@ const WaitingRoom = ({
             className="form-control"
             id="subject"
             placeholder="Enter subject"
-            value={subject}
+            value={props.subject}
             onChange={handleSubject}
           />
         </div>
@@ -60,7 +60,7 @@ const WaitingRoom = ({
             className="form-control"
             id="exam-notes"
             placeholder="Enter notes"
-            value={notes}
+            value={props.notes}
             onChange={handleMessage}
           />
         </div>
@@ -70,7 +70,17 @@ const WaitingRoom = ({
             <div className="statusQueue">
               <p>Queue status</p>
               <div>
-                {credits ? (
+                {props.credits && props.YourNumber === 0 ? (
+                  <h4
+                    style={{
+                      background: "rgb(250, 250, 102)",
+                      color: "rgb(128, 128, 3)",
+                      borderRadius: "5px"
+                    }}
+                  >
+                    Be Ready
+                  </h4>
+                ) : props.credits ? (
                   <h4
                     style={{
                       background: "rgb(119, 228, 119)",
@@ -86,28 +96,47 @@ const WaitingRoom = ({
               </div>
             </div>
             <div className="timeEst">
-              <p>Estimated time</p>
+              <p>People before you</p>
               <div>
-                <p>min</p>
-                <h4>45</h4>
+                <p>Num</p>
+                <h4>
+                  {!props.credits
+                    ? props.peopleInQueue.length
+                    : props.YourNumber}
+                </h4>
               </div>
             </div>
           </div>
-          <button disabled={disabled}>Start video</button>
+          {props.YourNumber === 0 ? (
+            <p>Be ready, Waiting from Doctors connection...</p>
+          ) : null}
+          <button disabled={disabled3}>Start video</button>
+          <button
+            className="exitQueue"
+            onClick={handleExitQueue}
+            disabled={disabled}
+          >
+            Exit the queue
+          </button>
         </div>
       </div>
       <input type="file" name="" id="" />
-      <button value={submitted} className="btn" onClick={handleSubmit}>
+      <button
+        value={props.submitted}
+        disabled={disabled2}
+        className="btn"
+        onClick={handleSubmit}
+      >
         Enter the queue
       </button>
       <div>
-        {isClicked ? (
+        {/* {props.isClicked ? (
           <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3">
             <Elements>
               <CheckoutForm />
             </Elements>
           </StripeProvider>
-        ) : null}
+        ) : null} */}
       </div>
     </div>
   );

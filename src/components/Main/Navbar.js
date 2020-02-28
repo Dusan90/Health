@@ -14,12 +14,18 @@ const Nav = ({
   handleClients,
   doctor
 }) => {
+  let calendar = null;
   let dashboardLink = null;
   let profileLink = null;
   let clientsLink = null;
   let curDoc = null;
   const isDoctor = sessionStorage.getItem("is_doctor");
   if (isDoctor === "true") {
+    calendar = (
+      <Link to="/doctor/calendar" className="doc-dash">
+        Calendar
+      </Link>
+    );
     dashboardLink = (
       <Link
         to="/dashboard-doctor"
@@ -87,6 +93,7 @@ const Nav = ({
       {isLoggedIn && (
         <ul className="nav navbar-nav navbar-right">
           <li>{dashboardLink}</li>
+          <li>{calendar}</li>
           <li>{clientsLink}</li>
           <li>{profileLink}</li>
           <li>{curDoc}</li>

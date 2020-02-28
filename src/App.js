@@ -19,8 +19,10 @@ import DoctorMessage from "./containers/Doctor/Message";
 import DoctorProfile from "./containers/Doctor/Profile";
 import DoctorsProfile from "./containers/Doctor/DoctorsProfile";
 import ClientProfile from "./containers/Client/Profile";
+import DetailVideoExam from "./containers/Doctor/DetailVideoExam";
 import ClientRecord from "./containers/Doctor/Record";
 import VideoReq from "./containers/Client/VideoReq";
+import ClientVideoExamDetail from "./containers/Client/ClientVideoExamDetail";
 import ClientDetailExam from "./containers/Client/DetailExam";
 import ClientCorrespondence from "./containers/Client/Correspondence";
 import ClientMessage from "./containers/Client/Message";
@@ -33,6 +35,7 @@ import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
 import Footer from "./components/Main/Footer";
 import allReducers from "./reducers";
+import DoctorsCalendar from "./containers/Doctor/DoctorsCalendar";
 
 class App extends Component {
   constructor(props) {
@@ -102,6 +105,16 @@ class App extends Component {
                   component={DetailExam}
                 />
                 <Route
+                  path="/doctor/video/exam/detail/:id"
+                  exact
+                  component={DetailVideoExam}
+                />
+                <Route
+                  path="/doctor/calendar"
+                  exact
+                  component={DoctorsCalendar}
+                />
+                <Route
                   path="/doctor/exam/correspondence/:id"
                   exact
                   component={Correspondence}
@@ -122,7 +135,7 @@ class App extends Component {
                   component={DoctorsProfile}
                 />
                 <Route
-                  path="/doctor/record/detail/:id"
+                  path="/doctor/record/:id"
                   exact
                   component={ClientRecord}
                 />
@@ -139,10 +152,16 @@ class App extends Component {
                   component={ClientDetailExam}
                 />
                 <Route
+                  path="/client/video/exam/detail/:id"
+                  exact
+                  component={ClientVideoExamDetail}
+                />
+                <Route
                   path="/client/video-request"
                   exact
                   component={VideoReq}
                 />
+
                 <Route
                   path="/client/exam/correspondence/:id"
                   exact

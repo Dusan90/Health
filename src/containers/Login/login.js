@@ -48,7 +48,7 @@ class Login extends Component {
     );
 
     const jsonData = await data.json();
-    console.log(jsonData);
+    // console.log(jsonData);
 
     if (
       jsonData.detail === "Invalid credentials" ||
@@ -113,7 +113,7 @@ class Login extends Component {
 const mapStateToProps = state => {
   const user = state.getIn(["authReducer", "user"]);
   const isLoggedIn = state.getIn(["authReducer", "isLoggedIn"]);
-  console.log(isLoggedIn, user, "Loginnnnnnnn");
+  // console.log(isLoggedIn, user, "Loginnnnnnnn");
 
   return {
     user,

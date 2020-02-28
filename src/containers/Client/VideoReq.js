@@ -5,7 +5,8 @@ import Nav from "../../components/Main/Navbar";
 import VideoReq from "../../components/Client/VideoReq";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
-// import { NotificationManager } from "react-notifications";
+import { NotificationManager } from "react-notifications";
+import moment from "moment";
 
 class ClientVideoReq extends Component {
   constructor(props) {
@@ -25,13 +26,20 @@ class ClientVideoReq extends Component {
       specialSP: [],
       resetDoctorSelect: null,
       isClicked: false,
-      startDate: new Date()
+      startDate: new Date(),
+      reservedDate: "",
+      doctorsPrice: "",
+      clientId: null,
+      attachments: null
     };
   }
 
   handleDateChange = date => {
-    this.setState({ startDate: date });
-    console.log(date);
+    // let clickedDate = moment(date).format("YYYY-MM-DD");
+    let clickedDate = moment(date).format("YYYY-MM-DDThh:mm:ss");
+    console.log(clickedDate);
+
+    this.setState({ startDate: date, reservedDate: clickedDate });
   };
 
   handleSpeciality = e => {
@@ -48,7 +56,7 @@ class ClientVideoReq extends Component {
 
   handleDoctor = e => {
     this.props.dispatch(doctor(e));
-    this.setState({ doctor_id: e.iD });
+    this.setState({ doctor_id: e.iD, doctorsPrice: e.price });
     this.setState({ resetDoctorSelect: e });
   };
 
@@ -60,51 +68,70 @@ class ClientVideoReq extends Component {
     this.setState({ notes: e.target.value });
   };
 
-  //   handleSubmit = async e => {
-  //     const access_token = "Bearer ".concat(this.state.token);
-  //     if (
-  //       this.state.specialSP &&
-  //       this.state.doctor_id &&
-  //       this.state.subject &&
-  //       this.state.notes
-  //     ) {
-  //       this.setState({ isClicked: true });
-  //       const response = await fetch(
-  //         "https://health-care-backend.herokuapp.com/api/client/initiate/",
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: access_token
-  //           },
-  //           body: JSON.stringify({
-  //             speciality: this.state.specialSP,
-  //             doctor: this.state.doctor_id,
-  //             subject: this.state.subject,
-  //             notes: this.state.notes
-  //           })
-  //         }
-  //       );
-  //       const data = await response.json();
+  handleSubmit = async e => {
+    const access_token = "Bearer ".concat(this.state.token);
+    if (
+      this.state.specialSP &&
+      this.state.doctor_id &&
+      this.state.subject &&
+      this.state.notes
+    ) {
+      this.setState({ isClicked: true });
+      const response = await fetch(
+        "https://health-care-backend.herokuapp.com/api/web/client/initiate/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
 
-  //       // this.toCheckout();
-  //       console.log(data);
+            Authorization: access_token
+          },
+          body: JSON.stringify({
+            client: this.state.clientId,
+            speciality: this.state.specialSP,
+            doctor: this.state.doctor_id,
+            subject: this.state.subject,
+            notes: this.state.notes,
+            appointed_date: this.state.reservedDate,
+            price: this.state.doctorsPrice,
+            attachments: this.state.attachments
+          })
+        }
+      );
+      const data = await response.json();
 
-  //       return data;
-  //     } else {
-  //       NotificationManager.error("Empty Fields", "Failed!", 2000);
-  //     }
-  //   };
+      // this.toCheckout();
+      console.log(data, "post video requesttttt");
+
+      return data;
+    } else {
+      NotificationManager.error("Empty Fields", "Failed!", 2000);
+    }
+  };
 
   // toCheckout = async () => {
   //   return this.props.history.push("/checkout");
   // };
 
+  handleClientProfile = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        console.log(response.data.data, "profile of client");
+
+        return this.setState({ clientId: response.data.data.id });
+      });
+  };
+
   componentDidMount() {
+    this.handleClientProfile();
     axios
       .get("https://health-care-backend.herokuapp.com/api/specialities/")
       .then(response => {
-        console.log(response, "videoReq ");
+        // console.log(response, "videoReq ");
 
         const res = response.data.data.map(val => {
           return { value: val.id, iD: val.speciality_id, label: val.name };
@@ -114,7 +141,7 @@ class ClientVideoReq extends Component {
     axios
       .get("https://health-care-backend.herokuapp.com/api/doctor/list")
       .then(response => {
-        console.log(response, "videoReq");
+        // console.log(response, "videoReq2");
 
         const res = response.data.data.map(val => {
           return {
@@ -135,20 +162,13 @@ class ClientVideoReq extends Component {
         <Header />
         <Nav />
         <VideoReq
-          specialities={this.state.specialities}
-          subject={this.state.subject}
-          notes={this.state.notes}
-          submitted={this.state.submitted}
           handleSpeciality={this.handleSpeciality}
           handleDoctor={this.handleDoctor}
           handleSubject={this.handleSubject}
           handleSubmit={this.handleSubmit}
           handleMessage={this.handleMessage}
-          specDoctor={this.state.specDoctor}
-          resetDoctorSelect={this.state.resetDoctorSelect}
-          isClicked={this.state.isClicked}
           handleDateChange={this.handleDateChange}
-          startDate={this.state.startDate}
+          props={this.state}
         />
       </div>
     );

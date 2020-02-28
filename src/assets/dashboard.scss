@@ -8,11 +8,24 @@
 
     .divVideo {
       position: relative;
+
+      .pendingReq {
+        font-size: 13px;
+        margin-top: 25px;
+
+        div {
+          margin: 4px auto;
+          text-align: center;
+          text-indent: 20px;
+          color: darkslategray;
+        }
+      }
       .requestsVideo {
         background: rgb(61, 61, 248);
         width: 200px;
         float: right;
         border-bottom-left-radius: 5px;
+        color: white;
       }
       button {
         position: absolute;
@@ -23,6 +36,14 @@
         border-radius: 5px;
         border: 0;
         padding: 5px;
+        color: white;
+        transition: all 0.5s ease-in-out;
+
+        &:hover {
+          background: rgb(5, 171, 226);
+          cursor: pointer;
+          box-shadow: 2px 2px 10px black;
+        }
       }
     }
 
@@ -46,6 +67,7 @@
         width: 200px;
         float: right;
         border-bottom-left-radius: 5px;
+        color: white;
       }
       button {
         position: absolute;
@@ -57,6 +79,7 @@
         border: 0;
         padding: 5px;
         transition: all 0.5s ease-in-out;
+        color: white;
 
         &:hover {
           background: rgb(5, 171, 226);
@@ -73,6 +96,7 @@
         width: 200px;
         float: right;
         border-bottom-left-radius: 5px;
+        color: white;
       }
       button {
         position: absolute;
@@ -83,6 +107,18 @@
         border-radius: 5px;
         border: 0;
         padding: 5px;
+        color: white;
+        transition: all 0.5s ease-in-out;
+
+        &:hover {
+          background: rgb(5, 171, 226);
+          cursor: pointer;
+          box-shadow: 2px 2px 10px black;
+        }
+      }
+      .pendingReq {
+        font-size: 13px;
+        margin-top: 25px;
       }
     }
 
@@ -313,6 +349,10 @@
 
     tbody {
       background: white;
+      transition: all 0.5 ease-in-out;
+      &:hover {
+        background: lightblue;
+      }
       tr {
         height: 40px;
         td {

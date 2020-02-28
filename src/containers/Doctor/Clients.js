@@ -14,7 +14,7 @@ export class DoctorsClients extends Component {
   }
 
   handleClient = id => {
-    this.props.history.push(`/doctor/record/detail/${id}`);
+    this.props.history.push(`/doctor/record/${id}`);
   };
 
   handleSort = e => {

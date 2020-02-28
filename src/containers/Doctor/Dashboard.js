@@ -6,82 +6,47 @@ import Nav from "../../components/Main/Navbar";
 import curentDoc from "../../actions/docAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import moment from "moment";
 
 class DoctorDashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       exams: [],
+      paginatedExams: [],
       record: [],
       token: sessionStorage.getItem("accessToken"),
       pending: "",
+      videoPending: [],
+      waitingRoom: [],
       openPending: false,
+      openVideoPending: false,
+      openWaitingRoom: false,
       value: "",
       doc: [],
-      page: "",
-      url: "",
-      test: [],
-      nextPage: "",
+      page: 1,
+      maxPages: "",
       loading: true
     };
   }
 
   handleClickLeft = () => {
-    if (this.state.page === 2) {
-      this.setState({ url: "", page: "" });
-    } else if (this.state.page === "") {
-      return null;
-    } else {
-      this.setState({ url: "?page=", page: this.state.page - 1 });
+    if (this.state.page !== 1) {
+      this.setState({ page: this.state.page - 1 });
+      let test = setInterval(() => {
+        this.paginate(this.state.page);
+        clearInterval(test);
+      }, 10);
     }
-    let test = setInterval(() => {
-      this.exams();
-      clearInterval(test);
-    }, 10);
   };
   handleClickRight = () => {
-    if (this.state.page === "") {
-      this.setState({ url: "?page=", page: 2 });
-    } else if (this.state.exams.length === 0 || this.state.nextPage === null) {
-      return null;
-    } else {
+    if (this.state.page !== this.state.maxPages) {
       this.setState({ page: this.state.page + 1 });
+      let test = setInterval(() => {
+        this.paginate(this.state.page);
+        clearInterval(test);
+      }, 10);
     }
-    let test = setInterval(() => {
-      this.exams();
-      clearInterval(test);
-    }, 10);
-  };
-
-  exams = () => {
-    const access_token = "Bearer ".concat(this.state.token);
-    axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.state.url}${this.state.page}`,
-        {
-          headers: { Authorization: access_token }
-        }
-      )
-      .then(response => {
-        console.log(response, "prviiiiiiiiiiiiii");
-
-        const res = response.data.results.map(val => {
-          return {
-            id: val.id,
-            client: val.client,
-            created: val.created,
-            subject: val.subject,
-            status: val.status
-          };
-        });
-        let resort = res.sort(
-          (a, b) => Date.parse(b.created) - Date.parse(a.created)
-        );
-        this.setState({ exams: resort, loading: false });
-        return response.data.next === null
-          ? this.setState({ nextPage: null })
-          : null;
-      });
   };
 
   pnd = () => {
@@ -116,26 +81,87 @@ class DoctorDashboard extends Component {
         (a, b) => Date.parse(a.created) - Date.parse(b.created)
       );
       this.setState({ exams: sort });
+      this.paginate(this.state.page);
     } else {
       let lates = this.state.exams;
       let resort = lates.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
       this.setState({ exams: resort });
+      this.paginate(this.state.page);
     }
   };
 
-  handleClick = id => {
-    this.props.history.push(`/doctor/exam/detail/${id}`);
+  handleClick = (id, type) => {
+    if (type === "mail") {
+      this.props.history.push(`/doctor/exam/detail/${id}`);
+    } else if (type === "video") {
+      this.props.history.push(`/doctor/video/exam/detail/${id}`);
+    }
   };
+
+  handleVideoPendingClick = id => {
+    this.props.history.push(`/doctor/video/exam/detail/${id}`);
+  };
+  paginatedExams = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://health-care-backend.herokuapp.com/api/mail/doctor/`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        this.setState({
+          exams: [...this.state.exams.concat(response.data.data)]
+        });
+        this.paginate(this.state.page);
+        this.peopleVideoPending();
+      });
+  };
+
+  paginate = page => {
+    let limit = 5;
+    let pages = Math.ceil(this.state.exams.length / 5);
+    const offset = (page - 1) * limit;
+    const newArray = this.state.exams.slice(offset, offset + limit);
+
+    this.setState({
+      paginatedExams: newArray,
+      loading: false,
+      maxPages: pages
+    });
+  };
+
+  // handleWaitingRoom = id => {
+  //   this.props.history.push('/')
+  // }
 
   hnlClick = () => {
     this.setState({ openPending: !this.state.openPending });
   };
 
+  hnlClick2 = () => {
+    this.setState({ openVideoPending: !this.state.openVideoPending });
+  };
+
+  hnlClick3 = () => {
+    this.setState({ openWaitingRoom: !this.state.openWaitingRoom });
+  };
+
+  hnlVideoClick = () => {
+    this.setState({ openVideoPending: !this.state.openVideoPending });
+  };
+
+  hnlWatingClick = () => {
+    this.setState({ openWaitingRoom: !this.state.openWaitingRoom });
+  };
+
   escBtn = e => {
     if (e.keyCode === 27) {
-      this.setState({ openPending: false });
+      this.setState({
+        openPending: false,
+        openVideoPending: false,
+        openWaitingRoom: false
+      });
     }
   };
 
@@ -157,8 +183,54 @@ class DoctorDashboard extends Component {
       });
   };
 
+  peopleInWaitingRoom = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://health-care-backend.herokuapp.com/api/queue/doctor/`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        let todaysWaitingRoom = response.data.data.filter(today => {
+          return (
+            moment(today.appointed_date).format("MM/DD/YYYY") ===
+            moment(new Date()).format("MM/DD/YYYY")
+          );
+        });
+        this.setState({ waitingRoom: todaysWaitingRoom });
+      });
+  };
+
+  peopleVideoPending = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://health-care-backend.herokuapp.com/api/web/doctor/list/`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        console.log(response, "videooo-request-list");
+        let pending = response.data.data.filter(res => {
+          return (
+            res.status === "Requested",
+            moment(res.appointed_date).format("MM/DD/YYYY") >=
+              moment(new Date()).format("MM/DD/YYYY")
+          );
+        });
+        let accepted = response.data.data.filter(res => {
+          return res.status === "Appointed";
+        });
+        this.setState({
+          videoPending: pending,
+          exams: [...this.state.exams.concat(accepted)],
+          loading: false
+        });
+        this.paginate(this.state.page);
+      });
+  };
+
   componentDidMount() {
-    this.exams();
+    this.paginatedExams();
+    this.peopleInWaitingRoom();
+    // this.peopleVideoPending();
     this.pnd();
     window.addEventListener("keydown", this.escBtn);
     this.handleDoctorProfile();
@@ -170,17 +242,21 @@ class DoctorDashboard extends Component {
         <Header />
         <Nav doc={this.state.doc} />
         <Dashboard
-          exams={this.state.exams}
           handleClick={this.handleClick}
           handleClient={this.handleClient}
-          pending={this.state.pending}
           hnlClick={this.hnlClick}
+          hnlClick2={this.hnlClick2}
+          hnlClick3={this.hnlClick3}
+          hnlWaitingClick={this.hnlWatingClick}
           props={this.state}
           handleKeyPress={this.handleKeyPress}
           handleChange={this.handleChange}
           handleClickLeft={this.handleClickLeft}
           handleClickRight={this.handleClickRight}
           loading={this.state.loading}
+          hnlVideoClick={this.hnlVideoClick}
+          handleWaitingRoom={this.handleWaitingRoom}
+          handleVideoPendingClick={this.handleVideoPendingClick}
         />
       </div>
     );

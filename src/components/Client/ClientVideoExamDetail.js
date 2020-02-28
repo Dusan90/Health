@@ -1,30 +1,42 @@
 import React from "react";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import "../../assets/client/detail-exam.scss";
+// import "../../assets/client/detail-exam.scss";
+import moment from "moment";
 
-const Detail = ({ exam, handleLink, handleLinkMessage, handleCancel }) => (
+const DetailVideo = ({ exam, handleLink, handleLinkMessage, handleCancel }) => (
   <>
     <Header />
     <Nav />
     {exam.map(exam => {
+      console.log(exam);
+
       return (
         <div key={exam.id} className="detail-exam">
           <div className="detail">
             <p>Doctor: {exam.doctor}</p>
             <p>Speciality: {exam.speciality}</p>
-            <p className="created">
-              {new Intl.DateTimeFormat("en-GB", {
-                year: "numeric",
-                month: "long",
-                day: "2-digit"
-              }).format(new Date(exam.created))}
-            </p>
+            {exam.created ? (
+              <p>
+                {" "}
+                Created:{" "}
+                {new Intl.DateTimeFormat("en-GB", {
+                  year: "numeric",
+                  month: "long",
+                  day: "2-digit"
+                }).format(new Date(exam.created))}
+              </p>
+            ) : (
+              <p>
+                {" "}
+                Appointed: {moment(exam.appointed_date).format("MM/DD/YYYY")}
+              </p>
+            )}
             <p>Exam type: {exam.exam_type}</p>
             <p>Subject: {exam.subject}</p>
             <p>Message: {exam.message}</p>
             <p>Status: {exam.status}</p>
-            {exam.status === "Accepted" ? (
+            {exam.status === "Appointed" || exam.status === "Accepted" ? (
               <div className="message-btn">
                 <button className="messages-link" onClick={handleLink}>
                   Message history
@@ -45,4 +57,4 @@ const Detail = ({ exam, handleLink, handleLinkMessage, handleCancel }) => (
   </>
 );
 
-export default Detail;
+export default DetailVideo;

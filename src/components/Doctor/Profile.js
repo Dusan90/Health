@@ -9,10 +9,12 @@ const Profile = ({
   prefixValue,
   descriptionValue,
   priceValue,
+  priceWebValue,
   submitValue,
   handlePrefix,
   handleDescription,
   handlePrice,
+  handleWebPrice,
   handleSubmit,
   handleSelect,
   status,
@@ -48,7 +50,8 @@ const Profile = ({
                   <p>NPI: {doctor.npi_number}</p>
                   <p>Prefix: {doctor.prefix}</p>
                   <p>Description: {doctor.description}</p>
-                  <p>Price: {doctor.email_exam_price} €</p>
+                  <p>Email exam price: {doctor.email_exam_price} €</p>
+                  <p>Web exam price: {doctor.web_exam_price} €</p>
                   <p>Availability: {doctor.status}</p>
                 </div>
               </div>
@@ -77,9 +80,18 @@ const Profile = ({
                     <input
                       type="text"
                       className="price-input"
-                      placeholder="Enter price"
+                      placeholder="Enter mail price"
                       value={priceValue}
                       onChange={handlePrice}
+                    />
+                  </div>
+                  <div className="price">
+                    <input
+                      type="text"
+                      className="price-input"
+                      placeholder="Enter web price"
+                      value={priceWebValue}
+                      onChange={handleWebPrice}
                     />
                   </div>
                 </div>

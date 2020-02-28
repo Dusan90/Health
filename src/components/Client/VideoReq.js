@@ -7,20 +7,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const VideoReq = ({
-  specialities,
-  subject,
-  submitted,
-  notes,
   handleSpeciality,
   handleDoctor,
   handleSubject,
   handleSubmit,
   handleMessage,
-  specDoctor,
-  resetDoctorSelect,
-  isClicked,
   handleDateChange,
-  startDate
+  props
 }) => {
   return (
     <div className="exam">
@@ -30,7 +23,7 @@ const VideoReq = ({
             type="text"
             id="speciality"
             placeholder="Select Speciality..."
-            options={specialities}
+            options={props.specialities}
             onChange={handleSpeciality}
           />
         </div>
@@ -39,9 +32,11 @@ const VideoReq = ({
             type="text"
             id="doctor"
             placeholder="Select Doctor..."
-            options={specDoctor}
+            options={props.specDoctor}
             onChange={handleDoctor}
-            value={specDoctor.length === 0 ? null : [resetDoctorSelect]}
+            value={
+              props.specDoctor.length === 0 ? null : [props.resetDoctorSelect]
+            }
           />
         </div>
         <div className="exam-sub">
@@ -50,7 +45,7 @@ const VideoReq = ({
             className="form-control"
             id="subject"
             placeholder="Enter subject"
-            value={subject}
+            value={props.subject}
             onChange={handleSubject}
           />
         </div>
@@ -62,20 +57,25 @@ const VideoReq = ({
             className="form-control"
             id="exam-notes"
             placeholder="Enter notes"
-            value={notes}
+            value={props.notes}
             onChange={handleMessage}
           />
         </div>
         <div className="MainDate">
-          <DatePicker selected={startDate} onChange={handleDateChange} inline />
+          <DatePicker
+            selected={props.startDate}
+            onChange={handleDateChange}
+            minDate={new Date()}
+            inline
+          />
         </div>
       </div>
       <input type="file" name="" id="" />
-      <button value={submitted} className="btn" onClick={handleSubmit}>
+      <button value={props.submitted} className="btn" onClick={handleSubmit}>
         Send
       </button>
       <div>
-        {isClicked ? (
+        {props.isClicked ? (
           <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3">
             <Elements>
               <CheckoutForm />

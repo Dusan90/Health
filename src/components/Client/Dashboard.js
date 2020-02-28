@@ -10,12 +10,13 @@ import { GiCancel } from "react-icons/gi";
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import Loading from "../../img/loading-gif-png-5-original.gif";
+import moment from "moment";
 
 const Dashboard = ({
   initiate,
   waitingRoom,
   VideoReq,
-  exams,
+  paginatedExams,
   handleClick,
   handleChange,
   handleClickLeft,
@@ -68,32 +69,42 @@ const Dashboard = ({
             <tr className="client-row">
               <th className="client-doctor">Doctor</th>
               <th className="client-subject">Subject</th>
+              <th className="client-subject">Exam type</th>
               <th className="client-subject">Date</th>
               <th className="client-status">Status</th>
             </tr>
           </thead>
 
-          {exams.map(exam => {
+          {paginatedExams.map((exam, index) => {
             if (exam.status === "Canceled") return null;
             return (
-              <tbody key={exam.id} className="client-body">
+              <tbody key={index} className="client-body">
                 <tr
-                  key={exam.id}
                   data-id={exam.id}
                   className="list-group"
-                  onClick={() => handleClick(exam.id)}
+                  onClick={() => handleClick(exam.id, exam.exam_type)}
                 >
                   <td className="client-doctor">{exam.doctor}</td>
                   <td className="client-subject">{exam.subject}</td>
+                  <td className="client-subject">{exam.exam_type}</td>
+
                   <td className="created">
-                    {new Intl.DateTimeFormat("en-GB", {
-                      year: "numeric",
-                      month: "long",
-                      day: "2-digit"
-                    }).format(new Date(exam.created))}
+                    {exam.created && !exam.appointed_date ? (
+                      <p>
+                        {" "}
+                        Created: {moment(exam.created).format("MM/DD/YYYY")}
+                      </p>
+                    ) : (
+                      <p>
+                        {" "}
+                        Appointed:{" "}
+                        {moment(exam.appointed_date).format("MM/DD/YYYY")}
+                      </p>
+                    )}
                   </td>
                   <td className="client-status">
-                    {exam.status === "Accepted" ? (
+                    {exam.status === "Accepted" ||
+                    exam.status === "Appointed" ? (
                       <FaCheck className="check" />
                     ) : exam.status === "Declined" ? (
                       <GiCancel className="declined" />

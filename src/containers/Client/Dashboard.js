@@ -9,11 +9,12 @@ class ClientDashboard extends Component {
     super(props);
     this.state = {
       exams: [],
+      paginatedExams: [],
       token: sessionStorage.getItem("accessToken"),
       dataFromServer: "",
-      page: "",
-      url: "",
-      loading: true
+      loading: true,
+      page: 1,
+      maxPages: ""
     };
   }
 
@@ -29,66 +30,27 @@ class ClientDashboard extends Component {
 
   componentDidMount() {
     this.connect();
-    this.exams();
-  }
-
-  componentWillMount() {
-    this.connect();
+    this.paginatedExams();
+    // this.videoReqStatus();
   }
 
   handleClickLeft = () => {
-    if (this.state.page === 2) {
-      this.setState({ url: "", page: "" });
-    } else if (this.state.page === "") {
-      return null;
-    } else {
-      this.setState({ url: "?page=", page: this.state.page - 1 });
+    if (this.state.page !== 1) {
+      this.setState({ page: this.state.page - 1 });
+      let test = setInterval(() => {
+        this.paginate(this.state.page);
+        clearInterval(test);
+      }, 10);
     }
-    let test = setInterval(() => {
-      this.exams();
-      clearInterval(test);
-    }, 10);
   };
   handleClickRight = () => {
-    if (this.state.page === "") {
-      this.setState({ url: "?page=", page: 2 });
-    } else if (this.state.exams.length === 0) {
-      return null;
-    } else {
+    if (this.state.page !== this.state.maxPages) {
       this.setState({ page: this.state.page + 1 });
+      let test = setInterval(() => {
+        this.paginate(this.state.page);
+        clearInterval(test);
+      }, 10);
     }
-    let test = setInterval(() => {
-      this.exams();
-      clearInterval(test);
-    }, 10);
-  };
-
-  exams = () => {
-    const access_token = "Bearer ".concat(this.state.token);
-    axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.url}${this.state.page}`,
-        {
-          headers: { Authorization: access_token }
-        }
-      )
-      .then(response => {
-        console.log(response);
-
-        const res = response.data.results.map(val => {
-          return {
-            id: val.id,
-            doctor: val.doctor,
-            created: val.created,
-            subject: val.subject,
-            status: val.status
-          };
-        });
-        let resort = res.sort(
-          (a, b) => Date.parse(b.created) - Date.parse(a.created)
-        );
-        this.setState({ exams: resort, loading: false });
-      });
   };
 
   connect = () => {
@@ -99,12 +61,12 @@ class ClientDashboard extends Component {
     var connectInterval;
     ws.onopen = () => {
       // on connecting, do nothing but log it to the console
-      console.log("connected");
+      // console.log("connected");
       this.setState({ ws: ws });
     };
     ws.onmessage = e => {
       // listen to data sent from the websocket server
-      this.exams();
+      this.paginatedExams();
       const message = JSON.parse(e.data);
       this.state.exams.map(exam => {
         if (exam.exam === message.id) {
@@ -126,7 +88,7 @@ class ClientDashboard extends Component {
         e.reason
       );
       that.timeout = that.timeout + that.timeout; //increment retry interval
-      connectInterval = setTimeout(this.check, Math.min(10000, that.timeout)); //c
+      connectInterval = setTimeout(this.check, Math.min(1, that.timeout)); //c
       // automatically try to reconnect on connection loss
     };
     ws.onerror = err => {
@@ -139,8 +101,12 @@ class ClientDashboard extends Component {
     };
   };
 
-  handleClick = id => {
-    this.props.history.push(`/client/exam/detail/${id}`);
+  handleClick = (id, type) => {
+    if (type === "mail") {
+      this.props.history.push(`/client/exam/detail/${id}`);
+    } else if (type === "video") {
+      this.props.history.push(`/client/video/exam/detail/${id}`);
+    }
   };
 
   handleChange = e => {
@@ -150,16 +116,65 @@ class ClientDashboard extends Component {
         (a, b) => Date.parse(a.created) - Date.parse(b.created)
       );
       this.setState({ exams: sort });
+      this.paginate(this.state.page);
     } else {
       let lates = this.state.exams;
       let resort = lates.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
       this.setState({ exams: resort });
+      this.paginate(this.state.page);
     }
   };
 
+  videoReqStatus = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://health-care-backend.herokuapp.com/api/web/client/list/`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        console.log(response.data.data, "videooo-request-list");
+
+        this.setState({
+          exams: [...this.state.exams.concat(response.data.data)]
+        });
+        this.paginate(this.state.page);
+      });
+  };
+
+  paginatedExams = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://health-care-backend.herokuapp.com/api/mail/client/`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        this.setState({
+          exams: [...this.state.exams.concat(response.data.data)]
+        });
+        this.videoReqStatus();
+        this.paginate(this.state.page);
+      });
+  };
+
+  paginate = page => {
+    let limit = 5;
+    let pages = Math.ceil(this.state.exams.length / 5);
+    const offset = (page - 1) * limit;
+    const newArray = this.state.exams.slice(offset, offset + limit);
+
+    this.setState({
+      paginatedExams: newArray,
+      loading: false,
+      maxPages: pages
+    });
+  };
+
   render() {
+    // console.log(this.state.paginatedExams);
+    // console.log(this.state.exams, "teeeeeeeeeeest");
+
     return (
       <div className="container">
         <Header />
@@ -167,7 +182,7 @@ class ClientDashboard extends Component {
         <Dashboard
           initiate={this.initiate}
           waitingRoom={this.waitingRoom}
-          exams={this.state.exams}
+          paginatedExams={this.state.paginatedExams}
           handleClick={this.handleClick}
           handleChange={this.handleChange}
           handleClickLeft={this.handleClickLeft}

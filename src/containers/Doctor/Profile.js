@@ -20,6 +20,7 @@ class DoctorProfile extends Component {
       prefixValue: "",
       descriptionValue: "",
       priceValue: null,
+      priceWebValue: null,
       select: "",
       token: sessionStorage.getItem("accessToken")
     };
@@ -42,6 +43,10 @@ class DoctorProfile extends Component {
     this.setState({ priceValue: e.target.value });
   };
 
+  handleWebPrice = e => {
+    this.setState({ priceWebValue: e.target.value });
+  };
+
   handleSubmit = async e => {
     e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
@@ -57,6 +62,7 @@ class DoctorProfile extends Component {
           prefix: this.state.prefixValue,
           description: this.state.descriptionValue,
           email_exam_price: this.state.priceValue,
+          web_exam_price: this.state.priceWebValue,
           status: this.state.select
         })
       }
@@ -93,10 +99,12 @@ class DoctorProfile extends Component {
           prefixValue={this.prefixValue}
           descriptionValue={this.descriptionValue}
           priceValue={this.priceValue}
+          priceWebValue={this.priceWebValue}
           submitValue={this.submitValue}
           handlePrefix={this.handlePrefix}
           handleDescription={this.handleDescription}
           handlePrice={this.handlePrice}
+          handleWebPrice={this.handleWebPrice}
           handleSubmit={this.handleSubmit}
           handleSelect={this.handleSelect}
         />
