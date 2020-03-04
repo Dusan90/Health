@@ -20,6 +20,7 @@ import DoctorProfile from "./containers/Doctor/Profile";
 import DoctorsProfile from "./containers/Doctor/DoctorsProfile";
 import ClientProfile from "./containers/Client/Profile";
 import DetailVideoExam from "./containers/Doctor/DetailVideoExam";
+import ProcessingVideoExam from "./containers/Doctor/ProcessingVideoExam";
 import ClientRecord from "./containers/Doctor/Record";
 import VideoReq from "./containers/Client/VideoReq";
 import ClientVideoExamDetail from "./containers/Client/ClientVideoExamDetail";
@@ -138,6 +139,11 @@ class App extends Component {
                   path="/doctor/record/:id"
                   exact
                   component={ClientRecord}
+                />
+                <Route
+                  path="/doctor/processing/video/exam/:id"
+                  exact
+                  component={ProcessingVideoExam}
                 />
                 <Route
                   path="/client/waiting-room"

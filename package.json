@@ -74,6 +74,7 @@
     "resolve-url-loader": "3.1.0",
     "sass-loader": "7.2.0",
     "semver": "6.3.0",
+    "simple-peer": "^9.6.2",
     "stripe": "^7.14.0",
     "style-loader": "1.0.0",
     "terser-webpack-plugin": "^2.3.5",

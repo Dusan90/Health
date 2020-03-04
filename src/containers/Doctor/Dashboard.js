@@ -16,7 +16,7 @@ class DoctorDashboard extends Component {
       paginatedExams: [],
       record: [],
       token: sessionStorage.getItem("accessToken"),
-      pending: "",
+      pending: [],
       videoPending: [],
       waitingRoom: [],
       openPending: false,
@@ -131,9 +131,9 @@ class DoctorDashboard extends Component {
     });
   };
 
-  // handleWaitingRoom = id => {
-  //   this.props.history.push('/')
-  // }
+  handleWaitingRoom = id => {
+    this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
+  };
 
   hnlClick = () => {
     this.setState({ openPending: !this.state.openPending });

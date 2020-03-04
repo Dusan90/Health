@@ -110,7 +110,9 @@ const WaitingRoom = ({
           {props.YourNumber === 0 ? (
             <p>Be ready, Waiting from Doctors connection...</p>
           ) : null}
-          <button disabled={disabled3}>Start video</button>
+          <button id="StartVideo" disabled={disabled3}>
+            Start video
+          </button>
           <button
             className="exitQueue"
             onClick={handleExitQueue}
@@ -138,6 +140,25 @@ const WaitingRoom = ({
           </StripeProvider>
         ) : null} */}
       </div>
+      {/* <>
+//         <label>Your Id:</label>
+//         <br />
+//         <textarea id="yourId"></textarea>
+//         <br />
+//         <label>Other Id:</label>
+//         <br />
+//         <textarea id="otherId"></textarea>
+//         <br />
+//         <button id="connect">Connect</button>
+//         <hr />
+//         <label>Enter Message:</label>
+//         <br />
+//         <textarea id="yourMessage"></textarea>
+//         <br />
+//         <button id="send">Send</button>
+//         <pre id="messages"></pre>
+//         <button>Start video</button>
+//       </> */}
     </div>
   );
 };

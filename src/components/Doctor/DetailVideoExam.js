@@ -20,11 +20,6 @@ const DetailVideo = ({
     <Nav />
 
     {exam.map(exam => {
-      console.log(
-        exam,
-        "statuuuuuuuuuuuuuuusssssssssss mi dajjjjjjjjjjjjjjjjjjjjj"
-      );
-
       return (
         <div key={exam.id} className="detail-exam">
           <div className="detail">

@@ -6,6 +6,7 @@ import WaitingRoom from "../../components/Client/WaitingRoom";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
+import moment from "moment";
 
 class ClientWaitingRoom extends Component {
   constructor(props) {
@@ -29,7 +30,9 @@ class ClientWaitingRoom extends Component {
       attachment: null,
       currentClient: "",
       peopleInQueue: [],
-      YourNumber: null
+      YourNumber: null,
+      yourId: "",
+      hisId: ""
     };
   }
 
@@ -81,7 +84,7 @@ class ClientWaitingRoom extends Component {
         }
       )
       .then(res => {
-        this.setState({ credits: false, peopleInQueue: null });
+        this.setState({ credits: false, peopleInQueue: [] });
       });
   };
 
@@ -95,16 +98,24 @@ class ClientWaitingRoom extends Component {
         }
       )
       .then(response => {
-        if (!response.statusText === "OK") {
+        console.log(response, "Client, IDDDDDDDD");
+
+        if (response.statusText !== "OK") {
           console.log("empty");
         } else {
-          if (response.data.data[0].status === "In the queue") {
+          if (
+            response.data.data.created !==
+            moment(new Date()).format("YYYY-MM-DD")
+          ) {
+            this.setState({ currentClient: response.data.data });
+            this.handleExitQueue();
+          } else if (response.data.data.status === "In the queue") {
             this.setState({
               credits: true,
-              currentClient: response.data.data[0]
+              currentClient: response.data.data
             });
           }
-          this.QueueList(response.data.data[0].doctor);
+          this.QueueList(response.data.data.doctor);
         }
       });
   };
@@ -178,6 +189,8 @@ class ClientWaitingRoom extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
+        console.log(response, "people in queue");
+
         this.setState({
           peopleInQueue: [
             ...this.state.peopleInQueue.concat(response.data.data.queue)
@@ -199,6 +212,7 @@ class ClientWaitingRoom extends Component {
 
   componentDidMount() {
     this.handleClientProfile();
+    this.test();
     axios
       .get("https://health-care-backend.herokuapp.com/api/specialities/")
       .then(response => {
@@ -228,12 +242,86 @@ class ClientWaitingRoom extends Component {
         this.setState({ doctors: res });
       });
   }
+
   // handleDoctorsStatus = () => {
   //   if (this.state.resetDoctorSelect.status !== "Available") {
   //     this.setState({ credits: false }),
   // this.handleExitQueue()
   //   }
   // };
+
+  test = () =>
+    navigator.webkitGetUserMedia(
+      {
+        video: true,
+        audio: true
+      },
+      stream => {
+        var Peer = require("simple-peer");
+        // let id = Math.floor(Math.random() * 0xffffff).toString(16);
+        // this.setState({ idToPush: id });
+        var peer = new Peer({
+          // initiator: window.location.hash === `#init`,
+          trickle: false,
+          stream: stream
+        });
+
+        peer.on("signal", data => {
+          let docId = JSON.stringify(data);
+          connection.send(docId);
+        });
+
+        document.getElementById("StartVideo").addEventListener("click", () => {
+          peer.signal(this.state.hisId);
+        });
+
+        // document.getElementById("send").addEventListener("click", function() {
+        //   var yourMessage = document.getElementById("yourMessage").value;
+        //   peer.send(yourMessage);
+        // });
+
+        const connection = new WebSocket("ws://localhost:8080");
+
+        connection.onopen = () => {
+          console.log("connected");
+        };
+
+        connection.onclose = () => {
+          console.error("disconnected");
+        };
+
+        connection.onerror = error => {
+          console.error("failed to connect", error);
+        };
+
+        connection.onmessage = event => {
+          console.log("received", event.data);
+          this.setState({ hisId: event.data });
+        };
+
+        // document.querySelector("form").addEventListener("submit", event => {
+        //   event.preventDefault();
+        //   let message = document.querySelector("#message").value;
+        //   connection.send(message);
+        //   document.querySelector("#message").value = "";
+        // });
+
+        // peer.on("data", function(data) {
+        //   document.getElementById("messages").textContent += data + "\n";
+        // });
+
+        peer.on("stream", function(stream) {
+          const mediaStream = new MediaStream(stream);
+          var video = document.createElement("video");
+          document.body.appendChild(video);
+          video.srcObject = mediaStream;
+          video.play();
+        });
+      },
+      function(err) {
+        console.error(err);
+      }
+    );
 
   render() {
     return (

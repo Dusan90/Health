@@ -50,11 +50,6 @@ const Dashboard = ({
                 return (
                   <div key={shorty.id}>
                     {shorty.client},{" "}
-                    {/* {new Intl.DateTimeFormat("en-GB", {
-                      year: "numeric",
-                      month: "long",
-                      day: "2-digit"
-                    }).format(new Date(shorty.appointed_date))} */}
                     {moment(shorty.appointed_date).format("MM/DD/YYYY")}
                   </div>
                 );
@@ -79,7 +74,7 @@ const Dashboard = ({
             {props.pending.length} new request to confirm
           </div>
           <div className="pendingReq">
-            {short ? (
+            {short.length !== 0 ? (
               short.map(shorty => {
                 return (
                   <div key={shorty.id}>
