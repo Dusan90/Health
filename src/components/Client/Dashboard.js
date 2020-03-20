@@ -1,14 +1,20 @@
 import React from "react";
 import "../../assets/client/dashboard.scss";
-import { MdOndemandVideo } from "react-icons/md";
-import { MdDateRange } from "react-icons/md";
-import { MdEmail } from "react-icons/md";
-import { FaUserClock } from "react-icons/fa";
+import { FaVideo } from "react-icons/fa";
+import { GoFileDirectory } from "react-icons/go";
+import { GoPerson } from "react-icons/go";
+import { IoIosMail } from "react-icons/io";
+import { GoClock } from "react-icons/go";
 import { FaCheck } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { IoIosSettings } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
+import { MdChatBubble } from "react-icons/md";
 import { GiCancel } from "react-icons/gi";
 import { FaChevronLeft } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 import Loading from "../../img/loading-gif-png-5-original.gif";
 import moment from "moment";
 
@@ -16,42 +22,64 @@ const Dashboard = ({
   initiate,
   waitingRoom,
   VideoReq,
-  paginatedExams,
   handleClick,
   handleChange,
   handleClickLeft,
   handleClickRight,
-  loading
+  handleHam,
+  props
 }) => (
-  <>
+  <div className="mainClientDashboard">
+    <div className="hamburger">
+      <div className="hamNprofil">
+        <div className="ham" onClick={handleHam}>
+          <GiHamburgerMenu />
+        </div>
+        <div className="profile">
+          <FaUser style={{ marginRight: "5px" }} />
+          Profile
+        </div>
+      </div>
+    </div>
     <div className="main">
       <div className="videoApp" onClick={() => VideoReq()}>
         <span className="video">
-          <MdOndemandVideo className="icon" />
+          <FaVideo className="icon" />
         </span>
-        <h2>Make a VIDEO APPOINTMENT</h2>
+        <h2>
+          Make a
+          <br />
+          <span> VIDEO APPOINTMENT</span>
+        </h2>
       </div>
       <div className="emailReq" onClick={() => initiate()}>
         <span className="email">
-          <MdEmail className="icon" />
+          <IoIosMail className="icon" />
         </span>
-        <h2>Request EMAIL CONSULTATION</h2>
+        <h2>
+          Request
+          <br />
+          <span> EMAIL CONSULTATION </span>
+        </h2>
       </div>
       <div className="waitRoom" onClick={() => waitingRoom()}>
         <span className="clock">
-          <FaUserClock className="icon" />
+          <GoClock className="icon" />
         </span>
-        <h2>Enter WAITING ROOM</h2>
+        <h2>
+          Enter
+          <br /> <span> WAITING ROOM </span>
+        </h2>
       </div>
     </div>
-    {loading ? (
+    {props.loading ? (
       <img src={Loading} alt="loading..." style={{ width: "150px" }} />
     ) : (
       <div className="mainTabel">
         <div className="mainConsultation">
           <div className="icon_left">
             <span>
-              <MdDateRange className="icon1" />
+              <GoFileDirectory className="icon1" />
             </span>
             <p>My Consultations</p>
           </div>
@@ -69,13 +97,13 @@ const Dashboard = ({
             <tr className="client-row">
               <th className="client-doctor">Doctor</th>
               <th className="client-subject">Subject</th>
-              <th className="client-subject">Exam type</th>
+              <th className="client-subject">Type</th>
               <th className="client-subject">Date</th>
               <th className="client-status">Status</th>
             </tr>
           </thead>
 
-          {paginatedExams.map((exam, index) => {
+          {props.paginatedExams.map((exam, index) => {
             if (exam.status === "Canceled") return null;
             return (
               <tbody key={index} className="client-body">
@@ -128,7 +156,80 @@ const Dashboard = ({
         <FaChevronRight className="iconRight" />
       </div>
     </div>
-  </>
+    <div className="connectWithdoctor">
+      <div className="connected">
+        <p>
+          Connect with a doctor over live video in minutes. Available 24/7,
+          nights and weekends.
+        </p>
+        <h4>
+          See a Doctor <FaChevronRight className="see" />
+        </h4>
+      </div>
+    </div>
+    <div
+      className="sideNav"
+      style={{ left: props.hamburger ? "0px" : "-300px" }}
+    >
+      <div className="sideProfile">
+        <div className="mainProfile">
+          <div className="profile">
+            <GoPerson className="icon" />
+          </div>
+          <div className="onlineDot"></div>
+        </div>
+        <p>name</p>
+      </div>
+      <div className="sideVideo" onClick={() => VideoReq()}>
+        <span className="video">
+          <FaVideo className="icon" />
+        </span>
+        <h2>Video Appointment</h2>
+      </div>
+      <div className="sideEmail" onClick={() => initiate()}>
+        <span className="email">
+          <IoIosMail className="icon" />
+        </span>
+        <h2>Email Consultation</h2>
+      </div>
+      <div className="sideWaitingRoom" onClick={() => waitingRoom()}>
+        <span className="clock">
+          <GoClock className="icon" />
+        </span>
+        <h2>Waiting Room</h2>
+      </div>
+      <div className="sideMyCounsultation">
+        <span>
+          <GoFileDirectory className="icon" />
+        </span>
+        <h2>My Consultations</h2>
+      </div>
+      <div className="sideMyAccount">
+        <span>
+          <FaUser />
+        </span>
+        <h2>Profile</h2>
+      </div>
+      <div className="sideHelp">
+        <span className="help">
+          <IoIosSettings className="icon" />
+        </span>
+        <h2>Help</h2>
+      </div>
+      <div className="sideFaq">
+        <span className="faq">
+          <MdChatBubble className="icon" />
+        </span>
+        <h2>FAQ</h2>
+      </div>
+      <div className="sideSignOut">
+        <span className="signOut">
+          <IoMdClose className="icon" />
+        </span>
+        <h2>Sign Out</h2>
+      </div>
+    </div>
+  </div>
 );
 
 export default Dashboard;

@@ -34,7 +34,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { userLogin, userLoggedIn } from "./actions/authActions";
 import "react-notifications/lib/notifications.css";
 import { NotificationContainer } from "react-notifications";
-import Footer from "./components/Main/Footer";
+// import Footer from "./components/Main/Footer";
 import allReducers from "./reducers";
 import DoctorsCalendar from "./containers/Doctor/DoctorsCalendar";
 
@@ -187,7 +187,7 @@ class App extends Component {
                 {/* <Elements>
                   <Route path="/checkout" exact component={CheckoutForm} />
                 </Elements> */}
-                <Footer />
+                {/* <Footer /> */}
                 <NotificationContainer />
               </Router>
             </SagaMiddlewareProvider>

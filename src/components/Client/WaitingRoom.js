@@ -3,6 +3,15 @@ import "../../assets/client/waitingRoom.scss";
 import Select from "react-select";
 import CheckoutForm from "../../containers/Client/CheckoutForm";
 // import { Elements, StripeProvider } from "react-stripe-elements";
+import { FaMicrophoneAltSlash } from "react-icons/fa";
+import { FaMicrophoneAlt } from "react-icons/fa";
+import { FaVideoSlash } from "react-icons/fa";
+import { FaVideo } from "react-icons/fa";
+import { FaPhoneSlash } from "react-icons/fa";
+import { FaRegSquare } from "react-icons/fa";
+import { FaRocketchat } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
+import { Rnd } from "react-rnd";
 
 const WaitingRoom = ({
   handleSpeciality,
@@ -11,11 +20,22 @@ const WaitingRoom = ({
   handleSubmit,
   handleMessage,
   handleExitQueue,
-  props
+  handleVideoStart,
+  props,
+  handleChange,
+  enableTipeing,
+  iconsMouseOut,
+  iconsMouseOver,
+  handleDragDrop,
+  handleResize,
+  showAndHideChat,
+  handleDivSize,
+  cutVideo,
+  cutMic
 }) => {
   const disabled = props.credits ? false : true;
   const disabled2 = props.credits ? true : false;
-  const disabled3 = props.YourNumber !== 0 ? true : false;
+  const disabled3 = props.doctorsVideoId ? false : true;
   return (
     <div className="exam">
       <div className="mainExam">
@@ -107,10 +127,14 @@ const WaitingRoom = ({
               </div>
             </div>
           </div>
-          {props.YourNumber === 0 ? (
+          {props.YourNumber === 0 && !props.doctorsVideoId ? (
             <p>Be ready, Waiting from Doctors connection...</p>
           ) : null}
-          <button id="StartVideo" disabled={disabled3}>
+          <button
+            id="StartVideo"
+            disabled={disabled3}
+            onClick={handleVideoStart}
+          >
             Start video
           </button>
           <button
@@ -140,25 +164,96 @@ const WaitingRoom = ({
           </StripeProvider>
         ) : null} */}
       </div>
-      {/* <>
-//         <label>Your Id:</label>
-//         <br />
-//         <textarea id="yourId"></textarea>
-//         <br />
-//         <label>Other Id:</label>
-//         <br />
-//         <textarea id="otherId"></textarea>
-//         <br />
-//         <button id="connect">Connect</button>
-//         <hr />
-//         <label>Enter Message:</label>
-//         <br />
-//         <textarea id="yourMessage"></textarea>
-//         <br />
-//         <button id="send">Send</button>
-//         <pre id="messages"></pre>
-//         <button>Start video</button>
-//       </> */}
+      {/* <div
+        style={{ display: props.startVideo ? "block" : "none" }}
+        id="videoo"
+      ></div> */}
+      <Rnd
+        id="videoo"
+        size={{
+          width: props.width,
+          height: props.height
+        }}
+        style={{ display: props.startVideo ? "block" : "none" }}
+        position={{ x: props.x, y: props.y }}
+        onDragStop={(e, d) => {
+          handleDragDrop(d);
+        }}
+        onResizeStop={(e, direction, ref, delta, position) => {
+          handleResize(ref, position);
+        }}
+      >
+        {" "}
+        <div id="topControler">
+          <span className="icon1" onClick={handleDivSize}>
+            <FaRegSquare />
+          </span>
+          <span className="icon2">
+            <MdClose />
+          </span>
+        </div>
+        <div id="mainChatVideo">
+          <form
+            autoComplete="off"
+            style={{ display: props.showChat ? "block" : "none" }}
+            action=""
+            id="form"
+          >
+            <pre id="messages"></pre>
+            <div className="inputMessage">
+              <input
+                type="text"
+                placeholder="Type your message..."
+                id="yourMessage"
+                value={props.value}
+                onChange={handleChange}
+                onMouseDown={enableTipeing}
+              ></input>
+              <button id="send">Send</button>
+            </div>
+          </form>
+          <div
+            id="videoChat"
+            style={{ width: props.showChat ? "50%" : "100%" }}
+            onMouseOver={iconsMouseOver}
+            onMouseOut={iconsMouseOut}
+          >
+            <div className="chatRoom" onClick={showAndHideChat}>
+              <FaRocketchat />
+            </div>
+            <div
+              id="functionality"
+              style={{ display: props.hover ? "flex" : "none" }}
+            >
+              <FaMicrophoneAltSlash
+                className="iconMic"
+                style={{ display: !props.audio ? "none" : "block" }}
+                onClick={cutMic}
+              />
+
+              <FaMicrophoneAlt
+                className="iconMicUnmute"
+                style={{ display: props.audio ? "none" : "block" }}
+                onClick={cutMic}
+              />
+
+              <FaPhoneSlash className="iconPhone" />
+
+              <FaVideoSlash
+                className="iconVideo"
+                style={{ display: !props.video ? "none" : "block" }}
+                onClick={cutVideo}
+              />
+
+              <FaVideo
+                className="iconVideoShow"
+                style={{ display: props.video ? "none" : "block" }}
+                onClick={cutVideo}
+              />
+            </div>
+          </div>
+        </div>
+      </Rnd>
     </div>
   );
 };

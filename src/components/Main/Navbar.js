@@ -85,7 +85,7 @@ const Nav = ({
           </li>
           <li className="li-log">
             <Link to="/login" onClick={login} className="login">
-              Log In
+              Join Now
             </Link>
           </li>
         </ul>

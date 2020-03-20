@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import Dashboard from "../../components/Client/Dashboard";
+import Footer from "../../components/Main/Footer";
 
 class ClientDashboard extends Component {
   constructor(props) {
@@ -14,7 +15,8 @@ class ClientDashboard extends Component {
       dataFromServer: "",
       loading: true,
       page: 1,
-      maxPages: ""
+      maxPages: "",
+      hamburger: false
     };
   }
 
@@ -171,26 +173,35 @@ class ClientDashboard extends Component {
     });
   };
 
+  handleHam = () => {
+    this.setState({ hamburger: !this.state.hamburger });
+  };
+
   render() {
     // console.log(this.state.paginatedExams);
     // console.log(this.state.exams, "teeeeeeeeeeest");
 
     return (
-      <div className="container">
-        <Header />
-        <Nav />
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <Dashboard
           initiate={this.initiate}
           waitingRoom={this.waitingRoom}
-          paginatedExams={this.state.paginatedExams}
           handleClick={this.handleClick}
           handleChange={this.handleChange}
           handleClickLeft={this.handleClickLeft}
           handleClickRight={this.handleClickRight}
-          loading={this.state.loading}
+          props={this.state}
           VideoReq={this.VideoReq}
+          handleHam={this.handleHam}
         />
-      </div>
+        <Footer />
+      </>
     );
   }
 }

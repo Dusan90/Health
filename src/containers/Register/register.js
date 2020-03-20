@@ -5,11 +5,7 @@ import RegisterUser from "../../components/Auth/Register";
 import Nav from "../../components/Main/Navbar";
 import axios from "axios";
 import { NotificationManager } from "react-notifications";
-
-const options = [
-  { value: "M", label: "Male" },
-  { value: "F", label: "Female" }
-];
+import Footer from "../../components/Main/Footer";
 
 class Register extends Component {
   constructor(props) {
@@ -26,7 +22,6 @@ class Register extends Component {
       prefixValue: "",
       specOptions: [],
       specValue: "",
-      genderValue: "",
       selectedGenderValue: "",
       selectedSpecValue: ""
     };
@@ -50,13 +45,6 @@ class Register extends Component {
 
   handlePass = e => {
     this.setState({ passwordValue: e.target.value });
-  };
-
-  handleGender = genderValue => {
-    this.setState({ genderValue });
-    let { value } = genderValue;
-
-    this.setState({ selectedGenderValue: value });
   };
 
   handleAddress = e => {
@@ -183,40 +171,60 @@ class Register extends Component {
     }
   };
 
+  handleGenderRadio = value => {
+    this.setState({ selectedGenderValue: value });
+  };
+
+  changeTextToDate = () => {
+    document.getElementById("birthdate").type = "date";
+  };
+
   render() {
+    console.log(this.state.selectedGenderValue);
+
     return (
-      <div className="container">
-        <Header />
-        <Nav />
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <div className="radioDiv">
-          <h4 className="head">You are?</h4>
+          <h2 className="head">Are you a doctor or a client?</h2>
           <input
-            type="radio"
-            name="userType"
-            value="client"
-            checked={this.state.userType === "client" ? true : false}
-            onChange={() => this.handleUserType("client")}
-            style={{ margin: "0 5px 0 0" }}
-          />
-          <label className="clientLabel">A Client</label>
-          <input
+            className="doctorRadio"
             type="radio"
             name="userType"
             value="doctor"
+            id="r1"
             checked={this.state.userType === "doctor" ? true : false}
             onChange={() => this.handleUserType("doctor")}
-            style={{ margin: "0 5px 0 0" }}
+            style={{}}
           />
-          <label className="doctorLabel">A Doctor</label>
+          <label for="r1" className="doctorLabel">
+            Doctor
+          </label>
+          <input
+            className="clientRadio"
+            type="radio"
+            name="userType"
+            id="r2"
+            value="client"
+            checked={this.state.userType === "client" ? true : false}
+            onChange={() => this.handleUserType("client")}
+          />
+          <label for="r2" className="clientLabel">
+            Client
+          </label>
         </div>
+
         <RegisterUser
           userType={this.state.userType}
           emailValue={this.state.emailValue}
           firstNameValue={this.state.firstNameValue}
           lastNameValue={this.state.lastNameValue}
           passwordValue={this.state.passwordValue}
-          genderValue={this.state.genderValue}
-          genderOptions={options}
           addressValue={this.state.addressValue}
           birthDateValue={this.state.birthDateValue}
           npiNumValue={this.state.npiNumValue}
@@ -228,15 +236,19 @@ class Register extends Component {
           handleFirstName={this.handleFirstName}
           handleLastName={this.handleLastName}
           handlePass={this.handlePass}
-          handleGender={this.handleGender}
           handleAddress={this.handleAddress}
           handleBirthDate={this.handleBirthDate}
           handleNpiNum={this.handleNpiNum}
           handlePrefix={this.handlePrefix}
           handleSpec={this.handleSpec}
           handleSubmit={this.handleSubmit}
+          handleGenderRadio={this.handleGenderRadio}
+          changeTextToDate={this.changeTextToDate}
         />
-      </div>
+        <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
+          <Footer />
+        </div>
+      </>
     );
   }
 }

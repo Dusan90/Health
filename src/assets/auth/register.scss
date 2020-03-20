@@ -1,36 +1,230 @@
 .register-form {
-  width: 300px;
-  margin: 30px auto;
+  width: 60%;
+  margin: 0 auto;
+  color: #4092c2;
+  label {
+    font-size: 10px;
+    float: left;
+    text-indent: 2px;
+  }
+  .npi {
+    width: 420px;
+    margin: 5px 0 45px 0;
+    ::placeholder {
+      color: #4092c2;
+      font-size: 10px;
+    }
+    input {
+      height: 30px;
+      border: 1.5px solid #96aebd;
+      background: #f1f5f8;
+    }
+  }
+  .firstLastGender {
+    display: flex;
+    margin: 0 0 20px 0;
+    .reg-name {
+      width: 200px;
+      margin: 0 20px 0 0;
+      ::placeholder {
+        color: #4092c2;
+        font-size: 10px;
+      }
+      input {
+        height: 30px;
+        border: 1.5px solid #96aebd;
+        background: #f1f5f8;
+      }
+    }
+    .reg-surname {
+      width: 200px;
+      ::placeholder {
+        color: #4092c2;
+        font-size: 10px;
+      }
+      input {
+        height: 30px;
+        border: 1.5px solid #96aebd;
+        background: #f1f5f8;
+      }
+    }
+    .gender {
+      height: 20px;
+      display: flex;
+      align-items: center;
+      align-self: center;
+      label {
+        float: right !important;
+      }
+      .maleGender {
+        margin: 20px 10px 0 20px;
+        input[type="radio"] {
+          visibility: hidden;
+          position: absolute;
+        }
 
+        input[type="radio"] + label:before {
+          height: 15px;
+          width: 15px;
+          margin-right: 5px;
+          content: " ";
+          display: inline-block;
+          vertical-align: baseline;
+          border: 1px solid #4092c2;
+          border-radius: 50%;
+        }
+
+        input[type="radio"]:checked + label:before {
+          background: #4092c2;
+        }
+      }
+      .femaleGender {
+        margin: 20px 10px 0 10px;
+
+        input[type="radio"] {
+          visibility: hidden;
+          position: absolute;
+        }
+
+        input[type="radio"] + label:before {
+          height: 15px;
+          width: 15px;
+          margin-right: 5px;
+          content: " ";
+          display: inline-block;
+          vertical-align: baseline;
+          border: 1px solid #4092c2;
+          border-radius: 50%;
+        }
+
+        input[type="radio"]:checked + label:before {
+          background: #4092c2;
+        }
+      }
+    }
+  }
+
+  .regPass {
+    margin: 0 0 20px 0;
+    .reg-email {
+      margin: 0 20px 0 0;
+      width: 200px;
+      ::placeholder {
+        color: #4092c2;
+        font-size: 10px;
+      }
+      input {
+        height: 30px;
+        border: 1.5px solid #96aebd;
+        background: #f1f5f8;
+      }
+    }
+    .reg-pass {
+      width: 200px;
+      ::placeholder {
+        color: #4092c2;
+        font-size: 10px;
+      }
+      input {
+        height: 30px;
+        border: 1.5px solid #96aebd;
+        background: #f1f5f8;
+      }
+    }
+  }
+
+  .clientsBinfo {
+    margin: 0 0 20px 0;
+
+    .address {
+      margin: 0 20px 0 0;
+      width: 200px;
+      ::placeholder {
+        color: #4092c2;
+        font-size: 10px;
+      }
+      input {
+        height: 30px;
+        border: 1.5px solid #96aebd;
+        background: #f1f5f8;
+      }
+    }
+    .date {
+      width: 200px;
+      ::placeholder {
+        color: #4092c2;
+        font-size: 10px;
+      }
+      input {
+        height: 30px;
+        border: 1.5px solid #96aebd;
+        background: #f1f5f8;
+      }
+    }
+  }
+
+  .clientsBinfo {
+    display: flex;
+  }
+
+  .doctorsBinfo {
+    display: flex;
+    ::placeholder {
+      color: #4092c2;
+      font-size: 10px;
+    }
+    .prefix {
+      width: 200px;
+      margin: 0 20px 30px 0;
+      input {
+        height: 30px;
+        border: 1.5px solid #96aebd;
+        background: #f1f5f8;
+      }
+    }
+
+    .spec {
+      width: 200px;
+      height: 30px;
+      margin: 19px 0 0 2px;
+      #speciality {
+        .css-yxzzr2-control {
+          .css-1hwfws3 {
+            height: 20px;
+            .css-1wa3eu0-placeholder {
+              color: #4092c2;
+              font-size: 10px;
+            }
+          }
+          .css-1hb7zxy-IndicatorsContainer {
+            height: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  .regPass {
+    display: flex;
+  }
   .form-control {
     margin: 3px;
   }
 
-  .gender {
-    position: relative;
-    left: 3px;
-  }
-
-  .spec {
-    position: relative;
-    left: 3px;
-  }
-
   .register-button {
-    position: relative;
     width: 100px;
-    left: 100px;
     margin-top: 5px;
 
     .btn {
       position: relative;
       width: 100px;
       color: white;
-      background: rgb(0, 191, 255);
+      background: #4092c2;
       transition: all 0.5s ease-in-out;
+      margin: 0 0 85px 2px;
+
       &:hover {
-        background: rgb(1, 111, 148);
-        box-shadow: 2px 2px 2px black;
+        box-shadow: 2px 2px 2px rgb(109, 109, 109);
       }
     }
   }

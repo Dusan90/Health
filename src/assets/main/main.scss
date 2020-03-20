@@ -1,147 +1,425 @@
-.container {
-  padding: 0;
+.row {
+  .treatment {
+    width: 60%;
+    margin: 50px auto 10px auto;
+    color: #4092c2;
 
-  .row {
-    .topSpecialities {
-      h2 {
-        color: rgb(0, 191, 255);
-        margin: 30px;
-      }
-      .spec {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        grid-gap: 10px;
-        justify-content: space-between;
-        margin: 30px;
-
-        .eatchSpec {
-          border: 1px solid rgb(235, 235, 235);
-          background: rgb(247, 246, 246);
-          border-radius: 10px;
-          width: 100%;
-          text-align: center;
-          height: 100px;
-          box-shadow: 2px 2px 5px gray;
-
-          div {
-            height: 100%;
-            position: relative;
-          }
-
-          h3 {
-            position: absolute;
-            margin: 0 auto;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
-        }
-      }
+    h2 {
+      font-weight: bold;
     }
-
-    .RowsClients {
-      margin: 40px auto;
-      h2 {
-        color: rgb(0, 191, 255);
-        margin-bottom: 30px;
-      }
-      img {
-        width: 100%;
-      }
-    }
-    .headers {
+    .treatmentIcons {
+      width: 60%;
+      margin: 40px auto 0 auto;
       display: flex;
-      @media (max-width: 900px) {
-        flex-direction: column;
-      }
+      justify-content: space-around;
 
-      img {
-        width: 100%;
-      }
-
-      .headersInfo {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-      }
-
-      .headersImages {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-
-        div {
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-
-          img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin: 0 auto;
-          }
+      .medical {
+        img {
+          width: 70px;
+          height: 70px;
+        }
+        p {
+          font-weight: bold;
         }
       }
-    }
-
-    .allDoctors {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      grid-gap: 10px;
-
-      .doctor-panel {
-        width: 250px;
-        // position: relative;
-        border-radius: 4px;
-        padding: 5em;
-        padding-top: 8px;
-        margin: 0 auto;
-        background-color: rgba(221, 219, 231, 0.452);
-        border-radius: 10px;
-
-        .doc-panel {
-          margin-top: 20px;
-          width: 100%;
+      .behavior {
+        img {
+          width: 70px;
+          height: 70px;
         }
-
-        .doc-profile {
-          .btn {
-            color: white;
-            top: -85px;
-            left: 215px;
-            width: 105px;
-            margin-bottom: 5px;
-          }
+        p {
+          font-weight: bold;
         }
-
-        .doc-consultation {
-          .btn {
-            color: white;
-            top: 55px;
-            left: 285px;
-            border: 1px solid rgb(4, 156, 207);
-            transition: all 0.5s ease-in-out;
-          }
+      }
+      .dermatology {
+        img {
+          width: 70px;
+          height: 70px;
+          margin: 0 auto;
+        }
+        p {
+          font-weight: bold;
         }
       }
     }
   }
-  .doctor {
-    border-radius: 5px;
 
-    .rounded-pill {
-      width: 50%;
-      text-align: left;
-      padding: 5px;
+  .mindAndBody {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 60%;
+    margin: 20px auto 0 auto;
 
+    img {
+      margin: 0 20px 0 auto;
+      width: 200px;
+    }
+    .iphoneNandroid {
+      text-align: start;
+      align-self: flex-end;
+
+      .getIt {
+        margin: 20px 0 0 0;
+        img {
+          width: 100px;
+          height: 30px;
+        }
+      }
+      h1 {
+        font-weight: bold;
+        color: #4092c2;
+        font-size: 40px;
+        line-height: 30px;
+        margin: 0 0 30px 0;
+        span {
+          color: #66af94;
+          font-weight: lighter;
+          font-size: 30px;
+        }
+      }
       p {
-        border-bottom: 1px solid rgb(29, 29, 150);
-        color: rgb(29, 29, 150);
-        text-indent: 10px;
+        color: #4092c2;
+        font-weight: 600;
       }
     }
   }
-  // height: 100vh;
-  margin-bottom: 120px;
+
+  .MainIconInfoDiv {
+    margin: 70px auto 0 auto;
+    width: 60%;
+    img {
+      width: 200px;
+      height: 45px;
+    }
+    h1 {
+      color: #4092c2;
+      font-weight: bold;
+      span {
+        color: #66af94;
+        font-weight: lighter;
+      }
+    }
+    .treatmentIcons {
+      display: flex;
+      justify-content: space-around;
+      margin: 50px 0;
+      .visitAdoctor,
+      .convenient,
+      .inconveniance,
+      .prescriptions {
+        img {
+          width: 70px;
+          height: 70px;
+          margin: 0 auto;
+        }
+        p {
+          line-height: 11px;
+          margin: 10px 0 0 0;
+          color: #4092c2;
+          font-weight: 600;
+          font-size: 10px;
+        }
+      }
+    }
+  }
+
+  .medicalInfo {
+    background: #4092c2;
+    .medicalSpeciality {
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+      margin: 0 auto;
+      img {
+        width: 70px;
+        height: 70px;
+        margin-right: 10px;
+      }
+      p {
+        align-self: center;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+      }
+    }
+    .dotedinfo {
+      p {
+        color: white;
+        font-weight: bold;
+        .dot {
+          font-size: 10px;
+          margin: 0 2px;
+        }
+      }
+    }
+    .seeDoctor {
+      background: white;
+      color: #4092c2;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 1px 8px;
+      border: 1px solid #4092c2;
+      border-radius: 5px;
+      margin: 5px auto 50px auto;
+      box-shadow: 1px 1px 5px 1px rgb(51, 51, 51);
+    }
+  }
+
+  .behavioralInfo {
+    .behavioralSpeciality {
+      display: flex;
+      padding: 30px;
+      margin: 0 auto;
+      justify-content: center;
+      img {
+        width: 70px;
+        height: 70px;
+
+        margin-right: 10px;
+      }
+      p {
+        align-self: center;
+        color: #4092c2;
+        font-size: 40px;
+        font-weight: bold;
+      }
+    }
+    .dotedinfo {
+      p {
+        color: #4092c2;
+        font-weight: bold;
+        .dot {
+          font-size: 10px;
+          margin: 0 2px;
+        }
+      }
+    }
+    .seeDoctor {
+      background: white;
+      color: #4092c2;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 1px 8px;
+      border: 1px solid #4092c2;
+      border-radius: 5px;
+      margin: 5px auto 50px auto;
+      box-shadow: 1px 1px 5px 1px rgb(51, 51, 51);
+    }
+  }
+
+  .dermatologyInfo {
+    background: #4092c2;
+    .dermatologySpeciality {
+      display: flex;
+      padding: 30px;
+      margin: 0 auto;
+      justify-content: center;
+      img {
+        width: 70px;
+        height: 70px;
+        margin-right: 10px;
+      }
+      p {
+        align-self: center;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+      }
+    }
+    .dotedinfo {
+      p {
+        color: white;
+        font-weight: bold;
+        .dot {
+          font-size: 10px;
+          margin: 0 2px;
+        }
+      }
+    }
+    .seeDoctor {
+      background: white;
+      color: #4092c2;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 1px 8px;
+      border: 1px solid #4092c2;
+      border-radius: 5px;
+      margin: 5px auto 50px auto;
+      box-shadow: 1px 1px 5px 1px rgb(51, 51, 51);
+    }
+  }
+
+  .RowsClients {
+    background: #4092c2;
+    margin-top: 70px;
+    height: 100px;
+
+    .howItWorks {
+      width: 60%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      margin: 0 auto;
+      color: white;
+      text-align: start;
+
+      .signUpp {
+        display: flex;
+        justify-content: flex-start;
+        align-self: center;
+        height: 100%;
+        position: relative;
+
+        .sticky_div {
+          font-size: 15px;
+          font-weight: bold;
+          position: absolute;
+          top: -22px;
+          background: #4092c2;
+          padding: 5px 10px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+
+        .number {
+          border: 2px solid white;
+          width: 55px;
+          height: 55px;
+          border-radius: 15px;
+          align-self: center;
+          margin: 0 5px;
+
+          p {
+            font-size: 40px;
+            text-align: center;
+          }
+        }
+
+        h3 {
+          font-size: 15px;
+          font-weight: bold;
+        }
+        h5 {
+          font-size: 10px;
+        }
+      }
+      .startChat {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+
+        .number {
+          border: 2px solid white;
+          width: 55px;
+          height: 55px;
+          border-radius: 15px;
+          align-self: center;
+          margin: 0 5px;
+
+          p {
+            font-size: 40px;
+            text-align: center;
+          }
+        }
+
+        h3 {
+          font-size: 15px;
+          font-weight: bold;
+        }
+        h5 {
+          font-size: 10px;
+        }
+      }
+      .talkToDoctor {
+        display: flex;
+        justify-content: flex-end;
+        align-self: center;
+
+        .number {
+          border: 2px solid white;
+          width: 55px;
+          height: 55px;
+          border-radius: 15px;
+          align-self: center;
+          margin: 0 5px;
+
+          p {
+            font-size: 40px;
+            text-align: center;
+          }
+        }
+
+        h3 {
+          font-size: 15px;
+          font-weight: bold;
+        }
+        h5 {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+  .headers {
+    position: relative;
+    img {
+      width: 100%;
+      height: 100vh;
+    }
+    .headersInfo {
+      position: absolute;
+      bottom: 40%;
+      left: 20%;
+      text-align: start;
+      color: #4092c2;
+      img {
+        width: 300px;
+        height: 65px;
+      }
+      h1 {
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      span {
+        color: #66af94;
+        font-weight: 50;
+      }
+      h4 {
+        font-weight: bold;
+      }
+    }
+
+    .headersImages {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+}
+.doctor {
+  border-radius: 5px;
+
+  .rounded-pill {
+    width: 50%;
+    text-align: left;
+    padding: 5px;
+
+    p {
+      border-bottom: 1px solid rgb(29, 29, 150);
+      color: rgb(29, 29, 150);
+      text-indent: 10px;
+    }
+  }
 }

@@ -29,6 +29,7 @@ const Dashboard = ({
   let short = props.pending ? props.pending.slice(0, 3) : null;
   let short2 = props.videoPending ? props.videoPending.slice(0, 3) : null;
   let short3 = props.waitingRoom ? props.waitingRoom.slice(0, 3) : null;
+  console.log(props.waitingRoom);
 
   return (
     <div className="testic">

@@ -4,7 +4,7 @@ import Header from "../../components/Main/Header";
 import LoginUser from "../../components/Auth/Login";
 import Nav from "../../components/Main/Navbar";
 import { userLogin, userLoggedIn } from "../../actions/authActions";
-// import Footer from "../../components/Main/Footer";
+import Footer from "../../components/Main/Footer";
 import { NotificationManager } from "react-notifications";
 
 class Login extends Component {
@@ -15,13 +15,10 @@ class Login extends Component {
       passwordValue: "",
       submitted: false,
       is_doctor: false,
-      invalid: false
+      invalid: false,
+      rememberMe: false
     };
   }
-
-  handleEmail = e => {
-    this.setState({ emailValue: e.target.value });
-  };
 
   handlePassword = e => {
     this.setState({ passwordValue: e.target.value });
@@ -30,6 +27,9 @@ class Login extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.userLogin();
+    const { emailValue, rememberMe } = this.state;
+    localStorage.setItem("rememberMe", rememberMe);
+    localStorage.setItem("emailValue", rememberMe ? emailValue : "");
   };
 
   userLogin = async () => {
@@ -92,11 +92,27 @@ class Login extends Component {
     }
   };
 
+  componentDidMount() {
+    const rememberMe = localStorage.getItem("rememberMe") === "true";
+    const emailValue = rememberMe ? localStorage.getItem("emailValue") : "";
+    this.setState({ emailValue, rememberMe });
+  }
+
+  handleChange = e => {
+    const input = e.target;
+    const value = input.type === "checkbox" ? input.checked : input.value;
+    this.setState({ [input.name]: value });
+  };
+
   render() {
     return (
-      <div className="container">
-        <Header />
-        <Nav />
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <LoginUser
           emailValue={this.state.emailValue}
           passwordValue={this.state.passwordValue}
@@ -104,8 +120,14 @@ class Login extends Component {
           handleEmail={this.handleEmail}
           handlePassword={this.handlePassword}
           handleSubmit={this.handleSubmit}
+          handleRememberClick={this.handleRememberClick}
+          rememberMe={this.state.rememberMe}
+          handleChange={this.handleChange}
         />
-      </div>
+        <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
+          <Footer />
+        </div>
+      </>
     );
   }
 }

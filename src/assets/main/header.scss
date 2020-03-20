@@ -1,15 +1,21 @@
-.container {
-  position: relative;
-  width: 70%;
-
-  .name {
-    display: inline-block;
-    float: left;
-    width: 150px;
-
-    .name-link {
-      color: rgb(0, 191, 255);
-      text-decoration: none;
+.header {
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  background: rgba(255, 255, 255, 0.8);
+  height: 60px;
+  display: grid;
+  grid-template-columns: 1fr;
+  div {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    img {
+      width: 200px;
+      height: 45px;
+      align-self: center;
     }
   }
 }

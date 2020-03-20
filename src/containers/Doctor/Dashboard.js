@@ -71,6 +71,9 @@ class DoctorDashboard extends Component {
         this.setState({
           pending: resort.filter(rest => rest.status === "Pending")
         });
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 
@@ -132,7 +135,11 @@ class DoctorDashboard extends Component {
   };
 
   handleWaitingRoom = id => {
-    this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
+    if (this.state.waitingRoom[0].id === id) {
+      this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
+    } else {
+      console.log("client is not next in line");
+    }
   };
 
   hnlClick = () => {
@@ -192,7 +199,7 @@ class DoctorDashboard extends Component {
       .then(response => {
         let todaysWaitingRoom = response.data.data.filter(today => {
           return (
-            moment(today.appointed_date).format("MM/DD/YYYY") ===
+            moment(today.created).format("MM/DD/YYYY") ===
             moment(new Date()).format("MM/DD/YYYY")
           );
         });
@@ -224,6 +231,9 @@ class DoctorDashboard extends Component {
           loading: false
         });
         this.paginate(this.state.page);
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 

@@ -1,94 +1,254 @@
 import React from "react";
 import "../../assets/main/main.scss";
 // import { Pagination } from 'reactstrap';
+import { FaSquare } from "react-icons/fa";
+import logo from "../../img/output-onlinepngtools.png";
+import medical from "../../img/Medical.svg";
+import behavior from "../../img/BehavioralHealt.svg";
+import dermatology from "../../img/Dermatology.svg";
+import MainImg from "../../img/Photo1.jpg";
+import Iphone from "../../img/iPhone-X-Template.png";
+import phone from "../../img/icon_Phone.svg";
+import visits from "../../img/icon_Visits.svg";
+import money from "../../img/icon_money.svg";
+import presc from "../../img/icon_Prescriptions.svg";
+import medical2 from "../../img/Medical2.svg";
+import dermatology2 from "../../img/Dermatology2.svg";
 
-const Home = ({ doctors, handleDoctor, handleConsultation, props }) => (
+const Home = ({ props }) => (
   <div className="row">
     <div className="headers">
+      <img src={MainImg} alt="slika" />
       <div className="headersInfo">
-        <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis
-          recusandae, totam deserunt minima numquam nemo provident ratione ipsam
-          repellendus dolore.
-        </p>
-        <p>Our Team:</p>
-        <div className="headersImages">
-          <div>
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
-              alt="slika"
-            />
-            Dr. Rambo
+        <img src={logo} alt="logo" />
+        <h1>that works for you</h1>
+        <h4>
+          Free comprehensive care. Talk to a doctor, get treated today.
+          <br />
+          Available in Serbia.
+        </h4>
+      </div>
+    </div>
+    <div className="RowsClients">
+      <div className="howItWorks">
+        <div className="signUpp">
+          <div className="number">
+            <div className="sticky_div">How It Works</div>
+            <p>1</p>
           </div>
           <div>
-            <img
-              src="https://i.insider.com/589dbb873149a101788b4c85?width=1100&format=jpeg&auto=webp"
-              alt=""
-            />
-            Dr. Fox
+            <h3>SIGN UP</h3>
+            <h5>
+              Creating an
+              <br /> account takes
+              <br /> less then a br minute.
+            </h5>
+          </div>
+        </div>
+        <div className="startChat">
+          <div className="number">
+            <p>2</p>
           </div>
           <div>
-            <img
-              src="https://www.ictshop.rs/wp-content/uploads/2017/03/People-Face-Happy-Smiling-Man-299488-300x225.jpg"
-              alt=""
-            />
-            Dr. Mario
+            <h3>START CHATTING</h3>
+            <h5>
+              Tell us about your
+              <br /> concems and we'll
+              <br /> gather more info
+              <br /> about yout case.
+            </h5>
+          </div>
+        </div>
+        <div className="talkToDoctor">
+          <div className="number">
+            <p>3</p>
+          </div>
+          <div>
+            <h3>TALK TO A DOCTOR</h3>
+            <h5>
+              Get connected to a licensed
+              <br /> doctor who can diagnose and
+              <br /> treat your issues including
+              <br /> writing prescriptions.
+            </h5>
           </div>
         </div>
       </div>
-      <img
-        src="https://article.images.consumerreports.org/f_auto/prod/content/dam/cro/news_articles/health/CRO_Health_CROH_April_Online_Doctor_Chat_02-15"
-        alt="slika"
-      />
     </div>
-    <div className="RowsClients">
-      <h2>Thousands of satisfied clients</h2>
-      <img
-        src="https://www.famispa.com/wp-content/uploads/img/people.jpg"
-        alt=""
-      />
-    </div>
-    <div className="topSpecialities">
-      <h2>Top Specialities</h2>
-      <div className="spec">
-        {props.specialities.map(spec => {
-          return (
-            <div key={spec.iD} className="eatchSpec">
-              <div>
-                <h3>{spec.label}</h3>
-              </div>
-            </div>
-          );
-        })}
+    <div className="treatment">
+      <h2>We treat over 50 non-emergency conditions</h2>
+      <div className="treatmentIcons">
+        <div className="medical">
+          <img src={medical} alt="medical" />
+          <p>Medical</p>
+        </div>
+        <div className="behavior">
+          <img src={behavior} alt="behavior" />
+          <p>
+            Behavioral
+            <br />
+            Healt
+          </p>
+        </div>
+        <div className="dermatology">
+          <img src={dermatology} alt="dermatology" />
+          <p>Dermatology</p>
+        </div>
       </div>
     </div>
-    <div className="allDoctors">
-      {doctors.map(obj => {
-        return (
-          <div key={obj.id} className="doctor-panel">
-            <div className="doc-panel">
-              <p>Doctor: {obj.doctor}</p>
-              <p>Speciality: {obj.speciality}</p>
-              <p>Price: {obj.price}</p>
-            </div>
-            <div className="doc-profile">
-              <button
-                className="btn btn-info"
-                data-id={obj.id}
-                onClick={() => handleDoctor(obj.id)}
-              >
-                View Profile
-              </button>
-            </div>
-            <div className="doc-consultation">
-              <button className="btn" onClick={handleConsultation}>
-                Consultation
-              </button>
-            </div>
-          </div>
-        );
-      })}
+    <div className="mindAndBody">
+      <img src={Iphone} alt="iphone" />
+      <div className="iphoneNandroid">
+        <h1>
+          We see
+          <br />
+          the full you
+          <br />
+          <span>mind and body</span>{" "}
+        </h1>
+        <p>
+          Our approach to care is all about breg
+          <br /> down the walls of an office and supporting
+          <br /> your health wherever you are.
+        </p>
+        <p>
+          Our team, board-certified physicians
+          <br /> and licensed psychiatrists and psychologists
+          <br />
+          are available on your schedule.
+        </p>
+        <div className="getIt">
+          <img
+            src="https://applelaneanimalhospital.com/wp-content/uploads/2019/04/google.png"
+            alt=""
+          />
+          <img
+            src="https://banner2.cleanpng.com/20180719/evg/kisspng-app-store-apple-download-logo-app-store-5b500d988880b2.3327280815319730165591.jpg"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <div className="MainIconInfoDiv">
+      <h1>What you get with</h1>
+      <img src={logo} alt="logo" />
+      <div className="treatmentIcons">
+        <div className="visitAdoctor">
+          <img src={phone} alt="phone" />
+          <p>
+            Visit a doctor,
+            <br /> counselor,
+            <br /> psychiatrist or
+            <br /> dermatologist
+            <br /> by mobile app,
+            <br /> video or
+            <br /> phone.
+          </p>
+        </div>
+        <div className="convenient">
+          <img src={visits} alt="visits" />
+          <p>
+            Visits are
+            <br /> convenient,
+            <br /> private and
+            <br /> secure.
+            <br /> Protection of
+            <br /> your personal
+            <br /> information is
+            <br /> our priority.
+          </p>
+        </div>
+        <div className="inconveniance">
+          <img src={money} alt="money" />
+          <p>
+            Avoid the
+            <br /> inconvenience
+            <br /> and high costs
+            <br /> of going to the
+            <br /> emergency
+            <br /> room or urgent
+            <br /> care center.
+          </p>
+        </div>
+        <div className="prescriptions">
+          <img src={presc} alt="prescription" />
+          <p>
+            Prescriptions
+            <br /> can be sent
+            <br /> directly to your
+            <br /> local pharmacy
+            <br /> if medically
+            <br /> necessary.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div className="medicalInfo">
+      <div className="medicalSpeciality">
+        <img src={medical2} alt="medical" />
+        <p>Medical</p>
+      </div>
+      <div className="dotedinfo">
+        <p>
+          Common cold <FaSquare className="dot" /> Allergies{" "}
+          <FaSquare className="dot" /> Constipation <FaSquare className="dot" />{" "}
+          Cough <FaSquare className="dot" /> Diarrhea
+          <br /> Ear Problems <FaSquare className="dot" /> Fever{" "}
+          <FaSquare className="dot" /> Flu <FaSquare className="dot" /> Headache{" "}
+          <FaSquare className="dot" /> Insect Bites
+          <br /> Nausea <FaSquare className="dot" /> Vomiting{" "}
+          <FaSquare className="dot" /> Pink Eye <FaSquare className="dot" />{" "}
+          Rash <FaSquare className="dot" />
+          Respiratory Problems
+          <br /> Sore throat <FaSquare className="dot" /> UTI (Adult Females,
+          18+) <FaSquare className="dot" /> and more...
+        </p>
+      </div>
+      <button className="seeDoctor">See A Doctor</button>
+    </div>
+
+    <div className="behavioralInfo">
+      <div className="behavioralSpeciality">
+        <img src={behavior} alt="" />
+        <p>Behavioral Health</p>
+      </div>
+      <div className="dotedinfo">
+        <p>
+          Anxiet <FaSquare className="dot" /> Depression{" "}
+          <FaSquare className="dot" /> Bipolar <FaSquare className="dot" />{" "}
+          Stress Management <FaSquare className="dot" /> Grief and Loss
+          <br /> LGBTQ support <FaSquare className="dot" /> Trauma & PTSD{" "}
+          <FaSquare className="dot" /> Relationship issues
+          <br /> Panic disorder <FaSquare className="dot" /> Addictions{" "}
+          <FaSquare className="dot" /> and more…
+        </p>
+      </div>
+      <button className="seeDoctor">See A Doctor</button>
+    </div>
+
+    <div className="dermatologyInfo">
+      <div className="dermatologySpeciality">
+        <img src={dermatology2} alt="" />
+        <p>Dermatology</p>
+      </div>
+      <div className="dotedinfo">
+        <p>
+          Acne <FaSquare className="dot" /> Rash <FaSquare className="dot" />{" "}
+          Spots <FaSquare className="dot" /> Eczema <FaSquare className="dot" />{" "}
+          Warts <FaSquare className="dot" /> Rosacea
+          <br /> Psoriasis <FaSquare className="dot" /> Hair follicles{" "}
+          <FaSquare className="dot" /> Insect bites <FaSquare className="dot" />{" "}
+          Alopecia <FaSquare className="dot" /> Cold sores
+          <br /> Skin cuts <FaSquare className="dot" /> Abrasions{" "}
+          <FaSquare className="dot" /> Moles <FaSquare className="dot" /> Skin
+          infections
+          <br /> Redness <FaSquare className="dot" /> Bruise{" "}
+          <FaSquare className="dot" /> and more…
+        </p>
+      </div>
+      <button className="seeDoctor">See A Doctor</button>
     </div>
   </div>
 );

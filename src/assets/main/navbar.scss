@@ -35,15 +35,21 @@
   }
   .li-reg {
     .register {
-      color: rgb(0, 191, 255);
+      color: #4092c2;
+      font-weight: bold;
       background-color: transparent;
     }
   }
 
   .li-log {
     .login {
-      color: rgb(0, 191, 255);
-      background-color: transparent;
+      color: white;
+      font-weight: bold;
+      background-color: #4092c2;
+      height: 30px;
+      padding: 5px 10px 5px 10px;
+      margin: 10px 0 0 0;
+      border-radius: 5px;
     }
   }
 }

@@ -1,194 +1,312 @@
-.main {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  margin: 60px auto 30px auto;
-  grid-gap: 10px;
-
-  .videoApp,
-  .waitRoom,
-  .emailReq {
-    display: flex;
-    font-size: 40px;
-    background: rgb(253, 251, 251);
-    height: 70px;
-    border-radius: 5px;
-    transition: all 0.5s ease-in-out;
-
-    .email {
-      background: rgb(137, 210, 235);
-    }
-
-    .video {
-      background: rgb(61, 61, 248);
-    }
-
-    .clock {
-      background: rgb(107, 240, 107);
-    }
-
-    .email,
-    .video,
-    .clock {
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      align-self: center;
-      margin: 0 10px;
-
-      .icon {
-        color: white;
-        align-self: center;
-        margin-top: 8px;
-      }
-    }
-
-    h2 {
-      font-size: 15px;
-      align-self: center;
-    }
-
-    &:hover {
-      background: rgb(238, 237, 237);
-      cursor: pointer;
-      box-shadow: 2px 2px 10px black;
-    }
-  }
-}
-
-.pagi {
-  display: flex;
-  margin: 20px auto;
-  justify-content: center;
-
-  .left {
-    width: 30px;
-    height: 30px;
-    border: 1px solid lightblue;
-    margin: 10px;
-    transition: all 0.5s ease-in-out;
-    &:hover {
-      cursor: pointer;
-      background: lightblue;
-    }
-    .iconLeft {
-      font-size: 20px;
-      margin: 4px 0 0 0;
-      color: rgb(0, 191, 255);
-    }
-  }
-
-  .right {
-    width: 30px;
-    height: 30px;
-    border: 1px solid lightblue;
-    margin: 10px;
-    transition: all 0.5s ease-in-out;
-    &:hover {
-      cursor: pointer;
-      background: lightblue;
-    }
-    .iconRight {
-      font-size: 20px;
-      margin: 4px 0 0 0;
-      color: rgb(0, 191, 255);
-    }
-  }
-}
-
-.mainTabel {
-  border: 1px solid white;
-  border-radius: 3px;
-
-  .mainConsultation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgb(255, 242, 220);
-
-    height: 40px;
-
-    .icon_left {
+.mainClientDashboard {
+  .hamburger {
+    margin: 60px 0 10px 0;
+    background: #4092c2;
+    height: 60px;
+    color: white;
+    .hamNprofil {
       display: flex;
-      span {
-        background: rgb(107, 240, 107);
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        margin: 3px 10px;
-        align-self: center;
-        text-align: center;
-        .icon1 {
-          align-self: center;
-          color: white;
-          font-size: 22px;
-          margin-top: 3px;
+      justify-content: space-between;
+      align-items: center;
+      width: 60%;
+      height: 100%;
+      margin: 0 auto;
+      font-size: 16px;
+      .ham {
+        &:hover {
+          cursor: pointer;
         }
       }
-      p {
-        align-self: center;
-        margin: 0;
-      }
     }
-    .sort {
-      align-items: center;
-      margin: 0 10px;
+  }
+  .main {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin: 60px auto 30px auto;
+    grid-gap: 10px;
+    width: 60%;
 
-      label {
-        margin: 0 3px;
+    .videoApp,
+    .waitRoom,
+    .emailReq {
+      display: flex;
+      font-size: 40px;
+      height: 70px;
+      border-radius: 5px;
+      border: 1.5px solid #4092c2;
+      justify-content: center;
+      transition: all 0.5s ease-in-out;
+
+      .email,
+      .video,
+      .clock {
+        border-radius: 50%;
+        align-self: center;
+        margin: 0 10px;
+
+        .icon {
+          color: #4092c2;
+          align-self: center;
+          margin-top: 15px;
+        }
+      }
+
+      h2 {
+        font-size: 13px;
+        text-align: start;
+        color: #4092c2;
+
+        span {
+          font-weight: bold;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+        box-shadow: 2px 2px 10px rgb(153, 153, 153);
       }
     }
   }
 
-  .table2 {
-    text-align: center;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    margin: 0;
-    padding: 10px;
+  .pagi {
+    display: flex;
+    margin: 20px auto;
+    justify-content: center;
 
-    tbody {
-      background: white;
+    .left {
+      width: 30px;
+      height: 30px;
+      margin: 10px;
       transition: all 0.5s ease-in-out;
       &:hover {
-        background: rgb(208, 242, 253);
         cursor: pointer;
       }
-      tr {
-        height: 40px;
-        td {
-          .check {
-            color: rgb(18, 219, 18);
-            font-size: 17px;
+      .iconLeft {
+        font-size: 20px;
+        margin: 4px 0 0 0;
+        color: #4092c2;
+      }
+    }
+
+    .right {
+      width: 30px;
+      height: 30px;
+      margin: 10px;
+      transition: all 0.5s ease-in-out;
+      &:hover {
+        cursor: pointer;
+      }
+      .iconRight {
+        font-size: 20px;
+        margin: 4px 0 0 0;
+        color: #4092c2;
+      }
+    }
+  }
+
+  .mainTabel {
+    border: 1px solid white;
+    border-radius: 3px;
+    width: 60%;
+    margin: 0 auto;
+
+    .mainConsultation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #66af94;
+
+      height: 40px;
+
+      .icon_left {
+        display: flex;
+        span {
+          width: 30px;
+          height: 30px;
+          margin: 3px 10px;
+          align-self: center;
+          text-align: center;
+          .icon1 {
+            align-self: center;
+            color: white;
+            font-size: 22px;
+            margin-top: 3px;
           }
-          .declined {
-            color: red;
-            font-size: 17px;
+        }
+        p {
+          align-self: center;
+          margin: 0;
+          color: white;
+        }
+      }
+      .sort {
+        align-items: center;
+        margin: 0 10px;
+
+        label {
+          margin: 0 3px;
+        }
+      }
+    }
+
+    .table2 {
+      text-align: center;
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+      color: #4092c2;
+      box-shadow: 2px 2px 7px rgb(202, 202, 202);
+
+      tbody {
+        background: white;
+        transition: all 0.5s ease-in-out;
+        &:hover {
+          background: rgb(208, 242, 253);
+          cursor: pointer;
+        }
+        tr {
+          height: 40px;
+          td {
+            .check {
+              color: rgb(18, 219, 18);
+              font-size: 17px;
+            }
+            .declined {
+              color: red;
+              font-size: 17px;
+            }
+            .pendi {
+              color: #4092c2;
+              font-size: 17px;
+            }
           }
-          .pendi {
-            color: rgb(212, 212, 6);
-            font-size: 17px;
+        }
+      }
+      .client-head {
+        text-align: center;
+        color: #4092c2;
+        font-weight: bold;
+
+        .client-row {
+          height: 40px;
+          .client-doctor {
+            text-align: center;
+          }
+          .client-subject {
+            text-align: center;
+          }
+          .client-status {
+            text-align: center;
           }
         }
       }
     }
-    .client-head {
-      text-align: center;
-      background-color: whitesmoke;
-      color: gray;
-
-      .client-row {
-        height: 40px;
-        .client-doctor {
-          text-align: center;
+  }
+  .connectWithdoctor {
+    margin: 100px 0 0 0;
+    background: #4092c2;
+    height: 60px;
+    .connected {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 60%;
+      height: 100%;
+      margin: 0 auto;
+      p {
+        margin: 0;
+        color: white;
+      }
+      h4 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+        .see {
+          font-size: 10px;
+          color: white;
         }
-        .client-subject {
-          text-align: center;
+      }
+    }
+  }
+  .sideNav {
+    position: absolute;
+    transition: all 0.7s ease-in-out;
+    top: 60px;
+    width: 19%;
+    height: 672px;
+    background: whitesmoke;
+    opacity: 0.7;
+    color: #0164a1;
+    .sideProfile {
+      border-bottom: 1.5px solid #4092c2;
+      width: 80%;
+      margin: 80px auto 0 auto;
+      .mainProfile {
+        border: 1px solid #4092c2;
+        border-radius: 50%;
+        width: 67px;
+        height: 67px;
+        margin: 0 auto;
+        background: white;
+        position: relative;
+        .onlineDot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: green;
+          position: absolute;
+          top: 4px;
+          right: 2px;
         }
-        .client-status {
-          text-align: center;
+        .profile {
+          color: white;
+          font-size: 60px;
+          background: rgb(189, 235, 250);
+          width: 60px;
+          height: 60px;
+          align-items: center;
+          overflow: hidden;
+          border-radius: 50%;
+          margin: 2px auto 2px auto;
+          .icon {
+            margin: 10px 0 0 0;
+          }
         }
+      }
+    }
+    .sideVideo,
+    .sideEmail,
+    .sideWaitingRoom,
+    .sideMyCounsultation,
+    .sideHelp,
+    .sideFaq,
+    .sideMyAccount,
+    .sideSignOut {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-bottom: 1.5px solid #4092c2;
+      width: 80%;
+      margin: 0 auto;
+      padding: 10px 10px 10px 40px;
+      transition: all 0.5s ease-in-out;
+      &:hover {
+        background: rgb(182, 235, 253);
+        cursor: pointer;
+      }
+      span {
+        font-size: 18px;
+        margin: 5px 10px auto 0;
+        .icon {
+        }
+      }
+      h2 {
+        font-size: 13px;
+        margin: 0;
       }
     }
   }

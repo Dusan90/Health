@@ -1,24 +1,132 @@
-.login-form {
-  width: 300px;
-  margin: 200px auto;
-
-  .form-control {
-    margin: 3px;
+.mainLogin {
+  margin: 150px auto;
+  h1 {
+    color: #4092c2;
+    font-size: 45px;
+    font-weight: bold;
+    margin: 0;
+  }
+  h5 {
+    color: #66af94;
+    margin: 0;
+    font-size: 18px;
   }
 
-  .login-button {
-    width: 100%;
-    margin: 5px 0;
+  .createAccount {
+    color: #4092c2;
+    text-decoration: underline;
+  }
 
-    .btn {
-      position: relative;
-      width: 100px;
-      color: white;
-      background: rgb(0, 191, 255);
-      transition: all 0.5s ease-in-out;
-      &:hover {
-        background: rgb(1, 111, 148);
-        box-shadow: 2px 2px 2px black;
+  .login-form {
+    width: 250px;
+    margin: 0 auto;
+    text-align: left;
+    color: #4092c2;
+    font-size: 10px;
+    font-weight: bold;
+
+    label {
+      margin: 0;
+    }
+
+    .rememberForgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      div {
+        display: flex;
+        margin: 20px 0;
+
+        [type="checkbox"]:not(:checked),
+        [type="checkbox"]:checked {
+          position: absolute;
+          left: -9999px;
+        }
+
+        [type="checkbox"]:not(:checked) + label,
+        [type="checkbox"]:checked + label {
+          position: relative;
+          padding-left: 25px;
+          cursor: pointer;
+        }
+
+        [type="checkbox"]:not(:checked) + label:before,
+        [type="checkbox"]:checked + label:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: -2px;
+          width: 17px;
+          height: 17px;
+          background: #fff;
+          border-radius: 3px;
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+          border-radius: 50%;
+          background-color: #4092c2;
+          outline: none;
+        }
+
+        [type="checkbox"]:not(:checked) + label:after,
+        [type="checkbox"]:checked + label:after {
+          content: "✔";
+          position: absolute;
+          bottom: 0;
+          left: 2px;
+          font-size: 15px;
+          line-height: 0.8;
+          color: white;
+          transition: all 0.2s;
+        }
+
+        [type="checkbox"]:not(:checked) + label:after {
+          opacity: 0;
+          transform: scale(0);
+        }
+
+        [type="checkbox"]:checked + label:after {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    }
+
+    .email {
+      width: 250px;
+      margin: 20px auto 30px auto;
+      ::placeholder {
+        color: #4092c2;
+        font-size: 10px;
+      }
+      .form-control {
+        height: 30px;
+        border: 1.5px solid #96aebd;
+        background: #f1f5f8;
+      }
+    }
+
+    .password {
+      width: 250px;
+      margin: 0 auto;
+      .form-control {
+        height: 30px;
+        border: 1.5px solid #96aebd;
+        background: #f1f5f8;
+      }
+    }
+
+    .login-button {
+      width: 100%;
+      margin: 5px 0;
+
+      .btn {
+        width: 100px;
+        color: white;
+        background: #4092c2;
+        transition: all 0.5s ease-in-out;
+        margin: 30px auto 0 70px;
+        &:hover {
+          box-shadow: 2px 2px 2px black;
+        }
       }
     }
   }

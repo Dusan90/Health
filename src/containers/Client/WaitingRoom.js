@@ -31,10 +31,24 @@ class ClientWaitingRoom extends Component {
       currentClient: "",
       peopleInQueue: [],
       YourNumber: null,
-      yourId: "",
-      hisId: ""
+      doctorsVideoId: null,
+      startVideo: false,
+      value: "",
+      width: 700,
+      height: 500,
+      x: -115,
+      y: 0,
+      hover: false,
+      showChat: false,
+      video: true,
+      audio: true
     };
   }
+
+  handleVideoStart = e => {
+    e.preventDefault();
+    this.setState({ startVideo: true });
+  };
 
   handleSpeciality = e => {
     let filteredDoctors = this.state.doctors.filter(
@@ -154,7 +168,10 @@ class ClientWaitingRoom extends Component {
       // this.toCheckout();
 
       return data;
-    } else if (this.state.doctorsStatus !== "Available") {
+    } else if (
+      this.state.doctorsStatus &&
+      this.state.doctorsStatus !== "Available"
+    ) {
       NotificationManager.error(
         `Doctor is not Available at the moment`,
         "Failed!",
@@ -272,13 +289,13 @@ class ClientWaitingRoom extends Component {
         });
 
         document.getElementById("StartVideo").addEventListener("click", () => {
-          peer.signal(this.state.hisId);
+          peer.signal(this.state.doctorsVideoId);
         });
 
-        // document.getElementById("send").addEventListener("click", function() {
-        //   var yourMessage = document.getElementById("yourMessage").value;
-        //   peer.send(yourMessage);
-        // });
+        document.getElementById("send").addEventListener("click", function() {
+          var yourMessage = document.getElementById("yourMessage").value;
+          peer.send(yourMessage);
+        });
 
         const connection = new WebSocket("ws://localhost:8080");
 
@@ -296,32 +313,135 @@ class ClientWaitingRoom extends Component {
 
         connection.onmessage = event => {
           console.log("received", event.data);
-          this.setState({ hisId: event.data });
+          if (!this.state.doctorsVideoId) {
+            this.setState({ doctorsVideoId: event.data });
+          }
         };
 
-        // document.querySelector("form").addEventListener("submit", event => {
-        //   event.preventDefault();
-        //   let message = document.querySelector("#message").value;
-        //   connection.send(message);
-        //   document.querySelector("#message").value = "";
-        // });
+        document.querySelector("form").addEventListener("submit", event => {
+          event.preventDefault();
+          let message = document.querySelector("#yourMessage").value;
+          connection.send(message);
+          document.getElementById(
+            "messages"
+          ).innerHTML += `<p style='color:white ; text-align: left ;margin: 5px;display: table; white-space: initial ; background: blue; padding: 10px; border-radius: 10px'>${message}</p>`;
+          this.setState({ value: "" });
+        });
 
-        // peer.on("data", function(data) {
-        //   document.getElementById("messages").textContent += data + "\n";
-        // });
+        peer.on("data", function(data) {
+          document.getElementById(
+            "messages"
+          ).innerHTML += `<p style='color:black ; margin: 5px 0 5px auto; background: gainsboro ;display: table; white-space: initial; padding: 10px; border-radius: 10px'>${data}</p>`;
+        });
 
-        peer.on("stream", function(stream) {
+        let track = stream.getAudioTracks()[0];
+        let cutVideo = stream.getVideoTracks()[0];
+        document.querySelector(".iconMic").addEventListener("click", () => {
+          track.enabled = !track.enabled;
+        });
+
+        document.querySelector(".iconVideo").addEventListener("click", () => {
+          cutVideo.enabled = !cutVideo.enabled;
+        });
+
+        document
+          .querySelector(".iconMicUnmute")
+          .addEventListener("click", () => {
+            track.enabled = !track.enabled;
+          });
+
+        document
+          .querySelector(".iconVideoShow")
+          .addEventListener("click", () => {
+            cutVideo.enabled = !cutVideo.enabled;
+          });
+
+        peer.on("stream", stream => {
           const mediaStream = new MediaStream(stream);
           var video = document.createElement("video");
-          document.body.appendChild(video);
+          video.classList.add("vid");
+          var videoChat = document.getElementById("videoChat");
+          videoChat.appendChild(video);
           video.srcObject = mediaStream;
           video.play();
+        });
+
+        peer.on("close", () => {
+          this.handleDivClose();
+        });
+
+        document.querySelector(".icon2").addEventListener("click", () => {
+          peer.destroy();
+          this.handleDivClose();
+        });
+        document.querySelector(".iconPhone").addEventListener("click", () => {
+          peer.destroy();
+          this.handleDivClose();
         });
       },
       function(err) {
         console.error(err);
       }
     );
+
+  handleChange = e => {
+    this.setState({ value: e.target.value });
+  };
+  enableTipeing = e => {
+    e.stopPropagation();
+  };
+
+  iconsMouseOver = () => {
+    this.setState({ hover: true });
+  };
+
+  iconsMouseOut = () => {
+    this.setState({ hover: false });
+  };
+
+  handleDragDrop = d => {
+    this.setState({ x: d.x, y: d.y });
+  };
+
+  handleResize = (position, ref) => {
+    let vide = document.getElementById("videoo");
+    this.setState({
+      width: vide.style.width,
+      height: vide.style.height,
+      ...position
+    });
+  };
+
+  showAndHideChat = () => {
+    this.setState({ showChat: !this.state.showChat });
+  };
+
+  handleDivSize = () => {
+    this.setState({
+      width: document.body.offsetWidth,
+      height: document.body.offsetHeight
+    });
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        this.setState({ width: 700, height: 500 });
+      }
+    }
+  };
+
+  handleDivClose = () => {
+    this.setState({ startVideo: false });
+  };
+
+  cutMic = () => {
+    this.setState({ audio: !this.state.audio });
+  };
+
+  cutVideo = () => {
+    this.setState({ video: !this.state.video });
+  };
 
   render() {
     return (
@@ -335,7 +455,18 @@ class ClientWaitingRoom extends Component {
           handleSubmit={this.handleSubmit}
           handleMessage={this.handleMessage}
           handleExitQueue={this.handleExitQueue}
+          handleVideoStart={this.handleVideoStart}
           props={this.state}
+          handleChange={this.handleChange}
+          enableTipeing={this.enableTipeing}
+          iconsMouseOut={this.iconsMouseOut}
+          iconsMouseOver={this.iconsMouseOver}
+          handleDragDrop={this.handleDragDrop}
+          handleResize={this.handleResize}
+          showAndHideChat={this.showAndHideChat}
+          handleDivSize={this.handleDivSize}
+          cutMic={this.cutMic}
+          cutVideo={this.cutVideo}
         />
       </div>
     );
