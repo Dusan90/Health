@@ -17,6 +17,29 @@
           cursor: pointer;
         }
       }
+      .profile {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  .dashboardIcon {
+    color: #4092c2;
+    display: flex;
+    height: 25px;
+    width: 60%;
+    margin: 0 auto;
+    .dashIcon {
+      font-size: 18px;
+      align-self: center;
+      margin: 0 10px 0 0;
+    }
+    h2 {
+      font-size: 15px;
+      align-self: center;
+      font-weight: bold;
+      margin: 1px 0 0 0;
     }
   }
   .main {
@@ -237,7 +260,7 @@
     transition: all 0.7s ease-in-out;
     top: 60px;
     width: 19%;
-    height: 672px;
+    height: 93%;
     background: whitesmoke;
     opacity: 0.7;
     color: #0164a1;
@@ -277,6 +300,9 @@
           }
         }
       }
+      p {
+        margin: 20px 0;
+      }
     }
     .sideVideo,
     .sideEmail,
@@ -301,8 +327,6 @@
       span {
         font-size: 18px;
         margin: 5px 10px auto 0;
-        .icon {
-        }
       }
       h2 {
         font-size: 13px;

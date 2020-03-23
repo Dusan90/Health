@@ -1,6 +1,8 @@
 .mainClien {
   display: flex;
   flex-direction: column;
+  width: 60%;
+  margin: 100px auto 0 auto;
 
   .client {
     width: 50%;

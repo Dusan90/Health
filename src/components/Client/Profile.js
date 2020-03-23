@@ -1,6 +1,4 @@
 import React from "react";
-import Nav from "../../components/Main/Navbar";
-import Header from "../../components/Main/Header";
 // import SideNavbar from '../../containers/Home/SideNav';
 import "../../assets/client/profile.scss";
 
@@ -12,9 +10,6 @@ const Profile = ({
   handleSubmit
 }) => (
   <>
-    <Header />
-    <Nav />
-
     {client &&
       client.map(client => {
         return (

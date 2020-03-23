@@ -7,6 +7,7 @@ import curentDoc from "../../actions/docAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
+import Footer from "../../components/Main/Footer";
 
 class DoctorDashboard extends Component {
   constructor(props) {
@@ -24,9 +25,11 @@ class DoctorDashboard extends Component {
       openWaitingRoom: false,
       value: "",
       doc: [],
+      doctorCurent: "",
       page: 1,
       maxPages: "",
-      loading: true
+      loading: true,
+      hamburger: false
     };
   }
 
@@ -185,7 +188,8 @@ class DoctorDashboard extends Component {
           .join(".");
         this.props.curentDoc(curentDocc);
         return this.setState({
-          doc: curentDocc
+          doc: curentDocc,
+          doctorCurent: response.data.data
         });
       });
   };
@@ -237,6 +241,10 @@ class DoctorDashboard extends Component {
       });
   };
 
+  handleHam = () => {
+    this.setState({ hamburger: !this.state.hamburger });
+  };
+
   componentDidMount() {
     this.paginatedExams();
     this.peopleInWaitingRoom();
@@ -247,10 +255,16 @@ class DoctorDashboard extends Component {
   }
 
   render() {
+    console.log(this.state.doctorCurent);
+
     return (
-      <div className="container">
-        <Header />
-        <Nav doc={this.state.doc} />
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav doc={this.state.doc} />
+          </div>
+        </div>
         <Dashboard
           handleClick={this.handleClick}
           handleClient={this.handleClient}
@@ -258,7 +272,7 @@ class DoctorDashboard extends Component {
           hnlClick2={this.hnlClick2}
           hnlClick3={this.hnlClick3}
           hnlWaitingClick={this.hnlWatingClick}
-          props={this.state}
+          props={this}
           handleKeyPress={this.handleKeyPress}
           handleChange={this.handleChange}
           handleClickLeft={this.handleClickLeft}
@@ -267,8 +281,10 @@ class DoctorDashboard extends Component {
           hnlVideoClick={this.hnlVideoClick}
           handleWaitingRoom={this.handleWaitingRoom}
           handleVideoPendingClick={this.handleVideoPendingClick}
+          handleHam={this.handleHam}
         />
-      </div>
+        <Footer />
+      </>
     );
   }
 }

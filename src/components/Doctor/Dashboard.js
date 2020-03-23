@@ -1,13 +1,25 @@
 import React from "react";
 import "../../assets/dashboard.scss";
-import { MdOndemandVideo } from "react-icons/md";
-import { MdDateRange } from "react-icons/md";
-import { MdEmail } from "react-icons/md";
-import { FaUserClock } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { FaRegClock } from "react-icons/fa";
+import { FaFileAlt } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
+import { FaRegBell } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { FaUser } from "react-icons/fa";
+import { GoPerson } from "react-icons/go";
+import { FaVideo } from "react-icons/fa";
+import { IoIosMail } from "react-icons/io";
+import { GoClock } from "react-icons/go";
+import { GoFileDirectory } from "react-icons/go";
+import { GoMailRead } from "react-icons/go";
+import { IoIosSettings } from "react-icons/io";
+import { MdChatBubble } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
+
 import Loading from "../../img/loading-gif-png-5-original.gif";
 import moment from "moment";
 
@@ -24,88 +36,71 @@ const Dashboard = ({
   hnlWaitingClick,
   handleWaitingRoom,
   handleVideoPendingClick,
+  handleHam,
   loading
 }) => {
-  let short = props.pending ? props.pending.slice(0, 3) : null;
-  let short2 = props.videoPending ? props.videoPending.slice(0, 3) : null;
-  let short3 = props.waitingRoom ? props.waitingRoom.slice(0, 3) : null;
-  console.log(props.waitingRoom);
+  let short = props.state.pending ? props.state.pending.slice(0, 3) : null;
+  let short2 = props.state.videoPending
+    ? props.state.videoPending.slice(0, 3)
+    : null;
+  let short3 = props.state.waitingRoom
+    ? props.state.waitingRoom.slice(0, 3)
+    : null;
+  console.log(props.state.waitingRoom);
 
   return (
     <div className="testic">
+      <div className="hamburger">
+        <div className="hamNprofil">
+          <div className="ham" onClick={handleHam}>
+            <GiHamburgerMenu />
+          </div>
+          <div className="rightNavIcons">
+            <div
+              className="patientsNav"
+              onClick={() => {
+                props.props.history.push("/doctors-clients");
+              }}
+            >
+              <FaUsers className="iconNav" />
+              <p>My Patients</p>
+            </div>
+            <div
+              className="calendarNav"
+              onClick={() => {
+                props.props.history.push("/doctor/calendar");
+              }}
+            >
+              <FaRegCalendarAlt className="iconNav" />
+              <p>Calendar</p>
+            </div>
+            <div className="alertsNav">
+              <FaRegBell className="iconNav" />
+              <p>Alerts</p>
+            </div>
+            <div className="messagesNav">
+              <GoMailRead className="iconNav" />
+              <p>Messages</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="dashboardIcon">
+        <FaFileAlt className="dashIcon" />
+        <h2>Dashboard</h2>
+      </div>
       <div className="main">
-        <div className="divVideo">
-          <div className="videoApp1">
-            <span className="video">
-              <MdOndemandVideo className="icon" />
-            </span>
-            <h2>Video Request</h2>
-          </div>
-          <div style={{ height: "2px", background: "rgb(61, 61, 248)" }}></div>
-          <div className="requestsVideo">
-            {props.videoPending.length} new request to confirm
-          </div>
-          <div className="pendingReq">
-            {short2.length !== 0 ? (
-              short2.map(shorty => {
-                return (
-                  <div key={shorty.id}>
-                    {shorty.client},{" "}
-                    {moment(shorty.appointed_date).format("MM/DD/YYYY")}
-                  </div>
-                );
-              })
-            ) : (
-              <p>No requests</p>
-            )}
-          </div>
-          <button onClick={hnlVideoClick}>SEE DETAILS</button>
-        </div>
-        <div className="divEmail">
-          <div className="emailReq1">
-            <span className="email">
-              <MdEmail className="icon" />
-            </span>
-            <h2>Email Request</h2>
-          </div>
-          <div
-            style={{ height: "2px", background: "rgb(137, 210, 235)" }}
-          ></div>
-          <div className="requestsEmail">
-            {props.pending.length} new request to confirm
-          </div>
-          <div className="pendingReq">
-            {short.length !== 0 ? (
-              short.map(shorty => {
-                return (
-                  <div key={shorty.id}>
-                    {shorty.client},{" "}
-                    {new Intl.DateTimeFormat("en-GB", {
-                      year: "numeric",
-                      month: "long",
-                      day: "2-digit"
-                    }).format(new Date(shorty.created))}
-                  </div>
-                );
-              })
-            ) : (
-              <p>No requests</p>
-            )}
-          </div>
-          <button onClick={hnlClick}>SEE DETAILS</button>
-        </div>
+        {" "}
         <div className="divClock">
           <div className="waitRoom1">
             <span className="clock">
-              <FaUserClock className="icon" />
+              <GoClock className="icon" />
             </span>
-            <h2>Waiting Room</h2>
+            <h2>WAITING ROOM</h2>
           </div>
-          <div
-            style={{ height: "2px", background: "rgb(107, 240, 107)" }}
-          ></div>
+          <div style={{ height: "2px", background: "#4092c2" }}></div>
           <div className="requestsClock">
-            {props.waitingRoom.length} in waiting room
+            {props.state.waitingRoom.length} in waiting room
           </div>
           <div className="pendingReq">
             {short3.length !== 0 ? (
@@ -128,7 +123,65 @@ const Dashboard = ({
               <p>No requests</p>
             )}
           </div>
-          <button onClick={hnlWaitingClick}>ENTER WAITING ROOM</button>
+          <button onClick={hnlWaitingClick}>Enter Waiting Room</button>
+        </div>
+        <div className="divVideo">
+          <div className="videoApp1">
+            <span className="video">
+              <FaVideo className="icon" />
+            </span>
+            <h2>VIDEO REQUESTS</h2>
+          </div>
+          <div style={{ height: "2px", background: "#4092c2" }}></div>
+          <div className="requestsVideo">
+            {props.state.videoPending.length} new request to confirm
+          </div>
+          <div className="pendingReq">
+            {short2.length !== 0 ? (
+              short2.map(shorty => {
+                return (
+                  <div key={shorty.id}>
+                    {shorty.client},{" "}
+                    {moment(shorty.appointed_date).format("MM/DD/YYYY")}
+                  </div>
+                );
+              })
+            ) : (
+              <p>No requests</p>
+            )}
+          </div>
+          <button onClick={hnlVideoClick}>See Details</button>
+        </div>
+        <div className="divEmail">
+          <div className="emailReq1">
+            <span className="email">
+              <IoIosMail className="icon" />
+            </span>
+            <h2>EMAIL REQUESTS</h2>
+          </div>
+          <div style={{ height: "2px", background: "#4092c2" }}></div>
+          <div className="requestsEmail">
+            {props.state.pending.length} new request to confirm
+          </div>
+          <div className="pendingReq">
+            {short.length !== 0 ? (
+              short.map(shorty => {
+                return (
+                  <div key={shorty.id}>
+                    {shorty.client},{" "}
+                    {new Intl.DateTimeFormat("en-GB", {
+                      year: "numeric",
+                      month: "long",
+                      day: "2-digit"
+                    }).format(new Date(shorty.created))}
+                  </div>
+                );
+              })
+            ) : (
+              <p>No requests</p>
+            )}
+          </div>
+          <button onClick={hnlClick}>See Details</button>
         </div>
       </div>
       {loading ? (
@@ -138,7 +191,7 @@ const Dashboard = ({
           <div className="mainConsultation">
             <div className="icon_left">
               <span>
-                <MdDateRange className="icon1" />
+                <GoFileDirectory className="icon1" />
               </span>
               <p>My Consultations</p>
             </div>
@@ -161,7 +214,7 @@ const Dashboard = ({
                 <th className="client-status">Status</th>
               </tr>
             </thead>
-            {props.paginatedExams.map((exam, index) => {
+            {props.state.paginatedExams.map((exam, index) => {
               if (exam.status === "Accepted" || exam.status === "Appointed") {
                 return (
                   <tbody key={index} className="client-body">
@@ -199,7 +252,7 @@ const Dashboard = ({
         </div>
       )}
 
-      {props.openPending ? (
+      {props.state.openPending ? (
         <div className="penTable">
           <table className="table2 test">
             <thead className="client-head">
@@ -210,7 +263,7 @@ const Dashboard = ({
                 <th className="client-status">Status</th>
               </tr>
             </thead>
-            {props.pending.map(pen => {
+            {props.state.pending.map(pen => {
               return (
                 <tbody key={pen.id} className="client-body">
                   <tr
@@ -239,7 +292,7 @@ const Dashboard = ({
         </div>
       ) : null}
 
-      {props.openVideoPending ? (
+      {props.state.openVideoPending ? (
         <div className="penTable">
           <table className="table2 test">
             <thead className="client-head">
@@ -250,7 +303,7 @@ const Dashboard = ({
                 <th className="client-status">Status</th>
               </tr>
             </thead>
-            {props.videoPending.map(pen => {
+            {props.state.videoPending.map(pen => {
               return (
                 <tbody key={pen.id} className="client-body">
                   <tr
@@ -280,7 +333,7 @@ const Dashboard = ({
         </div>
       ) : null}
 
-      {props.openWaitingRoom ? (
+      {props.state.openWaitingRoom ? (
         <div className="penTable">
           <table className="table2 test">
             <thead className="client-head">
@@ -291,7 +344,7 @@ const Dashboard = ({
                 {/* <th className="client-status">Status</th> */}
               </tr>
             </thead>
-            {props.waitingRoom.map(pen => {
+            {props.state.waitingRoom.map(pen => {
               return (
                 <tbody key={pen.id} className="client-body">
                   <tr
@@ -332,6 +385,100 @@ const Dashboard = ({
         </div>
         <div className="right" onClick={handleClickRight}>
           <FaChevronRight className="iconRight" />
+        </div>
+      </div>
+      <div className="mainCaldendar">
+        <div className="icon_left">
+          <span>
+            <FaRegCalendarAlt className="icon1" />
+          </span>
+          <p>Calendar</p>
+        </div>
+      </div>
+
+      <div className="connectWithdoctor">
+        <div className="connected">
+          <p>
+            Connect with a doctor over live video in minutes. Available 24/7,
+            nights and weekends.
+          </p>
+          <h4>
+            See a Doctor <FaChevronRight className="see" />
+          </h4>
+        </div>
+      </div>
+      <div
+        className="sideNav"
+        style={{ left: props.state.hamburger ? "0px" : "-300px" }}
+      >
+        <div className="sideProfile">
+          <div className="mainProfile">
+            <div className="profile">
+              <GoPerson className="icon" />
+            </div>
+            <div className="onlineDot"></div>
+          </div>
+          <p>
+            {props.state.doctorCurent.prefix} {props.state.doctorCurent.doctor}
+          </p>
+        </div>
+        <div className="sideVideo">
+          <span className="video">
+            <FaVideo className="icon" />
+          </span>
+          <h2>Video Appointment</h2>
+        </div>
+        <div className="sideEmail">
+          <span className="email">
+            <IoIosMail className="icon" />
+          </span>
+          <h2>Email Consultation</h2>
+        </div>
+        <div className="sideWaitingRoom">
+          <span className="clock">
+            <GoClock className="icon" />
+          </span>
+          <h2>Waiting Room</h2>
+        </div>
+        <div className="sideMyCounsultation">
+          <span>
+            <GoFileDirectory className="icon" />
+          </span>
+          <h2>My Consultations</h2>
+        </div>
+        <div
+          className="sideMyAccount"
+          onClick={() => {
+            props.props.history.push("/doctor/profile/");
+          }}
+        >
+          <span>
+            <FaUser />
+          </span>
+          <h2>Profile</h2>
+        </div>
+        <div className="sideHelp">
+          <span className="help">
+            <IoIosSettings className="icon" />
+          </span>
+          <h2>Help</h2>
+        </div>
+        <div className="sideFaq">
+          <span className="faq">
+            <MdChatBubble className="icon" />
+          </span>
+          <h2>FAQ</h2>
+        </div>
+        <div
+          className="sideSignOut"
+          onClick={() => {
+            props.props.history.push("/logout");
+          }}
+        >
+          <span className="signOut">
+            <IoMdClose className="icon" />
+          </span>
+          <h2>Sign Out</h2>
         </div>
       </div>
     </div>

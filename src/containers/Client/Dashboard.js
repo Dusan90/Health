@@ -16,7 +16,8 @@ class ClientDashboard extends Component {
       loading: true,
       page: 1,
       maxPages: "",
-      hamburger: false
+      hamburger: false,
+      client: ""
     };
   }
 
@@ -33,7 +34,16 @@ class ClientDashboard extends Component {
   componentDidMount() {
     this.connect();
     this.paginatedExams();
-    // this.videoReqStatus();
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+        headers: { Authorization: access_token }
+      })
+      .then(response => {
+        console.log(response.data.data, "profile");
+
+        return this.setState({ client: response.data.data });
+      });
   }
 
   handleClickLeft = () => {
@@ -152,6 +162,8 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
+        console.log(response, "nemam vise pojma sta ovo vuce");
+
         this.setState({
           exams: [...this.state.exams.concat(response.data.data)]
         });
@@ -178,8 +190,7 @@ class ClientDashboard extends Component {
   };
 
   render() {
-    // console.log(this.state.paginatedExams);
-    // console.log(this.state.exams, "teeeeeeeeeeest");
+    console.log(this.state.client);
 
     return (
       <>
@@ -196,7 +207,7 @@ class ClientDashboard extends Component {
           handleChange={this.handleChange}
           handleClickLeft={this.handleClickLeft}
           handleClickRight={this.handleClickRight}
-          props={this.state}
+          props={this}
           VideoReq={this.VideoReq}
           handleHam={this.handleHam}
         />

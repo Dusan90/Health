@@ -3,6 +3,8 @@ import axios from "axios";
 import "../../assets/main/main.scss";
 import Profile from "../../components/Client/Profile";
 import { NotificationManager } from "react-notifications";
+import Nav from "../../components/Main/Navbar";
+import Header from "../../components/Main/Header";
 
 class ClientProfile extends Component {
   constructor(props) {
@@ -74,7 +76,13 @@ class ClientProfile extends Component {
 
   render() {
     return (
-      <div className="container">
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <Profile
           client={this.state.client}
           addressValue={this.addressValue}
@@ -82,7 +90,7 @@ class ClientProfile extends Component {
           handleAddress={this.handleAddress}
           handleSubmit={this.handleSubmit}
         />
-      </div>
+      </>
     );
   }
 }

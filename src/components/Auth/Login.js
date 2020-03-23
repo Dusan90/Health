@@ -50,10 +50,10 @@ const LoginUser = ({
               onChange={handleChange}
               type="checkbox"
             />{" "}
-            <label for="rememberMe">Remember me</label>
+            <label htmlFor="rememberMe">Remember me</label>
           </div>
           <Link className="forget" to="">
-            Forget Password?
+            Forgot Password?
           </Link>
         </div>
         <div className="login-button">
