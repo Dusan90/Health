@@ -1,12 +1,12 @@
 import React from "react";
 import "../../assets/main/header.scss";
-import logo from "../../img/output-onlinepngtools.png";
+import logo1 from "../../img/LOGOHC-01.svg";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <Link to="/">
-      <img src={logo} alt="logo" />
+      <img src={logo1} alt="logo" />
     </Link>
   );
 };

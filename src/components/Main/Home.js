@@ -2,7 +2,7 @@ import React from "react";
 import "../../assets/main/main.scss";
 // import { Pagination } from 'reactstrap';
 import { FaSquare } from "react-icons/fa";
-import logo from "../../img/output-onlinepngtools.png";
+import logo1 from "../../img/LOGOHC-01.svg";
 import medical from "../../img/Medical.svg";
 import behavior from "../../img/BehavioralHealt.svg";
 import dermatology from "../../img/Dermatology.svg";
@@ -20,7 +20,7 @@ const Home = ({ props }) => (
     <div className="headers">
       <img src={MainImg} alt="slika" />
       <div className="headersInfo">
-        <img src={logo} alt="logo" />
+        <img src={logo1} alt="logo" />
         <h1>that works for you</h1>
         <h4>
           Free comprehensive care. Talk to a doctor, get treated today.
@@ -132,7 +132,7 @@ const Home = ({ props }) => (
 
     <div className="MainIconInfoDiv">
       <h1>What you get with</h1>
-      <img src={logo} alt="logo" />
+      <img src={logo1} alt="logo" />
       <div className="treatmentIcons">
         <div className="visitAdoctor">
           <img src={phone} alt="phone" />
