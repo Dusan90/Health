@@ -1,9 +1,11 @@
 .exam {
-  width: 100%;
-  margin-top: 50px;
+  width: 60%;
+  margin-top: 100px auto 167px auto;
+  margin: 0 auto;
 
   .mainExam {
     display: flex;
+    width: 100%;
   }
 
   .exam-spec {
@@ -158,6 +160,10 @@
       }
     }
   }
+  #file {
+    width: 100%;
+    margin: 10px 0 0 0;
+  }
 }
 
 #subject {
@@ -181,6 +187,12 @@
     box-shadow: none;
     pointer-events: none;
   }
+}
+
+.footerr {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 
 #videoo {

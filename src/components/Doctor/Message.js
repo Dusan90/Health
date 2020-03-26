@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../../components/Main/Header";
-import Nav from "../../components/Main/Navbar";
 import "../../assets/message.scss";
 
 const ExamMessage = ({
@@ -12,9 +10,7 @@ const ExamMessage = ({
   onChangeHandler
 }) => {
   return (
-    <>
-      <Header />
-      <Nav />
+    <div className="mainMessageDiv">
       <ul className="nav-doctor">
         <h6 href="#list">New Message</h6>
       </ul>
@@ -44,7 +40,7 @@ const ExamMessage = ({
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

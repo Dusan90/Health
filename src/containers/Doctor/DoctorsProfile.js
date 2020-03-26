@@ -35,9 +35,9 @@ class DoctorProfile extends Component {
 
   render() {
     return (
-      <div className="container">
+      <>
         <DProfile doctor={this.state.doctor} />
-      </div>
+      </>
     );
   }
 }

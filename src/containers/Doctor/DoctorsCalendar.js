@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
 import {
   Inject,
   ScheduleComponent,
@@ -14,17 +15,20 @@ import {
 export class DoctorsCalendar extends Component {
   render() {
     return (
-      <div className="container">
-        <Header />
-        <Nav />
-        <ScheduleComponent
-          currentView="Month"
-          selectedDate={new Date()}
-          style={{ marginTop: "50px" }}
-        >
-          <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
-        </ScheduleComponent>
-      </div>
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
+        <div style={{ width: "60%", margin: "100px auto 58px auto" }}>
+          <ScheduleComponent currentView="Month" selectedDate={new Date()}>
+            <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
+          </ScheduleComponent>
+        </div>
+        <Footer />
+      </>
     );
   }
 }

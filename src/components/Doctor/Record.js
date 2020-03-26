@@ -13,7 +13,7 @@ const Record = ({
   submitValue,
   handleSubmit
 }) => (
-  <div className="row">
+  <div className="mainRecord">
     <div className="box">
       {record ? (
         record.map(data => {

@@ -1,6 +1,5 @@
 import React from "react";
-import Nav from "../../components/Main/Navbar";
-import Header from "../../components/Main/Header";
+
 import "../../assets/doctor_profile.scss";
 import Select from "react-select";
 
@@ -22,20 +21,10 @@ const Profile = ({
 }) => {
   return (
     <>
-      <Header />
-      <Nav />
       {doctor &&
         doctor.map(doctor => {
           return (
-            <div
-              className="mainprof"
-              style={{
-                margin: "20px auto",
-                display: "flex",
-                flexDirection: "column"
-              }}
-              key={doctor.id}
-            >
+            <div className="mainprof" key={doctor.id}>
               <div className="doctor">
                 <div className="imginput">
                   <div className="doctor-p">

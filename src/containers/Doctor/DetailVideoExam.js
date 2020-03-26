@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 // import { connect } from "react-redux";
 import DetailVideo from "../../components/Doctor/DetailVideoExam";
+import Footer from "../../components/Main/Footer";
 
 const options = [
   { value: "Accept", label: "Accept" },
@@ -88,7 +89,7 @@ class DetailVideoExam extends Component {
 
   render() {
     return (
-      <div className="container">
+      <>
         <DetailVideo
           exam={this.state.exam}
           status={options}
@@ -98,7 +99,10 @@ class DetailVideoExam extends Component {
           handleLink={this.handleLink}
           handleLinkMessage={this.handleLinkMessage}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

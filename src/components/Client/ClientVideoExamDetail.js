@@ -6,8 +6,12 @@ import moment from "moment";
 
 const DetailVideo = ({ exam, handleLink, handleLinkMessage, handleCancel }) => (
   <>
-    <Header />
-    <Nav />
+    <div className="header">
+      <div>
+        <Header />
+        <Nav />
+      </div>
+    </div>
     {exam.map(exam => {
       console.log(exam);
 

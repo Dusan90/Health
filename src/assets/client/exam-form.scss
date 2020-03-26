@@ -1,27 +1,23 @@
 .exam {
-  width: 100%;
-  margin-top: 50px;
-
   .mainExam {
     display: flex;
+    width: 60%;
+    margin: 100px auto 0 auto;
   }
 
   .exam-spec {
-    width: 300px;
     margin: 0 10px 10px 0;
+    width: 100px;
   }
 
   .exam-doc {
-    width: 300px;
     margin-right: 10px;
-  }
-
-  .exam-sub {
-    width: 490px;
   }
 
   .exam-mess {
     height: 200px;
+    width: 100%;
+    margin: 0 auto;
 
     .form-control {
       height: 200px;
@@ -35,7 +31,7 @@
   .btn {
     margin: 10px auto;
     color: white;
-    background: rgb(0, 191, 255);
+    background: #4092c2;
     transition: all 0.5s ease-in-out;
     &:hover {
       background: rgb(1, 111, 148);

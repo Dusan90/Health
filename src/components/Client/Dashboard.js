@@ -24,7 +24,9 @@ const Dashboard = ({
   waitingRoom,
   VideoReq,
   handleClick,
-  handleChange,
+  handleUpcoming,
+  handlePast,
+  handleAll,
   handleClickLeft,
   handleClickRight,
   handleHam,
@@ -95,11 +97,15 @@ const Dashboard = ({
               <p>My Consultations</p>
             </div>
             <div className="sort">
-              <label>Sort by: </label>
-              <select name="" id="" onChange={handleChange}>
-                <option value="latest">Latest</option>
-                <option value="earliest">Earliest</option>
-              </select>
+              <p className="upcoming" onClick={handleUpcoming}>
+                upcoming
+              </p>
+              <p className="past" onClick={handlePast}>
+                past
+              </p>
+              <p className="all" onClick={handleAll}>
+                view all
+              </p>
             </div>
           </div>
 
@@ -250,6 +256,46 @@ const Dashboard = ({
           <h2>Sign Out</h2>
         </div>
       </div>
+
+      {props.state.viewAllExams ? (
+        <div className="penTable">
+          <table className="table2 test">
+            <thead className="client-head">
+              <tr className="client-row">
+                <th className="client-doctor">Client</th>
+                <th className="client-subject">Subject</th>
+                <th className="client-subject">Date</th>
+                <th className="client-status">Status</th>
+              </tr>
+            </thead>
+            {props.state.exams.map((ex, index) => {
+              return (
+                <tbody key={index} className="client-body">
+                  <tr
+                    data-id={ex.id}
+                    className="list-group"
+                    onClick={() => handleClick(ex.id, ex.exam_type)}
+                  >
+                    <td className="client-doctor">{ex.client}</td>
+                    <td className="client-subject">{ex.subject}</td>
+                    <td className="created">
+                      {new Intl.DateTimeFormat("en-GB", {
+                        year: "numeric",
+                        month: "long",
+                        day: "2-digit"
+                      }).format(new Date(ex.created))}
+                    </td>
+                    <td className="client-status">
+                      <FaRegClock className="pendi" />
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })}
+          </table>
+          <button onClick={handleAll}>GO BACK</button>
+        </div>
+      ) : null}
     </div>
   );
 };

@@ -1,13 +1,17 @@
 .detail-exam {
-  border: 1px solid rgba(47, 240, 224, 0.349);
+  border: 1px solid #4092c2;
   border-radius: 10px;
   position: relative;
   padding: 10px;
   top: 2px;
   float: left;
-
+  margin: 100px auto 0 auto;
+  width: 60%;
   .detail {
     position: relative;
+    p {
+      color: #4092c2;
+    }
 
     .col-sm-10 {
       position: relative;
@@ -15,7 +19,7 @@
 
       .btn {
         position: relative;
-        border: 1px solid rgb(65, 166, 225);
+        border: 1px solid #4092c2;
         height: 37px;
         left: 120px;
         top: -37px;
@@ -23,16 +27,17 @@
     }
     .messages-link,
     .message-link {
-      border: 1px solid silver;
+      border: 1px solid #4092c2;
       padding: 6px;
       border-radius: 8px;
-      background-color: snow;
+      background-color: #4092c2;
+      color: white;
       margin: 5px;
       transition: all 0.5s ease-in-out;
 
       &:hover {
-        background: rgb(233, 231, 231);
-        border: 1px solid snow;
+        background: #377da5;
+        box-shadow: 2px 2px 2px rgb(189, 186, 186);
       }
     }
   }

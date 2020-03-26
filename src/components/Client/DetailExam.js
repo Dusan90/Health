@@ -5,8 +5,12 @@ import "../../assets/client/detail-exam.scss";
 
 const Detail = ({ exam, handleLink, handleLinkMessage, handleCancel }) => (
   <>
-    <Header />
-    <Nav />
+    <div className="header">
+      <div>
+        <Header />
+        <Nav />
+      </div>
+    </div>
     {exam.map(exam => {
       return (
         <div key={exam.id} className="detail-exam">

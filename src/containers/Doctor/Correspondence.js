@@ -60,13 +60,13 @@ class Correspondence extends Component {
     console.log(this.state.id);
 
     return (
-      <div className="container">
+      <>
         <CorrespondenceMessage
           correspondence={this.state.correspondence}
           props={this.state}
           handleClick={this.handleClick}
         />
-      </div>
+      </>
     );
   }
 }

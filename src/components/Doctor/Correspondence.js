@@ -9,8 +9,12 @@ const CorrespondenceMessage = ({ correspondence, handleClick, props }) => {
 
   return (
     <>
-      <Header />
-      <Nav />
+      <div className="header">
+        <div>
+          <Header />
+          <Nav />
+        </div>
+      </div>
 
       <table className="correspondence">
         {correspondence.length === 0 ? (

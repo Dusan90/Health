@@ -4,8 +4,12 @@ import Header from "../../components/Main/Header";
 
 const DProfile = ({ doctor }) => (
   <>
-    <Header />
-    <Nav />
+    <div className="header">
+      <div>
+        <Header />
+        <Nav />
+      </div>
+    </div>
     {doctor &&
       doctor.map(doctor => {
         return (

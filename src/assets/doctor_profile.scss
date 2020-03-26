@@ -1,6 +1,9 @@
 .mainprof {
   display: flex;
   flex-direction: column;
+  width: 60%;
+  margin: 100px auto 167px auto;
+
   .doctor {
     display: flex;
     width: 100%;
@@ -9,7 +12,7 @@
       .doctor-p {
         position: relative;
         width: 200px;
-        border: 1px solid rgb(185, 183, 183);
+        border: 1px solid #4092c2;
         border-radius: 10px;
         height: 180px;
         padding: 5px;
@@ -36,8 +39,8 @@
       text-align: start;
       p {
         text-indent: 10px;
-        color: rgb(11, 11, 156);
-        border-bottom: 1px solid blue;
+        color: #4092c2;
+        border-bottom: 1px solid #4092c2;
       }
     }
     @media (max-width: 600px) {
@@ -109,7 +112,7 @@
         width: 156px;
         color: white;
         float: left;
-        background: rgb(0, 191, 255);
+        background: #4092c2;
         transition: all 0.5s ease-in-out;
         &:hover {
           background: rgb(3, 122, 161);
@@ -118,4 +121,10 @@
       }
     }
   }
+}
+
+.footerr {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }

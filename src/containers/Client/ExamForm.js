@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "../../components/Main/Header";
 import InitiateExam from "../../components/Client/ExamForm";
 import Nav from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
 import axios from "axios";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
@@ -125,9 +126,13 @@ class ExamForm extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Header />
-        <Nav />
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <InitiateExam
           specialities={this.state.specialities}
           subject={this.state.subject}
@@ -142,7 +147,10 @@ class ExamForm extends Component {
           resetDoctorSelect={this.state.resetDoctorSelect}
           isClicked={this.state.isClicked}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

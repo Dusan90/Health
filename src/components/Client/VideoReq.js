@@ -70,7 +70,7 @@ const VideoReq = ({
           />
         </div>
       </div>
-      <input type="file" name="" id="" />
+      <input type="file" name="" id="file" />
       <button value={props.submitted} className="btn" onClick={handleSubmit}>
         Send
       </button>

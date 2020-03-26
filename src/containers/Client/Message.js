@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Footer from "../../components/Main/Footer";
 import { connect } from "react-redux";
 import ExamMessage from "../../components/Client/Message";
 import { NotificationManager } from "react-notifications";
@@ -85,7 +86,7 @@ class ClientMessage extends Component {
 
   render() {
     return (
-      <div className="container">
+      <>
         <ExamMessage
           doctor={this.state.doctor}
           messageValue={this.state.messageValue}
@@ -94,7 +95,10 @@ class ClientMessage extends Component {
           handleSubmit={this.handleSubmit}
           onChangeHandler={this.onChangeHandler}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

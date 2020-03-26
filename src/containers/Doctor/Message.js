@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import ExamMessage from "../../components/Doctor/Message";
 import { NotificationManager } from "react-notifications";
+import Header from "../../components/Main/Header";
+import Nav from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
 
 class DoctorMessage extends Component {
   constructor(props) {
@@ -89,7 +92,13 @@ class DoctorMessage extends Component {
 
   render() {
     return (
-      <div className="container">
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <ExamMessage
           client={this.state.client}
           messageValue={this.state.messageValue}
@@ -98,7 +107,10 @@ class DoctorMessage extends Component {
           handleSubmit={this.handleSubmit}
           onChangeHandler={this.onChangeHandler}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

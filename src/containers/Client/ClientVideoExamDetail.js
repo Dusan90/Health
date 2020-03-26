@@ -67,14 +67,14 @@ class ClientVideoExamDetail extends Component {
 
   render() {
     return (
-      <div className="container">
+      <>
         <DetailVideo
           exam={this.state.exam}
           handleLink={this.handleLink}
           handleLinkMessage={this.handleLinkMessage}
           handleCancel={this.handleCancel}
         />
-      </div>
+      </>
     );
   }
 }

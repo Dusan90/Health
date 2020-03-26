@@ -1,55 +1,65 @@
-.client-form {
-  margin: 5px 0;
-  color: white;
-}
+.mainMessageDiv {
+  margin: 100px auto 167px auto;
+  width: 60%;
+  .client-form {
+    margin: 5px 0;
+    color: white;
+  }
 
-.nav-doctor h6 {
-  color: white;
-  font-size: 16px;
-}
+  .nav-doctor h6 {
+    color: white;
+    font-size: 16px;
+  }
 
-.mainMessage {
-  text-align: left;
-  .input {
-    .form-control {
-      width: 100%;
-    }
-    .file {
-      margin: 10px 0;
-    }
-    button {
-      background: rgb(0, 191, 255);
-      color: white;
-      transition: all 0.5s ease-in-out;
-      &:hover {
-        background: rgb(1, 113, 150);
-        box-shadow: 2px 2px 2px black;
+  .mainMessage {
+    text-align: left;
+    .input {
+      .form-control {
+        width: 100%;
+      }
+      .file {
+        margin: 10px 0;
+      }
+      button {
+        background: rgb(0, 191, 255);
+        color: white;
+        transition: all 0.5s ease-in-out;
+        &:hover {
+          background: rgb(1, 113, 150);
+          box-shadow: 2px 2px 2px black;
+        }
       }
     }
   }
-}
 
-.input {
-  .form-control {
-    position: relative;
-    height: 100px;
-    margin-bottom: 5px;
+  .input {
+    .form-control {
+      position: relative;
+      height: 100px;
+      margin-bottom: 5px;
+    }
+
+    .btn {
+      margin-top: 5px;
+      position: relative;
+      float: left;
+      width: 200px;
+    }
   }
 
-  .btn {
-    margin-top: 5px;
-    position: relative;
-    float: left;
+  .attachment {
     width: 200px;
+    margin: 5px;
+    text-align: left;
+    position: relative;
+    height: 80px;
+    padding: 5px;
+    border: 1px solid rgba(33, 201, 243, 0.658);
   }
 }
 
-.attachment {
-  width: 200px;
-  margin: 5px;
-  text-align: left;
-  position: relative;
-  height: 80px;
-  padding: 5px;
-  border: 1px solid rgba(33, 201, 243, 0.658);
+.footerr {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }

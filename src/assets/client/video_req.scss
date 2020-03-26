@@ -1,9 +1,9 @@
 .exam {
   width: 100%;
-  margin-top: 50px;
-
+  height: 100%;
   .mainExam {
     display: flex;
+    margin-top: 100px;
   }
 
   .exam-spec {
@@ -25,9 +25,10 @@
   }
 
   .DatePicker {
-    margin: 20px 0 0 0;
+    width: 100%;
+    margin: 20px auto 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 5px;
 
     .MainDate {
@@ -69,6 +70,10 @@
       }
     }
   }
+  #file {
+    width: 60%;
+    margin: 10px auto 0 auto;
+  }
 }
 
 #subject {
@@ -78,7 +83,7 @@
 .btn {
   margin: 10px auto;
   color: white;
-  background: rgb(0, 191, 255);
+  background: #4092c2;
   transition: all 0.5s ease-in-out;
   &:hover {
     background: rgb(1, 111, 148);

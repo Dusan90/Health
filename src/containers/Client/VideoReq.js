@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
 import VideoReq from "../../components/Client/VideoReq";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
@@ -158,9 +159,13 @@ class ClientVideoReq extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Header />
-        <Nav />
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <VideoReq
           handleSpeciality={this.handleSpeciality}
           handleDoctor={this.handleDoctor}
@@ -170,7 +175,10 @@ class ClientVideoReq extends Component {
           handleDateChange={this.handleDateChange}
           props={this.state}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

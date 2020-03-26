@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Detail from "../../components/Client/DetailExam";
+import Footer from "../../components/Main/Footer";
 
 class ClientDetailExam extends Component {
   constructor(props) {
@@ -67,14 +68,17 @@ class ClientDetailExam extends Component {
 
   render() {
     return (
-      <div className="container">
+      <>
         <Detail
           exam={this.state.exam}
           handleLink={this.handleLink}
           handleLinkMessage={this.handleLinkMessage}
           handleCancel={this.handleCancel}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

@@ -3,6 +3,7 @@ import Clients from "../../components/Doctor/Clients";
 import axios from "axios";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
 
 export class DoctorsClients extends Component {
   constructor(props) {
@@ -59,15 +60,22 @@ export class DoctorsClients extends Component {
     console.log(this.state.clients);
 
     return (
-      <div className="container">
-        <Header />
-        <Nav />
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <Clients
           clients={this.state.clients}
           handleClient={this.handleClient}
           handleSort={this.handleSort}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

@@ -29,7 +29,8 @@ class DoctorDashboard extends Component {
       page: 1,
       maxPages: "",
       loading: true,
-      hamburger: false
+      hamburger: false,
+      viewAllExams: false
     };
   }
 
@@ -80,22 +81,26 @@ class DoctorDashboard extends Component {
       });
   };
 
-  handleChange = e => {
-    if (e.target.value === "earliest") {
-      let earl = this.state.exams;
-      let sort = earl.sort(
-        (a, b) => Date.parse(a.created) - Date.parse(b.created)
-      );
-      this.setState({ exams: sort });
-      this.paginate(this.state.page);
-    } else {
-      let lates = this.state.exams;
-      let resort = lates.sort(
-        (a, b) => Date.parse(b.created) - Date.parse(a.created)
-      );
-      this.setState({ exams: resort });
-      this.paginate(this.state.page);
-    }
+  handleUpcoming = () => {
+    let lates = this.state.exams;
+    let resort = lates.sort(
+      (a, b) => Date.parse(b.created) - Date.parse(a.created)
+    );
+    this.setState({ exams: resort });
+    this.paginate(this.state.page);
+  };
+
+  handlePast = () => {
+    let earl = this.state.exams;
+    let sort = earl.sort(
+      (a, b) => Date.parse(a.created) - Date.parse(b.created)
+    );
+    this.setState({ exams: sort });
+    this.paginate(this.state.page);
+  };
+
+  handleAll = () => {
+    this.setState({ viewAllExams: !this.state.viewAllExams });
   };
 
   handleClick = (id, type) => {
@@ -245,6 +250,10 @@ class DoctorDashboard extends Component {
     this.setState({ hamburger: !this.state.hamburger });
   };
 
+  handleClickMail = id => {
+    this.props.history.push(`/doctor/exam/detail/${id}`);
+  };
+
   componentDidMount() {
     this.paginatedExams();
     this.peopleInWaitingRoom();
@@ -267,6 +276,7 @@ class DoctorDashboard extends Component {
         </div>
         <Dashboard
           handleClick={this.handleClick}
+          handleClickMail={this.handleClickMail}
           handleClient={this.handleClient}
           hnlClick={this.hnlClick}
           hnlClick2={this.hnlClick2}
@@ -282,6 +292,9 @@ class DoctorDashboard extends Component {
           handleWaitingRoom={this.handleWaitingRoom}
           handleVideoPendingClick={this.handleVideoPendingClick}
           handleHam={this.handleHam}
+          handleUpcoming={this.handleUpcoming}
+          handlePast={this.handlePast}
+          handleAll={this.handleAll}
         />
         <Footer />
       </>

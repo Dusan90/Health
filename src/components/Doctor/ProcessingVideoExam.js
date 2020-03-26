@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../../components/Main/Header";
-import Nav from "../../components/Main/Navbar";
 import "../../assets/processingWaitingRoom.scss";
 import moment from "moment";
 import { FaMicrophoneAltSlash } from "react-icons/fa";
@@ -31,9 +29,6 @@ const Processing = ({
   let disabled = props.clientsVideoId === "null" ? true : false;
   return (
     <>
-      <Header />
-      <Nav />
-
       {props.exam.map(exam => {
         return (
           <div key={exam.exam.id} className="detail-exam">

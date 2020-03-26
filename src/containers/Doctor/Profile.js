@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../../assets/main/main.scss";
 import Profile from "../../components/Doctor/Profile";
+import Nav from "../../components/Main/Navbar";
+import Header from "../../components/Main/Header";
+import Footer from "../../components/Main/Footer";
 // import { connect } from "react-redux";
 import { NotificationManager } from "react-notifications";
 
@@ -92,7 +95,13 @@ class DoctorProfile extends Component {
 
   render() {
     return (
-      <div className="container">
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <Profile
           status={options}
           doctor={this.state.doctor}
@@ -108,7 +117,10 @@ class DoctorProfile extends Component {
           handleSubmit={this.handleSubmit}
           handleSelect={this.handleSelect}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

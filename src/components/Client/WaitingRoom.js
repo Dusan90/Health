@@ -146,7 +146,7 @@ const WaitingRoom = ({
           </button>
         </div>
       </div>
-      <input type="file" name="" id="" />
+      <input type="file" name="" id="file" />
       <button
         value={props.submitted}
         disabled={disabled2}

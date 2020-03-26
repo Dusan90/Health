@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
 import WaitingRoom from "../../components/Client/WaitingRoom";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
@@ -445,9 +446,13 @@ class ClientWaitingRoom extends Component {
 
   render() {
     return (
-      <div className="container">
-        <Header />
-        <Nav />
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <WaitingRoom
           handleSpeciality={this.handleSpeciality}
           handleDoctor={this.handleDoctor}
@@ -468,7 +473,10 @@ class ClientWaitingRoom extends Component {
           cutMic={this.cutMic}
           cutVideo={this.cutVideo}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

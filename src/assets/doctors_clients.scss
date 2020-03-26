@@ -1,12 +1,12 @@
 .mainClientsDiv {
-  width: 100%;
-  margin: 30px auto;
+  width: 60%;
+  margin: 100px auto 0 auto;
+
   .clientsDiv {
     display: flex;
     justify-content: space-between;
     h4 {
-      text-indent: 10px;
-      color: rgb(0, 191, 255);
+      color: #4092c2;
       margin: 30px 0;
     }
     label {
@@ -15,15 +15,24 @@
   }
 
   .row2 {
+    margin-bottom: 167px;
     .list-group {
       box-shadow: none;
 
       .list-group-item {
         transition: all 0.5s ease-in-out;
+        border: 1.5px solid #4092c2;
+        color: #4092c2;
         &:hover {
           background: lightblue;
         }
       }
     }
   }
+}
+
+.footerr {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }

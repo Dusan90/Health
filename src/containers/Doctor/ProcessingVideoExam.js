@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 // import { connect } from "react-redux";
 import Processing from "../../components/Doctor/ProcessingVideoExam";
+import Header from "../../components/Main/Header";
+import Nav from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
 
 class ProcessingVideoExam extends Component {
   constructor(props) {
@@ -236,7 +239,13 @@ class ProcessingVideoExam extends Component {
     console.log(this.state.doctorsVideoId);
 
     return (
-      <div className="container">
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <Processing
           handleConnect={this.handleConnect}
           handleVideoStart={this.handleVideoStart}
@@ -252,7 +261,10 @@ class ProcessingVideoExam extends Component {
           cutVideo={this.cutVideo}
           props={this.state}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

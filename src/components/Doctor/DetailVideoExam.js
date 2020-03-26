@@ -16,8 +16,12 @@ const DetailVideo = ({
   handleLinkMessage
 }) => (
   <>
-    <Header />
-    <Nav />
+    <div className="header">
+      <div>
+        <Header />
+        <Nav />
+      </div>
+    </div>
 
     {exam.map(exam => {
       return (

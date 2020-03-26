@@ -17,7 +17,8 @@ class ClientDashboard extends Component {
       page: 1,
       maxPages: "",
       hamburger: false,
-      client: ""
+      client: "",
+      viewAllExams: false
     };
   }
 
@@ -73,13 +74,14 @@ class ClientDashboard extends Component {
     var connectInterval;
     ws.onopen = () => {
       // on connecting, do nothing but log it to the console
-      // console.log("connected");
+      console.log("connected");
       this.setState({ ws: ws });
     };
     ws.onmessage = e => {
       // listen to data sent from the websocket server
-      this.paginatedExams();
       const message = JSON.parse(e.data);
+      console.log(message);
+
       this.state.exams.map(exam => {
         if (exam.exam === message.id) {
           var state = message.status;
@@ -90,6 +92,7 @@ class ClientDashboard extends Component {
           return console.log("Does not exist.");
         }
       });
+      this.paginatedExams();
     };
     ws.onclose = e => {
       console.log(
@@ -121,22 +124,26 @@ class ClientDashboard extends Component {
     }
   };
 
-  handleChange = e => {
-    if (e.target.value === "earliest") {
-      let earl = this.state.exams;
-      let sort = earl.sort(
-        (a, b) => Date.parse(a.created) - Date.parse(b.created)
-      );
-      this.setState({ exams: sort });
-      this.paginate(this.state.page);
-    } else {
-      let lates = this.state.exams;
-      let resort = lates.sort(
-        (a, b) => Date.parse(b.created) - Date.parse(a.created)
-      );
-      this.setState({ exams: resort });
-      this.paginate(this.state.page);
-    }
+  handleUpcoming = () => {
+    let lates = this.state.exams;
+    let resort = lates.sort(
+      (a, b) => Date.parse(b.created) - Date.parse(a.created)
+    );
+    this.setState({ exams: resort });
+    this.paginate(this.state.page);
+  };
+
+  handlePast = () => {
+    let earl = this.state.exams;
+    let sort = earl.sort(
+      (a, b) => Date.parse(a.created) - Date.parse(b.created)
+    );
+    this.setState({ exams: sort });
+    this.paginate(this.state.page);
+  };
+
+  handleAll = () => {
+    this.setState({ viewAllExams: !this.state.viewAllExams });
   };
 
   videoReqStatus = async () => {
@@ -162,7 +169,7 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        console.log(response, "nemam vise pojma sta ovo vuce");
+        console.log(response.data.data, "paginatedExams");
 
         this.setState({
           exams: [...this.state.exams.concat(response.data.data)]
@@ -190,8 +197,6 @@ class ClientDashboard extends Component {
   };
 
   render() {
-    console.log(this.state.client);
-
     return (
       <>
         <div className="header">
@@ -204,7 +209,9 @@ class ClientDashboard extends Component {
           initiate={this.initiate}
           waitingRoom={this.waitingRoom}
           handleClick={this.handleClick}
-          handleChange={this.handleChange}
+          handleUpcoming={this.handleUpcoming}
+          handlePast={this.handlePast}
+          handleAll={this.handleAll}
           handleClickLeft={this.handleClickLeft}
           handleClickRight={this.handleClickRight}
           props={this}

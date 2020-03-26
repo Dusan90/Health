@@ -3,6 +3,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import CorrespondenceMessage from "../../components/Client/Correspondence";
 import { doctor } from "../../actions/examActions";
+import Footer from "../../components/Main/Footer";
 
 class ClientCorrespondence extends Component {
   constructor(props) {
@@ -66,7 +67,7 @@ class ClientCorrespondence extends Component {
 
   render() {
     return (
-      <div className="container">
+      <>
         <CorrespondenceMessage
           correspondence={this.state.correspondence}
           messageValue={this.state.messageValue}
@@ -76,7 +77,10 @@ class ClientCorrespondence extends Component {
           handleClick={this.handleClick}
           props={this.state}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

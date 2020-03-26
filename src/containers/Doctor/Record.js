@@ -3,6 +3,7 @@ import axios from "axios";
 import Record from "../../components/Doctor/Record";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
+import Footer from "../../components/Main/Footer";
 
 class ClientRecord extends Component {
   constructor(props) {
@@ -152,9 +153,13 @@ class ClientRecord extends Component {
       this.state.diagnose
     );
     return (
-      <div className="container">
-        <Header />
-        <Nav />
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
         <Record
           record={this.state.record}
           handleReport={this.handleReport}
@@ -166,7 +171,10 @@ class ClientRecord extends Component {
           handleMedicationNotes={this.handleMedicationNotes}
           props={this.state}
         />
-      </div>
+        <div className="footerr">
+          <Footer />
+        </div>
+      </>
     );
   }
 }

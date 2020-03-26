@@ -15,8 +15,12 @@ const CorrespondenceMessage = ({
 }) => {
   return (
     <>
-      <Header />
-      <Nav />
+      <div className="header">
+        <div>
+          <Header />
+          <Nav />
+        </div>
+      </div>
       <table className="correspondence">
         {correspondence.length === 0 ? (
           <tbody style={{ color: "rgb(2, 159, 250)" }}>

@@ -268,11 +268,19 @@
         }
       }
       .sort {
-        align-items: center;
         margin: 0 10px;
-
-        label {
-          margin: 0 3px;
+        display: flex;
+        p {
+          align-self: center;
+          margin: 0 50px 0 0;
+          text-overflow: bold;
+          color: white;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+        .all {
+          margin: 0 20px 0 0;
         }
       }
     }

@@ -15,12 +15,16 @@ const Detail = ({
   handleLinkMessage
 }) => (
   <>
-    <Header />
-    <Nav />
+    <div className="header">
+      <div>
+        <Header />
+        <Nav />
+      </div>
+    </div>
 
     {exam.map(exam => {
       return (
-        <div key={exam.id} className="detail-exam">
+        <div key={exam.id} className="detail_exam">
           <div className="detail">
             <p>Client: {exam.client}</p>
             <p>Speciality: {exam.speciality}</p>
