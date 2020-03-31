@@ -14,6 +14,10 @@ import money from "../../img/icon_money.svg";
 import presc from "../../img/icon_Prescriptions.svg";
 import medical2 from "../../img/Medical2.svg";
 import dermatology2 from "../../img/Dermatology2.svg";
+import image1 from "../../img/1.svg";
+import image2 from "../../img/2.svg";
+import image3 from "../../img/3.svg";
+import seeDoctor from "../../img/seeadoctor.svg";
 
 const Home = ({ props }) => (
   <div className="row">
@@ -34,22 +38,23 @@ const Home = ({ props }) => (
         <div className="signUpp">
           <div className="number">
             <div className="sticky_div">How It Works</div>
-            <p>1</p>
+            <img src={image1} alt="1" />
           </div>
-          <div>
+          <div className="signUpDiv">
             <h3>SIGN UP</h3>
             <h5>
               Creating an
               <br /> account takes
-              <br /> less then a br minute.
+              <br /> less then a
+              <br /> minute.
             </h5>
           </div>
         </div>
         <div className="startChat">
           <div className="number">
-            <p>2</p>
+            <img src={image2} alt="2" />
           </div>
-          <div>
+          <div className="startChattingDiv">
             <h3>START CHATTING</h3>
             <h5>
               Tell us about your
@@ -61,9 +66,9 @@ const Home = ({ props }) => (
         </div>
         <div className="talkToDoctor">
           <div className="number">
-            <p>3</p>
+            <img src={image3} alt="3" />
           </div>
-          <div>
+          <div className="talkToDoctorDiv">
             <h3>TALK TO A DOCTOR</h3>
             <h5>
               Get connected to a licensed
@@ -206,7 +211,7 @@ const Home = ({ props }) => (
           18+) <FaSquare className="dot" /> and more...
         </p>
       </div>
-      <button className="seeDoctor">See A Doctor</button>
+      <img src={seeDoctor} className="seeDoctor" alt="seeDoctor" />
     </div>
 
     <div className="behavioralInfo">
@@ -225,7 +230,8 @@ const Home = ({ props }) => (
           <FaSquare className="dot" /> and more…
         </p>
       </div>
-      <button className="seeDoctor">See A Doctor</button>
+      {/* <button className="seeDoctor">See A Doctor</button> */}
+      <img src={seeDoctor} className="seeDoctor" alt="seeDoctor" />
     </div>
 
     <div className="dermatologyInfo">
@@ -248,7 +254,8 @@ const Home = ({ props }) => (
           <FaSquare className="dot" /> and more…
         </p>
       </div>
-      <button className="seeDoctor">See A Doctor</button>
+      {/* <button className="seeDoctor">See A Doctor</button> */}
+      <img src={seeDoctor} className="seeDoctor" alt="seeDoctor" />
     </div>
   </div>
 );

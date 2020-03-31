@@ -42,7 +42,7 @@ const DetailVideo = ({
             <p>Message: {exam.message}</p>
             <p>Status: {exam.status}</p>
             {exam.status !== "Appointed" && (
-              <div style={{ display: "flex" }}>
+              <div className="divSelectButton" style={{ display: "flex" }}>
                 <Select
                   type="text"
                   className="select-option"

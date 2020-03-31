@@ -6,39 +6,51 @@
 
     h2 {
       font-weight: bold;
+      font-size: 30pt;
+      margin: 70px 0;
+      color: #4092c2;
     }
     .treatmentIcons {
-      width: 60%;
-      margin: 40px auto 0 auto;
+      width: 100%;
+      margin: 40px auto 40px auto;
       display: flex;
       justify-content: space-around;
 
       .medical {
         img {
-          width: 70px;
-          height: 70px;
+          width: 110px;
+          height: 110px;
         }
         p {
-          font-weight: bold;
+          font-weight: 600;
+          font-size: 20pt;
+          line-height: 30px;
+          margin-top: 5px;
         }
       }
       .behavior {
         img {
-          width: 70px;
-          height: 70px;
+          width: 110px;
+          height: 110px;
         }
         p {
-          font-weight: bold;
+          font-weight: 600;
+          font-size: 20pt;
+          line-height: 30px;
+          margin-top: 5px;
         }
       }
       .dermatology {
         img {
-          width: 70px;
-          height: 70px;
+          width: 110px;
+          height: 110px;
           margin: 0 auto;
         }
         p {
-          font-weight: bold;
+          font-weight: 600;
+          font-size: 20pt;
+          line-height: 30px;
+          margin-top: 5px;
         }
       }
     }
@@ -46,40 +58,45 @@
 
   .mindAndBody {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
     width: 60%;
     margin: 20px auto 0 auto;
 
     img {
       margin: 0 20px 0 auto;
-      width: 200px;
+      width: 350px;
     }
     .iphoneNandroid {
       text-align: start;
       align-self: flex-end;
 
       .getIt {
-        margin: 20px 0 0 0;
+        margin: 50px 0 0 0;
         img {
-          width: 100px;
-          height: 30px;
+          width: 200px;
+          height: 55px;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
       h1 {
-        font-weight: bold;
+        font-weight: 900;
         color: #4092c2;
-        font-size: 40px;
-        line-height: 30px;
+        font-size: 50pt;
+        line-height: 70px;
         margin: 0 0 30px 0;
         span {
           color: #66af94;
-          font-weight: lighter;
-          font-size: 30px;
+          font-weight: 500;
+          font-size: 50pt;
         }
       }
       p {
         color: #4092c2;
-        font-weight: 600;
+        font-weight: 500;
+        font-size: 17pt;
+        margin: 30px 0;
       }
     }
   }
@@ -88,12 +105,13 @@
     margin: 70px auto 0 auto;
     width: 60%;
     img {
-      width: 200px;
-      height: 45px;
+      width: 400px;
+      height: 90px;
     }
     h1 {
       color: #4092c2;
-      font-weight: bold;
+      font-weight: 900;
+      font-size: 50pt;
       span {
         color: #66af94;
         font-weight: lighter;
@@ -102,22 +120,22 @@
     .treatmentIcons {
       display: flex;
       justify-content: space-around;
-      margin: 50px 0;
+      margin: 90px 0;
       .visitAdoctor,
       .convenient,
       .inconveniance,
       .prescriptions {
         img {
-          width: 70px;
-          height: 70px;
+          width: 110px;
+          height: 110px;
           margin: 0 auto;
         }
         p {
-          line-height: 11px;
+          line-height: 16px;
           margin: 10px 0 0 0;
           color: #4092c2;
-          font-weight: 600;
-          font-size: 10px;
+          font-weight: 500;
+          font-size: 14pt;
         }
       }
     }
@@ -128,82 +146,82 @@
     .medicalSpeciality {
       display: flex;
       justify-content: center;
-      padding: 30px;
-      margin: 0 auto;
+      padding: 50px;
+      margin: 0 auto 10px auto;
       img {
-        width: 70px;
-        height: 70px;
+        width: 110px;
+        height: 110px;
         margin-right: 10px;
       }
       p {
         align-self: center;
         color: white;
-        font-size: 40px;
-        font-weight: bold;
+        font-size: 50pt;
+        font-weight: 900;
       }
     }
     .dotedinfo {
       p {
         color: white;
-        font-weight: bold;
+        font-weight: 600;
+        font-size: 21pt;
+        line-height: 35px;
         .dot {
-          font-size: 10px;
+          font-size: 20px;
           margin: 0 2px;
         }
       }
     }
     .seeDoctor {
-      background: white;
-      color: #4092c2;
-      font-size: 20px;
-      font-weight: bold;
-      padding: 1px 8px;
-      border: 1px solid #4092c2;
-      border-radius: 5px;
-      margin: 5px auto 50px auto;
-      box-shadow: 1px 1px 5px 1px rgb(51, 51, 51);
+      width: 275px;
+      margin: 20px auto 50px auto;
+      border-radius: 10px;
+      box-shadow: 1px 1px 10px 1px rgb(77, 77, 77);
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
   .behavioralInfo {
     .behavioralSpeciality {
       display: flex;
-      padding: 30px;
-      margin: 0 auto;
       justify-content: center;
+      padding: 50px;
+      margin: 0 auto 10px auto;
       img {
-        width: 70px;
-        height: 70px;
+        width: 110px;
+        height: 110px;
 
         margin-right: 10px;
       }
       p {
         align-self: center;
         color: #4092c2;
-        font-size: 40px;
-        font-weight: bold;
+        font-size: 50pt;
+        font-weight: 900;
       }
     }
     .dotedinfo {
       p {
         color: #4092c2;
-        font-weight: bold;
+        font-weight: 600;
+        font-size: 21pt;
+        line-height: 35px;
         .dot {
-          font-size: 10px;
+          font-size: 20px;
           margin: 0 2px;
         }
       }
     }
     .seeDoctor {
-      background: white;
-      color: #4092c2;
-      font-size: 20px;
-      font-weight: bold;
-      padding: 1px 8px;
-      border: 1px solid #4092c2;
-      border-radius: 5px;
-      margin: 5px auto 50px auto;
-      box-shadow: 1px 1px 5px 1px rgb(51, 51, 51);
+      width: 275px;
+      margin: 20px auto 50px auto;
+      border-radius: 10px;
+      box-shadow: 1px 1px 10px 1px rgb(77, 77, 77);
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
@@ -211,54 +229,54 @@
     background: #4092c2;
     .dermatologySpeciality {
       display: flex;
-      padding: 30px;
-      margin: 0 auto;
       justify-content: center;
+      padding: 50px;
+      margin: 0 auto 10px auto;
       img {
-        width: 70px;
-        height: 70px;
+        width: 110px;
+        height: 110px;
         margin-right: 10px;
       }
       p {
         align-self: center;
         color: white;
-        font-size: 40px;
-        font-weight: bold;
+        font-size: 50pt;
+        font-weight: 900;
       }
     }
     .dotedinfo {
       p {
         color: white;
-        font-weight: bold;
+        font-weight: 600;
+        font-size: 21pt;
+        line-height: 35px;
         .dot {
-          font-size: 10px;
+          font-size: 20px;
           margin: 0 2px;
         }
       }
     }
     .seeDoctor {
-      background: white;
-      color: #4092c2;
-      font-size: 20px;
-      font-weight: bold;
-      padding: 1px 8px;
-      border: 1px solid #4092c2;
-      border-radius: 5px;
-      margin: 5px auto 50px auto;
-      box-shadow: 1px 1px 5px 1px rgb(51, 51, 51);
+      width: 275px;
+      border-radius: 10px;
+      margin: 20px auto 50px auto;
+      box-shadow: 1px 1px 10px 1px rgb(77, 77, 77);
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
   .RowsClients {
     background: #4092c2;
     margin-top: 70px;
-    height: 100px;
+    height: 180px;
 
     .howItWorks {
-      width: 60%;
+      width: 67%;
       height: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      display: flex;
+      justify-content: space-between;
       margin: 0 auto;
       color: white;
       text-align: start;
@@ -269,12 +287,15 @@
         align-self: center;
         height: 100%;
         position: relative;
+        width: 270px;
 
         .sticky_div {
-          font-size: 15px;
-          font-weight: bold;
+          font-size: 21pt;
+          font-weight: 600;
           position: absolute;
-          top: -22px;
+          top: -30px;
+          right: 45px;
+
           background: #4092c2;
           padding: 5px 10px;
           border-top-left-radius: 10px;
@@ -282,79 +303,71 @@
         }
 
         .number {
-          border: 2px solid white;
-          width: 55px;
-          height: 55px;
-          border-radius: 15px;
+          width: 110px;
+          height: 110px;
           align-self: center;
           margin: 0 5px;
-
-          p {
-            font-size: 40px;
-            text-align: center;
+        }
+        .signUpDiv {
+          align-self: center;
+          h3 {
+            font-size: 14pt;
+            font-weight: bold;
           }
-        }
-
-        h3 {
-          font-size: 15px;
-          font-weight: bold;
-        }
-        h5 {
-          font-size: 10px;
+          h5 {
+            font-size: 14pt;
+            font-weight: 500;
+          }
         }
       }
       .startChat {
         display: flex;
         justify-content: center;
         align-self: center;
+        height: 100%;
+        width: 300px;
 
         .number {
-          border: 2px solid white;
-          width: 55px;
-          height: 55px;
-          border-radius: 15px;
+          width: 110px;
+          height: 110px;
           align-self: center;
           margin: 0 5px;
-
-          p {
-            font-size: 40px;
-            text-align: center;
+        }
+        .startChattingDiv {
+          align-self: center;
+          h3 {
+            font-size: 14pt;
+            font-weight: bold;
           }
-        }
-
-        h3 {
-          font-size: 15px;
-          font-weight: bold;
-        }
-        h5 {
-          font-size: 10px;
+          h5 {
+            font-size: 14pt;
+            font-weight: 500;
+          }
         }
       }
       .talkToDoctor {
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
         align-self: center;
+        height: 100%;
+        width: 410px;
 
         .number {
-          border: 2px solid white;
-          width: 55px;
-          height: 55px;
-          border-radius: 15px;
+          width: 110px;
+          height: 110px;
           align-self: center;
           margin: 0 5px;
-
-          p {
-            font-size: 40px;
-            text-align: center;
+        }
+        .talkToDoctorDiv {
+          align-self: center;
+          h3 {
+            font-size: 14pt;
+            font-weight: bold;
           }
-        }
-
-        h3 {
-          font-size: 15px;
-          font-weight: bold;
-        }
-        h5 {
-          font-size: 10px;
+          h5 {
+            font-size: 14pt;
+            font-weight: 500;
+          }
         }
       }
     }
@@ -367,25 +380,27 @@
     }
     .headersInfo {
       position: absolute;
-      bottom: 50%;
+      bottom: 45%;
       left: 20%;
       text-align: start;
       color: #4092c2;
       img {
-        width: 500px;
-        height: 110px;
+        width: 650px;
+        height: 140px;
       }
       h1 {
-        font-size: 55px;
+        font-size: 50pt;
         margin-top: 10px;
         font-weight: bold;
       }
       span {
-        color: #66af94;
+        color: #4092c2;
         font-weight: 50;
       }
       h4 {
-        font-weight: bold;
+        font-weight: 500;
+        font-size: 17pt;
+        letter-spacing: -1px;
       }
     }
 

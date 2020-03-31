@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "../../assets/main/navbar.scss";
+import { GoPerson } from "react-icons/go";
 
 const Nav = ({
   register,
@@ -34,9 +35,18 @@ const Nav = ({
       </Link>
     );
     curDoc = (
-      <div className="inic">
-        <div className="initials">{doctor}</div>
+      <div className="sideProfile">
+        <div className="mainProfile">
+          <div className="profile">
+            <GoPerson className="icon" />
+          </div>
+          <div className="onlineDot"></div>
+        </div>
+        <p>{doctor}</p>
       </div>
+      // <div className="inic">
+      //   <div className="initials">{doctor}</div>
+      // </div>
     );
     // clientsLink = (
     //   <Link

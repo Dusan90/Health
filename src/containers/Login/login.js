@@ -124,7 +124,7 @@ class Login extends Component {
           rememberMe={this.state.rememberMe}
           handleChange={this.handleChange}
         />
-        <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
+        <div>
           <Footer />
         </div>
       </>

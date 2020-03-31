@@ -9,6 +9,12 @@
   width: 60%;
   .detail {
     position: relative;
+    .divSelectButton {
+      .select-option {
+        width: 200px;
+        margin: 0 10px 0 0;
+      }
+    }
     p {
       color: #4092c2;
     }

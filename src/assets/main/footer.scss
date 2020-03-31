@@ -2,6 +2,7 @@
   width: 100%;
   background: #e4e2dc;
   height: 167px;
+  color: #242529;
 }
 
 .mainFooter {
@@ -13,16 +14,19 @@
   .contact {
     h3 {
       font-weight: bold;
-      font-size: 20px;
+      font-size: 15pt;
     }
     text-align: start;
     list-style: none;
     li {
-      margin: 0 0 6px 0;
+      font-size: 13pt;
+      font-weight: 500;
+      margin: 0 0 2px 0;
     }
     .mail {
       margin: 0 4px 0 0;
     }
+
     .phone {
       margin: 0 4px 0 0;
     }
@@ -34,19 +38,22 @@
   .company {
     h3 {
       font-weight: bold;
-      font-size: 20px;
+      font-size: 15pt;
+      color: #242529;
     }
     text-align: start;
     list-style: none;
-    color: black;
+    color: #242529;
     li {
-      margin: 0 0 6px 0;
+      font-size: 13pt;
+      font-weight: 500;
+      margin: 0 0 2px 0;
     }
     .aboutClass,
     .blockClass,
     .careersClass,
     .faqClass {
-      color: black;
+      color: #242529;
       &:focus,
       &:hover,
       &:visited,
@@ -61,7 +68,7 @@
   .social {
     h3 {
       font-weight: bold;
-      font-size: 20px;
+      font-size: 15pt;
     }
     .socialMedia {
       display: flex;
@@ -70,14 +77,14 @@
       .facebook,
       .linkedin,
       .twitter {
-        font-size: 15px;
+        font-size: 20px;
         margin-top: 10px;
         transition: all 0.5s ease-in-out;
-        color: black;
+        color: #242529;
       }
     }
     p {
-      margin: 45px 0 0 0;
+      margin: 46px 0 0 0;
     }
   }
 }

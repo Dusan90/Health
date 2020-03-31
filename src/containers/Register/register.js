@@ -245,7 +245,7 @@ class Register extends Component {
           handleGenderRadio={this.handleGenderRadio}
           changeTextToDate={this.changeTextToDate}
         />
-        <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
+        <div>
           <Footer />
         </div>
       </>

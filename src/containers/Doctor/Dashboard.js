@@ -226,7 +226,7 @@ class DoctorDashboard extends Component {
         console.log(response, "videooo-request-list");
         let pending = response.data.data.filter(res => {
           return (
-            res.status === "Requested",
+            res.status === "Requested" &&
             moment(res.appointed_date).format("MM/DD/YYYY") >=
               moment(new Date()).format("MM/DD/YYYY")
           );
@@ -234,6 +234,7 @@ class DoctorDashboard extends Component {
         let accepted = response.data.data.filter(res => {
           return res.status === "Appointed";
         });
+
         this.setState({
           videoPending: pending,
           exams: [...this.state.exams.concat(accepted)],
@@ -264,7 +265,7 @@ class DoctorDashboard extends Component {
   }
 
   render() {
-    console.log(this.state.doctorCurent);
+    console.log(this.state.videoPending);
 
     return (
       <>
