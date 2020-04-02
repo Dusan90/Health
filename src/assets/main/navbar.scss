@@ -2,7 +2,49 @@
   ul {
     display: flex;
     float: right;
-
+    .topProfile {
+      width: 100%;
+      display: flex;
+      // margin: 80px auto 0 auto;
+      .mainProfile {
+        border: 1px solid #4092c2;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        background: white;
+        position: relative;
+        .onlineDot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: green;
+          position: absolute;
+          top: 0px;
+          right: 2px;
+        }
+        .profile {
+          color: white;
+          font-size: 60px;
+          background: rgb(189, 235, 250);
+          width: 46px;
+          height: 46px;
+          align-items: center;
+          overflow: hidden;
+          border-radius: 50%;
+          margin: 1px auto 3px auto;
+          .icon {
+            margin: 10px 0 0 0;
+          }
+        }
+      }
+      p {
+        margin: 3px 5px;
+        color: #4092c2;
+        font-weight: 500;
+        align-self: center;
+      }
+    }
     .inic {
       background: lightblue;
       width: 40px;
@@ -19,6 +61,8 @@
     li {
       padding: 0;
       margin-top: 5px;
+      font-weight: 600;
+      font-size: 12pt;
       a {
         color: #4092c2;
         background: none;

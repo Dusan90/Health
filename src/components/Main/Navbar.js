@@ -35,14 +35,14 @@ const Nav = ({
       </Link>
     );
     curDoc = (
-      <div className="sideProfile">
+      <div className="topProfile">
+        <p>{doctor}</p>
         <div className="mainProfile">
           <div className="profile">
             <GoPerson className="icon" />
           </div>
           <div className="onlineDot"></div>
         </div>
-        <p>{doctor}</p>
       </div>
       // <div className="inic">
       //   <div className="initials">{doctor}</div>

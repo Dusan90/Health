@@ -13,7 +13,7 @@ import Register from "./containers/Register/register";
 import Login from "./containers/Login/login";
 import Logout from "./containers/Logout/logout";
 import ExamForm from "./containers/Client/ExamForm";
-// import CheckoutForm from "./containers/Client/CheckoutForm";
+import CheckoutForm from "./containers/Client/CheckoutForm";
 import Correspondence from "./containers/Doctor/Correspondence";
 import DoctorMessage from "./containers/Doctor/Message";
 import DoctorProfile from "./containers/Doctor/Profile";
@@ -27,7 +27,7 @@ import ClientVideoExamDetail from "./containers/Client/ClientVideoExamDetail";
 import ClientDetailExam from "./containers/Client/DetailExam";
 import ClientCorrespondence from "./containers/Client/Correspondence";
 import ClientMessage from "./containers/Client/Message";
-import { StripeProvider } from "react-stripe-elements";
+import { StripeProvider, Elements } from "react-stripe-elements";
 import Clients from "./containers/Doctor/Clients";
 import WaitingRoom from "./containers/Client/WaitingRoom";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -184,9 +184,9 @@ class App extends Component {
                   component={ClientMessage}
                 />
                 <Route path="/initiate" exact component={ExamForm} />
-                {/* <Elements>
+                <Elements>
                   <Route path="/checkout" exact component={CheckoutForm} />
-                </Elements> */}
+                </Elements>
                 {/* <Footer /> */}
                 <NotificationContainer />
               </Router>

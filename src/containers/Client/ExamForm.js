@@ -24,8 +24,8 @@ class ExamForm extends Component {
       token: sessionStorage.getItem("accessToken"),
       specDoctor: [],
       specialSP: [],
-      resetDoctorSelect: null,
-      isClicked: false
+      resetDoctorSelect: null
+      // isClicked: false
     };
   }
 
@@ -63,7 +63,7 @@ class ExamForm extends Component {
       this.state.subject &&
       this.state.message
     ) {
-      this.setState({ isClicked: true });
+      // this.setState({ isClicked: true });
       const response = await fetch(
         "https://health-care-backend.herokuapp.com/api/client/initiate/",
         {
@@ -82,7 +82,7 @@ class ExamForm extends Component {
       );
       const data = await response.json();
 
-      // this.toCheckout();
+      this.toCheckout();
       console.log(data);
 
       return data;
@@ -91,9 +91,9 @@ class ExamForm extends Component {
     }
   };
 
-  // toCheckout = async () => {
-  //   return this.props.history.push("/checkout");
-  // };
+  toCheckout = async () => {
+    return this.props.history.push("/checkout");
+  };
 
   componentDidMount() {
     axios
@@ -145,7 +145,7 @@ class ExamForm extends Component {
           handleMessage={this.handleMessage}
           specDoctor={this.state.specDoctor}
           resetDoctorSelect={this.state.resetDoctorSelect}
-          isClicked={this.state.isClicked}
+          // isClicked={this.state.isClicked}
         />
         <div className="footerr">
           <Footer />

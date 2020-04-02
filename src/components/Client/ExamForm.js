@@ -1,8 +1,8 @@
 import React from "react";
 import Select from "react-select";
 import "../../assets/client/exam-form.scss";
-import CheckoutForm from "../../containers/Client/CheckoutForm";
-import { Elements, StripeProvider } from "react-stripe-elements";
+// import CheckoutForm from "../../containers/Client/CheckoutForm";
+// import { Elements, StripeProvider } from "react-stripe-elements";
 
 const InitiateExam = ({
   specialities,
@@ -66,7 +66,7 @@ const InitiateExam = ({
         Submit Exam
       </button>
       {/* </div> */}
-      <div>
+      {/* <div>
         {isClicked ? (
           <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3">
             <Elements>
@@ -74,7 +74,7 @@ const InitiateExam = ({
             </Elements>
           </StripeProvider>
         ) : null}
-      </div>
+      </div> */}
     </div>
   );
 };

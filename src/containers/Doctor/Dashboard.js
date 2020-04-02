@@ -24,7 +24,6 @@ class DoctorDashboard extends Component {
       openVideoPending: false,
       openWaitingRoom: false,
       value: "",
-      doc: [],
       doctorCurent: "",
       page: 1,
       maxPages: "",
@@ -187,13 +186,13 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token }
       })
       .then(response => {
-        let curentDocc = response.data.data.doctor
-          .split(" ")
-          .map(n => n[0])
-          .join(".");
-        this.props.curentDoc(curentDocc);
+        let curentDocc = response.data.data.doctor;
+        let curentPref = response.data.data.prefix;
+        let current = `${curentPref} ${curentDocc}`;
+        console.log(current);
+
+        this.props.curentDoc(current);
         return this.setState({
-          doc: curentDocc,
           doctorCurent: response.data.data
         });
       });
@@ -272,7 +271,7 @@ class DoctorDashboard extends Component {
         <div className="header">
           <div>
             <Header />
-            <Nav doc={this.state.doc} />
+            <Nav />
           </div>
         </div>
         <Dashboard
