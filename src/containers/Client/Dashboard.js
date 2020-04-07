@@ -18,7 +18,7 @@ class ClientDashboard extends Component {
       maxPages: "",
       hamburger: false,
       client: "",
-      viewAllExams: false
+      viewAllExams: false,
     };
   }
 
@@ -37,10 +37,10 @@ class ClientDashboard extends Component {
     this.paginatedExams();
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/client/profile/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response.data.data, "profile");
 
         return this.setState({ client: response.data.data });
@@ -67,7 +67,9 @@ class ClientDashboard extends Component {
   };
 
   connect = () => {
-    var ws = new WebSocket("ws://167.172.156.87/ws/exam/status/");
+    var ws = new WebSocket(
+      "wss://health-care-backend.herokuapp.com/ws/exam/status/"
+    );
     let that = this;
     var connectInterval;
     ws.onopen = () => {
@@ -75,11 +77,11 @@ class ClientDashboard extends Component {
       console.log("connected");
       this.setState({ ws: ws });
     };
-    ws.onmessage = e => {
+    ws.onmessage = (e) => {
       // listen to data sent from the websocket server
       const message = JSON.parse(e.data);
 
-      this.state.exams.map(exam => {
+      this.state.exams.map((exam) => {
         if (exam.id === message.id && exam.exam_type === "mail") {
           var state = message.status;
           let new_exam = Object.assign({ ...exam }, exam);
@@ -96,7 +98,7 @@ class ClientDashboard extends Component {
       });
       this.paginatedExams();
     };
-    ws.onclose = e => {
+    ws.onclose = (e) => {
       console.log(
         `Socket is closed. Reconnect will be attempted in ${Math.min(
           10000 / 1000,
@@ -108,7 +110,7 @@ class ClientDashboard extends Component {
       connectInterval = setTimeout(this.check, Math.min(1, that.timeout)); //c
       // automatically try to reconnect on connection loss
     };
-    ws.onerror = err => {
+    ws.onerror = (err) => {
       console.error(
         "Socket encountered error: ",
         err.message,
@@ -151,14 +153,14 @@ class ClientDashboard extends Component {
   videoReqStatus = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/web/client/list/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/web/client/list/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response.data.data, "videooo-request-list");
 
         this.setState({
-          exams: [...this.state.exams.concat(response.data.data)]
+          exams: [...this.state.exams.concat(response.data.data)],
         });
         this.paginate(this.state.page);
       });
@@ -167,21 +169,21 @@ class ClientDashboard extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/mail/client/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/mail/client/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response.data.data, "paginatedExams");
 
         this.setState({
-          exams: [...this.state.exams.concat(response.data.data)]
+          exams: [...this.state.exams.concat(response.data.data)],
         });
         this.videoReqStatus();
         this.paginate(this.state.page);
       });
   };
 
-  paginate = page => {
+  paginate = (page) => {
     let limit = 5;
     let pages = Math.ceil(this.state.exams.length / 5);
     const offset = (page - 1) * limit;
@@ -190,7 +192,7 @@ class ClientDashboard extends Component {
     this.setState({
       paginatedExams: newArray,
       loading: false,
-      maxPages: pages
+      maxPages: pages,
     });
   };
 

@@ -24,28 +24,28 @@ class ProcessingVideoExam extends Component {
       hover: false,
       showChat: false,
       video: true,
-      audio: true
+      audio: true,
     };
   }
 
-  detail = id => {
+  detail = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/queue/detail/${id}`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/queue/detail/${id}`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         this.setState({ exam: this.state.exam.concat(response.data.data) });
       });
   };
 
-  handleConnect = e => {
+  handleConnect = (e) => {
     e.preventDefault();
     this.setState({ connected: true });
     this.test();
   };
 
-  handleVideoStart = e => {
+  handleVideoStart = (e) => {
     e.preventDefault();
     this.setState({ startVideo: true });
   };
@@ -54,19 +54,19 @@ class ProcessingVideoExam extends Component {
     navigator.webkitGetUserMedia(
       {
         video: true,
-        audio: true
+        audio: true,
       },
-      stream => {
+      (stream) => {
         var Peer = require("simple-peer");
         // let id = Math.floor(Math.random() * 0xffffff).toString(16);
         // this.setState({ idToPush: id });
         var peer = new Peer({
           initiator: window.location.hash === `#init`,
           trickle: false,
-          stream: stream
+          stream: stream,
         });
 
-        peer.on("signal", data => {
+        peer.on("signal", (data) => {
           let docId = JSON.stringify(data);
           this.setState({ doctorsVideoId: docId });
           connection.send(this.state.doctorsVideoId);
@@ -81,7 +81,7 @@ class ProcessingVideoExam extends Component {
             }
           });
 
-        document.getElementById("send").addEventListener("click", function() {
+        document.getElementById("send").addEventListener("click", function () {
           var yourMessage = document.getElementById("yourMessage").value;
           peer.send(yourMessage);
         });
@@ -95,16 +95,16 @@ class ProcessingVideoExam extends Component {
           console.error("disconnected");
         };
 
-        connection.onerror = error => {
+        connection.onerror = (error) => {
           console.error("failed to connect", error);
         };
 
-        connection.onmessage = event => {
+        connection.onmessage = (event) => {
           console.log("received", event.data);
           this.setState({ clientsVideoId: event.data });
         };
 
-        document.querySelector("form").addEventListener("submit", event => {
+        document.querySelector("form").addEventListener("submit", (event) => {
           event.preventDefault();
           let message = document.querySelector("#yourMessage").value;
           connection.send(message);
@@ -114,7 +114,7 @@ class ProcessingVideoExam extends Component {
           this.setState({ value: "" });
         });
 
-        peer.on("data", function(data) {
+        peer.on("data", function (data) {
           document.getElementById(
             "messages"
           ).innerHTML += `<p style='color:black ; margin: 5px 0 5px auto; background: gainsboro ;display: table; white-space: initial; padding: 10px; border-radius: 10px'>${data}</p>`;
@@ -142,7 +142,7 @@ class ProcessingVideoExam extends Component {
             cutVideo.enabled = !cutVideo.enabled;
           });
 
-        peer.on("stream", stream => {
+        peer.on("stream", (stream) => {
           const mediaStream = new MediaStream(stream);
           var video = document.createElement("video");
           video.classList.add("vid");
@@ -165,15 +165,15 @@ class ProcessingVideoExam extends Component {
           this.handleDivClose();
         });
       },
-      function(err) {
+      function (err) {
         console.error(err);
       }
     );
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ value: e.target.value });
   };
-  enableTipeing = e => {
+  enableTipeing = (e) => {
     e.stopPropagation();
   };
 
@@ -185,7 +185,7 @@ class ProcessingVideoExam extends Component {
     this.setState({ hover: false });
   };
 
-  handleDragDrop = d => {
+  handleDragDrop = (d) => {
     this.setState({ x: d.x, y: d.y });
   };
 
@@ -194,7 +194,7 @@ class ProcessingVideoExam extends Component {
     this.setState({
       width: vide.style.width,
       height: vide.style.height,
-      ...position
+      ...position,
     });
   };
 
@@ -205,7 +205,7 @@ class ProcessingVideoExam extends Component {
   handleDivSize = () => {
     this.setState({
       width: document.body.offsetWidth,
-      height: document.body.offsetHeight
+      height: document.body.offsetHeight,
     });
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();

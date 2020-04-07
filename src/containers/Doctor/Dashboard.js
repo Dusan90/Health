@@ -29,7 +29,7 @@ class DoctorDashboard extends Component {
       maxPages: "",
       loading: true,
       hamburger: false,
-      viewAllExams: false
+      viewAllExams: false,
     };
   }
 
@@ -55,27 +55,27 @@ class DoctorDashboard extends Component {
   pnd = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/doctor/exams/req`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/doctor/exams/req`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
-        const res = response.data.data.map(val => {
+      .then((response) => {
+        const res = response.data.data.map((val) => {
           return {
             id: val.id,
             client: val.client,
             created: val.created,
             subject: val.subject,
-            status: val.status
+            status: val.status,
           };
         });
         let resort = res.sort(
           (a, b) => Date.parse(b.created) - Date.parse(a.created)
         );
         this.setState({
-          pending: resort.filter(rest => rest.status === "Pending")
+          pending: resort.filter((rest) => rest.status === "Pending"),
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -110,25 +110,25 @@ class DoctorDashboard extends Component {
     }
   };
 
-  handleVideoPendingClick = id => {
+  handleVideoPendingClick = (id) => {
     this.props.history.push(`/doctor/video/exam/detail/${id}`);
   };
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/mail/doctor/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/mail/doctor/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         this.setState({
-          exams: [...this.state.exams.concat(response.data.data)]
+          exams: [...this.state.exams.concat(response.data.data)],
         });
         this.paginate(this.state.page);
         this.peopleVideoPending();
       });
   };
 
-  paginate = page => {
+  paginate = (page) => {
     let limit = 5;
     let pages = Math.ceil(this.state.exams.length / 5);
     const offset = (page - 1) * limit;
@@ -137,11 +137,11 @@ class DoctorDashboard extends Component {
     this.setState({
       paginatedExams: newArray,
       loading: false,
-      maxPages: pages
+      maxPages: pages,
     });
   };
 
-  handleWaitingRoom = id => {
+  handleWaitingRoom = (id) => {
     if (this.state.waitingRoom[0].id === id) {
       this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
     } else {
@@ -169,12 +169,12 @@ class DoctorDashboard extends Component {
     this.setState({ openWaitingRoom: !this.state.openWaitingRoom });
   };
 
-  escBtn = e => {
+  escBtn = (e) => {
     if (e.keyCode === 27) {
       this.setState({
         openPending: false,
         openVideoPending: false,
-        openWaitingRoom: false
+        openWaitingRoom: false,
       });
     }
   };
@@ -182,10 +182,10 @@ class DoctorDashboard extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/doctor/profile/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/doctor/profile/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         let curentDocc = response.data.data.doctor;
         let curentPref = response.data.data.prefix;
         let current = `${curentPref} ${curentDocc}`;
@@ -193,7 +193,7 @@ class DoctorDashboard extends Component {
 
         this.props.curentDoc(current);
         return this.setState({
-          doctorCurent: response.data.data
+          doctorCurent: response.data.data,
         });
       });
   };
@@ -201,11 +201,11 @@ class DoctorDashboard extends Component {
   peopleInWaitingRoom = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/queue/doctor/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/queue/doctor/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
-        let todaysWaitingRoom = response.data.data.filter(today => {
+      .then((response) => {
+        let todaysWaitingRoom = response.data.data.filter((today) => {
           return (
             moment(today.created).format("MM/DD/YYYY") ===
             moment(new Date()).format("MM/DD/YYYY")
@@ -218,30 +218,30 @@ class DoctorDashboard extends Component {
   peopleVideoPending = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/web/doctor/list/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/web/doctor/list/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response, "videooo-request-list");
-        let pending = response.data.data.filter(res => {
+        let pending = response.data.data.filter((res) => {
           return (
             res.status === "Requested" &&
             moment(res.appointed_date).format("MM/DD/YYYY") >=
               moment(new Date()).format("MM/DD/YYYY")
           );
         });
-        let accepted = response.data.data.filter(res => {
+        let accepted = response.data.data.filter((res) => {
           return res.status === "Appointed";
         });
 
         this.setState({
           videoPending: pending,
           exams: [...this.state.exams.concat(accepted)],
-          loading: false
+          loading: false,
         });
         this.paginate(this.state.page);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -250,7 +250,7 @@ class DoctorDashboard extends Component {
     this.setState({ hamburger: !this.state.hamburger });
   };
 
-  handleClickMail = id => {
+  handleClickMail = (id) => {
     this.props.history.push(`/doctor/exam/detail/${id}`);
   };
 
@@ -302,7 +302,7 @@ class DoctorDashboard extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ curentDoc: curentDoc }, dispatch);
 };
 

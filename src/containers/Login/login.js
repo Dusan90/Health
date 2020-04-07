@@ -16,15 +16,15 @@ class Login extends Component {
       submitted: false,
       is_doctor: false,
       invalid: false,
-      rememberMe: false
+      rememberMe: false,
     };
   }
 
-  handlePassword = e => {
+  handlePassword = (e) => {
     this.setState({ passwordValue: e.target.value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.userLogin();
     const { emailValue, rememberMe } = this.state;
@@ -33,16 +33,19 @@ class Login extends Component {
   };
 
   userLogin = async () => {
-    const data = await fetch("http://167.172.156.87/api/auth/login/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email: this.state.emailValue,
-        password: this.state.passwordValue
-      })
-    });
+    const data = await fetch(
+      "https://health-care-backend.herokuapp.com/api/auth/login/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: this.state.emailValue,
+          password: this.state.passwordValue,
+        }),
+      }
+    );
 
     const jsonData = await data.json();
     // console.log(jsonData);
@@ -95,7 +98,7 @@ class Login extends Component {
     this.setState({ emailValue, rememberMe });
   }
 
-  handleChange = e => {
+  handleChange = (e) => {
     const input = e.target;
     const value = input.type === "checkbox" ? input.checked : input.value;
     this.setState({ [input.name]: value });
@@ -129,14 +132,14 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const user = state.getIn(["authReducer", "user"]);
   const isLoggedIn = state.getIn(["authReducer", "isLoggedIn"]);
   // console.log(isLoggedIn, user, "Loginnnnnnnn");
 
   return {
     user,
-    isLoggedIn
+    isLoggedIn,
   };
 };
 

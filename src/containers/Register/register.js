@@ -23,53 +23,53 @@ class Register extends Component {
       specOptions: [],
       specValue: "",
       selectedGenderValue: "",
-      selectedSpecValue: ""
+      selectedSpecValue: "",
     };
   }
 
-  handleUserType = userType => {
+  handleUserType = (userType) => {
     this.setState({ userType });
   };
 
-  handleEmail = e => {
+  handleEmail = (e) => {
     this.setState({ emailValue: e.target.value });
   };
 
-  handleFirstName = e => {
+  handleFirstName = (e) => {
     this.setState({ firstNameValue: e.target.value });
   };
 
-  handleLastName = e => {
+  handleLastName = (e) => {
     this.setState({ lastNameValue: e.target.value });
   };
 
-  handlePass = e => {
+  handlePass = (e) => {
     this.setState({ passwordValue: e.target.value });
   };
 
-  handleAddress = e => {
+  handleAddress = (e) => {
     this.setState({ addressValue: e.target.value });
   };
 
-  handleBirthDate = e => {
+  handleBirthDate = (e) => {
     this.setState({ birthDateValue: e.target.value });
   };
 
-  handleNpiNum = e => {
+  handleNpiNum = (e) => {
     this.setState({ npiNumValue: e.target.value });
   };
 
-  handlePrefix = e => {
+  handlePrefix = (e) => {
     this.setState({ prefixValue: e.target.value });
   };
 
-  handleSpec = specValue => {
+  handleSpec = (specValue) => {
     this.setState({ specValue });
     let { value } = specValue;
     this.setState({ selectedSpecValue: value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     if (
       this.state.userType === "client" &&
@@ -99,22 +99,24 @@ class Register extends Component {
   };
 
   componentDidMount() {
-    axios.get("http://167.172.156.87/api/specialities/").then(response => {
-      const res = response.data.data.map(val => {
-        return { value: val.id, label: val.name };
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/specialities/")
+      .then((response) => {
+        const res = response.data.data.map((val) => {
+          return { value: val.id, label: val.name };
+        });
+        this.setState({ specOptions: res });
       });
-      this.setState({ specOptions: res });
-    });
   }
 
   userRegister = async () => {
     if (this.state.userType === "client") {
       const client = await fetch(
-        "http://167.172.156.87/api/auth/register/client/",
+        "https://health-care-backend.herokuapp.com/api/auth/register/client/",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             email: this.state.emailValue,
@@ -124,9 +126,9 @@ class Register extends Component {
             client: {
               gender: this.state.selectedGenderValue,
               address: this.state.addressValue,
-              birth_date: this.state.birthDateValue
-            }
-          })
+              birth_date: this.state.birthDateValue,
+            },
+          }),
         }
       );
       this.props.history.push("/login");
@@ -139,11 +141,11 @@ class Register extends Component {
       return jsonData;
     } else if (this.state.userType === "doctor") {
       const doctor = await fetch(
-        "http://167.172.156.87/api/auth/register/doctor/",
+        "https://health-care-backend.herokuapp.com/api/auth/register/doctor/",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             email: this.state.emailValue,
@@ -153,9 +155,9 @@ class Register extends Component {
             doctor: {
               npi_number: this.state.npiNumValue,
               prefix: this.state.prefixValue,
-              speciality: this.state.selectedSpecValue
-            }
-          })
+              speciality: this.state.selectedSpecValue,
+            },
+          }),
         }
       );
       this.props.history.push("/login");
@@ -169,7 +171,7 @@ class Register extends Component {
     }
   };
 
-  handleGenderRadio = value => {
+  handleGenderRadio = (value) => {
     this.setState({ selectedGenderValue: value });
   };
 

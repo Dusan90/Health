@@ -10,15 +10,15 @@ export class DoctorsClients extends Component {
     super(props);
     this.state = {
       clients: [],
-      token: sessionStorage.getItem("accessToken")
+      token: sessionStorage.getItem("accessToken"),
     };
   }
 
-  handleClient = id => {
+  handleClient = (id) => {
     this.props.history.push(`/doctor/record/${id}`);
   };
 
-  handleSort = e => {
+  handleSort = (e) => {
     if (e.target.value === "nameAZ") {
       let AZ = this.state.clients;
       let AZSort = AZ.sort((a, b) =>
@@ -38,13 +38,13 @@ export class DoctorsClients extends Component {
     const access_token = "Bearer ".concat(this.state.token);
 
     axios
-      .get("http://167.172.156.87/api/doctor/clients/", {
-        headers: { Authorization: access_token }
+      .get("https://health-care-backend.herokuapp.com/api/doctor/clients/", {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response);
 
-        const res = response.data.data.map(val => {
+        const res = response.data.data.map((val) => {
           return { id: val.client_id, client: val.client };
         });
         console.log(res);

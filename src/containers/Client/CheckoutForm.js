@@ -4,7 +4,7 @@ import {
   injectStripe,
   CardNumberElement,
   CardExpiryElement,
-  CardCvcElement
+  CardCvcElement,
 } from "react-stripe-elements";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -22,31 +22,34 @@ class CheckoutForm extends Component {
     this.state = {
       complete: false,
       selectedCard: false,
-      selectedPal: false
+      selectedPal: false,
     };
   }
 
-  submit = async ev => {
+  submit = async (ev) => {
     ev.preventDefault();
     const price = parseInt(this.props.doctor.price, 10);
     const cardElement = this.props.elements.getElement("card");
     const { paymentMethod } = await this.props.stripe.createPaymentMethod({
       type: "card",
-      card: cardElement
+      card: cardElement,
     });
     if (paymentMethod === undefined) {
       NotificationManager.error("Faild to Checkout", "Faild!", 2000);
     } else if (paymentMethod !== undefined) {
-      const response = await fetch("http://167.172.156.87/api/charge/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          payment_method_id: paymentMethod.id,
-          amount: price
-        })
-      });
+      const response = await fetch(
+        "https://health-care-backend.herokuapp.com/api/charge/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            payment_method_id: paymentMethod.id,
+            amount: price,
+          }),
+        }
+      );
       // await handleServerResponse(await response.json())
       const data = await response.json();
       console.log(data);
@@ -91,7 +94,7 @@ class CheckoutForm extends Component {
     this.setState({ selectedCard: false, selectedPal: true });
   };
 
-  handleReady = element => {
+  handleReady = (element) => {
     this.setState({ cardElement: element });
   };
 
@@ -106,14 +109,14 @@ class CheckoutForm extends Component {
             "::placeholder": {
               color: "#4092c2",
               fontSize: "12px",
-              fontWeight: 700
+              fontWeight: 700,
             },
-            padding
+            padding,
           },
           invalid: {
-            color: "#9e2146"
-          }
-        }
+            color: "#9e2146",
+          },
+        },
       };
     };
     if (this.state.complete) {
@@ -134,7 +137,7 @@ class CheckoutForm extends Component {
             <div
               className="cardIcon"
               style={{
-                border: this.state.selectedCard ? "2px solid #4092c2" : "none"
+                border: this.state.selectedCard ? "2px solid #4092c2" : "none",
               }}
               onClick={this.handleSelect}
             >
@@ -143,7 +146,7 @@ class CheckoutForm extends Component {
             <div
               className="paypalIcon"
               style={{
-                border: this.state.selectedPal ? "2px solid #4092c2" : "none"
+                border: this.state.selectedPal ? "2px solid #4092c2" : "none",
               }}
               onClick={this.handleSelectPal}
             >
@@ -204,10 +207,10 @@ class CheckoutForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const doctor = state.getIn(["doctorReducer", "doctor"]);
   return {
-    doctor
+    doctor,
   };
 };
 

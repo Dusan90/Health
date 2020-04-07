@@ -12,26 +12,29 @@ class Correspondence extends Component {
       token: sessionStorage.getItem("accessToken"),
       id: this.props.match.params.id,
       obj: "",
-      active: true
+      active: true,
     };
   }
 
   correspondence = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/doctor/exams/${this.state.id}/messages`, {
-        headers: { Authorization: access_token }
-      })
-      .then(response => {
+      .get(
+        `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.state.id}/messages`,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
         console.log(response);
 
-        const res = response.data.data.map(val => {
+        const res = response.data.data.map((val) => {
           return {
             id: val.id,
             sender: val.sender,
             created: val.created,
             message: val.message,
-            attachment: val.attachment
+            attachment: val.attachment,
           };
         });
         this.setState({ correspondence: res });
@@ -45,7 +48,7 @@ class Correspondence extends Component {
     console.log(this.state.id);
   }
 
-  handleClick = index => {
+  handleClick = (index) => {
     console.log(this.state.active);
 
     let active = this.state.active;

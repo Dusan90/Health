@@ -21,7 +21,7 @@ class ClientRecord extends Component {
       report: "",
       tests: "",
       token: sessionStorage.getItem("accessToken"),
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
     };
   }
 
@@ -41,14 +41,17 @@ class ClientRecord extends Component {
   record = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/doctor/report/${this.state.id}`, {
-        headers: { Authorization: access_token }
-      })
-      .then(response => {
+      .get(
+        `https://health-care-backend.herokuapp.com/api/doctor/report/${this.state.id}`,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
         console.log(response, "nzm ni ja sta");
 
         return this.setState({
-          record: [response.data.data]
+          record: [response.data.data],
         });
       });
   };
@@ -57,12 +60,12 @@ class ClientRecord extends Component {
     // e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
     const data = await fetch(
-      `http://167.172.156.87/api/doctor/report/${this.state.id}`,
+      `https://health-care-backend.herokuapp.com/api/doctor/report/${this.state.id}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: access_token
+          Authorization: access_token,
         },
         body: JSON.stringify({
           record: this.state.id,
@@ -73,8 +76,8 @@ class ClientRecord extends Component {
           tests: this.state.tests,
           medication_prescribing_date: this.state.prescribingDate,
           medication_name: this.state.medicationName,
-          medication_notes: this.state.medicationNotes
-        })
+          medication_notes: this.state.medicationNotes,
+        }),
       }
     );
     const jsonData = await data.json();
@@ -82,7 +85,7 @@ class ClientRecord extends Component {
     this.record();
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.handleRecord();
     this.setState({
@@ -91,47 +94,47 @@ class ClientRecord extends Component {
       diagnose: "",
       medicationName: "",
       medicationNotes: "",
-      prescribingDate: ""
+      prescribingDate: "",
     });
   };
 
-  handleReport = e => {
+  handleReport = (e) => {
     this.setState({ report: e.target.value });
   };
 
-  handlePrescribtionDate = e => {
+  handlePrescribtionDate = (e) => {
     this.setState({ prescribingDate: e.target.value });
   };
 
-  handleMedicationName = e => {
+  handleMedicationName = (e) => {
     this.setState({ medicationName: e.target.value });
   };
 
-  handleMedicationNotes = e => {
+  handleMedicationNotes = (e) => {
     this.setState({ medicationNotes: e.target.value });
   };
 
-  handleTests = e => {
+  handleTests = (e) => {
     this.setState({ tests: e.target.value });
   };
 
-  handleDiagnose = e => {
+  handleDiagnose = (e) => {
     this.setState({ diagnose: e.target.value });
   };
 
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/doctor/profile/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/doctor/profile/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         // console.log(response);
 
         return this.setState({
           curentDoc: response.data.data.doctor,
           speciality: response.data.data.speciality,
-          doctorID: response.data.data.id
+          doctorID: response.data.data.id,
         });
       });
   };

@@ -31,11 +31,11 @@ class ClientVideoReq extends Component {
       reservedDate: "",
       doctorsPrice: "",
       clientId: null,
-      attachments: null
+      attachments: null,
     };
   }
 
-  handleDateChange = date => {
+  handleDateChange = (date) => {
     // let clickedDate = moment(date).format("YYYY-MM-DD");
     let clickedDate = moment(date).format("YYYY-MM-DDThh:mm:ss");
     console.log(clickedDate);
@@ -43,33 +43,33 @@ class ClientVideoReq extends Component {
     this.setState({ startDate: date, reservedDate: clickedDate });
   };
 
-  handleSpeciality = e => {
+  handleSpeciality = (e) => {
     let filteredDoctors = this.state.doctors.filter(
-      doctor => doctor.spec === e.label
+      (doctor) => doctor.spec === e.label
     );
 
     this.setState({
       specialSP: e.value,
       specDoctor: filteredDoctors,
-      resetDoctorSelect: null
+      resetDoctorSelect: null,
     });
   };
 
-  handleDoctor = e => {
+  handleDoctor = (e) => {
     this.props.dispatch(doctor(e));
     this.setState({ doctor_id: e.iD, doctorsPrice: e.price });
     this.setState({ resetDoctorSelect: e });
   };
 
-  handleSubject = e => {
+  handleSubject = (e) => {
     this.setState({ subject: e.target.value });
   };
 
-  handleMessage = e => {
+  handleMessage = (e) => {
     this.setState({ notes: e.target.value });
   };
 
-  handleSubmit = async e => {
+  handleSubmit = async (e) => {
     const access_token = "Bearer ".concat(this.state.token);
     if (
       this.state.specialSP &&
@@ -79,13 +79,13 @@ class ClientVideoReq extends Component {
     ) {
       this.setState({ isClicked: true });
       const response = await fetch(
-        "http://167.172.156.87/api/web/client/initiate/",
+        "https://health-care-backend.herokuapp.com/api/web/client/initiate/",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
 
-            Authorization: access_token
+            Authorization: access_token,
           },
           body: JSON.stringify({
             client: this.state.clientId,
@@ -95,8 +95,8 @@ class ClientVideoReq extends Component {
             notes: this.state.notes,
             appointed_date: this.state.reservedDate,
             price: this.state.doctorsPrice,
-            attachments: this.state.attachments
-          })
+            attachments: this.state.attachments,
+          }),
         }
       );
       const data = await response.json();
@@ -117,10 +117,10 @@ class ClientVideoReq extends Component {
   handleClientProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/client/profile/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response.data.data, "profile of client");
 
         return this.setState({ clientId: response.data.data.id });
@@ -129,28 +129,32 @@ class ClientVideoReq extends Component {
 
   componentDidMount() {
     this.handleClientProfile();
-    axios.get("http://167.172.156.87/api/specialities/").then(response => {
-      // console.log(response, "videoReq ");
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/specialities/")
+      .then((response) => {
+        // console.log(response, "videoReq ");
 
-      const res = response.data.data.map(val => {
-        return { value: val.id, iD: val.speciality_id, label: val.name };
+        const res = response.data.data.map((val) => {
+          return { value: val.id, iD: val.speciality_id, label: val.name };
+        });
+        this.setState({ specialities: res });
       });
-      this.setState({ specialities: res });
-    });
-    axios.get("http://167.172.156.87/api/doctor/list").then(response => {
-      // console.log(response, "videoReq2");
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
+      .then((response) => {
+        // console.log(response, "videoReq2");
 
-      const res = response.data.data.map(val => {
-        return {
-          value: val.id,
-          iD: val.doctor_id,
-          label: val.doctor,
-          spec: val.speciality,
-          price: val.price
-        };
+        const res = response.data.data.map((val) => {
+          return {
+            value: val.id,
+            iD: val.doctor_id,
+            label: val.doctor,
+            spec: val.speciality,
+            price: val.price,
+          };
+        });
+        this.setState({ doctors: res });
       });
-      this.setState({ doctors: res });
-    });
   }
 
   render() {
@@ -179,11 +183,11 @@ class ClientVideoReq extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const doctor = state.getIn(["doctorReducer", "doctor"]);
   return {
     doctor,
-    price: state.price
+    price: state.price,
   };
 };
 

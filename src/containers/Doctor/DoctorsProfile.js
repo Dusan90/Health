@@ -9,17 +9,20 @@ class DoctorProfile extends Component {
     this.state = {
       doctor: [],
       token: sessionStorage.getItem("accessToken"),
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
     };
   }
 
   hanldeDoctorsProfile = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/client/doc/${this.state.id}`, {
-        headers: { Authorization: access_token }
-      })
-      .then(response => {
+      .get(
+        `https://health-care-backend.herokuapp.com/api/client/doc/${this.state.id}`,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
         console.log(response, "doc profile");
 
         return this.setState({ doctor: [response.data.data] });

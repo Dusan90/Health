@@ -42,33 +42,33 @@ class ClientWaitingRoom extends Component {
       hover: false,
       showChat: false,
       video: true,
-      audio: true
+      audio: true,
     };
   }
 
-  handleVideoStart = e => {
+  handleVideoStart = (e) => {
     e.preventDefault();
     this.setState({ startVideo: true });
   };
 
-  handleSpeciality = e => {
+  handleSpeciality = (e) => {
     let filteredDoctors = this.state.doctors.filter(
-      doctor => doctor.spec === e.label
+      (doctor) => doctor.spec === e.label
     );
 
     this.setState({
       specialSP: e.value,
       specDoctor: filteredDoctors,
-      resetDoctorSelect: null
+      resetDoctorSelect: null,
     });
   };
 
-  handleDoctor = e => {
+  handleDoctor = (e) => {
     this.props.dispatch(doctor(e));
     this.setState({
       doctor_id: e.iD,
       doctorsStatus: e.status,
-      resetDoctorSelect: e
+      resetDoctorSelect: e,
     });
 
     if (e.status !== "Available") {
@@ -81,11 +81,11 @@ class ClientWaitingRoom extends Component {
     this.QueueList(e.iD);
   };
 
-  handleSubject = e => {
+  handleSubject = (e) => {
     this.setState({ subject: e.target.value });
   };
 
-  handleMessage = e => {
+  handleMessage = (e) => {
     this.setState({ notes: e.target.value });
   };
 
@@ -93,23 +93,26 @@ class ClientWaitingRoom extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     return axios
       .delete(
-        `http://167.172.156.87/api/queue/client/delete/${this.state.currentClient.id}/`,
+        `https://health-care-backend.herokuapp.com/api/queue/client/delete/${this.state.currentClient.id}/`,
         {
-          headers: { Authorization: access_token }
+          headers: { Authorization: access_token },
         }
       )
-      .then(res => {
+      .then((res) => {
         this.setState({ credits: false, peopleInQueue: [] });
       });
   };
 
-  hanldeClientQueue = async id => {
+  hanldeClientQueue = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/queue/client/${id}/`, {
-        headers: { Authorization: access_token }
-      })
-      .then(response => {
+      .get(
+        `https://health-care-backend.herokuapp.com/api/queue/client/${id}/`,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
         console.log(response, "Client, IDDDDDDDD");
 
         if (response.statusText !== "OK") {
@@ -124,7 +127,7 @@ class ClientWaitingRoom extends Component {
           } else if (response.data.data.status === "In the queue") {
             this.setState({
               credits: true,
-              currentClient: response.data.data
+              currentClient: response.data.data,
             });
           }
           this.QueueList(response.data.data.doctor);
@@ -132,7 +135,7 @@ class ClientWaitingRoom extends Component {
       });
   };
 
-  handleSubmit = async e => {
+  handleSubmit = async (e) => {
     const access_token = "Bearer ".concat(this.state.token);
     if (
       this.state.specialSP &&
@@ -142,21 +145,24 @@ class ClientWaitingRoom extends Component {
       this.state.doctorsStatus === "Available"
     ) {
       this.setState({ isClicked: true });
-      const response = await fetch("http://167.172.156.87/api/queue/enter/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: access_token
-        },
-        body: JSON.stringify({
-          client: this.state.client_id,
-          speciality: this.state.specialSP,
-          doctor: this.state.doctor_id,
-          subject: this.state.subject,
-          notes: this.state.notes,
-          attachments: this.state.attachment
-        })
-      });
+      const response = await fetch(
+        "https://health-care-backend.herokuapp.com/api/queue/enter/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: access_token,
+          },
+          body: JSON.stringify({
+            client: this.state.client_id,
+            speciality: this.state.specialSP,
+            doctor: this.state.doctor_id,
+            subject: this.state.subject,
+            notes: this.state.notes,
+            attachments: this.state.attachment,
+          }),
+        }
+      );
       const data = await response.json();
       this.hanldeClientQueue(this.state.client_id);
       this.props.history.push("/dashboard-client");
@@ -184,29 +190,29 @@ class ClientWaitingRoom extends Component {
   handleClientProfile = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/client/profile/`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         this.setState({ client_id: response.data.data.id });
         let id = response.data.data.id;
         this.hanldeClientQueue(id);
       });
   };
 
-  QueueList = async id => {
+  QueueList = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/queue/doctor/${id}`, {
-        headers: { Authorization: access_token }
+      .get(`https://health-care-backend.herokuapp.com/api/queue/doctor/${id}`, {
+        headers: { Authorization: access_token },
       })
-      .then(response => {
+      .then((response) => {
         console.log(response, "people in queue");
 
         this.setState({
           peopleInQueue: [
-            ...this.state.peopleInQueue.concat(response.data.data.queue)
-          ]
+            ...this.state.peopleInQueue.concat(response.data.data.queue),
+          ],
         });
         this.PeopleBeforeYou();
       });
@@ -214,7 +220,7 @@ class ClientWaitingRoom extends Component {
 
   PeopleBeforeYou = () => {
     if (this.state.peopleInQueue.length !== 0) {
-      let people = this.state.peopleInQueue.map(ppl => {
+      let people = this.state.peopleInQueue.map((ppl) => {
         return ppl.id;
       });
       let yourIndex = people.indexOf(this.state.currentClient.id);
@@ -225,30 +231,34 @@ class ClientWaitingRoom extends Component {
   componentDidMount() {
     this.handleClientProfile();
     this.test();
-    axios.get("http://167.172.156.87/api/specialities/").then(response => {
-      const res = response.data.data.map(val => {
-        return {
-          value: val.id,
-          iD: val.speciality_id,
-          label: val.name,
-          status: val.status
-        };
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/specialities/")
+      .then((response) => {
+        const res = response.data.data.map((val) => {
+          return {
+            value: val.id,
+            iD: val.speciality_id,
+            label: val.name,
+            status: val.status,
+          };
+        });
+        this.setState({ specialities: res });
       });
-      this.setState({ specialities: res });
-    });
-    axios.get("http://167.172.156.87/api/doctor/list").then(response => {
-      const res = response.data.data.map(val => {
-        return {
-          value: val.id,
-          iD: val.doctor_id,
-          label: val.doctor,
-          spec: val.speciality,
-          price: val.price,
-          status: val.status
-        };
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
+      .then((response) => {
+        const res = response.data.data.map((val) => {
+          return {
+            value: val.id,
+            iD: val.doctor_id,
+            label: val.doctor,
+            spec: val.speciality,
+            price: val.price,
+            status: val.status,
+          };
+        });
+        this.setState({ doctors: res });
       });
-      this.setState({ doctors: res });
-    });
   }
 
   // handleDoctorsStatus = () => {
@@ -262,19 +272,19 @@ class ClientWaitingRoom extends Component {
     navigator.webkitGetUserMedia(
       {
         video: true,
-        audio: true
+        audio: true,
       },
-      stream => {
+      (stream) => {
         var Peer = require("simple-peer");
         // let id = Math.floor(Math.random() * 0xffffff).toString(16);
         // this.setState({ idToPush: id });
         var peer = new Peer({
           // initiator: window.location.hash === `#init`,
           trickle: false,
-          stream: stream
+          stream: stream,
         });
 
-        peer.on("signal", data => {
+        peer.on("signal", (data) => {
           let docId = JSON.stringify(data);
           connection.send(docId);
         });
@@ -283,7 +293,7 @@ class ClientWaitingRoom extends Component {
           peer.signal(this.state.doctorsVideoId);
         });
 
-        document.getElementById("send").addEventListener("click", function() {
+        document.getElementById("send").addEventListener("click", function () {
           var yourMessage = document.getElementById("yourMessage").value;
           peer.send(yourMessage);
         });
@@ -298,18 +308,18 @@ class ClientWaitingRoom extends Component {
           console.error("disconnected");
         };
 
-        connection.onerror = error => {
+        connection.onerror = (error) => {
           console.error("failed to connect", error);
         };
 
-        connection.onmessage = event => {
+        connection.onmessage = (event) => {
           console.log("received", event.data);
           if (!this.state.doctorsVideoId) {
             this.setState({ doctorsVideoId: event.data });
           }
         };
 
-        document.querySelector("form").addEventListener("submit", event => {
+        document.querySelector("form").addEventListener("submit", (event) => {
           event.preventDefault();
           let message = document.querySelector("#yourMessage").value;
           connection.send(message);
@@ -319,7 +329,7 @@ class ClientWaitingRoom extends Component {
           this.setState({ value: "" });
         });
 
-        peer.on("data", function(data) {
+        peer.on("data", function (data) {
           document.getElementById(
             "messages"
           ).innerHTML += `<p style='color:black ; margin: 5px 0 5px auto; background: gainsboro ;display: table; white-space: initial; padding: 10px; border-radius: 10px'>${data}</p>`;
@@ -347,7 +357,7 @@ class ClientWaitingRoom extends Component {
             cutVideo.enabled = !cutVideo.enabled;
           });
 
-        peer.on("stream", stream => {
+        peer.on("stream", (stream) => {
           const mediaStream = new MediaStream(stream);
           var video = document.createElement("video");
           video.classList.add("vid");
@@ -370,15 +380,15 @@ class ClientWaitingRoom extends Component {
           this.handleDivClose();
         });
       },
-      function(err) {
+      function (err) {
         console.error(err);
       }
     );
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ value: e.target.value });
   };
-  enableTipeing = e => {
+  enableTipeing = (e) => {
     e.stopPropagation();
   };
 
@@ -390,7 +400,7 @@ class ClientWaitingRoom extends Component {
     this.setState({ hover: false });
   };
 
-  handleDragDrop = d => {
+  handleDragDrop = (d) => {
     this.setState({ x: d.x, y: d.y });
   };
 
@@ -399,7 +409,7 @@ class ClientWaitingRoom extends Component {
     this.setState({
       width: vide.style.width,
       height: vide.style.height,
-      ...position
+      ...position,
     });
   };
 
@@ -410,7 +420,7 @@ class ClientWaitingRoom extends Component {
   handleDivSize = () => {
     this.setState({
       width: document.body.offsetWidth,
-      height: document.body.offsetHeight
+      height: document.body.offsetHeight,
     });
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
@@ -471,12 +481,12 @@ class ClientWaitingRoom extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const doctor = state.getIn(["doctorReducer", "doctor"]);
 
   return {
     doctor,
-    price: state.price
+    price: state.price,
   };
 };
 

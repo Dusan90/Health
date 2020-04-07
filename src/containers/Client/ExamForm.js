@@ -24,38 +24,38 @@ class ExamForm extends Component {
       token: sessionStorage.getItem("accessToken"),
       specDoctor: [],
       specialSP: [],
-      resetDoctorSelect: null
+      resetDoctorSelect: null,
       // isClicked: false
     };
   }
 
-  handleSpeciality = e => {
+  handleSpeciality = (e) => {
     let filteredDoctors = this.state.doctors.filter(
-      doctor => doctor.spec === e.label
+      (doctor) => doctor.spec === e.label
     );
 
     this.setState({
       specialSP: e.value,
       specDoctor: filteredDoctors,
-      resetDoctorSelect: null
+      resetDoctorSelect: null,
     });
   };
 
-  handleDoctor = e => {
+  handleDoctor = (e) => {
     this.props.dispatch(doctor(e));
     this.setState({ doctor_id: e.iD });
     this.setState({ resetDoctorSelect: e });
   };
 
-  handleSubject = e => {
+  handleSubject = (e) => {
     this.setState({ subject: e.target.value });
   };
 
-  handleMessage = e => {
+  handleMessage = (e) => {
     this.setState({ message: e.target.value });
   };
 
-  handleSubmit = async e => {
+  handleSubmit = async (e) => {
     const access_token = "Bearer ".concat(this.state.token);
     if (
       this.state.specialSP &&
@@ -65,19 +65,19 @@ class ExamForm extends Component {
     ) {
       // this.setState({ isClicked: true });
       const response = await fetch(
-        "http://167.172.156.87/api/client/initiate/",
+        "https://health-care-backend.herokuapp.com/api/client/initiate/",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: access_token
+            Authorization: access_token,
           },
           body: JSON.stringify({
             speciality: this.state.specialSP,
             doctor: this.state.doctor_id,
             subject: this.state.subject,
-            message: this.state.message
-          })
+            message: this.state.message,
+          }),
         }
       );
       const data = await response.json();
@@ -96,28 +96,32 @@ class ExamForm extends Component {
   };
 
   componentDidMount() {
-    axios.get("http://167.172.156.87/api/specialities/").then(response => {
-      console.log(response, "examform");
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/specialities/")
+      .then((response) => {
+        console.log(response, "examform");
 
-      const res = response.data.data.map(val => {
-        return { value: val.id, iD: val.speciality_id, label: val.name };
+        const res = response.data.data.map((val) => {
+          return { value: val.id, iD: val.speciality_id, label: val.name };
+        });
+        this.setState({ specialities: res });
       });
-      this.setState({ specialities: res });
-    });
-    axios.get("http://167.172.156.87/api/doctor/list").then(response => {
-      console.log(response, "examform2");
+    axios
+      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
+      .then((response) => {
+        console.log(response, "examform2");
 
-      const res = response.data.data.map(val => {
-        return {
-          value: val.id,
-          iD: val.doctor_id,
-          label: val.doctor,
-          spec: val.speciality,
-          price: val.price
-        };
+        const res = response.data.data.map((val) => {
+          return {
+            value: val.id,
+            iD: val.doctor_id,
+            label: val.doctor,
+            spec: val.speciality,
+            price: val.price,
+          };
+        });
+        this.setState({ doctors: res });
       });
-      this.setState({ doctors: res });
-    });
   }
 
   render() {
@@ -151,11 +155,11 @@ class ExamForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const doctor = state.getIn(["doctorReducer", "doctor"]);
   return {
     doctor,
-    price: state.price
+    price: state.price,
   };
 };
 

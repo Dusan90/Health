@@ -13,22 +13,25 @@ class ClientMessage extends Component {
       messageValue: "",
       selectedFile: null,
       token: sessionStorage.getItem("accessToken"),
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
     };
   }
 
   doctor = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/client/exams/${this.state.id}/message`, {
-        headers: { Authorization: access_token }
-      })
-      .then(response => {
+      .get(
+        `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.id}/message`,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
         console.log(response, "message");
 
         return this.setState({ doctor: response.data.doctor });
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
@@ -36,28 +39,28 @@ class ClientMessage extends Component {
   sendMessage = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     const doctor = await fetch(
-      `http://167.172.156.87/api/client/exams/${this.state.id}/message/`,
+      `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.id}/message/`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: access_token
+          Authorization: access_token,
         },
         body: JSON.stringify({
           message: this.state.messageValue,
-          attachment: null
-        })
+          attachment: null,
+        }),
       }
     );
     const jsonData = await doctor.json();
     return jsonData;
   };
 
-  handleMessage = e => {
+  handleMessage = (e) => {
     this.setState({ messageValue: e.target.value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.messageValue) {
       this.sendMessage();
@@ -70,10 +73,10 @@ class ClientMessage extends Component {
     this.props.history.push(`/client/exam/correspondence/${this.state.id}`);
   };
 
-  onChangeHandler = e => {
+  onChangeHandler = (e) => {
     this.setState({
       selectedFile: e.target.files[0],
-      loaded: 0
+      loaded: 0,
     });
   };
 
@@ -100,10 +103,10 @@ class ClientMessage extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const examID = state.getIn(["examReducer", "examID"]);
   return {
-    examID
+    examID,
   };
 };
 

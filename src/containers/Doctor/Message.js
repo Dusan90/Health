@@ -14,22 +14,25 @@ class DoctorMessage extends Component {
       messageValue: "",
       selectedFile: null,
       token: sessionStorage.getItem("accessToken"),
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
     };
   }
 
   client = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/doctor/exams/${this.state.id}/message`, {
-        headers: { Authorization: access_token }
-      })
-      .then(response => {
+      .get(
+        `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.state.id}/message`,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
         console.log(response);
 
         return this.setState({ client: response.data.client });
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
@@ -39,17 +42,17 @@ class DoctorMessage extends Component {
     // const data = new FormData()
     // data.append('file', this.state.selectedFile, this.state.selectedFile.name)
     const client = await fetch(
-      `http://167.172.156.87/api/doctor/exams/${this.state.id}/message/`,
+      `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.state.id}/message/`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json;",
-          Authorization: access_token
+          Authorization: access_token,
         },
         body: JSON.stringify({
           message: this.state.messageValue,
-          attachment: null
-        })
+          attachment: null,
+        }),
       }
     );
     const jsonData = await client.json();
@@ -59,18 +62,18 @@ class DoctorMessage extends Component {
     return jsonData;
   };
 
-  handleMessage = e => {
+  handleMessage = (e) => {
     this.setState({ messageValue: e.target.value });
   };
 
-  onChangeHandler = e => {
+  onChangeHandler = (e) => {
     this.setState({
       selectedFile: e.target.files[0],
-      loaded: 0
+      loaded: 0,
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.messageValue) {
       this.sendMessage();

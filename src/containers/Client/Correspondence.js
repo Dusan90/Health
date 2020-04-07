@@ -14,24 +14,27 @@ class ClientCorrespondence extends Component {
       token: sessionStorage.getItem("accessToken"),
       id: this.props.match.params.id,
       obj: "",
-      active: true
+      active: true,
     };
   }
 
   correspondence = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/client/exams/${this.state.id}/messages`, {
-        headers: { Authorization: access_token }
-      })
-      .then(response => {
-        const res = response.data.data.map(val => {
+      .get(
+        `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.id}/messages`,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
+        const res = response.data.data.map((val) => {
           return {
             id: val.id,
             sender: val.sender,
             created: val.created,
             message: val.message,
-            attachment: val.attachment
+            attachment: val.attachment,
           };
         });
         this.setState({ correspondence: res });
@@ -40,11 +43,11 @@ class ClientCorrespondence extends Component {
       });
   };
 
-  handleMessage = e => {
+  handleMessage = (e) => {
     this.setState({ messageValue: e.target.value });
   };
 
-  handleClick = index => {
+  handleClick = (index) => {
     console.log(this.state.active);
 
     let active = this.state.active;
@@ -52,7 +55,7 @@ class ClientCorrespondence extends Component {
     this.setState({ obj: { ...this.state.correspondence[index], active } });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.setState({ messageValue: "" });
     // this.correspondence();
@@ -82,10 +85,10 @@ class ClientCorrespondence extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const examID = state.getIn(["examReducer", "examID"]);
   return {
-    examID
+    examID,
   };
 };
 

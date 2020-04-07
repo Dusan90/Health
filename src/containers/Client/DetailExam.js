@@ -11,7 +11,7 @@ class ClientDetailExam extends Component {
       statusValue: "",
       selectedStatus: "",
       token: sessionStorage.getItem("accessToken"),
-      id: this.props.match.params.id
+      id: this.props.match.params.id,
     };
   }
 
@@ -19,16 +19,16 @@ class ClientDetailExam extends Component {
     this.props.history.push("/dashboard-client");
     const access_token = "Bearer ".concat(this.state.token);
     const doctor = await fetch(
-      `http://167.172.156.87/api/client/exams/${this.state.id}/`,
+      `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.id}/`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: access_token
+          Authorization: access_token,
         },
         body: JSON.stringify({
-          message: "Cancel"
-        })
+          message: "Cancel",
+        }),
       }
     );
     const jsonData = await doctor.json();
@@ -41,10 +41,13 @@ class ClientDetailExam extends Component {
   detail = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://167.172.156.87/api/client/exams/${this.state.id}/`, {
-        headers: { Authorization: access_token }
-      })
-      .then(response => {
+      .get(
+        `https://health-care-backend.herokuapp.com/api/client/exams/${this.state.id}/`,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
         console.log(response, "detailex");
 
         this.setState({ exam: this.state.exam.concat(response.data.message) });
