@@ -37,19 +37,16 @@ class CheckoutForm extends Component {
     if (paymentMethod === undefined) {
       NotificationManager.error("Faild to Checkout", "Faild!", 2000);
     } else if (paymentMethod !== undefined) {
-      const response = await fetch(
-        "https://health-care-backend.herokuapp.com/api/charge/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            payment_method_id: paymentMethod.id,
-            amount: price
-          })
-        }
-      );
+      const response = await fetch("http://167.172.156.87/api/charge/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          payment_method_id: paymentMethod.id,
+          amount: price
+        })
+      });
       // await handleServerResponse(await response.json())
       const data = await response.json();
       console.log(data);

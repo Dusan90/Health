@@ -79,7 +79,7 @@ class ClientVideoReq extends Component {
     ) {
       this.setState({ isClicked: true });
       const response = await fetch(
-        "https://health-care-backend.herokuapp.com/api/web/client/initiate/",
+        "http://167.172.156.87/api/web/client/initiate/",
         {
           method: "POST",
           headers: {
@@ -101,7 +101,7 @@ class ClientVideoReq extends Component {
       );
       const data = await response.json();
 
-      // this.toCheckout();
+      this.toCheckout();
       console.log(data, "post video requesttttt");
 
       return data;
@@ -110,14 +110,14 @@ class ClientVideoReq extends Component {
     }
   };
 
-  // toCheckout = async () => {
-  //   return this.props.history.push("/checkout");
-  // };
+  toCheckout = async () => {
+    return this.props.history.push("/checkout");
+  };
 
   handleClientProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+      .get(`http://167.172.156.87/api/client/profile/`, {
         headers: { Authorization: access_token }
       })
       .then(response => {
@@ -129,32 +129,28 @@ class ClientVideoReq extends Component {
 
   componentDidMount() {
     this.handleClientProfile();
-    axios
-      .get("https://health-care-backend.herokuapp.com/api/specialities/")
-      .then(response => {
-        // console.log(response, "videoReq ");
+    axios.get("http://167.172.156.87/api/specialities/").then(response => {
+      // console.log(response, "videoReq ");
 
-        const res = response.data.data.map(val => {
-          return { value: val.id, iD: val.speciality_id, label: val.name };
-        });
-        this.setState({ specialities: res });
+      const res = response.data.data.map(val => {
+        return { value: val.id, iD: val.speciality_id, label: val.name };
       });
-    axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
-      .then(response => {
-        // console.log(response, "videoReq2");
+      this.setState({ specialities: res });
+    });
+    axios.get("http://167.172.156.87/api/doctor/list").then(response => {
+      // console.log(response, "videoReq2");
 
-        const res = response.data.data.map(val => {
-          return {
-            value: val.id,
-            iD: val.doctor_id,
-            label: val.doctor,
-            spec: val.speciality,
-            price: val.price
-          };
-        });
-        this.setState({ doctors: res });
+      const res = response.data.data.map(val => {
+        return {
+          value: val.id,
+          iD: val.doctor_id,
+          label: val.doctor,
+          spec: val.speciality,
+          price: val.price
+        };
       });
+      this.setState({ doctors: res });
+    });
   }
 
   render() {

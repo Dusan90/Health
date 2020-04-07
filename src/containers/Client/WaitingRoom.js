@@ -93,7 +93,7 @@ class ClientWaitingRoom extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     return axios
       .delete(
-        `https://health-care-backend.herokuapp.com/api/queue/client/delete/${this.state.currentClient.id}/`,
+        `http://167.172.156.87/api/queue/client/delete/${this.state.currentClient.id}/`,
         {
           headers: { Authorization: access_token }
         }
@@ -106,12 +106,9 @@ class ClientWaitingRoom extends Component {
   hanldeClientQueue = async id => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/queue/client/${id}/`,
-        {
-          headers: { Authorization: access_token }
-        }
-      )
+      .get(`http://167.172.156.87/api/queue/client/${id}/`, {
+        headers: { Authorization: access_token }
+      })
       .then(response => {
         console.log(response, "Client, IDDDDDDDD");
 
@@ -145,24 +142,21 @@ class ClientWaitingRoom extends Component {
       this.state.doctorsStatus === "Available"
     ) {
       this.setState({ isClicked: true });
-      const response = await fetch(
-        "https://health-care-backend.herokuapp.com/api/queue/enter/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: access_token
-          },
-          body: JSON.stringify({
-            client: this.state.client_id,
-            speciality: this.state.specialSP,
-            doctor: this.state.doctor_id,
-            subject: this.state.subject,
-            notes: this.state.notes,
-            attachments: this.state.attachment
-          })
-        }
-      );
+      const response = await fetch("http://167.172.156.87/api/queue/enter/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token
+        },
+        body: JSON.stringify({
+          client: this.state.client_id,
+          speciality: this.state.specialSP,
+          doctor: this.state.doctor_id,
+          subject: this.state.subject,
+          notes: this.state.notes,
+          attachments: this.state.attachment
+        })
+      });
       const data = await response.json();
       this.hanldeClientQueue(this.state.client_id);
       this.props.history.push("/dashboard-client");
@@ -190,7 +184,7 @@ class ClientWaitingRoom extends Component {
   handleClientProfile = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+      .get(`http://167.172.156.87/api/client/profile/`, {
         headers: { Authorization: access_token }
       })
       .then(response => {
@@ -203,7 +197,7 @@ class ClientWaitingRoom extends Component {
   QueueList = async id => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/queue/doctor/${id}`, {
+      .get(`http://167.172.156.87/api/queue/doctor/${id}`, {
         headers: { Authorization: access_token }
       })
       .then(response => {
@@ -231,34 +225,30 @@ class ClientWaitingRoom extends Component {
   componentDidMount() {
     this.handleClientProfile();
     this.test();
-    axios
-      .get("https://health-care-backend.herokuapp.com/api/specialities/")
-      .then(response => {
-        const res = response.data.data.map(val => {
-          return {
-            value: val.id,
-            iD: val.speciality_id,
-            label: val.name,
-            status: val.status
-          };
-        });
-        this.setState({ specialities: res });
+    axios.get("http://167.172.156.87/api/specialities/").then(response => {
+      const res = response.data.data.map(val => {
+        return {
+          value: val.id,
+          iD: val.speciality_id,
+          label: val.name,
+          status: val.status
+        };
       });
-    axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
-      .then(response => {
-        const res = response.data.data.map(val => {
-          return {
-            value: val.id,
-            iD: val.doctor_id,
-            label: val.doctor,
-            spec: val.speciality,
-            price: val.price,
-            status: val.status
-          };
-        });
-        this.setState({ doctors: res });
+      this.setState({ specialities: res });
+    });
+    axios.get("http://167.172.156.87/api/doctor/list").then(response => {
+      const res = response.data.data.map(val => {
+        return {
+          value: val.id,
+          iD: val.doctor_id,
+          label: val.doctor,
+          spec: val.speciality,
+          price: val.price,
+          status: val.status
+        };
       });
+      this.setState({ doctors: res });
+    });
   }
 
   // handleDoctorsStatus = () => {

@@ -95,7 +95,7 @@ const RegisterUser = ({
                 id="M"
                 onChange={() => handleGenderRadio("M")}
               />
-              <label for="M" className="Male">
+              <label htmlFor="M" className="Male">
                 Male
               </label>
             </div>
@@ -108,7 +108,7 @@ const RegisterUser = ({
                 value="Female"
                 onChange={() => handleGenderRadio("F")}
               />
-              <label for="F" className="Female">
+              <label htmlFor="F" className="Female">
                 Female
               </label>
             </div>

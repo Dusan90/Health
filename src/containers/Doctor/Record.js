@@ -28,7 +28,7 @@ class ClientRecord extends Component {
   // records = () => {
   //   const access_token = "Bearer ".concat(this.state.token);
   //   axios
-  //     .get(`https://health-care-backend.herokuapp.com/api/doctor/records/`, {
+  //     .get(`http://167.172.156.87/api/doctor/records/`, {
   //       headers: { Authorization: access_token }
   //     })
   //     .then(response => {
@@ -41,10 +41,9 @@ class ClientRecord extends Component {
   record = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/doctor/report/${this.state.id}`,
-        { headers: { Authorization: access_token } }
-      )
+      .get(`http://167.172.156.87/api/doctor/report/${this.state.id}`, {
+        headers: { Authorization: access_token }
+      })
       .then(response => {
         console.log(response, "nzm ni ja sta");
 
@@ -58,7 +57,7 @@ class ClientRecord extends Component {
     // e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
     const data = await fetch(
-      `https://health-care-backend.herokuapp.com/api/doctor/report/${this.state.id}`,
+      `http://167.172.156.87/api/doctor/report/${this.state.id}`,
       {
         method: "POST",
         headers: {
@@ -123,7 +122,7 @@ class ClientRecord extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/doctor/profile/`, {
+      .get(`http://167.172.156.87/api/doctor/profile/`, {
         headers: { Authorization: access_token }
       })
       .then(response => {

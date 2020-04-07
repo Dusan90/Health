@@ -1,8 +1,8 @@
 import React from "react";
 import "../../assets/client/video_req.scss";
 import Select from "react-select";
-import CheckoutForm from "../../containers/Client/CheckoutForm";
-import { Elements, StripeProvider } from "react-stripe-elements";
+// import CheckoutForm from "../../containers/Client/CheckoutForm";
+// import { Elements, StripeProvider } from "react-stripe-elements";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -74,7 +74,7 @@ const VideoReq = ({
       <button value={props.submitted} className="btn" onClick={handleSubmit}>
         Send
       </button>
-      <div>
+      {/* <div>
         {props.isClicked ? (
           <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3">
             <Elements>
@@ -82,7 +82,7 @@ const VideoReq = ({
             </Elements>
           </StripeProvider>
         ) : null}
-      </div>
+      </div> */}
     </div>
   );
 };

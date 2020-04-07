@@ -24,19 +24,16 @@ class ClientProfile extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
-    const data = await fetch(
-      "https://health-care-backend.herokuapp.com/api/client/profile/",
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: access_token
-        },
-        body: JSON.stringify({
-          address: this.state.addressValue
-        })
-      }
-    );
+    const data = await fetch("http://167.172.156.87/api/client/profile/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: access_token
+      },
+      body: JSON.stringify({
+        address: this.state.addressValue
+      })
+    });
     const jsonData = await data.json();
     NotificationManager.success("Profile Updated!", "Successful!", 2000);
     this.handleClientProfile();
@@ -46,7 +43,7 @@ class ClientProfile extends Component {
   handleClientProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+      .get(`http://167.172.156.87/api/client/profile/`, {
         headers: { Authorization: access_token }
       })
       .then(response => {
@@ -59,7 +56,7 @@ class ClientProfile extends Component {
   record = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/client/records/`, {
+      .get(`http://167.172.156.87/api/client/records/`, {
         headers: { Authorization: access_token }
       })
       .then(response => {

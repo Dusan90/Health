@@ -99,20 +99,18 @@ class Register extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get("https://health-care-backend.herokuapp.com/api/specialities/")
-      .then(response => {
-        const res = response.data.data.map(val => {
-          return { value: val.id, label: val.name };
-        });
-        this.setState({ specOptions: res });
+    axios.get("http://167.172.156.87/api/specialities/").then(response => {
+      const res = response.data.data.map(val => {
+        return { value: val.id, label: val.name };
       });
+      this.setState({ specOptions: res });
+    });
   }
 
   userRegister = async () => {
     if (this.state.userType === "client") {
       const client = await fetch(
-        "https://health-care-backend.herokuapp.com/api/auth/register/client/",
+        "http://167.172.156.87/api/auth/register/client/",
         {
           method: "POST",
           headers: {
@@ -141,7 +139,7 @@ class Register extends Component {
       return jsonData;
     } else if (this.state.userType === "doctor") {
       const doctor = await fetch(
-        "https://health-care-backend.herokuapp.com/api/auth/register/doctor/",
+        "http://167.172.156.87/api/auth/register/doctor/",
         {
           method: "POST",
           headers: {
@@ -202,7 +200,7 @@ class Register extends Component {
             onChange={() => this.handleUserType("doctor")}
             style={{}}
           />
-          <label for="r1" className="doctorLabel">
+          <label htmlFor="r1" className="doctorLabel">
             Doctor
           </label>
           <input
@@ -214,7 +212,7 @@ class Register extends Component {
             checked={this.state.userType === "client" ? true : false}
             onChange={() => this.handleUserType("client")}
           />
-          <label for="r2" className="clientLabel">
+          <label htmlFor="r2" className="clientLabel">
             Client
           </label>
         </div>

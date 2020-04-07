@@ -19,12 +19,9 @@ class Correspondence extends Component {
   correspondence = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/doctor/exams/${this.state.id}/messages`,
-        {
-          headers: { Authorization: access_token }
-        }
-      )
+      .get(`http://167.172.156.87/api/doctor/exams/${this.state.id}/messages`, {
+        headers: { Authorization: access_token }
+      })
       .then(response => {
         console.log(response);
 
