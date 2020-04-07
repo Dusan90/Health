@@ -13,14 +13,14 @@ import { isAuthenticated, isUser } from "../../utils/auth";
 export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
-      isAuthenticated() && isUser() ? (
+    render={(props) =>
+      sessionStorage.getItem("accessToken") ? (
         <Component {...props} />
       ) : (
         <Redirect
           to={{
             pathname: "/login",
-            state: { from: props.location }
+            state: { from: props.location },
           }}
         />
       )

@@ -26,8 +26,7 @@ import Clients from "./containers/Doctor/Clients";
 import WaitingRoom from "./containers/Client/WaitingRoom";
 import DoctorsCalendar from "./containers/Doctor/DoctorsCalendar";
 import { NotificationContainer } from "react-notifications";
-import { Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { Route } from "react-router-dom";
 import { PrivateRoute } from "./components/Routes/PrivateRoute";
 
 export class Routes extends Component {
@@ -39,63 +38,87 @@ export class Routes extends Component {
         <Route path="/login" exact component={Login} />
         <Route path="/logout" exact component={Logout} />
 
-        <Route path="/dashboard-client" exact component={ClientDashboard} />
-        <Route path="/dashboard-doctor" exact component={DoctorDashboard} />
+        <PrivateRoute
+          path="/dashboard-client"
+          exact
+          component={ClientDashboard}
+        />
+        <PrivateRoute
+          path="/dashboard-doctor"
+          exact
+          component={DoctorDashboard}
+        />
 
-        <Route path="/doctor/exam/detail/:id" exact component={DetailExam} />
-        <Route
+        <PrivateRoute
+          path="/doctor/exam/detail/:id"
+          exact
+          component={DetailExam}
+        />
+        <PrivateRoute
           path="/doctor/video/exam/detail/:id"
           exact
           component={DetailVideoExam}
         />
-        <Route path="/doctor/calendar" exact component={DoctorsCalendar} />
-        <Route
+        <PrivateRoute
+          path="/doctor/calendar"
+          exact
+          component={DoctorsCalendar}
+        />
+        <PrivateRoute
           path="/doctor/exam/correspondence/:id"
           exact
           component={Correspondence}
         />
-        <Route
+        <PrivateRoute
           path="/doctor/exam/message/:id"
           exact
           component={DoctorMessage}
         />
-        <Route path="/doctor/profile/" exact component={DoctorProfile} />
-        <Route path="/client/doc/:id" exact component={DoctorsProfile} />
-        <Route path="/doctor/record/:id" exact component={ClientRecord} />
-        <Route
+        <PrivateRoute path="/doctor/profile/" exact component={DoctorProfile} />
+        <PrivateRoute path="/client/doc/:id" exact component={DoctorsProfile} />
+        <PrivateRoute
+          path="/doctor/record/:id"
+          exact
+          component={ClientRecord}
+        />
+        <PrivateRoute
           path="/doctor/processing/video/exam/:id"
           exact
           component={ProcessingVideoExam}
         />
-        <Route path="/client/waiting-room" exact component={WaitingRoom} />
+        <PrivateRoute
+          path="/client/waiting-room"
+          exact
+          component={WaitingRoom}
+        />
 
-        <Route path="/client/profile" exact component={ClientProfile} />
-        <Route
+        <PrivateRoute path="/client/profile" exact component={ClientProfile} />
+        <PrivateRoute
           path="/client/exam/detail/:id"
           exact
           component={ClientDetailExam}
         />
-        <Route
+        <PrivateRoute
           path="/client/video/exam/detail/:id"
           exact
           component={ClientVideoExamDetail}
         />
-        <Route path="/client/video-request" exact component={VideoReq} />
+        <PrivateRoute path="/client/video-request" exact component={VideoReq} />
 
-        <Route
+        <PrivateRoute
           path="/client/exam/correspondence/:id"
           exact
           component={ClientCorrespondence}
         />
-        <Route path="/doctors-clients" exact component={Clients}></Route>
-        <Route
+        <PrivateRoute path="/doctors-clients" exact component={Clients} />
+        <PrivateRoute
           path="/client/exam/message/:id"
           exact
           component={ClientMessage}
         />
-        <Route path="/initiate" exact component={ExamForm} />
+        <PrivateRoute path="/initiate" exact component={ExamForm} />
         <Elements>
-          <Route path="/checkout" exact component={CheckoutForm} />
+          <PrivateRoute path="/checkout" exact component={CheckoutForm} />
         </Elements>
         <NotificationContainer />
       </>
@@ -103,12 +126,4 @@ export class Routes extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const isLoggedIn = state.getIn(["authReducer", "isLoggedIn"]);
-
-  return {
-    isLoggedIn
-  };
-};
-
-export default connect(mapStateToProps)(Routes);
+export default Routes;

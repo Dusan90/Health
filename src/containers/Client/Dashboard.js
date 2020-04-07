@@ -80,23 +80,19 @@ class ClientDashboard extends Component {
     ws.onmessage = (e) => {
       // listen to data sent from the websocket server
       const message = JSON.parse(e.data);
+      console.log(message);
 
       this.state.exams.map((exam) => {
         if (exam.id === message.id && exam.exam_type === "mail") {
-          var state = message.status;
-          let new_exam = Object.assign({ ...exam }, exam);
-          new_exam.status = state;
-          return { new_exam };
+          exam.status = message.status;
+          this.paginatedExams();
         } else if (exam.id === message.id && exam.exam_type === "video") {
-          var state = message.status;
-          let new_exam = Object.assign({ ...exam }, exam);
-          new_exam.status = state;
-          return { new_exam };
+          exam.status = message.status;
+          this.paginatedExams();
         } else {
           return console.log("Does not exist.");
         }
       });
-      this.paginatedExams();
     };
     ws.onclose = (e) => {
       console.log(
