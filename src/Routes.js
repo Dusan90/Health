@@ -28,6 +28,7 @@ import DoctorsCalendar from "./containers/Doctor/DoctorsCalendar";
 import { NotificationContainer } from "react-notifications";
 import { Route } from "react-router-dom";
 import { PrivateRoute } from "./components/Routes/PrivateRoute";
+import { PrivateRouteDoctor } from "./components/Routes/PrivateRouteDoctor";
 
 export class Routes extends Component {
   render() {
@@ -37,55 +38,14 @@ export class Routes extends Component {
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <Route path="/logout" exact component={Logout} />
-
         <PrivateRoute
           path="/dashboard-client"
           exact
           component={ClientDashboard}
         />
-        <PrivateRoute
-          path="/dashboard-doctor"
-          exact
-          component={DoctorDashboard}
-        />
 
-        <PrivateRoute
-          path="/doctor/exam/detail/:id"
-          exact
-          component={DetailExam}
-        />
-        <PrivateRoute
-          path="/doctor/video/exam/detail/:id"
-          exact
-          component={DetailVideoExam}
-        />
-        <PrivateRoute
-          path="/doctor/calendar"
-          exact
-          component={DoctorsCalendar}
-        />
-        <PrivateRoute
-          path="/doctor/exam/correspondence/:id"
-          exact
-          component={Correspondence}
-        />
-        <PrivateRoute
-          path="/doctor/exam/message/:id"
-          exact
-          component={DoctorMessage}
-        />
-        <PrivateRoute path="/doctor/profile/" exact component={DoctorProfile} />
         <PrivateRoute path="/client/doc/:id" exact component={DoctorsProfile} />
-        <PrivateRoute
-          path="/doctor/record/:id"
-          exact
-          component={ClientRecord}
-        />
-        <PrivateRoute
-          path="/doctor/processing/video/exam/:id"
-          exact
-          component={ProcessingVideoExam}
-        />
+
         <PrivateRoute
           path="/client/waiting-room"
           exact
@@ -110,7 +70,6 @@ export class Routes extends Component {
           exact
           component={ClientCorrespondence}
         />
-        <PrivateRoute path="/doctors-clients" exact component={Clients} />
         <PrivateRoute
           path="/client/exam/message/:id"
           exact
@@ -120,6 +79,55 @@ export class Routes extends Component {
         <Elements>
           <PrivateRoute path="/checkout" exact component={CheckoutForm} />
         </Elements>
+
+        <PrivateRouteDoctor
+          path="/dashboard-doctor"
+          exact
+          component={DoctorDashboard}
+        />
+
+        <PrivateRouteDoctor
+          path="/doctor/calendar"
+          exact
+          component={DoctorsCalendar}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/exam/detail/:id"
+          exact
+          component={DetailExam}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/video/exam/detail/:id"
+          exact
+          component={DetailVideoExam}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/exam/correspondence/:id"
+          exact
+          component={Correspondence}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/exam/message/:id"
+          exact
+          component={DoctorMessage}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/profile/"
+          exact
+          component={DoctorProfile}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/record/:id"
+          exact
+          component={ClientRecord}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/processing/video/exam/:id"
+          exact
+          component={ProcessingVideoExam}
+        />
+        <PrivateRouteDoctor path="/doctors-clients" exact component={Clients} />
+
         <NotificationContainer />
       </>
     );

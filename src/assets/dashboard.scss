@@ -423,8 +423,16 @@
       tr {
         height: 40px;
         td {
+          .check {
+            color: rgb(18, 219, 18);
+            font-size: 17px;
+          }
+          .declined {
+            color: red;
+            font-size: 17px;
+          }
           .pendi {
-            color: rgb(179, 179, 8);
+            color: #4092c2;
             font-size: 17px;
           }
         }

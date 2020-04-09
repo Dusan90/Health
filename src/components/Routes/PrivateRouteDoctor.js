@@ -10,12 +10,12 @@ import { Route, Redirect } from "react-router-dom";
  * @returns {*}
  * @constructor
  */
-export const PrivateRoute = ({ component: Component, ...rest }) => (
+export const PrivateRouteDoctor = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
       sessionStorage.getItem("accessToken") &&
-      sessionStorage.getItem("is_doctor") === "false" ? (
+      sessionStorage.getItem("is_doctor") === "true" ? (
         <Component {...props} />
       ) : (
         <Redirect
@@ -29,4 +29,4 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-export default PrivateRoute;
+export default PrivateRouteDoctor;

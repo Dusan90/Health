@@ -13,7 +13,7 @@ const Nav = ({
   handleDashboardClient,
   // handleDoctorProfile,
   // handleClients,
-  doctor
+  doctor,
 }) => {
   let dashboardLink = null;
   // let profileLink = null;
@@ -76,6 +76,17 @@ const Nav = ({
         Dashboard
       </Link>
     );
+    curDoc = (
+      <div className="topProfile">
+        <p>{doctor}</p>
+        <div className="mainProfile">
+          <div className="profile">
+            <GoPerson className="icon" />
+          </div>
+          <div className="onlineDot"></div>
+        </div>
+      </div>
+    );
     // profileLink = (
     //   <Link to="/client/profile/" className="cli-profile">
     //     Profile
@@ -117,7 +128,7 @@ const Nav = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const user = state.getIn(["authReducer", "user"]);
   const isLoggedIn = state.getIn(["authReducer", "isLoggedIn"]);
   const doctor = state.getIn(["docReducer", "doctor"]);
@@ -125,7 +136,7 @@ const mapStateToProps = state => {
   return {
     user,
     isLoggedIn,
-    doctor
+    doctor,
   };
 };
 

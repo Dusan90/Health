@@ -4,6 +4,9 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import Dashboard from "../../components/Client/Dashboard";
 import Footer from "../../components/Main/Footer";
+import curentDoc from "../../actions/docAction";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 class ClientDashboard extends Component {
   constructor(props) {
@@ -43,6 +46,7 @@ class ClientDashboard extends Component {
       .then((response) => {
         console.log(response.data.data, "profile");
 
+        this.props.curentDoc(response.data.data.user);
         return this.setState({ client: response.data.data });
       });
   }
@@ -198,6 +202,7 @@ class ClientDashboard extends Component {
 
   render() {
     console.log(this.state.exams);
+    console.log(this.state.client);
 
     return (
       <>
@@ -226,4 +231,8 @@ class ClientDashboard extends Component {
   }
 }
 
-export default ClientDashboard;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ curentDoc: curentDoc }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(ClientDashboard);

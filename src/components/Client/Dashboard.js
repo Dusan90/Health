@@ -30,7 +30,7 @@ const Dashboard = ({
   handleClickLeft,
   handleClickRight,
   handleHam,
-  props
+  props,
 }) => {
   return (
     <div className="mainClientDashboard">
@@ -282,11 +282,17 @@ const Dashboard = ({
                       {new Intl.DateTimeFormat("en-GB", {
                         year: "numeric",
                         month: "long",
-                        day: "2-digit"
+                        day: "2-digit",
                       }).format(new Date(ex.created))}
                     </td>
                     <td className="client-status">
-                      <FaRegClock className="pendi" />
+                      {ex.status === "Accepted" || ex.status === "Appointed" ? (
+                        <FaCheck className="check" />
+                      ) : ex.status === "Declined" ? (
+                        <GiCancel className="declined" />
+                      ) : (
+                        <FaRegClock className="pendi" />
+                      )}
                     </td>
                   </tr>
                 </tbody>

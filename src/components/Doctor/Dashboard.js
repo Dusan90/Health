@@ -19,6 +19,7 @@ import { GoMailRead } from "react-icons/go";
 import { IoIosSettings } from "react-icons/io";
 import { MdChatBubble } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
+import { GiCancel } from "react-icons/gi";
 
 import Loading from "../../img/loading-gif-png-5-original.gif";
 import moment from "moment";
@@ -40,7 +41,7 @@ const Dashboard = ({
   handleWaitingRoom,
   handleVideoPendingClick,
   handleHam,
-  loading
+  loading,
 }) => {
   let short = props.state.pending ? props.state.pending.slice(0, 3) : null;
   let short2 = props.state.videoPending
@@ -107,7 +108,7 @@ const Dashboard = ({
           </div>
           <div className="pendingReq">
             {short3.length !== 0 ? (
-              short3.map(shorty => {
+              short3.map((shorty) => {
                 return (
                   <div key={shorty.id}>
                     {shorty.client},{" "}
@@ -141,7 +142,7 @@ const Dashboard = ({
           </div>
           <div className="pendingReq">
             {short2.length !== 0 ? (
-              short2.map(shorty => {
+              short2.map((shorty) => {
                 return (
                   <div key={shorty.id}>
                     {shorty.client},{" "}
@@ -168,14 +169,14 @@ const Dashboard = ({
           </div>
           <div className="pendingReq">
             {short.length !== 0 ? (
-              short.map(shorty => {
+              short.map((shorty) => {
                 return (
                   <div key={shorty.id}>
                     {shorty.client},{" "}
                     {new Intl.DateTimeFormat("en-GB", {
                       year: "numeric",
                       month: "long",
-                      day: "2-digit"
+                      day: "2-digit",
                     }).format(new Date(shorty.created))}
                   </div>
                 );
@@ -270,7 +271,7 @@ const Dashboard = ({
                 <th className="client-status">Status</th>
               </tr>
             </thead>
-            {props.state.pending.map(pen => {
+            {props.state.pending.map((pen) => {
               return (
                 <tbody key={pen.id} className="client-body">
                   <tr
@@ -284,7 +285,7 @@ const Dashboard = ({
                       {new Intl.DateTimeFormat("en-GB", {
                         year: "numeric",
                         month: "long",
-                        day: "2-digit"
+                        day: "2-digit",
                       }).format(new Date(pen.created))}
                     </td>
                     <td className="client-status">
@@ -310,7 +311,7 @@ const Dashboard = ({
                 <th className="client-status">Status</th>
               </tr>
             </thead>
-            {props.state.videoPending.map(pen => {
+            {props.state.videoPending.map((pen) => {
               return (
                 <tbody key={pen.id} className="client-body">
                   <tr
@@ -351,7 +352,7 @@ const Dashboard = ({
                 {/* <th className="client-status">Status</th> */}
               </tr>
             </thead>
-            {props.state.waitingRoom.map(pen => {
+            {props.state.waitingRoom.map((pen) => {
               return (
                 <tbody key={pen.id} className="client-body">
                   <tr
@@ -513,11 +514,17 @@ const Dashboard = ({
                       {new Intl.DateTimeFormat("en-GB", {
                         year: "numeric",
                         month: "long",
-                        day: "2-digit"
+                        day: "2-digit",
                       }).format(new Date(ex.created))}
                     </td>
                     <td className="client-status">
-                      <FaRegClock className="pendi" />
+                      {ex.status === "Accepted" || ex.status === "Appointed" ? (
+                        <FaCheck className="check" />
+                      ) : ex.status === "Declined" ? (
+                        <GiCancel className="declined" />
+                      ) : (
+                        <FaRegClock className="pendi" />
+                      )}
                     </td>
                   </tr>
                 </tbody>
