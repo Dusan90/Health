@@ -186,10 +186,10 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        let curentDocc = response.data.data.doctor;
-        let curentPref = response.data.data.prefix;
-        let current = `${curentPref} ${curentDocc}`;
-        console.log(current);
+        // let curentDocc = response.data.data.doctor;
+        // let curentPref = response.data.data.prefix;
+        let current = response.data.data;
+        // console.log(current);
 
         this.props.curentDoc(current);
         return this.setState({

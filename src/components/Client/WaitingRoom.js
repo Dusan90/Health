@@ -31,7 +31,7 @@ const WaitingRoom = ({
   showAndHideChat,
   handleDivSize,
   cutVideo,
-  cutMic
+  cutMic,
 }) => {
   const disabled = props.credits ? false : true;
   const disabled2 = props.credits ? true : false;
@@ -95,7 +95,7 @@ const WaitingRoom = ({
                     style={{
                       background: "rgb(250, 250, 102)",
                       color: "rgb(128, 128, 3)",
-                      borderRadius: "5px"
+                      borderRadius: "5px",
                     }}
                   >
                     Be Ready
@@ -105,7 +105,7 @@ const WaitingRoom = ({
                     style={{
                       background: "rgb(119, 228, 119)",
                       color: "green",
-                      borderRadius: "5px"
+                      borderRadius: "5px",
                     }}
                   >
                     In the queue
@@ -127,7 +127,7 @@ const WaitingRoom = ({
               </div>
             </div>
           </div>
-          {props.YourNumber === 0 && !props.doctorsVideoId ? (
+          {props.YourNumber === 0 && !props.doctorsVideoId && props.credits ? (
             <p>Be ready, Waiting from Doctors connection...</p>
           ) : null}
           <button
@@ -172,7 +172,7 @@ const WaitingRoom = ({
         id="videoo"
         size={{
           width: props.width,
-          height: props.height
+          height: props.height,
         }}
         style={{ display: props.startVideo ? "block" : "none" }}
         position={{ x: props.x, y: props.y }}

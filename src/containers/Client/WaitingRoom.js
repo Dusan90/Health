@@ -215,6 +215,7 @@ class ClientWaitingRoom extends Component {
           ],
         });
         this.PeopleBeforeYou();
+        this.handleDoctorsStatus();
       });
   };
 
@@ -230,7 +231,7 @@ class ClientWaitingRoom extends Component {
 
   componentDidMount() {
     this.handleClientProfile();
-    this.test();
+    this.socketStart();
     axios
       .get("https://health-care-backend.herokuapp.com/api/specialities/")
       .then((response) => {
@@ -261,14 +262,28 @@ class ClientWaitingRoom extends Component {
       });
   }
 
-  // handleDoctorsStatus = () => {
-  //   if (this.state.resetDoctorSelect.status !== "Available") {
-  //     this.setState({ credits: false }),
-  // this.handleExitQueue()
-  //   }
-  // };
+  handleDoctorsStatus = () => {
+    this.state.peopleInQueue.forEach((queDoc) => {
+      if (queDoc.client_id === this.state.client_id) {
+        let doctorFilter = this.state.doctors.filter((yrDoc) => {
+          return yrDoc.iD === queDoc.doctor;
+        });
+        doctorFilter.map((doctorFilter) => {
+          if (doctorFilter.status !== "Available") {
+            this.setState({ credits: false });
+            this.handleExitQueue();
+            NotificationManager.warning(
+              `Doctor is not Available at the moment`,
+              "Warning!",
+              4000
+            );
+          }
+        });
+      }
+    });
+  };
 
-  test = () =>
+  socketStart = () =>
     navigator.webkitGetUserMedia(
       {
         video: true,
@@ -368,7 +383,9 @@ class ClientWaitingRoom extends Component {
         });
 
         peer.on("close", () => {
+          peer.destroy();
           this.handleDivClose();
+          this.handleExitQueue();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {

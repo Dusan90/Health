@@ -424,7 +424,15 @@ const Dashboard = ({
             <div className="profile">
               <GoPerson className="icon" />
             </div>
-            <div className="onlineDot"></div>
+            <div
+              className="onlineDot"
+              style={{
+                background:
+                  props.state.doctorCurent.status !== "Available"
+                    ? "lightgray"
+                    : "green",
+              }}
+            ></div>
           </div>
           <p>
             {props.state.doctorCurent.prefix} {props.state.doctorCurent.doctor}

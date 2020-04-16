@@ -36,12 +36,20 @@ const Nav = ({
     );
     curDoc = (
       <div className="topProfile">
-        <p>{doctor}</p>
+        <p>
+          {doctor.prefix} {doctor.doctor}
+        </p>
         <div className="mainProfile">
           <div className="profile">
             <GoPerson className="icon" />
           </div>
-          <div className="onlineDot"></div>
+          <div
+            className="onlineDot"
+            style={{
+              background:
+                doctor.status !== "Available" ? "lightgray" : "rgb(0, 197, 0)",
+            }}
+          ></div>
         </div>
       </div>
       // <div className="inic">
