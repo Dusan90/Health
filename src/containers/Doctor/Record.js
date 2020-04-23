@@ -41,12 +41,9 @@ class ClientRecord extends Component {
   record = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/doctor/report/${this.state.id}`,
-        {
-          headers: { Authorization: access_token },
-        }
-      )
+      .get(`https://healthcarebackend.xyz/api/doctor/report/${this.state.id}`, {
+        headers: { Authorization: access_token },
+      })
       .then((response) => {
         console.log(response, "nzm ni ja sta");
 
@@ -60,7 +57,7 @@ class ClientRecord extends Component {
     // e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
     const data = await fetch(
-      `https://health-care-backend.herokuapp.com/api/doctor/report/${this.state.id}`,
+      `https://healthcarebackend.xyz/api/doctor/report/${this.state.id}`,
       {
         method: "POST",
         headers: {
@@ -125,7 +122,7 @@ class ClientRecord extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/doctor/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
