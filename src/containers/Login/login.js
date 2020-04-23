@@ -33,19 +33,16 @@ class Login extends Component {
   };
 
   userLogin = async () => {
-    const data = await fetch(
-      "https://www.healthcarebackend.xyz/api/auth/login/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: this.state.emailValue,
-          password: this.state.passwordValue,
-        }),
-      }
-    );
+    const data = await fetch("https://healthcarebackend.xyz/api/auth/login/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.state.emailValue,
+        password: this.state.passwordValue,
+      }),
+    });
 
     const jsonData = await data.json();
     // console.log(jsonData);

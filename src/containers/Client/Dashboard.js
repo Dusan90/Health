@@ -71,9 +71,7 @@ class ClientDashboard extends Component {
   };
 
   connect = () => {
-    var ws = new WebSocket(
-      "wss://health-care-backend.herokuapp.com/ws/exam/status/"
-    );
+    var ws = new WebSocket("wss://www.healthcarebackend.xyz/ws/exam/status/");
     let that = this;
     var connectInterval;
     ws.onopen = () => {
