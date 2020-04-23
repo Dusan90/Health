@@ -40,7 +40,7 @@ class ClientDashboard extends Component {
     this.paginatedExams();
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -71,7 +71,7 @@ class ClientDashboard extends Component {
   };
 
   connect = () => {
-    var ws = new WebSocket("wss://www.healthcarebackend.xyz/ws/exam/status/");
+    var ws = new WebSocket("wss://healthcarebackend.xyz/ws/exam/status/");
     let that = this;
     var connectInterval;
     ws.onopen = () => {
@@ -151,7 +151,7 @@ class ClientDashboard extends Component {
   videoReqStatus = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/web/client/list/`, {
+      .get(`https://healthcarebackend.xyz/api/web/client/list/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -167,7 +167,7 @@ class ClientDashboard extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/mail/client/`, {
+      .get(`https://healthcarebackend.xyz/api/mail/client/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

@@ -79,7 +79,7 @@ class ClientVideoReq extends Component {
     ) {
       this.setState({ isClicked: true });
       const response = await fetch(
-        "https://health-care-backend.herokuapp.com/api/web/client/initiate/",
+        "https://healthcarebackend.xyz/api/web/client/initiate/",
         {
           method: "POST",
           headers: {
@@ -117,7 +117,7 @@ class ClientVideoReq extends Component {
   handleClientProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -130,7 +130,7 @@ class ClientVideoReq extends Component {
   componentDidMount() {
     this.handleClientProfile();
     axios
-      .get("https://health-care-backend.herokuapp.com/api/specialities/")
+      .get("https://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
         // console.log(response, "videoReq ");
 
@@ -140,7 +140,7 @@ class ClientVideoReq extends Component {
         this.setState({ specialities: res });
       });
     axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
+      .get("https://healthcarebackend.xyz/api/doctor/list")
       .then((response) => {
         // console.log(response, "videoReq2");
 

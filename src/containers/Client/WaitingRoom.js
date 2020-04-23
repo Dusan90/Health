@@ -93,7 +93,7 @@ class ClientWaitingRoom extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     return axios
       .delete(
-        `https://health-care-backend.herokuapp.com/api/queue/client/delete/${this.state.currentClient.id}/`,
+        `https://healthcarebackend.xyz/api/queue/client/delete/${this.state.currentClient.id}/`,
         {
           headers: { Authorization: access_token },
         }
@@ -106,12 +106,9 @@ class ClientWaitingRoom extends Component {
   hanldeClientQueue = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(
-        `https://health-care-backend.herokuapp.com/api/queue/client/${id}/`,
-        {
-          headers: { Authorization: access_token },
-        }
-      )
+      .get(`https://healthcarebackend.xyz/api/queue/client/${id}/`, {
+        headers: { Authorization: access_token },
+      })
       .then((response) => {
         console.log(response, "Client, IDDDDDDDD");
 
@@ -146,7 +143,7 @@ class ClientWaitingRoom extends Component {
     ) {
       this.setState({ isClicked: true });
       const response = await fetch(
-        "https://health-care-backend.herokuapp.com/api/queue/enter/",
+        "https://healthcarebackend.xyz/api/queue/enter/",
         {
           method: "POST",
           headers: {
@@ -190,7 +187,7 @@ class ClientWaitingRoom extends Component {
   handleClientProfile = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/client/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -203,7 +200,7 @@ class ClientWaitingRoom extends Component {
   QueueList = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/queue/doctor/${id}`, {
+      .get(`https://healthcarebackend.xyz/api/queue/doctor/${id}`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -233,7 +230,7 @@ class ClientWaitingRoom extends Component {
     this.handleClientProfile();
     this.socketStart();
     axios
-      .get("https://health-care-backend.herokuapp.com/api/specialities/")
+      .get("https://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
         const res = response.data.data.map((val) => {
           return {
@@ -246,7 +243,7 @@ class ClientWaitingRoom extends Component {
         this.setState({ specialities: res });
       });
     axios
-      .get("https://health-care-backend.herokuapp.com/api/doctor/list")
+      .get("https://healthcarebackend.xyz/api/doctor/list")
       .then((response) => {
         const res = response.data.data.map((val) => {
           return {
