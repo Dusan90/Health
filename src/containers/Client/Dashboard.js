@@ -178,6 +178,10 @@ class ClientDashboard extends Component {
         });
         this.videoReqStatus();
         this.paginate(this.state.page);
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ loading: false });
       });
   };
 

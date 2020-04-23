@@ -125,6 +125,10 @@ class DoctorDashboard extends Component {
         });
         this.paginate(this.state.page);
         this.peopleVideoPending();
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({ loading: false });
       });
   };
 
@@ -244,6 +248,7 @@ class DoctorDashboard extends Component {
       })
       .catch((error) => {
         console.log(error);
+        this.setState({ loading: false });
       });
   };
 
