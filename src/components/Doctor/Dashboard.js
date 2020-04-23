@@ -41,6 +41,7 @@ const Dashboard = ({
   handleWaitingRoom,
   handleVideoPendingClick,
   handleHam,
+  hnlMyConsultations,
   loading,
 }) => {
   let short = props.state.pending ? props.state.pending.slice(0, 3) : null;
@@ -456,7 +457,7 @@ const Dashboard = ({
           </span>
           <h2>Waiting Room</h2>
         </div>
-        <div className="sideMyCounsultation">
+        <div className="sideMyCounsultation" onClick={hnlMyConsultations}>
           <span>
             <GoFileDirectory className="icon" />
           </span>

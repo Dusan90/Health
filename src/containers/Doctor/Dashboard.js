@@ -175,6 +175,7 @@ class DoctorDashboard extends Component {
         openPending: false,
         openVideoPending: false,
         openWaitingRoom: false,
+        viewAllExams: false,
       });
     }
   };
@@ -254,6 +255,10 @@ class DoctorDashboard extends Component {
     this.props.history.push(`/doctor/exam/detail/${id}`);
   };
 
+  hnlMyConsultations = () => {
+    this.setState({ hamburger: false, viewAllExams: true });
+  };
+
   componentDidMount() {
     this.paginatedExams();
     this.peopleInWaitingRoom();
@@ -295,6 +300,7 @@ class DoctorDashboard extends Component {
           handleUpcoming={this.handleUpcoming}
           handlePast={this.handlePast}
           handleAll={this.handleAll}
+          hnlMyConsultations={this.hnlMyConsultations}
         />
         <Footer />
       </>
