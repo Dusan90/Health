@@ -55,7 +55,7 @@ class DoctorDashboard extends Component {
   pnd = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/doctor/exams/req`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/exams/req`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -116,7 +116,7 @@ class DoctorDashboard extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/mail/doctor/`, {
+      .get(`https://healthcarebackend.xyz/api/mail/doctor/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -182,7 +182,7 @@ class DoctorDashboard extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/doctor/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -201,7 +201,7 @@ class DoctorDashboard extends Component {
   peopleInWaitingRoom = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/queue/doctor/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/doctor/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -218,7 +218,7 @@ class DoctorDashboard extends Component {
   peopleVideoPending = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://health-care-backend.herokuapp.com/api/web/doctor/list/`, {
+      .get(`https://healthcarebackend.xyz/api/web/doctor/list/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
