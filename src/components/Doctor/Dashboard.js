@@ -23,6 +23,7 @@ import { GiCancel } from "react-icons/gi";
 
 import Loading from "../../img/loading-gif-png-5-original.gif";
 import moment from "moment";
+import DatePicker from "react-datepicker";
 
 const Dashboard = ({
   hnlClick,
@@ -42,8 +43,11 @@ const Dashboard = ({
   handleVideoPendingClick,
   handleHam,
   hnlMyConsultations,
+  paginateCalendarLeft,
+  paginateCalendarRight,
   loading,
 }) => {
+  let year = new Date().getYear() + 1900;
   let short = props.state.pending ? props.state.pending.slice(0, 3) : null;
   let short2 = props.state.videoPending
     ? props.state.videoPending.slice(0, 3)
@@ -405,6 +409,134 @@ const Dashboard = ({
         </div>
       </div>
 
+      <div className="allMonthsPaginate">
+        <div
+          className="MainDate"
+          style={{
+            left: props.state.calendarPage === 1 ? "0px" : "-1000px",
+            opacity: props.state.calendarPage === 1 ? "1" : 0,
+          }}
+        >
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 0, 1)}
+            maxDate={new Date(year, 0, 31)}
+            inline
+          />
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 1, 1)}
+            maxDate={new Date(year, 1, 29)}
+            inline
+          />
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 2, 1)}
+            maxDate={new Date(year, 2, 31)}
+            inline
+          />
+        </div>
+        <div
+          className="MainDate2"
+          style={{
+            right: props.state.calendarPage === 2 ? "0px" : "-1000px",
+            opacity: props.state.calendarPage === 2 ? "1" : 0,
+          }}
+        >
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 3, 1)}
+            maxDate={new Date(year, 3, 30)}
+            inline
+          />
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 4, 1)}
+            maxDate={new Date(year, 4, 31)}
+            inline
+          />
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 5, 1)}
+            maxDate={new Date(year, 5, 30)}
+            inline
+          />
+        </div>
+        <div
+          className="MainDate3"
+          style={{
+            left: props.state.calendarPage === 3 ? "0px" : "-1000px",
+            opacity: props.state.calendarPage === 3 ? "1" : 0,
+          }}
+        >
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 6, 1)}
+            maxDate={new Date(year, 6, 31)}
+            inline
+          />
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 7, 1)}
+            maxDate={new Date(year, 7, 31)}
+            inline
+          />
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 8, 1)}
+            maxDate={new Date(year, 8, 30)}
+            inline
+          />
+        </div>
+        <div
+          className="MainDate4"
+          style={{
+            right: props.state.calendarPage === 4 ? "0px" : "-1000px",
+            opacity: props.state.calendarPage === 4 ? "1" : 0,
+          }}
+        >
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 9, 1)}
+            maxDate={new Date(year, 9, 31)}
+            inline
+          />
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 10, 1)}
+            maxDate={new Date(year, 10, 30)}
+            inline
+          />
+          <DatePicker
+            selected={props.startDate}
+            // onChange={handleDateChange}
+            minDate={new Date(year, 11, 1)}
+            maxDate={new Date(year, 11, 31)}
+            inline
+          />
+        </div>
+      </div>
+
+      <div className="pagi">
+        <div className="left" onClick={paginateCalendarLeft}>
+          <FaChevronLeft className="iconLeft" />
+        </div>
+        <div className="right" onClick={paginateCalendarRight}>
+          <FaChevronRight className="iconRight" />
+        </div>
+      </div>
+
       <div className="connectWithdoctor">
         <div className="connected">
           <p>
@@ -418,7 +550,10 @@ const Dashboard = ({
       </div>
       <div
         className="sideNav"
-        style={{ left: props.state.hamburger ? "0px" : "-300px" }}
+        style={{
+          left: props.state.hamburger ? "0px" : "-300px",
+          opacity: props.state.hamburger ? "0.7" : "0",
+        }}
       >
         <div className="sideProfile">
           <div className="mainProfile">

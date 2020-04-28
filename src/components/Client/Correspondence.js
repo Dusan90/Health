@@ -11,7 +11,7 @@ const CorrespondenceMessage = ({
   handleMessage,
   submitValue,
   handleSubmit,
-  props
+  props,
 }) => {
   return (
     <>
@@ -23,7 +23,7 @@ const CorrespondenceMessage = ({
       </div>
       <table className="correspondence">
         {correspondence.length === 0 ? (
-          <tbody style={{ color: "rgb(2, 159, 250)" }}>
+          <tbody style={{ color: "#4092c2" }}>
             <tr>
               <td>No messages...</td>
             </tr>
@@ -38,7 +38,7 @@ const CorrespondenceMessage = ({
                     {new Intl.DateTimeFormat("en-GB", {
                       year: "numeric",
                       month: "long",
-                      day: "2-digit"
+                      day: "2-digit",
                     }).format(new Date(message.created))}
                   </td>
                 </tr>
@@ -61,13 +61,13 @@ const CorrespondenceMessage = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const doctor = state.getIn(["doctorReducer", "doctor"]);
   const user = state.getIn(["authReducer", "user"]);
 
   return {
     doctor,
-    user
+    user,
   };
 };
 

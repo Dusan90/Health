@@ -186,7 +186,10 @@ const Dashboard = ({
       </div>
       <div
         className="sideNav"
-        style={{ left: props.state.hamburger ? "0px" : "-300px" }}
+        style={{
+          left: props.state.hamburger ? "0px" : "-300px",
+          opacity: props.state.hamburger ? "0.7" : "0",
+        }}
       >
         <div className="sideProfile">
           <div className="mainProfile">

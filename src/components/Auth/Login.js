@@ -10,7 +10,7 @@ const LoginUser = ({
   handlePassword,
   handleSubmit,
   handleChange,
-  rememberMe
+  rememberMe,
 }) => {
   return (
     <div className="mainLogin">
@@ -52,7 +52,7 @@ const LoginUser = ({
             />{" "}
             <label htmlFor="rememberMe">Remember me</label>
           </div>
-          <Link className="forget" to="">
+          <Link className="forget" to="/forgot-password">
             Forgot Password?
           </Link>
         </div>

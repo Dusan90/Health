@@ -21,6 +21,8 @@ import ClientVideoExamDetail from "./containers/Client/ClientVideoExamDetail";
 import ClientDetailExam from "./containers/Client/DetailExam";
 import ClientCorrespondence from "./containers/Client/Correspondence";
 import ClientMessage from "./containers/Client/Message";
+import ForgotPass from "./containers/Login/forgotPass";
+import ChangePass from "./containers/Login/changePass";
 import { Elements } from "react-stripe-elements";
 import Clients from "./containers/Doctor/Clients";
 import WaitingRoom from "./containers/Client/WaitingRoom";
@@ -38,6 +40,8 @@ export class Routes extends Component {
         <Route path="/register" exact component={Register} />
         <Route path="/login" exact component={Login} />
         <Route path="/logout" exact component={Logout} />
+        <Route path="/forgot-password" exact component={ForgotPass} />
+        <Route path="/password-reset/:id/:pas/" exact component={ChangePass} />
         <PrivateRoute
           path="/dashboard-client"
           exact

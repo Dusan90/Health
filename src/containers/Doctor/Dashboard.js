@@ -30,6 +30,7 @@ class DoctorDashboard extends Component {
       loading: true,
       hamburger: false,
       viewAllExams: false,
+      calendarPage: 1,
     };
   }
 
@@ -264,6 +265,22 @@ class DoctorDashboard extends Component {
     this.setState({ hamburger: false, viewAllExams: true });
   };
 
+  paginateCalendarLeft = () => {
+    if (this.state.calendarPage === 1) {
+      return null;
+    } else {
+      this.setState({ calendarPage: this.state.calendarPage - 1 });
+    }
+  };
+
+  paginateCalendarRight = () => {
+    if (this.state.calendarPage === 4) {
+      return null;
+    } else {
+      this.setState({ calendarPage: this.state.calendarPage + 1 });
+    }
+  };
+
   componentDidMount() {
     this.paginatedExams();
     this.peopleInWaitingRoom();
@@ -306,6 +323,8 @@ class DoctorDashboard extends Component {
           handlePast={this.handlePast}
           handleAll={this.handleAll}
           hnlMyConsultations={this.hnlMyConsultations}
+          paginateCalendarLeft={this.paginateCalendarLeft}
+          paginateCalendarRight={this.paginateCalendarRight}
         />
         <Footer />
       </>

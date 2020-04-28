@@ -1,0 +1,49 @@
+.mainForgotPass {
+  width: 60%;
+  margin: 200px auto 200px auto;
+  .forgot {
+    width: 500px;
+    margin: 0 auto;
+    text-align: start;
+    color: #4092c2;
+
+    p {
+      margin: 0 0 20px 0;
+    }
+    label {
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid #4092c2;
+      text-indent: 10px;
+      outline: none;
+      &::placeholder {
+        color: #4092c2;
+        text-indent: 10px;
+      }
+    }
+    button {
+      background: #4092c2;
+      color: white;
+      width: 100%;
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid #4092c2;
+      margin: 20px 0;
+      outline: none;
+    }
+    .mainGoBackDiv {
+      text-align: center;
+      .goBack {
+        text-decoration: underline;
+      }
+    }
+  }
+  .message {
+    color: #4092c2;
+    height: 200px;
+  }
+}
