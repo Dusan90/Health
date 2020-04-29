@@ -47,7 +47,7 @@ export class changePass extends Component {
         },
         body: JSON.stringify({
           password: this.state.newPassword,
-          password: this.state.confPassword,
+          confirm_password: this.state.confPassword,
         }),
       }
     );
@@ -78,7 +78,7 @@ export class changePass extends Component {
           handleChangePassSubmit={this.handleChangePassSubmit}
           props={this.state}
         />
-        <div>
+        <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
           <Footer />
         </div>
       </>

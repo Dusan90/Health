@@ -60,7 +60,7 @@ export class forgotPass extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        <div>
+        <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
           <Footer />
         </div>
       </>

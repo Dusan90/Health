@@ -90,6 +90,9 @@ class ClientProfile extends Component {
           handleAddress={this.handleAddress}
           handleSubmit={this.handleSubmit}
         />
+        <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
+          <Footer />
+        </div>
       </>
     );
   }
