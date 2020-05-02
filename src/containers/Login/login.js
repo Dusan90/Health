@@ -45,9 +45,10 @@ class Login extends Component {
     });
 
     const jsonData = await data.json();
-    // console.log(jsonData);
-
-    if (
+    console.log(jsonData);
+    if (jsonData.success === false && jsonData.status_code === 400) {
+      NotificationManager.error(`${jsonData.error}`, "Failed!", 3000);
+    } else if (
       jsonData.detail === "Invalid credentials" ||
       jsonData.detail === "User does not exist" ||
       jsonData.error
@@ -91,7 +92,9 @@ class Login extends Component {
 
   componentDidMount() {
     const rememberMe = localStorage.getItem("rememberMe") === "true";
-    const emailValue = rememberMe ? localStorage.getItem("emailValue") : "";
+    const emailValue = rememberMe
+      ? localStorage.getItem("emailValue")
+      : localStorage.removeItem("emailValue");
     this.setState({ emailValue, rememberMe });
   }
 
@@ -99,6 +102,10 @@ class Login extends Component {
     const input = e.target;
     const value = input.type === "checkbox" ? input.checked : input.value;
     this.setState({ [input.name]: value });
+  };
+
+  handleChangeRmb = () => {
+    this.setState({ rememberMe: !this.state.rememberMe });
   };
 
   render() {
@@ -120,6 +127,7 @@ class Login extends Component {
           handleRememberClick={this.handleRememberClick}
           rememberMe={this.state.rememberMe}
           handleChange={this.handleChange}
+          handleChangeRmb={this.handleChangeRmb}
         />
         <div>
           <Footer />

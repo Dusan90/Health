@@ -41,7 +41,7 @@ export class Routes extends Component {
         <Route path="/login" exact component={Login} />
         <Route path="/logout" exact component={Logout} />
         <Route path="/forgot-password" exact component={ForgotPass} />
-        <Route path="/password-reset/:id/:pas/" exact component={ChangePass} />
+        <Route path="/reset-confirm/:id/" exact component={ChangePass} />
         <PrivateRoute
           path="/dashboard-client"
           exact

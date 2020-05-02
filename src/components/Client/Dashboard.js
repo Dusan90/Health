@@ -121,7 +121,9 @@ const Dashboard = ({
             </thead>
 
             {props.state.paginatedExams.map((exam, index) => {
-              if (exam.status === "Canceled") return null;
+              if (exam === undefined) {
+                return null;
+              } else if (exam.status === "Canceled") return null;
               return (
                 <tbody key={index} className="client-body">
                   <tr

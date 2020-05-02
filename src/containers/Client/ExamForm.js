@@ -82,7 +82,7 @@ class ExamForm extends Component {
       );
       const data = await response.json();
 
-      // this.toCheckout();
+      this.toCheckout();
       console.log(data);
 
       return data;
@@ -91,9 +91,9 @@ class ExamForm extends Component {
     }
   };
 
-  // toCheckout = async () => {
-  //   return this.props.history.push("/checkout");
-  // };
+  toCheckout = async () => {
+    return this.props.history.push("/checkout");
+  };
 
   componentDidMount() {
     axios
@@ -110,17 +110,27 @@ class ExamForm extends Component {
       .get("https://healthcarebackend.xyz/api/doctor/list")
       .then((response) => {
         console.log(response, "examform2");
-
-        const res = response.data.data.map((val) => {
-          return {
-            value: val.id,
-            iD: val.doctor_id,
-            label: val.doctor,
-            spec: val.speciality,
-            price: val.price,
-          };
-        });
-        this.setState({ doctors: res });
+        if (response.data.data) {
+          const res = response.data.data.map((val) => {
+            return {
+              value: val.id,
+              iD: val.doctor_id,
+              label: val.doctor,
+              spec: val.speciality,
+              price: val.price,
+            };
+          });
+          this.setState({ doctors: res });
+        } else {
+          NotificationManager.warning(
+            `${response.data.message}`,
+            "Failed!",
+            2000
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 

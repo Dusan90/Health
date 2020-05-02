@@ -18,9 +18,10 @@ class Logout extends Component {
     this.handleLogout();
   }
 
-  handleLogout = e => {
+  handleLogout = (e) => {
     sessionStorage.clear();
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem("refreshToken");
     this.props.dispatch(userLoggedOut());
     this.redirectUser();
   };
@@ -39,14 +40,14 @@ class Logout extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const user = state.get("user");
   const isLoggedIn = state.get("isLoggedIn");
   console.log(isLoggedIn, user, "logOutttttttt");
 
   return {
     user,
-    isLoggedIn
+    isLoggedIn,
   };
 };
 

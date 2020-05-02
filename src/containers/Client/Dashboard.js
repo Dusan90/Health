@@ -204,7 +204,7 @@ class ClientDashboard extends Component {
 
   render() {
     console.log(this.state.exams);
-    console.log(this.state.client);
+    console.log(this.state.paginatedExams);
 
     return (
       <>

@@ -9,7 +9,10 @@ function changePass({
 }) {
   return (
     <div className="mainChangePass">
-      <div className="newPasswords">
+      <div
+        className="newPasswords"
+        style={{ display: props.message ? "none" : "block" }}
+      >
         <h2>Changing password</h2>
         <p>
           Please note that when changing your password, we ask you to set
@@ -34,6 +37,12 @@ function changePass({
           onChange={handleConfPassword}
         />
         <button onClick={handleChangePassSubmit}>Change password</button>
+      </div>
+      <div
+        className="message"
+        style={{ display: props.message ? "block" : "none" }}
+      >
+        <h3>{props.message}</h3>
       </div>
     </div>
   );

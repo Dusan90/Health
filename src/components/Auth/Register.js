@@ -26,19 +26,19 @@ const RegisterUser = ({
   handleSpec,
   handleSubmit,
   changeTextToDate,
-  handleGenderRadio
+  handleGenderRadio,
 }) => {
   const customStyles = {
     control: (base, state) => ({
       ...base,
       height: "30px",
-      "min-height": "30px",
+      minHeight: "30px",
       border: "1.5px solid #96aebd",
       width: "200px",
-      "border-radius": "5px",
+      borderRadius: "5px",
       background: "#f1f5f8",
-      color: "#4092c2"
-    })
+      color: "#4092c2",
+    }),
   };
   return (
     <form className="register-form">
@@ -58,7 +58,7 @@ const RegisterUser = ({
       <div
         className="firstLastGender"
         style={{
-          margin: userType === "client" ? "60px 0 20px 0" : "0 0 20px 0"
+          margin: userType === "client" ? "60px 0 20px 0" : "0 0 20px 0",
         }}
       >
         <div className="reg-name">

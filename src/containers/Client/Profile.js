@@ -5,6 +5,7 @@ import Profile from "../../components/Client/Profile";
 import { NotificationManager } from "react-notifications";
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
+import Footer from "../../components/Main/Footer";
 
 class ClientProfile extends Component {
   constructor(props) {

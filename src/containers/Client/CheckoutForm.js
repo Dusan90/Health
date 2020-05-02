@@ -6,6 +6,7 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "react-stripe-elements";
+import StripeCheckout from "react-stripe-checkout";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import "../../assets/client/checkout.scss";
@@ -26,10 +27,14 @@ class CheckoutForm extends Component {
     };
   }
 
+  handleToken = (token, addresses) => {
+    console.log(token, addresses);
+  };
+
   submit = async (ev) => {
     ev.preventDefault();
     const price = parseInt(this.props.doctor.price, 10);
-    const cardElement = this.props.elements.getElement("card");
+    const cardElement = this.props.elements.getElement(CardElement);
     const { paymentMethod } = await this.props.stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
@@ -99,6 +104,8 @@ class CheckoutForm extends Component {
   };
 
   render() {
+    console.log(this.props.stripe);
+
     const createOptions = (fontSize, padding) => {
       return {
         style: {
@@ -173,6 +180,8 @@ class CheckoutForm extends Component {
                 <label>
                   CARD NUMBER
                   <CardNumberElement
+                    stripeKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3"
+                    token={this.handleToken}
                     className="CardElement"
                     onReady={this.handleReady}
                     {...createOptions(this.props.fontSize)}
@@ -199,6 +208,10 @@ class CheckoutForm extends Component {
                   Submit{" "}
                 </button>
               </form>
+              {/* <StripeCheckout
+                stripeKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3"
+                token={this.handleToken}
+              /> */}
             </div>
           </div>
         </div>
@@ -209,6 +222,8 @@ class CheckoutForm extends Component {
 
 const mapStateToProps = (state) => {
   const doctor = state.getIn(["doctorReducer", "doctor"]);
+  console.log(doctor, "oj doktore");
+
   return {
     doctor,
   };

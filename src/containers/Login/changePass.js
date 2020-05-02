@@ -11,8 +11,8 @@ export class changePass extends Component {
     this.state = {
       newPassword: "",
       confPassword: "",
+      message: null,
       id: this.props.match.params.id,
-      pass: this.props.match.params.pas,
     };
   }
 
@@ -39,7 +39,7 @@ export class changePass extends Component {
 
   changePass = async () => {
     const data = await fetch(
-      `https://healthcarebackend.xyz/api/auth/password-reset/${this.state.id}/${this.state.pass}/`,
+      `https://healthcarebackend.xyz/api/auth/reset-confirm/${this.state.id}/`,
       {
         method: "PUT",
         headers: {
@@ -54,6 +54,11 @@ export class changePass extends Component {
 
     const jsonData = await data.json();
     console.log(jsonData);
+    if (jsonData.success) {
+      this.setState({ message: jsonData.message });
+    } else {
+      this.setState({ message: jsonData.message });
+    }
   };
 
   render() {

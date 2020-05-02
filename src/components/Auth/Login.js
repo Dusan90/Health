@@ -10,6 +10,7 @@ const LoginUser = ({
   handlePassword,
   handleSubmit,
   handleChange,
+  handleChangeRmb,
   rememberMe,
 }) => {
   return (
@@ -28,7 +29,7 @@ const LoginUser = ({
             id="email"
             name="emailValue"
             placeholder="name@gmail.com"
-            value={emailValue}
+            value={!emailValue ? "" : emailValue}
             onChange={handleChange}
           />
         </div>
@@ -43,7 +44,7 @@ const LoginUser = ({
           />
         </div>
         <div className="rememberForgot">
-          <div>
+          <div onClick={handleChangeRmb}>
             <input
               name="rememberMe"
               checked={rememberMe}
