@@ -14,7 +14,7 @@ const allReducers = combineReducers({
   specReducer,
   examReducer,
   clientReducer,
-  docReducer
+  docReducer,
 });
 
 export default allReducers;

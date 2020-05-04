@@ -4,9 +4,8 @@ import {
   injectStripe,
   CardNumberElement,
   CardExpiryElement,
-  CardCvcElement,
+  CardCVCElement,
 } from "react-stripe-elements";
-import StripeCheckout from "react-stripe-checkout";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import "../../assets/client/checkout.scss";
@@ -24,24 +23,73 @@ class CheckoutForm extends Component {
       complete: false,
       selectedCard: false,
       selectedPal: false,
+      token: null,
+      cardNumber: false,
+      cardCvc: false,
+      cardExpiry: false,
     };
   }
 
-  handleToken = (token, addresses) => {
-    console.log(token, addresses);
+  // handleToken = (token, addresses) => {
+  //   console.log(token, addresses);
+  // };
+
+  // submit = async (ev) => {
+  //   ev.preventDefault();
+  //   const price = parseInt(this.props.doctor.price, 10);
+  //   const cardElement = this.props.elements.getElement("card");
+  //   const { paymentMethod } = await this.props.stripe.createPaymentMethod({
+  //     type: "card",
+  //     card: cardElement,
+  //   });
+  //   if (paymentMethod === undefined) {
+  //     NotificationManager.error("Faild to Checkout", "Faild!", 2000);
+  //   } else if (paymentMethod !== undefined) {
+  //     const response = await fetch(
+  //       "https://healthcarebackend.xyz/api/charge/",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           payment_method_id: paymentMethod.id,
+  //           amount: price,
+  //         }),
+  //       }
+  //     );
+  //     // await handleServerResponse(await response.json())
+  //     const data = await response.json();
+  //     console.log(data);
+
+  //     if (data.message === "Payment completed") {
+  //       this.setState({ complete: true });
+  //       NotificationManager.success("Checkout Completed", "Successful!", 2000);
+  //     }
+  //   }
+  // };
+
+  handleChange = (change) => {
+    console.log("[change]", change);
+    this.setState({ [change.elementType]: change.complete });
+  };
+  handleReady = () => {
+    console.log("[ready]");
   };
 
-  submit = async (ev) => {
+  handleSubmit = async (ev) => {
     ev.preventDefault();
     const price = parseInt(this.props.doctor.price, 10);
-    const cardElement = this.props.elements.getElement(CardElement);
-    const { paymentMethod } = await this.props.stripe.createPaymentMethod({
-      type: "card",
-      card: cardElement,
-    });
-    if (paymentMethod === undefined) {
-      NotificationManager.error("Faild to Checkout", "Faild!", 2000);
-    } else if (paymentMethod !== undefined) {
+    if (
+      this.props.stripe &&
+      this.state.cardNumber &&
+      this.state.cardExpiry &&
+      this.state.cardCvc
+    ) {
+      await this.props.stripe.createToken().then((payload) => {
+        console.log("[token]", payload.token);
+        this.setState({ token: payload.token });
+      });
       const response = await fetch(
         "https://healthcarebackend.xyz/api/charge/",
         {
@@ -50,12 +98,12 @@ class CheckoutForm extends Component {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            payment_method_id: paymentMethod.id,
+            payment_method_id: this.state.token.id,
             amount: price,
           }),
         }
       );
-      // await handleServerResponse(await response.json())
+      // await this.handleServerResponse(await response.json());
       const data = await response.json();
       console.log(data);
 
@@ -63,6 +111,9 @@ class CheckoutForm extends Component {
         this.setState({ complete: true });
         NotificationManager.success("Checkout Completed", "Successful!", 2000);
       }
+    } else {
+      NotificationManager.error("Faild to Checkout", "Faild!", 2000);
+      console.log("Stripe.js hasn't loaded yet.");
     }
   };
 
@@ -71,25 +122,29 @@ class CheckoutForm extends Component {
   //     // Show error from server on payment form
   //   } else if (response.requires_action) {
   //     // Use Stripe.js to handle the required card action
-  //     const { error: errorAction, paymentIntent } =
-  //       await this.props.stripe.handleCardAction(response.payment_intent_client_secret);
+  //     const {
+  //       error: errorAction,
+  //       paymentIntent,
+  //     } = await this.props.stripe.handleCardAction(
+  //       response.payment_intent_client_secret
+  //     );
 
   //     if (errorAction) {
   //       // Show error from Stripe.js in payment form
   //     } else {
   //       // The card action has been handled
   //       // The PaymentIntent can be confirmed again on the server
-  //       const serverResponse = await fetch('/pay', {
-  //         method: 'POST',
-  //         headers: { 'Content-Type': 'application/json' },
-  //         body: JSON.stringify({ payment_intent_id: paymentIntent.id })
+  //       const serverResponse = await fetch("/pay", {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({ payment_intent_id: paymentIntent.id }),
   //       });
-  //       handleServerResponse(await serverResponse.json());
+  //       this.handleServerResponse(await serverResponse.json());
   //     }
   //   } else {
   //     // Show success message
   //   }
-  // }
+  // };
 
   handleSelect = () => {
     this.setState({ selectedCard: true, selectedPal: false });
@@ -104,7 +159,12 @@ class CheckoutForm extends Component {
   };
 
   render() {
-    console.log(this.props.stripe);
+    // console.log(this.props.stripe);
+    // console.log(
+    //   this.state.cardNumber,
+    //   this.state.cardExpiry,
+    //   this.state.cardCvc
+    // );
 
     const createOptions = (fontSize, padding) => {
       return {
@@ -171,12 +231,8 @@ class CheckoutForm extends Component {
             </div>
             <div className="creditCardInfo">
               <h1>Credit Card Info</h1>
-              {/* <label htmlFor="">
-              CARD NUMBER
-              <br />
-              <CardElement className="CardElement" onReady={this.handleReady} />
-            </label> */}
-              <form>
+
+              {/* <form>
                 <label>
                   CARD NUMBER
                   <CardNumberElement
@@ -207,11 +263,37 @@ class CheckoutForm extends Component {
                   {" "}
                   Submit{" "}
                 </button>
+              </form> */}
+              <form onSubmit={this.handleSubmit}>
+                <label>
+                  CARD NUMBER
+                  <CardNumberElement
+                    className="CardElement"
+                    onChange={this.handleChange}
+                    onReady={this.handleReady}
+                    {...createOptions(this.props.fontSize)}
+                  />
+                </label>
+                <label>
+                  EXPIRATION DATE
+                  <CardExpiryElement
+                    className="CardElement"
+                    onChange={this.handleChange}
+                    onReady={this.handleReady}
+                    {...createOptions(this.props.fontSize)}
+                  />
+                </label>
+                <label>
+                  CVC
+                  <CardCVCElement
+                    className="CardElement cvc"
+                    onChange={this.handleChange}
+                    onReady={this.handleReady}
+                    {...createOptions(this.props.fontSize)}
+                  />
+                </label>
+                <button className="btn-checkout"> Submit </button>
               </form>
-              {/* <StripeCheckout
-                stripeKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3"
-                token={this.handleToken}
-              /> */}
             </div>
           </div>
         </div>
@@ -222,7 +304,7 @@ class CheckoutForm extends Component {
 
 const mapStateToProps = (state) => {
   const doctor = state.getIn(["doctorReducer", "doctor"]);
-  console.log(doctor, "oj doktore");
+  console.log(doctor);
 
   return {
     doctor,
