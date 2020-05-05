@@ -11,7 +11,7 @@ export class activate extends Component {
 
   componentDidMount() {
     axios
-      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`)
+      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}/`)
       .then((response) => {
         console.log(response);
       });
