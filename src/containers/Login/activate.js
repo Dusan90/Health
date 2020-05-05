@@ -9,12 +9,27 @@ export class activate extends Component {
     };
   }
 
-  componentDidMount() {
+  test = () => {
+    const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}/`)
+      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`, {
+        headers: { Authorization: access_token },
+      })
       .then((response) => {
         console.log(response);
       });
+  };
+
+  componentDidMount() {
+    this.test();
+    // const access_token = "Bearer ".concat(this.state.token);
+    // axios
+    //   .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`, {
+    //     headers: { Authorization: access_token },
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
   }
   render() {
     console.log(this.state.id);
