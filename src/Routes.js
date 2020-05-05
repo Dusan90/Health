@@ -23,6 +23,7 @@ import ClientCorrespondence from "./containers/Client/Correspondence";
 import ClientMessage from "./containers/Client/Message";
 import ForgotPass from "./containers/Login/forgotPass";
 import ChangePass from "./containers/Login/changePass";
+import Activate from "./containers/login/activate";
 import { Elements } from "react-stripe-elements";
 import Clients from "./containers/Doctor/Clients";
 import WaitingRoom from "./containers/Client/WaitingRoom";
@@ -49,6 +50,7 @@ export class Routes extends Component {
             component={ChangePass}
           />
           <Route component={NotFound} />
+          <Route path="/api/auth/activate/:id/" exact component={Activate} />
           <PrivateRoute
             path="/dashboard-client"
             exact
