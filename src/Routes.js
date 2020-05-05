@@ -49,116 +49,100 @@ export class Routes extends Component {
             exact
             component={ChangePass}
           />
-          <Route component={NotFound} />
           <Route path="/api/auth/activate/:id/" exact component={Activate} />
-          <PrivateRoute
-            path="/dashboard-client"
-            exact
-            component={ClientDashboard}
-          />
-
-          <PrivateRoute
-            path="/client/doc/:id"
-            exact
-            component={DoctorsProfile}
-          />
-
-          <PrivateRoute
-            path="/client/waiting-room"
-            exact
-            component={WaitingRoom}
-          />
-
-          <PrivateRoute
-            path="/client/profile"
-            exact
-            component={ClientProfile}
-          />
-          <PrivateRoute
-            path="/client/exam/detail/:id"
-            exact
-            component={ClientDetailExam}
-          />
-          <PrivateRoute
-            path="/client/video/exam/detail/:id"
-            exact
-            component={ClientVideoExamDetail}
-          />
-          <PrivateRoute
-            path="/client/video-request"
-            exact
-            component={VideoReq}
-          />
-
-          <PrivateRoute
-            path="/client/exam/correspondence/:id"
-            exact
-            component={ClientCorrespondence}
-          />
-          <PrivateRoute
-            path="/client/exam/message/:id"
-            exact
-            component={ClientMessage}
-          />
-          <PrivateRoute path="/initiate" exact component={ExamForm} />
-          <Elements>
-            <PrivateRoute path="/checkout" exact component={CheckoutForm} />
-          </Elements>
-
-          <PrivateRouteDoctor
-            path="/dashboard-doctor"
-            exact
-            component={DoctorDashboard}
-          />
-
-          <PrivateRouteDoctor
-            path="/doctor/calendar"
-            exact
-            component={DoctorsCalendar}
-          />
-          <PrivateRouteDoctor
-            path="/doctor/exam/detail/:id"
-            exact
-            component={DetailExam}
-          />
-          <PrivateRouteDoctor
-            path="/doctor/video/exam/detail/:id"
-            exact
-            component={DetailVideoExam}
-          />
-          <PrivateRouteDoctor
-            path="/doctor/exam/correspondence/:id"
-            exact
-            component={Correspondence}
-          />
-          <PrivateRouteDoctor
-            path="/doctor/exam/message/:id"
-            exact
-            component={DoctorMessage}
-          />
-          <PrivateRouteDoctor
-            path="/doctor/profile/"
-            exact
-            component={DoctorProfile}
-          />
-          <PrivateRouteDoctor
-            path="/doctor/record/:id"
-            exact
-            component={ClientRecord}
-          />
-          <PrivateRouteDoctor
-            path="/doctor/processing/video/exam/:id"
-            exact
-            component={ProcessingVideoExam}
-          />
-          <PrivateRouteDoctor
-            path="/doctors-clients"
-            exact
-            component={Clients}
-          />
-
-          <NotificationContainer />
+          <Route component={NotFound} />
         </Switch>
+        <PrivateRoute
+          path="/dashboard-client"
+          exact
+          component={ClientDashboard}
+        />
+
+        <PrivateRoute path="/client/doc/:id" exact component={DoctorsProfile} />
+
+        <PrivateRoute
+          path="/client/waiting-room"
+          exact
+          component={WaitingRoom}
+        />
+
+        <PrivateRoute path="/client/profile" exact component={ClientProfile} />
+        <PrivateRoute
+          path="/client/exam/detail/:id"
+          exact
+          component={ClientDetailExam}
+        />
+        <PrivateRoute
+          path="/client/video/exam/detail/:id"
+          exact
+          component={ClientVideoExamDetail}
+        />
+        <PrivateRoute path="/client/video-request" exact component={VideoReq} />
+
+        <PrivateRoute
+          path="/client/exam/correspondence/:id"
+          exact
+          component={ClientCorrespondence}
+        />
+        <PrivateRoute
+          path="/client/exam/message/:id"
+          exact
+          component={ClientMessage}
+        />
+        <PrivateRoute path="/initiate" exact component={ExamForm} />
+        <Elements>
+          <PrivateRoute path="/checkout" exact component={CheckoutForm} />
+        </Elements>
+
+        <PrivateRouteDoctor
+          path="/dashboard-doctor"
+          exact
+          component={DoctorDashboard}
+        />
+
+        <PrivateRouteDoctor
+          path="/doctor/calendar"
+          exact
+          component={DoctorsCalendar}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/exam/detail/:id"
+          exact
+          component={DetailExam}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/video/exam/detail/:id"
+          exact
+          component={DetailVideoExam}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/exam/correspondence/:id"
+          exact
+          component={Correspondence}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/exam/message/:id"
+          exact
+          component={DoctorMessage}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/profile/"
+          exact
+          component={DoctorProfile}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/record/:id"
+          exact
+          component={ClientRecord}
+        />
+        <PrivateRouteDoctor
+          path="/doctor/processing/video/exam/:id"
+          exact
+          component={ProcessingVideoExam}
+        />
+        <PrivateRouteDoctor path="/doctors-clients" exact component={Clients} />
+
+        <NotificationContainer />
       </>
     );
   }
