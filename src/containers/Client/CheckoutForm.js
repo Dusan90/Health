@@ -79,7 +79,7 @@ class CheckoutForm extends Component {
 
   handleSubmit = async (ev) => {
     ev.preventDefault();
-    const price = parseInt(this.props.doctor.price, 10);
+    // const price = parseInt(this.props.doctor.price, 10);
     if (
       this.props.stripe &&
       this.state.cardNumber &&
@@ -99,7 +99,7 @@ class CheckoutForm extends Component {
           },
           body: JSON.stringify({
             payment_method_id: this.state.token.id,
-            amount: price,
+            amount: this.props.location.state.price,
           }),
         }
       );
@@ -159,6 +159,8 @@ class CheckoutForm extends Component {
   };
 
   render() {
+    console.log(this.props.location.state.price);
+
     // console.log(this.props.stripe);
     // console.log(
     //   this.state.cardNumber,

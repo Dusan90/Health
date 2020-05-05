@@ -42,8 +42,10 @@ class ExamForm extends Component {
   };
 
   handleDoctor = (e) => {
+    console.log(e.price);
+
     this.props.dispatch(doctor(e));
-    this.setState({ doctor_id: e.iD });
+    this.setState({ doctor_id: e.iD, price: e.price });
     this.setState({ resetDoctorSelect: e });
   };
 
@@ -92,7 +94,11 @@ class ExamForm extends Component {
   };
 
   toCheckout = async () => {
-    return this.props.history.push("/checkout");
+    return this.props.history.push({
+      pathname: "/checkout",
+      // search: "?query=abc",
+      state: { price: this.state.price },
+    });
   };
 
   componentDidMount() {

@@ -101,7 +101,7 @@ class ClientVideoReq extends Component {
       );
       const data = await response.json();
 
-      // this.toCheckout();
+      this.toCheckout();
       console.log(data, "post video requesttttt");
 
       return data;
@@ -110,9 +110,13 @@ class ClientVideoReq extends Component {
     }
   };
 
-  // toCheckout = async () => {
-  //   return this.props.history.push("/checkout");
-  // };
+  toCheckout = async () => {
+    return this.props.history.push({
+      pathname: "/checkout",
+      // search: "?query=abc",
+      state: { price: this.state.doctorsPrice },
+    });
+  };
 
   handleClientProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);

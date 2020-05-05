@@ -66,6 +66,7 @@ class ClientWaitingRoom extends Component {
   handleDoctor = (e) => {
     this.props.dispatch(doctor(e));
     this.setState({
+      price: e.price,
       doctor_id: e.iD,
       doctorsStatus: e.status,
       resetDoctorSelect: e,
@@ -162,8 +163,8 @@ class ClientWaitingRoom extends Component {
       );
       const data = await response.json();
       this.hanldeClientQueue(this.state.client_id);
-      this.props.history.push("/dashboard-client");
-      // this.toCheckout();
+      // this.props.history.push("/dashboard-client");
+      this.toCheckout();
 
       return data;
     } else if (
@@ -180,9 +181,13 @@ class ClientWaitingRoom extends Component {
     }
   };
 
-  // toCheckout = async () => {
-  //   return this.props.history.push("/checkout");
-  // };
+  toCheckout = async () => {
+    return this.props.history.push({
+      pathname: "/checkout",
+      // search: "?query=abc",
+      state: { price: this.state.price },
+    });
+  };
 
   handleClientProfile = () => {
     const access_token = "Bearer ".concat(this.state.token);

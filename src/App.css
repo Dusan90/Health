@@ -75,3 +75,26 @@
 .App-link {
   color: #09d3ac;
 }
+
+.mainNotFoundDiv {
+  height: 80vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #4092c2;
+}
+
+.bug {
+  font-size: 80px;
+  color: #4092c2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bug h1 {
+  font-size: 70px;
+  margin-left: 20px;
+  color: #09d3ac;
+}
