@@ -17,7 +17,7 @@ export class activate extends Component {
         `/https\:\/\/healthcarebackend\.xyz\/api\/auth\/activate\/${this.state.id}-${this.state.token}/`
       )
       .then((response) => {
-        console.log(response);
+        console.log(response, "sta je bre ovo");
       })
       .catch((error) => {
         console.log(error);
