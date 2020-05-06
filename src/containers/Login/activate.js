@@ -13,8 +13,9 @@ export class activate extends Component {
   getResponse = async () => {
     axios
       .get(
-        // `https://healthcarebackend.xyz/api/auth/activate/Ng-5g9-5876c62c37a57294a4f1/`
-        `/https\:\/\/healthcarebackend\.xyz\/api\/auth\/activate\/${this.state.id}-${this.state.token}/`
+        // `https://healthcarebackend.xyz/api/auth/activate/Nw-5g9-a15f65d9f3bf7b711041/`
+        // `/https\:\/\/healthcarebackend\.xyz\/api\/auth\/activate\/${this.state.id}-${this.state.token}/`
+        `https://healthcarebackend.xyz/api/auth/activate/${this.state.id}-${this.state.token}/```
       )
       .then((response) => {
         console.log(response, "sta je bre ovo");
