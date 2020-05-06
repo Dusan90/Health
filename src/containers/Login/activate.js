@@ -25,7 +25,7 @@ export class activate extends Component {
     var str = this.state.id;
     if (str.match(altPattern) != null && regex.test(str) != null) {
       axios
-        .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`)
+        .get(`https://healthcarebackend.xyz/api/auth/activate/${str}`)
         .then((response) => {
           console.log(response.data, "sta je bre ovo");
         })
