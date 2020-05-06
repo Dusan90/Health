@@ -6,14 +6,20 @@ export class activate extends Component {
     super(props);
     this.state = {
       id: this.props.match.params.id,
+      token: this.props.match.params.token,
     };
   }
 
   getResponse = async () => {
     axios
-      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`)
+      .get(
+        `https://healthcarebackend.xyz/api/auth/activate/${this.state.id}-${this.state.token}`
+      )
       .then((response) => {
         console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -21,6 +27,8 @@ export class activate extends Component {
     this.getResponse();
   }
   render() {
+    console.log(this.props);
+
     return <div>hello</div>;
   }
 }
