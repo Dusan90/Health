@@ -53,7 +53,7 @@ class Login extends Component {
       jsonData.detail === "User does not exist" ||
       jsonData.error
     ) {
-      NotificationManager.error("Invalid Credentials", "Failed!", 2000);
+      NotificationManager.error(`${jsonData.error}`, "Failed!", 2000);
     } else if (
       this.state.emailValue === "" ||
       this.state.passwordValue === ""
