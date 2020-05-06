@@ -10,14 +10,14 @@ export class activate extends Component {
   }
 
   getResponse = async () => {
-    axios
-      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`)
-      .then((response) => {
-        console.log(response.data, "sta je bre ovo");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`)
+    //   .then((response) => {
+    //     console.log(response.data, "sta je bre ovo");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
     var altPattern =
       "(?=^.{8,}$)((?=.*d)|(?=.*W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"; // using quotes and new RegEx() syntax...
