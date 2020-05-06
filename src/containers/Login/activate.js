@@ -14,6 +14,7 @@ export class activate extends Component {
     axios
       .get(
         `https://healthcarebackend.xyz/api/auth/activate/${this.state.id}-${this.state.token}`
+        // `/https\:\/\/healthcarebackend\.xyz\/api\/auth\/activate\/${this.state.id}-${this.state.token}/`
       )
       .then((response) => {
         console.log(response);
