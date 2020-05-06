@@ -9,7 +9,7 @@ export class activate extends Component {
     };
   }
 
-  getResponse = () => {
+  getResponse = async () => {
     axios
       .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`)
       .then((response) => {
