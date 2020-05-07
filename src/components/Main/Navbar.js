@@ -11,20 +11,12 @@ const Nav = ({
   isLoggedIn,
   handleDashboardDoctor,
   handleDashboardClient,
-  // handleDoctorProfile,
-  // handleClients,
   doctor,
 }) => {
   let dashboardLink = null;
-  // let profileLink = null;
   let curDoc = null;
   const isDoctor = sessionStorage.getItem("is_doctor");
   if (isDoctor === "true") {
-    // calendar = (
-    //   <Link to="/doctor/calendar" className="doc-dash">
-    //     Calendar
-    //   </Link>
-    // );
     dashboardLink = (
       <Link
         to="/dashboard-doctor"
@@ -52,28 +44,7 @@ const Nav = ({
           ></div>
         </div>
       </div>
-      // <div className="inic">
-      //   <div className="initials">{doctor}</div>
-      // </div>
     );
-    // clientsLink = (
-    //   <Link
-    //     to="/doctors-clients"
-    //     className="doc-dash"
-    //     onClick={() => handleClients}
-    //   >
-    //     Clients
-    //   </Link>
-    // );
-    // profileLink = (
-    //   <Link
-    //     to="/doctor/profile/"
-    //     className="doc-profile"
-    //     onClick={handleDoctorProfile}
-    //   >
-    //     Profile
-    //   </Link>
-    // );
   } else {
     dashboardLink = (
       <Link
@@ -95,16 +66,11 @@ const Nav = ({
         </div>
       </div>
     );
-    // profileLink = (
-    //   <Link to="/client/profile/" className="cli-profile">
-    //     Profile
-    //   </Link>
-    // );
   }
   return (
     <nav className="nav">
       {!isLoggedIn && (
-        <ul className="nav navbar-nav navbar-right">
+        <ul className="nav navbar-nav ">
           <li className="li-reg">
             <Link to="/register" onClick={register} className="register">
               Sign Up
@@ -118,11 +84,8 @@ const Nav = ({
         </ul>
       )}
       {isLoggedIn && (
-        <ul className="nav navbar-nav navbar-right">
+        <ul className="nav navbar-nav">
           <li>{dashboardLink}</li>
-          {/* <li>{calendar}</li> */}
-          {/* <li>{clientsLink}</li> */}
-          {/* <li>{profileLink}</li> */}
           <li>{curDoc}</li>
 
           <li>
