@@ -9,9 +9,13 @@ export class activate extends Component {
     };
   }
 
-  getResponse = async () => {
+  getResponse = () => {
     axios
-      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`)
+      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         console.log(response.data, "come on");
       })

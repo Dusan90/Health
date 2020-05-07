@@ -49,6 +49,7 @@ export class Routes extends Component {
             exact
             component={ChangePass}
           />
+          <Route path="*" component={Main} />
           <Route path="/api/auth/activate/:id/" exact component={Activate} />
           <Route component={NotFound} />
         </Switch>
