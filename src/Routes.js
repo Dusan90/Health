@@ -44,8 +44,6 @@ export class Routes extends Component {
           <Route path="/login" exact component={Login} />
           <Route path="/logout" exact component={Logout} />
           <Route path="/forgot-password" exact component={ForgotPass} />
-          <Route path="/dashboard-doctor" exact component={DoctorDashboard} />
-
           <Route
             path="/api/auth/reset-confirm/:id/"
             exact
@@ -95,6 +93,12 @@ export class Routes extends Component {
         <Elements>
           <PrivateRoute path="/checkout" exact component={CheckoutForm} />
         </Elements>
+
+        <PrivateRouteDoctor
+          path="/dashboard-doctor"
+          exact
+          component={DoctorDashboard}
+        />
 
         <PrivateRouteDoctor
           path="/doctor/calendar"
