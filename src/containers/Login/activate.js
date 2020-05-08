@@ -34,8 +34,6 @@ export class activate extends Component {
   }
   render() {
     const H1style = {
-      height: "60px",
-      background: "green",
       marginTop: "20%",
     };
     return (
