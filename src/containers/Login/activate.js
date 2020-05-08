@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Nav from "../../components/Main/Navbar";
+import Header from "../../components/Main/Header";
+import Footer from "../../components/Main/Footer";
 
 export class activate extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: this.props.match.params.id,
+      message: "",
     };
   }
 
@@ -17,7 +21,8 @@ export class activate extends Component {
         },
       })
       .then((response) => {
-        console.log(response.data, "come on");
+        console.log(response.data);
+        this.setState({ message: response.data.message });
       })
       .catch((error) => {
         console.log(error);
@@ -28,7 +33,27 @@ export class activate extends Component {
     this.getResponse();
   }
   render() {
-    return <div>hello</div>;
+    const H1style = {
+      height: "60px",
+      background: "green",
+      marginTop: "20%",
+    };
+    return (
+      <>
+        <div className="header">
+          <div>
+            <Header />
+            <Nav />
+          </div>
+        </div>
+        <div>
+          <h1 style={H1style}>{this.state.message}</h1>
+        </div>
+        <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
+          <Footer />
+        </div>
+      </>
+    );
   }
 }
 
