@@ -35,8 +35,17 @@ class ClientDashboard extends Component {
     this.props.history.push("/client/video-request");
   };
 
+  escBtn = (e) => {
+    if (e.keyCode === 27) {
+      this.setState({
+        viewAllExams: false,
+      });
+    }
+  };
+
   componentDidMount() {
     this.connect();
+    window.addEventListener("keydown", this.escBtn);
     this.paginatedExams();
     const access_token = "Bearer ".concat(this.state.token);
     axios
@@ -202,6 +211,10 @@ class ClientDashboard extends Component {
     this.setState({ hamburger: !this.state.hamburger });
   };
 
+  hnlMyConsultations = () => {
+    this.setState({ hamburger: false, viewAllExams: true });
+  };
+
   render() {
     console.log(this.state.exams);
     console.log(this.state.paginatedExams);
@@ -226,6 +239,7 @@ class ClientDashboard extends Component {
           props={this}
           VideoReq={this.VideoReq}
           handleHam={this.handleHam}
+          hnlMyConsultations={this.hnlMyConsultations}
         />
         <Footer />
       </>

@@ -30,6 +30,7 @@ const Dashboard = ({
   handleClickLeft,
   handleClickRight,
   handleHam,
+  hnlMyConsultations,
   props,
 }) => {
   return (
@@ -220,7 +221,7 @@ const Dashboard = ({
           </span>
           <h2>Waiting Room</h2>
         </div>
-        <div className="sideMyCounsultation">
+        <div className="sideMyCounsultation" onClick={hnlMyConsultations}>
           <span>
             <GoFileDirectory className="icon" />
           </span>
