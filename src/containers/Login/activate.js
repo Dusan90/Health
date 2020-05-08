@@ -35,6 +35,7 @@ export class activate extends Component {
   render() {
     const H1style = {
       marginTop: "20%",
+      color: "#4092c2",
     };
     return (
       <>
@@ -45,7 +46,7 @@ export class activate extends Component {
           </div>
         </div>
         <div>
-          <h1 style={H1style}>{this.state.message}</h1>
+          <h3 style={H1style}>{this.state.message}</h3>
         </div>
         <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
           <Footer />
