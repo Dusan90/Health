@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 // import { isAuthenticated, isUser } from "../../utils/auth";
 
 /**
@@ -11,22 +11,24 @@ import { Route, Redirect } from "react-router-dom";
  * @constructor
  */
 export const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      sessionStorage.getItem("accessToken") &&
-      sessionStorage.getItem("is_doctor") === "false" ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location },
-          }}
-        />
-      )
-    }
-  />
+  <Switch>
+    <Route
+      {...rest}
+      render={(props) =>
+        sessionStorage.getItem("accessToken") &&
+        sessionStorage.getItem("is_doctor") === "false" ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location },
+            }}
+          />
+        )
+      }
+    />
+  </Switch>
 );
 
 export default PrivateRoute;

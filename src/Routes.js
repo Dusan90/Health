@@ -38,20 +38,19 @@ export class Routes extends Component {
   render() {
     return (
       <>
-        <Switch>
-          <Route path="/" exact component={Main} />
-          <Route path="/register" exact component={Register} />
-          <Route path="/login" exact component={Login} />
-          <Route path="/logout" exact component={Logout} />
-          <Route path="/forgot-password" exact component={ForgotPass} />
-          <Route
-            path="/api/auth/reset-confirm/:id/"
-            exact
-            component={ChangePass}
-          />
-          <Route path="/api/auth/activate/:id/" exact component={Activate} />
-          <Route component={NotFound} />
-        </Switch>
+        <Switch />
+        <Route path="/" exact component={Main} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/logout" exact component={Logout} />
+        <Route path="/forgot-password" exact component={ForgotPass} />
+        <Route
+          path="/api/auth/reset-confirm/:id/"
+          exact
+          component={ChangePass}
+        />
+        <Route path="/api/auth/activate/:id/" exact component={Activate} />
+
         <PrivateRoute
           path="/dashboard-client"
           exact
@@ -143,6 +142,9 @@ export class Routes extends Component {
         <PrivateRouteDoctor path="/doctors-clients" exact component={Clients} />
 
         <NotificationContainer />
+
+        {/* <PrivateRoute path="*" component={NotFound} /> */}
+        <Switch />
       </>
     );
   }
