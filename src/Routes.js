@@ -52,8 +52,8 @@ export class Routes extends Component {
         <Route path="/api/auth/activate/:id/" exact component={Activate} />
 
         <PrivateRoute
-          path="/dashboard-client"
           exact
+          path="/dashboard-client"
           component={ClientDashboard}
         />
 
@@ -142,8 +142,7 @@ export class Routes extends Component {
         <PrivateRouteDoctor path="/doctors-clients" exact component={Clients} />
 
         <NotificationContainer />
-
-        {/* <PrivateRoute path="*" component={NotFound} /> */}
+        {/* <Route path="*" component={NotFound} /> */}
         <Switch />
       </>
     );

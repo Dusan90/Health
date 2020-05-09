@@ -11,24 +11,22 @@ import { Route, Redirect, Switch } from "react-router-dom";
  * @constructor
  */
 export const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Switch>
-    <Route
-      {...rest}
-      render={(props) =>
-        sessionStorage.getItem("accessToken") &&
-        sessionStorage.getItem("is_doctor") === "false" ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: props.location },
-            }}
-          />
-        )
-      }
-    />
-  </Switch>
+  <Route
+    {...rest}
+    render={(props) =>
+      sessionStorage.getItem("accessToken") &&
+      sessionStorage.getItem("is_doctor") === "false" ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { from: props.location },
+          }}
+        />
+      )
+    }
+  />
 );
 
 export default PrivateRoute;
