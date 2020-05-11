@@ -21,7 +21,7 @@ class CheckoutForm extends Component {
     super(props);
     this.state = {
       complete: false,
-      selectedCard: false,
+      selectedCard: true,
       selectedPal: false,
       token: null,
       cardNumber: false,
@@ -159,8 +159,6 @@ class CheckoutForm extends Component {
   };
 
   render() {
-    console.log(this.props.location.state.price);
-
     // console.log(this.props.stripe);
     // console.log(
     //   this.state.cardNumber,
@@ -222,19 +220,20 @@ class CheckoutForm extends Component {
               <FaPaypal className="icon" />
             </div>
           </div>
-          <div className="mainBillDiv">
-            <div className="billingInfo">
-              <h1>Billing Info</h1>
-              <label htmlFor="fullName">
-                FULL NAME
-                <br />
-                <input id="fullName" placeholder="John Doe" type="text" />
-              </label>
-            </div>
-            <div className="creditCardInfo">
-              <h1>Credit Card Info</h1>
+          {this.state.selectedCard ? (
+            <div className="mainBillDiv">
+              <div className="billingInfo">
+                <h1>Billing Info</h1>
+                <label htmlFor="fullName">
+                  FULL NAME
+                  <br />
+                  <input id="fullName" placeholder="John Doe" type="text" />
+                </label>
+              </div>
+              <div className="creditCardInfo">
+                <h1>Credit Card Info</h1>
 
-              {/* <form>
+                {/* <form>
                 <label>
                   CARD NUMBER
                   <CardNumberElement
@@ -266,38 +265,43 @@ class CheckoutForm extends Component {
                   Submit{" "}
                 </button>
               </form> */}
-              <form onSubmit={this.handleSubmit}>
-                <label>
-                  CARD NUMBER
-                  <CardNumberElement
-                    className="CardElement"
-                    onChange={this.handleChange}
-                    onReady={this.handleReady}
-                    {...createOptions(this.props.fontSize)}
-                  />
-                </label>
-                <label>
-                  EXPIRATION DATE
-                  <CardExpiryElement
-                    className="CardElement"
-                    onChange={this.handleChange}
-                    onReady={this.handleReady}
-                    {...createOptions(this.props.fontSize)}
-                  />
-                </label>
-                <label>
-                  CVC
-                  <CardCVCElement
-                    className="CardElement cvc"
-                    onChange={this.handleChange}
-                    onReady={this.handleReady}
-                    {...createOptions(this.props.fontSize)}
-                  />
-                </label>
-                <button className="btn-checkout"> Submit </button>
-              </form>
+                <form onSubmit={this.handleSubmit}>
+                  <label>
+                    CARD NUMBER
+                    <CardNumberElement
+                      className="CardElement"
+                      onChange={this.handleChange}
+                      onReady={this.handleReady}
+                      {...createOptions(this.props.fontSize)}
+                    />
+                  </label>
+                  <label>
+                    EXPIRATION DATE
+                    <CardExpiryElement
+                      className="CardElement"
+                      onChange={this.handleChange}
+                      onReady={this.handleReady}
+                      {...createOptions(this.props.fontSize)}
+                    />
+                  </label>
+                  <label>
+                    CVC
+                    <CardCVCElement
+                      className="CardElement cvc"
+                      onChange={this.handleChange}
+                      onReady={this.handleReady}
+                      {...createOptions(this.props.fontSize)}
+                    />
+                  </label>
+                  <button className="btn-checkout"> Submit </button>
+                </form>
+              </div>
             </div>
-          </div>
+          ) : this.state.selectedPal ? (
+            <div style={{ color: "#4092c2", fontWeight: "600" }}>
+              Stay tuned!
+            </div>
+          ) : null}
         </div>
       </>
     );
