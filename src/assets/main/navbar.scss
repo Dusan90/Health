@@ -67,6 +67,7 @@
         color: #4092c2;
         background: none;
         transition: all 0.5s ease-in-out;
+        padding: 15px 0 15px 10px;
         &:hover {
           background: none;
           color: rgb(3, 137, 182);
@@ -75,6 +76,9 @@
           background: none;
         }
       }
+    }
+    .userName {
+      margin-left: 10px;
     }
   }
   .li-reg {
@@ -94,7 +98,7 @@
       background-color: #4092c2;
       height: 26px;
       padding: 2px 10px 2px 10px;
-      margin: 12px 0 0 0;
+      margin: 12px 0 0 10px;
       border-radius: 5px;
     }
   }

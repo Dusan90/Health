@@ -21,6 +21,12 @@
   text-align: start;
 }
 
+@media (max-width: 1400px) {
+  .radioDiv {
+    width: 80%;
+  }
+}
+
 .head {
   color: #4092c2;
 }

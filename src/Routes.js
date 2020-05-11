@@ -142,7 +142,7 @@ export class Routes extends Component {
         <PrivateRouteDoctor path="/doctors-clients" exact component={Clients} />
 
         <NotificationContainer />
-        {/* <Route path="*" component={NotFound} /> */}
+        {/* <Route component={NotFound} /> */}
         <Switch />
       </>
     );

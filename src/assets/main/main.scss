@@ -58,6 +58,11 @@
       }
     }
   }
+  @media (max-width: 1400px) {
+    .treatment {
+      width: 80%;
+    }
+  }
 
   .mindAndBody {
     display: grid;
@@ -80,6 +85,11 @@
           height: 55px;
           &:hover {
             cursor: pointer;
+          }
+        }
+        @media (max-width: 1400px) {
+          img {
+            width: 180px;
           }
         }
       }
@@ -141,6 +151,12 @@
           font-size: 14pt;
         }
       }
+    }
+  }
+
+  @media (max-width: 1400px) {
+    .MainIconInfoDiv {
+      width: 80%;
     }
   }
 
@@ -304,6 +320,11 @@
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
         }
+        @media (max-width: 1400px) {
+          .sticky_div {
+            font-size: 18pt;
+          }
+        }
 
         .number {
           width: 110px;
@@ -374,6 +395,12 @@
         }
       }
     }
+
+    @media (max-width: 1400px) {
+      .howItWorks {
+        width: 80%;
+      }
+    }
   }
   .headers {
     position: relative;
@@ -404,6 +431,14 @@
         font-weight: 500;
         font-size: 17pt;
         letter-spacing: -1px;
+      }
+    }
+
+    @media (max-width: 1400px) {
+      .headersInfo {
+        width: 80%;
+        left: 10%;
+        bottom: 37%;
       }
     }
 

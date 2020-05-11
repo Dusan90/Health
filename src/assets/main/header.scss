@@ -18,4 +18,9 @@
       margin: 7px 0 0 0;
     }
   }
+  @media (max-width: 1400px) {
+    div {
+      width: 80%;
+    }
+  }
 }

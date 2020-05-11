@@ -86,7 +86,7 @@ const Nav = ({
       {isLoggedIn && (
         <ul className="nav navbar-nav">
           <li>{dashboardLink}</li>
-          <li>{curDoc}</li>
+          <li className="userName">{curDoc}</li>
 
           <li>
             <Link to="/logout" onClick={handleLogout}>

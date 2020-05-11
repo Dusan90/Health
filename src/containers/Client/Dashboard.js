@@ -216,8 +216,7 @@ class ClientDashboard extends Component {
   };
 
   render() {
-    console.log(this.state.exams);
-    console.log(this.state.paginatedExams);
+    console.log(this.props, "client-dah props");
 
     return (
       <>
