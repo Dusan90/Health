@@ -160,13 +160,20 @@ class Register extends Component {
           }),
         }
       );
-      this.props.history.push("/login");
-      NotificationManager.success(
-        "An email for confirmation will be sent shortly",
-        "Successful!",
-        4000
-      );
+
       const jsonData = await doctor.json();
+      console.log(jsonData);
+
+      if (jsonData.success) {
+        this.props.history.push("/login");
+        NotificationManager.success(
+          "An email for confirmation will be sent shortly",
+          "Successful!",
+          4000
+        );
+      } else {
+        NotificationManager.error(`${jsonData.error}`, "Faild!", 4000);
+      }
       return jsonData;
     }
   };

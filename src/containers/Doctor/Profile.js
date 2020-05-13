@@ -71,7 +71,7 @@ class DoctorProfile extends Component {
       }
     );
     const jsonData = await data.json();
-    console.log(jsonData);
+    console.log(jsonData, "profile changed");
     NotificationManager.success("Profile Updated!", "Successful!", 2000);
     this.handleDoctorProfile();
   };

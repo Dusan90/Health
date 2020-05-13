@@ -70,7 +70,7 @@ class CheckoutForm extends Component {
   // };
 
   handleChange = (change) => {
-    console.log("[change]", change);
+    // console.log("[change]", change);
     this.setState({ [change.elementType]: change.complete });
   };
   handleReady = () => {
@@ -79,72 +79,86 @@ class CheckoutForm extends Component {
 
   handleSubmit = async (ev) => {
     ev.preventDefault();
-    // const price = parseInt(this.props.doctor.price, 10);
+    const price = parseInt(this.props.location.state.price, 10);
     if (
       this.props.stripe &&
       this.state.cardNumber &&
       this.state.cardExpiry &&
       this.state.cardCvc
     ) {
-      await this.props.stripe.createToken().then((payload) => {
-        console.log("[token]", payload.token);
-        this.setState({ token: payload.token });
-      });
-      const response = await fetch(
-        "https://healthcarebackend.xyz/api/charge/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            payment_method_id: this.state.token.id,
-            amount: this.props.location.state.price,
-          }),
-        }
-      );
-      // await this.handleServerResponse(await response.json());
-      const data = await response.json();
-      console.log(data);
+      if (this.props.location.state.price === "None") {
+        NotificationManager.error(
+          "Doctor did not set his price",
+          "Faild",
+          3000
+        );
+      } else {
+        await this.props.stripe.createToken().then((payload) => {
+          console.log("[token]", payload.token);
+          this.setState({ token: payload.token });
+        });
+        const response = await fetch(
+          "https://healthcarebackend.xyz/api/charge/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              payment_method_id: this.state.token,
+              amount: price,
+            }),
+          }
+        );
 
-      if (data.message === "Payment completed") {
-        this.setState({ complete: true });
-        NotificationManager.success("Checkout Completed", "Successful!", 2000);
+        // await this.handleServerResponse(await response.json());
+        const data = await response.json();
+        console.log(data);
+
+        if (data.message === "Payment completed") {
+          this.setState({ complete: true });
+          NotificationManager.success(
+            "Checkout Completed",
+            "Successful!",
+            2000
+          );
+        } else {
+          NotificationManager.error("Faild to Checkout", "Faild!", 2000);
+          console.log("Stripe.js hasn't loaded yet.");
+        }
       }
-    } else {
-      NotificationManager.error("Faild to Checkout", "Faild!", 2000);
-      console.log("Stripe.js hasn't loaded yet.");
     }
   };
 
-  // handleServerResponse = async (response) => {
-  //   if (response.error) {
-  //     // Show error from server on payment form
-  //   } else if (response.requires_action) {
-  //     // Use Stripe.js to handle the required card action
-  //     const {
-  //       error: errorAction,
-  //       paymentIntent,
-  //     } = await this.props.stripe.handleCardAction(
-  //       response.payment_intent_client_secret
-  //     );
+  handleServerResponse = async (response) => {
+    if (response.error) {
+      // Show error from server on payment form
+    } else if (response.requires_action) {
+      // Use Stripe.js to handle the required card action
+      const {
+        error: errorAction,
+        paymentIntent,
+      } = await this.props.stripe.handleCardAction(
+        response.payment_intent_client_secret
+      );
 
-  //     if (errorAction) {
-  //       // Show error from Stripe.js in payment form
-  //     } else {
-  //       // The card action has been handled
-  //       // The PaymentIntent can be confirmed again on the server
-  //       const serverResponse = await fetch("/pay", {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify({ payment_intent_id: paymentIntent.id }),
-  //       });
-  //       this.handleServerResponse(await serverResponse.json());
-  //     }
-  //   } else {
-  //     // Show success message
-  //   }
-  // };
+      if (errorAction) {
+        // Show error from Stripe.js in payment form
+      } else {
+        // The card action has been handled
+        // The PaymentIntent can be confirmed again on the server
+        const serverResponse = await fetch("/pay", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ payment_intent_id: paymentIntent.id }),
+        });
+        this.handleServerResponse(await serverResponse.json());
+      }
+    } else {
+      // Show success message
+      NotificationManager.success("Completed", "Successful!", 2000);
+    }
+  };
 
   handleSelect = () => {
     this.setState({ selectedCard: true, selectedPal: false });
@@ -159,13 +173,6 @@ class CheckoutForm extends Component {
   };
 
   render() {
-    // console.log(this.props.stripe);
-    // console.log(
-    //   this.state.cardNumber,
-    //   this.state.cardExpiry,
-    //   this.state.cardCvc
-    // );
-
     const createOptions = (fontSize, padding) => {
       return {
         style: {
@@ -229,6 +236,13 @@ class CheckoutForm extends Component {
                   <br />
                   <input id="fullName" placeholder="John Doe" type="text" />
                 </label>
+                <h1 className="totalPrice">
+                  Total:{" "}
+                  {this.props.location.state.price
+                    ? this.props.location.state.price
+                    : null}{" "}
+                  €
+                </h1>
               </div>
               <div className="creditCardInfo">
                 <h1>Credit Card Info</h1>

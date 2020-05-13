@@ -42,7 +42,7 @@ class ExamForm extends Component {
   };
 
   handleDoctor = (e) => {
-    console.log(e.price);
+    console.log(e);
 
     this.props.dispatch(doctor(e));
     this.setState({ doctor_id: e.iD, price: e.price });

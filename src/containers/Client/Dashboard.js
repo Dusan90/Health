@@ -165,11 +165,14 @@ class ClientDashboard extends Component {
       })
       .then((response) => {
         console.log(response.data.data, "videooo-request-list");
-
-        this.setState({
-          exams: [...this.state.exams.concat(response.data.data)],
-        });
-        this.paginate(this.state.page);
+        if (response.data.data) {
+          this.setState({
+            exams: [...this.state.exams.concat(response.data.data)],
+          });
+          this.paginate(this.state.page);
+        } else {
+          return null;
+        }
       });
   };
 
@@ -216,7 +219,7 @@ class ClientDashboard extends Component {
   };
 
   render() {
-    console.log(this.props, "client-dah props");
+    console.log(this.state.exams);
 
     return (
       <>

@@ -275,6 +275,8 @@ const Dashboard = ({
               </tr>
             </thead>
             {props.state.exams.map((ex, index) => {
+              console.log(ex, "nesto tamo");
+
               return (
                 <tbody key={index} className="client-body">
                   <tr

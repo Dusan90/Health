@@ -10,13 +10,14 @@
     padding: 5px;
     p {
       text-align: left;
-      border-bottom: 1px solid rgb(23, 23, 138);
+      border-bottom: 1px solid #4092c2;
       text-indent: 10px;
-      color: rgb(23, 23, 138);
+      color: #4092c2;
     }
     div {
       .btn {
         margin: 0;
+        background: #4092c2;
         &:hover {
           color: white;
         }
@@ -28,13 +29,13 @@
     padding: 5px;
     h4 {
       margin: 0 auto 12px auto;
-      color: rgb(23, 23, 138);
+      color: #4092c2;
     }
     p {
       text-align: left;
-      border-bottom: 1px solid rgb(23, 23, 138);
+      border-bottom: 1px solid #4092c2;
       text-indent: 10px;
-      color: rgb(23, 23, 138);
+      color: #4092c2;
     }
   }
 }
@@ -45,13 +46,13 @@
 
   .report-details {
     h4 {
-      color: rgb(23, 23, 138);
+      color: #4092c2;
     }
     p {
       text-align: left;
-      border-bottom: 1px solid rgb(23, 23, 138);
+      border-bottom: 1px solid #4092c2;
       text-indent: 10px;
-      color: rgb(23, 23, 138);
+      color: #4092c2;
     }
   }
 }
@@ -64,6 +65,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 10;
 
   #topControler {
     display: flex;
