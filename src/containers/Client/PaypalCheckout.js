@@ -93,7 +93,6 @@ class PaypalButton extends React.Component {
         className="main"
         style={{ margin: "40px auto 0 auto", width: "300px" }}
       >
-        <h1>ducaaaa</h1>
         {showButtons && (
           <div>
             <PayPalButton
@@ -103,6 +102,7 @@ class PaypalButton extends React.Component {
             />
           </div>
         )}
+
         {paid && (
           <div className="main">
             <h2>
