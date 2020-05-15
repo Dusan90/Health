@@ -15,6 +15,7 @@ import { FaCreditCard } from "react-icons/fa";
 import { FaPaypal } from "react-icons/fa";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
+import PaypalButton from "./PaypalCheckout";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -105,7 +106,7 @@ class CheckoutForm extends Component {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              payment_method_id: this.state.token,
+              payment_method_id: this.state.token.id,
               amount: price,
             }),
           }
@@ -173,6 +174,8 @@ class CheckoutForm extends Component {
   };
 
   render() {
+    console.log(this.props.location);
+
     const createOptions = (fontSize, padding) => {
       return {
         style: {
@@ -238,9 +241,11 @@ class CheckoutForm extends Component {
                 </label>
                 <h1 className="totalPrice">
                   Total:{" "}
-                  {this.props.location.state.price
+                  {this.props.location.state === undefined
+                    ? 0
+                    : this.props.location.state.price
                     ? this.props.location.state.price
-                    : null}{" "}
+                    : 0}{" "}
                   €
                 </h1>
               </div>
@@ -312,8 +317,14 @@ class CheckoutForm extends Component {
               </div>
             </div>
           ) : this.state.selectedPal ? (
-            <div style={{ color: "#4092c2", fontWeight: "600" }}>
-              Stay tuned!
+            <div>
+              <PaypalButton
+                amount={
+                  this.props.location.state
+                    ? this.props.location.state.price
+                    : null
+                }
+              />
             </div>
           ) : null}
         </div>
