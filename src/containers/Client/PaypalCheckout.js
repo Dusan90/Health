@@ -93,16 +93,16 @@ class PaypalButton extends React.Component {
         className="main"
         style={{ margin: "40px auto 0 auto", width: "300px" }}
       >
+        <h1>ducaaaa</h1>
         {showButtons && (
           <div>
             <PayPalButton
-              // style={style}
+              style={style}
               createOrder={(data, actions) => this.createOrder(data, actions)}
               onApprove={(data, actions) => this.onApprove(data, actions)}
             />
           </div>
         )}
-
         {paid && (
           <div className="main">
             <h2>
