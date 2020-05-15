@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "/static/css/main.49ba2234.chunk.css",
+    "main.js": "/static/js/main.b34fc062.chunk.js",
+    "main.js.map": "/static/js/main.b34fc062.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.f7c4e76a.js",
+    "runtime-main.js.map": "/static/js/runtime-main.f7c4e76a.js.map",
+    "static/css/2.21573d68.chunk.css": "/static/css/2.21573d68.chunk.css",
+    "static/js/2.d93fafc5.chunk.js": "/static/js/2.d93fafc5.chunk.js",
+    "static/js/2.d93fafc5.chunk.js.map": "/static/js/2.d93fafc5.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.7b881bf536ee9e2946ea6a26dac92e3d.js": "/precache-manifest.7b881bf536ee9e2946ea6a26dac92e3d.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.21573d68.chunk.css.map": "/static/css/2.21573d68.chunk.css.map",
+    "static/css/main.49ba2234.chunk.css.map": "/static/css/main.49ba2234.chunk.css.map",
+    "static/js/2.d93fafc5.chunk.js.LICENSE.txt": "/static/js/2.d93fafc5.chunk.js.LICENSE.txt",
+    "static/media/1.svg": "/static/media/1.7d79956d.svg",
+    "static/media/2.svg": "/static/media/2.f2bb8185.svg",
+    "static/media/3.svg": "/static/media/3.7521d49a.svg",
+    "static/media/BehavioralHealt.svg": "/static/media/BehavioralHealt.69bf2f21.svg",
+    "static/media/Dermatology.svg": "/static/media/Dermatology.b88c28f2.svg",
+    "static/media/Dermatology2.svg": "/static/media/Dermatology2.f6a144d7.svg",
+    "static/media/LOGOHC-01.svg": "/static/media/LOGOHC-01.1da97e72.svg",
+    "static/media/Medical.svg": "/static/media/Medical.f036e0b1.svg",
+    "static/media/Medical2.svg": "/static/media/Medical2.936f1e44.svg",
+    "static/media/Photo1.jpg": "/static/media/Photo1.89467708.jpg",
+    "static/media/iPhone-X-Template.png": "/static/media/iPhone-X-Template.94d47076.png",
+    "static/media/icon_Phone.svg": "/static/media/icon_Phone.25f08f3d.svg",
+    "static/media/icon_Prescriptions.svg": "/static/media/icon_Prescriptions.a9c114d7.svg",
+    "static/media/icon_Visits.svg": "/static/media/icon_Visits.c64fd701.svg",
+    "static/media/icon_money.svg": "/static/media/icon_money.767f8681.svg",
+    "static/media/loading-gif-png-5-original.gif": "/static/media/loading-gif-png-5-original.e4b6323e.gif",
+    "static/media/notifications.css": "/static/media/notification.c0d3c94c.eot",
+    "static/media/seeadoctor.svg": "/static/media/seeadoctor.45520ca3.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f7c4e76a.js",
+    "static/css/2.21573d68.chunk.css",
+    "static/js/2.d93fafc5.chunk.js",
+    "static/css/main.49ba2234.chunk.css",
+    "static/js/main.b34fc062.chunk.js"
+  ]
+}
