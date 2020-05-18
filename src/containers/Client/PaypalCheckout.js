@@ -5,11 +5,11 @@ import Spinner from "../../img/loading-gif-png-5-original.gif";
 
 const CLIENT = {
   sandbox: "sb",
-  production: "xxxxxxxxx",
+  // production: "xxxxxxxxx",
 };
 
-const CLIENT_ID =
-  process.env.NODE_ENV === "production" ? CLIENT.production : CLIENT.sandbox;
+const CLIENT_ID = CLIENT.sandbox;
+// process.env.NODE_ENV === "production" ? CLIENT.production : CLIENT.sandbox;
 
 let PayPalButton = null;
 class PaypalButton extends React.Component {
@@ -86,6 +86,7 @@ class PaypalButton extends React.Component {
       tagline: "false",
       layout: "horizontal",
       tagline: "true",
+      commit: "true",
     };
 
     return (
@@ -105,7 +106,7 @@ class PaypalButton extends React.Component {
 
         {paid && (
           <div className="main">
-            <h2>
+            <h2 style={{ color: "#4092c2" }}>
               Congrats!{" "}
               <span role="img" aria-label="emoji">
                 {" "}
