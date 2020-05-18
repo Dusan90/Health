@@ -322,7 +322,7 @@ class CheckoutForm extends Component {
                 amount={
                   this.props.location.state
                     ? this.props.location.state.price
-                    : null
+                    : 0
                 }
               />
             </div>

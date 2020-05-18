@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import scriptLoader from "react-async-script-loader";
 import Spinner from "../../img/loading-gif-png-5-original.gif";
+import { NotificationManager } from "react-notifications";
 
 const CLIENT = {
   sandbox: "sb",
@@ -52,31 +53,39 @@ class PaypalButton extends React.Component {
     }
   }
   createOrder = (data, actions) => {
-    return actions.order.create({
-      purchase_units: [
-        {
-          description: +"Exam Price",
-          amount: {
-            currency_code: "EUR",
-            value: 20,
+    if (this.props.amount !== 0) {
+      return actions.order.create({
+        purchase_units: [
+          {
+            description: +"Exam Price",
+            amount: {
+              currency_code: "EUR",
+              value: this.props.amount,
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    } else {
+      NotificationManager.error("Doctor did not set his price", "Faild", 3000);
+    }
   };
 
   onApprove = (data, actions) => {
-    actions.order.capture().then((details) => {
-      const paymentData = {
-        payerID: data.payerID,
-        orderID: data.orderID,
-      };
-      console.log("Payment Approved: ", paymentData);
-      this.setState({ showButtons: false, paid: true });
-    });
+    if (this.props.amount !== 0) {
+      actions.order.capture().then((details) => {
+        const paymentData = {
+          payerID: data.payerID,
+          orderID: data.orderID,
+        };
+        console.log("Payment Approved: ", paymentData);
+        this.setState({ showButtons: false, paid: true });
+      });
+    }
   };
 
   render() {
+    console.log(this.props);
+
     const { showButtons, loading, paid } = this.state;
     const style = {
       size: "small",
