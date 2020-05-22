@@ -29,7 +29,7 @@ import Clients from "./containers/Doctor/Clients";
 import WaitingRoom from "./containers/Client/WaitingRoom";
 import DoctorsCalendar from "./containers/Doctor/DoctorsCalendar";
 import { NotificationContainer } from "react-notifications";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { PrivateRoute } from "./components/Routes/PrivateRoute";
 import { PrivateRouteDoctor } from "./components/Routes/PrivateRouteDoctor";
 import NotFound from "./containers/Home/NotFound";
@@ -143,6 +143,8 @@ export class Routes extends Component {
 
         <NotificationContainer />
         {/* <Route component={NotFound} /> */}
+        {/* <Route path="/404" component={NotFound} />
+        <Redirect to="/404" /> */}
         <Switch />
       </>
     );

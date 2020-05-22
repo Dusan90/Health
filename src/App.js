@@ -42,7 +42,7 @@ class App extends Component {
           access_token: accessToken,
           expires_in: expiresIn,
           refresh_token: refreshToken,
-          is_doctor: isDoctor
+          is_doctor: isDoctor,
         })
       );
       this.store.dispatch(userLoggedIn());

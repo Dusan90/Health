@@ -9,8 +9,6 @@ export class NotFound extends Component {
     super(props);
   }
   render() {
-    console.log(this.props, "bug props");
-    // if (this.props.location.pathname !== this.props.match.params.path &&) {
     return (
       <div>
         <div className="header">
@@ -35,9 +33,6 @@ export class NotFound extends Component {
         </div>
       </div>
     );
-    // } else {
-    //   return null;
-    // }
   }
 }
 

@@ -94,10 +94,12 @@ class CheckoutForm extends Component {
           3000
         );
       } else {
-        await this.props.stripe.createToken().then((payload) => {
-          console.log("[token]", payload.token);
-          this.setState({ token: payload.token });
-        });
+        const result = await this.props.stripe.createPaymentMethod("card", {});
+        console.log(result.paymentMethod);
+        // await this.props.stripe.createToken().then((payload) => {
+        //   console.log("[token]", payload.token);
+        //   this.setState({ token: payload.token });
+        // });
         const response = await fetch(
           "https://healthcarebackend.xyz/api/charge/",
           {
@@ -106,8 +108,9 @@ class CheckoutForm extends Component {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              payment_method_id: this.state.token.id,
+              payment_method_id: result.paymentMethod.id,
               amount: price,
+              currency: "",
             }),
           }
         );
@@ -148,11 +151,14 @@ class CheckoutForm extends Component {
       } else {
         // The card action has been handled
         // The PaymentIntent can be confirmed again on the server
-        const serverResponse = await fetch("/pay", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ payment_intent_id: paymentIntent.id }),
-        });
+        const serverResponse = await fetch(
+          "https://healthcarebackend.xyz/api/pay",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ payment_intent_id: paymentIntent.id }),
+          }
+        );
         this.handleServerResponse(await serverResponse.json());
       }
     } else {
