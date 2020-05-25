@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DetailVideo from "../../components/Client/ClientVideoExamDetail";
+import Footer from "../../components/Main/Footer";
 
 class ClientVideoExamDetail extends Component {
   constructor(props) {
@@ -20,19 +21,15 @@ class ClientVideoExamDetail extends Component {
     const doctor = await fetch(
       `https://healthcarebackend.xyz/api/web/client/${this.state.id}/`,
       {
-        method: "PUT",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: access_token,
         },
-        body: JSON.stringify({
-          message: "Cancel",
-        }),
       }
     );
     const jsonData = await doctor.json();
     // this.toRefund();
-    console.log(jsonData);
 
     return jsonData;
   };
@@ -44,8 +41,6 @@ class ClientVideoExamDetail extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "detailex");
-
         this.setState({ exam: this.state.exam.concat(response.data.data) });
       });
   };
@@ -71,6 +66,9 @@ class ClientVideoExamDetail extends Component {
           handleLinkMessage={this.handleLinkMessage}
           handleCancel={this.handleCancel}
         />
+        <div className="footerr">
+          <Footer />
+        </div>
       </>
     );
   }

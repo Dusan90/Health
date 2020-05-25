@@ -64,9 +64,11 @@ class ClientWaitingRoom extends Component {
   };
 
   handleDoctor = (e) => {
+    console.log(e);
+
     this.props.dispatch(doctor(e));
     this.setState({
-      price: e.price,
+      // price: e.price,
       doctor_id: e.iD,
       doctorsStatus: e.status,
       resetDoctorSelect: e,
@@ -110,12 +112,11 @@ class ClientWaitingRoom extends Component {
       .get(`https://healthcarebackend.xyz/api/queue/client/${id}/`, {
         headers: { Authorization: access_token },
       })
+
       .then((response) => {
         console.log(response, "Client, IDDDDDDDD");
 
-        if (response.statusText !== "OK") {
-          console.log("empty");
-        } else {
+        if (response.data.data) {
           if (
             response.data.data.created !==
             moment(new Date()).format("YYYY-MM-DD")
@@ -124,12 +125,18 @@ class ClientWaitingRoom extends Component {
             this.handleExitQueue();
           } else if (response.data.data.status === "In the queue") {
             this.setState({
+              price: response.data.data.price,
               credits: true,
               currentClient: response.data.data,
             });
           }
           this.QueueList(response.data.data.doctor);
+        } else {
+          return null;
         }
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 

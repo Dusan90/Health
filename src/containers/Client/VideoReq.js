@@ -94,13 +94,13 @@ class ClientVideoReq extends Component {
             subject: this.state.subject,
             notes: this.state.notes,
             appointed_date: this.state.reservedDate,
-            price: this.state.doctorsPrice,
+            // price: this.state.doctorsPrice,
             attachments: this.state.attachments,
           }),
         }
       );
       const data = await response.json();
-
+      this.setState({ doctorsPrice: data.data.price });
       this.toCheckout();
       console.log(data, "post video requesttttt");
 

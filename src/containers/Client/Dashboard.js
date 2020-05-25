@@ -53,8 +53,6 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response.data.data, "profile");
-
         this.props.curentDoc(response.data.data.user);
         return this.setState({ client: response.data.data });
       });
@@ -164,10 +162,15 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response.data.data, "videooo-request-list");
-        if (response.data.data) {
+        if (
+          response.data.data !== undefined &&
+          response.data.data.length !== 0
+        ) {
+          const filterOutCanceled = response.data.data.filter((fil_cancel) => {
+            return fil_cancel.status !== "Canceled";
+          });
           this.setState({
-            exams: [...this.state.exams.concat(response.data.data)],
+            exams: [...this.state.exams.concat(filterOutCanceled)],
           });
           this.paginate(this.state.page);
         } else {
@@ -183,13 +186,19 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response.data.data, "paginatedExams");
+        if (response.data.data.length !== 0) {
+          const filterOutCanceled = response.data.data.filter((fil_cancel) => {
+            return fil_cancel.status !== "Canceled";
+          });
 
-        this.setState({
-          exams: [...this.state.exams.concat(response.data.data)],
-        });
-        this.videoReqStatus();
-        this.paginate(this.state.page);
+          this.setState({
+            exams: [...this.state.exams.concat(filterOutCanceled)],
+          });
+          this.videoReqStatus();
+          this.paginate(this.state.page);
+        } else {
+          return null;
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -219,8 +228,6 @@ class ClientDashboard extends Component {
   };
 
   render() {
-    console.log(this.state.exams);
-
     return (
       <>
         <div className="header">

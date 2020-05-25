@@ -178,11 +178,7 @@ const Dashboard = ({
                 return (
                   <div key={shorty.id}>
                     {shorty.client},{" "}
-                    {new Intl.DateTimeFormat("en-GB", {
-                      year: "numeric",
-                      month: "long",
-                      day: "2-digit",
-                    }).format(new Date(shorty.created))}
+                    {moment(shorty.created).format("MM/DD/YYYY")}
                   </div>
                 );
               })

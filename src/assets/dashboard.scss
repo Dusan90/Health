@@ -117,15 +117,13 @@
 
     .divEmail {
       position: relative;
-
       .pendingReq {
         font-size: 13px;
         margin-top: 25px;
         color: #4092c2;
-
         div {
           margin: 4px auto;
-          text-align: left;
+          text-align: center;
           text-indent: 20px;
           color: #4092c2;
         }
@@ -186,6 +184,7 @@
         margin-top: 25px;
         color: #4092c2;
         .div {
+          text-align: center;
           color: #4092c2;
         }
       }

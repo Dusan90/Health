@@ -121,11 +121,21 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        this.setState({
-          exams: [...this.state.exams.concat(response.data.data)],
-        });
-        this.paginate(this.state.page);
-        this.peopleVideoPending();
+        if (response.data.data.length !== 0) {
+          const filterOutCanceled = response.data.data.filter((fil_cancel) => {
+            return (
+              fil_cancel.status === "Accepted" ||
+              fil_cancel.status === "Appointed"
+            );
+          });
+          console.log(filterOutCanceled);
+
+          this.setState({
+            exams: [...this.state.exams.concat(filterOutCanceled)],
+          });
+          this.paginate(this.state.page);
+          this.peopleVideoPending();
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -228,7 +238,7 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "videooo-request-list");
+        console.log(response.data.data, "videooo-request-list");
         let pending = response.data.data.filter((res) => {
           return (
             res.status === "Requested" &&
@@ -291,8 +301,6 @@ class DoctorDashboard extends Component {
   }
 
   render() {
-    console.log(this.state.videoPending);
-
     return (
       <>
         <div className="header">
