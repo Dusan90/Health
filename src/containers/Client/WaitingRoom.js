@@ -125,7 +125,6 @@ class ClientWaitingRoom extends Component {
             this.handleExitQueue();
           } else if (response.data.data.status === "In the queue") {
             this.setState({
-              price: response.data.data.price,
               credits: true,
               currentClient: response.data.data,
             });
@@ -169,6 +168,8 @@ class ClientWaitingRoom extends Component {
         }
       );
       const data = await response.json();
+
+      this.setState({ price: data.data.price });
       this.hanldeClientQueue(this.state.client_id);
       // this.props.history.push("/dashboard-client");
       this.toCheckout();

@@ -21,6 +21,7 @@
         background: #4092c2;
         transition: all 0.5s ease-in-out;
         border: none;
+        outline: 0;
         &:hover {
           background: rgb(0, 119, 158);
           box-shadow: 2px 2px 2px black;

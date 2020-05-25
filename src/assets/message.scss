@@ -21,9 +21,10 @@
         margin: 10px 0;
       }
       button {
-        background: rgb(0, 191, 255);
+        background: #4092c2;
         color: white;
         transition: all 0.5s ease-in-out;
+        outline: 0;
         &:hover {
           background: rgb(1, 113, 150);
           box-shadow: 2px 2px 2px black;
