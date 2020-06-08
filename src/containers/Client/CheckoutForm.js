@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  CardElement,
   injectStripe,
   CardNumberElement,
   CardExpiryElement,

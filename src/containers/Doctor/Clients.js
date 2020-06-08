@@ -47,7 +47,7 @@ export class DoctorsClients extends Component {
         const res = response.data.data.map((val) => {
           return { id: val.client_id, client: val.client };
         });
-        console.log(res);
+        // console.log(res);
 
         this.setState({ clients: res });
       });

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import scriptLoader from "react-async-script-loader";
-import Spinner from "../../img/loading-gif-png-5-original.gif";
+// import Spinner from "../../img/loading-gif-png-5-original.gif";
 import { NotificationManager } from "react-notifications";
 
 const CLIENT = {

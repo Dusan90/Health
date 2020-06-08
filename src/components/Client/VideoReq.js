@@ -5,6 +5,7 @@ import Select from "react-select";
 // import { Elements, StripeProvider } from "react-stripe-elements";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 const VideoReq = ({
   handleSpeciality,
@@ -13,7 +14,7 @@ const VideoReq = ({
   handleSubmit,
   handleMessage,
   handleDateChange,
-  props
+  props,
 }) => {
   return (
     <div className="exam">
@@ -62,11 +63,23 @@ const VideoReq = ({
           />
         </div>
         <div className="MainDate">
-          <DatePicker
+          {/* <DatePicker
             selected={props.startDate}
             onChange={handleDateChange}
             minDate={new Date()}
             inline
+          /> */}
+          <DatePicker
+            inline
+            selected={props.startDate}
+            onChange={handleDateChange}
+            showTimeSelect
+            minDate={new Date()}
+            timeFormat="HH:mm aa"
+            timeIntervals={30}
+            timeCaption="time"
+            minTime={moment().hours(8).minutes(30)}
+            maxTime={moment().hours(5).minutes(30)}
           />
         </div>
       </div>

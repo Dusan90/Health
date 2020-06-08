@@ -9,7 +9,7 @@ const ExamMessage = ({
   handleMessage,
   submitValue,
   handleSubmit,
-  onChangeHandler
+  onChangeHandler,
 }) => {
   return (
     <>

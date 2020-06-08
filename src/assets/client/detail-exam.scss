@@ -41,6 +41,15 @@
       margin: 5px;
       transition: all 0.5s ease-in-out;
       outline: 0;
+      &:disabled,
+      button[disabled] {
+        background: lightgray;
+        color: white;
+        cursor: not-allowed;
+        box-shadow: none;
+        pointer-events: none;
+        border: none;
+      }
 
       &:hover {
         background: #377da5;

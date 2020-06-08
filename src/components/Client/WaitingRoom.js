@@ -1,7 +1,7 @@
 import React from "react";
 import "../../assets/client/waitingRoom.scss";
 import Select from "react-select";
-import CheckoutForm from "../../containers/Client/CheckoutForm";
+// import CheckoutForm from "../../containers/Client/CheckoutForm";
 // import { Elements, StripeProvider } from "react-stripe-elements";
 import { FaMicrophoneAltSlash } from "react-icons/fa";
 import { FaMicrophoneAlt } from "react-icons/fa";

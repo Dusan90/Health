@@ -42,7 +42,7 @@ class ProcessingVideoExam extends Component {
   handleConnect = (e) => {
     e.preventDefault();
     this.setState({ connected: true });
-    this.test();
+    this.testwebsocket();
   };
 
   handleVideoStart = (e) => {
@@ -50,7 +50,7 @@ class ProcessingVideoExam extends Component {
     this.setState({ startVideo: true });
   };
 
-  test = () =>
+  testwebsocket = () =>
     navigator.webkitGetUserMedia(
       {
         video: true,
@@ -65,6 +65,14 @@ class ProcessingVideoExam extends Component {
           trickle: false,
           stream: stream,
         });
+
+        const connection = new WebSocket(
+          "wss://healthcarebackend.xyz/ws/video"
+        );
+
+        connection.onopen = () => {
+          console.log("connected");
+        };
 
         peer.on("signal", (data) => {
           let docId = JSON.stringify(data);
@@ -85,13 +93,6 @@ class ProcessingVideoExam extends Component {
           var yourMessage = document.getElementById("yourMessage").value;
           peer.send(yourMessage);
         });
-        const connection = new WebSocket(
-          "wss://healthcarebackend.xyz/ws/video"
-        );
-
-        connection.onopen = () => {
-          console.log("connected");
-        };
 
         connection.onclose = () => {
           console.error("disconnected");

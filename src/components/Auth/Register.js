@@ -10,7 +10,8 @@ const RegisterUser = ({
   passwordValue,
   addressValue,
   birthDateValue,
-  npiNumValue,
+  EmailPrice,
+  WebPrice,
   prefixValue,
   specOptions,
   specValue,
@@ -21,7 +22,8 @@ const RegisterUser = ({
   handlePass,
   handleAddress,
   handleBirthDate,
-  handleNpiNum,
+  handleEmailPrice,
+  handleWebPrice,
   handlePrefix,
   handleSpec,
   handleSubmit,
@@ -43,16 +45,29 @@ const RegisterUser = ({
   return (
     <form className="register-form">
       {userType === "doctor" && (
-        <div className="npi">
-          <input
-            type="text"
-            pattern="[0-9]*"
-            className="form-control"
-            placeholder="NPI number"
-            id="npi"
-            value={npiNumValue}
-            onChange={handleNpiNum}
-          />
+        <div className="Pricing">
+          <div className="EmailPrice">
+            <label htmlFor="EmailPrice">Email Exam Price</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="20"
+              id="EmailPrice"
+              value={EmailPrice}
+              onChange={handleEmailPrice}
+            />
+          </div>
+          <div className="WebPrice">
+            <label htmlFor="WebPrice">Web Exam Price</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="40"
+              id="WebPrice"
+              value={WebPrice}
+              onChange={handleWebPrice}
+            />
+          </div>
         </div>
       )}
       <div

@@ -146,7 +146,9 @@ const Dashboard = ({
                         <p>
                           {" "}
                           Appointed:{" "}
-                          {moment(exam.appointed_date).format("MM/DD/YYYY")}
+                          {moment(exam.appointed_date).format(
+                            "MM/DD/YYYY HH:mm"
+                          )}
                         </p>
                       )}
                     </td>

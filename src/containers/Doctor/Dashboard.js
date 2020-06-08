@@ -31,6 +31,7 @@ class DoctorDashboard extends Component {
       hamburger: false,
       viewAllExams: false,
       calendarPage: 1,
+      numOfMessages: 0,
     };
   }
 
@@ -107,7 +108,7 @@ class DoctorDashboard extends Component {
     if (type === "mail") {
       this.props.history.push(`/doctor/exam/detail/${id}`);
     } else if (type === "video") {
-      this.props.history.push(`/doctor/video/exam/detail/${id}`);
+      this.props.history.push(`/doctor/video/exam/detail/${id}/#init`);
     }
   };
 
@@ -296,10 +297,29 @@ class DoctorDashboard extends Component {
     this.peopleInWaitingRoom();
     // this.peopleVideoPending();
     this.pnd();
+
     window.addEventListener("keydown", this.escBtn);
     this.handleDoctorProfile();
+    // this.connecttest();
   }
 
+  // connecttest = () => {
+  //   let ws = new WebSocket("ws://localhost:8080/");
+  //   ws.onopen = () => {
+  //     // on connecting, do nothing but log it to the console
+  //     console.log("connected");
+  //   };
+  //   ws.onmessage = (event) => {
+  //     let doc = `${this.state.doctorCurent.prefix} ${this.state.doctorCurent.doctor}`;
+  //     if (event.data === doc) {
+  //       this.messagesNumber();
+  //     }
+  //   };
+  // };
+
+  // messagesNumber = () => {
+  //   this.setState({ numOfMessages: this.state.numOfMessages + 1 });
+  // };
   render() {
     return (
       <>

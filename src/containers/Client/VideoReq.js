@@ -28,7 +28,7 @@ class ClientVideoReq extends Component {
       resetDoctorSelect: null,
       isClicked: false,
       startDate: new Date(),
-      reservedDate: "",
+      reservedDate: moment(new Date()).format("YYYY-MM-DDTHH:mm:ss"),
       doctorsPrice: "",
       clientId: null,
       attachments: null,
@@ -36,10 +36,7 @@ class ClientVideoReq extends Component {
   }
 
   handleDateChange = (date) => {
-    // let clickedDate = moment(date).format("YYYY-MM-DD");
-    let clickedDate = moment(date).format("YYYY-MM-DDThh:mm:ss");
-    console.log(clickedDate);
-
+    let clickedDate = moment(date).format("YYYY-MM-DDTHH:mm:ss");
     this.setState({ startDate: date, reservedDate: clickedDate });
   };
 
@@ -94,7 +91,7 @@ class ClientVideoReq extends Component {
             subject: this.state.subject,
             notes: this.state.notes,
             appointed_date: this.state.reservedDate,
-            // price: this.state.doctorsPrice,
+            price: "",
             attachments: this.state.attachments,
           }),
         }
@@ -162,6 +159,8 @@ class ClientVideoReq extends Component {
   }
 
   render() {
+    console.log(this.state.reservedDate, "reserveddate");
+
     return (
       <>
         <div className="header">

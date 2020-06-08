@@ -88,6 +88,9 @@ const Dashboard = ({
               <p>Alerts</p>
             </div>
             <div className="messagesNav">
+              {/* <div className="numOfMessages">
+                <p>{props.state.numOfMessages}</p>
+              </div> */}
               <GoMailRead className="iconNav" />
               <p>Messages</p>
             </div>
@@ -245,7 +248,9 @@ const Dashboard = ({
                           <p>
                             {" "}
                             Appointed:{" "}
-                            {moment(exam.appointed_date).format("MM/DD/YYYY")}
+                            {moment(exam.appointed_date).format(
+                              "MM/DD/YYYY HH:mm"
+                            )}
                           </p>
                         ) : null}
                       </td>

@@ -24,12 +24,12 @@ const Processing = ({
   showAndHideChat,
   handleDivSize,
   cutVideo,
-  cutMic
+  cutMic,
 }) => {
   let disabled = props.clientsVideoId === "null" ? true : false;
   return (
     <>
-      {props.exam.map(exam => {
+      {props.exam.map((exam) => {
         return (
           <div key={exam.exam.id} className="detail-exam">
             <div className="detail">
@@ -70,10 +70,10 @@ const Processing = ({
           </div>
         );
       })}
-      {props.exam.map(exam => {
+      {props.exam.map((exam) => {
         let filtered =
           exam.record && exam.record.report.length !== 0
-            ? exam.record.report.filter(filexam => {
+            ? exam.record.report.filter((filexam) => {
                 return filexam.spec_name === exam.exam.speciality;
               })
             : null;
@@ -105,7 +105,7 @@ const Processing = ({
         id="videoo"
         size={{
           width: props.width,
-          height: props.height
+          height: props.height,
         }}
         style={{ display: props.startVideo ? "block" : "none" }}
         position={{ x: props.x, y: props.y }}

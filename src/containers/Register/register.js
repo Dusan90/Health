@@ -18,7 +18,8 @@ class Register extends Component {
       passwordValue: "",
       addressValue: "",
       birthDateValue: "",
-      npiNumValue: "",
+      EmailPrice: "",
+      WebPrice: "",
       prefixValue: "",
       specOptions: [],
       specValue: "",
@@ -55,8 +56,12 @@ class Register extends Component {
     this.setState({ birthDateValue: e.target.value });
   };
 
-  handleNpiNum = (e) => {
-    this.setState({ npiNumValue: e.target.value });
+  handleEmailPrice = (e) => {
+    this.setState({ EmailPrice: e.target.value });
+  };
+
+  handleWebPrice = (e) => {
+    this.setState({ WebPrice: e.target.value });
   };
 
   handlePrefix = (e) => {
@@ -88,7 +93,8 @@ class Register extends Component {
       this.state.firstNameValue &&
       this.state.lastNameValue &&
       this.state.passwordValue &&
-      this.state.npiNumValue &&
+      this.state.EmailPrice &&
+      this.state.WebPrice &&
       this.state.prefixValue &&
       this.state.selectedSpecValue
     ) {
@@ -153,7 +159,8 @@ class Register extends Component {
             last_name: this.state.lastNameValue,
             password: this.state.passwordValue,
             doctor: {
-              npi_number: this.state.npiNumValue,
+              email_exam_price: this.state.EmailPrice,
+              web_exam_price: this.state.WebPrice,
               prefix: this.state.prefixValue,
               speciality: this.state.selectedSpecValue,
             },
@@ -234,7 +241,8 @@ class Register extends Component {
           passwordValue={this.state.passwordValue}
           addressValue={this.state.addressValue}
           birthDateValue={this.state.birthDateValue}
-          npiNumValue={this.state.npiNumValue}
+          EmailPrice={this.state.EmailPrice}
+          WebPrice={this.state.WebPrice}
           prefixValue={this.state.prefixValue}
           specValue={this.state.specValue}
           specOptions={this.state.specOptions}
@@ -245,7 +253,8 @@ class Register extends Component {
           handlePass={this.handlePass}
           handleAddress={this.handleAddress}
           handleBirthDate={this.handleBirthDate}
-          handleNpiNum={this.handleNpiNum}
+          handleEmailPrice={this.handleEmailPrice}
+          handleWebPrice={this.handleWebPrice}
           handlePrefix={this.handlePrefix}
           handleSpec={this.handleSpec}
           handleSubmit={this.handleSubmit}

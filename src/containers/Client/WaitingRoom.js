@@ -403,10 +403,12 @@ class ClientWaitingRoom extends Component {
         document.querySelector(".icon2").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
+          this.handleExitQueue();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
+          this.handleExitQueue();
         });
       },
       function (err) {
