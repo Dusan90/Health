@@ -3,7 +3,7 @@ import axios from "axios";
 // import { connect } from "react-redux";
 import DetailVideo from "../../components/Doctor/DetailVideoExam";
 import Footer from "../../components/Main/Footer";
-
+const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video");
 const options = [
   { value: "Accept", label: "Accept" },
   { value: "Decline", label: "Decline" },
@@ -60,14 +60,6 @@ class DetailVideoExam extends Component {
           trickle: false,
           stream: stream,
         });
-
-        const connection = new WebSocket(
-          "wss://healthcarebackend.xyz/ws/video"
-        );
-
-        connection.onopen = () => {
-          console.log("connected");
-        };
 
         peer.on("signal", (data) => {
           let docId = JSON.stringify(data);
@@ -227,15 +219,13 @@ class DetailVideoExam extends Component {
     });
   };
 
-  detail = (id) => {
+  detail = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
-    axios
+    await axios
       .get(`https://healthcarebackend.xyz/api/web/doctor/${id}`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        // console.log(response);
-
         this.setState({ exam: this.state.exam.concat(response.data.data) });
       });
   };
@@ -253,8 +243,6 @@ class DetailVideoExam extends Component {
   };
 
   handleLinkMessage = () => {
-    // console.log(this.state.id);
-
     this.props.history.push(`/doctor/exam/message/${this.state.id}`);
   };
 
@@ -262,8 +250,6 @@ class DetailVideoExam extends Component {
     this.setState({ statusValue });
     let { value, label } = statusValue;
     this.setState({ selectedStatus: value });
-
-    console.log(value, label, " da vidimooo");
   };
 
   doctorExam = async (id) => {
@@ -282,7 +268,6 @@ class DetailVideoExam extends Component {
       }
     );
     const jsonData = await client.json();
-    console.log(jsonData, "sta se ovde vraca?");
 
     return jsonData;
   };
@@ -291,6 +276,9 @@ class DetailVideoExam extends Component {
     let id = this.props.match.params.id;
     this.setState({ id: id });
     this.detail(id);
+    connection.onopen = () => {
+      console.log("connected");
+    };
   }
 
   render() {

@@ -3,7 +3,7 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
 import axios from "axios";
-// import moment from "moment";
+import moment from "moment";
 import {
   Inject,
   ScheduleComponent,
@@ -45,8 +45,6 @@ export class DoctorsCalendar extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response.data.data);
-
         let accepted = response.data.data.filter((res) => {
           return res.status === "Appointed";
         });
@@ -54,7 +52,9 @@ export class DoctorsCalendar extends Component {
           return {
             client: obj.client,
             startTime: obj.appointed_date,
-            endTime: obj.appointed_date,
+            endTime: moment(obj.appointed_date)
+              .add(30, "minutes")
+              .format("YYYY-MM-DD HH:mm"),
             id: obj.id,
           };
         });

@@ -30,7 +30,6 @@ class DoctorDashboard extends Component {
       loading: true,
       hamburger: false,
       viewAllExams: false,
-      calendarPage: 1,
       numOfMessages: 0,
     };
   }
@@ -129,7 +128,7 @@ class DoctorDashboard extends Component {
               fil_cancel.status === "Appointed"
             );
           });
-          console.log(filterOutCanceled);
+          console.log(filterOutCanceled, "maillllllllllllllllll");
 
           this.setState({
             exams: [...this.state.exams.concat(filterOutCanceled)],
@@ -257,6 +256,7 @@ class DoctorDashboard extends Component {
           loading: false,
         });
         this.paginate(this.state.page);
+        this.handleUpcoming();
       })
       .catch((error) => {
         console.log(error);
@@ -274,22 +274,6 @@ class DoctorDashboard extends Component {
 
   hnlMyConsultations = () => {
     this.setState({ hamburger: false, viewAllExams: true });
-  };
-
-  paginateCalendarLeft = () => {
-    if (this.state.calendarPage === 1) {
-      return null;
-    } else {
-      this.setState({ calendarPage: this.state.calendarPage - 1 });
-    }
-  };
-
-  paginateCalendarRight = () => {
-    if (this.state.calendarPage === 4) {
-      return null;
-    } else {
-      this.setState({ calendarPage: this.state.calendarPage + 1 });
-    }
   };
 
   componentDidMount() {
@@ -351,8 +335,6 @@ class DoctorDashboard extends Component {
           handlePast={this.handlePast}
           handleAll={this.handleAll}
           hnlMyConsultations={this.hnlMyConsultations}
-          paginateCalendarLeft={this.paginateCalendarLeft}
-          paginateCalendarRight={this.paginateCalendarRight}
         />
         <Footer />
       </>

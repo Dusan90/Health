@@ -1,6 +1,4 @@
 .exam {
-  width: 100%;
-  height: 100%;
   .mainExam {
     display: flex;
     margin-top: 100px;
@@ -20,18 +18,30 @@
     width: 490px;
   }
 
-  .form-control {
-    height: 200px;
-  }
-
   .DatePicker {
     width: 100%;
     margin: 20px auto 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    display: flex;
+    justify-content: space-between;
+    // display: grid;
+    // grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-gap: 5px;
+    .exam-mes {
+      width: 45%;
+      .form-control {
+        width: 100%;
+      }
+    }
 
     .MainDate {
+      position: relative;
+      .disabledDiv {
+        width: 100%;
+        border-radius: 5px;
+        height: 98%;
+        position: absolute;
+        z-index: 1;
+      }
       div {
         .react-datepicker {
           height: 250px;

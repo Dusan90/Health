@@ -173,6 +173,7 @@ class ClientDashboard extends Component {
             exams: [...this.state.exams.concat(filterOutCanceled)],
           });
           this.paginate(this.state.page);
+          this.handleUpcoming();
         } else {
           return null;
         }
@@ -196,6 +197,7 @@ class ClientDashboard extends Component {
           });
           this.videoReqStatus();
           this.paginate(this.state.page);
+          this.handleUpcoming();
         } else {
           return null;
         }

@@ -9,6 +9,25 @@ import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 import moment from "moment";
 
+// let zauzeto = [
+//   {
+//     date: moment("2020-06-16T15:30").format("YYYY-MM-DD"),
+//     time: new Date("2020-06-16T15:30"),
+//   },
+//   {
+//     date: moment("2020-06-16T16:30").format("YYYY-MM-DD"),
+//     time: new Date("2020-06-16T14:30"),
+//   },
+//   {
+//     date: moment("2020-06-17T14:30").format("YYYY-MM-DD"),
+//     time: new Date("2020-06-17T14:30"),
+//   },
+//   {
+//     date: moment("2020-06-18T13:30").format("YYYY-MM-DD"),
+//     time: new Date("2020-06-18T13:30"),
+//   },
+// ];
+
 class ClientVideoReq extends Component {
   constructor(props) {
     super(props);
@@ -28,16 +47,24 @@ class ClientVideoReq extends Component {
       resetDoctorSelect: null,
       isClicked: false,
       startDate: new Date(),
-      reservedDate: moment(new Date()).format("YYYY-MM-DDTHH:mm:ss"),
+      reservedDate: "",
       doctorsPrice: "",
       clientId: null,
       attachments: null,
+      // testDate: [],
     };
   }
 
   handleDateChange = (date) => {
     let clickedDate = moment(date).format("YYYY-MM-DDTHH:mm:ss");
+    // let DDate = moment(date).format("YYYY-MM-DD");
     this.setState({ startDate: date, reservedDate: clickedDate });
+    // let nesto = zauzeto.filter((za) => {
+    //   if (za.date === DDate) {
+    //     return za;
+    //   }
+    // });
+    // this.setState({ testDate: nesto });
   };
 
   handleSpeciality = (e) => {
@@ -72,7 +99,8 @@ class ClientVideoReq extends Component {
       this.state.specialSP &&
       this.state.doctor_id &&
       this.state.subject &&
-      this.state.notes
+      this.state.notes &&
+      this.state.reservedDate
     ) {
       this.setState({ isClicked: true });
       const response = await fetch(
@@ -97,13 +125,19 @@ class ClientVideoReq extends Component {
         }
       );
       const data = await response.json();
-      this.setState({ doctorsPrice: data.data.price });
-      this.toCheckout();
+      if (data.success) {
+        this.setState({ doctorsPrice: data.data.price });
+        this.toCheckout();
+      }
       console.log(data, "post video requesttttt");
 
       return data;
     } else {
-      NotificationManager.error("Empty Fields", "Failed!", 2000);
+      NotificationManager.error(
+        "Empty Fielde Or You Did Not Set Time And Date",
+        "Failed!",
+        4000
+      );
     }
   };
 
@@ -159,7 +193,7 @@ class ClientVideoReq extends Component {
   }
 
   render() {
-    console.log(this.state.reservedDate, "reserveddate");
+    // console.log(this.state.testDate, "reserveddate");
 
     return (
       <>

@@ -16,6 +16,11 @@ const VideoReq = ({
   handleDateChange,
   props,
 }) => {
+  // console.log(props.testDate, "tessssssssssssssssssssssssssssssssssst");
+  // let hello = props.testDate.map((hy) => {
+  //   return hy.time;
+  // });
+
   return (
     <div className="exam">
       <div className="mainExam">
@@ -69,17 +74,23 @@ const VideoReq = ({
             minDate={new Date()}
             inline
           /> */}
+          <div
+            className="disabledDiv"
+            style={{ zIndex: props.specialSP && props.doctor_id ? 0 : 1 }}
+          ></div>
           <DatePicker
+            // excludeTimes={hello}
             inline
             selected={props.startDate}
             onChange={handleDateChange}
             showTimeSelect
+            excludeOutOfBoundsTimes
             minDate={new Date()}
             timeFormat="HH:mm aa"
             timeIntervals={30}
             timeCaption="time"
-            minTime={moment().hours(8).minutes(30)}
-            maxTime={moment().hours(5).minutes(30)}
+            minTime={moment(new Date()).set("hour", 8).set("minute", 0)._d}
+            maxTime={moment(new Date()).set("hour", 16).set("minute", 0)._d}
           />
         </div>
       </div>

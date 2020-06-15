@@ -43,8 +43,6 @@ const Dashboard = ({
   handleVideoPendingClick,
   handleHam,
   hnlMyConsultations,
-  paginateCalendarLeft,
-  paginateCalendarRight,
   loading,
 }) => {
   let year = new Date().getYear() + 1900;
@@ -55,7 +53,6 @@ const Dashboard = ({
   let short3 = props.state.waitingRoom
     ? props.state.waitingRoom.slice(0, 3)
     : null;
-  console.log(props.state.waitingRoom);
 
   return (
     <div className="testic">
@@ -401,143 +398,6 @@ const Dashboard = ({
           <FaChevronRight className="iconRight" />
         </div>
       </div>
-      <div className="mainCaldendar">
-        <div className="icon_left">
-          <span>
-            <FaRegCalendarAlt className="icon1" />
-          </span>
-          <p>Calendar</p>
-        </div>
-      </div>
-
-      <div className="allMonthsPaginate">
-        <div
-          className="MainDate"
-          style={{
-            left: props.state.calendarPage === 1 ? "0px" : "-1000px",
-            opacity: props.state.calendarPage === 1 ? "1" : 0,
-          }}
-        >
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 0, 1)}
-            maxDate={new Date(year, 0, 31)}
-            inline
-          />
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 1, 1)}
-            maxDate={new Date(year, 1, 29)}
-            inline
-          />
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 2, 1)}
-            maxDate={new Date(year, 2, 31)}
-            inline
-          />
-        </div>
-        <div
-          className="MainDate2"
-          style={{
-            right: props.state.calendarPage === 2 ? "0px" : "-1000px",
-            opacity: props.state.calendarPage === 2 ? "1" : 0,
-          }}
-        >
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 3, 1)}
-            maxDate={new Date(year, 3, 30)}
-            inline
-          />
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 4, 1)}
-            maxDate={new Date(year, 4, 31)}
-            inline
-          />
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 5, 1)}
-            maxDate={new Date(year, 5, 30)}
-            inline
-          />
-        </div>
-        <div
-          className="MainDate3"
-          style={{
-            left: props.state.calendarPage === 3 ? "0px" : "-1000px",
-            opacity: props.state.calendarPage === 3 ? "1" : 0,
-          }}
-        >
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 6, 1)}
-            maxDate={new Date(year, 6, 31)}
-            inline
-          />
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 7, 1)}
-            maxDate={new Date(year, 7, 31)}
-            inline
-          />
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 8, 1)}
-            maxDate={new Date(year, 8, 30)}
-            inline
-          />
-        </div>
-        <div
-          className="MainDate4"
-          style={{
-            right: props.state.calendarPage === 4 ? "0px" : "-1000px",
-            opacity: props.state.calendarPage === 4 ? "1" : 0,
-          }}
-        >
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 9, 1)}
-            maxDate={new Date(year, 9, 31)}
-            inline
-          />
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 10, 1)}
-            maxDate={new Date(year, 10, 30)}
-            inline
-          />
-          <DatePicker
-            selected={props.startDate}
-            // onChange={handleDateChange}
-            minDate={new Date(year, 11, 1)}
-            maxDate={new Date(year, 11, 31)}
-            inline
-          />
-        </div>
-      </div>
-
-      <div className="pagi">
-        <div className="left" onClick={paginateCalendarLeft}>
-          <FaChevronLeft className="iconLeft" />
-        </div>
-        <div className="right" onClick={paginateCalendarRight}>
-          <FaChevronRight className="iconRight" />
-        </div>
-      </div>
-
       <div className="connectWithdoctor">
         <div className="connected">
           <p>
@@ -641,6 +501,7 @@ const Dashboard = ({
               <tr className="client-row">
                 <th className="client-doctor">Client</th>
                 <th className="client-subject">Subject</th>
+                <th className="client-subject">Type</th>
                 <th className="client-subject">Date</th>
                 <th className="client-status">Status</th>
               </tr>
@@ -655,12 +516,21 @@ const Dashboard = ({
                   >
                     <td className="client-doctor">{ex.client}</td>
                     <td className="client-subject">{ex.subject}</td>
+                    <td className="client-subject">{ex.exam_type}</td>
                     <td className="created">
-                      {new Intl.DateTimeFormat("en-GB", {
-                        year: "numeric",
-                        month: "long",
-                        day: "2-digit",
-                      }).format(new Date(ex.created))}
+                      {" "}
+                      {ex.created && !ex.appointed_date ? (
+                        <p>
+                          {" "}
+                          Created: {moment(ex.created).format("MM/DD/YYYY")}
+                        </p>
+                      ) : ex.appointed_date ? (
+                        <p>
+                          {" "}
+                          Appointed:{" "}
+                          {moment(ex.appointed_date).format("MM/DD/YYYY HH:mm")}
+                        </p>
+                      ) : null}
                     </td>
                     <td className="client-status">
                       {ex.status === "Accepted" || ex.status === "Appointed" ? (

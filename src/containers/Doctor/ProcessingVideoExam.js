@@ -6,6 +6,7 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
 
+const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video");
 class ProcessingVideoExam extends Component {
   constructor(props) {
     super(props);
@@ -65,14 +66,6 @@ class ProcessingVideoExam extends Component {
           trickle: false,
           stream: stream,
         });
-
-        const connection = new WebSocket(
-          "wss://healthcarebackend.xyz/ws/video"
-        );
-
-        connection.onopen = () => {
-          console.log("connected");
-        };
 
         peer.on("signal", (data) => {
           let docId = JSON.stringify(data);
@@ -236,6 +229,9 @@ class ProcessingVideoExam extends Component {
     let id = this.props.match.params.id;
     this.setState({ id: id });
     this.detail(id);
+    connection.onopen = () => {
+      console.log("connected");
+    };
   }
 
   render() {

@@ -38,17 +38,15 @@ const DetailVideo = ({
   enableTipeing,
 }) => {
   let disabled = props.clientsVideoId === "null" ? true : false;
-  let disabled2 = props.exam.forEach((ex) => {
-    if (
-      new Date() >= new Date(ex.appointed_date) &&
-      new Date() < moment(ex.appointed_date).add(30, "mm")._d
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  });
-
+  let examDate =
+    props.exam.length !== 0 ? new Date(props.exam[0].appointed_date) : null;
+  let disabled2 =
+    moment(new Date()).format("YYYY-MM-DD HH:mm") >
+      moment(examDate).subtract(15, "minutes").format("YYYY-MM-DD HH:mm") &&
+    moment(new Date()).format("YYYY-MM-DD HH:mm") <
+      moment(examDate).add(30, "minutes").format("YYYY-MM-DD HH:mm")
+      ? false
+      : true;
   return (
     <>
       <div className="header">
@@ -66,11 +64,6 @@ const DetailVideo = ({
               <p>Speciality: {exam.speciality}</p>
               <p>
                 Appointed date:{" "}
-                {/* {new Intl.DateTimeFormat("en-GB", {
-                year: "numeric",
-                month: "long",
-                day: "2-digit"
-              }).format(new Date(exam.created))} */}
                 {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
               </p>
               <p>Subject: {exam.subject}</p>

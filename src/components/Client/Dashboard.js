@@ -272,6 +272,7 @@ const Dashboard = ({
               <tr className="client-row">
                 <th className="client-doctor">Client</th>
                 <th className="client-subject">Subject</th>
+                <th className="client-subject">Type</th>
                 <th className="client-subject">Date</th>
                 <th className="client-status">Status</th>
               </tr>
@@ -288,12 +289,21 @@ const Dashboard = ({
                   >
                     <td className="client-doctor">{ex.client}</td>
                     <td className="client-subject">{ex.subject}</td>
+                    <td className="client-subject">{ex.exam_type}</td>
+
                     <td className="created">
-                      {new Intl.DateTimeFormat("en-GB", {
-                        year: "numeric",
-                        month: "long",
-                        day: "2-digit",
-                      }).format(new Date(ex.created))}
+                      {ex.created && !ex.appointed_date ? (
+                        <p>
+                          {" "}
+                          Created: {moment(ex.created).format("MM/DD/YYYY")}
+                        </p>
+                      ) : (
+                        <p>
+                          {" "}
+                          Appointed:{" "}
+                          {moment(ex.appointed_date).format("MM/DD/YYYY HH:mm")}
+                        </p>
+                      )}
                     </td>
                     <td className="client-status">
                       {ex.status === "Accepted" || ex.status === "Appointed" ? (

@@ -58,6 +58,7 @@ class ExamForm extends Component {
   };
 
   handleSubmit = async (e) => {
+    e.preventDefault();
     const access_token = "Bearer ".concat(this.state.token);
     if (
       this.state.specialSP &&
@@ -85,7 +86,7 @@ class ExamForm extends Component {
       const data = await response.json();
 
       this.toCheckout();
-      console.log(data);
+      console.log(data, "data examform");
 
       return data;
     } else {

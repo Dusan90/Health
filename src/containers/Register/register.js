@@ -194,8 +194,6 @@ class Register extends Component {
   };
 
   render() {
-    console.log(this.state.selectedGenderValue);
-
     return (
       <>
         <div className="header">
