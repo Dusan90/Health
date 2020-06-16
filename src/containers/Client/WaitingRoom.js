@@ -239,6 +239,10 @@ class ClientWaitingRoom extends Component {
     }
   };
 
+  componentWillUnmount() {
+    window.location.reload();
+  }
+
   componentDidMount() {
     this.handleClientProfile();
     this.socketStart();
@@ -296,8 +300,8 @@ class ClientWaitingRoom extends Component {
   socketStart = () =>
     navigator.webkitGetUserMedia(
       {
-        video: true,
-        audio: true,
+        video: this.state.video,
+        audio: this.state.audio,
       },
       (stream) => {
         var Peer = require("simple-peer");

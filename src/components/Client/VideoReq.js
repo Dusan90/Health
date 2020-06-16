@@ -90,7 +90,7 @@ const VideoReq = ({
             timeIntervals={30}
             timeCaption="time"
             minTime={moment(new Date()).set("hour", 8).set("minute", 0)._d}
-            maxTime={moment(new Date()).set("hour", 16).set("minute", 0)._d}
+            maxTime={moment(new Date()).set("hour", 15).set("minute", 30)._d}
           />
         </div>
       </div>
