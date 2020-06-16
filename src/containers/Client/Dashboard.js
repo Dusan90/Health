@@ -14,6 +14,7 @@ class ClientDashboard extends Component {
     this.state = {
       exams: [],
       paginatedExams: [],
+      upcomingOrPast: [],
       token: sessionStorage.getItem("accessToken"),
       dataFromServer: "",
       loading: true,
@@ -89,7 +90,7 @@ class ClientDashboard extends Component {
     ws.onmessage = (e) => {
       // listen to data sent from the websocket server
       const message = JSON.parse(e.data);
-      console.log(message);
+      console.log(message, "socket message");
 
       this.state.exams.map((exam) => {
         if (exam.id === message.id && exam.exam_type === "mail") {
@@ -134,21 +135,37 @@ class ClientDashboard extends Component {
   };
 
   handleUpcoming = () => {
-    let lates = this.state.exams;
-    let resort = lates.sort(
-      (a, b) => Date.parse(b.created) - Date.parse(a.created)
-    );
-    this.setState({ exams: resort });
-    this.paginate(this.state.page);
+    // let lates = this.state.exams;
+    // let resort = lates.sort(
+    //   (a, b) => Date.parse(b.created) - Date.parse(a.created)
+    // );
+    let upcomingset = setInterval(() => {
+      let upcoming = this.state.exams.filter((upco) => {
+        return new Date(upco.appointed_date) > new Date();
+      });
+      this.setState({ upcomingOrPast: upcoming, page: 1 });
+
+      this.paginate(1);
+      clearInterval(upcomingset);
+    }, 10);
   };
 
   handlePast = () => {
-    let earl = this.state.exams;
-    let sort = earl.sort(
-      (a, b) => Date.parse(a.created) - Date.parse(b.created)
-    );
-    this.setState({ exams: sort });
-    this.paginate(this.state.page);
+    // let earl = this.state.exams;
+    // let sort = earl.sort(
+    //   (a, b) => Date.parse(a.created) - Date.parse(b.created)
+    // );
+    let pastset = setInterval(() => {
+      let past = this.state.exams.filter((pas) => {
+        return new Date(pas.appointed_date) < new Date() || pas.created;
+      });
+      let sort = past.sort(
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
+      );
+      this.setState({ upcomingOrPast: sort, page: 1 });
+      this.paginate(1);
+      clearInterval(pastset);
+    }, 10);
   };
 
   handleAll = () => {
@@ -172,8 +189,8 @@ class ClientDashboard extends Component {
           this.setState({
             exams: [...this.state.exams.concat(filterOutCanceled)],
           });
-          this.paginate(this.state.page);
           this.handleUpcoming();
+          this.paginate(this.state.page);
         } else {
           return null;
         }
@@ -196,8 +213,8 @@ class ClientDashboard extends Component {
             exams: [...this.state.exams.concat(filterOutCanceled)],
           });
           this.videoReqStatus();
-          this.paginate(this.state.page);
           this.handleUpcoming();
+          this.paginate(this.state.page);
         } else {
           return null;
         }
@@ -210,9 +227,9 @@ class ClientDashboard extends Component {
 
   paginate = (page) => {
     let limit = 5;
-    let pages = Math.ceil(this.state.exams.length / 5);
+    let pages = Math.ceil(this.state.upcomingOrPast.length / 5);
     const offset = (page - 1) * limit;
-    const newArray = this.state.exams.slice(offset, offset + limit);
+    const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
 
     this.setState({
       paginatedExams: newArray,

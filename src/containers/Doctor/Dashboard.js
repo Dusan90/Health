@@ -15,6 +15,7 @@ class DoctorDashboard extends Component {
     this.state = {
       exams: [],
       paginatedExams: [],
+      upcomingOrPast: [],
       record: [],
       token: sessionStorage.getItem("accessToken"),
       pending: [],
@@ -82,21 +83,38 @@ class DoctorDashboard extends Component {
   };
 
   handleUpcoming = () => {
-    let lates = this.state.exams;
-    let resort = lates.sort(
-      (a, b) => Date.parse(b.created) - Date.parse(a.created)
-    );
-    this.setState({ exams: resort });
-    this.paginate(this.state.page);
+    // let lates = this.state.exams;
+    // let resort = lates.sort(
+    //   (a, b) => Date.parse(b.created) - Date.parse(a.created)
+    // );
+    let upcomingset = setInterval(() => {
+      let upcoming = this.state.exams.filter((upco) => {
+        return new Date(upco.appointed_date) > new Date();
+      });
+
+      this.setState({ upcomingOrPast: upcoming, page: 1 });
+
+      this.paginate(1);
+      clearInterval(upcomingset);
+    }, 10);
   };
 
   handlePast = () => {
-    let earl = this.state.exams;
-    let sort = earl.sort(
-      (a, b) => Date.parse(a.created) - Date.parse(b.created)
-    );
-    this.setState({ exams: sort });
-    this.paginate(this.state.page);
+    // let earl = this.state.exams;
+    // let sort = earl.sort(
+    //   (a, b) => Date.parse(a.created) - Date.parse(b.created)
+    // );
+    let pastset = setInterval(() => {
+      let past = this.state.exams.filter((pas) => {
+        return new Date(pas.appointed_date) < new Date() || pas.created;
+      });
+      let sort = past.sort(
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
+      );
+      this.setState({ upcomingOrPast: sort, page: 1 });
+      this.paginate(1);
+      clearInterval(pastset);
+    }, 10);
   };
 
   handleAll = () => {
@@ -121,6 +139,8 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response, "mail");
+
         if (response.data.data.length !== 0) {
           const filterOutCanceled = response.data.data.filter((fil_cancel) => {
             return (
@@ -128,11 +148,11 @@ class DoctorDashboard extends Component {
               fil_cancel.status === "Appointed"
             );
           });
-          console.log(filterOutCanceled, "maillllllllllllllllll");
 
           this.setState({
             exams: [...this.state.exams.concat(filterOutCanceled)],
           });
+          this.handleUpcoming();
           this.paginate(this.state.page);
           this.peopleVideoPending();
         }
@@ -145,9 +165,9 @@ class DoctorDashboard extends Component {
 
   paginate = (page) => {
     let limit = 5;
-    let pages = Math.ceil(this.state.exams.length / 5);
+    let pages = Math.ceil(this.state.upcomingOrPast.length / 5);
     const offset = (page - 1) * limit;
-    const newArray = this.state.exams.slice(offset, offset + limit);
+    const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
 
     this.setState({
       paginatedExams: newArray,
@@ -255,8 +275,8 @@ class DoctorDashboard extends Component {
           exams: [...this.state.exams.concat(accepted)],
           loading: false,
         });
-        this.paginate(this.state.page);
         this.handleUpcoming();
+        this.paginate(this.state.page);
       })
       .catch((error) => {
         console.log(error);

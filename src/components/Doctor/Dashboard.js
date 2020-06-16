@@ -81,13 +81,13 @@ const Dashboard = ({
               <p>Calendar</p>
             </div>
             <div className="alertsNav">
+              {/* <div className="numOfMessages">
+                <p>{props.state.numOfMessages}</p>
+              </div> */}
               <FaRegBell className="iconNav" />
               <p>Alerts</p>
             </div>
             <div className="messagesNav">
-              {/* <div className="numOfMessages">
-                <p>{props.state.numOfMessages}</p>
-              </div> */}
               <GoMailRead className="iconNav" />
               <p>Messages</p>
             </div>
