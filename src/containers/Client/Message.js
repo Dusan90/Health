@@ -4,7 +4,6 @@ import Footer from "../../components/Main/Footer";
 import { connect } from "react-redux";
 import ExamMessage from "../../components/Client/Message";
 import { NotificationManager } from "react-notifications";
-// let ws = new WebSocket("ws://localhost:8080/");
 
 class ClientMessage extends Component {
   constructor(props) {
@@ -61,16 +60,8 @@ class ClientMessage extends Component {
     this.setState({ messageValue: e.target.value });
   };
 
-  // connect = () => {
-  //   ws.onopen = () => {
-  //     // on connecting, do nothing but log it to the console
-  //     console.log("connected");
-  //   };
-  // };
-
   handleSubmit = (e) => {
     e.preventDefault();
-    // ws.send(this.state.doctor);
 
     if (this.state.messageValue) {
       this.sendMessage();
@@ -92,7 +83,6 @@ class ClientMessage extends Component {
 
   componentDidMount() {
     this.doctor();
-    // this.connect();
   }
 
   render() {

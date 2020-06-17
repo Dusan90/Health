@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 
+// let ws = new WebSocket("ws://localhost:8080/");
+
 class ExamForm extends Component {
   constructor(props) {
     super(props);
@@ -84,10 +86,12 @@ class ExamForm extends Component {
         }
       );
       const data = await response.json();
-
-      this.toCheckout();
+      if (data.success) {
+        this.toCheckout();
+        // ws.send(this.state.doctor_id);
+      }
+      // this.toCheckout();
       console.log(data, "data examform");
-
       return data;
     } else {
       NotificationManager.error("Empty Fields", "Failed!", 2000);
@@ -103,6 +107,7 @@ class ExamForm extends Component {
   };
 
   componentDidMount() {
+    // this.connect();
     axios
       .get("https://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
@@ -140,6 +145,13 @@ class ExamForm extends Component {
         console.log(error);
       });
   }
+
+  // connect = () => {
+  //   ws.onopen = () => {
+  //     // on connecting, do nothing but log it to the console
+  //     console.log("connected to port 8080");
+  //   };
+  // };
 
   render() {
     return (

@@ -78,7 +78,12 @@ export class DoctorsCalendar extends Component {
             <Nav />
           </div>
         </div>
-        <div style={{ width: "60%", margin: "100px auto 58px auto" }}>
+        <div
+          style={{
+            width: "60%",
+            margin: "100px auto 58px auto",
+          }}
+        >
           <ScheduleComponent
             currentView="Day"
             selectedDate={new Date()}

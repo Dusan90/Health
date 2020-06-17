@@ -141,7 +141,10 @@ class ClientDashboard extends Component {
     // );
     let upcomingset = setInterval(() => {
       let upcoming = this.state.exams.filter((upco) => {
-        return new Date(upco.appointed_date) > new Date();
+        return (
+          new Date(upco.appointed_date) > new Date() ||
+          new Date(upco.created) > new Date()
+        );
       });
       this.setState({ upcomingOrPast: upcoming, page: 1 });
 

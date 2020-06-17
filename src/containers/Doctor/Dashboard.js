@@ -248,6 +248,9 @@ class DoctorDashboard extends Component {
           );
         });
         this.setState({ waitingRoom: todaysWaitingRoom });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -269,11 +272,23 @@ class DoctorDashboard extends Component {
         let accepted = response.data.data.filter((res) => {
           return res.status === "Appointed";
         });
-
+        let nowON = accepted.filter((now) => {
+          if (
+            moment(new Date()).format("MM/DD/YYYYTHH:mm aa") >
+              moment(now.appointed_date).format("MM/DD/YYYYTHH:mm aa") &&
+            moment(new Date()).format("MM/DD/YYYYTHH:mm aa") <
+              moment(now.appointed_date)
+                .add(30, "minutes")
+                .format("MM/DD/YYYYTHH:mm aa")
+          ) {
+            return now;
+          }
+        });
         this.setState({
-          videoPending: pending,
           exams: [...this.state.exams.concat(accepted)],
+          videoPending: pending,
           loading: false,
+          numOfMessages: nowON.length,
         });
         this.handleUpcoming();
         this.paginate(this.state.page);
@@ -311,19 +326,20 @@ class DoctorDashboard extends Component {
   //   let ws = new WebSocket("ws://localhost:8080/");
   //   ws.onopen = () => {
   //     // on connecting, do nothing but log it to the console
-  //     console.log("connected");
+  //     console.log("connected to 8080 port");
   //   };
   //   ws.onmessage = (event) => {
-  //     let doc = `${this.state.doctorCurent.prefix} ${this.state.doctorCurent.doctor}`;
-  //     if (event.data === doc) {
+
+  //     if (event.data === JSON.stringify(this.state.doctorCurent.id)) {
   //       this.messagesNumber();
   //     }
   //   };
   // };
 
-  // messagesNumber = () => {
-  //   this.setState({ numOfMessages: this.state.numOfMessages + 1 });
-  // };
+  messagesNumber = () => {
+    this.paginatedExams();
+    this.pnd();
+  };
   render() {
     return (
       <>

@@ -45,7 +45,6 @@ const Dashboard = ({
   hnlMyConsultations,
   loading,
 }) => {
-  let year = new Date().getYear() + 1900;
   let short = props.state.pending ? props.state.pending.slice(0, 3) : null;
   let short2 = props.state.videoPending
     ? props.state.videoPending.slice(0, 3)
@@ -77,13 +76,18 @@ const Dashboard = ({
                 props.props.history.push("/doctor/calendar");
               }}
             >
+              <div
+                style={{
+                  display: props.state.numOfMessages === 0 ? "none" : "block",
+                }}
+                className="numOfMessages"
+              >
+                <p>{props.state.numOfMessages}</p>
+              </div>
               <FaRegCalendarAlt className="iconNav" />
               <p>Calendar</p>
             </div>
             <div className="alertsNav">
-              {/* <div className="numOfMessages">
-                <p>{props.state.numOfMessages}</p>
-              </div> */}
               <FaRegBell className="iconNav" />
               <p>Alerts</p>
             </div>
