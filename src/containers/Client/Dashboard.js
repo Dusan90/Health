@@ -80,12 +80,9 @@ class ClientDashboard extends Component {
 
   connect = () => {
     var ws = new WebSocket("wss://healthcarebackend.xyz/ws/exam/status/");
-    let that = this;
-    var connectInterval;
     ws.onopen = () => {
       // on connecting, do nothing but log it to the console
       console.log("connected");
-      this.setState({ ws: ws });
     };
     ws.onmessage = (e) => {
       // listen to data sent from the websocket server
@@ -105,16 +102,7 @@ class ClientDashboard extends Component {
       });
     };
     ws.onclose = (e) => {
-      console.log(
-        `Socket is closed. Reconnect will be attempted in ${Math.min(
-          10000 / 1000,
-          (that.timeout + that.timeout) / 1000
-        )} second.`,
-        e.reason
-      );
-      that.timeout = that.timeout + that.timeout; //increment retry interval
-      connectInterval = setTimeout(this.check, Math.min(1, that.timeout)); //c
-      // automatically try to reconnect on connection loss
+      console.log(`Socket is closed`);
     };
     ws.onerror = (err) => {
       console.error(

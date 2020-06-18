@@ -23,7 +23,6 @@ import { GiCancel } from "react-icons/gi";
 
 import Loading from "../../img/loading-gif-png-5-original.gif";
 import moment from "moment";
-import DatePicker from "react-datepicker";
 
 const Dashboard = ({
   hnlClick,
@@ -261,6 +260,8 @@ const Dashboard = ({
                     </tr>
                   </tbody>
                 );
+              } else {
+                return null;
               }
             })}
           </table>

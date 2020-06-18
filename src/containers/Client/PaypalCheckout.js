@@ -86,13 +86,13 @@ class PaypalButton extends React.Component {
   render() {
     console.log(this.props);
 
-    const { showButtons, loading, paid } = this.state;
+    const { showButtons, paid } = this.state;
     const style = {
       size: "small",
       color: "gold",
       shape: "pill",
       label: "checkout",
-      tagline: "false",
+      // tagline: "false",
       layout: "horizontal",
       tagline: "true",
       commit: "true",

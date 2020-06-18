@@ -282,8 +282,11 @@ class DoctorDashboard extends Component {
                 .format("MM/DD/YYYYTHH:mm aa")
           ) {
             return now;
+          } else {
+            return null;
           }
         });
+
         this.setState({
           exams: [...this.state.exams.concat(accepted)],
           videoPending: pending,

@@ -83,6 +83,10 @@ class ClientVideoExamDetail extends Component {
     this.detail();
   }
 
+  componentWillUnmount() {
+    window.location.reload();
+  }
+
   checkTime = () => {
     let date = new Date();
     if (moment(date).format("YYYY-MM-DD") === this.state.appointedDate) {

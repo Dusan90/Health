@@ -48,6 +48,9 @@ class ClientDetailExam extends Component {
         console.log(response, "detailex");
 
         this.setState({ exam: this.state.exam.concat(response.data.message) });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 

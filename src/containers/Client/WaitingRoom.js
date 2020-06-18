@@ -226,6 +226,9 @@ class ClientWaitingRoom extends Component {
         });
         this.PeopleBeforeYou();
         this.handleDoctorsStatus();
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 

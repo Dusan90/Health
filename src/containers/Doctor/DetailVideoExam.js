@@ -248,7 +248,7 @@ class DetailVideoExam extends Component {
 
   handleStatus = (statusValue) => {
     this.setState({ statusValue });
-    let { value, label } = statusValue;
+    let { value } = statusValue;
     this.setState({ selectedStatus: value });
   };
 
