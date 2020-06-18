@@ -36,20 +36,7 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
 // makes for a smoother build process.
 const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== "false";
-if (
-  process.env.CI &&
-  (typeof process.env.CI !== "string" ||
-    process.env.CI.toLowerCase() !== "false") &&
-  messages.warnings.length
-) {
-  console.log(
-    chalk.yellow(
-      "\nTreating warnings as errors because process.env.CI = true.\n" +
-        "Most CI servers set it automatically.\n"
-    )
-  );
-  return reject(new Error(messages.warnings.join("\n\n")));
-}
+
 const imageInlineSizeLimit = parseInt(
   process.env.IMAGE_INLINE_SIZE_LIMIT || "10000"
 );

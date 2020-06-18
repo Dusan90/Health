@@ -164,5 +164,8 @@
   },
   "devDependencies": {
     "redux-devtools-extension": "^2.13.8"
+  },
+  "rules": {
+    "no-unused-vars": "off"
   }
 }
