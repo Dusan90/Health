@@ -106,7 +106,11 @@ class DoctorDashboard extends Component {
     // );
     let pastset = setInterval(() => {
       let past = this.state.exams.filter((pas) => {
-        return new Date(pas.appointed_date) < new Date() || pas.created;
+        if (pas.appointed_date) {
+          return new Date(pas.appointed_date) < new Date();
+        } else {
+          return new Date(pas.created) < new Date();
+        }
       });
       let sort = past.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)

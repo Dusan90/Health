@@ -130,7 +130,9 @@ const Dashboard = ({
                   <tr
                     data-id={exam.id}
                     className="list-group"
-                    onClick={() => handleClick(exam.id, exam.exam_type)}
+                    onClick={() =>
+                      handleClick(exam.id, exam.exam_type, exam.status)
+                    }
                   >
                     <td className="client-doctor">{exam.doctor}</td>
                     <td className="client-subject">{exam.subject}</td>
@@ -278,8 +280,6 @@ const Dashboard = ({
               </tr>
             </thead>
             {props.state.exams.map((ex, index) => {
-              console.log(ex, "nesto tamo");
-
               return (
                 <tbody key={index} className="client-body">
                   <tr

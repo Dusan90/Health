@@ -114,10 +114,10 @@ class ClientDashboard extends Component {
     };
   };
 
-  handleClick = (id, type) => {
-    if (type === "mail") {
+  handleClick = (id, type, status) => {
+    if (type === "mail" && status !== "Declined") {
       this.props.history.push(`/client/exam/detail/${id}`);
-    } else if (type === "video") {
+    } else if (type === "video" && status !== "Declined") {
       this.props.history.push(`/client/video/exam/detail/${id}`);
     }
   };
@@ -148,7 +148,11 @@ class ClientDashboard extends Component {
     // );
     let pastset = setInterval(() => {
       let past = this.state.exams.filter((pas) => {
-        return new Date(pas.appointed_date) < new Date() || pas.created;
+        if (pas.appointed_date) {
+          return new Date(pas.appointed_date) < new Date();
+        } else {
+          return new Date(pas.created) < new Date();
+        }
       });
       let sort = past.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
@@ -175,8 +179,12 @@ class ClientDashboard extends Component {
           response.data.data.length !== 0
         ) {
           const filterOutCanceled = response.data.data.filter((fil_cancel) => {
-            return fil_cancel.status !== "Canceled";
+            return (
+              fil_cancel.status !== "Canceled" &&
+              fil_cancel.status !== "Declined"
+            );
           });
+
           this.setState({
             exams: [...this.state.exams.concat(filterOutCanceled)],
           });
@@ -197,7 +205,10 @@ class ClientDashboard extends Component {
       .then((response) => {
         if (response.data.data.length !== 0) {
           const filterOutCanceled = response.data.data.filter((fil_cancel) => {
-            return fil_cancel.status !== "Canceled";
+            return (
+              fil_cancel.status !== "Canceled" &&
+              fil_cancel.status !== "Declined"
+            );
           });
 
           this.setState({
