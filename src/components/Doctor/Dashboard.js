@@ -100,6 +100,7 @@ const Dashboard = ({
       <div className="dashboardIcon">
         <FaFileAlt className="dashIcon" />
         <h2>Dashboard</h2>
+        <h1>jos nesto test</h1>
       </div>
       <div className="main">
         {" "}
