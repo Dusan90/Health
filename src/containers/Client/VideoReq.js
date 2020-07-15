@@ -11,25 +11,6 @@ import moment from "moment";
 
 // let ws = new WebSocket("ws://localhost:8080/");
 
-// let zauzeto = [
-//   {
-//     date: moment("2020-06-16T15:30").format("YYYY-MM-DD"),
-//     time: new Date("2020-06-16T15:30"),
-//   },
-//   {
-//     date: moment("2020-06-16T16:30").format("YYYY-MM-DD"),
-//     time: new Date("2020-06-16T14:30"),
-//   },
-//   {
-//     date: moment("2020-06-17T14:30").format("YYYY-MM-DD"),
-//     time: new Date("2020-06-17T14:30"),
-//   },
-//   {
-//     date: moment("2020-06-18T13:30").format("YYYY-MM-DD"),
-//     time: new Date("2020-06-18T13:30"),
-//   },
-// ];
-
 class ClientVideoReq extends Component {
   constructor(props) {
     super(props);
@@ -53,20 +34,21 @@ class ClientVideoReq extends Component {
       doctorsPrice: "",
       clientId: null,
       attachments: null,
-      // testDate: [],
+      doctorsExams: [],
+      excludeTime: [],
     };
   }
 
   handleDateChange = (date) => {
     let clickedDate = moment(date).format("YYYY-MM-DDTHH:mm:ss");
-    // let DDate = moment(date).format("YYYY-MM-DD");
+    let DDate = moment(date).format("YYYY-MM-DD");
     this.setState({ startDate: date, reservedDate: clickedDate });
-    // let nesto = zauzeto.filter((za) => {
-    //   if (za.date === DDate) {
-    //     return za;
-    //   }
-    // });
-    // this.setState({ testDate: nesto });
+    let excludeTime = this.state.doctorsExams.filter((ex) => {
+      if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate) {
+        return ex;
+      }
+    });
+    this.setState({ excludeTime });
   };
 
   handleSpeciality = (e) => {
@@ -83,9 +65,22 @@ class ClientVideoReq extends Component {
 
   handleDoctor = (e) => {
     this.props.dispatch(doctor(e));
-    console.log(e);
 
     this.setState({ doctor_id: e.iD, doctorsPrice: e.price });
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/web/doc/${e.iD}`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        let data = response.data.data.filter((data) => {
+          return (
+            moment(data.appointed_date).format("YYYY-MM-DD") >=
+            moment(new Date()).format("YYYY-MM-DD")
+          );
+        });
+        this.setState({ doctorsExams: data });
+      });
     this.setState({ resetDoctorSelect: e });
   };
 

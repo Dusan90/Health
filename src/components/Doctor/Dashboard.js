@@ -215,56 +215,60 @@ const Dashboard = ({
               </p>
             </div>
           </div>
-
-          <table className="table2">
-            <thead className="client-head">
-              <tr className="client-row">
-                <th className="client-doctor">Client</th>
-                <th className="client-subject">Subject</th>
-                <th className="client-subject">Exam type</th>
-                <th className="client-subject">Date</th>
-                <th className="client-status">Status</th>
-              </tr>
-            </thead>
-            {props.state.paginatedExams.map((exam, index) => {
-              if (exam.status === "Accepted" || exam.status === "Appointed") {
-                return (
-                  <tbody key={index} className="client-body">
-                    <tr
-                      // data-id={exam.id}
-                      className="list-group"
-                      onClick={() => handleClick(exam.id, exam.exam_type)}
-                    >
-                      <td className="client-doctor">{exam.client}</td>
-                      <td className="client-subject">{exam.subject}</td>
-                      <td className="client-subject">{exam.exam_type}</td>
-                      <td className="created">
-                        {exam.created && !exam.appointed_date ? (
-                          <p>
-                            {" "}
-                            Created: {moment(exam.created).format("MM/DD/YYYY")}
-                          </p>
-                        ) : exam.appointed_date ? (
-                          <p>
-                            {" "}
-                            Appointed:{" "}
-                            {moment(exam.appointed_date).format(
-                              "MM/DD/YYYY HH:mm"
-                            )}
-                          </p>
-                        ) : null}
-                      </td>
-                      <td className="client-status">
-                        <FaCheck className="check" />
-                      </td>
-                    </tr>
-                  </tbody>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </table>
+          {props.state.paginatedExams.length === 0 ? (
+            <div className="NoResultDiv">No results found.</div>
+          ) : (
+            <table className="table2">
+              <thead className="client-head">
+                <tr className="client-row">
+                  <th className="client-doctor">Client</th>
+                  <th className="client-subject">Subject</th>
+                  <th className="client-subject">Exam type</th>
+                  <th className="client-subject">Date</th>
+                  <th className="client-status">Status</th>
+                </tr>
+              </thead>
+              {props.state.paginatedExams.map((exam, index) => {
+                if (exam.status === "Accepted" || exam.status === "Appointed") {
+                  return (
+                    <tbody key={index} className="client-body">
+                      <tr
+                        // data-id={exam.id}
+                        className="list-group"
+                        onClick={() => handleClick(exam.id, exam.exam_type)}
+                      >
+                        <td className="client-doctor">{exam.client}</td>
+                        <td className="client-subject">{exam.subject}</td>
+                        <td className="client-subject">{exam.exam_type}</td>
+                        <td className="created">
+                          {exam.created && !exam.appointed_date ? (
+                            <p>
+                              {" "}
+                              Created:{" "}
+                              {moment(exam.created).format("MM/DD/YYYY")}
+                            </p>
+                          ) : exam.appointed_date ? (
+                            <p>
+                              {" "}
+                              Appointed:{" "}
+                              {moment(exam.appointed_date).format(
+                                "MM/DD/YYYY HH:mm"
+                              )}
+                            </p>
+                          ) : null}
+                        </td>
+                        <td className="client-status">
+                          <FaCheck className="check" />
+                        </td>
+                      </tr>
+                    </tbody>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </table>
+          )}
         </div>
       )}
 

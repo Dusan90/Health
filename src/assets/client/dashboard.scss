@@ -133,7 +133,11 @@
     border-radius: 3px;
     width: 60%;
     margin: 0 auto;
-
+    .NoResultDiv {
+      color: #4092c2;
+      margin: 20px auto;
+      font-size: 20px;
+    }
     .mainConsultation {
       display: flex;
       justify-content: space-between;

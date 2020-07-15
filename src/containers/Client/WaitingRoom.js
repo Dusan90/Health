@@ -9,6 +9,8 @@ import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 import moment from "moment";
 
+// let ws = new WebSocket("ws://localhost:8080/");
+
 class ClientWaitingRoom extends Component {
   constructor(props) {
     super(props);
@@ -171,7 +173,7 @@ class ClientWaitingRoom extends Component {
 
       this.setState({ price: data.data.price });
       this.hanldeClientQueue(this.state.client_id);
-      // this.props.history.push("/dashboard-client");
+      // ws.send(this.state.doctor_id);
       this.toCheckout();
 
       return data;
@@ -249,6 +251,8 @@ class ClientWaitingRoom extends Component {
   componentDidMount() {
     this.handleClientProfile();
     this.socketStart();
+    // this.connect();
+
     axios
       .get("https://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
@@ -278,6 +282,13 @@ class ClientWaitingRoom extends Component {
         this.setState({ doctors: res });
       });
   }
+
+  // connect = () => {
+  //   ws.onopen = () => {
+  //     // on connecting, do nothing but log it to the console
+  //     console.log("connected to port 8080");
+  //   };
+  // };
 
   handleDoctorsStatus = () => {
     this.state.peopleInQueue.forEach((queDoc) => {

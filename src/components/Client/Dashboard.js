@@ -1,21 +1,18 @@
 import React from "react";
 import "../../assets/client/dashboard.scss";
-import { FaVideo } from "react-icons/fa";
-import { GoFileDirectory } from "react-icons/go";
-import { GoPerson } from "react-icons/go";
-import { FaFileAlt } from "react-icons/fa";
-import { IoIosMail } from "react-icons/io";
-import { GoClock } from "react-icons/go";
-import { FaCheck } from "react-icons/fa";
-import { FaRegClock } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
-import { IoIosSettings } from "react-icons/io";
-import { IoMdClose } from "react-icons/io";
+import {
+  FaVideo,
+  FaFileAlt,
+  FaCheck,
+  FaRegClock,
+  FaUser,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
+import { GoFileDirectory, GoPerson, GoClock } from "react-icons/go";
+import { IoIosMail, IoIosSettings, IoMdClose } from "react-icons/io";
 import { MdChatBubble } from "react-icons/md";
-import { GiCancel } from "react-icons/gi";
-import { FaChevronLeft } from "react-icons/fa";
-import { FaChevronRight } from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiCancel, GiHamburgerMenu } from "react-icons/gi";
 import Loading from "../../img/loading-gif-png-5-original.gif";
 import moment from "moment";
 
@@ -109,66 +106,67 @@ const Dashboard = ({
               </p>
             </div>
           </div>
+          {props.state.paginatedExams.length === 0 ? (
+            <div className="NoResultDiv">No results found.</div>
+          ) : (
+            <table className="table2">
+              <thead className="client-head">
+                <tr className="client-row">
+                  <th className="client-doctor">Doctor</th>
+                  <th className="client-subject">Subject</th>
+                  <th className="client-subject">Type</th>
+                  <th className="client-subject">Date</th>
+                  <th className="client-status">Status</th>
+                </tr>
+              </thead>
 
-          <table className="table2">
-            <thead className="client-head">
-              <tr className="client-row">
-                <th className="client-doctor">Doctor</th>
-                <th className="client-subject">Subject</th>
-                <th className="client-subject">Type</th>
-                <th className="client-subject">Date</th>
-                <th className="client-status">Status</th>
-              </tr>
-            </thead>
+              {props.state.paginatedExams.map((exam, index) => {
+                if (exam === undefined) {
+                  return null;
+                } else if (exam.status === "Canceled") return null;
+                return (
+                  <tbody key={index} className="client-body">
+                    <tr
+                      data-id={exam.id}
+                      className="list-group"
+                      onClick={() => handleClick(exam.id, exam.exam_type)}
+                    >
+                      <td className="client-doctor">{exam.doctor}</td>
+                      <td className="client-subject">{exam.subject}</td>
+                      <td className="client-subject">{exam.exam_type}</td>
 
-            {props.state.paginatedExams.map((exam, index) => {
-              if (exam === undefined) {
-                return null;
-              } else if (exam.status === "Canceled") return null;
-              return (
-                <tbody key={index} className="client-body">
-                  <tr
-                    data-id={exam.id}
-                    className="list-group"
-                    onClick={() =>
-                      handleClick(exam.id, exam.exam_type, exam.status)
-                    }
-                  >
-                    <td className="client-doctor">{exam.doctor}</td>
-                    <td className="client-subject">{exam.subject}</td>
-                    <td className="client-subject">{exam.exam_type}</td>
-
-                    <td className="created">
-                      {exam.created && !exam.appointed_date ? (
-                        <p>
-                          {" "}
-                          Created: {moment(exam.created).format("MM/DD/YYYY")}
-                        </p>
-                      ) : (
-                        <p>
-                          {" "}
-                          Appointed:{" "}
-                          {moment(exam.appointed_date).format(
-                            "MM/DD/YYYY HH:mm"
-                          )}
-                        </p>
-                      )}
-                    </td>
-                    <td className="client-status">
-                      {exam.status === "Accepted" ||
-                      exam.status === "Appointed" ? (
-                        <FaCheck className="check" />
-                      ) : exam.status === "Declined" ? (
-                        <GiCancel className="declined" />
-                      ) : (
-                        <FaRegClock className="pendi" />
-                      )}
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
+                      <td className="created">
+                        {exam.created && !exam.appointed_date ? (
+                          <p>
+                            {" "}
+                            Created: {moment(exam.created).format("MM/DD/YYYY")}
+                          </p>
+                        ) : (
+                          <p>
+                            {" "}
+                            Appointed:{" "}
+                            {moment(exam.appointed_date).format(
+                              "MM/DD/YYYY HH:mm"
+                            )}
+                          </p>
+                        )}
+                      </td>
+                      <td className="client-status">
+                        {exam.status === "Accepted" ||
+                        exam.status === "Appointed" ? (
+                          <FaCheck className="check" />
+                        ) : exam.status === "Declined" ? (
+                          <GiCancel className="declined" />
+                        ) : (
+                          <FaRegClock className="pendi" />
+                        )}
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+            </table>
+          )}
         </div>
       )}
 

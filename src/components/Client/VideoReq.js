@@ -16,10 +16,9 @@ const VideoReq = ({
   handleDateChange,
   props,
 }) => {
-  // console.log(props.testDate, "tessssssssssssssssssssssssssssssssssst");
-  // let hello = props.testDate.map((hy) => {
-  //   return hy.time;
-  // });
+  let exclude = props.excludeTime.map((hy) => {
+    return new Date(hy.appointed_date);
+  });
 
   return (
     <div className="exam">
@@ -79,7 +78,7 @@ const VideoReq = ({
             style={{ zIndex: props.specialSP && props.doctor_id ? 0 : 1 }}
           ></div>
           <DatePicker
-            // excludeTimes={hello}
+            excludeTimes={exclude}
             inline
             selected={props.startDate}
             onChange={handleDateChange}

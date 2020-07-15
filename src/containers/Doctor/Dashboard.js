@@ -9,6 +9,8 @@ import { connect } from "react-redux";
 import moment from "moment";
 import Footer from "../../components/Main/Footer";
 
+const ws1 = new WebSocket("wss://healthcarebackend.xyz/ws/exam");
+
 class DoctorDashboard extends Component {
   constructor(props) {
     super(props);
@@ -319,6 +321,9 @@ class DoctorDashboard extends Component {
   };
 
   componentDidMount() {
+    ws1.onopen = () => {
+      console.log("connected to port");
+    };
     this.paginatedExams();
     this.peopleInWaitingRoom();
     // this.peopleVideoPending();

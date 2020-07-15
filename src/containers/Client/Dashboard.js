@@ -114,10 +114,10 @@ class ClientDashboard extends Component {
     };
   };
 
-  handleClick = (id, type, status) => {
-    if (type === "mail" && status !== "Declined") {
+  handleClick = (id, type) => {
+    if (type === "mail") {
       this.props.history.push(`/client/exam/detail/${id}`);
-    } else if (type === "video" && status !== "Declined") {
+    } else if (type === "video") {
       this.props.history.push(`/client/video/exam/detail/${id}`);
     }
   };
