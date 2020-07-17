@@ -45,7 +45,7 @@ class ClientDashboard extends Component {
   };
 
   componentDidMount() {
-    this.connect();
+    // this.connect();
     window.addEventListener("keydown", this.escBtn);
     this.paginatedExams();
     const access_token = "Bearer ".concat(this.state.token);
@@ -78,41 +78,41 @@ class ClientDashboard extends Component {
     }
   };
 
-  connect = () => {
-    var ws = new WebSocket("wss://healthcarebackend.xyz/ws/exam/status/");
-    ws.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log("connected");
-    };
-    ws.onmessage = (e) => {
-      // listen to data sent from the websocket server
-      const message = JSON.parse(e.data);
-      console.log(message, "socket message");
+  // connect = () => {
+  //   var ws = new WebSocket("wss://healthcarebackend.xyz/ws/exam/status/");
+  //   ws.onopen = () => {
+  //     // on connecting, do nothing but log it to the console
+  //     console.log("connected");
+  //   };
+  //   ws.onmessage = (e) => {
+  //     // listen to data sent from the websocket server
+  //     const message = JSON.parse(e.data);
+  //     console.log(message, "socket message");
 
-      this.state.exams.map((exam) => {
-        if (exam.id === message.id && exam.exam_type === "mail") {
-          exam.status = message.status;
-          this.paginatedExams();
-        } else if (exam.id === message.id && exam.exam_type === "video") {
-          exam.status = message.status;
-          this.paginatedExams();
-        } else {
-          return console.log("Does not exist.");
-        }
-      });
-    };
-    ws.onclose = (e) => {
-      console.log(`Socket is closed`);
-    };
-    ws.onerror = (err) => {
-      console.error(
-        "Socket encountered error: ",
-        err.message,
-        "Closing socket"
-      );
-      ws.close();
-    };
-  };
+  //     this.state.exams.map((exam) => {
+  //       if (exam.id === message.id && exam.exam_type === "mail") {
+  //         exam.status = message.status;
+  //         this.paginatedExams();
+  //       } else if (exam.id === message.id && exam.exam_type === "video") {
+  //         exam.status = message.status;
+  //         this.paginatedExams();
+  //       } else {
+  //         return console.log("Does not exist.");
+  //       }
+  //     });
+  //   };
+  //   ws.onclose = (e) => {
+  //     console.log(`Socket is closed`);
+  //   };
+  //   ws.onerror = (err) => {
+  //     console.error(
+  //       "Socket encountered error: ",
+  //       err.message,
+  //       "Closing socket"
+  //     );
+  //     ws.close();
+  //   };
+  // };
 
   handleClick = (id, type) => {
     if (type === "mail") {

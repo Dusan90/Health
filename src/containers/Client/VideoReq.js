@@ -9,8 +9,6 @@ import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 import moment from "moment";
 
-// let ws = new WebSocket("ws://localhost:8080/");
-
 class ClientVideoReq extends Component {
   constructor(props) {
     super(props);
@@ -127,7 +125,6 @@ class ClientVideoReq extends Component {
       if (data.success) {
         this.setState({ doctorsPrice: data.data.price });
         this.toCheckout();
-        // ws.send(this.state.doctor_id);
       }
       console.log(data, "post video requesttttt");
 
@@ -164,12 +161,9 @@ class ClientVideoReq extends Component {
 
   componentDidMount() {
     this.handleClientProfile();
-    // this.connect();
     axios
       .get("https://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
-        // console.log(response, "videoReq ");
-
         const res = response.data.data.map((val) => {
           return { value: val.id, iD: val.speciality_id, label: val.name };
         });
@@ -178,8 +172,6 @@ class ClientVideoReq extends Component {
     axios
       .get("https://healthcarebackend.xyz/api/doctor/list")
       .then((response) => {
-        // console.log(response, "videoReq2");
-
         const res = response.data.data.map((val) => {
           return {
             value: val.id,
@@ -192,13 +184,6 @@ class ClientVideoReq extends Component {
         this.setState({ doctors: res });
       });
   }
-
-  // connect = () => {
-  //   ws.onopen = () => {
-  //     // on connecting, do nothing but log it to the console
-  //     console.log("connected to port 8080");
-  //   };
-  // };
 
   render() {
     // console.log(this.state.testDate, "reserveddate");

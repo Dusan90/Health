@@ -3,7 +3,7 @@ import axios from "axios";
 // import { connect } from "react-redux";
 import DetailVideo from "../../components/Doctor/DetailVideoExam";
 import Footer from "../../components/Main/Footer";
-const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video");
+const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
 const options = [
   { value: "Accept", label: "Accept" },
   { value: "Decline", label: "Decline" },

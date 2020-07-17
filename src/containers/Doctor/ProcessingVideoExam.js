@@ -6,7 +6,7 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import Footer from "../../components/Main/Footer";
 
-const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video");
+const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
 class ProcessingVideoExam extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +15,7 @@ class ProcessingVideoExam extends Component {
       token: sessionStorage.getItem("accessToken"),
       connected: false,
       doctorsVideoId: "",
-      clientsVideoId: "",
+      clientsVideoId: "null",
       startVideo: false,
       value: "",
       width: 700,
@@ -73,14 +73,16 @@ class ProcessingVideoExam extends Component {
           connection.send(this.state.doctorsVideoId);
           connection.send(null);
         });
-
-        document
-          .getElementById("DoctorStartVideo")
-          .addEventListener("click", () => {
-            if (this.state.clientsVideoId !== null) {
-              peer.signal(this.state.clientsVideoId);
-            }
-          });
+        {
+          document.getElementById("DoctorStartVideo") &&
+            document
+              .getElementById("DoctorStartVideo")
+              .addEventListener("click", () => {
+                if (this.state.clientsVideoId !== null) {
+                  peer.signal(this.state.clientsVideoId);
+                }
+              });
+        }
 
         document.getElementById("send").addEventListener("click", function () {
           var yourMessage = document.getElementById("yourMessage").value;
@@ -96,8 +98,9 @@ class ProcessingVideoExam extends Component {
         };
 
         connection.onmessage = (event) => {
+          let test = JSON.parse(event.data);
           console.log("received", event.data);
-          this.setState({ clientsVideoId: event.data });
+          this.setState({ clientsVideoId: test.text });
         };
 
         document.querySelector("form").addEventListener("submit", (event) => {
@@ -159,6 +162,7 @@ class ProcessingVideoExam extends Component {
         document.querySelector(".iconPhone").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
+          this.props.history.push("/dashboard-doctor");
         });
       },
       function (err) {
@@ -235,7 +239,7 @@ class ProcessingVideoExam extends Component {
   }
 
   render() {
-    console.log(this.state.doctorsVideoId);
+    // console.log(this.state.clientsVideoId);
 
     return (
       <>

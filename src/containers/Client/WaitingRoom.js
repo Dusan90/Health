@@ -9,7 +9,7 @@ import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 import moment from "moment";
 
-// let ws = new WebSocket("ws://localhost:8080/");
+// const webs = new WebSocket("wss://healthcarebackend.xyz/ws/exam/");
 
 class ClientWaitingRoom extends Component {
   constructor(props) {
@@ -137,7 +137,7 @@ class ClientWaitingRoom extends Component {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
 
@@ -173,7 +173,6 @@ class ClientWaitingRoom extends Component {
 
       this.setState({ price: data.data.price });
       this.hanldeClientQueue(this.state.client_id);
-      // ws.send(this.state.doctor_id);
       this.toCheckout();
 
       return data;
@@ -251,7 +250,6 @@ class ClientWaitingRoom extends Component {
   componentDidMount() {
     this.handleClientProfile();
     this.socketStart();
-    // this.connect();
 
     axios
       .get("https://healthcarebackend.xyz/api/specialities/")
@@ -283,11 +281,11 @@ class ClientWaitingRoom extends Component {
       });
   }
 
-  // connect = () => {
-  //   ws.onopen = () => {
-  //     // on connecting, do nothing but log it to the console
-  //     console.log("connected to port 8080");
+  // connectref = () => {
+  //   webs.onopen = () => {
+  //     console.log("connected to port");
   //   };
+  //   webs.send(this.state.doctor_id);
   // };
 
   handleDoctorsStatus = () => {
@@ -342,7 +340,7 @@ class ClientWaitingRoom extends Component {
         });
 
         const connection = new WebSocket(
-          "wss://healthcarebackend.xyz/ws/video"
+          "wss://healthcarebackend.xyz/ws/video/"
         );
 
         connection.onopen = () => {
@@ -358,9 +356,10 @@ class ClientWaitingRoom extends Component {
         };
 
         connection.onmessage = (event) => {
-          console.log("received", event.data);
+          let test = JSON.parse(event.data);
+          console.log("received", test.text);
           if (!this.state.doctorsVideoId) {
-            this.setState({ doctorsVideoId: event.data });
+            this.setState({ doctorsVideoId: test.text });
           }
         };
 
@@ -427,6 +426,7 @@ class ClientWaitingRoom extends Component {
           peer.destroy();
           this.handleDivClose();
           this.handleExitQueue();
+          this.props.history.push("/dashboard-client");
         });
       },
       function (err) {

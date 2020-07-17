@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import moment from "moment";
 import Footer from "../../components/Main/Footer";
 
-const ws1 = new WebSocket("wss://healthcarebackend.xyz/ws/exam");
+const webs = new WebSocket("wss://healthcarebackend.xyz/ws/exam/");
 
 class DoctorDashboard extends Component {
   constructor(props) {
@@ -80,7 +80,7 @@ class DoctorDashboard extends Component {
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
 
@@ -256,7 +256,7 @@ class DoctorDashboard extends Component {
         this.setState({ waitingRoom: todaysWaitingRoom });
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   };
 
@@ -267,7 +267,6 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response.data.data, "videooo-request-list");
         let pending = response.data.data.filter((res) => {
           return (
             res.status === "Requested" &&
@@ -321,9 +320,6 @@ class DoctorDashboard extends Component {
   };
 
   componentDidMount() {
-    ws1.onopen = () => {
-      console.log("connected to port");
-    };
     this.paginatedExams();
     this.peopleInWaitingRoom();
     // this.peopleVideoPending();
@@ -331,25 +327,24 @@ class DoctorDashboard extends Component {
 
     window.addEventListener("keydown", this.escBtn);
     this.handleDoctorProfile();
-    // this.connecttest();
+    this.connecSocket();
   }
 
-  // connecttest = () => {
-  //   let ws = new WebSocket("ws://localhost:8080/");
-  //   ws.onopen = () => {
-  //     // on connecting, do nothing but log it to the console
-  //     console.log("connected to 8080 port");
-  //   };
-  //   ws.onmessage = (event) => {
-
-  //     if (event.data === JSON.stringify(this.state.doctorCurent.id)) {
-  //       this.messagesNumber();
-  //     }
-  //   };
-  // };
+  connecSocket = () => {
+    webs.onopen = () => {
+      // on connecting, do nothing but log it to the console
+      console.log("connected to port");
+    };
+    webs.onmessage = (event) => {
+      let test = JSON.parse(event.data);
+      console.log(test);
+      this.messagesNumber();
+    };
+  };
 
   messagesNumber = () => {
     this.paginatedExams();
+    this.peopleInWaitingRoom();
     this.pnd();
   };
   render() {
