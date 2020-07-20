@@ -333,10 +333,32 @@
               color: rgb(18, 219, 18);
               font-size: 17px;
             }
-            .pending {
+            .declined {
+              color: red;
+              font-size: 17px;
+            }
+            .pendi {
               color: #4092c2;
               font-size: 17px;
             }
+          }
+          .client-status {
+            width: 100px;
+
+            &:hover {
+              .check,
+              .pendi,
+              .finished,
+              .declined {
+                display: none;
+              }
+              .status {
+                display: block;
+              }
+            }
+          }
+          .status {
+            display: none;
           }
         }
       }
@@ -460,6 +482,23 @@
             color: #4092c2;
             font-size: 17px;
           }
+        }
+        .client-status {
+          width: 100px;
+          &:hover {
+            .check,
+            .pendi,
+            .finished,
+            .declined {
+              display: none;
+            }
+            .status {
+              display: block;
+            }
+          }
+        }
+        .status {
+          display: none;
         }
       }
     }

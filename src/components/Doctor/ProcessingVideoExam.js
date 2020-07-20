@@ -46,8 +46,6 @@ const Processing = ({
                   <button type="submit" className="btn" onClick={handleConnect}>
                     Connect
                   </button>
-                ) : props.clientsVideoId === "null" ? (
-                  <h4 style={{ color: "#4092c2" }}>Connecting...</h4>
                 ) : (
                   <button
                     id="DoctorStartVideo"

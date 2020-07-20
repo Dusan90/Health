@@ -9,8 +9,6 @@ import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 import moment from "moment";
 
-// const webs = new WebSocket("wss://healthcarebackend.xyz/ws/exam/");
-
 class ClientWaitingRoom extends Component {
   constructor(props) {
     super(props);
@@ -281,13 +279,6 @@ class ClientWaitingRoom extends Component {
       });
   }
 
-  // connectref = () => {
-  //   webs.onopen = () => {
-  //     console.log("connected to port");
-  //   };
-  //   webs.send(this.state.doctor_id);
-  // };
-
   handleDoctorsStatus = () => {
     this.state.peopleInQueue.forEach((queDoc) => {
       if (queDoc.client_id === this.state.client_id) {
@@ -357,7 +348,7 @@ class ClientWaitingRoom extends Component {
 
         connection.onmessage = (event) => {
           let test = JSON.parse(event.data);
-          console.log("received", test.text);
+          console.log("received client", test.text);
           if (!this.state.doctorsVideoId) {
             this.setState({ doctorsVideoId: test.text });
           }

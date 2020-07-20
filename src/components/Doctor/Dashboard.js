@@ -1,25 +1,21 @@
 import React from "react";
 import "../../assets/dashboard.scss";
-import { FaCheck } from "react-icons/fa";
-import { FaRegClock } from "react-icons/fa";
-import { FaFileAlt } from "react-icons/fa";
-import { FaUsers } from "react-icons/fa";
-import { FaRegBell } from "react-icons/fa";
-import { FaChevronLeft } from "react-icons/fa";
-import { FaRegCalendarAlt } from "react-icons/fa";
-import { FaChevronRight } from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { FaUser } from "react-icons/fa";
-import { GoPerson } from "react-icons/go";
-import { FaVideo } from "react-icons/fa";
-import { IoIosMail } from "react-icons/io";
-import { GoClock } from "react-icons/go";
-import { GoFileDirectory } from "react-icons/go";
-import { GoMailRead } from "react-icons/go";
-import { IoIosSettings } from "react-icons/io";
+import {
+  FaCheck,
+  FaRegClock,
+  FaFileAlt,
+  FaUsers,
+  FaRegBell,
+  FaChevronLeft,
+  FaRegCalendarAlt,
+  FaChevronRight,
+  FaUser,
+  FaVideo,
+} from "react-icons/fa";
+import { GoPerson, GoClock, GoFileDirectory, GoMailRead } from "react-icons/go";
+import { IoIosMail, IoIosSettings, IoMdClose } from "react-icons/io";
 import { MdChatBubble } from "react-icons/md";
-import { IoMdClose } from "react-icons/io";
-import { GiCancel } from "react-icons/gi";
+import { GiCancel, GiCheckeredFlag, GiHamburgerMenu } from "react-icons/gi";
 
 import Loading from "../../img/loading-gif-png-5-original.gif";
 import moment from "moment";
@@ -229,43 +225,53 @@ const Dashboard = ({
                 </tr>
               </thead>
               {props.state.paginatedExams.map((exam, index) => {
-                if (exam.status === "Accepted" || exam.status === "Appointed") {
-                  return (
-                    <tbody key={index} className="client-body">
-                      <tr
-                        // data-id={exam.id}
-                        className="list-group"
-                        onClick={() => handleClick(exam.id, exam.exam_type)}
-                      >
-                        <td className="client-doctor">{exam.client}</td>
-                        <td className="client-subject">{exam.subject}</td>
-                        <td className="client-subject">{exam.exam_type}</td>
-                        <td className="created">
-                          {exam.created && !exam.appointed_date ? (
-                            <p>
-                              {" "}
-                              Created:{" "}
-                              {moment(exam.created).format("MM/DD/YYYY")}
-                            </p>
-                          ) : exam.appointed_date ? (
-                            <p>
-                              {" "}
-                              Appointed:{" "}
-                              {moment(exam.appointed_date).format(
-                                "MM/DD/YYYY HH:mm"
-                              )}
-                            </p>
-                          ) : null}
-                        </td>
-                        <td className="client-status">
+                // if (exam.status === "Accepted" || exam.status === "Appointed") {
+                return (
+                  <tbody key={index} className="client-body">
+                    <tr
+                      // data-id={exam.id}
+                      className="list-group"
+                      onClick={() => handleClick(exam.id, exam.exam_type)}
+                    >
+                      <td className="client-doctor">{exam.client}</td>
+                      <td className="client-subject">{exam.subject}</td>
+                      <td className="client-subject">{exam.exam_type}</td>
+                      <td className="created">
+                        {exam.created && !exam.appointed_date ? (
+                          <p>
+                            {" "}
+                            Created: {moment(exam.created).format("MM/DD/YYYY")}
+                          </p>
+                        ) : exam.appointed_date ? (
+                          <p>
+                            {" "}
+                            Appointed:{" "}
+                            {moment(exam.appointed_date).format(
+                              "MM/DD/YYYY HH:mm"
+                            )}
+                          </p>
+                        ) : null}
+                      </td>
+                      <td className="client-status">
+                        {exam.status === "Requested" ||
+                        exam.status === "Pending" ? (
+                          <FaRegClock className="pendi" />
+                        ) : exam.status === "Declined" ||
+                          exam.status === "Canceled" ? (
+                          <GiCancel className="declined" />
+                        ) : exam.status === "Finished" ? (
+                          <GiCheckeredFlag className="finished" />
+                        ) : (
                           <FaCheck className="check" />
-                        </td>
-                      </tr>
-                    </tbody>
-                  );
-                } else {
-                  return null;
-                }
+                        )}
+                        <h5 className="status">{exam.status}</h5>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+                // } else {
+                //   return null;
+                // }
               })}
             </table>
           )}
@@ -302,6 +308,7 @@ const Dashboard = ({
                     </td>
                     <td className="client-status">
                       <FaRegClock className="pendi" />
+                      <h5 className="status">{pen.status}</h5>
                     </td>
                   </tr>
                 </tbody>
@@ -343,6 +350,7 @@ const Dashboard = ({
                     </td>
                     <td className="client-status">
                       <FaRegClock className="pendi" />
+                      <h5 className="status">{pen.status}</h5>
                     </td>
                   </tr>
                 </tbody>
@@ -390,6 +398,7 @@ const Dashboard = ({
                     </td>
                     {/* <td className="client-status">
                       <FaRegClock className="pendi" />
+                      <h5 className="status">{pen.status}</h5>
                     </td> */}
                   </tr>
                 </tbody>
@@ -544,11 +553,15 @@ const Dashboard = ({
                     <td className="client-status">
                       {ex.status === "Accepted" || ex.status === "Appointed" ? (
                         <FaCheck className="check" />
-                      ) : ex.status === "Declined" ? (
+                      ) : ex.status === "Declined" ||
+                        ex.status === "Canceled" ? (
                         <GiCancel className="declined" />
+                      ) : ex.status === "Finished" ? (
+                        <GiCheckeredFlag className="finished" />
                       ) : (
                         <FaRegClock className="pendi" />
                       )}
+                      <h5 className="status">{ex.status}</h5>
                     </td>
                   </tr>
                 </tbody>

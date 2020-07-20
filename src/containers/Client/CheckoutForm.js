@@ -16,8 +16,6 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import PaypalButton from "./PaypalCheckout";
 
-const webso = new WebSocket("wss://healthcarebackend.xyz/ws/exam/");
-
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -121,8 +119,6 @@ class CheckoutForm extends Component {
         console.log(data);
 
         if (data.message === "Payment completed") {
-          webso.send("nesto");
-
           this.setState({ complete: true });
           NotificationManager.success(
             "Checkout Completed",
@@ -180,17 +176,6 @@ class CheckoutForm extends Component {
 
   handleReady = (element) => {
     this.setState({ cardElement: element });
-  };
-
-  componentDidMount() {
-    this.connectSocket();
-  }
-
-  connectSocket = () => {
-    webso.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log("connected to socket");
-    };
   };
 
   render() {

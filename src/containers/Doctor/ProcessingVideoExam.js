@@ -99,7 +99,7 @@ class ProcessingVideoExam extends Component {
 
         connection.onmessage = (event) => {
           let test = JSON.parse(event.data);
-          console.log("received", event.data);
+          console.log("received doctor", event.data);
           this.setState({ clientsVideoId: test.text });
         };
 

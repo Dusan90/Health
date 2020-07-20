@@ -94,7 +94,11 @@ class DoctorDashboard extends Component {
         return new Date(upco.appointed_date) > new Date();
       });
 
-      this.setState({ upcomingOrPast: upcoming, page: 1 });
+      let resort = upcoming.sort(
+        (a, b) => Date.parse(a.appointed_date) - Date.parse(b.appointed_date)
+      );
+
+      this.setState({ upcomingOrPast: resort, page: 1 });
 
       this.paginate(1);
       clearInterval(upcomingset);
@@ -148,15 +152,15 @@ class DoctorDashboard extends Component {
         console.log(response, "mail");
 
         if (response.data.data.length !== 0) {
-          const filterOutCanceled = response.data.data.filter((fil_cancel) => {
-            return (
-              fil_cancel.status === "Accepted" ||
-              fil_cancel.status === "Appointed"
-            );
-          });
+          // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
+          //   return (
+          //     fil_cancel.status === "Accepted" ||
+          //     fil_cancel.status === "Appointed"
+          //   );
+          // });
 
           this.setState({
-            exams: [...this.state.exams.concat(filterOutCanceled)],
+            exams: [...this.state.exams.concat(response.data.data)],
           });
           this.handleUpcoming();
           this.paginate(this.state.page);
@@ -293,7 +297,7 @@ class DoctorDashboard extends Component {
         });
 
         this.setState({
-          exams: [...this.state.exams.concat(accepted)],
+          exams: [...this.state.exams.concat(response.data.data)],
           videoPending: pending,
           loading: false,
           numOfMessages: nowON.length,
@@ -327,6 +331,9 @@ class DoctorDashboard extends Component {
 
     window.addEventListener("keydown", this.escBtn);
     this.handleDoctorProfile();
+  }
+
+  UNSAFE_componentWillMount() {
     this.connecSocket();
   }
 
@@ -337,7 +344,6 @@ class DoctorDashboard extends Component {
     };
     webs.onmessage = (event) => {
       let test = JSON.parse(event.data);
-      console.log(test);
       this.messagesNumber();
     };
   };

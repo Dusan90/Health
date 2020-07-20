@@ -12,7 +12,7 @@ import {
 import { GoFileDirectory, GoPerson, GoClock } from "react-icons/go";
 import { IoIosMail, IoIosSettings, IoMdClose } from "react-icons/io";
 import { MdChatBubble } from "react-icons/md";
-import { GiCancel, GiHamburgerMenu } from "react-icons/gi";
+import { GiCancel, GiHamburgerMenu, GiCheckeredFlag } from "react-icons/gi";
 import Loading from "../../img/loading-gif-png-5-original.gif";
 import moment from "moment";
 
@@ -123,7 +123,7 @@ const Dashboard = ({
               {props.state.paginatedExams.map((exam, index) => {
                 if (exam === undefined) {
                   return null;
-                } else if (exam.status === "Canceled") return null;
+                }
                 return (
                   <tbody key={index} className="client-body">
                     <tr
@@ -155,11 +155,15 @@ const Dashboard = ({
                         {exam.status === "Accepted" ||
                         exam.status === "Appointed" ? (
                           <FaCheck className="check" />
-                        ) : exam.status === "Declined" ? (
+                        ) : exam.status === "Declined" ||
+                          exam.status === "Canceled" ? (
                           <GiCancel className="declined" />
+                        ) : exam.status === "Finished" ? (
+                          <GiCheckeredFlag className="finished" />
                         ) : (
                           <FaRegClock className="pendi" />
                         )}
+                        <h5 className="status">{exam.status}</h5>
                       </td>
                     </tr>
                   </tbody>
@@ -306,11 +310,15 @@ const Dashboard = ({
                     <td className="client-status">
                       {ex.status === "Accepted" || ex.status === "Appointed" ? (
                         <FaCheck className="check" />
-                      ) : ex.status === "Declined" ? (
+                      ) : ex.status === "Declined" ||
+                        ex.status === "Canceled" ? (
                         <GiCancel className="declined" />
+                      ) : ex.status === "Finished" ? (
+                        <GiCheckeredFlag className="finished" />
                       ) : (
                         <FaRegClock className="pendi" />
                       )}
+                      <h5 className="status">{ex.status}</h5>
                     </td>
                   </tr>
                 </tbody>

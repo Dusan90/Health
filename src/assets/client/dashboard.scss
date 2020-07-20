@@ -218,6 +218,23 @@
               font-size: 17px;
             }
           }
+          .client-status {
+            width: 100px;
+            &:hover {
+              .check,
+              .pendi,
+              .finished,
+              .declined {
+                display: none;
+              }
+              .status {
+                display: block;
+              }
+            }
+          }
+          .status {
+            display: none;
+          }
         }
       }
       .client-head {
@@ -405,6 +422,23 @@
               color: #4092c2;
               font-size: 17px;
             }
+          }
+          .client-status {
+            width: 100px;
+            &:hover {
+              .check,
+              .pendi,
+              .finished,
+              .declined {
+                display: none;
+              }
+              .status {
+                display: block;
+              }
+            }
+          }
+          .status {
+            display: none;
           }
         }
       }
