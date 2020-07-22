@@ -44,6 +44,8 @@ class ClientVideoReq extends Component {
     let excludeTime = this.state.doctorsExams.filter((ex) => {
       if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate) {
         return ex;
+      } else {
+        return null;
       }
     });
     this.setState({ excludeTime });

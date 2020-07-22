@@ -99,6 +99,7 @@ class ClientDashboard extends Component {
         } else {
           return console.log("Does not exist.");
         }
+        return null;
       });
     };
     ws.onclose = (e) => {

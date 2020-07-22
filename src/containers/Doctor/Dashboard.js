@@ -342,8 +342,8 @@ class DoctorDashboard extends Component {
       // on connecting, do nothing but log it to the console
       console.log("connected to port");
     };
+
     webs.onmessage = (event) => {
-      let test = JSON.parse(event.data);
       this.messagesNumber();
     };
   };

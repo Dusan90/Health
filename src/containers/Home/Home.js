@@ -7,7 +7,7 @@ import Footer from "../../components/Main/Footer";
 class Main extends Component {
   constructor(props) {
     super(props);
-    // this.state = {};
+    this.state = {};
   }
 
   handleDashboardDoctor = () => {

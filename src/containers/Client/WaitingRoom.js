@@ -9,6 +9,8 @@ import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 import moment from "moment";
 
+const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
+
 class ClientWaitingRoom extends Component {
   constructor(props) {
     super(props);
@@ -245,6 +247,20 @@ class ClientWaitingRoom extends Component {
     window.location.reload();
   }
 
+  UNSAFE_componentWillMount() {
+    connection.onopen = () => {
+      console.log("connected");
+      if (this.state.currentClient) {
+        connection.send(
+          JSON.stringify({
+            id: this.state.currentClient.id,
+            connectedClient: true,
+          })
+        );
+      }
+    };
+  }
+
   componentDidMount() {
     this.handleClientProfile();
     this.socketStart();
@@ -295,6 +311,7 @@ class ClientWaitingRoom extends Component {
               4000
             );
           }
+          return null;
         });
       }
     });
@@ -330,16 +347,9 @@ class ClientWaitingRoom extends Component {
           peer.send(yourMessage);
         });
 
-        const connection = new WebSocket(
-          "wss://healthcarebackend.xyz/ws/video/"
-        );
-
-        connection.onopen = () => {
-          console.log("connected");
-        };
-
         connection.onclose = () => {
           console.error("disconnected");
+          this.props.history.push("/dashboard-client");
         };
 
         connection.onerror = (error) => {
@@ -348,9 +358,28 @@ class ClientWaitingRoom extends Component {
 
         connection.onmessage = (event) => {
           let test = JSON.parse(event.data);
-          console.log("received client", test.text);
-          if (!this.state.doctorsVideoId) {
+          console.log("received client", event.data);
+
+          if (
+            !this.state.doctorsVideoId &&
+            parseInt(JSON.parse(test.text).id) !==
+              this.state.currentClient.id &&
+            test.text !== "undefined"
+          ) {
             this.setState({ doctorsVideoId: test.text });
+          } else if (JSON.parse(test.text)) {
+            if (
+              parseInt(JSON.parse(test.text).id) ===
+                this.state.currentClient.id &&
+              JSON.parse(test.text).connectedDoctor
+            ) {
+              connection.send(
+                JSON.stringify({
+                  id: this.state.currentClient.id,
+                  connectedClient: true,
+                })
+              );
+            }
           }
         };
 
@@ -403,21 +432,23 @@ class ClientWaitingRoom extends Component {
         });
 
         peer.on("close", () => {
+          this.handleExitQueue();
           peer.destroy();
           this.handleDivClose();
-          this.handleExitQueue();
+          connection.close();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
+          this.handleExitQueue();
           peer.destroy();
           this.handleDivClose();
-          this.handleExitQueue();
+          connection.close();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
+          this.handleExitQueue();
           peer.destroy();
           this.handleDivClose();
-          this.handleExitQueue();
-          this.props.history.push("/dashboard-client");
+          connection.close();
         });
       },
       function (err) {

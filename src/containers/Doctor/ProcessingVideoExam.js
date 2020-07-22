@@ -26,6 +26,7 @@ class ProcessingVideoExam extends Component {
       showChat: false,
       video: true,
       audio: true,
+      connectedall: false,
     };
   }
 
@@ -36,6 +37,7 @@ class ProcessingVideoExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response);
         this.setState({ exam: this.state.exam.concat(response.data.data) });
       });
   };
@@ -91,16 +93,11 @@ class ProcessingVideoExam extends Component {
 
         connection.onclose = () => {
           console.error("disconnected");
+          this.props.history.push("/dashboard-doctor");
         };
 
         connection.onerror = (error) => {
           console.error("failed to connect", error);
-        };
-
-        connection.onmessage = (event) => {
-          let test = JSON.parse(event.data);
-          console.log("received doctor", event.data);
-          this.setState({ clientsVideoId: test.text });
         };
 
         document.querySelector("form").addEventListener("submit", (event) => {
@@ -153,16 +150,18 @@ class ProcessingVideoExam extends Component {
 
         peer.on("close", () => {
           this.handleDivClose();
+          connection.close();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
+          connection.close();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
-          this.props.history.push("/dashboard-doctor");
+          connection.close();
         });
       },
       function (err) {
@@ -231,16 +230,33 @@ class ProcessingVideoExam extends Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    this.setState({ id: id });
+
     this.detail(id);
     connection.onopen = () => {
       console.log("connected");
+      connection.send(JSON.stringify({ id: id, connectedDoctor: true }));
+    };
+    connection.onmessage = (event) => {
+      let test = JSON.parse(event.data);
+
+      console.log("received doctor", event.data);
+      if (JSON.parse(test.text)) {
+        if (
+          JSON.parse(test.text).id === parseInt(id) &&
+          JSON.parse(test.text).connectedClient
+        ) {
+          this.connectedAll();
+        }
+      }
+      this.setState({ clientsVideoId: test.text });
     };
   }
 
-  render() {
-    // console.log(this.state.clientsVideoId);
+  connectedAll = () => {
+    this.setState({ connectedall: true });
+  };
 
+  render() {
     return (
       <>
         <div className="header">

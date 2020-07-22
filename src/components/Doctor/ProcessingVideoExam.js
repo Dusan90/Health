@@ -27,6 +27,7 @@ const Processing = ({
   cutMic,
 }) => {
   let disabled = props.clientsVideoId === "null" ? true : false;
+  let disabled2 = props.connectedall ? false : true;
   return (
     <>
       {props.exam.map((exam) => {
@@ -43,7 +44,12 @@ const Processing = ({
               <p>Status: {exam.exam.status}</p>
               <div>
                 {!props.connected ? (
-                  <button type="submit" className="btn" onClick={handleConnect}>
+                  <button
+                    type="submit"
+                    disabled={disabled2}
+                    className="btn"
+                    onClick={handleConnect}
+                  >
                     Connect
                   </button>
                 ) : (
