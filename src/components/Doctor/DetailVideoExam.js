@@ -14,6 +14,8 @@ import { FaRocketchat } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { Rnd } from "react-rnd";
 
+const optionsAccepted = [{ value: "Finish", label: "Finish" }];
+
 const DetailVideo = ({
   exam,
   status,
@@ -90,6 +92,23 @@ const DetailVideo = ({
               )}
               {exam.status === "Appointed" && (
                 <div className="message-btn">
+                  <div style={{ display: "flex" }}>
+                    <Select
+                      type="text"
+                      className="select-option"
+                      value={statusValue}
+                      options={optionsAccepted}
+                      onChange={handleStatus}
+                    />
+                    <button
+                      type="submit"
+                      className="btn"
+                      value={submitValue}
+                      onClick={handleSubmit}
+                    >
+                      Send
+                    </button>
+                  </div>
                   <button className="messages-link" onClick={handleLink}>
                     Message history
                   </button>

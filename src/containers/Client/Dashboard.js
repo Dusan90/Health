@@ -22,7 +22,6 @@ class ClientDashboard extends Component {
       maxPages: "",
       hamburger: false,
       client: "",
-      viewAllExams: false,
     };
   }
 
@@ -34,14 +33,6 @@ class ClientDashboard extends Component {
   };
   VideoReq = () => {
     this.props.history.push("/client/video-request");
-  };
-
-  escBtn = (e) => {
-    if (e.keyCode === 27) {
-      this.setState({
-        viewAllExams: false,
-      });
-    }
   };
 
   componentDidMount() {
@@ -131,13 +122,15 @@ class ClientDashboard extends Component {
     let upcomingset = setInterval(() => {
       let upcoming = this.state.exams.filter((upco) => {
         return (
-          new Date(upco.appointed_date) > new Date() ||
-          new Date(upco.created) > new Date()
+          upco.status === "Appointed" ||
+          upco.status === "Accepted" ||
+          upco.status === "Pending" ||
+          upco.status === "Requested"
         );
       });
 
       let resort = upcoming.sort(
-        (a, b) => Date.parse(a.appointed_date) - Date.parse(b.appointed_date)
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
 
       this.setState({ upcomingOrPast: resort, page: 1 });
@@ -154,11 +147,11 @@ class ClientDashboard extends Component {
     // );
     let pastset = setInterval(() => {
       let past = this.state.exams.filter((pas) => {
-        if (pas.appointed_date) {
-          return new Date(pas.appointed_date) < new Date();
-        } else {
-          return new Date(pas.created) < new Date();
-        }
+        return (
+          pas.status === "Declined" ||
+          pas.status === "Finished" ||
+          pas.status === "Canceled"
+        );
       });
       let sort = past.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
@@ -170,7 +163,18 @@ class ClientDashboard extends Component {
   };
 
   handleAll = () => {
-    this.setState({ viewAllExams: !this.state.viewAllExams });
+    let hndlAll = setInterval(() => {
+      let all = this.state.exams;
+
+      let resortall = all.sort(
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
+      );
+
+      this.setState({ upcomingOrPast: resortall, page: 1 });
+
+      this.paginate(1);
+      clearInterval(hndlAll);
+    }, 10);
   };
 
   videoReqStatus = async () => {
@@ -205,7 +209,7 @@ class ClientDashboard extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/mail/client/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -251,7 +255,8 @@ class ClientDashboard extends Component {
   };
 
   hnlMyConsultations = () => {
-    this.setState({ hamburger: false, viewAllExams: true });
+    this.setState({ hamburger: false });
+    this.handleAll();
   };
 
   render() {

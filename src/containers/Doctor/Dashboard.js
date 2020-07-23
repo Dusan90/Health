@@ -32,7 +32,6 @@ class DoctorDashboard extends Component {
       maxPages: "",
       loading: true,
       hamburger: false,
-      viewAllExams: false,
       numOfMessages: 0,
     };
   }
@@ -91,11 +90,16 @@ class DoctorDashboard extends Component {
     // );
     let upcomingset = setInterval(() => {
       let upcoming = this.state.exams.filter((upco) => {
-        return new Date(upco.appointed_date) > new Date();
+        return (
+          upco.status === "Appointed" ||
+          upco.status === "Accepted" ||
+          upco.status === "Pending" ||
+          upco.status === "Requested"
+        );
       });
 
       let resort = upcoming.sort(
-        (a, b) => Date.parse(a.appointed_date) - Date.parse(b.appointed_date)
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
 
       this.setState({ upcomingOrPast: resort, page: 1 });
@@ -112,11 +116,11 @@ class DoctorDashboard extends Component {
     // );
     let pastset = setInterval(() => {
       let past = this.state.exams.filter((pas) => {
-        if (pas.appointed_date) {
-          return new Date(pas.appointed_date) < new Date();
-        } else {
-          return new Date(pas.created) < new Date();
-        }
+        return (
+          pas.status === "Declined" ||
+          pas.status === "Finished" ||
+          pas.status === "Canceled"
+        );
       });
       let sort = past.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
@@ -128,7 +132,18 @@ class DoctorDashboard extends Component {
   };
 
   handleAll = () => {
-    this.setState({ viewAllExams: !this.state.viewAllExams });
+    let hndlAll = setInterval(() => {
+      let all = this.state.exams;
+
+      let resortall = all.sort(
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
+      );
+
+      this.setState({ upcomingOrPast: resortall, page: 1 });
+
+      this.paginate(1);
+      clearInterval(hndlAll);
+    }, 10);
   };
 
   handleClick = (id, type) => {
@@ -145,7 +160,7 @@ class DoctorDashboard extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/mail/doctor/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -220,7 +235,6 @@ class DoctorDashboard extends Component {
         openPending: false,
         openVideoPending: false,
         openWaitingRoom: false,
-        viewAllExams: false,
       });
     }
   };
@@ -320,7 +334,8 @@ class DoctorDashboard extends Component {
   };
 
   hnlMyConsultations = () => {
-    this.setState({ hamburger: false, viewAllExams: true });
+    this.handleAll();
+    this.setState({ hamburger: false });
   };
 
   componentDidMount() {
@@ -354,6 +369,7 @@ class DoctorDashboard extends Component {
     this.pnd();
   };
   render() {
+    console.log(this.state.exams);
     return (
       <>
         <div className="header">

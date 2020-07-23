@@ -102,7 +102,7 @@ const Dashboard = ({
                 past
               </p>
               <p className="all" onClick={handleAll}>
-                view all
+                all
               </p>
             </div>
           </div>
@@ -268,66 +268,6 @@ const Dashboard = ({
           <h2>Sign Out</h2>
         </div>
       </div>
-
-      {props.state.viewAllExams ? (
-        <div className="penTable">
-          <table className="table2 test">
-            <thead className="client-head">
-              <tr className="client-row">
-                <th className="client-doctor">Client</th>
-                <th className="client-subject">Subject</th>
-                <th className="client-subject">Type</th>
-                <th className="client-subject">Date</th>
-                <th className="client-status">Status</th>
-              </tr>
-            </thead>
-            {props.state.exams.map((ex, index) => {
-              return (
-                <tbody key={index} className="client-body">
-                  <tr
-                    data-id={ex.id}
-                    className="list-group"
-                    onClick={() => handleClick(ex.id, ex.exam_type)}
-                  >
-                    <td className="client-doctor">{ex.client}</td>
-                    <td className="client-subject">{ex.subject}</td>
-                    <td className="client-subject">{ex.exam_type}</td>
-
-                    <td className="created">
-                      {ex.created && !ex.appointed_date ? (
-                        <p>
-                          {" "}
-                          Created: {moment(ex.created).format("MM/DD/YYYY")}
-                        </p>
-                      ) : (
-                        <p>
-                          {" "}
-                          Appointed:{" "}
-                          {moment(ex.appointed_date).format("MM/DD/YYYY HH:mm")}
-                        </p>
-                      )}
-                    </td>
-                    <td className="client-status">
-                      {ex.status === "Accepted" || ex.status === "Appointed" ? (
-                        <FaCheck className="check" />
-                      ) : ex.status === "Declined" ||
-                        ex.status === "Canceled" ? (
-                        <GiCancel className="declined" />
-                      ) : ex.status === "Finished" ? (
-                        <GiCheckeredFlag className="finished" />
-                      ) : (
-                        <FaRegClock className="pendi" />
-                      )}
-                      <h5 className="status">{ex.status}</h5>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
-          <button onClick={handleAll}>GO BACK</button>
-        </div>
-      ) : null}
     </div>
   );
 };
