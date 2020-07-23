@@ -209,7 +209,7 @@ class ClientDashboard extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/client/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
