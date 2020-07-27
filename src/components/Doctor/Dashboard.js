@@ -253,8 +253,7 @@ const Dashboard = ({
                         ) : null}
                       </td>
                       <td className="client-status">
-                        {exam.status === "Requested" ||
-                        exam.status === "Pending" ? (
+                        {exam.status === "Pending" ? (
                           <FaRegClock className="pendi" />
                         ) : exam.status === "Declined" ||
                           exam.status === "Canceled" ? (

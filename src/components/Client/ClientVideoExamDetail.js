@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-// import "../../assets/client/detail-exam.scss";
+import "../../assets/client/detail-exam.scss";
 import moment from "moment";
 import { FaMicrophoneAltSlash } from "react-icons/fa";
 import { FaMicrophoneAlt } from "react-icons/fa";
@@ -15,8 +15,6 @@ import { Rnd } from "react-rnd";
 
 const DetailVideo = ({
   exam,
-  handleLink,
-  handleLinkMessage,
   handleCancel,
   props,
   handleChange,
@@ -43,55 +41,63 @@ const DetailVideo = ({
       </div>
       {exam.map((exam) => {
         return (
-          <div key={exam.id} className="detail-exam">
-            <div className="detail">
-              <p>Doctor: {exam.doctor}</p>
-              <p>Speciality: {exam.speciality}</p>
-              {exam.appointed_date ? (
+          <Fragment key={exam.id}>
+            <div className="detail-exam">
+              <div className="detail">
                 <p>
-                  {" "}
-                  Appointed:{" "}
-                  {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
+                  <span>Doctor:</span> {exam.doctor}
                 </p>
-              ) : (
                 <p>
-                  {" "}
-                  Created:{" "}
-                  {new Intl.DateTimeFormat("en-GB", {
-                    year: "numeric",
-                    month: "long",
-                    day: "2-digit",
-                  }).format(new Date(exam.created))}
+                  <span>Speciality:</span> {exam.speciality}
                 </p>
-              )}
-              <p>Exam type: {exam.exam_type}</p>
-              <p>Subject: {exam.subject}</p>
-              <p>Message: {exam.message}</p>
-              <p>Status: {exam.status}</p>
-              {exam.status === "Appointed" || exam.status === "Accepted" ? (
-                <div className="message-btn">
-                  <button className="messages-link" onClick={handleLink}>
-                    Message history
-                  </button>
-                  <button className="message-link" onClick={handleLinkMessage}>
-                    Message
-                  </button>
-                  <button
-                    className="message-link"
-                    id="StartVideo"
-                    disabled={disabled}
-                    onClick={handleVideoStart}
-                  >
-                    Start Video
-                  </button>
-                </div>
-              ) : (
-                <button className="message-link" onClick={handleCancel}>
-                  Cancel
-                </button>
-              )}
+                {exam.appointed_date ? (
+                  <p>
+                    {" "}
+                    <span>Appointed:</span>{" "}
+                    {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
+                  </p>
+                ) : (
+                  <p>
+                    {" "}
+                    <span>Created:</span>{" "}
+                    {new Intl.DateTimeFormat("en-GB", {
+                      year: "numeric",
+                      month: "long",
+                      day: "2-digit",
+                    }).format(new Date(exam.created))}
+                  </p>
+                )}
+                <p>
+                  <span>Type:</span> {exam.exam_type}
+                </p>
+                <p>
+                  <span>Subject:</span> {exam.subject}
+                </p>
+                <p>
+                  <span>Message:</span> {exam.notes}
+                </p>
+                <p>
+                  <span>Status:</span> {exam.status}
+                </p>
+              </div>
             </div>
-          </div>
+            {exam.status === "Appointed" || exam.status === "Accepted" ? (
+              <div className="message-btn">
+                <button
+                  className="message-link"
+                  id="StartVideo"
+                  disabled={disabled}
+                  onClick={handleVideoStart}
+                >
+                  Start Video
+                </button>
+              </div>
+            ) : exam.status === "Finished" ? null : (
+              <button className="message-link" onClick={handleCancel}>
+                Cancel
+              </button>
+            )}
+          </Fragment>
         );
       })}
       <Rnd

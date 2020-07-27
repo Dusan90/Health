@@ -179,7 +179,7 @@ class CheckoutForm extends Component {
   };
 
   render() {
-    console.log(this.props.location);
+    console.log(this.props.location.state);
 
     const createOptions = (fontSize, padding) => {
       return {
@@ -202,7 +202,11 @@ class CheckoutForm extends Component {
       };
     };
     if (this.state.complete) {
-      return <Redirect to="/dashboard-client" />;
+      if (!this.props.location.state.location) {
+        return <Redirect to="/dashboard-client" />;
+      } else {
+        return <Redirect to={this.props.location.state.location} />;
+      }
     }
     return (
       <>

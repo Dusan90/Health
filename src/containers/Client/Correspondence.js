@@ -22,7 +22,7 @@ class ClientCorrespondence extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/messages`,
+        `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/messages/`,
         {
           headers: { Authorization: access_token },
         }

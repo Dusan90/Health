@@ -27,7 +27,7 @@ class ClientDetailExam extends Component {
           Authorization: access_token,
         },
         body: JSON.stringify({
-          message: "Cancel",
+          status: "Cancel",
         }),
       }
     );
@@ -47,10 +47,10 @@ class ClientDetailExam extends Component {
       .then((response) => {
         console.log(response, "detailex");
 
-        this.setState({ exam: this.state.exam.concat(response.data.message) });
+        this.setState({ exam: this.state.exam.concat(response.data.data) });
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   };
 

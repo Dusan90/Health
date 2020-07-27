@@ -71,14 +71,6 @@ class ClientVideoExamDetail extends Component {
       });
   };
 
-  handleLink = () => {
-    this.props.history.push(`/client/exam/correspondence/${this.state.id}`);
-  };
-
-  handleLinkMessage = () => {
-    this.props.history.push(`/client/exam/message/${this.state.id}`);
-  };
-
   componentDidMount() {
     this.detail();
   }
@@ -127,7 +119,7 @@ class ClientVideoExamDetail extends Component {
         });
 
         const connection = new WebSocket(
-          "wss://healthcarebackend.xyz/ws/video"
+          "wss://healthcarebackend.xyz/ws/video/"
         );
 
         connection.onopen = () => {
@@ -283,8 +275,6 @@ class ClientVideoExamDetail extends Component {
       <>
         <DetailVideo
           exam={this.state.exam}
-          handleLink={this.handleLink}
-          handleLinkMessage={this.handleLinkMessage}
           handleCancel={this.handleCancel}
           props={this.state}
           handleVideoStart={this.handleVideoStart}

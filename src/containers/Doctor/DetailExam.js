@@ -4,11 +4,6 @@ import axios from "axios";
 import Detail from "../../components/Doctor/DetailExam";
 import Footer from "../../components/Main/Footer";
 
-const options = [
-  { value: "Accept", label: "Accept" },
-  { value: "Decline", label: "Decline" },
-];
-
 class DetailExam extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +19,7 @@ class DetailExam extends Component {
   detail = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/doctor/exams/${id}`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/exams/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -37,9 +32,8 @@ class DetailExam extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let id = this.props.match.params.id;
-    this.props.history.push("/dashboard-doctor");
-
     this.doctorExam(id);
+    this.props.history.push("/dashboard-doctor");
   };
 
   handleLink = () => {
@@ -70,11 +64,12 @@ class DetailExam extends Component {
           Authorization: access_token,
         },
         body: JSON.stringify({
-          state: this.state.selectedStatus,
+          status: this.state.selectedStatus,
         }),
       }
     );
     const jsonData = await client.json();
+    console.log(jsonData);
     return jsonData;
   };
 
@@ -86,12 +81,12 @@ class DetailExam extends Component {
 
   render() {
     console.log(this.state.selectedStatus);
+    console.log(this.state.statusValue);
 
     return (
       <>
         <Detail
           exam={this.state.exam}
-          status={options}
           handleStatus={this.handleStatus}
           submitValue={this.state.submitValue}
           handleSubmit={this.handleSubmit}

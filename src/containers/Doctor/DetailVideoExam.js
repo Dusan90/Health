@@ -4,10 +4,6 @@ import axios from "axios";
 import DetailVideo from "../../components/Doctor/DetailVideoExam";
 import Footer from "../../components/Main/Footer";
 const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
-const options = [
-  { value: "Accept", label: "Accept" },
-  { value: "Decline", label: "Decline" },
-];
 
 class DetailVideoExam extends Component {
   constructor(props) {
@@ -222,7 +218,7 @@ class DetailVideoExam extends Component {
   detail = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     await axios
-      .get(`https://healthcarebackend.xyz/api/web/doctor/${id}`, {
+      .get(`https://healthcarebackend.xyz/api/web/doctor/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -236,14 +232,6 @@ class DetailVideoExam extends Component {
     this.props.history.push("/dashboard-doctor");
 
     this.doctorExam(id);
-  };
-
-  handleLink = () => {
-    this.props.history.push(`/doctor/exam/correspondence/${this.state.id}`);
-  };
-
-  handleLinkMessage = () => {
-    this.props.history.push(`/doctor/exam/message/${this.state.id}`);
   };
 
   handleStatus = (statusValue) => {
@@ -263,7 +251,7 @@ class DetailVideoExam extends Component {
           Authorization: access_token,
         },
         body: JSON.stringify({
-          state: this.state.selectedStatus,
+          status: this.state.selectedStatus,
         }),
       }
     );
@@ -286,12 +274,9 @@ class DetailVideoExam extends Component {
       <>
         <DetailVideo
           exam={this.state.exam}
-          status={options}
           handleStatus={this.handleStatus}
           submitValue={this.state.submitValue}
           handleSubmit={this.handleSubmit}
-          handleLink={this.handleLink}
-          handleLinkMessage={this.handleLinkMessage}
           props={this.state}
           handleConnect={this.handleConnect}
           handleVideoStart={this.handleVideoStart}

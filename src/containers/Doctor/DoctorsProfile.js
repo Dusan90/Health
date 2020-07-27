@@ -16,7 +16,7 @@ class DoctorProfile extends Component {
   hanldeDoctorsProfile = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/client/doc/${this.state.id}`, {
+      .get(`https://healthcarebackend.xyz/api/client/doc/${this.state.id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

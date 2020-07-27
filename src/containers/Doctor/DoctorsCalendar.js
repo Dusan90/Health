@@ -41,11 +41,12 @@ export class DoctorsCalendar extends Component {
   peopleVideoPending = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     await axios
-      .get(`https://healthcarebackend.xyz/api/web/doctor/list/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/doctor/lists/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        let accepted = response.data.data.filter((res) => {
+        console.log(response.data.data);
+        let accepted = response.data.data.video.filter((res) => {
           return res.status === "Appointed";
         });
         const newObject = accepted.map((obj) => {

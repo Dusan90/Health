@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import Select from "react-select";
@@ -14,17 +14,12 @@ import { FaRocketchat } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { Rnd } from "react-rnd";
 
-const optionsAccepted = [{ value: "Finish", label: "Finish" }];
-
 const DetailVideo = ({
   exam,
-  status,
   handleStatus,
   statusValue,
   submitValue,
   handleSubmit,
-  handleLink,
-  handleLinkMessage,
   handleConnect,
   handleVideoStart,
   props,
@@ -59,85 +54,84 @@ const DetailVideo = ({
       </div>
 
       {exam.map((exam) => {
+        let options =
+          exam.status !== "Appointed"
+            ? [
+                { value: "Accept", label: "Accept" },
+                { value: "Decline", label: "Decline" },
+              ]
+            : [{ value: "Finish", label: "Finish" }];
         return (
-          <div key={exam.id} className="detail-exam">
-            <div className="detail">
-              <p>Client: {exam.client}</p>
-              <p>Speciality: {exam.speciality}</p>
-              <p>
-                Appointed date:{" "}
-                {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
-              </p>
-              <p>Subject: {exam.subject}</p>
-              <p>Message: {exam.message}</p>
-              <p>Status: {exam.status}</p>
-              {exam.status !== "Appointed" && (
-                <div className="divSelectButton" style={{ display: "flex" }}>
-                  <Select
-                    type="text"
-                    className="select-option"
-                    value={statusValue}
-                    options={status}
-                    onChange={handleStatus}
-                  />
-                  <button
-                    type="submit"
-                    className="btn"
-                    value={submitValue}
-                    onClick={handleSubmit}
-                  >
-                    Send
-                  </button>
-                </div>
-              )}
-              {exam.status === "Appointed" && (
-                <div className="message-btn">
-                  <div style={{ display: "flex" }}>
+          <Fragment key={exam.id}>
+            <div className="detail_exam">
+              <div className="detail">
+                <p>
+                  <span>Client:</span> {exam.client}
+                </p>
+                <p>
+                  <span>Speciality:</span> {exam.speciality}
+                </p>
+                <p>
+                  <span>Appointed date:</span>{" "}
+                  {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
+                </p>
+                <p>
+                  <span>Subject:</span> {exam.subject}
+                </p>
+                <p>
+                  <span>Type:</span> {exam.exam_type}
+                </p>
+                <p>
+                  <span>Message:</span> {exam.notes}
+                </p>
+                <p>
+                  <span>Status:</span> {exam.status}
+                </p>
+                {exam.status !== "Finished" ? (
+                  <div className="divSelectButton" style={{ display: "flex" }}>
                     <Select
                       type="text"
                       className="select-option"
                       value={statusValue}
-                      options={optionsAccepted}
+                      options={options}
                       onChange={handleStatus}
                     />
                     <button
                       type="submit"
-                      className="btn"
+                      className="btnSend"
                       value={submitValue}
                       onClick={handleSubmit}
                     >
                       Send
                     </button>
                   </div>
-                  <button className="messages-link" onClick={handleLink}>
-                    Message history
-                  </button>
-                  <button className="message-link" onClick={handleLinkMessage}>
-                    Message
-                  </button>
-                  {!props.connected ? (
-                    <button
-                      className="message-link"
-                      disabled={disabled2}
-                      onClick={handleConnect}
-                    >
-                      Connect
-                    </button>
-                  ) : (
-                    <button
-                      id="DoctorStartVideo"
-                      type="submit"
-                      className="message-link"
-                      onClick={handleVideoStart}
-                      disabled={disabled}
-                    >
-                      Start Video
-                    </button>
-                  )}
-                </div>
-              )}
+                ) : null}
+              </div>
             </div>
-          </div>
+            {exam.status === "Appointed" && (
+              <div className="message-btn">
+                {!props.connected ? (
+                  <button
+                    className="message-link"
+                    disabled={disabled2}
+                    onClick={handleConnect}
+                  >
+                    Connect
+                  </button>
+                ) : (
+                  <button
+                    id="DoctorStartVideo"
+                    type="submit"
+                    className="message-link"
+                    onClick={handleVideoStart}
+                    disabled={disabled}
+                  >
+                    Start Video
+                  </button>
+                )}
+              </div>
+            )}
+          </Fragment>
         );
       })}
       <Rnd

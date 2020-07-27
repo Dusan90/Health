@@ -114,14 +114,14 @@ class ExamForm extends Component {
         this.setState({ specialities: res });
       });
     axios
-      .get("https://healthcarebackend.xyz/api/doctor/list")
+      .get("https://healthcarebackend.xyz/api/doctor/list/")
       .then((response) => {
         console.log(response, "examform2");
         if (response.data.data) {
           const res = response.data.data.map((val) => {
             return {
               value: val.id,
-              iD: val.doctor_id,
+              iD: val.id,
               label: val.doctor,
               spec: val.speciality,
               price: val.price,
@@ -142,6 +142,13 @@ class ExamForm extends Component {
   }
 
   render() {
+    // console.log(
+    //   this.state.specialSP,
+    //   this.state.doctor_id,
+    //   this.state.subject,
+    //   this.state.message
+    // );
+    console.log(this.state.doctors);
     return (
       <>
         <div className="header">

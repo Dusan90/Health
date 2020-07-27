@@ -35,9 +35,11 @@ class ClientDashboard extends Component {
     this.props.history.push("/client/video-request");
   };
 
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     this.connect();
-    window.addEventListener("keydown", this.escBtn);
+  }
+
+  componentDidMount() {
     this.paginatedExams();
     const access_token = "Bearer ".concat(this.state.token);
     axios
@@ -80,18 +82,13 @@ class ClientDashboard extends Component {
       const message = JSON.parse(e.data);
       console.log(message, "socket message");
 
-      this.state.exams.map((exam) => {
-        if (exam.id === message.id && exam.exam_type === "mail") {
-          exam.status = message.status;
-          this.paginatedExams();
-        } else if (exam.id === message.id && exam.exam_type === "video") {
-          exam.status = message.status;
-          this.paginatedExams();
-        } else {
-          return console.log("Does not exist.");
-        }
-        return null;
+      let socketExam = this.state.exams.filter((exam) => {
+        return exam.id === message.id;
       });
+      if (socketExam.length !== 0) {
+        this.paginatedExams();
+        console.log("reloaded");
+      }
     };
     ws.onclose = (e) => {
       console.log(`Socket is closed`);
@@ -124,10 +121,10 @@ class ClientDashboard extends Component {
         return (
           upco.status === "Appointed" ||
           upco.status === "Accepted" ||
-          upco.status === "Pending" ||
-          upco.status === "Requested"
+          upco.status === "Pending"
         );
       });
+      console.log(upcoming, "upcoming");
 
       let resort = upcoming.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
@@ -153,6 +150,8 @@ class ClientDashboard extends Component {
           pas.status === "Canceled"
         );
       });
+
+      console.log(past, "past");
       let sort = past.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
@@ -177,64 +176,89 @@ class ClientDashboard extends Component {
     }, 10);
   };
 
-  videoReqStatus = async () => {
-    const access_token = "Bearer ".concat(this.state.token);
-    axios
-      .get(`https://healthcarebackend.xyz/api/web/client/list/`, {
-        headers: { Authorization: access_token },
-      })
-      .then((response) => {
-        if (
-          response.data.data !== undefined &&
-          response.data.data.length !== 0
-        ) {
-          // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
-          //   return (
-          //     fil_cancel.status !== "Canceled" &&
-          //     fil_cancel.status !== "Declined"
-          //   );
-          // });
+  // videoReqStatus = async () => {
+  //   const access_token = "Bearer ".concat(this.state.token);
+  //   axios
+  //     .get(`https://healthcarebackend.xyz/api/exams/client/lists/`, {
+  //       headers: { Authorization: access_token },
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data.data, "sta vraca?");
+  //       if (
+  //         response.data.data !== undefined &&
+  //         response.data.data.length !== 0
+  //       ) {
+  //         // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
+  //         //   return (
+  //         //     fil_cancel.status !== "Canceled" &&
+  //         //     fil_cancel.status !== "Declined"
+  //         //   );
+  //         // });
 
-          this.setState({
-            exams: [...this.state.exams.concat(response.data.data)],
-          });
-          this.handleUpcoming();
-          this.paginate(this.state.page);
-        } else {
-          return null;
-        }
-      });
-  };
+  //         this.setState({
+  //           exams: [...this.state.exams.concat(response.data.data)],
+  //         });
+  //         this.handleUpcoming();
+  //         this.paginate(this.state.page);
+  //       } else {
+  //         return null;
+  //       }
+  //     });
+  // };
 
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
+
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/client/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/client/lists/`, {
         headers: { Authorization: access_token },
       })
-      .then((response) => {
-        if (response.data.data.length !== 0) {
-          // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
-          //   return (
-          //     fil_cancel.status !== "Canceled" &&
-          //     fil_cancel.status !== "Declined"
-          //   );
-          // });
-
+      .then((res) => {
+        console.log(res.data.data, "novi api");
+        if (
+          res.data.data.mail.length !== 0 &&
+          res.data.data.video.length !== 0
+        ) {
+          let combineExams = res.data.data.mail.concat(res.data.data.video);
           this.setState({
-            exams: [...this.state.exams.concat(response.data.data)],
+            exams: combineExams,
           });
-          this.videoReqStatus();
           this.handleUpcoming();
           this.paginate(this.state.page);
-        } else {
-          return null;
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response, "error");
         this.setState({ loading: false });
       });
+
+    // axios
+    //   .get(`https://healthcarebackend.xyz/api/exams/client/`, {
+    //     headers: { Authorization: access_token },
+    //   })
+    //   .then((response) => {
+    //     if (response.data.data.length !== 0) {
+    //       // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
+    //       //   return (
+    //       //     fil_cancel.status !== "Canceled" &&
+    //       //     fil_cancel.status !== "Declined"
+    //       //   );
+    //       // });
+
+    //       this.setState({
+    //         exams: [...this.state.exams.concat(response.data.data)],
+    //       });
+    //       this.videoReqStatus();
+    //       this.handleUpcoming();
+    //       this.paginate(this.state.page);
+    //     } else {
+    //       return null;
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     this.setState({ loading: false });
+    //   });
   };
 
   paginate = (page) => {

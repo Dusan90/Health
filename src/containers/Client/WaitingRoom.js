@@ -194,7 +194,10 @@ class ClientWaitingRoom extends Component {
     return this.props.history.push({
       pathname: "/checkout",
       // search: "?query=abc",
-      state: { price: this.state.price },
+      state: {
+        price: this.state.price,
+        location: this.props.location.pathname,
+      },
     });
   };
 
@@ -214,7 +217,7 @@ class ClientWaitingRoom extends Component {
   QueueList = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/doctor/${id}`, {
+      .get(`https://healthcarebackend.xyz/api/queue/doctor/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -279,12 +282,12 @@ class ClientWaitingRoom extends Component {
         this.setState({ specialities: res });
       });
     axios
-      .get("https://healthcarebackend.xyz/api/doctor/list")
+      .get("https://healthcarebackend.xyz/api/doctor/list/")
       .then((response) => {
         const res = response.data.data.map((val) => {
           return {
             value: val.id,
-            iD: val.doctor_id,
+            iD: val.id,
             label: val.doctor,
             spec: val.speciality,
             price: val.price,

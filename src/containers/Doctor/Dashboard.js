@@ -58,10 +58,11 @@ class DoctorDashboard extends Component {
   pnd = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/doctor/exams/req`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/exams/req/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response, "pnd");
         const res = response.data.data.map((val) => {
           return {
             id: val.id,
@@ -79,7 +80,7 @@ class DoctorDashboard extends Component {
         });
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
       });
   };
 
@@ -93,8 +94,7 @@ class DoctorDashboard extends Component {
         return (
           upco.status === "Appointed" ||
           upco.status === "Accepted" ||
-          upco.status === "Pending" ||
-          upco.status === "Requested"
+          upco.status === "Pending"
         );
       });
 
@@ -160,32 +160,86 @@ class DoctorDashboard extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/doctor`, {
+      .get(`https://healthcarebackend.xyz/api/exams/doctor/lists/`, {
         headers: { Authorization: access_token },
       })
-      .then((response) => {
-        console.log(response, "mail");
-
-        if (response.data.data.length !== 0) {
-          // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
-          //   return (
-          //     fil_cancel.status === "Accepted" ||
-          //     fil_cancel.status === "Appointed"
-          //   );
-          // });
-
+      .then((res) => {
+        console.log(res.data.data, "novi api");
+        if (
+          res.data.data.mail.length !== 0 &&
+          res.data.data.video.length !== 0
+        ) {
+          let combineExams = res.data.data.mail.concat(res.data.data.video);
           this.setState({
-            exams: [...this.state.exams.concat(response.data.data)],
+            exams: combineExams,
           });
-          this.handleUpcoming();
-          this.paginate(this.state.page);
-          this.peopleVideoPending();
+
+          let pending = res.data.data.video.filter((res) => {
+            return (
+              res.status === "Pending" &&
+              moment(res.appointed_date).format("MM/DD/YYYY") >=
+                moment(new Date()).format("MM/DD/YYYY")
+            );
+          });
+          let accepted = res.data.data.video.filter((res) => {
+            return res.status === "Appointed";
+          });
+          let nowON = accepted.filter((now) => {
+            if (
+              moment(new Date()).format("MM/DD/YYYYTHH:mm aa") >
+                moment(now.appointed_date).format("MM/DD/YYYYTHH:mm aa") &&
+              moment(new Date()).format("MM/DD/YYYYTHH:mm aa") <
+                moment(now.appointed_date)
+                  .add(30, "minutes")
+                  .format("MM/DD/YYYYTHH:mm aa")
+            ) {
+              return now;
+            } else {
+              return null;
+            }
+          });
+          this.setState({
+            videoPending: pending,
+            loading: false,
+            numOfMessages: nowON.length,
+          });
         }
       })
+      .then(() => {
+        this.handleUpcoming();
+        this.paginate(this.state.page);
+      })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response, "error");
         this.setState({ loading: false });
       });
+    // axios
+    //   .get(`https://healthcarebackend.xyz/api/exams/doctor`, {
+    //     headers: { Authorization: access_token },
+    //   })
+    //   .then((response) => {
+    //     console.log(response, "mail");
+
+    //     if (response.data.data.length !== 0) {
+    //       // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
+    //       //   return (
+    //       //     fil_cancel.status === "Accepted" ||
+    //       //     fil_cancel.status === "Appointed"
+    //       //   );
+    //       // });
+
+    //       this.setState({
+    //         exams: [...this.state.exams.concat(response.data.data)],
+    //       });
+    //       this.handleUpcoming();
+    //       this.paginate(this.state.page);
+    //       this.peopleVideoPending();
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     this.setState({ loading: false });
+    //   });
   };
 
   paginate = (page) => {
@@ -278,52 +332,52 @@ class DoctorDashboard extends Component {
       });
   };
 
-  peopleVideoPending = async () => {
-    const access_token = "Bearer ".concat(this.state.token);
-    axios
-      .get(`https://healthcarebackend.xyz/api/web/doctor/list/`, {
-        headers: { Authorization: access_token },
-      })
-      .then((response) => {
-        let pending = response.data.data.filter((res) => {
-          return (
-            res.status === "Requested" &&
-            moment(res.appointed_date).format("MM/DD/YYYY") >=
-              moment(new Date()).format("MM/DD/YYYY")
-          );
-        });
-        let accepted = response.data.data.filter((res) => {
-          return res.status === "Appointed";
-        });
-        let nowON = accepted.filter((now) => {
-          if (
-            moment(new Date()).format("MM/DD/YYYYTHH:mm aa") >
-              moment(now.appointed_date).format("MM/DD/YYYYTHH:mm aa") &&
-            moment(new Date()).format("MM/DD/YYYYTHH:mm aa") <
-              moment(now.appointed_date)
-                .add(30, "minutes")
-                .format("MM/DD/YYYYTHH:mm aa")
-          ) {
-            return now;
-          } else {
-            return null;
-          }
-        });
+  // peopleVideoPending = async () => {
+  //   const access_token = "Bearer ".concat(this.state.token);
+  //   axios
+  //     .get(`https://healthcarebackend.xyz/api/web/doctor/list/`, {
+  //       headers: { Authorization: access_token },
+  //     })
+  //     .then((response) => {
+  //       let pending = response.data.data.filter((res) => {
+  //         return (
+  //           res.status === "Requested" &&
+  //           moment(res.appointed_date).format("MM/DD/YYYY") >=
+  //             moment(new Date()).format("MM/DD/YYYY")
+  //         );
+  //       });
+  //       let accepted = response.data.data.filter((res) => {
+  //         return res.status === "Appointed";
+  //       });
+  //       let nowON = accepted.filter((now) => {
+  //         if (
+  //           moment(new Date()).format("MM/DD/YYYYTHH:mm aa") >
+  //             moment(now.appointed_date).format("MM/DD/YYYYTHH:mm aa") &&
+  //           moment(new Date()).format("MM/DD/YYYYTHH:mm aa") <
+  //             moment(now.appointed_date)
+  //               .add(30, "minutes")
+  //               .format("MM/DD/YYYYTHH:mm aa")
+  //         ) {
+  //           return now;
+  //         } else {
+  //           return null;
+  //         }
+  //       });
 
-        this.setState({
-          exams: [...this.state.exams.concat(response.data.data)],
-          videoPending: pending,
-          loading: false,
-          numOfMessages: nowON.length,
-        });
-        this.handleUpcoming();
-        this.paginate(this.state.page);
-      })
-      .catch((error) => {
-        console.log(error);
-        this.setState({ loading: false });
-      });
-  };
+  //       this.setState({
+  //         exams: [...this.state.exams.concat(response.data.data)],
+  //         videoPending: pending,
+  //         loading: false,
+  //         numOfMessages: nowON.length,
+  //       });
+  //       this.handleUpcoming();
+  //       this.paginate(this.state.page);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       this.setState({ loading: false });
+  //     });
+  // };
 
   handleHam = () => {
     this.setState({ hamburger: !this.state.hamburger });
@@ -369,7 +423,6 @@ class DoctorDashboard extends Component {
     this.pnd();
   };
   render() {
-    console.log(this.state.exams);
     return (
       <>
         <div className="header">

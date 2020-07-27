@@ -21,7 +21,7 @@ class ClientMessage extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/message`,
+        `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/message/`,
         {
           headers: { Authorization: access_token },
         }
