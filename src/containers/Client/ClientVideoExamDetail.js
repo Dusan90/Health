@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import DetailVideo from "../../components/Client/ClientVideoExamDetail";
 import Footer from "../../components/Main/Footer";
-import moment from "moment";
+
+const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
 
 class ClientVideoExamDetail extends Component {
   constructor(props) {
@@ -60,6 +61,7 @@ class ClientVideoExamDetail extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response.data);
         this.setState({
           exam: this.state.exam.concat(response.data.data),
           appointedDate: response.data.data.appointed_date,
@@ -67,7 +69,6 @@ class ClientVideoExamDetail extends Component {
         if (response.data.data.status === "Appointed") {
           this.socketStart();
         }
-        this.checkTime();
       });
   };
 
@@ -79,14 +80,19 @@ class ClientVideoExamDetail extends Component {
     window.location.reload();
   }
 
-  checkTime = () => {
-    let date = new Date();
-    if (moment(date).format("YYYY-MM-DD") === this.state.appointedDate) {
-      this.setState({ examTime: false });
-    } else {
-      console.log("ne moze");
-    }
-  };
+  UNSAFE_componentWillMount() {
+    connection.onopen = () => {
+      console.log("connected");
+      if (this.state.id) {
+        connection.send(
+          JSON.stringify({
+            id: this.state.id,
+            connectedClient: true,
+          })
+        );
+      }
+    };
+  }
 
   socketStart = () =>
     navigator.webkitGetUserMedia(
@@ -118,14 +124,6 @@ class ClientVideoExamDetail extends Component {
           peer.send(yourMessage);
         });
 
-        const connection = new WebSocket(
-          "wss://healthcarebackend.xyz/ws/video/"
-        );
-
-        connection.onopen = () => {
-          console.log("connected");
-        };
-
         connection.onclose = () => {
           console.error("disconnected");
         };
@@ -135,9 +133,27 @@ class ClientVideoExamDetail extends Component {
         };
 
         connection.onmessage = (event) => {
-          console.log("received", event.data);
-          if (!this.state.doctorsVideoId) {
-            this.setState({ doctorsVideoId: event.data });
+          let test = JSON.parse(event.data);
+          console.log("received client", event.data);
+
+          if (
+            !this.state.doctorsVideoId &&
+            JSON.parse(test.text).id !== this.state.id &&
+            test.text !== "undefined"
+          ) {
+            this.setState({ doctorsVideoId: test.text });
+          } else if (JSON.parse(test.text)) {
+            if (
+              JSON.parse(test.text).id === this.state.id &&
+              JSON.parse(test.text).connectedDoctor
+            ) {
+              connection.send(
+                JSON.stringify({
+                  id: this.state.id,
+                  connectedClient: true,
+                })
+              );
+            }
           }
         };
 
@@ -192,16 +208,21 @@ class ClientVideoExamDetail extends Component {
         peer.on("close", () => {
           peer.destroy();
           this.handleDivClose();
-          this.handleExitQueue();
+          connection.close();
+          window.location.reload();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
+          connection.close();
+          window.location.reload();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
+          connection.close();
+          window.location.reload();
         });
       },
       function (err) {
@@ -269,8 +290,6 @@ class ClientVideoExamDetail extends Component {
   };
 
   render() {
-    console.log(this.state.exam);
-
     return (
       <>
         <DetailVideo

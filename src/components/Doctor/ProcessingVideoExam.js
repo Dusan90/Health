@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "../../assets/processingWaitingRoom.scss";
 import moment from "moment";
 import { FaMicrophoneAltSlash } from "react-icons/fa";
@@ -31,49 +31,68 @@ const Processing = ({
   return (
     <>
       {props.exam.map((exam) => {
+        console.log(exam);
         return (
-          <div key={exam.exam.id} className="detail-exam">
-            <div className="detail">
-              <p>Client: {exam.exam.client}</p>
-              <p>Speciality: {exam.exam.speciality}</p>
-              <p>
-                Date: {moment(exam.exam.appointed_date).format("MM/DD/YYYY")}
-              </p>
-              <p>Subject: {exam.exam.subject}</p>
-              <p>Notes: {exam.exam.notes}</p>
-              <p>Status: {exam.exam.status}</p>
-              <div>
-                {!props.connected ? (
-                  <button
-                    type="submit"
-                    disabled={disabled2}
-                    className="btn"
-                    onClick={handleConnect}
-                  >
-                    Connect
-                  </button>
-                ) : (
-                  <button
-                    id="DoctorStartVideo"
-                    type="submit"
-                    className="btn"
-                    onClick={handleVideoStart}
-                    disabled={disabled}
-                  >
-                    Start Video
-                  </button>
-                )}
+          <Fragment key={exam.exam.id}>
+            <div className="detail-exam">
+              <div className="detail">
+                <p>
+                  <span>Client:</span> {exam.exam.client}
+                </p>
+                <p>
+                  <span>Speciality: </span> {exam.exam.speciality}
+                </p>
+                <p>
+                  <span>Date: </span>
+                  {moment(exam.exam.appointed_date).format("MM/DD/YYYY")}
+                </p>
+                <p>
+                  <span>Subject: </span> {exam.exam.subject}
+                </p>
+
+                <p>
+                  <span>Status: </span> {exam.exam.status}
+                </p>
               </div>
+              {exam.record ? (
+                <div key={exam.record.id} className="record-box">
+                  <h4>Record</h4>
+                  <p>
+                    <span>Allergies: </span> {exam.record.allergies}
+                  </p>
+                  <p>
+                    <span>Teraphy history: </span> {exam.record.teraphy_history}
+                  </p>
+                  <p>
+                    <span>Medical conditions: </span>{" "}
+                    {exam.record.medical_conditions}
+                  </p>
+                </div>
+              ) : null}
             </div>
-            {exam.record ? (
-              <div key={exam.record.id} className="record-box">
-                <h4>Record</h4>
-                <p>Allergies: {exam.record.allergies}</p>
-                <p>Teraphy history: {exam.record.teraphy_history}</p>
-                <p>Medical conditions: {exam.record.medical_conditions}</p>
-              </div>
-            ) : null}
-          </div>
+            <div className="message-btn">
+              {!props.connected ? (
+                <button
+                  type="submit"
+                  disabled={disabled2}
+                  className="btn"
+                  onClick={handleConnect}
+                >
+                  Connect
+                </button>
+              ) : (
+                <button
+                  id="DoctorStartVideo"
+                  type="submit"
+                  className="btn"
+                  onClick={handleVideoStart}
+                  disabled={disabled}
+                >
+                  Start Video
+                </button>
+              )}
+            </div>
+          </Fragment>
         );
       })}
       {props.exam.map((exam) => {

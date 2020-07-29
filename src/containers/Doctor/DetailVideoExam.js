@@ -27,6 +27,7 @@ class DetailVideoExam extends Component {
       showChat: false,
       video: true,
       audio: true,
+      connectedall: false,
     };
   }
 
@@ -67,6 +68,7 @@ class DetailVideoExam extends Component {
         document
           .getElementById("DoctorStartVideo")
           .addEventListener("click", () => {
+            console.log(this.state.clientsVideoId);
             if (this.state.clientsVideoId !== null) {
               peer.signal(this.state.clientsVideoId);
             }
@@ -83,11 +85,6 @@ class DetailVideoExam extends Component {
 
         connection.onerror = (error) => {
           console.error("failed to connect", error);
-        };
-
-        connection.onmessage = (event) => {
-          console.log("received", event.data);
-          this.setState({ clientsVideoId: event.data });
         };
 
         document.querySelector("form").addEventListener("submit", (event) => {
@@ -140,15 +137,21 @@ class DetailVideoExam extends Component {
 
         peer.on("close", () => {
           this.handleDivClose();
+          connection.close();
+          window.location.reload();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
+          connection.close();
+          window.location.reload();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
+          connection.close();
+          window.location.reload();
         });
       },
       function (err) {
@@ -266,8 +269,27 @@ class DetailVideoExam extends Component {
     this.detail(id);
     connection.onopen = () => {
       console.log("connected");
+      connection.send(JSON.stringify({ id: id, connectedDoctor: true }));
+    };
+    connection.onmessage = (event) => {
+      let test = JSON.parse(event.data);
+
+      console.log("received doctor", event.data);
+      if (JSON.parse(test.text)) {
+        if (
+          JSON.parse(test.text).id === id &&
+          JSON.parse(test.text).connectedClient
+        ) {
+          this.connectedAll();
+        }
+      }
+      this.setState({ clientsVideoId: test.text });
     };
   }
+
+  connectedAll = () => {
+    this.setState({ connectedall: true });
+  };
 
   render() {
     return (

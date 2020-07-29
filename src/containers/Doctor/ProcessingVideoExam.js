@@ -151,17 +151,20 @@ class ProcessingVideoExam extends Component {
         peer.on("close", () => {
           this.handleDivClose();
           connection.close();
+          window.location.reload();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
           connection.close();
+          window.location.reload();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
           connection.close();
+          window.location.reload();
         });
       },
       function (err) {

@@ -80,14 +80,12 @@ class ClientDashboard extends Component {
     ws.onmessage = (e) => {
       // listen to data sent from the websocket server
       const message = JSON.parse(e.data);
-      console.log(message, "socket message");
 
       let socketExam = this.state.exams.filter((exam) => {
         return exam.id === message.id;
       });
       if (socketExam.length !== 0) {
         this.paginatedExams();
-        console.log("reloaded");
       }
     };
     ws.onclose = (e) => {
@@ -124,7 +122,6 @@ class ClientDashboard extends Component {
           upco.status === "Pending"
         );
       });
-      console.log(upcoming, "upcoming");
 
       let resort = upcoming.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)

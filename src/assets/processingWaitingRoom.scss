@@ -34,9 +34,34 @@
     }
     p {
       text-align: left;
-      border-bottom: 1px solid #4092c2;
       text-indent: 10px;
       color: #4092c2;
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.message-btn {
+  .btn {
+    border: 1px solid #4092c2;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #4092c2;
+    color: white;
+    margin: 10px;
+    font-size: 18px;
+    transition: all 0.5s ease-in-out;
+    outline: 0;
+    &:disabled,
+    button[disabled] {
+      background: lightgray;
+      color: white;
+      cursor: not-allowed;
+      box-shadow: none;
+      pointer-events: none;
+      border: none;
     }
   }
 }

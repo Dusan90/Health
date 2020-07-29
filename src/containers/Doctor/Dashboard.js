@@ -8,8 +8,9 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
 import Footer from "../../components/Main/Footer";
+import { NotificationManager } from "react-notifications";
 
-const webs = new WebSocket("wss://healthcarebackend.xyz/ws/exam/");
+const webs = new WebSocket("wss://healthcarebackend.xyz/ws/exam/status/");
 
 class DoctorDashboard extends Component {
   constructor(props) {
@@ -259,7 +260,7 @@ class DoctorDashboard extends Component {
     if (this.state.waitingRoom[0].id === id) {
       this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
     } else {
-      console.log("client is not next in line");
+      NotificationManager.error(`Client is not next in line`, "Failed!", 3000);
     }
   };
 
@@ -413,7 +414,11 @@ class DoctorDashboard extends Component {
     };
 
     webs.onmessage = (event) => {
+      console.log(event);
       this.messagesNumber();
+    };
+    webs.onclose = () => {
+      console.error("disconected");
     };
   };
 

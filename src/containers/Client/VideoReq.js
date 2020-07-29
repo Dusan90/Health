@@ -28,7 +28,7 @@ class ClientVideoReq extends Component {
       resetDoctorSelect: null,
       isClicked: false,
       startDate: new Date(),
-      reservedDate: "",
+      reservedDate: new Date(),
       doctorsPrice: "",
       clientId: null,
       attachments: null,
@@ -80,6 +80,17 @@ class ClientVideoReq extends Component {
           );
         });
         this.setState({ doctorsExams: data });
+      })
+      .then(() => {
+        let DDate = moment(new Date()).format("YYYY-MM-DD");
+        let excludeTime = this.state.doctorsExams.filter((ex) => {
+          if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate) {
+            return ex;
+          } else {
+            return null;
+          }
+        });
+        this.setState({ excludeTime });
       });
     this.setState({ resetDoctorSelect: e });
   };

@@ -41,7 +41,8 @@ const DetailVideo = ({
     moment(new Date()).format("YYYY-MM-DD HH:mm") >
       moment(examDate).subtract(15, "minutes").format("YYYY-MM-DD HH:mm") &&
     moment(new Date()).format("YYYY-MM-DD HH:mm") <
-      moment(examDate).add(30, "minutes").format("YYYY-MM-DD HH:mm")
+      moment(examDate).add(30, "minutes").format("YYYY-MM-DD HH:mm") &&
+    props.connectedall
       ? false
       : true;
   return (

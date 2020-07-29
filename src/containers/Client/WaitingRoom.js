@@ -18,7 +18,6 @@ class ClientWaitingRoom extends Component {
       specialities: [],
       doctors: [],
       subject: "",
-      notes: "",
       submitted: false,
       price: null,
       doctor_id: null,
@@ -90,10 +89,6 @@ class ClientWaitingRoom extends Component {
     this.setState({ subject: e.target.value });
   };
 
-  handleMessage = (e) => {
-    this.setState({ notes: e.target.value });
-  };
-
   handleExitQueue = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     return axios
@@ -103,7 +98,7 @@ class ClientWaitingRoom extends Component {
           headers: { Authorization: access_token },
         }
       )
-      .then((res) => {
+      .then(() => {
         this.setState({ credits: false, peopleInQueue: [] });
       });
   };
@@ -147,7 +142,6 @@ class ClientWaitingRoom extends Component {
       this.state.specialSP &&
       this.state.doctor_id &&
       this.state.subject &&
-      this.state.notes &&
       this.state.doctorsStatus === "Available"
     ) {
       this.setState({ isClicked: true });
@@ -164,7 +158,6 @@ class ClientWaitingRoom extends Component {
             speciality: this.state.specialSP,
             doctor: this.state.doctor_id,
             subject: this.state.subject,
-            notes: this.state.notes,
             attachments: this.state.attachment,
           }),
         }
@@ -352,7 +345,6 @@ class ClientWaitingRoom extends Component {
 
         connection.onclose = () => {
           console.error("disconnected");
-          this.props.history.push("/dashboard-client");
         };
 
         connection.onerror = (error) => {
@@ -435,23 +427,23 @@ class ClientWaitingRoom extends Component {
         });
 
         peer.on("close", () => {
-          this.handleExitQueue();
+          connection.close();
           peer.destroy();
           this.handleDivClose();
-          connection.close();
+          window.location.reload();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
-          this.handleExitQueue();
+          connection.close();
           peer.destroy();
           this.handleDivClose();
-          connection.close();
+          window.location.reload();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
-          this.handleExitQueue();
+          connection.close();
           peer.destroy();
           this.handleDivClose();
-          connection.close();
+          window.location.reload();
         });
       },
       function (err) {
@@ -532,7 +524,6 @@ class ClientWaitingRoom extends Component {
           handleDoctor={this.handleDoctor}
           handleSubject={this.handleSubject}
           handleSubmit={this.handleSubmit}
-          handleMessage={this.handleMessage}
           handleExitQueue={this.handleExitQueue}
           handleVideoStart={this.handleVideoStart}
           props={this.state}
