@@ -39,6 +39,11 @@ class ProcessingVideoExam extends Component {
       .then((response) => {
         console.log(response);
         this.setState({ exam: this.state.exam.concat(response.data.data) });
+      })
+      .catch((error) => {
+        error.response.data.message === "Bad request"
+          ? this.props.history.push("/dashboard-doctor")
+          : console.log(error.response);
       });
   };
 
@@ -93,7 +98,6 @@ class ProcessingVideoExam extends Component {
 
         connection.onclose = () => {
           console.error("disconnected");
-          this.props.history.push("/dashboard-doctor");
         };
 
         connection.onerror = (error) => {

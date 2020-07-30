@@ -10,8 +10,6 @@ import moment from "moment";
 import Footer from "../../components/Main/Footer";
 import { NotificationManager } from "react-notifications";
 
-const webs = new WebSocket("wss://healthcarebackend.xyz/ws/exam/status/");
-
 class DoctorDashboard extends Component {
   constructor(props) {
     super(props);
@@ -63,7 +61,6 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "pnd");
         const res = response.data.data.map((val) => {
           return {
             id: val.id,
@@ -165,9 +162,8 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
-        console.log(res.data.data, "novi api");
         if (
-          res.data.data.mail.length !== 0 &&
+          res.data.data.mail.length !== 0 ||
           res.data.data.video.length !== 0
         ) {
           let combineExams = res.data.data.mail.concat(res.data.data.video);
@@ -305,28 +301,24 @@ class DoctorDashboard extends Component {
         // let curentPref = response.data.data.prefix;
         let current = response.data.data;
         // console.log(current);
+        this.peopleInWaitingRoom(current.id);
+        this.connecSocket(current.id);
 
         this.props.curentDoc(current);
         return this.setState({
-          doctorCurent: response.data.data,
+          doctorCurent: current,
         });
       });
   };
 
-  peopleInWaitingRoom = async () => {
+  peopleInWaitingRoom = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/doctor/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/today/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        let todaysWaitingRoom = response.data.data.filter((today) => {
-          return (
-            moment(today.created).format("MM/DD/YYYY") ===
-            moment(new Date()).format("MM/DD/YYYY")
-          );
-        });
-        this.setState({ waitingRoom: todaysWaitingRoom });
+        this.setState({ waitingRoom: response.data.data.queue });
       })
       .catch((err) => {
         console.log(err.response);
@@ -394,25 +386,22 @@ class DoctorDashboard extends Component {
   };
 
   componentDidMount() {
+    this.handleDoctorProfile();
     this.paginatedExams();
-    this.peopleInWaitingRoom();
     // this.peopleVideoPending();
     this.pnd();
-
     window.addEventListener("keydown", this.escBtn);
-    this.handleDoctorProfile();
   }
 
-  UNSAFE_componentWillMount() {
-    this.connecSocket();
-  }
+  connecSocket = (id) => {
+    const webs = new WebSocket(
+      `wss://healthcarebackend.xyz/ws/dashboard/${id}/`
+    );
 
-  connecSocket = () => {
     webs.onopen = () => {
       // on connecting, do nothing but log it to the console
       console.log("connected to port");
     };
-
     webs.onmessage = (event) => {
       console.log(event);
       this.messagesNumber();
@@ -424,7 +413,7 @@ class DoctorDashboard extends Component {
 
   messagesNumber = () => {
     this.paginatedExams();
-    this.peopleInWaitingRoom();
+    this.peopleInWaitingRoom(this.state.doctorCurent.id);
     this.pnd();
   };
   render() {

@@ -81,12 +81,14 @@ class ClientVideoExamDetail extends Component {
   }
 
   UNSAFE_componentWillMount() {
+    let id = this.props.match.params.id;
+
     connection.onopen = () => {
       console.log("connected");
-      if (this.state.id) {
+      if (id) {
         connection.send(
           JSON.stringify({
-            id: this.state.id,
+            id: id,
             connectedClient: true,
           })
         );

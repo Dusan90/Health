@@ -31,7 +31,6 @@ const Processing = ({
   return (
     <>
       {props.exam.map((exam) => {
-        console.log(exam);
         return (
           <Fragment key={exam.exam.id}>
             <div className="detail-exam">

@@ -8,6 +8,8 @@ import curentDoc from "../../actions/docAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
+const ws = new WebSocket("wss://healthcarebackend.xyz/ws/exam/status/");
+
 class ClientDashboard extends Component {
   constructor(props) {
     super(props);
@@ -72,7 +74,6 @@ class ClientDashboard extends Component {
   };
 
   connect = () => {
-    var ws = new WebSocket("wss://healthcarebackend.xyz/ws/exam/status/");
     ws.onopen = () => {
       // on connecting, do nothing but log it to the console
       console.log("connected");
@@ -97,7 +98,6 @@ class ClientDashboard extends Component {
         err.message,
         "Closing socket"
       );
-      ws.close();
     };
   };
 
@@ -213,7 +213,7 @@ class ClientDashboard extends Component {
       .then((res) => {
         console.log(res.data.data, "novi api");
         if (
-          res.data.data.mail.length !== 0 &&
+          res.data.data.mail.length !== 0 ||
           res.data.data.video.length !== 0
         ) {
           let combineExams = res.data.data.mail.concat(res.data.data.video);

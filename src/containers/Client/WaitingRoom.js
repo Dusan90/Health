@@ -99,7 +99,12 @@ class ClientWaitingRoom extends Component {
         }
       )
       .then(() => {
-        this.setState({ credits: false, peopleInQueue: [] });
+        this.setState({
+          credits: false,
+          peopleInQueue: [],
+          doctorsVideoId: null,
+        });
+        window.location.reload();
       });
   };
 
@@ -125,6 +130,7 @@ class ClientWaitingRoom extends Component {
               credits: true,
               currentClient: response.data.data,
             });
+            this.socketTestStart();
           }
           this.QueueList(response.data.data.doctor);
         } else {
@@ -239,11 +245,7 @@ class ClientWaitingRoom extends Component {
     }
   };
 
-  componentWillUnmount() {
-    window.location.reload();
-  }
-
-  UNSAFE_componentWillMount() {
+  socketTestStart = () => {
     connection.onopen = () => {
       console.log("connected");
       if (this.state.currentClient) {
@@ -254,12 +256,41 @@ class ClientWaitingRoom extends Component {
           })
         );
       }
+      connection.onmessage = (event) => {
+        let test = JSON.parse(event.data);
+        console.log("received client", event.data);
+
+        if (
+          !this.state.doctorsVideoId &&
+          parseInt(JSON.parse(test.text).id) !== this.state.currentClient.id &&
+          test.text !== "undefined"
+        ) {
+          this.setState({ doctorsVideoId: test.text });
+          this.socketStart();
+        } else if (JSON.parse(test.text)) {
+          if (
+            parseInt(JSON.parse(test.text).id) ===
+              this.state.currentClient.id &&
+            JSON.parse(test.text).connectedDoctor
+          ) {
+            connection.send(
+              JSON.stringify({
+                id: this.state.currentClient.id,
+                connectedClient: true,
+              })
+            );
+          }
+        }
+      };
     };
+  };
+
+  componentWillUnmount() {
+    window.location.reload();
   }
 
   componentDidMount() {
     this.handleClientProfile();
-    this.socketStart();
 
     axios
       .get("https://healthcarebackend.xyz/api/specialities/")
@@ -345,37 +376,11 @@ class ClientWaitingRoom extends Component {
 
         connection.onclose = () => {
           console.error("disconnected");
+          window.location.reload();
         };
 
         connection.onerror = (error) => {
           console.error("failed to connect", error);
-        };
-
-        connection.onmessage = (event) => {
-          let test = JSON.parse(event.data);
-          console.log("received client", event.data);
-
-          if (
-            !this.state.doctorsVideoId &&
-            parseInt(JSON.parse(test.text).id) !==
-              this.state.currentClient.id &&
-            test.text !== "undefined"
-          ) {
-            this.setState({ doctorsVideoId: test.text });
-          } else if (JSON.parse(test.text)) {
-            if (
-              parseInt(JSON.parse(test.text).id) ===
-                this.state.currentClient.id &&
-              JSON.parse(test.text).connectedDoctor
-            ) {
-              connection.send(
-                JSON.stringify({
-                  id: this.state.currentClient.id,
-                  connectedClient: true,
-                })
-              );
-            }
-          }
         };
 
         document.querySelector("form").addEventListener("submit", (event) => {
@@ -427,23 +432,23 @@ class ClientWaitingRoom extends Component {
         });
 
         peer.on("close", () => {
-          connection.close();
+          this.handleExitQueue();
           peer.destroy();
           this.handleDivClose();
-          window.location.reload();
+          connection.close();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
-          connection.close();
+          this.handleExitQueue();
           peer.destroy();
           this.handleDivClose();
-          window.location.reload();
+          connection.close();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
-          connection.close();
+          this.handleExitQueue();
           peer.destroy();
           this.handleDivClose();
-          window.location.reload();
+          connection.close();
         });
       },
       function (err) {

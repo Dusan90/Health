@@ -263,10 +263,8 @@ class DetailVideoExam extends Component {
     return jsonData;
   };
 
-  componentDidMount() {
+  UNSAFE_componentWillMount() {
     let id = this.props.match.params.id;
-    this.setState({ id: id });
-    this.detail(id);
     connection.onopen = () => {
       console.log("connected");
       connection.send(JSON.stringify({ id: id, connectedDoctor: true }));
@@ -285,6 +283,12 @@ class DetailVideoExam extends Component {
       }
       this.setState({ clientsVideoId: test.text });
     };
+  }
+
+  componentDidMount() {
+    let id = this.props.match.params.id;
+    this.setState({ id: id });
+    this.detail(id);
   }
 
   connectedAll = () => {
