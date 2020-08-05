@@ -386,6 +386,7 @@ class ClientWaitingRoom extends Component {
 
         connection.onclose = () => {
           console.error("disconnected");
+          window.location.reload();
         };
 
         connection.onerror = (error) => {

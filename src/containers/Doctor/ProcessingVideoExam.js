@@ -99,6 +99,7 @@ class ProcessingVideoExam extends Component {
         connection.onclose = () => {
           console.error("disconnected");
           this.props.history.push("/dashboard-doctor");
+          window.location.reload();
         };
 
         connection.onerror = (error) => {
