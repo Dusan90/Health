@@ -41,7 +41,7 @@ class ProcessingVideoExam extends Component {
         this.setState({ exam: this.state.exam.concat(response.data.data) });
       })
       .catch((error) => {
-        error.response.data.message === "Bad request"
+        error.response && error.response.data.message === "Bad request"
           ? this.props.history.push("/dashboard-doctor")
           : console.log(error.response);
       });
@@ -98,6 +98,7 @@ class ProcessingVideoExam extends Component {
 
         connection.onclose = () => {
           console.error("disconnected");
+          this.props.history.push("/dashboard-doctor");
         };
 
         connection.onerror = (error) => {
@@ -153,22 +154,20 @@ class ProcessingVideoExam extends Component {
         });
 
         peer.on("close", () => {
+          peer.destroy();
           this.handleDivClose();
           connection.close();
-          window.location.reload();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
           connection.close();
-          window.location.reload();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
           peer.destroy();
           this.handleDivClose();
           connection.close();
-          window.location.reload();
         });
       },
       function (err) {
@@ -234,6 +233,10 @@ class ProcessingVideoExam extends Component {
   cutVideo = () => {
     this.setState({ video: !this.state.video });
   };
+
+  componentWillUnmount() {
+    connection.close();
+  }
 
   componentDidMount() {
     let id = this.props.match.params.id;

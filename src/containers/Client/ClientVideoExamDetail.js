@@ -4,6 +4,7 @@ import DetailVideo from "../../components/Client/ClientVideoExamDetail";
 import Footer from "../../components/Main/Footer";
 
 const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
+var Peer = require("simple-peer");
 
 class ClientVideoExamDetail extends Component {
   constructor(props) {
@@ -38,20 +39,42 @@ class ClientVideoExamDetail extends Component {
   handleCancel = async () => {
     this.props.history.push("/dashboard-client");
     const access_token = "Bearer ".concat(this.state.token);
-    const doctor = await fetch(
+    let clientCancel = await fetch(
       `https://healthcarebackend.xyz/api/web/client/${this.state.id}/`,
       {
-        method: "DELETE",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: access_token,
         },
+        body: JSON.stringify({
+          status: "Cancel",
+        }),
       }
     );
-    const jsonData = await doctor.json();
-    // this.toRefund();
+    let jsonData = await clientCancel.json();
+    console.log(jsonData);
+
+    if (jsonData.success === true) {
+      console.log("true");
+    }
 
     return jsonData;
+    // const access_token = "Bearer ".concat(this.state.token);
+    // const doctor = await fetch(
+    //   `https://healthcarebackend.xyz/api/web/client/${this.state.id}/`,
+    //   {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: access_token,
+    //     },
+    //   }
+    // );
+    // const jsonData = await doctor.json();
+    // // this.toRefund();
+
+    // return jsonData;
   };
 
   detail = () => {
@@ -66,9 +89,6 @@ class ClientVideoExamDetail extends Component {
           exam: this.state.exam.concat(response.data.data),
           appointedDate: response.data.data.appointed_date,
         });
-        if (response.data.data.status === "Appointed") {
-          this.socketStart();
-        }
       });
   };
 
@@ -77,6 +97,7 @@ class ClientVideoExamDetail extends Component {
   }
 
   componentWillUnmount() {
+    connection.close();
     window.location.reload();
   }
 
@@ -94,6 +115,32 @@ class ClientVideoExamDetail extends Component {
         );
       }
     };
+    connection.onmessage = (event) => {
+      let test = JSON.parse(event.data);
+      console.log("received client", event.data);
+
+      if (
+        !this.state.doctorsVideoId &&
+        JSON.parse(test.text).id !== id &&
+        test.text !== "undefined"
+      ) {
+        this.setState({ doctorsVideoId: test.text });
+        console.log(this.state.doctorsVideoId, "doctorrrr");
+        this.socketStart();
+      } else if (JSON.parse(test.text)) {
+        if (
+          JSON.parse(test.text).id === id &&
+          JSON.parse(test.text).connectedDoctor
+        ) {
+          connection.send(
+            JSON.stringify({
+              id: id,
+              connectedClient: true,
+            })
+          );
+        }
+      }
+    };
   }
 
   socketStart = () =>
@@ -103,7 +150,6 @@ class ClientVideoExamDetail extends Component {
         audio: true,
       },
       (stream) => {
-        var Peer = require("simple-peer");
         // let id = Math.floor(Math.random() * 0xffffff).toString(16);
         // this.setState({ idToPush: id });
         var peer = new Peer({
@@ -132,31 +178,6 @@ class ClientVideoExamDetail extends Component {
 
         connection.onerror = (error) => {
           console.error("failed to connect", error);
-        };
-
-        connection.onmessage = (event) => {
-          let test = JSON.parse(event.data);
-          console.log("received client", event.data);
-
-          if (
-            !this.state.doctorsVideoId &&
-            JSON.parse(test.text).id !== this.state.id &&
-            test.text !== "undefined"
-          ) {
-            this.setState({ doctorsVideoId: test.text });
-          } else if (JSON.parse(test.text)) {
-            if (
-              JSON.parse(test.text).id === this.state.id &&
-              JSON.parse(test.text).connectedDoctor
-            ) {
-              connection.send(
-                JSON.stringify({
-                  id: this.state.id,
-                  connectedClient: true,
-                })
-              );
-            }
-          }
         };
 
         document.querySelector("form").addEventListener("submit", (event) => {

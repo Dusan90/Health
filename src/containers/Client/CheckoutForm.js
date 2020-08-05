@@ -179,8 +179,6 @@ class CheckoutForm extends Component {
   };
 
   render() {
-    console.log(this.props.location.state);
-
     const createOptions = (fontSize, padding) => {
       return {
         style: {

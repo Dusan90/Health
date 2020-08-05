@@ -83,10 +83,6 @@ class DoctorDashboard extends Component {
   };
 
   handleUpcoming = () => {
-    // let lates = this.state.exams;
-    // let resort = lates.sort(
-    //   (a, b) => Date.parse(b.created) - Date.parse(a.created)
-    // );
     let upcomingset = setInterval(() => {
       let upcoming = this.state.exams.filter((upco) => {
         return (
@@ -108,10 +104,6 @@ class DoctorDashboard extends Component {
   };
 
   handlePast = () => {
-    // let earl = this.state.exams;
-    // let sort = earl.sort(
-    //   (a, b) => Date.parse(a.created) - Date.parse(b.created)
-    // );
     let pastset = setInterval(() => {
       let past = this.state.exams.filter((pas) => {
         return (
@@ -158,7 +150,7 @@ class DoctorDashboard extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/doctor/lists/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/doctor/`, {
         headers: { Authorization: access_token },
       })
       .then((res) => {
@@ -210,33 +202,6 @@ class DoctorDashboard extends Component {
         console.log(error.response, "error");
         this.setState({ loading: false });
       });
-    // axios
-    //   .get(`https://healthcarebackend.xyz/api/exams/doctor`, {
-    //     headers: { Authorization: access_token },
-    //   })
-    //   .then((response) => {
-    //     console.log(response, "mail");
-
-    //     if (response.data.data.length !== 0) {
-    //       // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
-    //       //   return (
-    //       //     fil_cancel.status === "Accepted" ||
-    //       //     fil_cancel.status === "Appointed"
-    //       //   );
-    //       // });
-
-    //       this.setState({
-    //         exams: [...this.state.exams.concat(response.data.data)],
-    //       });
-    //       this.handleUpcoming();
-    //       this.paginate(this.state.page);
-    //       this.peopleVideoPending();
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     this.setState({ loading: false });
-    //   });
   };
 
   paginate = (page) => {
@@ -297,10 +262,7 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        // let curentDocc = response.data.data.doctor;
-        // let curentPref = response.data.data.prefix;
         let current = response.data.data;
-        // console.log(current);
         this.peopleInWaitingRoom(current.id);
         this.connecSocket(current.id);
 
@@ -318,59 +280,15 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        this.setState({ waitingRoom: response.data.data.queue });
+        let filterCanceled = response.data.data.queue.filter((ex) => {
+          return ex.status !== "Canceled";
+        });
+        this.setState({ waitingRoom: filterCanceled });
       })
       .catch((err) => {
         console.log(err.response);
       });
   };
-
-  // peopleVideoPending = async () => {
-  //   const access_token = "Bearer ".concat(this.state.token);
-  //   axios
-  //     .get(`https://healthcarebackend.xyz/api/web/doctor/list/`, {
-  //       headers: { Authorization: access_token },
-  //     })
-  //     .then((response) => {
-  //       let pending = response.data.data.filter((res) => {
-  //         return (
-  //           res.status === "Requested" &&
-  //           moment(res.appointed_date).format("MM/DD/YYYY") >=
-  //             moment(new Date()).format("MM/DD/YYYY")
-  //         );
-  //       });
-  //       let accepted = response.data.data.filter((res) => {
-  //         return res.status === "Appointed";
-  //       });
-  //       let nowON = accepted.filter((now) => {
-  //         if (
-  //           moment(new Date()).format("MM/DD/YYYYTHH:mm aa") >
-  //             moment(now.appointed_date).format("MM/DD/YYYYTHH:mm aa") &&
-  //           moment(new Date()).format("MM/DD/YYYYTHH:mm aa") <
-  //             moment(now.appointed_date)
-  //               .add(30, "minutes")
-  //               .format("MM/DD/YYYYTHH:mm aa")
-  //         ) {
-  //           return now;
-  //         } else {
-  //           return null;
-  //         }
-  //       });
-
-  //       this.setState({
-  //         exams: [...this.state.exams.concat(response.data.data)],
-  //         videoPending: pending,
-  //         loading: false,
-  //         numOfMessages: nowON.length,
-  //       });
-  //       this.handleUpcoming();
-  //       this.paginate(this.state.page);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       this.setState({ loading: false });
-  //     });
-  // };
 
   handleHam = () => {
     this.setState({ hamburger: !this.state.hamburger });
@@ -388,14 +306,13 @@ class DoctorDashboard extends Component {
   componentDidMount() {
     this.handleDoctorProfile();
     this.paginatedExams();
-    // this.peopleVideoPending();
     this.pnd();
     window.addEventListener("keydown", this.escBtn);
   }
 
   connecSocket = (id) => {
     const webs = new WebSocket(
-      `wss://healthcarebackend.xyz/ws/dashboard/${id}/`
+      `wss://healthcarebackend.xyz/ws/dashboard/doctor/${id}/`
     );
 
     webs.onopen = () => {

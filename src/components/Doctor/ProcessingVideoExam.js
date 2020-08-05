@@ -91,36 +91,54 @@ const Processing = ({
                 </button>
               )}
             </div>
+            <div className="recordsDetail">
+              <h4>Report</h4>
+
+              <div className="report">
+                {props.exam !== 0 &&
+                  props.exam.map((exam) => {
+                    return exam.record && exam.record.report.length !== 0
+                      ? exam.record.report.map((filexam) => {
+                          return (
+                            <div key={filexam.id} className="report-details">
+                              <p>
+                                <span>Doctor:</span> {filexam.name}
+                              </p>
+                              <p>
+                                <span>Speciality:</span> {filexam.spec_name}
+                              </p>
+                              <p>
+                                <span>Diagnose:</span> {filexam.diagnose}
+                              </p>
+                              <p>
+                                <span>Report:</span> {filexam.report}
+                              </p>
+                              <p>
+                                <span>Tests:</span> {filexam.tests}
+                              </p>
+                              <p>
+                                <span>Medication Name:</span>{" "}
+                                {filexam.medication_name}
+                              </p>
+                              <p>
+                                <span>Prescribing Date:</span>{" "}
+                                {filexam.medication_prescribing_date}
+                              </p>
+                              <p>
+                                <span>Medication Notes:</span>
+                                {filexam.medication_notes}
+                              </p>
+                            </div>
+                          );
+                        })
+                      : null;
+                  })}
+              </div>
+            </div>
           </Fragment>
         );
       })}
-      {props.exam.map((exam) => {
-        let filtered =
-          exam.record && exam.record.report.length !== 0
-            ? exam.record.report.filter((filexam) => {
-                return filexam.spec_name === exam.exam.speciality;
-              })
-            : null;
 
-        return filtered !== null ? (
-          <div key={filtered[0].id} className="report">
-            <div className="report-details">
-              <h4>Report</h4>
-              <p>Doctor: {filtered[0].name}</p>
-              <p>Speciality: {filtered[0].spec_name}</p>
-              <p>Diagnose: {filtered[0].diagnose}</p>
-              <p>Report: {filtered[0].report}</p>
-              <p>Tests: {filtered[0].tests}</p>
-              <p>Medication Name: {filtered[0].medication_name}</p>
-              <p>
-                Medication Prescribing Date:{" "}
-                {filtered[0].medication_prescribing_date}
-              </p>
-              <p>Medication Notes: {filtered[0].medication_notes}</p>
-            </div>
-          </div>
-        ) : null;
-      })}
       {/* <div
       style={{ display: props.startVideo ? "block" : "none" }}
       id="videoo"

@@ -91,21 +91,31 @@ class ClientWaitingRoom extends Component {
 
   handleExitQueue = async () => {
     const access_token = "Bearer ".concat(this.state.token);
-    return axios
-      .delete(
-        `https://healthcarebackend.xyz/api/queue/client/delete/${this.state.currentClient.id}/`,
-        {
-          headers: { Authorization: access_token },
-        }
-      )
-      .then(() => {
-        this.setState({
-          credits: false,
-          peopleInQueue: [],
-          doctorsVideoId: null,
-        });
-        window.location.reload();
+    let clientCancel = await fetch(
+      `https://healthcarebackend.xyz/api/queue/client/delete/${this.state.currentClient.id}/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token,
+        },
+        body: JSON.stringify({
+          status: "Cancel",
+        }),
+      }
+    );
+    let jsonData = await clientCancel.json();
+    console.log(jsonData);
+
+    if (jsonData.success === true) {
+      this.setState({
+        credits: false,
+        peopleInQueue: [],
+        doctorsVideoId: null,
       });
+    }
+
+    return jsonData;
   };
 
   hanldeClientQueue = async (id) => {
@@ -221,11 +231,11 @@ class ClientWaitingRoom extends Component {
       })
       .then((response) => {
         console.log(response, "people in queue");
-
+        let filterCanceled = response.data.data.queue.filter((ex) => {
+          return ex.status !== "Canceled";
+        });
         this.setState({
-          peopleInQueue: [
-            ...this.state.peopleInQueue.concat(response.data.data.queue),
-          ],
+          peopleInQueue: [...this.state.peopleInQueue.concat(filterCanceled)],
         });
         this.PeopleBeforeYou();
         this.handleDoctorsStatus();
@@ -246,47 +256,47 @@ class ClientWaitingRoom extends Component {
   };
 
   socketTestStart = () => {
-    connection.onopen = () => {
-      console.log("connected");
-      if (this.state.currentClient) {
+    if (this.state.currentClient) {
+      connection.onopen = () => {
+        console.log("connected");
         connection.send(
           JSON.stringify({
             id: this.state.currentClient.id,
             connectedClient: true,
           })
         );
-      }
-      connection.onmessage = (event) => {
-        let test = JSON.parse(event.data);
-        console.log("received client", event.data);
-
-        if (
-          !this.state.doctorsVideoId &&
-          parseInt(JSON.parse(test.text).id) !== this.state.currentClient.id &&
-          test.text !== "undefined"
-        ) {
-          this.setState({ doctorsVideoId: test.text });
-          this.socketStart();
-        } else if (JSON.parse(test.text)) {
-          if (
-            parseInt(JSON.parse(test.text).id) ===
-              this.state.currentClient.id &&
-            JSON.parse(test.text).connectedDoctor
-          ) {
-            connection.send(
-              JSON.stringify({
-                id: this.state.currentClient.id,
-                connectedClient: true,
-              })
-            );
-          }
-        }
       };
+    }
+
+    connection.onmessage = (event) => {
+      let test = JSON.parse(event.data);
+      console.log("received client", event.data);
+
+      if (
+        !this.state.doctorsVideoId &&
+        parseInt(JSON.parse(test.text).id) !== this.state.currentClient.id &&
+        test.text !== "undefined"
+      ) {
+        this.setState({ doctorsVideoId: test.text });
+        this.socketStart();
+      } else if (JSON.parse(test.text)) {
+        if (
+          parseInt(JSON.parse(test.text).id) === this.state.currentClient.id &&
+          JSON.parse(test.text).connectedDoctor
+        ) {
+          connection.send(
+            JSON.stringify({
+              id: this.state.currentClient.id,
+              connectedClient: true,
+            })
+          );
+        }
+      }
     };
   };
 
   componentWillUnmount() {
-    window.location.reload();
+    connection.close();
   }
 
   componentDidMount() {
@@ -376,7 +386,6 @@ class ClientWaitingRoom extends Component {
 
         connection.onclose = () => {
           console.error("disconnected");
-          window.location.reload();
         };
 
         connection.onerror = (error) => {

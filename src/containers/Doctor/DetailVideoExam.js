@@ -285,6 +285,10 @@ class DetailVideoExam extends Component {
     };
   }
 
+  componentWillUnmount() {
+    connection.close();
+  }
+
   componentDidMount() {
     let id = this.props.match.params.id;
     this.setState({ id: id });

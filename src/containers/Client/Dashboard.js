@@ -8,8 +8,6 @@ import curentDoc from "../../actions/docAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-const ws = new WebSocket("wss://healthcarebackend.xyz/ws/exam/status/");
-
 class ClientDashboard extends Component {
   constructor(props) {
     super(props);
@@ -37,10 +35,6 @@ class ClientDashboard extends Component {
     this.props.history.push("/client/video-request");
   };
 
-  UNSAFE_componentWillMount() {
-    this.connect();
-  }
-
   componentDidMount() {
     this.paginatedExams();
     const access_token = "Bearer ".concat(this.state.token);
@@ -49,6 +43,7 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        this.connect(response.data.data.id);
         this.props.curentDoc(response.data.data.user);
         return this.setState({ client: response.data.data });
       });
@@ -73,7 +68,11 @@ class ClientDashboard extends Component {
     }
   };
 
-  connect = () => {
+  connect = (id) => {
+    const ws = new WebSocket(
+      `wss://healthcarebackend.xyz/ws/dashboard/client/${id}/`
+    );
+
     ws.onopen = () => {
       // on connecting, do nothing but log it to the console
       console.log("connected");
@@ -110,10 +109,6 @@ class ClientDashboard extends Component {
   };
 
   handleUpcoming = () => {
-    // let lates = this.state.exams;
-    // let resort = lates.sort(
-    //   (a, b) => Date.parse(b.created) - Date.parse(a.created)
-    // );
     let upcomingset = setInterval(() => {
       let upcoming = this.state.exams.filter((upco) => {
         return (
@@ -135,10 +130,6 @@ class ClientDashboard extends Component {
   };
 
   handlePast = () => {
-    // let earl = this.state.exams;
-    // let sort = earl.sort(
-    //   (a, b) => Date.parse(a.created) - Date.parse(b.created)
-    // );
     let pastset = setInterval(() => {
       let past = this.state.exams.filter((pas) => {
         return (
@@ -173,41 +164,11 @@ class ClientDashboard extends Component {
     }, 10);
   };
 
-  // videoReqStatus = async () => {
-  //   const access_token = "Bearer ".concat(this.state.token);
-  //   axios
-  //     .get(`https://healthcarebackend.xyz/api/exams/client/lists/`, {
-  //       headers: { Authorization: access_token },
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data.data, "sta vraca?");
-  //       if (
-  //         response.data.data !== undefined &&
-  //         response.data.data.length !== 0
-  //       ) {
-  //         // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
-  //         //   return (
-  //         //     fil_cancel.status !== "Canceled" &&
-  //         //     fil_cancel.status !== "Declined"
-  //         //   );
-  //         // });
-
-  //         this.setState({
-  //           exams: [...this.state.exams.concat(response.data.data)],
-  //         });
-  //         this.handleUpcoming();
-  //         this.paginate(this.state.page);
-  //       } else {
-  //         return null;
-  //       }
-  //     });
-  // };
-
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
 
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/client/lists/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/client/`, {
         headers: { Authorization: access_token },
       })
       .then((res) => {
@@ -228,34 +189,6 @@ class ClientDashboard extends Component {
         console.log(error.response, "error");
         this.setState({ loading: false });
       });
-
-    // axios
-    //   .get(`https://healthcarebackend.xyz/api/exams/client/`, {
-    //     headers: { Authorization: access_token },
-    //   })
-    //   .then((response) => {
-    //     if (response.data.data.length !== 0) {
-    //       // const filterOutCanceled = response.data.data.filter((fil_cancel) => {
-    //       //   return (
-    //       //     fil_cancel.status !== "Canceled" &&
-    //       //     fil_cancel.status !== "Declined"
-    //       //   );
-    //       // });
-
-    //       this.setState({
-    //         exams: [...this.state.exams.concat(response.data.data)],
-    //       });
-    //       this.videoReqStatus();
-    //       this.handleUpcoming();
-    //       this.paginate(this.state.page);
-    //     } else {
-    //       return null;
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     this.setState({ loading: false });
-    //   });
   };
 
   paginate = (page) => {

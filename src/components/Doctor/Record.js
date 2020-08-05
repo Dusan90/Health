@@ -11,36 +11,63 @@ const Record = ({
   handleMedicationName,
   handleMedicationNotes,
   submitValue,
-  handleSubmit
+  handleSubmit,
 }) => (
   <div className="mainRecord">
-    <div className="box">
-      {record ? (
-        record.map(data => {
-          // console.log(data);
-
-          return (
-            <div key={data.id} className="record-box">
-              <p>Client: {data.client}</p>
-              <p>Allergies: {data.allergies}</p>
-              <p>Teraphy history: {data.teraphy_history}</p>
-              <p>Medical conditions: {data.medical_conditions}</p>
-              {/* <p>Doctor: {props.curentDoc}</p>
-              <p>Speciality: {props.speciality}</p>
-              <p>Diagnose: {data.diagnose}</p>
-              <p>Report: {data.report}</p>
-              <p>Tests: {data.tests}</p>
-              <p>Medication Name: {data.medicationName}</p>
-              <p>Medication Prescribing Date: {data.prescribingDate}</p>
-              <p>Medication Notes: {data.medicationNotes}</p> */}
-            </div>
-          );
-        })
-      ) : (
-        <p style={{ margin: "30px auto", color: "rgb(0, 191, 255)" }}>
-          No Records
+    {record ? (
+      <div className="record-box-out">
+        <p>
+          <span>Client:</span> {record.client}
         </p>
-      )}
+        <p>
+          <span>Allergies:</span> {record.allergies}
+        </p>
+        <p>
+          <span>Teraphy history:</span> {record.teraphy_history}
+        </p>
+        <p>
+          <span>Medical conditions:</span> {record.medical_conditions}
+        </p>
+      </div>
+    ) : (
+      <p style={{ margin: "30px auto", color: "rgb(0, 191, 255)" }}>
+        No Records
+      </p>
+    )}
+    <div className="box">
+      {record && record.report.length !== 0
+        ? record.report.map((ex) => {
+            return (
+              <div key={ex.id} className="record-box">
+                <p>
+                  <span>Doctor:</span> {ex.name}
+                </p>
+                <p>
+                  <span>Speciality:</span> {ex.spec_name}
+                </p>
+                <p>
+                  <span>Diagnose:</span> {ex.diagnose}
+                </p>
+                <p>
+                  <span>Report:</span> {ex.report}
+                </p>
+                <p>
+                  <span>Tests:</span> {ex.tests}
+                </p>
+                <p>
+                  <span>Medication Name:</span> {ex.medication_name}
+                </p>
+                <p>
+                  <span>Prescribing Date:</span>{" "}
+                  {ex.medication_prescribing_date}
+                </p>
+                <p>
+                  <span>Medication Notes:</span> {ex.medication_notes}
+                </p>
+              </div>
+            );
+          })
+        : null}
     </div>
     <div className="r-form">
       <div className="details">

@@ -9,7 +9,7 @@ class ClientRecord extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      record: [],
+      record: null,
       curentDoc: "",
       doctor: "",
       speciality: "",
@@ -25,19 +25,6 @@ class ClientRecord extends Component {
     };
   }
 
-  // records = () => {
-  //   const access_token = "Bearer ".concat(this.state.token);
-  //   axios
-  //     .get(`http://167.172.156.87/api/doctor/records/`, {
-  //       headers: { Authorization: access_token }
-  //     })
-  //     .then(response => {
-  //       console.log(response, "nzm ni ja");
-
-  //       return this.setState({ record: response.data.data });
-  //     });
-  // };
-
   record = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
@@ -51,7 +38,7 @@ class ClientRecord extends Component {
         console.log(response, "nzm ni ja sta");
 
         return this.setState({
-          record: [response.data.data],
+          record: response.data.data,
         });
       });
   };
@@ -146,14 +133,7 @@ class ClientRecord extends Component {
   }
 
   render() {
-    console.log(
-      this.state.medicationName,
-      this.state.medicationNotes,
-      this.state.report,
-      this.state.tests,
-      this.state.prescribingDate,
-      this.state.diagnose
-    );
+    console.log(this.state.record);
     return (
       <>
         <div className="header">
