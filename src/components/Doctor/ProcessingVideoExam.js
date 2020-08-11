@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "../../assets/processingWaitingRoom.scss";
-import moment from "moment";
+// import moment from "moment";
 import { FaMicrophoneAltSlash } from "react-icons/fa";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaVideoSlash } from "react-icons/fa";
@@ -39,18 +39,19 @@ const Processing = ({
                   <span>Client:</span> {exam.exam.client}
                 </p>
                 <p>
-                  <span>Speciality: </span> {exam.exam.speciality}
-                </p>
-                <p>
-                  <span>Date: </span>
-                  {moment(exam.exam.appointed_date).format("MM/DD/YYYY")}
+                  <span>Type:</span> Video WR
                 </p>
                 <p>
                   <span>Subject: </span> {exam.exam.subject}
                 </p>
-
                 <p>
-                  <span>Status: </span> {exam.exam.status}
+                  <span>Message: </span> {exam.exam.notes}
+                </p>
+                <p>
+                  <span>Status: </span>{" "}
+                  {exam.exam.status === "In the queue"
+                    ? "Pending"
+                    : exam.exam.status}
                 </p>
               </div>
               {exam.record ? (
@@ -125,7 +126,7 @@ const Processing = ({
                                 {filexam.medication_prescribing_date}
                               </p>
                               <p>
-                                <span>Medication Notes:</span>
+                                <span>Medication Notes:</span>{" "}
                                 {filexam.medication_notes}
                               </p>
                             </div>

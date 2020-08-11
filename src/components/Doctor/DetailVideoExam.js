@@ -55,6 +55,8 @@ const DetailVideo = ({
       </div>
 
       {exam.map((exam) => {
+        let placeholder =
+          exam.status === "Appointed" ? "Accepted" : exam.status;
         let options =
           exam.status !== "Appointed"
             ? [
@@ -70,43 +72,39 @@ const DetailVideo = ({
                   <span>Client:</span> {exam.client}
                 </p>
                 <p>
-                  <span>Speciality:</span> {exam.speciality}
+                  <span>Created:</span>{" "}
+                  {moment(exam.created).format("MM/DD/YYYY HH:mm")}
                 </p>
+
                 <p>
                   <span>Appointed date:</span>{" "}
                   {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
                 </p>
                 <p>
-                  <span>Subject:</span> {exam.subject}
+                  <span>Type:</span> {exam.exam_type}
                 </p>
                 <p>
-                  <span>Type:</span> {exam.exam_type}
+                  <span>Subject:</span> {exam.subject}
                 </p>
                 <p>
                   <span>Message:</span> {exam.notes}
                 </p>
-                <p>
-                  <span>Status:</span> {exam.status}
-                </p>
-                {exam.status !== "Finished" ? (
+                {exam.status === "Canceled" || exam.status === "Finished" ? (
+                  <p>
+                    <span>Status:</span> {exam.status}
+                  </p>
+                ) : (
                   <div className="divSelectButton" style={{ display: "flex" }}>
                     <Select
                       type="text"
+                      placeholder={placeholder}
                       className="select-option"
                       value={statusValue}
                       options={options}
                       onChange={handleStatus}
                     />
-                    <button
-                      type="submit"
-                      className="btnSend"
-                      value={submitValue}
-                      onClick={handleSubmit}
-                    >
-                      Send
-                    </button>
                   </div>
-                ) : null}
+                )}
               </div>
             </div>
             {exam.status === "Appointed" && (

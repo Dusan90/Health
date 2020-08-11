@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Detail from "../../components/Client/DetailExam";
 import Footer from "../../components/Main/Footer";
+import { NotificationManager } from "react-notifications";
 
 class ClientDetailExam extends Component {
   constructor(props) {
@@ -12,11 +13,23 @@ class ClientDetailExam extends Component {
       selectedStatus: "",
       token: sessionStorage.getItem("accessToken"),
       id: this.props.match.params.id,
+      correspondence: [],
+      lastInArray: null,
+      replyClicked: false,
+      messageValue: "",
+      selectedFile: null,
     };
   }
 
-  handleCancel = async () => {
-    this.props.history.push("/dashboard-client");
+  handleStatus = (statusValue) => {
+    this.setState({ statusValue });
+    let { value, label } = statusValue;
+    console.log(value, label);
+    this.setState({ selectedStatus: value });
+    this.handleCancel(value);
+  };
+
+  handleCancel = async (value) => {
     const access_token = "Bearer ".concat(this.state.token);
     const doctor = await fetch(
       `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/`,
@@ -27,14 +40,14 @@ class ClientDetailExam extends Component {
           Authorization: access_token,
         },
         body: JSON.stringify({
-          status: "Cancel",
+          status: value,
         }),
       }
     );
     const jsonData = await doctor.json();
     // this.toRefund();
     console.log(jsonData);
-
+    jsonData.success && this.props.history.push("/dashboard-client");
     return jsonData;
   };
 
@@ -54,26 +67,106 @@ class ClientDetailExam extends Component {
       });
   };
 
-  handleLink = () => {
-    this.props.history.push(`/client/exam/correspondence/${this.state.id}`);
-  };
-
-  handleLinkMessage = () => {
-    this.props.history.push(`/client/exam/message/${this.state.id}`);
-  };
-
   componentDidMount() {
+    let id = this.props.match.params.id;
     this.detail();
+    this.correspondence(id);
   }
+
+  handleMessage = (e) => {
+    this.setState({ messageValue: e.target.value });
+  };
+
+  handleReplyClick = () => {
+    this.setState({ replyClicked: !this.state.replyClicked });
+  };
+
+  newMessage = () => {
+    this.setState({ replyClicked: true });
+  };
+
+  onChangeHandler = (e) => {
+    this.setState({
+      selectedFile: e.target.files[0],
+    });
+  };
+
+  handleSubmitSend = (e) => {
+    if (this.state.messageValue) {
+      this.sendMessage();
+      this.setState({ messageValue: "", replyClicked: false });
+      NotificationManager.success("Message Sent", "Successful!", 2000);
+    } else {
+      NotificationManager.error("Empty Fields", "Failed!", 2000);
+    }
+  };
+
+  sendMessage = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    const client = await fetch(
+      `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/message/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;",
+          Authorization: access_token,
+        },
+        body: JSON.stringify({
+          message: this.state.messageValue,
+          attachment: null,
+        }),
+      }
+    );
+    const jsonData = await client.json();
+    jsonData.success && this.correspondence(this.state.id);
+    console.log(jsonData);
+    console.log(client);
+
+    return jsonData;
+  };
+
+  correspondence = (id) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/client/exams/${id}/messages/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        console.log(response, "correspondence");
+
+        const res = response.data.data.map((val) => {
+          return {
+            id: val.id,
+            sender: val.sender,
+            created: val.created,
+            message: val.message,
+            attachment: val.attachment,
+          };
+        });
+        let lastIn = response.data.data.reverse();
+
+        this.setState({
+          correspondence: res.reverse(),
+          lastInArray: lastIn[lastIn.length - 1],
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
 
   render() {
     return (
       <>
         <Detail
           exam={this.state.exam}
-          handleLink={this.handleLink}
-          handleLinkMessage={this.handleLinkMessage}
-          handleCancel={this.handleCancel}
+          props={this.state}
+          handleStatus={this.handleStatus}
+          onChangeHandler={this.onChangeHandler}
+          handleMessage={this.handleMessage}
+          newMessage={this.newMessage}
+          handleReplyClick={this.handleReplyClick}
+          handleSubmitSend={this.handleSubmitSend}
         />
         <div className="footerr">
           <Footer />

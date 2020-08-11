@@ -3,6 +3,7 @@ import axios from "axios";
 // import { connect } from "react-redux";
 import Detail from "../../components/Doctor/DetailExam";
 import Footer from "../../components/Main/Footer";
+import { NotificationManager } from "react-notifications";
 
 class DetailExam extends Component {
   constructor(props) {
@@ -13,8 +14,17 @@ class DetailExam extends Component {
       selectedStatus: "",
       token: sessionStorage.getItem("accessToken"),
       id: "",
+      correspondence: [],
+      lastInArray: null,
+      replyClicked: false,
+      messageValue: "",
+      selectedFile: null,
     };
   }
+
+  handleMessage = (e) => {
+    this.setState({ messageValue: e.target.value });
+  };
 
   detail = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
@@ -29,21 +39,17 @@ class DetailExam extends Component {
       });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = (value) => {
     let id = this.props.match.params.id;
-    this.doctorExam(id);
-    this.props.history.push("/dashboard-doctor");
+    this.doctorExam(id, value);
   };
 
-  handleLink = () => {
-    this.props.history.push(`/doctor/exam/correspondence/${this.state.id}`);
+  handleReplyClick = () => {
+    this.setState({ replyClicked: !this.state.replyClicked });
   };
 
-  handleLinkMessage = () => {
-    console.log(this.state.id);
-
-    this.props.history.push(`/doctor/exam/message/${this.state.id}`);
+  newMessage = () => {
+    this.setState({ replyClicked: true });
   };
 
   handleStatus = (statusValue) => {
@@ -51,9 +57,16 @@ class DetailExam extends Component {
     let { value, label } = statusValue;
     console.log(value, label);
     this.setState({ selectedStatus: value });
+    this.handleSubmit(value);
   };
 
-  doctorExam = async (id) => {
+  onChangeHandler = (e) => {
+    this.setState({
+      selectedFile: e.target.files[0],
+    });
+  };
+
+  doctorExam = async (id, value) => {
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
       `https://healthcarebackend.xyz/api/doctor/exams/${id}/`,
@@ -64,12 +77,14 @@ class DetailExam extends Component {
           Authorization: access_token,
         },
         body: JSON.stringify({
-          status: this.state.selectedStatus,
+          status: value,
         }),
       }
     );
     const jsonData = await client.json();
     console.log(jsonData);
+    jsonData.success && window.location.reload();
+
     return jsonData;
   };
 
@@ -77,21 +92,90 @@ class DetailExam extends Component {
     let id = this.props.match.params.id;
     this.setState({ id: id });
     this.detail(id);
+    this.correspondence(id);
   }
 
-  render() {
-    console.log(this.state.selectedStatus);
-    console.log(this.state.statusValue);
+  handleSubmitSend = (e) => {
+    if (this.state.messageValue) {
+      this.sendMessage();
+      this.setState({ messageValue: "", replyClicked: false });
+      NotificationManager.success("Message Sent", "Successful!", 2000);
+    } else {
+      NotificationManager.error("Empty Fields", "Failed!", 2000);
+    }
+    // this.props.history.push(`/doctor/exam/correspondence/${this.state.id}`);
+  };
 
+  sendMessage = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    // const data = new FormData()
+    // data.append('file', this.state.selectedFile, this.state.selectedFile.name)
+    const client = await fetch(
+      `https://healthcarebackend.xyz/api/doctor/exams/${this.state.id}/message/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;",
+          Authorization: access_token,
+        },
+        body: JSON.stringify({
+          message: this.state.messageValue,
+          attachment: null,
+        }),
+      }
+    );
+    const jsonData = await client.json();
+    jsonData.success && this.correspondence(this.state.id);
+    console.log(jsonData);
+    console.log(client);
+
+    return jsonData;
+  };
+
+  correspondence = (id) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/doctor/exams/${id}/messages/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        console.log(response, "correspondence");
+
+        const res = response.data.data.map((val) => {
+          return {
+            id: val.id,
+            sender: val.sender,
+            created: val.created,
+            message: val.message,
+            attachment: val.attachment,
+          };
+        });
+        let lastIn = response.data.data.reverse();
+
+        this.setState({
+          correspondence: res.reverse(),
+          lastInArray: lastIn[lastIn.length - 1],
+        });
+        // var sender_obj = this.state.correspondence[0].sender;
+        // this.props.dispatch(doctor(sender_obj));
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+
+  render() {
     return (
       <>
         <Detail
           exam={this.state.exam}
           handleStatus={this.handleStatus}
-          submitValue={this.state.submitValue}
-          handleSubmit={this.handleSubmit}
-          handleLink={this.handleLink}
-          handleLinkMessage={this.handleLinkMessage}
+          handleReplyClick={this.handleReplyClick}
+          handleSubmitSend={this.handleSubmitSend}
+          props={this.state}
+          onChangeHandler={this.onChangeHandler}
+          handleMessage={this.handleMessage}
+          newMessage={this.newMessage}
         />
         <div className="footerr">
           <Footer />
@@ -100,12 +184,5 @@ class DetailExam extends Component {
     );
   }
 }
-
-// const mapStateToProps = state => {
-//   const examID = state.getIn(["examReducer", "examID"]);
-//   return {
-//     examID
-//   };
-// };
 
 export default DetailExam;

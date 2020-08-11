@@ -36,8 +36,15 @@ class ClientVideoExamDetail extends Component {
     this.setState({ startVideo: true });
   };
 
-  handleCancel = async () => {
-    this.props.history.push("/dashboard-client");
+  handleStatus = (statusValue) => {
+    this.setState({ statusValue });
+    let { value, label } = statusValue;
+    console.log(value, label);
+    this.setState({ selectedStatus: value });
+    this.handleCancel(value);
+  };
+
+  handleCancel = async (value) => {
     const access_token = "Bearer ".concat(this.state.token);
     let clientCancel = await fetch(
       `https://healthcarebackend.xyz/api/web/client/${this.state.id}/`,
@@ -48,16 +55,13 @@ class ClientVideoExamDetail extends Component {
           Authorization: access_token,
         },
         body: JSON.stringify({
-          status: "Cancel",
+          status: value,
         }),
       }
     );
     let jsonData = await clientCancel.json();
     console.log(jsonData);
-
-    if (jsonData.success === true) {
-      console.log("true");
-    }
+    jsonData.success === true && this.props.history.push("/dashboard-client");
 
     return jsonData;
     // const access_token = "Bearer ".concat(this.state.token);
@@ -313,6 +317,7 @@ class ClientVideoExamDetail extends Component {
   };
 
   render() {
+    console.log(this.state.selectedStatus, this.state.statusValue);
     return (
       <>
         <DetailVideo
@@ -328,6 +333,7 @@ class ClientVideoExamDetail extends Component {
           handleResize={this.handleResize}
           showAndHideChat={this.showAndHideChat}
           handleDivSize={this.handleDivSize}
+          handleStatus={this.handleStatus}
           cutVideo={this.cutVideo}
           cutMic={this.cutMic}
         />

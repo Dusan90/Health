@@ -8,8 +8,6 @@ import Login from "./containers/Login/login";
 import Logout from "./containers/Logout/logout";
 import ExamForm from "./containers/Client/ExamForm";
 import CheckoutForm from "./containers/Client/CheckoutForm";
-import Correspondence from "./containers/Doctor/Correspondence";
-import DoctorMessage from "./containers/Doctor/Message";
 import DoctorProfile from "./containers/Doctor/Profile";
 import DoctorsProfile from "./containers/Doctor/DoctorsProfile";
 import ClientProfile from "./containers/Client/Profile";
@@ -19,8 +17,6 @@ import ClientRecord from "./containers/Doctor/Record";
 import VideoReq from "./containers/Client/VideoReq";
 import ClientVideoExamDetail from "./containers/Client/ClientVideoExamDetail";
 import ClientDetailExam from "./containers/Client/DetailExam";
-import ClientCorrespondence from "./containers/Client/Correspondence";
-import ClientMessage from "./containers/Client/Message";
 import ForgotPass from "./containers/Login/forgotPass";
 import ChangePass from "./containers/Login/changePass";
 import Activate from "./containers/Login/activate";
@@ -78,16 +74,6 @@ export class Routes extends Component {
         />
         <PrivateRoute path="/client/video-request" exact component={VideoReq} />
 
-        <PrivateRoute
-          path="/client/exam/correspondence/:id"
-          exact
-          component={ClientCorrespondence}
-        />
-        <PrivateRoute
-          path="/client/exam/message/:id"
-          exact
-          component={ClientMessage}
-        />
         <PrivateRoute path="/initiate" exact component={ExamForm} />
         <Elements>
           <PrivateRoute path="/checkout" exact component={CheckoutForm} />
@@ -114,16 +100,7 @@ export class Routes extends Component {
           exact
           component={DetailVideoExam}
         />
-        <PrivateRouteDoctor
-          path="/doctor/exam/correspondence/:id"
-          exact
-          component={Correspondence}
-        />
-        <PrivateRouteDoctor
-          path="/doctor/exam/message/:id"
-          exact
-          component={DoctorMessage}
-        />
+
         <PrivateRouteDoctor
           path="/doctor/profile/"
           exact

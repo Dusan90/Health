@@ -95,19 +95,44 @@ const Dashboard = ({
               <p>My Consultations</p>
             </div>
             <div className="sort">
-              <p className="upcoming" onClick={handleUpcoming}>
-                upcoming
+              <p
+                className="upcoming"
+                style={{
+                  fontWeight:
+                    props.state.currentFilterClicked === "upcoming"
+                      ? "bold"
+                      : "300",
+                }}
+                onClick={handleUpcoming}
+              >
+                Upcoming
               </p>
-              <p className="past" onClick={handlePast}>
-                past
+              <p
+                className="past"
+                style={{
+                  fontWeight:
+                    props.state.currentFilterClicked === "past"
+                      ? "bold"
+                      : "300",
+                }}
+                onClick={handlePast}
+              >
+                Past
               </p>
-              <p className="all" onClick={handleAll}>
-                all
+              <p
+                className="all"
+                style={{
+                  fontWeight:
+                    props.state.currentFilterClicked === "all" ? "bold" : "300",
+                }}
+                onClick={handleAll}
+              >
+                All
               </p>
             </div>
           </div>
           {props.state.paginatedExams.length === 0 ? (
-            <div className="NoResultDiv">No results found.</div>
+            <div className="NoResultDiv">{props.state.messageIfEmpty}</div>
           ) : (
             <table className="table2">
               <thead className="client-head">

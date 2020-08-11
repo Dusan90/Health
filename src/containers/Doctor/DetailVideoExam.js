@@ -225,26 +225,27 @@ class DetailVideoExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response.data.data);
         this.setState({ exam: this.state.exam.concat(response.data.data) });
       });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = (value) => {
     let id = this.props.match.params.id;
-    this.props.history.push("/dashboard-doctor");
-
-    this.doctorExam(id);
+    this.doctorExam(id, value);
   };
 
   handleStatus = (statusValue) => {
     this.setState({ statusValue });
     let { value } = statusValue;
+    console.log(value);
     this.setState({ selectedStatus: value });
+    this.handleSubmit(value);
   };
 
-  doctorExam = async (id) => {
+  doctorExam = async (id, value) => {
     const access_token = "Bearer ".concat(this.state.token);
+    console.log(value, "selected");
     const client = await fetch(
       `https://healthcarebackend.xyz/api/web/doctor/${id}/`,
       {
@@ -254,12 +255,16 @@ class DetailVideoExam extends Component {
           Authorization: access_token,
         },
         body: JSON.stringify({
-          status: this.state.selectedStatus,
+          status: value,
         }),
       }
     );
-    const jsonData = await client.json();
 
+    const jsonData = await client.json();
+    console.log(jsonData);
+    jsonData.success === true
+      ? this.props.history.push("/dashboard-doctor")
+      : console.log("greska");
     return jsonData;
   };
 

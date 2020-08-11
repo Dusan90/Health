@@ -44,6 +44,7 @@ class ClientWaitingRoom extends Component {
       showChat: false,
       video: true,
       audio: true,
+      notes: "",
     };
   }
 
@@ -157,6 +158,7 @@ class ClientWaitingRoom extends Component {
     if (
       this.state.specialSP &&
       this.state.doctor_id &&
+      this.state.notes &&
       this.state.subject &&
       this.state.doctorsStatus === "Available"
     ) {
@@ -175,6 +177,7 @@ class ClientWaitingRoom extends Component {
             doctor: this.state.doctor_id,
             subject: this.state.subject,
             attachments: this.state.attachment,
+            notes: this.state.notes,
           }),
         }
       );
@@ -469,6 +472,9 @@ class ClientWaitingRoom extends Component {
   handleChange = (e) => {
     this.setState({ value: e.target.value });
   };
+  handleMessage = (e) => {
+    this.setState({ notes: e.target.value });
+  };
   enableTipeing = (e) => {
     e.stopPropagation();
   };
@@ -552,6 +558,7 @@ class ClientWaitingRoom extends Component {
           handleDivSize={this.handleDivSize}
           cutMic={this.cutMic}
           cutVideo={this.cutVideo}
+          handleMessage={this.handleMessage}
         />
         <div className="footerr">
           <Footer />

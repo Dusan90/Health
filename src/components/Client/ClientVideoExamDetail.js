@@ -12,6 +12,7 @@ import { FaRegSquare } from "react-icons/fa";
 import { FaRocketchat } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { Rnd } from "react-rnd";
+import Select from "react-select";
 
 const DetailVideo = ({
   exam,
@@ -24,10 +25,12 @@ const DetailVideo = ({
   handleDragDrop,
   handleResize,
   showAndHideChat,
+  handleStatus,
   handleDivSize,
   cutVideo,
   cutMic,
   handleVideoStart,
+  statusValue,
 }) => {
   let disabled = props.doctorsVideoId ? false : true;
 
@@ -40,6 +43,12 @@ const DetailVideo = ({
         </div>
       </div>
       {exam.map((exam) => {
+        let placeholder =
+          exam.status === "Appointed" ? "Accepted" : exam.status;
+        let options =
+          exam.status === "Pending" || exam.status === "Appointed"
+            ? [{ value: "Cancel", label: "Cancel" }]
+            : [];
         return (
           <Fragment key={exam.id}>
             <div className="detail-exam">
@@ -76,9 +85,32 @@ const DetailVideo = ({
                 <p>
                   <span>Message:</span> {exam.notes}
                 </p>
-                <p>
-                  <span>Status:</span> {exam.status}
-                </p>
+                {exam.status === "Canceled" || exam.status === "Finished" ? (
+                  <p>
+                    <span>Status:</span> {exam.status}
+                  </p>
+                ) : (
+                  <div
+                    style={{ marginLeft: "10px" }}
+                    className="divSelectButton"
+                  >
+                    <Select
+                      type="text"
+                      placeholder={placeholder}
+                      // isDisabled={
+                      //   exam.status === "Canceled" ||
+                      //   exam.status === "Declined" ||
+                      //   exam.status === "Finished"
+                      //     ? true
+                      //     : false
+                      // }
+                      className="select-option"
+                      value={statusValue}
+                      options={options}
+                      onChange={handleStatus}
+                    />
+                  </div>
+                )}
               </div>
             </div>
             {exam.status === "Appointed" || exam.status === "Accepted" ? (
@@ -92,11 +124,7 @@ const DetailVideo = ({
                   Start Video
                 </button>
               </div>
-            ) : exam.status === "Finished" ? null : (
-              <button className="message-link" onClick={handleCancel}>
-                Cancel
-              </button>
-            )}
+            ) : null}
           </Fragment>
         );
       })}

@@ -20,6 +20,7 @@ const WaitingRoom = ({
   handleSubmit,
   handleExitQueue,
   handleVideoStart,
+  handleMessage,
   props,
   handleChange,
   enableTipeing,
@@ -73,7 +74,7 @@ const WaitingRoom = ({
         </div>
       </div>
       <div className="queue">
-        {/* <div className="exam-mes">
+        <div className="exam-mes">
           <textarea
             type="text"
             className="form-control"
@@ -82,7 +83,7 @@ const WaitingRoom = ({
             value={props.notes}
             onChange={handleMessage}
           />
-        </div> */}
+        </div>
         <div className="queueInfo">
           <h5>Queue (online)</h5>
           <div className="queueMain">

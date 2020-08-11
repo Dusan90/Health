@@ -22,6 +22,8 @@ class ClientDashboard extends Component {
       maxPages: "",
       hamburger: false,
       client: "",
+      messageIfEmpty: "",
+      currentFilterClicked: "",
     };
   }
 
@@ -122,7 +124,15 @@ class ClientDashboard extends Component {
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
 
-      this.setState({ upcomingOrPast: resort, page: 1 });
+      let messageIfEmpty =
+        upcoming.length === 0 ? "No upcoming consultations" : "";
+
+      this.setState({
+        upcomingOrPast: resort,
+        page: 1,
+        messageIfEmpty,
+        currentFilterClicked: "upcoming",
+      });
 
       this.paginate(1);
       clearInterval(upcomingset);
@@ -143,7 +153,15 @@ class ClientDashboard extends Component {
       let sort = past.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
-      this.setState({ upcomingOrPast: sort, page: 1 });
+
+      let messageIfEmpty = past.length === 0 ? "No past consultations" : "";
+
+      this.setState({
+        upcomingOrPast: sort,
+        page: 1,
+        messageIfEmpty,
+        currentFilterClicked: "past",
+      });
       this.paginate(1);
       clearInterval(pastset);
     }, 10);
@@ -157,7 +175,14 @@ class ClientDashboard extends Component {
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
 
-      this.setState({ upcomingOrPast: resortall, page: 1 });
+      let messageIfEmpty = all.length === 0 ? "No consultations" : "";
+
+      this.setState({
+        upcomingOrPast: resortall,
+        page: 1,
+        messageIfEmpty,
+        currentFilterClicked: "all",
+      });
 
       this.paginate(1);
       clearInterval(hndlAll);
