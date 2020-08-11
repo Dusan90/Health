@@ -9,7 +9,7 @@
   margin: 100px auto 0 auto;
   width: 60%;
   display: flex;
-  max-height: 430px;
+  max-height: 60vh;
   .detail {
     padding: 5px 10px;
     position: relative;
@@ -68,6 +68,7 @@
     }
     .mainMessageCorrespondence {
       scroll-behavior: smooth;
+      height: 85%;
       overflow: scroll;
       overflow-x: hidden;
       /* width */
