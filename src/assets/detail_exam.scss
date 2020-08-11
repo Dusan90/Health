@@ -52,10 +52,10 @@
   .sideMessageDetails {
     width: 100%;
     padding: 5px;
-    // display: flex;
-    // flex-direction: row;
+    display: flex;
+    flex-direction: column;
     .SubjectMessage {
-      div {
+      .sideSub {
         p {
           text-indent: 20px;
           color: #4092c2;
@@ -68,7 +68,6 @@
     }
     .mainMessageCorrespondence {
       scroll-behavior: smooth;
-      height: 85%;
       overflow: scroll;
       overflow-x: hidden;
       /* width */

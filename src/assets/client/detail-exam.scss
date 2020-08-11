@@ -9,7 +9,7 @@
   margin: 100px auto 0 auto;
   width: 60%;
   display: flex;
-  max-height: 60vh;
+  max-height: 430px;
   .detail {
     position: relative;
     width: 300px;
@@ -50,10 +50,10 @@
   .sideMessageDetails {
     width: 100%;
     padding: 5px;
-    // display: flex;
-    // flex-direction: row;
+    display: flex;
+    flex-direction: column;
     .SubjectMessage {
-      div {
+      .sideSub {
         p {
           text-indent: 20px;
           color: #4092c2;
@@ -66,8 +66,9 @@
     }
     .mainMessageCorrespondence {
       scroll-behavior: smooth;
-      height: 85%;
       overflow: scroll;
+      height: 85%;
+
       overflow-x: hidden;
       /* width */
       &::-webkit-scrollbar {
@@ -330,5 +331,32 @@
         }
       }
     }
+  }
+}
+
+.messages-link,
+.message-link {
+  border: 1px solid #4092c2;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #4092c2;
+  color: white;
+  margin: 10px;
+  font-size: 18px;
+  transition: all 0.5s ease-in-out;
+  outline: 0;
+  &:disabled,
+  button[disabled] {
+    background: lightgray;
+    color: white;
+    cursor: not-allowed;
+    box-shadow: none;
+    pointer-events: none;
+    border: none;
+  }
+
+  &:hover {
+    background: #377da5;
+    box-shadow: 2px 2px 2px rgb(189, 186, 186);
   }
 }

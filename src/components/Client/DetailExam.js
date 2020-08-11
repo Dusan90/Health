@@ -71,7 +71,7 @@ const Detail = ({
             </div>
             <div className="sideMessageDetails">
               <div className="SubjectMessage">
-                <div>
+                <div className="sideSub">
                   <p>
                     <span>Subject:</span> {exam.subject}
                   </p>
