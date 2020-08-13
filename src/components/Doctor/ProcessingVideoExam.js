@@ -54,7 +54,7 @@ const Processing = ({
                     : exam.exam.status}
                 </p>
               </div>
-              {exam.record ? (
+              {/* {exam.record ? (
                 <div key={exam.record.id} className="record-box">
                   <h4>Record</h4>
                   <p>
@@ -68,7 +68,7 @@ const Processing = ({
                     {exam.record.medical_conditions}
                   </p>
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
             <div className="message-btn">
               {!props.connected ? (
