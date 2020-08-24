@@ -17,12 +17,12 @@ const Profile = ({
   handleSubmit,
   handleSelect,
   status,
-  selectValue
+  selectValue,
 }) => {
   return (
     <>
       {doctor &&
-        doctor.map(doctor => {
+        doctor.map((doctor) => {
           return (
             <div className="mainprof" key={doctor.id}>
               <div className="doctor">
@@ -57,7 +57,6 @@ const Profile = ({
                   </div>
                   <div className="select" style={{ width: "200px" }}>
                     <Select
-                      style={{ background: "black" }}
                       type="text"
                       className="select-option"
                       value={selectValue}

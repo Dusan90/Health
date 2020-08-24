@@ -23,4 +23,46 @@
       width: 80%;
     }
   }
+  .duca1 {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: black;
+    opacity: 0.4;
+    z-index: 10;
+  }
+  .duca {
+    position: absolute;
+    z-index: 11;
+    background: black;
+    bottom: -400px;
+    height: 200px;
+    width: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    display: flex;
+    flex-direction: column;
+    h1 {
+      color: white;
+      font-size: 30px;
+      margin: 0;
+    }
+    h4 {
+      color: lightcoral;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+      button {
+        width: 100px;
+        height: 35px;
+        border: 1px solid white;
+        border-radius: 5px;
+        font-weight: bold;
+        background: lightgreen;
+      }
+    }
+  }
 }

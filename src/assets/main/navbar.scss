@@ -80,6 +80,18 @@
     .userName {
       margin-left: 10px;
     }
+    .selectStatus {
+      max-width: 90px;
+      #status {
+        border-radius: 5px;
+        border: 1px solid #4092c2;
+        color: #4092c2;
+        width: 100%;
+        height: 30px;
+        margin: 10px 0 0 3px;
+        font-size: 12px;
+      }
+    }
   }
   .li-reg {
     .register {

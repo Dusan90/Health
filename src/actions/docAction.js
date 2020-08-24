@@ -1,7 +1,7 @@
-const curentDoc = doc => {
+const curentDoc = (doc) => {
   return {
     type: "CURENTDOC",
-    payload: doc
+    payload: doc,
   };
 };
 

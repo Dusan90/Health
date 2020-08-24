@@ -10,12 +10,14 @@ import { FaRegSquare } from "react-icons/fa";
 import { FaRocketchat } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { Rnd } from "react-rnd";
+import Select from "react-select";
 
 const Processing = ({
   handleConnect,
   handleVideoStart,
   props,
   handleChange,
+  handleStatus,
   enableTipeing,
   iconsMouseOut,
   iconsMouseOver,
@@ -27,10 +29,20 @@ const Processing = ({
   cutMic,
 }) => {
   let disabled = props.clientsVideoId === "null" ? true : false;
-  let disabled2 = props.connectedall ? false : true;
+  let disabled2 =
+    props.connectedall && props.selectedStatus === "Accept" ? false : true;
   return (
     <>
       {props.exam.map((exam) => {
+        let placeholder =
+          exam.exam.status === "In the queue" ? "Pending" : exam.exam.status;
+        let options =
+          exam.exam.status !== "Accepted"
+            ? [
+                { value: "Accept", label: "Accept" },
+                { value: "Decline", label: "Decline" },
+              ]
+            : [{ value: "Finish", label: "Finish" }];
         return (
           <Fragment key={exam.exam.id}>
             <div className="detail-exam">
@@ -47,12 +59,23 @@ const Processing = ({
                 <p>
                   <span>Message: </span> {exam.exam.notes}
                 </p>
-                <p>
-                  <span>Status: </span>{" "}
-                  {exam.exam.status === "In the queue"
-                    ? "Pending"
-                    : exam.exam.status}
-                </p>
+                {exam.exam.status === "Canceled" ||
+                exam.exam.status === "Finished" ? (
+                  <p>
+                    <span>Status:</span> {exam.status}
+                  </p>
+                ) : (
+                  <div className="divSelectButton">
+                    <Select
+                      type="text"
+                      placeholder={placeholder}
+                      className="select-option"
+                      value={props.statusValue}
+                      options={options}
+                      onChange={handleStatus}
+                    />
+                  </div>
+                )}
               </div>
               {/* {exam.record ? (
                 <div key={exam.record.id} className="record-box">
@@ -86,7 +109,7 @@ const Processing = ({
                   type="submit"
                   className="btn"
                   onClick={handleVideoStart}
-                  disabled={disabled}
+                  hidden={disabled}
                 >
                   Start Video
                 </button>
@@ -150,7 +173,9 @@ const Processing = ({
           width: props.width,
           height: props.height,
         }}
-        style={{ display: props.startVideo ? "block" : "none" }}
+        style={{
+          display: props.startVideo ? "block" : "none",
+        }}
         position={{ x: props.x, y: props.y }}
         onDragStop={(e, d) => {
           handleDragDrop(d);

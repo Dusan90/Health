@@ -19,11 +19,39 @@ class Logout extends Component {
   }
 
   handleLogout = (e) => {
+    this.handleSubmit();
     sessionStorage.clear();
     // localStorage.clear();
     localStorage.removeItem("refreshToken");
     this.props.dispatch(userLoggedOut());
     this.redirectUser();
+  };
+
+  handleSubmit = async () => {
+    const access_token = "Bearer ".concat(
+      sessionStorage.getItem("accessToken")
+    );
+    const data = await fetch(
+      `https://healthcarebackend.xyz/api/doctor/profile/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token,
+        },
+        body: JSON.stringify({
+          prefix: "",
+          description: "",
+          email_exam_price: null,
+          web_exam_price: null,
+          status: "Offline",
+        }),
+      }
+    );
+    const jsonData = await data.json();
+    console.log(jsonData, "profile changed");
+    // jsonData.success &&
+    //   NotificationManager.success("Profile Updated!", "Successful!", 2000);
   };
 
   redirectUser = () => {

@@ -38,7 +38,7 @@ class ClientWaitingRoom extends Component {
       value: "",
       width: 700,
       height: 500,
-      x: -115,
+      x: 0,
       y: 0,
       hover: false,
       showChat: false,
@@ -51,6 +51,16 @@ class ClientWaitingRoom extends Component {
   handleVideoStart = (e) => {
     e.preventDefault();
     this.setState({ startVideo: true });
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        var myVideo = document.createElement("video");
+        myVideo.id = "myVid";
+        var videoChat = document.getElementById("videoChat");
+        videoChat.appendChild(myVideo);
+        myVideo.srcObject = stream;
+        myVideo.play();
+      });
   };
 
   handleSpeciality = (e) => {
@@ -136,12 +146,20 @@ class ClientWaitingRoom extends Component {
           ) {
             this.setState({ currentClient: response.data.data });
             this.handleExitQueue();
-          } else if (response.data.data.status === "In the queue") {
+          } else if (
+            response.data.data.status === "In the queue" ||
+            response.data.data.status === "Accepted"
+          ) {
             this.setState({
               credits: true,
               currentClient: response.data.data,
             });
             this.socketTestStart();
+            if (this.props.location.state !== undefined) {
+              if (this.props.location.state.detail === "exitQueue") {
+                this.handleExitQueue();
+              }
+            }
           }
           this.QueueList(response.data.data.doctor);
         } else {
@@ -277,7 +295,7 @@ class ClientWaitingRoom extends Component {
 
       if (
         !this.state.doctorsVideoId &&
-        parseInt(JSON.parse(test.text).id) !== this.state.currentClient.id &&
+        !parseInt(JSON.parse(test.text).id) &&
         test.text !== "undefined"
       ) {
         this.setState({ doctorsVideoId: test.text });
@@ -376,6 +394,9 @@ class ClientWaitingRoom extends Component {
         peer.on("signal", (data) => {
           let docId = JSON.stringify(data);
           connection.send(docId);
+          var myVid = document.getElementById("myVid");
+          myVid.style.cssText =
+            "position: absolute; right: 0; bottom: -100px; width: 150px;";
         });
 
         document.getElementById("StartVideo").addEventListener("click", () => {
@@ -506,8 +527,12 @@ class ClientWaitingRoom extends Component {
 
   handleDivSize = () => {
     this.setState({
-      width: document.body.offsetWidth,
-      height: document.body.offsetHeight,
+      width: window.screen.width,
+      height: window.screen.height,
+      x: -320,
+      y: -100,
+      // width: document.body.offsetWidth,
+      // height: document.body.offsetHeight,
     });
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
@@ -531,12 +556,16 @@ class ClientWaitingRoom extends Component {
     this.setState({ video: !this.state.video });
   };
 
+  exitQueue = () => {
+    console.log("nestotamo");
+  };
+
   render() {
     return (
       <>
         <div className="header">
           <div>
-            <Header />
+            <Header exitQueue={this.exitQueue} />
             <Nav />
           </div>
         </div>

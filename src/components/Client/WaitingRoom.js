@@ -33,9 +33,24 @@ const WaitingRoom = ({
   cutVideo,
   cutMic,
 }) => {
+  // const duca = props.specDoctor.map((test) => {
+  //   return {
+  //     id: test.iD,
+  //     value: test.value,
+  //     label: test.label,
+  //     status: test.status,
+  //     isdisabled: test.status !== "Available" ? true : false,
+  //   };
+  // });
   const disabled = props.credits ? false : true;
   const disabled2 = props.credits ? true : false;
   const disabled3 = props.doctorsVideoId ? false : true;
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      textAlign: "left",
+    }),
+  };
   return (
     <div className="exam">
       <div className="mainExam">
@@ -51,10 +66,14 @@ const WaitingRoom = ({
         </div>
         <div className="exam-doc">
           <Select
+            style
+            styles={customStyles}
             type="text"
             id="doctor"
             placeholder="Select Doctor..."
             options={props.specDoctor}
+            getOptionLabel={(option) => `${option.label}: (${option.status})`}
+            isOptionDisabled={(option) => option.isdisabled}
             isDisabled={disabled2}
             onChange={handleDoctor}
             value={

@@ -21,7 +21,7 @@ class DetailVideoExam extends Component {
       value: "",
       width: 700,
       height: 500,
-      x: -115,
+      x: 0,
       y: 0,
       hover: false,
       showChat: false,
@@ -177,8 +177,10 @@ class DetailVideoExam extends Component {
 
   handleDivSize = () => {
     this.setState({
-      width: document.body.offsetWidth,
-      height: document.body.offsetHeight,
+      width: window.screen.width,
+      height: window.screen.height,
+      x: 0,
+      y: 0,
     });
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();

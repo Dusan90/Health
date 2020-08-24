@@ -20,13 +20,14 @@ class ProcessingVideoExam extends Component {
       value: "",
       width: 700,
       height: 500,
-      x: -115,
+      x: 0,
       y: 0,
       hover: false,
       showChat: false,
       video: true,
       audio: true,
       connectedall: false,
+      selectedStatus: "",
     };
   }
 
@@ -49,8 +50,18 @@ class ProcessingVideoExam extends Component {
 
   handleConnect = (e) => {
     e.preventDefault();
-    this.setState({ connected: true });
+    this.setState({ connected: true, startVideo: true });
     this.testwebsocket();
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        var myVideo = document.createElement("video");
+        myVideo.id = "myVid";
+        var videoChat = document.getElementById("videoChat");
+        videoChat.appendChild(myVideo);
+        myVideo.srcObject = stream;
+        myVideo.play();
+      });
   };
 
   handleVideoStart = (e) => {
@@ -87,6 +98,9 @@ class ProcessingVideoExam extends Component {
               .addEventListener("click", () => {
                 if (this.state.clientsVideoId !== null) {
                   peer.signal(this.state.clientsVideoId);
+                  var myVid = document.getElementById("myVid");
+                  myVid.style.cssText =
+                    "position: absolute; right: 0; bottom: -100px; width: 150px;";
                 }
               });
         }
@@ -210,8 +224,10 @@ class ProcessingVideoExam extends Component {
 
   handleDivSize = () => {
     this.setState({
-      width: document.body.offsetWidth,
-      height: document.body.offsetHeight,
+      width: window.screen.width,
+      height: window.screen.height,
+      x: 0,
+      y: 0,
     });
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
@@ -267,6 +283,14 @@ class ProcessingVideoExam extends Component {
     this.setState({ connectedall: true });
   };
 
+  handleStatus = (statusValue) => {
+    this.setState({ statusValue });
+    let { value, label } = statusValue;
+    console.log(value, label);
+    this.setState({ selectedStatus: value });
+    // this.handleCancel(value);
+  };
+
   render() {
     return (
       <>
@@ -277,6 +301,7 @@ class ProcessingVideoExam extends Component {
           </div>
         </div>
         <Processing
+          handleStatus={this.handleStatus}
           handleConnect={this.handleConnect}
           handleVideoStart={this.handleVideoStart}
           handleChange={this.handleChange}

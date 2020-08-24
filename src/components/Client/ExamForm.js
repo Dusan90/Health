@@ -16,7 +16,7 @@ const InitiateExam = ({
   handleMessage,
   specDoctor,
   resetDoctorSelect,
-  isClicked
+  isClicked,
 }) => {
   return (
     <div className="exam">

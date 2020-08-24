@@ -40,12 +40,12 @@ const Dashboard = ({
   hnlMyConsultations,
   loading,
 }) => {
-  let short = props.state.pending ? props.state.pending.slice(0, 3) : null;
+  let short = props.state.pending ? props.state.pending.slice(0, 4) : null;
   let short2 = props.state.videoPending
-    ? props.state.videoPending.slice(0, 3)
+    ? props.state.videoPending.slice(0, 4)
     : null;
   let short3 = props.state.waitingRoom
-    ? props.state.waitingRoom.slice(0, 3)
+    ? props.state.waitingRoom.slice(0, 4)
     : null;
   return (
     <div className="testic">
@@ -99,7 +99,7 @@ const Dashboard = ({
       <div className="main">
         {" "}
         <div className="divClock">
-          <div className="waitRoom1">
+          <div className="waitRoom1" onClick={hnlWaitingClick}>
             <span className="clock">
               <GoClock className="icon" />
             </span>
@@ -113,7 +113,10 @@ const Dashboard = ({
             {short3.length !== 0 ? (
               short3.map((shorty) => {
                 return (
-                  <div key={shorty.id}>
+                  <div
+                    key={shorty.id}
+                    onClick={() => handleWaitingRoom(shorty.id)}
+                  >
                     {shorty.client},{" "}
                     {/* {new Intl.DateTimeFormat("en-GB", {
                       year: "numeric",
@@ -130,10 +133,9 @@ const Dashboard = ({
               <p>No requests</p>
             )}
           </div>
-          <button onClick={hnlWaitingClick}>Enter Waiting Room</button>
         </div>
         <div className="divVideo">
-          <div className="videoApp1">
+          <div className="videoApp1" onClick={hnlVideoClick}>
             <span className="video">
               <FaVideo className="icon" />
             </span>
@@ -147,7 +149,10 @@ const Dashboard = ({
             {short2.length !== 0 ? (
               short2.map((shorty) => {
                 return (
-                  <div key={shorty.id}>
+                  <div
+                    key={shorty.id}
+                    onClick={() => handleVideoPendingClick(shorty.id)}
+                  >
                     {shorty.client},{" "}
                     {moment(shorty.appointed_date).format("MM/DD/YYYY")}
                   </div>
@@ -157,10 +162,9 @@ const Dashboard = ({
               <p>No requests</p>
             )}
           </div>
-          <button onClick={hnlVideoClick}>See Details</button>
         </div>
         <div className="divEmail">
-          <div className="emailReq1">
+          <div className="emailReq1" onClick={hnlClick}>
             <span className="email">
               <IoIosMail className="icon" />
             </span>
@@ -174,7 +178,10 @@ const Dashboard = ({
             {short.length !== 0 ? (
               short.map((shorty) => {
                 return (
-                  <div key={shorty.id}>
+                  <div
+                    key={shorty.id}
+                    onClick={() => handleClickMail(shorty.id)}
+                  >
                     {shorty.client},{" "}
                     {moment(shorty.created).format("MM/DD/YYYY")}
                   </div>
@@ -184,7 +191,6 @@ const Dashboard = ({
               <p>No requests</p>
             )}
           </div>
-          <button onClick={hnlClick}>See Details</button>
         </div>
       </div>
       {loading ? (

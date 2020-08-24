@@ -20,6 +20,9 @@ class DetailExam extends Component {
       messageValue: "",
       selectedFile: null,
     };
+    this.test = new WebSocket(
+      `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
+    );
   }
 
   handleMessage = (e) => {
@@ -93,13 +96,21 @@ class DetailExam extends Component {
     this.setState({ id: id });
     this.detail(id);
     this.correspondence(id);
+    this.test.onopen = () => {
+      console.log("connected");
+    };
+    this.test.onmessage = (event) => {
+      let test = JSON.parse(event.data);
+
+      console.log("received message", event.data);
+      console.log(test);
+    };
   }
 
   handleSubmitSend = (e) => {
     if (this.state.messageValue) {
       this.sendMessage();
       this.setState({ messageValue: "", replyClicked: false });
-      NotificationManager.success("Message Sent", "Successful!", 2000);
     } else {
       NotificationManager.error("Empty Fields", "Failed!", 2000);
     }
@@ -125,7 +136,14 @@ class DetailExam extends Component {
       }
     );
     const jsonData = await client.json();
-    jsonData.success && this.correspondence(this.state.id);
+    if (jsonData.success) {
+      this.correspondence(this.state.id);
+      NotificationManager.success("Message Sent", "Successful!", 2000);
+      this.test.send({
+        exam_id: this.state.id,
+        message: this.state.messageValue,
+      });
+    }
     console.log(jsonData);
     console.log(client);
 

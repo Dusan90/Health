@@ -305,6 +305,7 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response, "waiting room pending");
         let filterCanceled = response.data.data.queue.filter((ex) => {
           return ex.status !== "Canceled";
         });

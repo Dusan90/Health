@@ -73,6 +73,7 @@ class ClientVideoReq extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response);
         let data = response.data.data.filter((data) => {
           return (
             moment(data.appointed_date).format("YYYY-MM-DD") >=
