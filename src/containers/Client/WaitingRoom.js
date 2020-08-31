@@ -51,7 +51,7 @@ class ClientWaitingRoom extends Component {
       video: true,
       audio: true,
       notes: "",
-      connection: null,
+      connection: "",
     };
   }
 
@@ -341,7 +341,12 @@ class ClientWaitingRoom extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-
+    let isItconnected = setInterval(() => {
+      if (!this.state.connection) {
+        window.location.reload();
+      }
+      clearInterval(isItconnected);
+    }, 10000);
     // doctorStatusSocket.onopen = () => {
     //   console.log("connected to the doctor status socket");
     // };
