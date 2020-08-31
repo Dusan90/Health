@@ -5,7 +5,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 
 const Header = () => {
   let [timer, setTimer] = useState(60);
-  let [connecting, Setconnecting] = useState(true);
+  let [connecting, Setconnecting] = useState(false);
   const history = useHistory();
   const location = useLocation();
 
