@@ -48,10 +48,14 @@ class ProcessingVideoExam extends Component {
       });
   };
 
-  handleConnect = (e) => {
-    e.preventDefault();
-    this.setState({ connected: true, startVideo: true });
+  handleConnect = () => {
+    // e.preventDefault();
+    // this.setState({
+    //   connected: true,
+    //   //  startVideo: true
+    // });
     this.testwebsocket();
+
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((stream) => {
@@ -255,6 +259,37 @@ class ProcessingVideoExam extends Component {
     connection.close();
   }
 
+  // statusSelecting = async (value) => {
+  //   const access_token = "Bearer ".concat(this.state.token);
+  //   console.log(value, "selected");
+  //   const client = await fetch(
+  //     `https://healthcarebackend.xyz/api/web/doctor/${id}/`,
+  //     {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: access_token,
+  //       },
+  //       body: JSON.stringify({
+  //         status: value,
+  //       }),
+  //     }
+  //   );
+
+  //   const jsonData = await client.json();
+  //   console.log(jsonData);
+  //   if (jsonData.success === true) {
+  //     this.detail(this.props.match.params.id);
+  //     let status = this.state.exam.map((exam) => {
+  //       return exam.exam.status;
+  //     });
+  //     if (status === "Accept") {
+  //       this.state.connectedall && this.handleConnect();
+  //     }
+  //   }
+  //   return jsonData;
+  // };
+
   componentDidMount() {
     let id = this.props.match.params.id;
 
@@ -265,9 +300,14 @@ class ProcessingVideoExam extends Component {
     };
     connection.onmessage = (event) => {
       let test = JSON.parse(event.data);
-
+      console.log(test, "testonja");
       console.log("received doctor", event.data);
-      if (JSON.parse(test.text)) {
+      if (
+        JSON.parse(test.text) !== null &&
+        JSON.parse(test.text).startingVideo
+      ) {
+        this.setState({ connected: true });
+      } else if (JSON.parse(test.text)) {
         if (
           JSON.parse(test.text).id === parseInt(id) &&
           JSON.parse(test.text).connectedClient
@@ -281,6 +321,7 @@ class ProcessingVideoExam extends Component {
 
   connectedAll = () => {
     this.setState({ connectedall: true });
+    this.state.selectedStatus === "Accept" && this.handleConnect();
   };
 
   handleStatus = (statusValue) => {
@@ -289,6 +330,7 @@ class ProcessingVideoExam extends Component {
     console.log(value, label);
     this.setState({ selectedStatus: value });
     // this.handleCancel(value);
+    this.state.connectedall && value === "Accept" && this.handleConnect();
   };
 
   render() {

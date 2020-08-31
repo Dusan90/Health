@@ -28,9 +28,8 @@ const Processing = ({
   cutVideo,
   cutMic,
 }) => {
-  let disabled = props.clientsVideoId === "null" ? true : false;
   let disabled2 =
-    props.connectedall && props.selectedStatus === "Accept" ? false : true;
+    props.connected && props.selectedStatus === "Accept" ? false : true;
   return (
     <>
       {props.exam.map((exam) => {
@@ -62,7 +61,7 @@ const Processing = ({
                 {exam.exam.status === "Canceled" ||
                 exam.exam.status === "Finished" ? (
                   <p>
-                    <span>Status:</span> {exam.status}
+                    <span>Status:</span> {exam.exam.status}
                   </p>
                 ) : (
                   <div className="divSelectButton">
@@ -94,26 +93,22 @@ const Processing = ({
               ) : null} */}
             </div>
             <div className="message-btn">
-              {!props.connected ? (
-                <button
-                  type="submit"
-                  disabled={disabled2}
-                  className="btn"
-                  onClick={handleConnect}
-                >
-                  Connect
-                </button>
-              ) : (
-                <button
-                  id="DoctorStartVideo"
-                  type="submit"
-                  className="btn"
-                  onClick={handleVideoStart}
-                  hidden={disabled}
-                >
-                  Start Video
-                </button>
-              )}
+              {props.selectedStatus === "Accept" &&
+                !props.connectedall &&
+                !props.connected && (
+                  <h3 style={{ color: "#4092c2" }}>
+                    Checking for clients presents...
+                  </h3>
+                )}
+              <button
+                id="DoctorStartVideo"
+                type="submit"
+                className="btn"
+                onClick={handleVideoStart}
+                disabled={disabled2}
+              >
+                Start Video
+              </button>
             </div>
             <div className="recordsDetail">
               <h4>Report</h4>

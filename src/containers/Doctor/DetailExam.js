@@ -20,7 +20,7 @@ class DetailExam extends Component {
       messageValue: "",
       selectedFile: null,
     };
-    this.test = new WebSocket(
+    this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
     );
   }
@@ -36,8 +36,6 @@ class DetailExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response);
-
         this.setState({ exam: this.state.exam.concat(response.data.data) });
       });
   };
@@ -57,8 +55,7 @@ class DetailExam extends Component {
 
   handleStatus = (statusValue) => {
     this.setState({ statusValue });
-    let { value, label } = statusValue;
-    console.log(value, label);
+    let { value } = statusValue;
     this.setState({ selectedStatus: value });
     this.handleSubmit(value);
   };
@@ -85,25 +82,29 @@ class DetailExam extends Component {
       }
     );
     const jsonData = await client.json();
-    console.log(jsonData);
     jsonData.success && window.location.reload();
 
     return jsonData;
   };
+
+  componentWillUnmount() {
+    this.socket.close();
+  }
 
   componentDidMount() {
     let id = this.props.match.params.id;
     this.setState({ id: id });
     this.detail(id);
     this.correspondence(id);
-    this.test.onopen = () => {
+    this.socket.onopen = () => {
       console.log("connected");
     };
-    this.test.onmessage = (event) => {
-      let test = JSON.parse(event.data);
+    this.socket.onmessage = (event) => {
+      let parsedEvent = JSON.parse(event.data);
 
-      console.log("received message", event.data);
-      console.log(test);
+      if (parsedEvent.exam_id === parseInt(id)) {
+        this.correspondence(id);
+      }
     };
   }
 
@@ -139,13 +140,11 @@ class DetailExam extends Component {
     if (jsonData.success) {
       this.correspondence(this.state.id);
       NotificationManager.success("Message Sent", "Successful!", 2000);
-      this.test.send({
+      this.socket.send({
         exam_id: this.state.id,
         message: this.state.messageValue,
       });
     }
-    console.log(jsonData);
-    console.log(client);
 
     return jsonData;
   };
@@ -157,8 +156,6 @@ class DetailExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "correspondence");
-
         const res = response.data.data.map((val) => {
           return {
             id: val.id,

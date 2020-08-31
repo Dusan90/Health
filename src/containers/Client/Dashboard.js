@@ -9,6 +9,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 class ClientDashboard extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -38,6 +39,7 @@ class ClientDashboard extends Component {
   };
 
   componentDidMount() {
+    this._isMounted = true;
     this.paginatedExams();
     const access_token = "Bearer ".concat(this.state.token);
     axios
@@ -101,6 +103,10 @@ class ClientDashboard extends Component {
       );
     };
   };
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
   handleClick = (id, type) => {
     if (type === "mail") {

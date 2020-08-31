@@ -35,13 +35,16 @@ const WaitingRoom = ({
 }) => {
   // const duca = props.specDoctor.map((test) => {
   //   return {
-  //     id: test.iD,
+  //     iD: test.iD,
   //     value: test.value,
   //     label: test.label,
+  //     price: test.price,
+  //     spec: test.spec,
   //     status: test.status,
   //     isdisabled: test.status !== "Available" ? true : false,
   //   };
   // });
+  // console.log(props.specDoctor);
   const disabled = props.credits ? false : true;
   const disabled2 = props.credits ? true : false;
   const disabled3 = props.doctorsVideoId ? false : true;
@@ -49,6 +52,11 @@ const WaitingRoom = ({
     option: (provided, state) => ({
       ...provided,
       textAlign: "left",
+      // color: state.isDisabled && "red",
+      color:
+        state.data.status === "Away"
+          ? "#C7CD00"
+          : state.data.status === "Offline" && "red",
     }),
   };
   return (
@@ -73,7 +81,9 @@ const WaitingRoom = ({
             placeholder="Select Doctor..."
             options={props.specDoctor}
             getOptionLabel={(option) => `${option.label}: (${option.status})`}
-            isOptionDisabled={(option) => option.isdisabled}
+            // isOptionDisabled={(option) =>
+            //   option.status !== "Available" ? true : false
+            // }
             isDisabled={disabled2}
             onChange={handleDoctor}
             value={

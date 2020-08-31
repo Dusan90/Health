@@ -9,9 +9,15 @@ import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 import moment from "moment";
 
+// const doctorStatusSocket = new WebSocket(
+//   "wss://healthcarebackend.xyz/ws/doctor/status/"
+// );
+
 const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
 
 class ClientWaitingRoom extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -45,6 +51,7 @@ class ClientWaitingRoom extends Component {
       video: true,
       audio: true,
       notes: "",
+      connection: null,
     };
   }
 
@@ -77,23 +84,28 @@ class ClientWaitingRoom extends Component {
 
   handleDoctor = (e) => {
     console.log(e);
-
-    this.props.dispatch(doctor(e));
-    this.setState({
-      // price: e.price,
-      doctor_id: e.iD,
-      doctorsStatus: e.status,
-      resetDoctorSelect: e,
-    });
-
-    if (e.status !== "Available") {
+    if (e.status === "Away") {
       NotificationManager.warning(
-        `Doctor is not Available at the moment`,
+        `Doctor is Away at the moment and not available for consultation.`,
         "Warning!",
         4000
       );
+    } else if (e.status === "Offline") {
+      NotificationManager.error(
+        `Doctor is Offline at the moment and not available for consultation.`,
+        "Warning!",
+        4000
+      );
+    } else {
+      this.props.dispatch(doctor(e));
+      this.setState({
+        // price: e.price,
+        doctor_id: e.iD,
+        doctorsStatus: e.status,
+        resetDoctorSelect: e,
+      });
+      this.QueueList(e.iD);
     }
-    this.QueueList(e.iD);
   };
 
   handleSubject = (e) => {
@@ -154,7 +166,7 @@ class ClientWaitingRoom extends Component {
               credits: true,
               currentClient: response.data.data,
             });
-            this.socketTestStart();
+
             if (this.props.location.state !== undefined) {
               if (this.props.location.state.detail === "exitQueue") {
                 this.handleExitQueue();
@@ -260,9 +272,10 @@ class ClientWaitingRoom extends Component {
         });
         this.PeopleBeforeYou();
         this.handleDoctorsStatus();
+        this.socketTestStart();
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response);
       });
   };
 
@@ -280,6 +293,7 @@ class ClientWaitingRoom extends Component {
     if (this.state.currentClient) {
       connection.onopen = () => {
         console.log("connected");
+        this.setState({ connection });
         connection.send(
           JSON.stringify({
             id: this.state.currentClient.id,
@@ -292,6 +306,10 @@ class ClientWaitingRoom extends Component {
     connection.onmessage = (event) => {
       let test = JSON.parse(event.data);
       console.log("received client", event.data);
+
+      connection.onclose = () => {
+        console.log("socket closed");
+      };
 
       if (
         !this.state.doctorsVideoId &&
@@ -317,10 +335,21 @@ class ClientWaitingRoom extends Component {
   };
 
   componentWillUnmount() {
+    this._isMounted = false;
     connection.close();
   }
 
   componentDidMount() {
+    this._isMounted = true;
+
+    // doctorStatusSocket.onopen = () => {
+    //   console.log("connected to the doctor status socket");
+    // };
+
+    // doctorStatusSocket.onmessage = (event) => {
+    //   console.log(event, "event from the doctor status socket");
+    // };
+
     this.handleClientProfile();
 
     axios
@@ -401,6 +430,12 @@ class ClientWaitingRoom extends Component {
 
         document.getElementById("StartVideo").addEventListener("click", () => {
           peer.signal(this.state.doctorsVideoId);
+          connection.send(
+            JSON.stringify({
+              id: this.state.currentClient.id,
+              startingVideo: true,
+            })
+          );
         });
 
         document.getElementById("send").addEventListener("click", function () {
@@ -554,10 +589,6 @@ class ClientWaitingRoom extends Component {
 
   cutVideo = () => {
     this.setState({ video: !this.state.video });
-  };
-
-  exitQueue = () => {
-    console.log("nestotamo");
   };
 
   render() {

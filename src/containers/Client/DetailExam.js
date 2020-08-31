@@ -19,9 +19,9 @@ class ClientDetailExam extends Component {
       messageValue: "",
       selectedFile: null,
     };
-    // this.test = new WebSocket(
-    //   `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
-    // );
+    this.socket = new WebSocket(
+      `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
+    );
   }
 
   handleStatus = (statusValue) => {
@@ -70,20 +70,26 @@ class ClientDetailExam extends Component {
       });
   };
 
+  componentWillUnmount() {
+    this.socket.close();
+  }
+
   componentDidMount() {
     let id = this.props.match.params.id;
     this.detail();
     this.correspondence(id);
 
-    // this.test.onopen = () => {
-    //   console.log("connected");
-    // };
-    // this.test.onmessage = (event) => {
-    //   let test = JSON.parse(event.data);
+    this.socket.onopen = () => {
+      console.log("connected");
+    };
+    this.socket.onmessage = (event) => {
+      let parsedEvent = JSON.parse(event.data);
 
-    //   console.log("received message", event.data);
-    //   console.log(test);
-    // };
+      if (parsedEvent.exam_id === parseInt(id)) {
+        this.correspondence(id);
+      }
+      console.log(parsedEvent);
+    };
   }
 
   handleMessage = (e) => {
@@ -106,10 +112,6 @@ class ClientDetailExam extends Component {
 
   handleSubmitSend = (e) => {
     if (this.state.messageValue) {
-      // this.test.send({
-      //   exam_id: this.state.id,
-      //   message: this.state.messageValue,
-      // });
       this.sendMessage();
       this.setState({ messageValue: "", replyClicked: false });
     } else {
@@ -134,10 +136,13 @@ class ClientDetailExam extends Component {
       }
     );
     const jsonData = await client.json();
-
     if (jsonData.success) {
       this.correspondence(this.state.id);
       NotificationManager.success("Message Sent", "Successful!", 2000);
+      this.socket.send({
+        exam_id: this.state.id,
+        message: this.state.messageValue,
+      });
     }
     console.log(jsonData);
     console.log(client);

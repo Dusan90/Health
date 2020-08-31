@@ -305,7 +305,6 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "waiting room pending");
         let filterCanceled = response.data.data.queue.filter((ex) => {
           return ex.status !== "Canceled";
         });
@@ -346,7 +345,6 @@ class DoctorDashboard extends Component {
       console.log("connected to port");
     };
     webs.onmessage = (event) => {
-      console.log(event);
       this.messagesNumber();
     };
     webs.onclose = () => {

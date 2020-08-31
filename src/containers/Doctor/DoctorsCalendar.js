@@ -87,6 +87,11 @@ export class DoctorsCalendar extends Component {
         >
           <ScheduleComponent
             currentView="Day"
+            workHours={{
+              highlight: true,
+              start: "09:00",
+              end: "11:00",
+            }}
             selectedDate={new Date()}
             eventSettings={{
               dataSource: this.state.exams,
