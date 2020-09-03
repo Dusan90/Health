@@ -40,6 +40,7 @@ const Nav = ({
       }
     );
     const jsonData = await data.json();
+    console.log(jsonData);
     if (jsonData.success) {
       NotificationManager.success("Profile Updated!", "Successful!", 2000);
       handleDoctorProfile();
