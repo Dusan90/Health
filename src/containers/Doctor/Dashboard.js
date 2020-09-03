@@ -4,6 +4,7 @@ import Dashboard from "../../components/Doctor/Dashboard";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import curentDoc from "../../actions/docAction";
+import { statusChangeWR } from "../../actions/doctorStatusWR";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
@@ -306,7 +307,7 @@ class DoctorDashboard extends Component {
       })
       .then((response) => {
         let filterCanceled = response.data.data.queue.filter((ex) => {
-          return ex.status !== "Canceled";
+          return ex.status !== "Canceled" && ex.status !== "Declined";
         });
         this.setState({ waitingRoom: filterCanceled });
       })
@@ -345,6 +346,9 @@ class DoctorDashboard extends Component {
       console.log("connected to port");
     };
     webs.onmessage = (event) => {
+      if (JSON.parse(event.data).statu !== "In the queue") {
+        this.props.statusChangeWR(JSON.parse(event.data).id);
+      }
       this.messagesNumber();
     };
     webs.onclose = () => {
@@ -396,7 +400,10 @@ class DoctorDashboard extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ curentDoc: curentDoc }, dispatch);
+  return bindActionCreators(
+    { curentDoc: curentDoc, statusChangeWR: statusChangeWR },
+    dispatch
+  );
 };
 
 export default connect(null, mapDispatchToProps)(DoctorDashboard);

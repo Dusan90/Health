@@ -6,6 +6,8 @@ import specReducer from "../reducers/specReducer";
 import examReducer from "../reducers/examReducer";
 import clientReducer from "../reducers/clientReducer";
 import docReducer from "../reducers/docReducer";
+import popUpReducer from "../reducers/popUpReducer";
+import doctorStatusWRReducer from "../reducers/doctorStatusWRReducer";
 
 const allReducers = combineReducers({
   authReducer,
@@ -15,6 +17,8 @@ const allReducers = combineReducers({
   examReducer,
   clientReducer,
   docReducer,
+  popUpReducer,
+  doctorStatusWRReducer,
 });
 
 export default allReducers;

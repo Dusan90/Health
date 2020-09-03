@@ -7,11 +7,11 @@ import WaitingRoom from "../../components/Client/WaitingRoom";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
-import moment from "moment";
+// import moment from "moment";
 
-// const doctorStatusSocket = new WebSocket(
-//   "wss://healthcarebackend.xyz/ws/doctor/status/"
-// );
+const doctorStatusSocket = new WebSocket(
+  "wss://healthcarebackend.xyz/ws/doctor/status/"
+);
 
 const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
 
@@ -59,7 +59,7 @@ class ClientWaitingRoom extends Component {
     e.preventDefault();
     this.setState({ startVideo: true });
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+      .getUserMedia({ video: true, audio: false })
       .then((stream) => {
         var myVideo = document.createElement("video");
         myVideo.id = "myVid";
@@ -131,6 +131,7 @@ class ClientWaitingRoom extends Component {
     console.log(jsonData);
 
     if (jsonData.success === true) {
+      connection.close();
       this.setState({
         credits: false,
         peopleInQueue: [],
@@ -152,13 +153,15 @@ class ClientWaitingRoom extends Component {
         console.log(response, "Client, IDDDDDDDD");
 
         if (response.data.data) {
+          // if (
+          //   response.data.data.created !==
+          //     moment(new Date()).format("YYYY-MM-DD") ||
+          //   response.data.data.status === "Declined"
+          // ) {
+          //   this.setState({ currentClient: response.data.data });
+          //   this.handleExitQueue();
+          // } else
           if (
-            response.data.data.created !==
-            moment(new Date()).format("YYYY-MM-DD")
-          ) {
-            this.setState({ currentClient: response.data.data });
-            this.handleExitQueue();
-          } else if (
             response.data.data.status === "In the queue" ||
             response.data.data.status === "Accepted"
           ) {
@@ -265,14 +268,14 @@ class ClientWaitingRoom extends Component {
       .then((response) => {
         console.log(response, "people in queue");
         let filterCanceled = response.data.data.queue.filter((ex) => {
-          return ex.status !== "Canceled";
+          return ex.status !== "Canceled" && ex.status !== "Declined";
         });
         this.setState({
           peopleInQueue: [...this.state.peopleInQueue.concat(filterCanceled)],
         });
+        this.socketTestStart();
         this.PeopleBeforeYou();
         this.handleDoctorsStatus();
-        this.socketTestStart();
       })
       .catch((err) => {
         console.log(err.response);
@@ -307,10 +310,6 @@ class ClientWaitingRoom extends Component {
       let test = JSON.parse(event.data);
       console.log("received client", event.data);
 
-      connection.onclose = () => {
-        console.log("socket closed");
-      };
-
       if (
         !this.state.doctorsVideoId &&
         !parseInt(JSON.parse(test.text).id) &&
@@ -342,21 +341,32 @@ class ClientWaitingRoom extends Component {
   componentDidMount() {
     this._isMounted = true;
     let isItconnected = setInterval(() => {
-      if (!this.state.connection) {
+      if (!this.state.connection && this.state.currentClient) {
         window.location.reload();
       }
       clearInterval(isItconnected);
-    }, 10000);
-    // doctorStatusSocket.onopen = () => {
-    //   console.log("connected to the doctor status socket");
-    // };
+    }, 15000);
+    doctorStatusSocket.onopen = () => {
+      console.log("connected to the doctor status socket");
+    };
 
-    // doctorStatusSocket.onmessage = (event) => {
-    //   console.log(event, "event from the doctor status socket");
-    // };
+    doctorStatusSocket.onmessage = (event) => {
+      console.log(event.data, "event from the doctor status socket");
+      console.log(this.state.doctors, "svi doktori");
+      let changedStatus = this.state.doctors.filter((ev) => {
+        return ev.iD === JSON.parse(event.data).id;
+      });
+      Object.assign(changedStatus[0], {
+        status: JSON.parse(event.data).status,
+      });
+    };
 
     this.handleClientProfile();
+    this.specialitiesOfDoctors();
+    this.allDoctors();
+  }
 
+  specialitiesOfDoctors = () => {
     axios
       .get("https://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
@@ -370,6 +380,9 @@ class ClientWaitingRoom extends Component {
         });
         this.setState({ specialities: res });
       });
+  };
+
+  allDoctors = () => {
     axios
       .get("https://healthcarebackend.xyz/api/doctor/list/")
       .then((response) => {
@@ -385,7 +398,7 @@ class ClientWaitingRoom extends Component {
         });
         this.setState({ doctors: res });
       });
-  }
+  };
 
   handleDoctorsStatus = () => {
     this.state.peopleInQueue.forEach((queDoc) => {
@@ -597,6 +610,7 @@ class ClientWaitingRoom extends Component {
   };
 
   render() {
+    // console.log(this.state.currentClient, "ovo je curentclient");
     return (
       <>
         <div className="header">

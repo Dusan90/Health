@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import Processing from "../../components/Doctor/ProcessingVideoExam";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
@@ -28,7 +28,15 @@ class ProcessingVideoExam extends Component {
       audio: true,
       connectedall: false,
       selectedStatus: "",
+      connection: "",
+      clientStatus: "",
     };
+  }
+
+  UNSAFE_componentWillReceiveProps(props) {
+    if (props.statusChanged === parseInt(this.props.match.params.id)) {
+      this.detail(this.props.match.params.id);
+    }
   }
 
   detail = (id) => {
@@ -39,7 +47,10 @@ class ProcessingVideoExam extends Component {
       })
       .then((response) => {
         console.log(response);
-        this.setState({ exam: this.state.exam.concat(response.data.data) });
+        this.setState({
+          exam: [response.data.data],
+          clientStatus: response.data.data.exam.status,
+        });
       })
       .catch((error) => {
         error.response && error.response.data.message === "Bad request"
@@ -57,7 +68,7 @@ class ProcessingVideoExam extends Component {
     this.testwebsocket();
 
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+      .getUserMedia({ video: true, audio: false })
       .then((stream) => {
         var myVideo = document.createElement("video");
         myVideo.id = "myVid";
@@ -76,8 +87,8 @@ class ProcessingVideoExam extends Component {
   testwebsocket = () =>
     navigator.webkitGetUserMedia(
       {
-        video: true,
-        audio: true,
+        video: this.state.video,
+        audio: this.state.audio,
       },
       (stream) => {
         var Peer = require("simple-peer");
@@ -95,19 +106,18 @@ class ProcessingVideoExam extends Component {
           connection.send(this.state.doctorsVideoId);
           connection.send(null);
         });
-        {
-          document.getElementById("DoctorStartVideo") &&
-            document
-              .getElementById("DoctorStartVideo")
-              .addEventListener("click", () => {
-                if (this.state.clientsVideoId !== null) {
-                  peer.signal(this.state.clientsVideoId);
-                  var myVid = document.getElementById("myVid");
-                  myVid.style.cssText =
-                    "position: absolute; right: 0; bottom: -100px; width: 150px;";
-                }
-              });
-        }
+
+        document.getElementById("DoctorStartVideo") &&
+          document
+            .getElementById("DoctorStartVideo")
+            .addEventListener("click", () => {
+              if (this.state.clientsVideoId !== null) {
+                peer.signal(this.state.clientsVideoId);
+                var myVid = document.getElementById("myVid");
+                myVid.style.cssText =
+                  "position: absolute; right: 0; bottom: -100px; width: 150px;";
+              }
+            });
 
         document.getElementById("send").addEventListener("click", function () {
           var yourMessage = document.getElementById("yourMessage").value;
@@ -259,43 +269,49 @@ class ProcessingVideoExam extends Component {
     connection.close();
   }
 
-  // statusSelecting = async (value) => {
-  //   const access_token = "Bearer ".concat(this.state.token);
-  //   console.log(value, "selected");
-  //   const client = await fetch(
-  //     `https://healthcarebackend.xyz/api/web/doctor/${id}/`,
-  //     {
-  //       method: "PUT",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: access_token,
-  //       },
-  //       body: JSON.stringify({
-  //         status: value,
-  //       }),
-  //     }
-  //   );
+  statusSelecting = async (value) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    const client = await fetch(
+      `https://healthcarebackend.xyz/api/queue/detail/${this.props.match.params.id}/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token,
+        },
+        body: JSON.stringify({
+          status: value,
+        }),
+      }
+    );
 
-  //   const jsonData = await client.json();
-  //   console.log(jsonData);
-  //   if (jsonData.success === true) {
-  //     this.detail(this.props.match.params.id);
-  //     let status = this.state.exam.map((exam) => {
-  //       return exam.exam.status;
-  //     });
-  //     if (status === "Accept") {
-  //       this.state.connectedall && this.handleConnect();
-  //     }
-  //   }
-  //   return jsonData;
-  // };
+    const jsonData = await client.json();
+    console.log(jsonData);
+    if (jsonData.success === true) {
+      this.detail(this.props.match.params.id);
+      jsonData.data.exam.status === "Accepted" &&
+        this.state.connectedall &&
+        this.handleConnect();
+      jsonData.data.exam.status === "Declined" &&
+        this.props.history.push("/dashboard-doctor");
+    }
+    return jsonData;
+  };
 
   componentDidMount() {
     let id = this.props.match.params.id;
 
+    let isItconnected = setInterval(() => {
+      if (!this.state.connection && this.state.clientStatus === "Accepted") {
+        window.location.reload();
+      }
+      clearInterval(isItconnected);
+    }, 15000);
+
     this.detail(id);
     connection.onopen = () => {
       console.log("connected");
+      this.setState({ connection: connection });
       connection.send(JSON.stringify({ id: id, connectedDoctor: true }));
     };
     connection.onmessage = (event) => {
@@ -321,7 +337,7 @@ class ProcessingVideoExam extends Component {
 
   connectedAll = () => {
     this.setState({ connectedall: true });
-    this.state.selectedStatus === "Accept" && this.handleConnect();
+    this.state.clientStatus === "Accepted" && this.handleConnect();
   };
 
   handleStatus = (statusValue) => {
@@ -330,7 +346,7 @@ class ProcessingVideoExam extends Component {
     console.log(value, label);
     this.setState({ selectedStatus: value });
     // this.handleCancel(value);
-    this.state.connectedall && value === "Accept" && this.handleConnect();
+    this.statusSelecting(value);
   };
 
   render() {
@@ -366,11 +382,11 @@ class ProcessingVideoExam extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   const examID = state.getIn(["examReducer", "examID"]);
-//   return {
-//     examID
-//   };
-// };
+const mapStateToProps = (state) => {
+  const statusChanged = state.getIn(["doctorStatusWRReducer", "statusChanged"]);
+  return {
+    statusChanged,
+  };
+};
 
-export default ProcessingVideoExam;
+export default connect(mapStateToProps)(ProcessingVideoExam);

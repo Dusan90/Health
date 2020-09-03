@@ -1,79 +1,103 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "../../assets/main/header.scss";
 import logo1 from "../../img/LOGOHC-01.svg";
+import { popUpFalse } from "../../actions/popUpAction";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
-const Header = () => {
-  let [timer, setTimer] = useState(60);
-  let [connecting, Setconnecting] = useState(false);
-  const history = useHistory();
-  const location = useLocation();
+const Header =
+  sessionStorage.getItem("is_doctor") === "false"
+    ? (props) => {
+        let [timer, setTimer] = useState(60);
+        const history = useHistory();
+        const location = useLocation();
 
-  useEffect(() => {
-    // const socket = new WebSocket("tamonekiurl");
-    // socket.onopen(() => {
-    //   console.log("connected to header socket");
-    // });
-    // socket.onmessage((event) => {
-    //   console.log(event);
-    // });
-    if (location.pathname === "/client/waiting-room") {
-      Setconnecting(false);
-    }
-    // startTimer();
-  }, []);
+        useEffect(() => {
+          if (location.pathname === "/client/waiting-room") {
+            props.popUpFalse();
+          }
+        }, []);
 
-  // const startTimer = () => {
-  //   const timerStart = setInterval(() => {
-  //     if (timer === 0) {
-  //       clearInterval(timerStart);
-  //       history.push({
-  //         pathname: "/client/waiting-room",
-  //         state: { detail: "exitQueue" },
-  //       });
-  //     } else {
-  //       setTimer(timer--);
-  //     }
-  //   }, 1000);
-  // };
+        useEffect(() => {
+          if (props.popUp) {
+            startTimer();
+          }
+        }, [props.popUp]);
 
-  const handleConnectingButton = () => {
-    history.push("/client/waiting-room");
-    return Setconnecting(true);
+        const startTimer = () => {
+          const timerStart = setInterval(() => {
+            if (timer === 0) {
+              clearInterval(timerStart);
+              history.push({
+                pathname: "/client/waiting-room",
+                state: { detail: "exitQueue" },
+              });
+            } else {
+              setTimer(timer--);
+            }
+          }, 1000);
+        };
+
+        const handleConnectingButton = () => {
+          history.push("/client/waiting-room");
+        };
+        return (
+          <Fragment>
+            {/* {props.popUp && startTimer()} */}
+            <Link to="/">
+              <img src={logo1} alt="logo" />
+            </Link>
+            {props.popUp && (
+              <Fragment>
+                <div className="duca1"></div>
+                <div className="duca">
+                  <h4>
+                    0:{timer < 10 && "0"}
+                    {timer}
+                  </h4>
+                  <h1>Your WR video consultation is ready</h1>
+                  <div className="buttons">
+                    <button onClick={() => handleConnectingButton()}>
+                      Connect
+                    </button>
+                    <button
+                      style={{ background: "lightcoral" }}
+                      onClick={() => {
+                        history.push({
+                          pathname: "/client/waiting-room",
+                          state: { detail: "exitQueue" },
+                        });
+                      }}
+                    >
+                      Reject
+                    </button>
+                  </div>
+                </div>
+              </Fragment>
+            )}
+          </Fragment>
+        );
+      }
+    : () => {
+        return (
+          <Fragment>
+            <Link to="/">
+              <img src={logo1} alt="logo" />
+            </Link>
+          </Fragment>
+        );
+      };
+
+const mapStateToProps = (state) => {
+  const popUp = state.getIn(["popUpReducer", "popUp"]);
+  return {
+    popUp,
   };
-  return (
-    <Fragment>
-      <Link to="/">
-        <img src={logo1} alt="logo" />
-      </Link>
-      {sessionStorage.getItem("is_doctor") === "false" && connecting && (
-        <Fragment>
-          <div className="duca1"></div>
-          <div className="duca">
-            <h4>
-              0:{timer < 10 && "0"}
-              {timer}
-            </h4>
-            <h1>Your WR video consultation is ready</h1>
-            <div className="buttons">
-              <button onClick={() => handleConnectingButton()}>Connect</button>
-              <button
-                style={{ background: "lightcoral" }}
-                onClick={() => {
-                  history.push({
-                    pathname: "/client/waiting-room",
-                    state: { detail: "exitQueue" },
-                  });
-                }}
-              >
-                Exit queue
-              </button>
-            </div>
-          </div>
-        </Fragment>
-      )}
-    </Fragment>
-  );
 };
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ popUpFalse: popUpFalse }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -28,20 +28,17 @@ const Processing = ({
   cutVideo,
   cutMic,
 }) => {
-  let disabled2 =
-    props.connected && props.selectedStatus === "Accept" ? false : true;
   return (
     <>
       {props.exam.map((exam) => {
+        let disabled2 =
+          props.connected && exam.exam.status === "Accepted" ? false : true;
         let placeholder =
-          exam.exam.status === "In the queue" ? "Pending" : exam.exam.status;
-        let options =
-          exam.exam.status !== "Accepted"
-            ? [
-                { value: "Accept", label: "Accept" },
-                { value: "Decline", label: "Decline" },
-              ]
-            : [{ value: "Finish", label: "Finish" }];
+          exam.exam.status === "In the queue" ? "Pending" : props.clientStatus;
+        let options = exam.exam.status !== "Accepted" && [
+          { value: "Accept", label: "Accept" },
+          { value: "Decline", label: "Decline" },
+        ];
         return (
           <Fragment key={exam.exam.id}>
             <div className="detail-exam">
@@ -72,6 +69,9 @@ const Processing = ({
                       value={props.statusValue}
                       options={options}
                       onChange={handleStatus}
+                      isDisabled={
+                        exam.exam.status === "Accepted" ? true : false
+                      }
                     />
                   </div>
                 )}
@@ -93,13 +93,15 @@ const Processing = ({
               ) : null} */}
             </div>
             <div className="message-btn">
-              {props.selectedStatus === "Accept" &&
-                !props.connectedall &&
-                !props.connected && (
-                  <h3 style={{ color: "#4092c2" }}>
-                    Checking for clients presents...
-                  </h3>
-                )}
+              {exam.exam.status === "Accepted" &&
+              !props.connectedall &&
+              !props.connected ? (
+                <h3 style={{ color: "#4092c2" }}>Connecting...</h3>
+              ) : (
+                exam.exam.status === "Canceled" && (
+                  <h3 style={{ color: "#4092c2" }}>Reject-Connection</h3>
+                )
+              )}
               <button
                 id="DoctorStartVideo"
                 type="submit"

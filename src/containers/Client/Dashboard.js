@@ -5,6 +5,7 @@ import Nav from "../../components/Main/Navbar";
 import Dashboard from "../../components/Client/Dashboard";
 import Footer from "../../components/Main/Footer";
 import curentDoc from "../../actions/docAction";
+import { popUp } from "../../actions/popUpAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -79,11 +80,15 @@ class ClientDashboard extends Component {
 
     ws.onopen = () => {
       // on connecting, do nothing but log it to the console
-      console.log("connected");
+      console.log("connected to dashboard socket");
     };
     ws.onmessage = (e) => {
+      console.log(e);
       // listen to data sent from the websocket server
       const message = JSON.parse(e.data);
+      message.status === "Accepted" &&
+        message.exam_type === "queue" &&
+        this.props.popUp();
 
       let socketExam = this.state.exams.filter((exam) => {
         return exam.id === message.id;
@@ -203,7 +208,6 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
-        console.log(res.data.data, "novi api");
         if (
           res.data.data.mail.length !== 0 ||
           res.data.data.video.length !== 0
@@ -274,7 +278,7 @@ class ClientDashboard extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ curentDoc: curentDoc }, dispatch);
+  return bindActionCreators({ curentDoc: curentDoc, popUp: popUp }, dispatch);
 };
 
 export default connect(null, mapDispatchToProps)(ClientDashboard);

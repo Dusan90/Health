@@ -45,8 +45,7 @@ const Nav = ({
       handleDoctorProfile();
     }
   };
-  {
-  }
+
   useEffect(() => {
     if (sessionStorage.getItem("is_doctor") === "true") {
       handleDoctorProfile();
