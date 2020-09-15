@@ -26,6 +26,7 @@ class ClientDashboard extends Component {
       client: "",
       messageIfEmpty: "",
       currentFilterClicked: "",
+      mail: [],
     };
   }
 
@@ -218,6 +219,7 @@ class ClientDashboard extends Component {
           });
           this.handleUpcoming();
           this.paginate(this.state.page);
+          this.getUnreadMessages(this.state.client.id);
         }
       })
       .catch((error) => {
@@ -246,6 +248,28 @@ class ClientDashboard extends Component {
   hnlMyConsultations = () => {
     this.setState({ hamburger: false });
     this.handleAll();
+  };
+
+  getUnreadMessages = async (id) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/exams/client/${id}/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        console.log(response, "sta vraca");
+        const unreadMessages = response.data.data.filter((ex) => {
+          return (
+            ex.messages[ex.messages.length - 1].sender !==
+            `${this.state.client.user}`
+          );
+        });
+        const unreadIds = unreadMessages.map((ex) => ex.exam.id);
+        this.setState({ mail: unreadIds });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
   render() {

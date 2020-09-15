@@ -30,6 +30,15 @@ const Dashboard = ({
   hnlMyConsultations,
   props,
 }) => {
+  props.state.paginatedExams.map((ex) => {
+    if (props.state.mail.includes(ex.id) && ex.exam_type === "mail") {
+      let hello = Object.assign(ex, { isRead: true });
+      return hello;
+    } else {
+      let hy = Object.assign(ex, { isRead: false });
+      return hy;
+    }
+  });
   return (
     <div className="mainClientDashboard">
       <div className="hamburger">
@@ -154,6 +163,7 @@ const Dashboard = ({
                     <tr
                       data-id={exam.id}
                       className="list-group"
+                      style={{ fontWeight: exam.isRead && 700 }}
                       onClick={() => handleClick(exam.id, exam.exam_type)}
                     >
                       <td className="client-doctor">{exam.doctor}</td>

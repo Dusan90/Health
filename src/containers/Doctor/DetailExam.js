@@ -101,7 +101,7 @@ class DetailExam extends Component {
     };
     this.socket.onmessage = (event) => {
       let parsedEvent = JSON.parse(event.data);
-
+      console.log(parsedEvent);
       if (parsedEvent.exam_id === parseInt(id)) {
         this.correspondence(id);
       }
@@ -165,11 +165,11 @@ class DetailExam extends Component {
             attachment: val.attachment,
           };
         });
-        let lastIn = response.data.data.reverse();
+        // let lastIn = response.data.data.reverse();
 
         this.setState({
-          correspondence: res.reverse(),
-          lastInArray: lastIn[lastIn.length - 1],
+          correspondence: res,
+          lastInArray: res[res.length - 1],
         });
         // var sender_obj = this.state.correspondence[0].sender;
         // this.props.dispatch(doctor(sender_obj));

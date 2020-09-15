@@ -98,9 +98,9 @@ const Detail = ({
                               <span>From:</span> {message.sender}
                             </p>
                             <p className="createdP">
-                              {moment(message.created).format(
-                                "DD-MM-YYYY HH:mm"
-                              )}
+                              {moment(message.created)
+                                .add(2, "hours")
+                                .format("DD-MM-YYYY HH:mm")}
                             </p>
                           </div>
                           <div

@@ -35,6 +35,7 @@ class DoctorDashboard extends Component {
       numOfMessages: 0,
       messageIfEmpty: "",
       currentFilterClicked: "",
+      mail: [],
     };
   }
 
@@ -223,6 +224,7 @@ class DoctorDashboard extends Component {
       .then(() => {
         this.handleUpcoming();
         this.paginate(this.state.page);
+        this.getUnreadMessages(this.state.doctorCurent.id);
       })
       .catch((error) => {
         console.log(error.response, "error");
@@ -360,6 +362,28 @@ class DoctorDashboard extends Component {
     this.paginatedExams();
     this.peopleInWaitingRoom(this.state.doctorCurent.id);
     this.pnd();
+  };
+
+  getUnreadMessages = async (id) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        const unreadMessages = response.data.data.filter((ex) => {
+          return (
+            ex.messages[ex.messages.length - 1].sender !==
+              `${this.state.doctorCurent.prefix} ${this.state.doctorCurent.doctor}` ||
+            ex.messages.length === 0
+          );
+        });
+        const unreadIds = unreadMessages.map((ex) => ex.exam.id);
+        this.setState({ mail: unreadIds });
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
   render() {
     return (

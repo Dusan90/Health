@@ -168,11 +168,10 @@ class ClientDetailExam extends Component {
             attachment: val.attachment,
           };
         });
-        let lastIn = response.data.data.reverse();
-
+        // let lastIn = response.data.data.reverse();
         this.setState({
-          correspondence: res.reverse(),
-          lastInArray: lastIn[lastIn.length - 1],
+          correspondence: res,
+          lastInArray: res[res.length - 1],
         });
       })
       .catch((error) => {
