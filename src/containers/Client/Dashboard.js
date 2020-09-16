@@ -259,10 +259,12 @@ class ClientDashboard extends Component {
       .then((response) => {
         console.log(response, "sta vraca");
         const unreadMessages = response.data.data.filter((ex) => {
-          return (
-            ex.messages[ex.messages.length - 1].sender !==
-            `${this.state.client.user}`
-          );
+          if (ex.messages.length !== 0) {
+            return (
+              ex.messages[ex.messages.length - 1].sender !==
+              `${this.state.client.user}`
+            );
+          }
         });
         const unreadIds = unreadMessages.map((ex) => ex.exam.id);
         this.setState({ mail: unreadIds });

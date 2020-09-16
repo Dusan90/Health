@@ -90,7 +90,7 @@ export class DoctorsCalendar extends Component {
             workHours={{
               highlight: true,
               start: "09:00",
-              end: "11:00",
+              end: "17:00",
             }}
             selectedDate={new Date()}
             eventSettings={{

@@ -371,12 +371,16 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response, "sta vraca");
         const unreadMessages = response.data.data.filter((ex) => {
-          return (
-            ex.messages[ex.messages.length - 1].sender !==
-              `${this.state.doctorCurent.prefix} ${this.state.doctorCurent.doctor}` ||
-            ex.messages.length === 0
-          );
+          if (ex.messages.length !== 0) {
+            return (
+              ex.messages[ex.messages.length - 1].sender !==
+              `${this.state.doctorCurent.prefix} ${this.state.doctorCurent.doctor}`
+            );
+          } else {
+            return ex;
+          }
         });
         const unreadIds = unreadMessages.map((ex) => ex.exam.id);
         this.setState({ mail: unreadIds });
