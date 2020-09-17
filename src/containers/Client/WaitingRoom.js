@@ -7,7 +7,7 @@ import WaitingRoom from "../../components/Client/WaitingRoom";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
-// import moment from "moment";
+import moment from "moment";
 
 const doctorStatusSocket = new WebSocket(
   "wss://healthcarebackend.xyz/ws/doctor/status/"
@@ -162,7 +162,9 @@ class ClientWaitingRoom extends Component {
           //   this.handleExitQueue();
           // } else
           if (
-            response.data.data.status === "In the queue" ||
+            (response.data.data.created ===
+              moment(new Date()).format("YYYY-MM-DD") &&
+              response.data.data.status === "In the queue") ||
             response.data.data.status === "Accepted"
           ) {
             this.setState({
