@@ -11,6 +11,7 @@ import {
   FaChevronRight,
   FaUser,
   FaVideo,
+  FaSearch,
 } from "react-icons/fa";
 import { GoPerson, GoClock, GoFileDirectory, GoMailRead } from "react-icons/go";
 import { IoIosMail, IoIosSettings, IoMdClose } from "react-icons/io";
@@ -39,6 +40,10 @@ const Dashboard = ({
   handleHam,
   hnlMyConsultations,
   loading,
+  handleClientSearch,
+  handleTypeSearch,
+  searchByType,
+  searchByName,
 }) => {
   let short = props.state.pending ? props.state.pending.slice(0, 4) : null;
   let short2 = props.state.videoPending
@@ -251,20 +256,71 @@ const Dashboard = ({
               </p>
             </div>
           </div>
-          {props.state.paginatedExams.length === 0 ? (
-            <div className="NoResultDiv">{props.state.messageIfEmpty}</div>
-          ) : (
-            <table className="table2">
-              <thead className="client-head">
-                <tr className="client-row">
-                  <th className="client-doctor">Client</th>
-                  <th className="client-subject">Subject</th>
-                  <th className="client-subject">Exam type</th>
-                  <th className="client-subject">Date</th>
-                  <th className="client-status">Status</th>
-                </tr>
-              </thead>
-              {props.state.paginatedExams.map((exam, index) => {
+
+          <table className="table2">
+            <thead className="client-head">
+              <tr className="client-row">
+                <th className="client-doctor">
+                  <div className="mainExamDiv">
+                    <span
+                      className="examTypetext"
+                      style={{ display: props.state.searchClient && "none" }}
+                    >
+                      Client{" "}
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={props.state.searchName}
+                      onChange={searchByName}
+                      style={{ display: !props.state.searchClient && "none" }}
+                    />
+                    <span className="searchIcon" onClick={handleClientSearch}>
+                      <FaSearch
+                        style={{
+                          margin: "0 0 0 10px",
+                          width: "20px",
+                        }}
+                      />
+                    </span>
+                  </div>
+                </th>
+                <th className="client-subject">Subject</th>
+                <th className="client-type">
+                  <div className="mainExamDiv">
+                    <span
+                      className="examTypetext"
+                      style={{
+                        display: props.state.searchByTypeClick && "none",
+                      }}
+                    >
+                      Exam type{" "}
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      onChange={searchByType}
+                      value={props.state.searchType}
+                      style={{
+                        display: !props.state.searchByTypeClick && "none",
+                      }}
+                    />
+                    <span className="searchIcon" onClick={handleTypeSearch}>
+                      <FaSearch
+                        style={{
+                          margin: "0 0 0 10px",
+                          width: "20px",
+                        }}
+                      />
+                    </span>
+                  </div>
+                </th>
+                <th className="client-date">Date</th>
+                <th className="client-status">Status</th>
+              </tr>
+            </thead>
+            {props.state.messageIfEmpty === "" &&
+              props.state.paginatedExams.map((exam, index) => {
                 // if (exam.status === "Accepted" || exam.status === "Appointed") {
                 return (
                   <tbody key={index} className="client-body">
@@ -290,7 +346,8 @@ const Dashboard = ({
                         ) : null}
                       </td>
                       <td className="client-status">
-                        {exam.status === "Pending" ? (
+                        {exam.status === "Pending" ||
+                        exam.status === "In the queue" ? (
                           <FaRegClock className="pendi" />
                         ) : exam.status === "Declined" ||
                           exam.status === "Canceled" ? (
@@ -309,7 +366,9 @@ const Dashboard = ({
                 //   return null;
                 // }
               })}
-            </table>
+          </table>
+          {props.state.messageIfEmpty !== "" && (
+            <div className="NoResultDiv">{props.state.messageIfEmpty}</div>
           )}
         </div>
       )}

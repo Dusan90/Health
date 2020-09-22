@@ -227,11 +227,13 @@
     border-radius: 3px;
     width: 60%;
     margin: 0 auto;
+
     .NoResultDiv {
       color: #4092c2;
-      margin: 20px auto;
+      margin: 20px auto 0 auto;
       font-size: 20px;
     }
+
     .mainConsultation {
       display: flex;
       justify-content: space-between;
@@ -299,6 +301,7 @@
         }
         tr {
           height: 40px;
+
           td {
             .check {
               color: rgb(18, 219, 18);
@@ -340,10 +343,79 @@
         .client-row {
           height: 40px;
           .client-doctor {
-            text-align: center;
+            // width: 35%;
+            // display: flex;
+            // justify-content: center;
+            // flex-direction: column;
+            .mainExamDiv {
+              margin: 0 auto;
+              height: 40px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 150px;
+              .searchIcon {
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                padding: 0 10px 0 0;
+                height: 100%;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+              input {
+                width: 100px;
+                height: 30px;
+                border: 1px solid #4092c2;
+                border-radius: 5px;
+                text-indent: 5px;
+                &::placeholder {
+                  color: #4092c2;
+                  font-size: 10px;
+                }
+              }
+            }
           }
           .client-subject {
             text-align: center;
+          }
+
+          .client-type {
+            text-align: center;
+            width: 100px;
+            .mainExamDiv {
+              height: 40px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 150px;
+              .searchIcon {
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                padding: 0 10px 0 0;
+                height: 100%;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+              input {
+                width: 100px;
+                height: 30px;
+                border: 1px solid #4092c2;
+                border-radius: 5px;
+                text-indent: 5px;
+                &::placeholder {
+                  color: #4092c2;
+                  font-size: 10px;
+                }
+              }
+            }
+          }
+          .client-date {
+            text-align: center;
+            width: 200px;
           }
           .client-status {
             text-align: center;

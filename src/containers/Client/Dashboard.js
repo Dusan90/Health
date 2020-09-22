@@ -257,13 +257,14 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "sta vraca");
         const unreadMessages = response.data.data.filter((ex) => {
           if (ex.messages.length !== 0) {
             return (
               ex.messages[ex.messages.length - 1].sender !==
               `${this.state.client.user}`
             );
+          } else {
+            return null;
           }
         });
         const unreadIds = unreadMessages.map((ex) => ex.exam.id);

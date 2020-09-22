@@ -18,6 +18,8 @@ class DoctorDashboard extends Component {
       exams: [],
       paginatedExams: [],
       upcomingOrPast: [],
+      searchedUpcomingOrPast: [],
+      filterFiltered: [],
       record: [],
       token: sessionStorage.getItem("accessToken"),
       pending: [],
@@ -36,6 +38,10 @@ class DoctorDashboard extends Component {
       messageIfEmpty: "",
       currentFilterClicked: "",
       mail: [],
+      searchName: "",
+      searchClient: false,
+      searchByTypeClick: false,
+      searchType: "",
     };
   }
 
@@ -92,7 +98,8 @@ class DoctorDashboard extends Component {
         return (
           upco.status === "Appointed" ||
           upco.status === "Accepted" ||
-          upco.status === "Pending"
+          upco.status === "Pending" ||
+          upco.status === "In the queue"
         );
       });
 
@@ -108,6 +115,10 @@ class DoctorDashboard extends Component {
         page: 1,
         messageIfEmpty,
         currentFilterClicked: "upcoming",
+        searchedUpcomingOrPast: [],
+        filterFiltered: [],
+        searchType: "",
+        searchName: "",
       });
 
       this.paginate(1);
@@ -135,6 +146,10 @@ class DoctorDashboard extends Component {
         page: 1,
         messageIfEmpty,
         currentFilterClicked: "past",
+        searchedUpcomingOrPast: [],
+        filterFiltered: [],
+        searchType: "",
+        searchName: "",
       });
       this.paginate(1);
       clearInterval(pastset);
@@ -156,6 +171,10 @@ class DoctorDashboard extends Component {
         page: 1,
         messageIfEmpty,
         currentFilterClicked: "all",
+        searchedUpcomingOrPast: [],
+        filterFiltered: [],
+        searchType: "",
+        searchName: "",
       });
 
       this.paginate(1);
@@ -168,6 +187,8 @@ class DoctorDashboard extends Component {
       this.props.history.push(`/doctor/exam/detail/${id}`);
     } else if (type === "video") {
       this.props.history.push(`/doctor/video/exam/detail/${id}/#init`);
+    } else if (type === "queue") {
+      this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
     }
   };
 
@@ -222,6 +243,7 @@ class DoctorDashboard extends Component {
         }
       })
       .then(() => {
+        this.peopleInWaitingRoom(this.state.doctorCurent.id);
         this.handleUpcoming();
         this.paginate(this.state.page);
         this.getUnreadMessages(this.state.doctorCurent.id);
@@ -233,16 +255,32 @@ class DoctorDashboard extends Component {
   };
 
   paginate = (page) => {
-    let limit = 5;
-    let pages = Math.ceil(this.state.upcomingOrPast.length / 5);
-    const offset = (page - 1) * limit;
-    const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
+    if (this.state.searchedUpcomingOrPast.length === 0) {
+      let limit = 5;
+      let pages = Math.ceil(this.state.upcomingOrPast.length / 5);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
 
-    this.setState({
-      paginatedExams: newArray,
-      loading: false,
-      maxPages: pages,
-    });
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    } else {
+      let limit = 5;
+      let pages = Math.ceil(this.state.searchedUpcomingOrPast.length / 5);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.searchedUpcomingOrPast.slice(
+        offset,
+        offset + limit
+      );
+
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    }
   };
 
   handleWaitingRoom = (id) => {
@@ -291,7 +329,7 @@ class DoctorDashboard extends Component {
       })
       .then((response) => {
         let current = response.data.data;
-        this.peopleInWaitingRoom(current.id);
+        // this.peopleInWaitingRoom(current.id);
         this.connecSocket(current.id);
 
         this.props.curentDoc(current);
@@ -308,14 +346,51 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        let filterCanceled = response.data.data.queue.filter((ex) => {
-          return ex.status !== "Canceled" && ex.status !== "Declined";
+        console.log(response);
+        response.data.data.queue.forEach((e) => {
+          if (
+            e.created !== moment(new Date()).format("YYYY-MM-DD") &&
+            e.status === "In the queue"
+          ) {
+            this.changeStatusOfPastExams(e.id);
+          }
         });
-        this.setState({ waitingRoom: filterCanceled });
+
+        let filterCanceled = response.data.data.queue.filter((ex) => {
+          return ex.status === "Accepted" || ex.status === "In the queue";
+          // return ex.status !== "Canceled" && ex.status !== "Declined";
+        });
+        this.setState({
+          waitingRoom: filterCanceled,
+          exams: [...this.state.exams.concat(response.data.data.queue)],
+        });
+      })
+      .then(() => {
+        this.handleUpcoming();
       })
       .catch((err) => {
         console.log(err.response);
       });
+  };
+
+  changeStatusOfPastExams = async (id) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    const client = await fetch(
+      `https://healthcarebackend.xyz/api/queue/detail/${id}/`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: access_token,
+        },
+        body: JSON.stringify({
+          status: "Decline",
+        }),
+      }
+    );
+    const jsonData = await client.json();
+    console.log(jsonData);
+    return jsonData;
   };
 
   handleHam = () => {
@@ -360,7 +435,6 @@ class DoctorDashboard extends Component {
 
   messagesNumber = () => {
     this.paginatedExams();
-    this.peopleInWaitingRoom(this.state.doctorCurent.id);
     this.pnd();
   };
 
@@ -371,7 +445,6 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "sta vraca");
         const unreadMessages = response.data.data.filter((ex) => {
           if (ex.messages.length !== 0) {
             return (
@@ -388,6 +461,169 @@ class DoctorDashboard extends Component {
       .catch((err) => {
         console.log(err.response);
       });
+  };
+
+  handleClientSearch = () => {
+    this.setState({ searchClient: !this.state.searchClient });
+  };
+  handleTypeSearch = () => {
+    this.setState({ searchByTypeClick: !this.state.searchByTypeClick });
+  };
+  searchByName = (e) => {
+    if (e.target.value === "" && this.state.searchType === "") {
+      this.setState({ filterFiltered: [] });
+    } else if (e.target.value === "" && this.state.searchName !== "") {
+      this.setState({ filterFiltered: [] });
+      let callBFunction = setInterval(() => {
+        this.handlingSearchByType();
+        clearInterval(callBFunction);
+      }, 10);
+    }
+    this.setState({ searchName: e.target.value });
+    let callFunction = setInterval(() => {
+      this.handlingSearchByName();
+      clearInterval(callFunction);
+    }, 10);
+  };
+
+  handlingSearchByName = () => {
+    let searchName = this.state.searchName.toLowerCase().split(" ");
+    let searchedClient =
+      this.state.filterFiltered.length === 0
+        ? this.state.upcomingOrPast.filter((ex) => {
+            const client = ex.client;
+            const splited = client.split(" ");
+            if (!searchName[1]) {
+              if (
+                splited[0].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) ||
+                splited[1].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0])
+              ) {
+                return ex;
+              }
+            } else {
+              if (
+                (splited[0].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) &&
+                  splited[1].toLowerCase().indexOf(searchName[1]) ===
+                    searchName[1].indexOf(searchName[1])) ||
+                (splited[0].toLowerCase().indexOf(searchName[1]) ===
+                  searchName[1].indexOf(searchName[1]) &&
+                  splited[1].toLowerCase().indexOf(searchName[0]) ===
+                    searchName[0].indexOf(searchName[0]))
+              ) {
+                return ex;
+              }
+            }
+            return null;
+          })
+        : this.state.filterFiltered.filter((ex) => {
+            const client = ex.client;
+            const splited = client.split(" ");
+            if (!searchName[1]) {
+              if (
+                splited[0].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) ||
+                splited[1].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0])
+              ) {
+                return ex;
+              }
+            } else {
+              if (
+                (splited[0].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) &&
+                  splited[1].toLowerCase().indexOf(searchName[1]) ===
+                    searchName[1].indexOf(searchName[1])) ||
+                (splited[0].toLowerCase().indexOf(searchName[1]) ===
+                  searchName[1].indexOf(searchName[1]) &&
+                  splited[1].toLowerCase().indexOf(searchName[0]) ===
+                    searchName[0].indexOf(searchName[0]))
+              ) {
+                return ex;
+              }
+            }
+            return null;
+          });
+    console.log(searchedClient, "sta vraca ovo cudo");
+    let messageIfEmpty =
+      searchedClient.length === 0
+        ? "No Such Client"
+        : searchedClient.length !== 0 &&
+          this.state.messageIfEmpty !== "No Such Client"
+        ? this.state.messageIfEmpty
+        : "";
+    this.state.filterFiltered.length === 0 &&
+      this.setState({ filterFiltered: searchedClient });
+    this.setState({
+      searchedUpcomingOrPast: searchedClient,
+      page: 1,
+      messageIfEmpty,
+    });
+    this.paginate(1);
+  };
+
+  searchByType = (e) => {
+    if (e.target.value === "" && this.state.searchName === "") {
+      this.setState({ filterFiltered: [] });
+    } else if (e.target.value === "" && this.state.searchName !== "") {
+      this.setState({ filterFiltered: [] });
+      let callBFunction = setInterval(() => {
+        this.handlingSearchByName();
+        clearInterval(callBFunction);
+      }, 10);
+    }
+    let letter = e.target.value.toLowerCase();
+    this.setState({ searchType: letter });
+    let callFunction = setInterval(() => {
+      this.handlingSearchByType();
+      clearInterval(callFunction);
+    }, 10);
+  };
+
+  handlingSearchByType = () => {
+    console.log(this.state.searchType);
+
+    let searchedClient =
+      this.state.filterFiltered.length === 0
+        ? this.state.upcomingOrPast.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          })
+        : this.state.filterFiltered.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          });
+    let messageIfEmpty =
+      searchedClient.length === 0
+        ? "No Such Type"
+        : searchedClient.length !== 0 &&
+          this.state.messageIfEmpty !== "No Such Type"
+        ? this.state.messageIfEmpty
+        : "";
+    this.state.filterFiltered.length === 0 &&
+      this.setState({ filterFiltered: searchedClient });
+    this.setState({
+      searchedUpcomingOrPast: searchedClient,
+      page: 1,
+      messageIfEmpty,
+    });
+    this.paginate(1);
   };
   render() {
     return (
@@ -420,6 +656,10 @@ class DoctorDashboard extends Component {
           handlePast={this.handlePast}
           handleAll={this.handleAll}
           hnlMyConsultations={this.hnlMyConsultations}
+          handleClientSearch={this.handleClientSearch}
+          handleTypeSearch={this.handleTypeSearch}
+          searchByType={this.searchByType}
+          searchByName={this.searchByName}
         />
         <Footer />
       </>

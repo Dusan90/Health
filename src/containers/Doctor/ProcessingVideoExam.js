@@ -183,20 +183,25 @@ class ProcessingVideoExam extends Component {
         });
 
         peer.on("close", () => {
-          peer.destroy();
+          // peer.destroy();
           this.handleDivClose();
-          connection.close();
+          window.location.reload();
+          // connection.close();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
-          peer.destroy();
+          // peer.destroy();
+          connection.send(JSON.stringify("Cancel Video From Doctor"));
           this.handleDivClose();
-          connection.close();
+          window.location.reload();
+          // connection.close();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
-          peer.destroy();
+          // peer.destroy();
+          // connection.close();
+          connection.send(JSON.stringify("Cancel Video From Doctor"));
+          window.location.reload();
           this.handleDivClose();
-          connection.close();
         });
       },
       function (err) {
@@ -329,6 +334,9 @@ class ProcessingVideoExam extends Component {
           JSON.parse(test.text).connectedClient
         ) {
           this.connectedAll();
+        } else if (JSON.parse(test.text) === "Cancel Video From Client") {
+          this.handleDivClose();
+          window.location.reload();
         }
       }
       this.setState({ clientsVideoId: test.text });

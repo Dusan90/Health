@@ -165,7 +165,9 @@ class ClientWaitingRoom extends Component {
             (response.data.data.created ===
               moment(new Date()).format("YYYY-MM-DD") &&
               response.data.data.status === "In the queue") ||
-            response.data.data.status === "Accepted"
+            (response.data.data.created ===
+              moment(new Date()).format("YYYY-MM-DD") &&
+              response.data.data.status === "Accepted")
           ) {
             this.setState({
               credits: true,
@@ -270,7 +272,11 @@ class ClientWaitingRoom extends Component {
       .then((response) => {
         console.log(response, "people in queue");
         let filterCanceled = response.data.data.queue.filter((ex) => {
-          return ex.status !== "Canceled" && ex.status !== "Declined";
+          return (
+            ex.status !== "Canceled" &&
+            ex.status !== "Declined" &&
+            ex.status !== "Finished"
+          );
         });
         this.setState({
           peopleInQueue: [...this.state.peopleInQueue.concat(filterCanceled)],
@@ -330,6 +336,9 @@ class ClientWaitingRoom extends Component {
               connectedClient: true,
             })
           );
+        } else if (JSON.parse(test.text) === "Cancel Video From Doctor") {
+          this.handleDivClose();
+          window.location.reload();
         }
       }
     };
@@ -521,23 +530,28 @@ class ClientWaitingRoom extends Component {
         });
 
         peer.on("close", () => {
-          this.handleExitQueue();
-          peer.destroy();
+          // this.handleExitQueue();
+          // peer.destroy();
           this.handleDivClose();
-          connection.close();
+          window.location.reload();
+          // connection.close();
         });
 
         document.querySelector(".icon2").addEventListener("click", () => {
-          this.handleExitQueue();
-          peer.destroy();
+          // this.handleExitQueue();
+          // peer.destroy();
+          connection.send(JSON.stringify("Cancel Video From Client"));
           this.handleDivClose();
-          connection.close();
+          window.location.reload();
+          // connection.close();
         });
         document.querySelector(".iconPhone").addEventListener("click", () => {
-          this.handleExitQueue();
-          peer.destroy();
+          // this.handleExitQueue();
+          // peer.destroy();
+          connection.send(JSON.stringify("Cancel Video From Client"));
           this.handleDivClose();
-          connection.close();
+          window.location.reload();
+          // connection.close();
         });
       },
       function (err) {
@@ -612,7 +626,6 @@ class ClientWaitingRoom extends Component {
   };
 
   render() {
-    // console.log(this.state.currentClient, "ovo je curentclient");
     return (
       <>
         <div className="header">

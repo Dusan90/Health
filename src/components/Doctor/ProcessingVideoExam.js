@@ -35,10 +35,13 @@ const Processing = ({
           props.connected && exam.exam.status === "Accepted" ? false : true;
         let placeholder =
           exam.exam.status === "In the queue" ? "Pending" : props.clientStatus;
-        let options = exam.exam.status !== "Accepted" && [
-          { value: "Accept", label: "Accept" },
-          { value: "Decline", label: "Decline" },
-        ];
+        let options =
+          exam.exam.status !== "Accepted"
+            ? [
+                { value: "Accept", label: "Accept" },
+                { value: "Decline", label: "Decline" },
+              ]
+            : [{ value: "Finish", label: "Finish" }];
         return (
           <Fragment key={exam.exam.id}>
             <div className="detail-exam">
@@ -47,7 +50,7 @@ const Processing = ({
                   <span>Client:</span> {exam.exam.client}
                 </p>
                 <p>
-                  <span>Type:</span> Video WR
+                  <span>Type:</span> {exam.exam.exam_type}
                 </p>
                 <p>
                   <span>Subject: </span> {exam.exam.subject}
@@ -56,7 +59,8 @@ const Processing = ({
                   <span>Message: </span> {exam.exam.notes}
                 </p>
                 {exam.exam.status === "Canceled" ||
-                exam.exam.status === "Finished" ? (
+                exam.exam.status === "Finished" ||
+                exam.exam.status === "Declined" ? (
                   <p>
                     <span>Status:</span> {exam.exam.status}
                   </p>
@@ -70,7 +74,10 @@ const Processing = ({
                       options={options}
                       onChange={handleStatus}
                       isDisabled={
-                        exam.exam.status === "Accepted" ? true : false
+                        exam.exam.status !== "Accepted" &&
+                        exam.exam.status !== "In the queue"
+                          ? true
+                          : false
                       }
                     />
                   </div>
