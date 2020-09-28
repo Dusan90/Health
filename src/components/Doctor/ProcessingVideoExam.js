@@ -50,6 +50,9 @@ const Processing = ({
                   <span>Client:</span> {exam.exam.client}
                 </p>
                 <p>
+                  <span>Created:</span> {exam.exam.created}
+                </p>
+                <p>
                   <span>Type:</span> {exam.exam.exam_type}
                 </p>
                 <p>

@@ -82,6 +82,7 @@ class ProcessingVideoExam extends Component {
   handleVideoStart = (e) => {
     e.preventDefault();
     this.setState({ startVideo: true });
+    connection.send(JSON.stringify("doctor is started video"));
   };
 
   testwebsocket = () =>
@@ -299,6 +300,12 @@ class ProcessingVideoExam extends Component {
         this.handleConnect();
       jsonData.data.exam.status === "Declined" &&
         this.props.history.push("/dashboard-doctor");
+      connection.send(
+        JSON.stringify({
+          id: this.props.match.params.id,
+          status: jsonData.data.exam.status,
+        })
+      );
     }
     return jsonData;
   };

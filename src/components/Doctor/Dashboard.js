@@ -44,6 +44,7 @@ const Dashboard = ({
   handleTypeSearch,
   searchByType,
   searchByName,
+  ResetonSelectChange,
 }) => {
   let short = props.state.pending ? props.state.pending.slice(0, 4) : null;
   let short2 = props.state.videoPending
@@ -140,7 +141,7 @@ const Dashboard = ({
                     }).format(
                       Date(shorty.estimated_start / (1000 * 60 * 60 * 24))
                     )} */}
-                    {moment(Date(shorty.estimated_start)).format("MM/DD/YYYY")}
+                    {moment(shorty.created).format("MM/DD/YYYY")}
                   </div>
                 );
               })
@@ -296,15 +297,21 @@ const Dashboard = ({
                     >
                       Exam type{" "}
                     </span>
-                    <input
+                    <select
                       type="text"
                       placeholder="Search..."
+                      onClick={ResetonSelectChange}
                       onChange={searchByType}
                       value={props.state.searchType}
                       style={{
                         display: !props.state.searchByTypeClick && "none",
                       }}
-                    />
+                    >
+                      <option value="">All</option>
+                      <option value="mail">Email</option>
+                      <option value="video">Video</option>
+                      <option value="queue">Waiting room</option>
+                    </select>
                     <span className="searchIcon" onClick={handleTypeSearch}>
                       <FaSearch
                         style={{

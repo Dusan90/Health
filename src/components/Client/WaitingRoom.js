@@ -33,26 +33,13 @@ const WaitingRoom = ({
   cutVideo,
   cutMic,
 }) => {
-  // const duca = props.specDoctor.map((test) => {
-  //   return {
-  //     iD: test.iD,
-  //     value: test.value,
-  //     label: test.label,
-  //     price: test.price,
-  //     spec: test.spec,
-  //     status: test.status,
-  //     isdisabled: test.status !== "Available" ? true : false,
-  //   };
-  // });
-  // console.log(props.specDoctor);
   const disabled = props.credits ? false : true;
   const disabled2 = props.credits ? true : false;
-  const disabled3 = props.doctorsVideoId ? false : true;
+  const disabled3 = props.doctorStartedVideo ? false : true;
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
       textAlign: "left",
-      // color: state.isDisabled && "red",
       color:
         state.data.status === "Away"
           ? "#C7CD00"
@@ -66,7 +53,11 @@ const WaitingRoom = ({
           <Select
             type="text"
             id="speciality"
-            placeholder="Select Speciality..."
+            placeholder={
+              props.currentClient
+                ? props.currentClient.speciality
+                : "Select Speciality..."
+            }
             options={props.specialities}
             isDisabled={disabled2}
             onChange={handleSpeciality}
@@ -78,7 +69,11 @@ const WaitingRoom = ({
             styles={customStyles}
             type="text"
             id="doctor"
-            placeholder="Select Doctor..."
+            placeholder={
+              props.currentClient
+                ? props.currentClient.doctor_name
+                : "Select Doctor..."
+            }
             options={props.specDoctor}
             getOptionLabel={(option) => `${option.label}: (${option.status})`}
             // isOptionDisabled={(option) =>
@@ -97,7 +92,9 @@ const WaitingRoom = ({
             className="form-control"
             id="subject"
             placeholder="Enter subject"
-            value={props.subject}
+            value={
+              props.currentClient ? props.currentClient.subject : props.subject
+            }
             onChange={handleSubject}
           />
         </div>
@@ -109,7 +106,9 @@ const WaitingRoom = ({
             className="form-control"
             id="exam-notes"
             placeholder="Enter notes"
-            value={props.notes}
+            value={
+              props.currentClient ? props.currentClient.notes : props.notes
+            }
             onChange={handleMessage}
           />
         </div>
@@ -166,6 +165,7 @@ const WaitingRoom = ({
           >
             Start video
           </button>
+          {/* <button onClick={handleVideoStart}>video</button> */}
           <button
             className="exitQueue"
             onClick={handleExitQueue}

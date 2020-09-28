@@ -16,6 +16,7 @@ import ProcessingVideoExam from "./containers/Doctor/ProcessingVideoExam";
 import ClientRecord from "./containers/Doctor/Record";
 import VideoReq from "./containers/Client/VideoReq";
 import ClientVideoExamDetail from "./containers/Client/ClientVideoExamDetail";
+import ClientQueueExamDetail from "./containers/Client/ClientQueueExamDetail";
 import ClientDetailExam from "./containers/Client/DetailExam";
 import ForgotPass from "./containers/Login/forgotPass";
 import ChangePass from "./containers/Login/changePass";
@@ -71,6 +72,11 @@ export class Routes extends Component {
           path="/client/video/exam/detail/:id"
           exact
           component={ClientVideoExamDetail}
+        />
+        <PrivateRoute
+          path="/client/queue/exam/detail/:id"
+          exact
+          component={ClientQueueExamDetail}
         />
         <PrivateRoute path="/client/video-request" exact component={VideoReq} />
 

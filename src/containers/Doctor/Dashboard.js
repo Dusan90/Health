@@ -546,7 +546,6 @@ class DoctorDashboard extends Component {
             }
             return null;
           });
-    console.log(searchedClient, "sta vraca ovo cudo");
     let messageIfEmpty =
       searchedClient.length === 0
         ? "No Such Client"
@@ -562,6 +561,14 @@ class DoctorDashboard extends Component {
       messageIfEmpty,
     });
     this.paginate(1);
+  };
+
+  ResetonSelectChange = () => {
+    this.setState({ filterFiltered: [] });
+    let callBFunction = setInterval(() => {
+      this.handlingSearchByName();
+      clearInterval(callBFunction);
+    }, 10);
   };
 
   searchByType = (e) => {
@@ -583,8 +590,6 @@ class DoctorDashboard extends Component {
   };
 
   handlingSearchByType = () => {
-    console.log(this.state.searchType);
-
     let searchedClient =
       this.state.filterFiltered.length === 0
         ? this.state.upcomingOrPast.filter((ex) => {
@@ -660,6 +665,7 @@ class DoctorDashboard extends Component {
           handleTypeSearch={this.handleTypeSearch}
           searchByType={this.searchByType}
           searchByName={this.searchByName}
+          ResetonSelectChange={this.ResetonSelectChange}
         />
         <Footer />
       </>

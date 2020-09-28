@@ -166,7 +166,9 @@ const Dashboard = ({
                       style={{ fontWeight: exam.isRead && 700 }}
                       onClick={() => handleClick(exam.id, exam.exam_type)}
                     >
-                      <td className="client-doctor">{exam.doctor}</td>
+                      <td className="client-doctor">
+                        {!exam.doctor_name ? exam.doctor : exam.doctor_name}
+                      </td>
                       <td className="client-subject">{exam.subject}</td>
                       <td className="client-subject">{exam.exam_type}</td>
 

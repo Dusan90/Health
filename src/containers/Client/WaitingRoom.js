@@ -52,12 +52,14 @@ class ClientWaitingRoom extends Component {
       audio: true,
       notes: "",
       connection: "",
+      doctorStartedVideo: false,
     };
   }
 
   handleVideoStart = (e) => {
     e.preventDefault();
     this.setState({ startVideo: true });
+
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
       .then((stream) => {
@@ -67,6 +69,9 @@ class ClientWaitingRoom extends Component {
         videoChat.appendChild(myVideo);
         myVideo.srcObject = stream;
         myVideo.play();
+        var myVid = document.getElementById("myVid");
+        myVid.style.cssText =
+          "position: absolute; right: 0; bottom: -100px; width: 150px;";
       });
   };
 
@@ -128,7 +133,6 @@ class ClientWaitingRoom extends Component {
       }
     );
     let jsonData = await clientCancel.json();
-    console.log(jsonData);
 
     if (jsonData.success === true) {
       connection.close();
@@ -137,6 +141,7 @@ class ClientWaitingRoom extends Component {
         peopleInQueue: [],
         doctorsVideoId: null,
       });
+      this.hanldeClientQueue(this.state.client_id);
     }
 
     return jsonData;
@@ -162,12 +167,12 @@ class ClientWaitingRoom extends Component {
           //   this.handleExitQueue();
           // } else
           if (
-            (response.data.data.created ===
-              moment(new Date()).format("YYYY-MM-DD") &&
-              response.data.data.status === "In the queue") ||
-            (response.data.data.created ===
-              moment(new Date()).format("YYYY-MM-DD") &&
-              response.data.data.status === "Accepted")
+            // (response.data.data.created ===
+            // moment(new Date()).format("YYYY-MM-DD") &&
+            response.data.data.status === "In the queue" ||
+            // (response.data.data.created ===
+            // moment(new Date()).format("YYYY-MM-DD") &&
+            response.data.data.status === "Accepted"
           ) {
             this.setState({
               credits: true,
@@ -316,9 +321,15 @@ class ClientWaitingRoom extends Component {
 
     connection.onmessage = (event) => {
       let test = JSON.parse(event.data);
-      console.log("received client", event.data);
 
-      if (
+      if (JSON.parse(test.text) !== null && JSON.parse(test.text).status) {
+        if (
+          JSON.parse(test.text).status === "Finished" ||
+          JSON.parse(test.text).status === "Declined"
+        ) {
+          window.location.reload();
+        }
+      } else if (
         !this.state.doctorsVideoId &&
         !parseInt(JSON.parse(test.text).id) &&
         test.text !== "undefined"
@@ -339,6 +350,8 @@ class ClientWaitingRoom extends Component {
         } else if (JSON.parse(test.text) === "Cancel Video From Doctor") {
           this.handleDivClose();
           window.location.reload();
+        } else if (JSON.parse(test.text) === "doctor is started video") {
+          this.setState({ doctorStartedVideo: true });
         }
       }
     };
@@ -362,8 +375,6 @@ class ClientWaitingRoom extends Component {
     };
 
     doctorStatusSocket.onmessage = (event) => {
-      console.log(event.data, "event from the doctor status socket");
-      console.log(this.state.doctors, "svi doktori");
       let changedStatus = this.state.doctors.filter((ev) => {
         return ev.iD === JSON.parse(event.data).id;
       });
@@ -452,9 +463,9 @@ class ClientWaitingRoom extends Component {
         peer.on("signal", (data) => {
           let docId = JSON.stringify(data);
           connection.send(docId);
-          var myVid = document.getElementById("myVid");
-          myVid.style.cssText =
-            "position: absolute; right: 0; bottom: -100px; width: 150px;";
+          //   var myVid = document.getElementById("myVid");
+          //   myVid.style.cssText =
+          //     "position: absolute; right: 0; bottom: -100px; width: 150px;";
         });
 
         document.getElementById("StartVideo").addEventListener("click", () => {
@@ -465,7 +476,22 @@ class ClientWaitingRoom extends Component {
               startingVideo: true,
             })
           );
+          track.enabled = !track.enabled;
+          cutVideo.enabled = !cutVideo.enabled;
         });
+
+        if (this.state.doctorsVideoId !== null) {
+          let duca = setInterval(() => {
+            connection.send(
+              JSON.stringify({
+                id: this.state.currentClient.id,
+                startingVideo: true,
+              })
+            );
+            clearInterval(duca);
+            return peer.signal(this.state.doctorsVideoId);
+          }, 500);
+        }
 
         document.getElementById("send").addEventListener("click", function () {
           var yourMessage = document.getElementById("yourMessage").value;
@@ -499,6 +525,9 @@ class ClientWaitingRoom extends Component {
 
         let track = stream.getAudioTracks()[0];
         let cutVideo = stream.getVideoTracks()[0];
+        track.enabled = !track.enabled;
+        cutVideo.enabled = !cutVideo.enabled;
+
         document.querySelector(".iconMic").addEventListener("click", () => {
           track.enabled = !track.enabled;
         });

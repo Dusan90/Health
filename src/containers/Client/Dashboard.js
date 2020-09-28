@@ -42,7 +42,6 @@ class ClientDashboard extends Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this.paginatedExams();
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(`https://healthcarebackend.xyz/api/client/profile/`, {
@@ -52,6 +51,9 @@ class ClientDashboard extends Component {
         this.connect(response.data.data.id);
         this.props.curentDoc(response.data.data.user);
         return this.setState({ client: response.data.data });
+      })
+      .then(() => {
+        this.paginatedExams();
       });
   }
 
@@ -119,6 +121,8 @@ class ClientDashboard extends Component {
       this.props.history.push(`/client/exam/detail/${id}`);
     } else if (type === "video") {
       this.props.history.push(`/client/video/exam/detail/${id}`);
+    } else if (type === "queue") {
+      this.props.history.push(`/client/queue/exam/detail/${id}`);
     }
   };
 
@@ -217,14 +221,33 @@ class ClientDashboard extends Component {
           this.setState({
             exams: combineExams,
           });
-          this.handleUpcoming();
-          this.paginate(this.state.page);
-          this.getUnreadMessages(this.state.client.id);
         }
+      })
+      .then(() => {
+        this.WaitingRoomList();
       })
       .catch((error) => {
         console.log(error.response, "error");
         this.setState({ loading: false });
+      });
+  };
+
+  WaitingRoomList = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/queue/${this.state.client.id}/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        this.setState({
+          exams: [...this.state.exams.concat(response.data.data.queue)],
+        });
+        this.handleUpcoming();
+        this.paginate(this.state.page);
+        this.getUnreadMessages(this.state.client.id);
+      })
+      .catch((err) => {
+        console.log(err.response);
       });
   };
 
