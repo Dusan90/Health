@@ -8,18 +8,20 @@ class ClientQueueExamDetail extends Component {
     this.state = {
       exam: [],
       id: "",
+      token: sessionStorage.getItem("accessToken"),
     };
   }
 
   hanldeClientQueue = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/client/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/client/detail/${id}/`, {
         headers: { Authorization: access_token },
       })
 
       .then((response) => {
-        console.log(response, "Client, IDDDDDDDD");
+        console.log(response, "queue");
+        this.setState({ exam: [response.data.data] });
       })
       .catch((error) => {
         console.log(error.response);
@@ -34,23 +36,7 @@ class ClientQueueExamDetail extends Component {
   render() {
     return (
       <>
-        <DetailQueue
-          exam={this.state.exam}
-          handleCancel={this.handleCancel}
-          props={this.state}
-          handleVideoStart={this.handleVideoStart}
-          handleChange={this.handleChange}
-          enableTipeing={this.enableTipeing}
-          iconsMouseOut={this.iconsMouseOut}
-          iconsMouseOver={this.iconsMouseOver}
-          handleDragDrop={this.handleDragDrop}
-          handleResize={this.handleResize}
-          showAndHideChat={this.showAndHideChat}
-          handleDivSize={this.handleDivSize}
-          handleStatus={this.handleStatus}
-          cutVideo={this.cutVideo}
-          cutMic={this.cutMic}
-        />
+        <DetailQueue exam={this.state.exam} />
         <div className="footerr">
           <Footer />
         </div>

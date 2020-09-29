@@ -132,7 +132,8 @@ class ClientDashboard extends Component {
         return (
           upco.status === "Appointed" ||
           upco.status === "Accepted" ||
-          upco.status === "Pending"
+          upco.status === "Pending" ||
+          upco.status === "In the queue"
         );
       });
 

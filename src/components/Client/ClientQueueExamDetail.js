@@ -15,44 +15,72 @@ const DetailQueue = ({ exam }) => {
       </div>
       {exam.map((exam) => {
         return (
-          <Fragment key={exam.id}>
+          <Fragment key={exam.exam.id}>
             <div className="detail-exam">
               <div className="detail">
                 <p>
-                  <span>Doctor:</span> {exam.doctor}
+                  <span>Doctor:</span> {exam.exam.doctor_name}
                 </p>
                 <p>
-                  <span>Speciality:</span> {exam.speciality}
+                  <span>Speciality:</span> {exam.exam.speciality}
                 </p>
-                {exam.appointed_date ? (
-                  <p>
-                    {" "}
-                    <span>Appointed:</span>{" "}
-                    {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
-                  </p>
-                ) : (
-                  <p>
-                    {" "}
-                    <span>Created:</span>{" "}
-                    {new Intl.DateTimeFormat("en-GB", {
-                      year: "numeric",
-                      month: "long",
-                      day: "2-digit",
-                    }).format(new Date(exam.created))}
-                  </p>
-                )}
+
                 <p>
-                  <span>Type:</span> {exam.exam_type}
+                  {" "}
+                  <span>Created:</span>{" "}
+                  {moment(exam.exam.created).format("YYYY-MM-DD")}
+                </p>
+
+                <p>
+                  <span>Type:</span> {exam.exam.exam_type}
                 </p>
                 <p>
-                  <span>Subject:</span> {exam.subject}
+                  <span>Subject:</span> {exam.exam.subject}
                 </p>
                 <p>
-                  <span>Message:</span> {exam.notes}
+                  <span>Message:</span> {exam.exam.notes}
                 </p>
                 <p>
-                  <span>Status:</span> {exam.status}
+                  <span>Status:</span> {exam.exam.status}
                 </p>
+              </div>
+            </div>
+            <div className="recordsDetail">
+              <h4>Report</h4>
+
+              <div className="report">
+                {exam.record.report !== 0 &&
+                  exam.record.report.map((exam) => {
+                    return (
+                      <div key={exam.id} className="report-details">
+                        <p>
+                          <span>Doctor:</span> {exam.name}
+                        </p>
+                        <p>
+                          <span>Speciality:</span> {exam.spec_name}
+                        </p>
+                        <p>
+                          <span>Diagnose:</span> {exam.diagnose}
+                        </p>
+                        <p>
+                          <span>Report:</span> {exam.report}
+                        </p>
+                        <p>
+                          <span>Tests:</span> {exam.tests}
+                        </p>
+                        <p>
+                          <span>Medication Name:</span> {exam.medication_name}
+                        </p>
+                        <p>
+                          <span>Prescribing Date:</span>{" "}
+                          {exam.medication_prescribing_date}
+                        </p>
+                        <p>
+                          <span>Medication Notes:</span> {exam.medication_notes}
+                        </p>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </Fragment>
