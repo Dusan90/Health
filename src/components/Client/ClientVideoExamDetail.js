@@ -13,6 +13,9 @@ import { FaRocketchat } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { Rnd } from "react-rnd";
 import Select from "react-select";
+import HamburgerDiv from '../Main/HamburgerDiv'
+import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
+
 
 const DetailVideo = ({
   exam,
@@ -34,6 +37,18 @@ const DetailVideo = ({
 }) => {
   let disabled = props.doctorsVideoId ? false : true;
 
+  const customStyles = {
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      width: 200,
+      border: "2px solid #fa9551",
+      borderRadius: "10px",
+      height: "40px",
+      fontWeight: 600,
+      display: "flex",
+    }),
+  };
+
   return (
     <>
       <div className="header">
@@ -42,6 +57,7 @@ const DetailVideo = ({
           <Nav />
         </div>
       </div>
+      <HamburgerDiv/>
       {exam.map((exam) => {
         let placeholder =
           exam.status === "Appointed" ? "Accepted" : exam.status;
@@ -52,6 +68,10 @@ const DetailVideo = ({
         return (
           <Fragment key={exam.id}>
             <div className="detail-exam">
+            <div className="iconVideo">
+                <img src={iconVideoBlue} alt="email" />
+                <p>Video details</p>{" "}
+              </div>
               <div className="detail">
                 <p>
                   <span>Doctor:</span> {exam.doctor}
@@ -60,11 +80,14 @@ const DetailVideo = ({
                   <span>Speciality:</span> {exam.speciality}
                 </p>
                 {exam.appointed_date ? (
-                  <p>
-                    {" "}
-                    <span>Appointed:</span>{" "}
-                    {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
-                  </p>
+                   <p>
+                   <span>
+                     {exam.status === "Appointed" || exam.status === 'Finished'
+                       ? "Appointed date: :"
+                       : "Appoint date: "}
+                   </span>{" "}
+                   {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
+                 </p>
                 ) : (
                   <p>
                     {" "}
@@ -79,13 +102,7 @@ const DetailVideo = ({
                 <p>
                   <span>Type:</span> {exam.exam_type}
                 </p>
-                <p>
-                  <span>Subject:</span> {exam.subject}
-                </p>
-                <p>
-                  <span>Message:</span> {exam.notes}
-                </p>
-                {exam.status === "Canceled" || exam.status === "Finished" ? (
+                {exam.status === "Canceled" || exam.status === "Finished" || exam.status === 'Declined' ? (
                   <p>
                     <span>Status:</span> {exam.status}
                   </p>
@@ -97,6 +114,7 @@ const DetailVideo = ({
                     <Select
                       type="text"
                       placeholder={placeholder}
+                      styles={customStyles}
                       // isDisabled={
                       //   exam.status === "Canceled" ||
                       //   exam.status === "Declined" ||
@@ -112,8 +130,24 @@ const DetailVideo = ({
                   </div>
                 )}
               </div>
-            </div>
-            {exam.status === "Appointed" || exam.status === "Accepted" ? (
+                  <div className="mainMessageDiv">
+                <div className="subjectDiv">
+                  <p>
+                    <span>Subject:</span> {exam.subject}
+                  </p>
+                  <p>
+                    <span>
+                      {moment(exam.created).format("MM/DD/YYYY")}
+                    </span>
+                  </p>
+                </div>
+                <div className="messageDiv">
+                  <p>
+                    <span>Message:</span> {exam.notes}
+                  </p>
+                </div>
+              </div>
+              {exam.status === "Appointed" || exam.status === "Accepted" ? (
               <div className="message-btn">
                 <button
                   className="message-link"
@@ -125,6 +159,8 @@ const DetailVideo = ({
                 </button>
               </div>
             ) : null}
+            </div>
+           
           </Fragment>
         );
       })}

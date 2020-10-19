@@ -1,6 +1,7 @@
 import React from "react";
 import "../../assets/auth/login.scss";
 import { Link } from "react-router-dom";
+import cLogo from "../../icons/c+.svg";
 
 const LoginUser = ({
   emailValue,
@@ -15,6 +16,7 @@ const LoginUser = ({
 }) => {
   return (
     <div className="mainLogin">
+      <img src={cLogo} className="logo" alt="cLogo" />
       <h1>Welcome Back!</h1>
       <h5>Not a Cdoctor user yet?</h5>
       <Link className="createAccount" to="/register">
@@ -22,7 +24,7 @@ const LoginUser = ({
       </Link>
       <form className="login-form">
         <div className="email">
-          <label htmlFor="email">E-mail</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             className="form-control"
@@ -38,6 +40,7 @@ const LoginUser = ({
           <input
             type="password"
             className="form-control"
+            placeholder="************"
             id="pwd"
             value={passwordValue}
             onChange={handlePassword}

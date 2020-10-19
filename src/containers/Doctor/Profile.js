@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "../../assets/main/main.scss";
 import Profile from "../../components/Doctor/Profile";
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
-import Footer from "../../components/Main/Footer";
 // import { connect } from "react-redux";
 import { NotificationManager } from "react-notifications";
+import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 const options = [
-  { value: "Available", label: "Available" },
-  { value: "Away", label: "Away" },
-  { value: "Offline", label: "Offline" },
+  { value: "RSD", label: "RSD" },
+  { value: "EUR", label: "EUR" },
+  { value: "USD", label: "USD" },
 ];
 
 class DoctorProfile extends Component {
@@ -102,6 +101,7 @@ class DoctorProfile extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv/>
         <Profile
           status={options}
           doctor={this.state.doctor}
@@ -116,10 +116,8 @@ class DoctorProfile extends Component {
           handleWebPrice={this.handleWebPrice}
           handleSubmit={this.handleSubmit}
           handleSelect={this.handleSelect}
+          props={this.state}
         />
-        <div className="footerr">
-          <Footer />
-        </div>
       </>
     );
   }

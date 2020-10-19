@@ -16,53 +16,8 @@
   overflow-x: hidden;
 }
 
-.radioDiv {
-  width: 60%;
-  margin: 120px auto 0 auto;
-  text-align: start;
-}
-
-@media (max-width: 1400px) {
-  .radioDiv {
-    width: 80%;
-  }
-}
-
 .head {
   color: #4092c2;
-}
-
-.radioDiv input[type="radio"] {
-  visibility: hidden;
-  position: absolute;
-}
-
-.radioDiv input[type="radio"] + label:before {
-  height: 15px;
-  width: 15px;
-  margin-right: 5px;
-  content: " ";
-  display: inline-block;
-  vertical-align: baseline;
-  border: 1px solid #4092c2;
-  border-radius: 50%;
-}
-
-.radioDiv input[type="radio"]:checked + label:before {
-  background: #4092c2;
-}
-
-.doctorLabel {
-  margin: 10px 50px 0px 0;
-  color: #4092c2;
-  font-size: 15px;
-  font-weight: 400;
-}
-
-.clientLabel {
-  color: #4092c2;
-  font-size: 15px;
-  font-weight: 400;
 }
 
 .App-logo {

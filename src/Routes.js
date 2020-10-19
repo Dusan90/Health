@@ -25,10 +25,17 @@ import { Elements } from "react-stripe-elements";
 import Clients from "./containers/Doctor/Clients";
 import WaitingRoom from "./containers/Client/WaitingRoom";
 import DoctorsCalendar from "./containers/Doctor/DoctorsCalendar";
+import DoctorsEmailList from "./containers/Doctor/DoctorsEmailList";
+import DoctorsVideoList from "./containers/Doctor/DoctorsVideoList";
+import DoctorsQueueList from "./containers/Doctor/DoctorsQueueList";
 import { NotificationContainer } from "react-notifications";
 import { Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "./components/Routes/PrivateRoute";
 import { PrivateRouteDoctor } from "./components/Routes/PrivateRouteDoctor";
+import Settings from "./containers/Doctor/Settings";
+import UpdateSettings from './containers/Doctor/UpdateSettings'
+import ClientSettings from './containers/Client/Settings'
+import ClientUpdateSettings from './containers/Client/UpdateSettings'
 // import NotFound from "./containers/Home/NotFound";
 
 export class Routes extends Component {
@@ -78,6 +85,16 @@ export class Routes extends Component {
           exact
           component={ClientQueueExamDetail}
         />
+         <PrivateRoute
+          path="/client-update"
+          exact
+          component={ClientUpdateSettings}
+        />
+          <PrivateRoute
+          path="/client-settings"
+          exact
+          component={ClientSettings}
+        />
         <PrivateRoute path="/client/video-request" exact component={VideoReq} />
 
         <PrivateRoute path="/initiate" exact component={ExamForm} />
@@ -123,6 +140,31 @@ export class Routes extends Component {
           component={ProcessingVideoExam}
         />
         <PrivateRouteDoctor path="/doctors-clients" exact component={Clients} />
+        <PrivateRouteDoctor
+          path="/doctors-email-list"
+          exact
+          component={DoctorsEmailList}
+        />
+        <PrivateRouteDoctor
+          path="/doctors-video-list"
+          exact
+          component={DoctorsVideoList}
+        />
+        <PrivateRouteDoctor
+          path="/doctors-queue-list"
+          exact
+          component={DoctorsQueueList}
+        />
+         <PrivateRouteDoctor
+          path="/doctors-settings"
+          exact
+          component={Settings}
+        />
+           <PrivateRouteDoctor
+          path="/doctors-update"
+          exact
+          component={UpdateSettings}
+        />
 
         <NotificationContainer />
         {/* <Route component={NotFound} /> */}

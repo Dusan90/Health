@@ -6,6 +6,8 @@ import Select from "react-select";
 import moment from "moment";
 import { MdReply, MdAttachFile } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
+import HamburgerDiv from '../Main/HamburgerDiv'
+import EmailIcon from '../../icons/icon_Email_blue.svg'
 
 const Detail = ({
   exam,
@@ -17,7 +19,19 @@ const Detail = ({
   handleSubmitSend,
   handleMessage,
   newMessage,
-}) => (
+}) =>{
+  const customStyles = {
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      width: 200,
+      border: "2px solid #fa9551",
+      borderRadius: "10px",
+      height: "40px",
+      fontWeight: 600,
+      display: "flex",
+    }),
+  };
+  return (
   <>
     <div className="header">
       <div>
@@ -25,6 +39,7 @@ const Detail = ({
         <Nav />
       </div>
     </div>
+    <HamburgerDiv/>
     {exam.map((exam) => {
       let placeholder = exam.status === "Appointed" ? "Accepted" : exam.status;
       let options =
@@ -34,6 +49,10 @@ const Detail = ({
       return (
         <Fragment key={exam.id}>
           <div className="detail-exam">
+          <div className="iconVideo">
+                <img src={EmailIcon} alt="email" />
+                <p>Email details</p>{" "}
+              </div>
             <div className="detail">
               <p>
                 <span>Doctor:</span> {exam.doctor}
@@ -64,6 +83,7 @@ const Detail = ({
                     className="select-option"
                     value={statusValue}
                     options={options}
+                    styles={customStyles}
                     onChange={handleStatus}
                   />
                 </div>
@@ -71,10 +91,17 @@ const Detail = ({
             </div>
             <div className="sideMessageDetails">
               <div className="SubjectMessage">
-                <div className="sideSub">
+              <div className="subjectDiv">
                   <p>
                     <span>Subject:</span> {exam.subject}
                   </p>
+                  <p>
+                    <span>
+                      {moment(exam.created).format("MM/DD/YYYY")}
+                    </span>
+                  </p>
+                </div>
+                <div className="messageDiv">
                   <p>
                     <span>Message:</span> {exam.message}
                   </p>
@@ -196,6 +223,6 @@ const Detail = ({
       );
     })}
   </>
-);
+)}
 
 export default Detail;

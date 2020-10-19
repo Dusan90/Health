@@ -5,7 +5,7 @@ import Profile from "../../components/Client/Profile";
 import { NotificationManager } from "react-notifications";
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
-import Footer from "../../components/Main/Footer";
+import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 class ClientProfile extends Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class ClientProfile extends Component {
       records: [],
       addressValue: "",
       token: sessionStorage.getItem("accessToken"),
+      gender: ''
     };
   }
 
@@ -53,7 +54,7 @@ class ClientProfile extends Component {
       .then((response) => {
         console.log(response.data.data, "profile");
 
-        return this.setState({ client: [response.data.data] });
+        return this.setState({ client: [response.data.data], gender: response.data.data.gender });
       });
   };
 
@@ -75,6 +76,10 @@ class ClientProfile extends Component {
     this.record();
   }
 
+  handleGenderRadio =(value) =>{
+    this.setState({gender: value})
+  }
+
   render() {
     return (
       <>
@@ -84,16 +89,15 @@ class ClientProfile extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv/>
         <Profile
           client={this.state.client}
           addressValue={this.addressValue}
-          submitValue={this.submitValue}
           handleAddress={this.handleAddress}
           handleSubmit={this.handleSubmit}
+          handleGenderRadio={this.handleGenderRadio}
+          props={this.state}
         />
-        <div style={{ position: "fixed", bottom: "0", width: "100%" }}>
-          <Footer />
-        </div>
       </>
     );
   }

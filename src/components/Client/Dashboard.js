@@ -1,19 +1,21 @@
 import React from "react";
 import "../../assets/client/dashboard.scss";
-import {
-  FaVideo,
-  FaFileAlt,
-  FaCheck,
-  FaRegClock,
-  FaUser,
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
-import { GoFileDirectory, GoPerson, GoClock } from "react-icons/go";
-import { IoIosMail, IoIosSettings, IoMdClose } from "react-icons/io";
-import { MdChatBubble } from "react-icons/md";
-import { GiCancel, GiHamburgerMenu, GiCheckeredFlag } from "react-icons/gi";
-import Loading from "../../img/loading-gif-png-5-original.gif";
+
+import { GiCheckeredFlag } from "react-icons/gi";
+
+import chek from "../../icons/chek.svg";
+import clockIcon from "../../icons/icon_Waiting_Room_blue.svg";
+import declined from "../../icons/icon_Log_Out_blue.svg";
+import arrowLeft from "../../icons/arrow-left.svg";
+import arrowRight from "../../icons/arrow-right.svg";
+import enterWaitingRoom from "../../icons/enter-waiting-room.svg";
+import makeAvideo from "../../icons/Make-a-video.svg";
+import requestEmail from "../../icons/Request-email.svg";
+import MyConsultationsBlue from "../../icons/icon_My_Consultations_blue.svg";
+import arrowDown from "../../icons/arrow_down_gray.svg";
+import arrowUp from "../../icons/arrow_up_gray.svg";
+
+import Loading from "../../icons/c+.svg";
 import moment from "moment";
 
 const Dashboard = ({
@@ -29,6 +31,10 @@ const Dashboard = ({
   handleHam,
   hnlMyConsultations,
   props,
+  handleDoctorSearch,
+  searchByType,
+  searchByName,
+  ResetonSelectChange,
 }) => {
   props.state.paginatedExams.map((ex) => {
     if (props.state.mail.includes(ex.id) && ex.exam_type === "mail") {
@@ -41,66 +47,58 @@ const Dashboard = ({
   });
   return (
     <div className="mainClientDashboard">
-      <div className="hamburger">
-        <div className="hamNprofil">
-          <div className="ham" onClick={handleHam}>
-            <GiHamburgerMenu />
-          </div>
-          <div
-            className="profile"
-            onClick={() => {
-              props.props.history.push("/client/profile/");
-            }}
-          >
-            <FaUser style={{ marginRight: "5px" }} />
-            Profile
-          </div>
-        </div>
-      </div>
-      <div className="dashboardIcon">
-        <FaFileAlt className="dashIcon" />
-        <h2>Dashboard</h2>
-      </div>
       <div className="main">
+        <div className="dashboardIcon">
+          <img
+            src={MyConsultationsBlue}
+            className="dashIcon"
+            alt="my consultation icon"
+          />
+          <h2>Dashboard</h2>
+        </div>{" "}
         <div className="videoApp" onClick={() => VideoReq()}>
           <span className="video">
-            <FaVideo className="icon" />
+            <img src={makeAvideo} className="icon" alt="make a video" />
           </span>
-          <h2>
-            Make a
-            <br />
-            <span> VIDEO APPOINTMENT</span>
-          </h2>
+          <div>
+            <h2>Make a</h2>
+            <h2 className="secondH2"> VIDEO APPOINTMENT</h2>
+          </div>
         </div>
         <div className="emailReq" onClick={() => initiate()}>
           <span className="email">
-            <IoIosMail className="icon" />
+            <img src={requestEmail} alt="request email" className="icon" />
           </span>
-          <h2>
-            Request
-            <br />
-            <span> EMAIL CONSULTATION </span>
-          </h2>
+          <div>
+            <h2>Request</h2>
+            <h2 className="secondH2"> EMAIL CONSULTATION</h2>
+          </div>
         </div>
         <div className="waitRoom" onClick={() => waitingRoom()}>
           <span className="clock">
-            <GoClock className="icon" />
+            <img
+              src={enterWaitingRoom}
+              className="icon"
+              alt="enter Waiting room"
+            />
           </span>
-          <h2>
-            Enter
-            <br /> <span> WAITING ROOM </span>
-          </h2>
+          <div>
+            <h2>Enter</h2>
+            <h2 className="secondH2"> WAITING ROOM</h2>
+          </div>
         </div>
       </div>
       {props.state.loading ? (
-        <img src={Loading} alt="loading..." style={{ width: "150px" }} />
+        <img
+          src={Loading}
+          className="loading"
+          alt="loading..."
+          style={{ width: "150px" }}
+        />
       ) : (
         <div className="mainTabel">
           <div className="mainConsultation">
             <div className="icon_left">
-              <span>
-                <GoFileDirectory className="icon1" />
-              </span>
               <p>My Consultations</p>
             </div>
             <div className="sort">
@@ -140,28 +138,80 @@ const Dashboard = ({
               </p>
             </div>
           </div>
-          {props.state.paginatedExams.length === 0 ? (
-            <div className="NoResultDiv">{props.state.messageIfEmpty}</div>
-          ) : (
-            <table className="table2">
-              <thead className="client-head">
-                <tr className="client-row">
-                  <th className="client-doctor">Doctor</th>
-                  <th className="client-subject">Subject</th>
-                  <th className="client-subject">Type</th>
-                  <th className="client-subject">Date</th>
-                  <th className="client-status">Status</th>
-                </tr>
-              </thead>
 
-              {props.state.paginatedExams.map((exam, index) => {
-                if (exam === undefined) {
-                  return null;
-                }
+          <table className="table2">
+            <thead className="client-head">
+              <tr className="client-row">
+                <th className="client-doctor">
+                  <div className="mainExamDiv">
+                    <div className="searchDiv">
+                      <span className="examTypetext">Doctor </span>
+                      <span className="searchIcon" onClick={handleDoctorSearch}>
+                        {props.state.searchDoctor ? (
+                          <img src={arrowUp} alt="arrow" />
+                        ) : (
+                          <img src={arrowDown} alt="arrow" />
+                        )}
+                      </span>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Type"
+                      value={props.state.searchName}
+                      onChange={searchByName}
+                      style={{ display: !props.state.searchDoctor && "none" }}
+                    />
+                  </div>
+                </th>
+                <th className="client-subject">Subject</th>
+                <th
+                  className="client-type"
+                  style={{ padding: props.state.searchDoctor && "0 0 30px 0" }}
+                >
+                  <div className="mainExamDiv">
+                    {/* <div className="searchDiv">
+                    <span className="examTypetext">Exam type </span>
+                    <span className="searchIcon" onClick={handleTypeSearch}>
+                      {props.state.searchByTypeClick ? (
+                        <img src={arrowUp} alt="arrow" />
+                      ) : (
+                        <img src={arrowDown} alt="arrow" />
+                      )}
+                    </span>
+                  </div> */}
+                    <select
+                      type="text"
+                      placeholder=""
+                      onChange={searchByType}
+                      onClick={ResetonSelectChange}
+                      value={props.state.searchType}
+                      // style={{
+                      //   display: !props.state.searchByTypeClick && "none",
+                      // }}
+                    >
+                      <option value="">Type</option>
+                      <option value="mail">Email</option>
+                      <option value="video">Video</option>
+                      <option value="queue">Waiting room</option>
+                    </select>
+                  </div>
+                </th>
+                <th className="client-date">Date</th>
+                <th
+                  className="client-status"
+                  style={{ padding: props.state.searchDoctor && "0 0 30px 0" }}
+                >
+                  Status
+                </th>
+              </tr>
+            </thead>
+            {props.state.messageIfEmpty === "" &&
+              props.state.paginatedExams.map((exam, index) => {
+                // if (exam.status === "Accepted" || exam.status === "Appointed") {
                 return (
                   <tbody key={index} className="client-body">
                     <tr
-                      data-id={exam.id}
+                      // data-id={exam.id}
                       className="list-group"
                       style={{ fontWeight: exam.isRead && 700 }}
                       onClick={() => handleClick(exam.id, exam.exam_type)}
@@ -171,134 +221,169 @@ const Dashboard = ({
                       </td>
                       <td className="client-subject">{exam.subject}</td>
                       <td className="client-subject">{exam.exam_type}</td>
-
                       <td className="created">
                         {exam.created && !exam.appointed_date ? (
                           <p> {moment(exam.created).format("MM/DD/YYYY")}</p>
-                        ) : (
+                        ) : exam.appointed_date ? (
                           <p>
                             {" "}
                             {moment(exam.appointed_date).format(
                               "MM/DD/YYYY HH:mm"
                             )}
                           </p>
-                        )}
+                        ) : null}
                       </td>
                       <td className="client-status">
-                        {exam.status === "Accepted" ||
-                        exam.status === "Appointed" ? (
-                          <FaCheck className="check" />
+                        {exam.status === "Pending" ||
+                        exam.status === "In the queue" ? (
+                          <img
+                            src={clockIcon}
+                            alt="clockIcon"
+                            className="pendi"
+                          />
                         ) : exam.status === "Declined" ||
                           exam.status === "Canceled" ? (
-                          <GiCancel className="declined" />
+                          <img
+                            src={declined}
+                            alt="declined"
+                            className="declined"
+                          />
                         ) : exam.status === "Finished" ? (
                           <GiCheckeredFlag className="finished" />
                         ) : (
-                          <FaRegClock className="pendi" />
+                          <img src={chek} alt="ckeck" className="check" />
                         )}
                         <h5 className="status">{exam.status}</h5>
                       </td>
                     </tr>
                   </tbody>
                 );
+                // } else {
+                //   return null;
+                // }
               })}
-            </table>
+          </table>
+          {props.state.messageIfEmpty !== "" && (
+            <div className="NoResultDiv">{props.state.messageIfEmpty}</div>
           )}
         </div>
+        // <div className="mainTabel">
+        //   <div className="mainConsultation">
+        //     <div className="icon_left">
+        //       <p>My Consultations</p>
+        //     </div>
+        //     <div className="sort">
+        //       <p
+        //         className="upcoming"
+        //         style={{
+        //           fontWeight:
+        //             props.state.currentFilterClicked === "upcoming"
+        //               ? "bold"
+        //               : "300",
+        //         }}
+        //         onClick={handleUpcoming}
+        //       >
+        //         Upcoming
+        //       </p>
+        //       <p
+        //         className="past"
+        //         style={{
+        //           fontWeight:
+        //             props.state.currentFilterClicked === "past"
+        //               ? "bold"
+        //               : "300",
+        //         }}
+        //         onClick={handlePast}
+        //       >
+        //         Past
+        //       </p>
+        //       <p
+        //         className="all"
+        //         style={{
+        //           fontWeight:
+        //             props.state.currentFilterClicked === "all" ? "bold" : "300",
+        //         }}
+        //         onClick={handleAll}
+        //       >
+        //         All
+        //       </p>
+        //     </div>
+        //   </div>
+        //   {props.state.paginatedExams.length === 0 ? (
+        //     <div className="NoResultDiv">{props.state.messageIfEmpty}</div>
+        //   ) : (
+        //     <table className="table2">
+        //       <thead className="client-head">
+        //         <tr className="client-row">
+        //           <th className="client-doctor">Doctor</th>
+        //           <th className="client-subject">Subject</th>
+        //           <th className="client-subject">Type</th>
+        //           <th className="client-subject">Date</th>
+        //           <th className="client-status">Status</th>
+        //         </tr>
+        //       </thead>
+
+        //       {props.state.paginatedExams.map((exam, index) => {
+        //         if (exam === undefined) {
+        //           return null;
+        //         }
+        //         return (
+        //           <tbody key={index} className="client-body">
+        //             <tr
+        //               data-id={exam.id}
+        //               className="list-group"
+        //               style={{ fontWeight: exam.isRead && 700 }}
+        //               onClick={() => handleClick(exam.id, exam.exam_type)}
+        //             >
+        //               <td className="client-doctor">
+        //                 {!exam.doctor_name ? exam.doctor : exam.doctor_name}
+        //               </td>
+        //               <td className="client-subject">{exam.subject}</td>
+        //               <td className="client-subject">{exam.exam_type}</td>
+
+        //               <td className="created">
+        //                 {exam.created && !exam.appointed_date ? (
+        //                   <p> {moment(exam.created).format("MM/DD/YYYY")}</p>
+        //                 ) : (
+        //                   <p>
+        //                     {" "}
+        //                     {moment(exam.appointed_date).format(
+        //                       "MM/DD/YYYY HH:mm"
+        //                     )}
+        //                   </p>
+        //                 )}
+        //               </td>
+        //               <td className="client-status">
+        //                 {exam.status === "Accepted" ||
+        //                 exam.status === "Appointed" ? (
+        //                   <FaCheck className="check" />
+        //                 ) : exam.status === "Declined" ||
+        //                   exam.status === "Canceled" ? (
+        //                   <GiCancel className="declined" />
+        //                 ) : exam.status === "Finished" ? (
+        //                   <GiCheckeredFlag className="finished" />
+        //                 ) : (
+        //                   <FaRegClock className="pendi" />
+        //                 )}
+        //                 <h5 className="status">{exam.status}</h5>
+        //               </td>
+        //             </tr>
+        //           </tbody>
+        //         );
+        //       })}
+        //     </table>
+        //   )}
+        // </div>
       )}
 
       <div className="pagi">
         <div className="left" onClick={handleClickLeft}>
-          <FaChevronLeft className="iconLeft" />
+          <img src={arrowLeft} alt="arrow left" className="iconLeft" />
+          {/* <FaChevronLeft className="iconLeft" /> */}
         </div>
         <div className="right" onClick={handleClickRight}>
-          <FaChevronRight className="iconRight" />
-        </div>
-      </div>
-      <div className="connectWithdoctor">
-        <div className="connected">
-          <p>
-            Connect with a doctor over live video in minutes. Available 24/7,
-            nights and weekends.
-          </p>
-          <h4>
-            See a Doctor <FaChevronRight className="see" />
-          </h4>
-        </div>
-      </div>
-      <div
-        className="sideNav"
-        style={{
-          left: props.state.hamburger ? "0px" : "-300px",
-          opacity: props.state.hamburger ? "0.7" : "0",
-        }}
-      >
-        <div className="sideProfile">
-          <div className="mainProfile">
-            <div className="profile">
-              <GoPerson className="icon" />
-            </div>
-            <div className="onlineDot"></div>
-          </div>
-          <p>{props.state.client.user}</p>
-        </div>
-        <div className="sideVideo" onClick={() => VideoReq()}>
-          <span className="video">
-            <FaVideo className="icon" />
-          </span>
-          <h2>Video Appointment</h2>
-        </div>
-        <div className="sideEmail" onClick={() => initiate()}>
-          <span className="email">
-            <IoIosMail className="icon" />
-          </span>
-          <h2>Email Consultation</h2>
-        </div>
-        <div className="sideWaitingRoom" onClick={() => waitingRoom()}>
-          <span className="clock">
-            <GoClock className="icon" />
-          </span>
-          <h2>Waiting Room</h2>
-        </div>
-        <div className="sideMyCounsultation" onClick={hnlMyConsultations}>
-          <span>
-            <GoFileDirectory className="icon" />
-          </span>
-          <h2>My Consultations</h2>
-        </div>
-        <div
-          className="sideMyAccount"
-          onClick={() => {
-            props.props.history.push("/client/profile/");
-          }}
-        >
-          <span>
-            <FaUser />
-          </span>
-          <h2>Profile</h2>
-        </div>
-        <div className="sideHelp">
-          <span className="help">
-            <IoIosSettings className="icon" />
-          </span>
-          <h2>Help</h2>
-        </div>
-        <div className="sideFaq">
-          <span className="faq">
-            <MdChatBubble className="icon" />
-          </span>
-          <h2>FAQ</h2>
-        </div>
-        <div
-          className="sideSignOut"
-          onClick={() => {
-            props.props.history.push("/logout");
-          }}
-        >
-          <span className="signOut">
-            <IoMdClose className="icon" />
-          </span>
-          <h2>Sign Out</h2>
+          <img src={arrowRight} alt="arrow rigth" className="iconRight" />
+          {/* <FaChevronRight className="iconRight" /> */}
         </div>
       </div>
     </div>

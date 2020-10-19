@@ -17,10 +17,10 @@ const Footer = () => {
           <h3>Contact</h3>
           <li>
             <GoMail className="mail" />
-            Email: healthcare@info.com
+            Email: info@masspoint.rs
           </li>
           <li>
-            <FiPhone className="phone" /> +391 64 000 000
+            <FiPhone className="phone" /> +381 60 000 4602
           </li>
           <li>
             <FiMapPin className="mapPin" />
@@ -37,12 +37,12 @@ const Footer = () => {
           </li>
           <li>
             <Link className="blockClass" to="/">
-              <span>Blog</span>
+              <span>Privacy policy</span>
             </Link>
           </li>
           <li>
             <Link className="careersClass" to="/">
-              <span>Careers</span>
+              <span>Terms and conditions</span>
             </Link>
           </li>
           <li>

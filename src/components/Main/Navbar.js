@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "../../assets/main/navbar.scss";
-import { GoPerson } from "react-icons/go";
 import { NotificationManager } from "react-notifications";
+import doctorOnline from "../../icons/icon_my_profile_doctor_on-line_46px.svg";
+import clientOnline from "../../icons/icon_my_profile_client_on-line_46px.svg";
+import doctorOffline from "../../icons/icon_my_profile_doctor_off-line_46px.svg";
 import axios from "axios";
 
 const Nav = ({
@@ -63,20 +65,10 @@ const Nav = ({
         return setcurentDoc(response.data.data);
       });
   };
-  let dashboardLink = null;
   let curDoc = null;
   let selectStatus = null;
   const isDoctor = sessionStorage.getItem("is_doctor");
   if (isDoctor === "true") {
-    dashboardLink = (
-      <Link
-        to="/dashboard-doctor"
-        className="doc-dash"
-        onClick={() => handleDashboardDoctor}
-      >
-        Dashboard
-      </Link>
-    );
     curDoc = (
       <div className="topProfile">
         <p>
@@ -84,18 +76,12 @@ const Nav = ({
         </p>
         <div className="mainProfile">
           <div className="profile">
-            <GoPerson className="icon" />
+            {curentDoc.status === "Available" ? (
+              <img src={doctorOnline} alt="online doctor" />
+            ) : (
+              <img src={doctorOffline} alt="offline doctor" />
+            )}
           </div>
-
-          <div
-            className="onlineDot"
-            style={{
-              background:
-                curentDoc.status !== "Available"
-                  ? "lightgray"
-                  : "rgb(0, 197, 0)",
-            }}
-          ></div>
         </div>
       </div>
     );
@@ -120,24 +106,13 @@ const Nav = ({
       </select>
     );
   } else {
-    dashboardLink = (
-      <Link
-        to="/dashboard-client"
-        className="cli-dash"
-        onClick={() => handleDashboardClient}
-      >
-        Dashboard
-      </Link>
-    );
     curDoc = (
       <div className="topProfile">
         <p>{doctor}</p>
         <div className="mainProfile">
           <div className="profile">
-            <GoPerson className="icon" />
+            <img src={clientOnline} alt="online doctor" />
           </div>
-
-          <div className="onlineDot"></div>
         </div>
       </div>
     );
@@ -160,11 +135,10 @@ const Nav = ({
       )}
       {isLoggedIn && (
         <ul className="nav navbar-nav">
-          <li>{dashboardLink}</li>
           <li className="userName">{curDoc}</li>
           <li className="selectStatus">{selectStatus}</li>
 
-          <li>
+          <li style={{ fontWeight: "500", marginLeft: "10px" }}>
             <Link to="/logout" onClick={handleLogout}>
               Log Out
             </Link>
@@ -179,7 +153,6 @@ const mapStateToProps = (state) => {
   const user = state.getIn(["authReducer", "user"]);
   const isLoggedIn = state.getIn(["authReducer", "isLoggedIn"]);
   const doctor = state.getIn(["docReducer", "doctor"]);
-
   return {
     user,
     isLoggedIn,

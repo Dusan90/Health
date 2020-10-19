@@ -1,64 +1,62 @@
 .mainClientDashboard {
-  .hamburger {
-    margin: 60px 0 10px 0;
-    background: #4092c2;
-    height: 60px;
-    color: white;
-    .hamNprofil {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 60%;
-      height: 100%;
-      margin: 0 auto;
-      font-size: 16px;
-      .ham {
-        &:hover {
-          cursor: pointer;
-        }
-      }
-      .profile {
-        &:hover {
-          cursor: pointer;
-        }
-      }
-    }
+  .loading {
+    animation: rotation 2s infinite linear;
   }
-  .dashboardIcon {
-    color: #4092c2;
-    display: flex;
-    height: 25px;
-    width: 60%;
-    margin: 0 auto;
-    .dashIcon {
-      font-size: 18px;
-      align-self: center;
-      margin: 0 10px 0 0;
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
     }
-    h2 {
-      font-size: 15px;
-      align-self: center;
-      font-weight: bold;
-      margin: 1px 0 0 0;
+    to {
+      transform: rotate(359deg);
     }
   }
   .main {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    margin: 60px auto 30px auto;
+    margin: 80px auto 30px auto;
     grid-gap: 10px;
-    width: 60%;
+    width: 65%;
+    background: #f2f2f2;
+    padding: 40px 15px;
+    position: relative;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    .dashboardIcon {
+      background: #f2f2f2;
+      position: absolute;
+      top: -40px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      display: flex;
+      height: 40px;
+      width: 200px;
+      .dashIcon {
+        font-size: 18px;
+        align-self: center;
+        margin: 0 10px 0 15px;
+      }
+      h2 {
+        font-size: 15px;
+        align-self: center;
+        color: #666666;
+        margin: 1px 0 0 0;
+      }
+    }
 
     .videoApp,
     .waitRoom,
     .emailReq {
       display: flex;
       font-size: 40px;
-      height: 70px;
-      border-radius: 5px;
-      border: 1.5px solid #4092c2;
-      justify-content: center;
+      align-items: center;
+      height: 90px;
+      border-radius: 10px;
+      border: 1.6px solid #b3b3b3;
+      justify-content: flex-start;
+      background: white;
       transition: all 0.5s ease-in-out;
 
       .email,
@@ -69,19 +67,22 @@
         margin: 0 10px;
 
         .icon {
-          color: #4092c2;
           align-self: center;
-          margin-top: 15px;
         }
       }
+      div {
+        h2 {
+          font-size: 17px;
+          text-align: start;
+          color: #666666;
+          margin-top: 10px;
 
-      h2 {
-        font-size: 13px;
-        text-align: start;
-        color: #4092c2;
-
-        span {
-          font-weight: bold;
+          // height: 50px;
+        }
+        .secondH2 {
+          font-size: 17px;
+          font-weight: 800;
+          margin-top: 10px;
         }
       }
 
@@ -129,12 +130,13 @@
   }
 
   .mainTabel {
-    border: 1px solid white;
-    border-radius: 3px;
-    width: 60%;
+    width: 65%;
     margin: 0 auto;
+    max-height: 280px;
+    border-radius: 15px;
+    overflow: hidden;
     .NoResultDiv {
-      color: #4092c2;
+      color: #666666;
       margin: 20px auto;
       font-size: 20px;
     }
@@ -142,15 +144,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #66af94;
-
+      background: #fa9551;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
       height: 40px;
 
       .icon_left {
-        display: flex;
         span {
           width: 30px;
           height: 30px;
+          border-radius: 50%;
           margin: 3px 10px;
           align-self: center;
           text-align: center;
@@ -163,7 +166,7 @@
         }
         p {
           align-self: center;
-          margin: 0;
+          margin: 0 0 0 30px;
           color: white;
         }
       }
@@ -192,34 +195,34 @@
       width: 100%;
       margin: 0;
       padding: 10px;
-      color: #4092c2;
-      box-shadow: 2px 2px 7px rgb(202, 202, 202);
+      color: #666666;
 
       tbody {
-        background: white;
+        background: #f2f2f2;
         transition: all 0.5s ease-in-out;
-        &:hover {
-          background: rgb(208, 242, 253);
-          cursor: pointer;
-        }
+        // &:hover {
+        //   background: rgb(208, 242, 253);
+        //   cursor: pointer;
+        // }
         tr {
           height: 40px;
+          &:hover {
+            background: #e6e6e6;
+            cursor: pointer;
+          }
+
           td {
-            .check {
-              color: rgb(18, 219, 18);
-              font-size: 17px;
-            }
-            .declined {
-              color: red;
-              font-size: 17px;
-            }
-            .pendi {
-              color: #4092c2;
+            text-align: left;
+
+            .finished {
+              color: #00aff0;
               font-size: 17px;
             }
           }
           .client-status {
+            text-align: center;
             width: 100px;
+
             &:hover {
               .check,
               .pendi,
@@ -235,135 +238,147 @@
           .status {
             display: none;
           }
-        }
-        .created {
-          p {
-            margin: 0;
+          .client-doctor {
+            padding: 0 0 0 35px;
           }
         }
       }
       .client-head {
         text-align: center;
-        color: #4092c2;
-        font-weight: bold;
+        color: #666666;
 
         .client-row {
-          height: 40px;
+          // height: 40px;
+          background: #b3b3b3;
           .client-doctor {
-            text-align: center;
+            // width: 35%;
+            // display: flex;
+            // justify-content: center;
+            // flex-direction: column;
+            .mainExamDiv {
+              flex-direction: column;
+              // height: 40px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 150px;
+              // margin: 0 auto;
+              .searchDiv {
+                display: flex;
+                align-items: center;
+                height: 40px;
+              }
+              .searchIcon {
+                display: flex;
+                align-items: center;
+                margin: 0 0 0 25px;
+                // padding: 0 10px 0 0;
+                height: 100%;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+              input {
+                width: 120px;
+                height: 25px;
+                border: 1px solid #666666;
+                border-radius: 5px;
+                margin: 0 0 5px 10px;
+
+                text-indent: 5px;
+                &::placeholder {
+                  color: #666666;
+                  font-size: 13px;
+                }
+              }
+            }
           }
           .client-subject {
-            text-align: center;
+            // text-align: center;
+            display: flex;
+            // width: 170px;
+            // float: right;
+            margin: 0 auto;
+            justify-content: flex-start;
+            align-items: center;
+            height: 40px;
+          }
+
+          .client-type {
+            // text-align: center;
+            height: 40px;
+            width: 200px;
+            .mainExamDiv {
+              margin: 0 0 0 -5px;
+              height: 40px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: flex-start;
+              width: 150px;
+              // .searchDiv {
+              //   display: flex;
+              //   align-items: center;
+              //   height: 40px;
+              //   margin: 0 22px 0 0;
+              // }
+              .searchIcon {
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                padding: 0 10px 0 30px;
+                height: 100%;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+              select {
+                width: 80px;
+                height: 25px;
+                border: none;
+                border-radius: 5px;
+                background: #b3b3b3;
+                // margin: 0 0 5px 10px;
+                // width: 100px;
+                // height: 30px;
+                // border: 1px solid #666666;
+                // border-radius: 5px;
+                // text-indent: 5px;
+                &::placeholder {
+                  color: #666666;
+                  font-size: 10px;
+                }
+
+                option {
+                  background: white;
+                }
+              }
+            }
+          }
+          .client-date {
+            // text-align: left;
+            // width: 200px;
+            // text-align: center;
+            display: flex;
+            // width: 170px;
+            // float: right;
+            margin: 0 auto;
+            justify-content: flex-start;
+            align-items: center;
+            height: 40px;
           }
           .client-status {
             text-align: center;
+            // text-align: center;
+            // display: flex;
+            // width: 170px;
+            // float: right;
+            margin: 0 auto;
+            // justify-content: flex-start;
+            // align-items: center;
+            height: 40px;
           }
         }
-      }
-    }
-  }
-  .connectWithdoctor {
-    margin: 100px 0 0 0;
-    background: #4092c2;
-    height: 60px;
-    .connected {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 60%;
-      height: 100%;
-      margin: 0 auto;
-      p {
-        margin: 0;
-        color: white;
-      }
-      h4 {
-        margin: 0;
-        font-size: 15px;
-        font-weight: bold;
-        color: white;
-        .see {
-          font-size: 10px;
-          color: white;
-        }
-      }
-    }
-  }
-  .sideNav {
-    position: absolute;
-    transition: all 0.7s ease-in-out;
-    top: 60px;
-    width: 19%;
-    height: 93%;
-    background: whitesmoke;
-    color: #0164a1;
-    .sideProfile {
-      border-bottom: 1.5px solid #4092c2;
-      width: 80%;
-      margin: 80px auto 0 auto;
-      .mainProfile {
-        border: 1px solid #4092c2;
-        border-radius: 50%;
-        width: 67px;
-        height: 67px;
-        margin: 0 auto;
-        background: white;
-        position: relative;
-        .onlineDot {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background: green;
-          position: absolute;
-          top: 4px;
-          right: 2px;
-        }
-        .profile {
-          color: white;
-          font-size: 60px;
-          background: rgb(189, 235, 250);
-          width: 60px;
-          height: 60px;
-          align-items: center;
-          overflow: hidden;
-          border-radius: 50%;
-          margin: 2px auto 2px auto;
-          .icon {
-            margin: 10px 0 0 0;
-          }
-        }
-      }
-      p {
-        margin: 20px 0;
-      }
-    }
-    .sideVideo,
-    .sideEmail,
-    .sideWaitingRoom,
-    .sideMyCounsultation,
-    .sideHelp,
-    .sideFaq,
-    .sideMyAccount,
-    .sideSignOut {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      border-bottom: 1.5px solid #4092c2;
-      width: 80%;
-      margin: 0 auto;
-      padding: 10px 10px 10px 40px;
-      transition: all 0.5s ease-in-out;
-      &:hover {
-        background: rgb(182, 235, 253);
-        cursor: pointer;
-      }
-      span {
-        font-size: 18px;
-        margin: 5px 10px auto 0;
-      }
-      h2 {
-        font-size: 13px;
-        margin: 0;
       }
     }
   }

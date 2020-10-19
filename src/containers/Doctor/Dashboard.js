@@ -8,8 +8,8 @@ import { statusChangeWR } from "../../actions/doctorStatusWR";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
-import Footer from "../../components/Main/Footer";
 import { NotificationManager } from "react-notifications";
+import HamburgerDiv from "../../components/Main/HamburgerDiv";
 
 class DoctorDashboard extends Component {
   constructor(props) {
@@ -25,8 +25,6 @@ class DoctorDashboard extends Component {
       pending: [],
       videoPending: [],
       waitingRoom: [],
-      openPending: false,
-      openVideoPending: false,
       openWaitingRoom: false,
       value: "",
       doctorCurent: "",
@@ -292,33 +290,15 @@ class DoctorDashboard extends Component {
   };
 
   hnlClick = () => {
-    this.setState({ openPending: !this.state.openPending });
-  };
-
-  hnlClick2 = () => {
-    this.setState({ openVideoPending: !this.state.openVideoPending });
-  };
-
-  hnlClick3 = () => {
-    this.setState({ openWaitingRoom: !this.state.openWaitingRoom });
+    this.props.history.push("/doctors-email-list");
   };
 
   hnlVideoClick = () => {
-    this.setState({ openVideoPending: !this.state.openVideoPending });
+    this.props.history.push("/doctors-video-list");
   };
 
-  hnlWatingClick = () => {
-    this.setState({ openWaitingRoom: !this.state.openWaitingRoom });
-  };
-
-  escBtn = (e) => {
-    if (e.keyCode === 27) {
-      this.setState({
-        openPending: false,
-        openVideoPending: false,
-        openWaitingRoom: false,
-      });
-    }
+  hnlWaitingClick = () => {
+    this.props.history.push("/doctors-queue-list");
   };
 
   handleDoctorProfile = async () => {
@@ -393,10 +373,6 @@ class DoctorDashboard extends Component {
     return jsonData;
   };
 
-  handleHam = () => {
-    this.setState({ hamburger: !this.state.hamburger });
-  };
-
   handleClickMail = (id) => {
     this.props.history.push(`/doctor/exam/detail/${id}`);
   };
@@ -410,7 +386,6 @@ class DoctorDashboard extends Component {
     this.handleDoctorProfile();
     this.paginatedExams();
     this.pnd();
-    window.addEventListener("keydown", this.escBtn);
   }
 
   connecSocket = (id) => {
@@ -639,6 +614,7 @@ class DoctorDashboard extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv props={this} />
         <Dashboard
           handleClick={this.handleClick}
           handleClickMail={this.handleClickMail}
@@ -646,7 +622,7 @@ class DoctorDashboard extends Component {
           hnlClick={this.hnlClick}
           hnlClick2={this.hnlClick2}
           hnlClick3={this.hnlClick3}
-          hnlWaitingClick={this.hnlWatingClick}
+          hnlWaitingClick={this.hnlWaitingClick}
           props={this}
           handleKeyPress={this.handleKeyPress}
           handleChange={this.handleChange}
@@ -656,7 +632,6 @@ class DoctorDashboard extends Component {
           hnlVideoClick={this.hnlVideoClick}
           handleWaitingRoom={this.handleWaitingRoom}
           handleVideoPendingClick={this.handleVideoPendingClick}
-          handleHam={this.handleHam}
           handleUpcoming={this.handleUpcoming}
           handlePast={this.handlePast}
           handleAll={this.handleAll}
@@ -667,7 +642,6 @@ class DoctorDashboard extends Component {
           searchByName={this.searchByName}
           ResetonSelectChange={this.ResetonSelectChange}
         />
-        <Footer />
       </>
     );
   }

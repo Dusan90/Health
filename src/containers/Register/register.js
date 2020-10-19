@@ -5,7 +5,6 @@ import RegisterUser from "../../components/Auth/Register";
 import Nav from "../../components/Main/Navbar";
 import axios from "axios";
 import { NotificationManager } from "react-notifications";
-import Footer from "../../components/Main/Footer";
 
 class Register extends Component {
   constructor(props) {
@@ -16,6 +15,7 @@ class Register extends Component {
       firstNameValue: "",
       lastNameValue: "",
       passwordValue: "",
+      confPasswordValue: "",
       addressValue: "",
       birthDateValue: "",
       EmailPrice: "",
@@ -25,6 +25,7 @@ class Register extends Component {
       specValue: "",
       selectedGenderValue: "",
       selectedSpecValue: "",
+      phoneNumber: "",
     };
   }
 
@@ -48,6 +49,10 @@ class Register extends Component {
     this.setState({ passwordValue: e.target.value });
   };
 
+  handleConfPass = (e) => {
+    this.setState({ confPasswordValue: e.target.value });
+  };
+
   handleAddress = (e) => {
     this.setState({ addressValue: e.target.value });
   };
@@ -68,6 +73,10 @@ class Register extends Component {
     this.setState({ prefixValue: e.target.value });
   };
 
+  handlePhoneNumber = (e) => {
+    this.setState({phoneNumber: e.target.value})
+  }
+
   handleSpec = (specValue) => {
     this.setState({ specValue });
     let { value } = specValue;
@@ -84,7 +93,9 @@ class Register extends Component {
       this.state.passwordValue &&
       this.state.selectedGenderValue &&
       this.state.addressValue &&
-      this.state.birthDateValue
+      this.state.birthDateValue &&
+      this.state.confPasswordValue && 
+      this.state.phoneNumber
     ) {
       this.userRegister();
     } else if (
@@ -117,34 +128,44 @@ class Register extends Component {
 
   userRegister = async () => {
     if (this.state.userType === "client") {
-      const client = await fetch(
-        "https://healthcarebackend.xyz/api/auth/register/client/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: this.state.emailValue,
-            first_name: this.state.firstNameValue,
-            last_name: this.state.lastNameValue,
-            password: this.state.passwordValue,
-            client: {
-              gender: this.state.selectedGenderValue,
-              address: this.state.addressValue,
-              birth_date: this.state.birthDateValue,
+      if (this.state.confPasswordValue === this.state.passwordValue) {
+        const client = await fetch(
+          "https://healthcarebackend.xyz/api/auth/register/client/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          }),
-        }
-      );
-      this.props.history.push("/login");
-      NotificationManager.success(
-        "An email for confirmation will be sent shortly",
-        "Successful!",
-        4000
-      );
-      const jsonData = await client.json();
-      return jsonData;
+            body: JSON.stringify({
+              email: this.state.emailValue,
+              first_name: this.state.firstNameValue,
+              last_name: this.state.lastNameValue,
+              password: this.state.passwordValue,
+              client: {
+                gender: this.state.selectedGenderValue,
+                address: this.state.addressValue,
+                birth_date: this.state.birthDateValue,
+                phone: this.state.phoneNumber
+              },
+            }),
+          }
+        );
+        this.props.history.push("/login");
+        
+        const jsonData = await client.json();
+        jsonData.success &&  NotificationManager.error(
+          "An email for confirmation will be sent shortly",
+          "Successful!",
+          4000
+        );
+        return jsonData;
+      } else {
+        NotificationManager.error(
+          "Confirm password does not match",
+          "Failed!",
+          4000
+        );
+      }
     } else if (this.state.userType === "doctor") {
       const doctor = await fetch(
         "https://healthcarebackend.xyz/api/auth/register/doctor/",
@@ -202,36 +223,9 @@ class Register extends Component {
             <Nav />
           </div>
         </div>
-        <div className="radioDiv">
-          <h2 className="head">Are you a doctor or a client?</h2>
-          <input
-            className="doctorRadio"
-            type="radio"
-            name="userType"
-            value="doctor"
-            id="r1"
-            checked={this.state.userType === "doctor" ? true : false}
-            onChange={() => this.handleUserType("doctor")}
-            style={{}}
-          />
-          <label htmlFor="r1" className="doctorLabel">
-            Doctor
-          </label>
-          <input
-            className="clientRadio"
-            type="radio"
-            name="userType"
-            id="r2"
-            value="client"
-            checked={this.state.userType === "client" ? true : false}
-            onChange={() => this.handleUserType("client")}
-          />
-          <label htmlFor="r2" className="clientLabel">
-            Client
-          </label>
-        </div>
 
         <RegisterUser
+          props={this.state}
           userType={this.state.userType}
           emailValue={this.state.emailValue}
           firstNameValue={this.state.firstNameValue}
@@ -258,10 +252,11 @@ class Register extends Component {
           handleSubmit={this.handleSubmit}
           handleGenderRadio={this.handleGenderRadio}
           changeTextToDate={this.changeTextToDate}
+          handleUserType={this.handleUserType}
+          handleConfPass={this.handleConfPass}
+          handlePhoneNumber={this.handlePhoneNumber}
+
         />
-        <div>
-          <Footer />
-        </div>
       </>
     );
   }

@@ -1,27 +1,60 @@
 .detail-exam {
-  border: 1px solid #4092c2;
-  border-radius: 10px;
+  background: #f2f2f2;
   position: relative;
-  padding: 10px;
+  padding: 40px 40px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+
   top: 2px;
   // float: left;
   text-align: left;
-  margin: 100px auto 0 auto;
-  width: 60%;
+  margin: 80px auto 0 auto;
+  width: 65%;
+  min-height: 500px;
   display: flex;
-  max-height: 430px;
+  max-height: 500px;
+  .iconVideo {
+    position: absolute;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    font-size: 17px;
+    top: -40px;
+    left: 0;
+    height: 40px;
+    padding: 0 0 0 15px;
+    display: flex;
+    background: #f2f2f2;
+    width: 18%;
+    justify-content: flex-start;
+    align-items: center;
+    p {
+      margin: 0 0 0 5px;
+    }
+  }
   .detail {
+    padding: 3px 10px 5px 10px;
     position: relative;
     width: 300px;
-
     .divSelectButton {
+      display: flex;
+      margin: 50px 0 0 0;
       .select-option {
+        margin-left: -20px;
         width: 200px;
-        margin: 0 10px 0 0;
+        // border: 1px solid #fa9551;
+      }
+      .btnSend {
+        margin: 0 10px;
+        border: 1px solid #377da5;
+        background: #4092c2;
+        color: white;
+        padding: 0 5px;
+        border-radius: 5px;
       }
     }
     p {
-      color: #4092c2;
+      color: #666666;
       border: none;
       span {
         font-weight: bold;
@@ -40,26 +73,73 @@
         top: -37px;
       }
     }
-    .divSelectButton {
-      margin-left: 10px;
-      .select-option {
-        text-align: left;
+  }
+  .mainMessageDiv {
+    width: 70%;
+    .subjectDiv {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fa9551;
+      color: white;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      height: 40px;
+      p {
+        margin: 5px 15px 0 15px;
+        span {
+          font-weight: 700;
+        }
+      }
+    }
+    .messageDiv {
+      height: 39%;
+      width: 100%;
+      background: white;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      padding: 10px 13px 0 13px;
+      p {
+        span {
+          font-weight: 600;
+        }
       }
     }
   }
   .sideMessageDetails {
-    width: 100%;
+    width: 70%;
+
     padding: 5px;
     display: flex;
     flex-direction: column;
     .SubjectMessage {
-      .sideSub {
+      height: 36%;
+
+      .subjectDiv {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fa9551;
+        color: white;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        height: 40px;
         p {
-          text-indent: 20px;
-          color: #4092c2;
-          border: none;
+          margin: 5px 15px 0 15px;
           span {
-            font-weight: bold;
+            font-weight: 700;
+          }
+        }
+      }
+      .messageDiv {
+        height: 100%;
+        background: white;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        padding: 10px 13px 0 13px;
+        p {
+          span {
+            font-weight: 600;
           }
         }
       }
@@ -67,8 +147,8 @@
     .mainMessageCorrespondence {
       scroll-behavior: smooth;
       overflow: scroll;
-      height: 85%;
-
+      height: 64%;
+      margin: 40px 0 0 0;
       overflow-x: hidden;
       /* width */
       &::-webkit-scrollbar {
@@ -83,14 +163,14 @@
 
       /* Handle */
       &::-webkit-scrollbar-thumb {
-        background: #4092c2;
-        border: 1px solid blue;
+        background: #fa9551;
+        // border: 1px solid blue;
         border-radius: 5px;
       }
 
       /* Handle on hover */
       &::-webkit-scrollbar-thumb:hover {
-        background: #1184c7;
+        background: #db8246;
       }
 
       .MessageCorrespondence {
@@ -101,7 +181,7 @@
           margin-bottom: 20px;
           p {
             text-indent: 20px;
-            color: #4092c2;
+            color: white;
             border: none;
             span {
               font-weight: bold;
@@ -110,8 +190,10 @@
           .senderMaiin {
             height: 30px;
             display: flex;
-            background: lightskyblue;
+            background: #fa9551;
             justify-content: space-between;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
             .senderP {
               margin-top: 5px;
               span {
@@ -124,6 +206,12 @@
           }
           .row1 {
             .message {
+              background: white;
+              color: #666666;
+              padding: 10px 0 10px 0;
+
+              border-bottom-left-radius: 15px;
+              border-bottom-right-radius: 15px;
               span {
                 font-weight: bold;
               }
@@ -133,8 +221,7 @@
             margin-left: 20px;
             button {
               color: white;
-              background: #4092c2;
-              border: 1px solid #377da5;
+              background: #00aff0;
               height: 40px;
               width: 80px;
               border-radius: 5px;
@@ -148,7 +235,7 @@
           }
           .SendMainDiv {
             margin-left: 20px;
-            border: 1px solid #4092c2;
+            border: 1px solid #00aff0;
             border-radius: 5px;
             margin: 10px 10px 0 20px;
             box-shadow: 1px 1px 10px gray;
@@ -164,8 +251,8 @@
               display: flex;
               button {
                 color: white;
-                background: #4092c2;
-                border: 1px solid #377da5;
+                background: #00aff0;
+                border: none;
                 height: 40px;
                 width: 80px;
                 border-radius: 5px;
@@ -177,9 +264,9 @@
                 .replyIcon {
                   font-size: 20px;
                 }
-                &:hover {
-                  box-shadow: 2px 2px 1px black;
-                }
+                // &:hover {
+                //   box-shadow: 2px 2px 1px black;
+                // }
               }
               .upload-btn-wrapper {
                 position: relative;
@@ -188,9 +275,9 @@
               }
 
               .btn {
-                border: 1px solid #1286c9;
+                // border: 1px solid #00aff0;
                 color: white;
-                background-color: #4092c2;
+                background-color: #00aff0;
                 width: 40px;
                 border-radius: 8px;
                 font-size: 30px;
@@ -219,8 +306,8 @@
         margin-left: 20px;
         button {
           color: white;
-          background: #4092c2;
-          border: 1px solid #377da5;
+          background: #00aff0;
+          // border: 1px solid #377da5;
           height: 40px;
           width: 80px;
           border-radius: 5px;
@@ -243,7 +330,7 @@
       }
       .SendMainDiv {
         margin-left: 20px;
-        border: 1px solid #4092c2;
+        border: 1px solid #00aff0;
         border-radius: 5px;
         margin: 10px 10px 0 20px;
         box-shadow: 1px 1px 10px gray;
@@ -259,8 +346,8 @@
           display: flex;
           button {
             color: white;
-            background: #4092c2;
-            border: 1px solid #377da5;
+            background: #00aff0;
+            // border: 1px solid #377da5;
             height: 40px;
             width: 80px;
             border-radius: 5px;
@@ -272,9 +359,9 @@
             .replyIcon {
               font-size: 20px;
             }
-            &:hover {
-              box-shadow: 2px 2px 1px black;
-            }
+            // &:hover {
+            //   box-shadow: 2px 2px 1px black;
+            // }
           }
           .upload-btn-wrapper {
             position: relative;
@@ -283,9 +370,9 @@
           }
 
           .btn {
-            border: 1px solid #1286c9;
+            // border: 1px solid #1286c9;
             color: white;
-            background-color: #4092c2;
+            background-color: #00aff0;
             width: 40px;
             border-radius: 8px;
             font-size: 30px;
@@ -309,8 +396,8 @@
         }
       }
       .newMessage {
-        border: 2px solid #4092c2;
-        color: #4092c2;
+        border: 2px solid #00aff0;
+        color: #00aff0;
         border-radius: 50%;
         width: 50px;
         height: 50px;
@@ -326,9 +413,30 @@
           transform: translate(-50%, -50%);
         }
         &:hover {
-          background: #4092c2;
+          background: #00aff0;
           color: white;
         }
+      }
+    }
+  }
+  .message-btn {
+    position: absolute;
+    bottom: 20px;
+    // margin: 0 0 0 10px;
+    button {
+      background: #00aff0;
+      margin: 0;
+      font-size: 14px;
+      width: 150px;
+      border-radius: 10px;
+      &:disabled,
+      button[disabled] {
+        background: lightgray;
+        color: white;
+        cursor: not-allowed;
+        box-shadow: none;
+        pointer-events: none;
+        border: none;
       }
     }
   }
@@ -336,10 +444,10 @@
 
 .messages-link,
 .message-link {
-  border: 1px solid #4092c2;
+  // border: 1px solid #00aff0;
   padding: 12px;
   border-radius: 8px;
-  background-color: #4092c2;
+  background-color: #00aff0;
   color: white;
   margin: 10px;
   font-size: 18px;
@@ -356,7 +464,7 @@
   }
 
   &:hover {
-    background: #377da5;
+    // background: #377da5;
     box-shadow: 2px 2px 2px rgb(189, 186, 186);
   }
 }

@@ -1,0 +1,64 @@
+.mainUpdate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  background: #f2f2f2;
+  margin: 80px auto 20px auto;
+  padding: 40px 40px;
+  position: relative;
+  border-radius: 15px;
+  border-top-left-radius: 0;
+  .iconVideo {
+    position: absolute;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    font-size: 17px;
+    top: -40px;
+    left: 0;
+    padding: 0 0 0 20px;
+    height: 40px;
+    display: flex;
+    background: #f2f2f2;
+    width: 35%;
+    justify-content: flex-start;
+    align-items: center;
+    p {
+      margin: 0 0 0 5px;
+    }
+  }
+  .doctor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 65%;
+
+    label {
+      color: #666666;
+      margin: 10px 0 5px 0;
+    }
+    input {
+      width: 100%;
+      margin: 0 0 10px 0;
+      height: 40px;
+      border-radius: 10px;
+      border: 1.7px solid #fa9551;
+      text-indent: 20px;
+      font-weight: 600;
+    }
+
+    .confirmPass {
+      font-size: 20px;
+    }
+  }
+  button {
+    background: #00aff0;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin: 10px auto 0 95px;
+  }
+}

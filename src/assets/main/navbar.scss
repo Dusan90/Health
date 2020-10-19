@@ -5,10 +5,7 @@
     .topProfile {
       width: 100%;
       display: flex;
-      // margin: 80px auto 0 auto;
       .mainProfile {
-        border: 1px solid #4092c2;
-        border-radius: 50%;
         width: 50px;
         height: 50px;
         margin: 0 auto;
@@ -24,23 +21,14 @@
           right: 2px;
         }
         .profile {
-          color: white;
-          font-size: 60px;
-          background: rgb(189, 235, 250);
-          width: 46px;
-          height: 46px;
-          align-items: center;
-          overflow: hidden;
-          border-radius: 50%;
-          margin: 1px auto 3px auto;
-          .icon {
-            margin: 10px 0 0 0;
+          img {
+            margin: 2px 0 0 0;
           }
         }
       }
       p {
-        margin: 13px 5px;
-        color: #4092c2;
+        margin: 13px 20px 13px 40px;
+        color: #666666;
         font-weight: 500;
         // align-self: center;
       }
@@ -64,14 +52,14 @@
       font-weight: 600;
       font-size: 12pt;
       a {
-        color: #4092c2;
+        color: #666666;
         background: none;
         transition: all 0.5s ease-in-out;
         padding: 15px 0 15px 10px;
-        &:hover {
-          background: none;
-          color: rgb(3, 137, 182);
-        }
+        // &:hover {
+        //   background: none;
+        //   color: rgb(3, 137, 182);
+        // }
         &:link {
           background: none;
         }
@@ -84,18 +72,18 @@
       max-width: 90px;
       #status {
         border-radius: 5px;
-        border: 1px solid #4092c2;
-        color: #4092c2;
+        border: 2px solid #00aff0;
+        color: #666666;
         width: 100%;
         height: 30px;
-        margin: 10px 0 0 3px;
+        margin: 10px 0 0 5px;
         font-size: 12px;
       }
     }
   }
   .li-reg {
     .register {
-      color: #4092c2;
+      color: #00aff0;
       font-weight: 600;
       font-size: 12pt;
       background-color: transparent;
@@ -107,7 +95,7 @@
       color: white;
       font-size: 12pt;
       font-weight: 600;
-      background-color: #4092c2;
+      background-color: #00aff0;
       height: 26px;
       padding: 2px 10px 2px 10px;
       margin: 12px 0 0 10px;

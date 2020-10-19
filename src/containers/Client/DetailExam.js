@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Detail from "../../components/Client/DetailExam";
-import Footer from "../../components/Main/Footer";
 import { NotificationManager } from "react-notifications";
 
 class ClientDetailExam extends Component {
@@ -192,9 +191,6 @@ class ClientDetailExam extends Component {
           handleReplyClick={this.handleReplyClick}
           handleSubmitSend={this.handleSubmitSend}
         />
-        <div className="footerr">
-          <Footer />
-        </div>
       </>
     );
   }

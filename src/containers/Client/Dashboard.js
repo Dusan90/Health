@@ -3,11 +3,11 @@ import axios from "axios";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import Dashboard from "../../components/Client/Dashboard";
-import Footer from "../../components/Main/Footer";
 import curentDoc from "../../actions/docAction";
 import { popUp } from "../../actions/popUpAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import HamburgerDiv from "../../components/Main/HamburgerDiv";
 
 class ClientDashboard extends Component {
   _isMounted = false;
@@ -27,6 +27,14 @@ class ClientDashboard extends Component {
       messageIfEmpty: "",
       currentFilterClicked: "",
       mail: [],
+      searchName: "",
+      searchDoctor: false,
+      searchByTypeClick: false,
+      searchType: "",
+      filterFiltered: [],
+      searchedUpcomingOrPast: [],
+
+
     };
   }
 
@@ -149,6 +157,10 @@ class ClientDashboard extends Component {
         page: 1,
         messageIfEmpty,
         currentFilterClicked: "upcoming",
+        searchedUpcomingOrPast: [],
+        filterFiltered: [],
+        searchType: "",
+        searchName: "",
       });
 
       this.paginate(1);
@@ -178,6 +190,10 @@ class ClientDashboard extends Component {
         page: 1,
         messageIfEmpty,
         currentFilterClicked: "past",
+        searchedUpcomingOrPast: [],
+        filterFiltered: [],
+        searchType: "",
+        searchName: "",
       });
       this.paginate(1);
       clearInterval(pastset);
@@ -195,10 +211,16 @@ class ClientDashboard extends Component {
       let messageIfEmpty = all.length === 0 ? "No consultations" : "";
 
       this.setState({
+        
+
         upcomingOrPast: resortall,
         page: 1,
         messageIfEmpty,
         currentFilterClicked: "all",
+        searchedUpcomingOrPast: [],
+        filterFiltered: [],
+        searchType: "",
+        searchName: "",
       });
 
       this.paginate(1);
@@ -253,16 +275,32 @@ class ClientDashboard extends Component {
   };
 
   paginate = (page) => {
-    let limit = 5;
-    let pages = Math.ceil(this.state.upcomingOrPast.length / 5);
-    const offset = (page - 1) * limit;
-    const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
+    if (this.state.searchedUpcomingOrPast.length === 0) {
+      let limit = 5;
+      let pages = Math.ceil(this.state.upcomingOrPast.length / 5);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
 
-    this.setState({
-      paginatedExams: newArray,
-      loading: false,
-      maxPages: pages,
-    });
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    } else {
+      let limit = 5;
+      let pages = Math.ceil(this.state.searchedUpcomingOrPast.length / 5);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.searchedUpcomingOrPast.slice(
+        offset,
+        offset + limit
+      );
+
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    }
   };
 
   handleHam = () => {
@@ -299,6 +337,175 @@ class ClientDashboard extends Component {
       });
   };
 
+  handleDoctorSearch = () => {
+    this.setState({ searchDoctor: !this.state.searchDoctor });
+  };
+
+  searchByName = (e) => {
+    if (e.target.value === "" && this.state.searchType === "") {
+      this.setState({ filterFiltered: [] });
+    } else if (e.target.value === "" && this.state.searchName !== "") {
+      this.setState({ filterFiltered: [] });
+      let callBFunction = setInterval(() => {
+        this.handlingSearchByType();
+        clearInterval(callBFunction);
+      }, 10);
+    }
+    this.setState({ searchName: e.target.value });
+    let callFunction = setInterval(() => {
+      this.handlingSearchByName();
+      clearInterval(callFunction);
+    }, 10);
+  };
+
+  handlingSearchByName = () => {
+    let searchName = this.state.searchName.toLowerCase().split(" ");
+    let searchedDoctor =
+      this.state.filterFiltered.length === 0
+        ? this.state.upcomingOrPast.filter((ex) => {
+            const doctor = ex.doctor_name ? ex.doctor_name : ex.doctor;
+            const splited = doctor.split(" ");
+            if (!searchName[1]) {
+              if (
+                splited[0].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) ||
+                splited[1].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0])
+              ) {
+                return ex;
+              }
+            } else {
+              if (
+                (splited[0].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) &&
+                  splited[1].toLowerCase().indexOf(searchName[1]) ===
+                    searchName[1].indexOf(searchName[1])) ||
+                (splited[0].toLowerCase().indexOf(searchName[1]) ===
+                  searchName[1].indexOf(searchName[1]) &&
+                  splited[1].toLowerCase().indexOf(searchName[0]) ===
+                    searchName[0].indexOf(searchName[0]))
+              ) {
+                return ex;
+              }
+            }
+            return null;
+          })
+        : this.state.filterFiltered.filter((ex) => {
+            const doctor = ex.doctor_name ? ex.doctor_name : ex.doctor;
+            const splited = doctor.split(" ");
+            if (!searchName[1]) {
+              if (
+                splited[0].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) ||
+                splited[1].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0])
+              ) {
+                return ex;
+              }
+            } else {
+              if (
+                (splited[0].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) &&
+                  splited[1].toLowerCase().indexOf(searchName[1]) ===
+                    searchName[1].indexOf(searchName[1])) ||
+                (splited[0].toLowerCase().indexOf(searchName[1]) ===
+                  searchName[1].indexOf(searchName[1]) &&
+                  splited[1].toLowerCase().indexOf(searchName[0]) ===
+                    searchName[0].indexOf(searchName[0]))
+              ) {
+                return ex;
+              }
+            }
+            return null;
+          });
+    let messageIfEmpty =
+      searchedDoctor.length === 0
+        ? "No Such Doctor"
+        : searchedDoctor.length !== 0 &&
+          this.state.messageIfEmpty !== "No Such Doctor"
+        ? this.state.messageIfEmpty
+        : "";
+    this.state.filterFiltered.length === 0 &&
+      this.setState({ filterFiltered: searchedDoctor });
+    this.setState({
+      searchedUpcomingOrPast: searchedDoctor,
+      page: 1,
+      messageIfEmpty,
+    });
+    this.paginate(1);
+  };
+
+  ResetonSelectChange = () => {
+    this.setState({ filterFiltered: [] });
+    let callBFunction = setInterval(() => {
+      this.handlingSearchByName();
+      clearInterval(callBFunction);
+    }, 10);
+  };
+
+  searchByType = (e) => {
+    console.log(e.target.value);
+    if (e.target.value === "" && this.state.searchName === "") {
+      this.setState({ filterFiltered: [] });
+    } else if (e.target.value === "" && this.state.searchName !== "") {
+      this.setState({ filterFiltered: [] });
+      let callBFunction = setInterval(() => {
+        this.handlingSearchByName();
+        clearInterval(callBFunction);
+      }, 10);
+    }
+    let letter = e.target.value.toLowerCase();
+    this.setState({ searchType: letter });
+    let callFunction = setInterval(() => {
+      this.handlingSearchByType();
+      clearInterval(callFunction);
+    }, 10);
+  };
+
+  
+  handlingSearchByType = () => {
+    let searchedDoctor =
+      this.state.filterFiltered.length === 0
+        ? this.state.upcomingOrPast.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          })
+        : this.state.filterFiltered.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          });
+          console.log(searchedDoctor);
+    let messageIfEmpty =
+      searchedDoctor.length === 0
+        ? "No Such Type"
+        : searchedDoctor.length !== 0 &&
+          this.state.messageIfEmpty !== "No Such Type"
+        ? this.state.messageIfEmpty
+        : "";
+    this.state.filterFiltered.length === 0 &&
+      this.setState({ filterFiltered: searchedDoctor });
+    this.setState({
+      searchedUpcomingOrPast: searchedDoctor,
+      page: 1,
+      messageIfEmpty,
+    });
+    this.paginate(1);
+  };
+
   render() {
     return (
       <>
@@ -308,6 +515,7 @@ class ClientDashboard extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv />
         <Dashboard
           initiate={this.initiate}
           waitingRoom={this.waitingRoom}
@@ -321,8 +529,13 @@ class ClientDashboard extends Component {
           VideoReq={this.VideoReq}
           handleHam={this.handleHam}
           hnlMyConsultations={this.hnlMyConsultations}
+          handleDoctorSearch={this.handleDoctorSearch}
+          searchByName={this.searchByName}
+          ResetonSelectChange={this.ResetonSelectChange}
+          searchByType={this.searchByType}
+          
+
         />
-        <Footer />
       </>
     );
   }

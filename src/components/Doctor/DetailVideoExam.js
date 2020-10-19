@@ -4,6 +4,8 @@ import Nav from "../../components/Main/Navbar";
 import Select from "react-select";
 import "../../assets/detail_exam.scss";
 import moment from "moment";
+import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
+
 import { FaMicrophoneAltSlash } from "react-icons/fa";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaVideoSlash } from "react-icons/fa";
@@ -13,6 +15,7 @@ import { FaRegSquare } from "react-icons/fa";
 import { FaRocketchat } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { Rnd } from "react-rnd";
+import { HamburgerDiv } from "../Main/HamburgerDiv";
 
 const DetailVideo = ({
   exam,
@@ -33,6 +36,8 @@ const DetailVideo = ({
   cutMic,
   handleChange,
   enableTipeing,
+  declineReason,
+  saveReason
 }) => {
   let disabled = props.clientsVideoId === "null" ? true : false;
   let examDate =
@@ -45,6 +50,18 @@ const DetailVideo = ({
     props.connectedall
       ? false
       : true;
+
+  const customStyles = {
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      width: 200,
+      border: "2px solid #fa9551",
+      borderRadius: "10px",
+      height: "40px",
+      fontWeight: 600,
+      display: "flex",
+    }),
+  };
   return (
     <>
       <div className="header">
@@ -53,6 +70,7 @@ const DetailVideo = ({
           <Nav />
         </div>
       </div>
+      <HamburgerDiv />
 
       {exam.map((exam) => {
         let placeholder =
@@ -67,6 +85,10 @@ const DetailVideo = ({
         return (
           <Fragment key={exam.id}>
             <div className="detail_exam">
+              <div className="iconVideo">
+                <img src={iconVideoBlue} alt="email" />
+                <p>Video details</p>{" "}
+              </div>
               <div className="detail">
                 <p>
                   <span>Client:</span> {exam.client}
@@ -77,19 +99,18 @@ const DetailVideo = ({
                 </p>
 
                 <p>
-                  <span>Appointed date:</span>{" "}
+                  <span>
+                    {exam.status === "Appointed"
+                      ? "Appointed date:"
+                      : "Appoint date"}
+                  </span>{" "}
                   {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
                 </p>
                 <p>
                   <span>Type:</span> {exam.exam_type}
                 </p>
-                <p>
-                  <span>Subject:</span> {exam.subject}
-                </p>
-                <p>
-                  <span>Message:</span> {exam.notes}
-                </p>
-                {exam.status === "Canceled" || exam.status === "Finished" ? (
+
+                {exam.status === "Canceled" || exam.status === "Finished" || exam.status === 'Declined' ? (
                   <p>
                     <span>Status:</span> {exam.status}
                   </p>
@@ -98,6 +119,7 @@ const DetailVideo = ({
                     <Select
                       type="text"
                       placeholder={placeholder}
+                      styles={customStyles}
                       className="select-option"
                       value={statusValue}
                       options={options}
@@ -105,31 +127,60 @@ const DetailVideo = ({
                     />
                   </div>
                 )}
-              </div>
-            </div>
-            {exam.status === "Appointed" && (
-              <div className="message-btn">
-                {!props.connected ? (
-                  <button
-                    className="message-link"
-                    disabled={disabled2}
-                    onClick={handleConnect}
-                  >
-                    Connect
-                  </button>
-                ) : (
-                  <button
-                    id="DoctorStartVideo"
-                    type="submit"
-                    className="message-link"
-                    onClick={handleVideoStart}
-                    disabled={disabled}
-                  >
-                    Start Video
-                  </button>
+                {exam.status === "Appointed" && (
+                  <div className="message-btn">
+                    {!props.connected ? (
+                      <button
+                        className="message-link"
+                        disabled={disabled2}
+                        onClick={handleConnect}
+                      >
+                        Connect
+                      </button>
+                    ) : (
+                      <button
+                        id="DoctorStartVideo"
+                        type="submit"
+                        className="message-link"
+                        onClick={handleVideoStart}
+                        disabled={disabled}
+                      >
+                        Start Video
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
-            )}
+              <div className="mainMessageDiv">
+                <div className="subjectDiv">
+                  <p>
+                    <span>Subject:</span> {exam.subject}
+                  </p>
+                  <p>
+                    <span>
+                      {moment(exam.appointed_date).format("MM/DD/YYYY")}
+                    </span>{" "}
+                    {moment(exam.appointed_date).format(" HH:mm")}
+                  </p>
+                </div>
+                <div className="messageDiv">
+                  <p>
+                    <span>Message:</span> {exam.notes}
+                  </p>
+                </div>
+                <div className='reportIfDeclined' style={{display: props.selectedStatus !== 'Decline'  && 'none'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Decline reason:</span>
+                  </p>
+                </div>
+                <div className="messageDivReport" >
+                      <textarea name="text" placeholder='text' value={props.declineReason} onChange={declineReason} id="textarea"></textarea>
+                      <button onClick={saveReason}>Save</button>
+                </div>
+                </div>
+              </div>
+            </div>
           </Fragment>
         );
       })}

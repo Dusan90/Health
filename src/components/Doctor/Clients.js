@@ -1,11 +1,16 @@
 import React from "react";
 import "../../assets/doctors_clients.scss";
+import myPatients from "../../icons/My_Patients_blue.svg";
+import myClientProfile from "../../icons/icon_my_profile_client_blue_23px.svg";
 
 function Clients({ handleClient, clients, handleSort }) {
   return (
     <div className="mainClientsDiv">
-      <div className="clientsDiv">
+      <div className="clientsAbove">
+        <img src={myPatients} alt="my patients" />
         <h4>Clients</h4>
+      </div>
+      <div className="clientsDiv">
         <label>
           Sort by:{" "}
           <select onClick={handleSort}>
@@ -16,7 +21,7 @@ function Clients({ handleClient, clients, handleSort }) {
         </label>
       </div>
       <div className="row2">
-        {clients.map(client => {
+        {clients.map((client) => {
           return client.id === null ? null : (
             <div key={client.id} className="list-group">
               <button
@@ -25,6 +30,7 @@ function Clients({ handleClient, clients, handleSort }) {
                 onClick={() => handleClient(client.id)}
               >
                 {client.client}
+                <img src={myClientProfile} alt="cliet profile" />
               </button>
             </div>
           );

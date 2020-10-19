@@ -1,0 +1,166 @@
+.hamburger {
+  margin: 60px 0 10px 0;
+  background: #00aff0;
+  height: 60px;
+  color: white !important;
+  .hamNprofil {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+    .ham {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .profile {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .rightNavIcons {
+      display: flex;
+      div {
+        margin: 0 0 0 70px;
+        font-size: 13px;
+        height: 20px;
+        display: flex;
+        &:hover {
+          cursor: pointer;
+        }
+        .iconNav {
+          margin: 1px 10px 0 0;
+          font-size: 18px;
+        }
+        p {
+          align-items: center;
+          margin: 1px 0 0 0;
+        }
+        .linksPatients,
+        .links {
+          display: flex;
+          color: white;
+          list-style: none;
+          text-decoration: none;
+        }
+        .profileIcon {
+          height: 22px;
+          width: 22px;
+          margin: -2px 10px 0 0;
+        }
+        .dashboardIcon {
+          width: 16px;
+          height: 22px;
+          margin: -2px 10px 0 0;
+        }
+        .calendarIcon {
+          height: 22px;
+          width: 22px;
+          margin: -2px 10px 0 0;
+        }
+      }
+
+      // .calendarNav {
+      //   position: relative;
+      //   .numOfMessages {
+      //     //   background: red;
+      //     height: 20px;
+      //     width: 20px;
+      //     //   border: 1px solid brown;
+      //     border-radius: 5px;
+      //     position: absolute;
+      //     right: -20px;
+      //     top: -10px;
+      //     p {
+      //       margin: 0 auto;
+      //     }
+      //   }
+      // }
+    }
+  }
+  position: relative;
+  .sideNav {
+    position: absolute;
+    transition: all 0.7s ease-in-out;
+    width: 265.5px;
+    // height: 100vh;
+    background: #999999;
+    color: white;
+    .sideProfile {
+      border-bottom: 2px solid #fa9551;
+      width: 70%;
+      margin: 60px auto 40px auto;
+      .mainProfile {
+        border: 1px solid #4092c2;
+        border-radius: 50%;
+        width: 67px;
+        height: 67px;
+        margin: 0 auto;
+        background: white;
+        position: relative;
+        .onlineDot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          position: absolute;
+          top: 4px;
+          right: 2px;
+        }
+        .profile {
+          color: white;
+          font-size: 60px;
+          background: rgb(189, 235, 250);
+          width: 60px;
+          height: 60px;
+          align-items: center;
+          overflow: hidden;
+          border-radius: 50%;
+          margin: 2px auto 2px auto;
+          .icon {
+            margin: 10px 0 0 0;
+          }
+        }
+      }
+      p {
+        margin: 15px 0;
+      }
+    }
+    .sideVideo,
+    .sideEmail,
+    .sideWaitingRoom,
+    .sideMyCounsultation,
+    .sideHelp,
+    .sideFaq,
+    .sideMyAccount,
+    .sideSignOut {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      text-decoration: none;
+
+      //   border-bottom: 1.5px solid #4092c2;
+      //   width: 80%;
+      height: 50px;
+      margin: 0 auto;
+      padding: 10px 10px 10px 40px;
+      transition: all 0.5s ease-in-out;
+      &:hover {
+        background: #fa9551;
+        cursor: pointer;
+      }
+      span {
+        width: 30px;
+        font-size: 18px;
+        margin: 0px 10px auto 0;
+      }
+      h2 {
+        color: white;
+        font-size: 13px;
+        margin: 0;
+      }
+    }
+  }
+}

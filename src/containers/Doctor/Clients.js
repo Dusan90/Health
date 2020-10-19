@@ -3,7 +3,7 @@ import Clients from "../../components/Doctor/Clients";
 import axios from "axios";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import Footer from "../../components/Main/Footer";
+import HamburgerDiv from "../../components/Main/HamburgerDiv";
 
 export class DoctorsClients extends Component {
   constructor(props) {
@@ -67,14 +67,12 @@ export class DoctorsClients extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv />
         <Clients
           clients={this.state.clients}
           handleClient={this.handleClient}
           handleSort={this.handleSort}
         />
-        <div className="footerr">
-          <Footer />
-        </div>
       </>
     );
   }

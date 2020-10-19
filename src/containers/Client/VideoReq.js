@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import Footer from "../../components/Main/Footer";
 import VideoReq from "../../components/Client/VideoReq";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 import moment from "moment";
+import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 class ClientVideoReq extends Component {
   constructor(props) {
@@ -210,6 +210,7 @@ class ClientVideoReq extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv />
         <VideoReq
           handleSpeciality={this.handleSpeciality}
           handleDoctor={this.handleDoctor}
@@ -219,9 +220,6 @@ class ClientVideoReq extends Component {
           handleDateChange={this.handleDateChange}
           props={this.state}
         />
-        <div className="footerr">
-          <Footer />
-        </div>
       </>
     );
   }

@@ -4,7 +4,6 @@ import Header from "../../components/Main/Header";
 import LoginUser from "../../components/Auth/Login";
 import Nav from "../../components/Main/Navbar";
 import { userLogin, userLoggedIn } from "../../actions/authActions";
-import Footer from "../../components/Main/Footer";
 import { NotificationManager } from "react-notifications";
 
 class Login extends Component {
@@ -129,9 +128,6 @@ class Login extends Component {
           handleChange={this.handleChange}
           handleChangeRmb={this.handleChangeRmb}
         />
-        <div>
-          <Footer />
-        </div>
       </>
     );
   }

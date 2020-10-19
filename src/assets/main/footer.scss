@@ -1,15 +1,15 @@
 .page-footer {
   width: 100%;
-  background: #e4e2dc;
+  background: #cccccc;
   height: 167px;
-  color: #242529;
+  color: #666666;
 }
 
 .mainFooter {
   display: flex;
 
   justify-content: space-between;
-  width: 60%;
+  width: 70%;
   margin: 0 auto;
   .contact {
     h3 {
@@ -39,11 +39,11 @@
     h3 {
       font-weight: bold;
       font-size: 15pt;
-      color: #242529;
+      color: #666666;
     }
     text-align: start;
     list-style: none;
-    color: #242529;
+    color: #666666;
     li {
       font-size: 13pt;
       font-weight: 500;
@@ -53,7 +53,7 @@
     .blockClass,
     .careersClass,
     .faqClass {
-      color: #242529;
+      color: #666666;
       &:focus,
       &:hover,
       &:visited,
@@ -69,22 +69,33 @@
     h3 {
       font-weight: bold;
       font-size: 15pt;
+      text-align: left;
     }
     .socialMedia {
       display: flex;
-      justify-content: space-evenly;
-      .insta,
-      .facebook,
-      .linkedin,
-      .twitter {
-        font-size: 20px;
-        margin-top: 10px;
-        transition: all 0.5s ease-in-out;
-        color: #242529;
+      justify-content: space-between;
+      width: 250px;
+      margin-top: 20px;
+      div {
+        border: 1.7px solid #666666;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+
+        .insta,
+        .facebook,
+        .linkedin,
+        .twitter {
+          font-size: 30px;
+          margin-top: 10px;
+          transition: all 0.5s ease-in-out;
+          color: #666666;
+        }
       }
     }
     p {
-      margin: 46px 0 0 0;
+      margin: 20px 0 0 0;
+      text-align: left;
     }
   }
 }

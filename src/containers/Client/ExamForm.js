@@ -7,6 +7,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
+import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 class ExamForm extends Component {
   constructor(props) {
@@ -157,6 +158,7 @@ class ExamForm extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv />
         <InitiateExam
           specialities={this.state.specialities}
           subject={this.state.subject}
@@ -171,9 +173,6 @@ class ExamForm extends Component {
           resetDoctorSelect={this.state.resetDoctorSelect}
           // isClicked={this.state.isClicked}
         />
-        <div className="footerr">
-          <Footer />
-        </div>
       </>
     );
   }

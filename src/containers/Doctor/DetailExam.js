@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 // import { connect } from "react-redux";
 import Detail from "../../components/Doctor/DetailExam";
-import Footer from "../../components/Main/Footer";
 import { NotificationManager } from "react-notifications";
 
 class DetailExam extends Component {
@@ -67,6 +66,7 @@ class DetailExam extends Component {
   };
 
   doctorExam = async (id, value) => {
+    console.log(id, value);
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
       `https://healthcarebackend.xyz/api/doctor/exams/${id}/`,
@@ -192,9 +192,6 @@ class DetailExam extends Component {
           handleMessage={this.handleMessage}
           newMessage={this.newMessage}
         />
-        <div className="footerr">
-          <Footer />
-        </div>
       </>
     );
   }

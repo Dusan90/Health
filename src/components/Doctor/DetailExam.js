@@ -6,6 +6,9 @@ import "../../assets/detail_exam.scss";
 import moment from "moment";
 import { MdReply, MdAttachFile } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
+import { HamburgerDiv } from "../Main/HamburgerDiv";
+import iconEmailBlue from '../../icons/icon_Email_blue.svg'
+import attachIcon from '../../icons/attach_white.svg'
 
 const Detail = ({
   exam,
@@ -17,7 +20,20 @@ const Detail = ({
   handleMessage,
   newMessage,
   props,
-}) => (
+}) =>{
+  const customStyles = {
+  control: () => ({
+    // none of react-select's styles are passed to <Control />
+    width: 200,
+    border: "2px solid #fa9551",
+    borderRadius: "10px",
+    height: "40px",
+    fontWeight: 600,
+    display: "flex",
+    background: 'white'
+  })
+} 
+return (
   <>
     <div className="header">
       <div>
@@ -25,7 +41,7 @@ const Detail = ({
         <Nav />
       </div>
     </div>
-
+    <HamburgerDiv/>
     {exam &&
       exam.map((exam) => {
         let placeholder =
@@ -40,6 +56,10 @@ const Detail = ({
         return (
           <Fragment key={exam.id}>
             <div className="detail_exam">
+            <div className="iconVideo">
+                <img src={iconEmailBlue} alt="email" />
+                <p>Email details</p>{" "}
+              </div>
               <div className="detail">
                 <p>
                   <span>Client:</span> {exam.client}
@@ -55,7 +75,7 @@ const Detail = ({
                 <p>
                   <span>Type:</span> {exam.exam_type}
                 </p>
-                {exam.status === "Canceled" || exam.status === "Finished" ? (
+                {exam.status === "Canceled" || exam.status === "Finished" || exam.status === 'Declined' ? (
                   <p>
                     <span>Status:</span> {exam.status}
                   </p>
@@ -63,6 +83,7 @@ const Detail = ({
                   <div className="divSelectButton">
                     <Select
                       type="text"
+                      styles={customStyles}
                       placeholder={placeholder}
                       className="select-option"
                       value={statusValue}
@@ -74,14 +95,30 @@ const Detail = ({
               </div>
               <div className="sideMessageDetails">
                 <div className="SubjectMessage">
-                  <div className="sideSub">
-                    <p>
-                      <span>Subject:</span> {exam.subject}
+                  {/* <div className="sideSub">
+                    <p className='subjectTag'>
+                      <span>Subject:{' '} </span>{exam.subject}
                     </p>
-                    <p>
+                    <p className='messageTag'>
                       <span>Message:</span> {exam.message}
                     </p>
-                  </div>
+                  </div> */}
+                  <div className="sideSub">
+                  <p>
+                    <span>Subject:</span> {exam.subject}
+                  </p>
+                  <p>
+                    <span>
+                      {moment(exam.appointed_date).format("MM/DD/YYY")}
+                    </span>{" "}
+                    {moment(exam.appointed_date).format(" HH:mm")}
+                  </p>
+                </div>
+                <div className="messageDiv">
+                  <p>
+                    <span>Message:</span> {exam.message}
+                  </p>
+                </div>
                 </div>
                 <div
                   className="mainMessageCorrespondence"
@@ -145,7 +182,7 @@ const Detail = ({
                                   </button>
                                   <div className="upload-btn-wrapper">
                                     <button className="btn">
-                                      <MdAttachFile />
+                                      <img src={attachIcon} alt="" srcset=""/>
                                     </button>
                                     <input
                                       type="file"
@@ -225,6 +262,6 @@ const Detail = ({
         );
       })}
   </>
-);
+)}
 
 export default Detail;

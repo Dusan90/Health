@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 // import { connect } from "react-redux";
 import DetailVideo from "../../components/Doctor/DetailVideoExam";
-import Footer from "../../components/Main/Footer";
+import { NotificationManager } from "react-notifications";
 const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
+
 
 class DetailVideoExam extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class DetailVideoExam extends Component {
       video: true,
       audio: true,
       connectedall: false,
+      declineReason: ""
     };
   }
 
@@ -233,8 +235,9 @@ class DetailVideoExam extends Component {
   };
 
   handleSubmit = (value) => {
-    let id = this.props.match.params.id;
-    this.doctorExam(id, value);
+    if(value !== 'Decline'){
+      this.doctorExam( value);
+    }
   };
 
   handleStatus = (statusValue) => {
@@ -245,11 +248,11 @@ class DetailVideoExam extends Component {
     this.handleSubmit(value);
   };
 
-  doctorExam = async (id, value) => {
+  doctorExam = async ( value) => {
     const access_token = "Bearer ".concat(this.state.token);
-    console.log(value, "selected");
+    console.log(value);
     const client = await fetch(
-      `https://healthcarebackend.xyz/api/web/doctor/${id}/`,
+      `https://healthcarebackend.xyz/api/web/doctor/${this.state.id}/`,
       {
         method: "PUT",
         headers: {
@@ -258,15 +261,22 @@ class DetailVideoExam extends Component {
         },
         body: JSON.stringify({
           status: value,
+          notes: this.state.declineReason
         }),
       }
     );
 
     const jsonData = await client.json();
     console.log(jsonData);
-    jsonData.success === true
-      ? this.props.history.push("/dashboard-doctor")
-      : console.log("greska");
+    if (jsonData.success === true) {
+      if (jsonData.data.status !== "Declined") {
+        this.props.history.push("/dashboard-doctor");
+      }else{
+    
+        NotificationManager.success("Decline reason sent", "Successful!", 2000);
+        this.detail(this.state.id)
+      }
+    }
     return jsonData;
   };
 
@@ -306,6 +316,14 @@ class DetailVideoExam extends Component {
     this.setState({ connectedall: true });
   };
 
+  declineReason = (e)=>{
+    this.setState({declineReason: e.target.value})
+  }
+
+  saveReason = () =>{
+    this.doctorExam(this.state.selectedStatus)
+  }
+
   render() {
     return (
       <>
@@ -327,10 +345,9 @@ class DetailVideoExam extends Component {
           handleDivSize={this.handleDivSize}
           cutMic={this.cutMic}
           cutVideo={this.cutVideo}
+          declineReason={this.declineReason}
+          saveReason={this.saveReason}
         />
-        <div className="footerr">
-          <Footer />
-        </div>
       </>
     );
   }

@@ -1,30 +1,26 @@
 import React from "react";
 import "../../assets/dashboard.scss";
-import {
-  FaCheck,
-  FaRegClock,
-  FaFileAlt,
-  FaUsers,
-  FaRegBell,
-  FaChevronLeft,
-  FaRegCalendarAlt,
-  FaChevronRight,
-  FaUser,
-  FaVideo,
-  FaSearch,
-} from "react-icons/fa";
-import { GoPerson, GoClock, GoFileDirectory, GoMailRead } from "react-icons/go";
-import { IoIosMail, IoIosSettings, IoMdClose } from "react-icons/io";
-import { MdChatBubble } from "react-icons/md";
-import { GiCancel, GiCheckeredFlag, GiHamburgerMenu } from "react-icons/gi";
+import { FaSearch } from "react-icons/fa";
 
-import Loading from "../../img/loading-gif-png-5-original.gif";
+import { GiCheckeredFlag } from "react-icons/gi";
+
+import chek from "../../icons/chek.svg";
+import clockIcon from "../../icons/icon_Waiting_Room_blue.svg";
+import declined from "../../icons/icon_Log_Out_blue.svg";
+import arrowLeft from "../../icons/arrow-left.svg";
+import arrowRight from "../../icons/arrow-right.svg";
+import enterWaitingRoom from "../../icons/enter-waiting-room.svg";
+import makeAvideo from "../../icons/Make-a-video.svg";
+import requestEmail from "../../icons/Request-email.svg";
+import MyConsultationsBlue from "../../icons/icon_My_Consultations_blue.svg";
+import arrowDown from "../../icons/arrow_down_gray.svg";
+import arrowUp from "../../icons/arrow_up_gray.svg";
+
+import Loading from "../../icons/c+.svg";
 import moment from "moment";
 
 const Dashboard = ({
   hnlClick,
-  hnlClick2,
-  hnlClick3,
   handleClick,
   handleClickMail,
   handleUpcoming,
@@ -37,7 +33,6 @@ const Dashboard = ({
   hnlWaitingClick,
   handleWaitingRoom,
   handleVideoPendingClick,
-  handleHam,
   hnlMyConsultations,
   loading,
   handleClientSearch,
@@ -65,65 +60,30 @@ const Dashboard = ({
   });
   return (
     <div className="testic">
-      <div className="hamburger">
-        <div className="hamNprofil">
-          <div className="ham" onClick={handleHam}>
-            <GiHamburgerMenu />
-          </div>
-          <div className="rightNavIcons">
-            <div
-              className="patientsNav"
-              onClick={() => {
-                props.props.history.push("/doctors-clients");
-              }}
-            >
-              <FaUsers className="iconNav" />
-              <p>My Patients</p>
-            </div>
-            <div
-              className="calendarNav"
-              onClick={() => {
-                props.props.history.push("/doctor/calendar");
-              }}
-            >
-              <div
-                style={{
-                  display: props.state.numOfMessages === 0 ? "none" : "block",
-                }}
-                className="numOfMessages"
-              >
-                <p>{props.state.numOfMessages}</p>
-              </div>
-              <FaRegCalendarAlt className="iconNav" />
-              <p>Calendar</p>
-            </div>
-            <div className="alertsNav">
-              <FaRegBell className="iconNav" />
-              <p>Alerts</p>
-            </div>
-            <div className="messagesNav">
-              <GoMailRead className="iconNav" />
-              <p>Messages</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="dashboardIcon">
-        <FaFileAlt className="dashIcon" />
-        <h2>Dashboard</h2>
-      </div>
       <div className="main">
-        {" "}
+        <div className="dashboardIcon">
+          <img
+            src={MyConsultationsBlue}
+            className="dashIcon"
+            alt="my consultation icon"
+          />
+          <h2>Dashboard</h2>
+        </div>{" "}
         <div className="divClock">
           <div className="waitRoom1" onClick={hnlWaitingClick}>
             <span className="clock">
-              <GoClock className="icon" />
+              <img
+                src={enterWaitingRoom}
+                className="icon"
+                alt="enter Waiting room"
+              />
+              {/* <GoClock className="icon" /> */}
             </span>
             <h2>WAITING ROOM</h2>
           </div>
-          <div style={{ height: "2px", background: "#4092c2" }}></div>
+          <div style={{ height: "2px", background: "#00aff0" }}></div>
           <div className="requestsClock">
-            {props.state.waitingRoom.length} in waiting room
+            <p>{props.state.waitingRoom.length} in waiting room</p>
           </div>
           <div className="pendingReq">
             {short3.length !== 0 ? (
@@ -153,13 +113,14 @@ const Dashboard = ({
         <div className="divVideo">
           <div className="videoApp1" onClick={hnlVideoClick}>
             <span className="video">
-              <FaVideo className="icon" />
+              <img src={makeAvideo} className="icon" alt="make a video" />
+              {/* <FaVideo className="icon" /> */}
             </span>
             <h2>VIDEO REQUESTS</h2>
           </div>
-          <div style={{ height: "2px", background: "#4092c2" }}></div>
+          <div style={{ height: "2px", background: "#00aff0" }}></div>
           <div className="requestsVideo">
-            {props.state.videoPending.length} new request to confirm
+            <p>{props.state.videoPending.length} new request to confirm</p>
           </div>
           <div className="pendingReq">
             {short2.length !== 0 ? (
@@ -182,13 +143,14 @@ const Dashboard = ({
         <div className="divEmail">
           <div className="emailReq1" onClick={hnlClick}>
             <span className="email">
-              <IoIosMail className="icon" />
+              <img src={requestEmail} alt="request email" className="icon" />
+              {/* <IoIosMail className="icon" /> */}
             </span>
             <h2>EMAIL REQUESTS</h2>
           </div>
-          <div style={{ height: "2px", background: "#4092c2" }}></div>
+          <div style={{ height: "2px", background: "#00aff0" }}></div>
           <div className="requestsEmail">
-            {props.state.pending.length} new request to confirm
+            <p>{props.state.pending.length} new request to confirm</p>
           </div>
           <div className="pendingReq">
             {short.length !== 0 ? (
@@ -210,14 +172,16 @@ const Dashboard = ({
         </div>
       </div>
       {loading ? (
-        <img src={Loading} alt="loading..." style={{ width: "150px" }} />
+        <img
+          src={Loading}
+          className="loading"
+          alt="loading..."
+          style={{ width: "150px" }}
+        />
       ) : (
         <div className="mainTabel">
           <div className="mainConsultation">
             <div className="icon_left">
-              <span>
-                <GoFileDirectory className="icon1" />
-              </span>
               <p>My Consultations</p>
             </div>
             <div className="sort">
@@ -263,67 +227,65 @@ const Dashboard = ({
               <tr className="client-row">
                 <th className="client-doctor">
                   <div className="mainExamDiv">
-                    <span
-                      className="examTypetext"
-                      style={{ display: props.state.searchClient && "none" }}
-                    >
-                      Client{" "}
-                    </span>
+                    <div className="searchDiv">
+                      <span className="examTypetext">Client </span>
+                      <span className="searchIcon" onClick={handleClientSearch}>
+                        {props.state.searchClient ? (
+                          <img src={arrowUp} alt="arrow" />
+                        ) : (
+                          <img src={arrowDown} alt="arrow" />
+                        )}
+                      </span>
+                    </div>
                     <input
                       type="text"
-                      placeholder="Search..."
+                      placeholder="Type"
                       value={props.state.searchName}
                       onChange={searchByName}
                       style={{ display: !props.state.searchClient && "none" }}
                     />
-                    <span className="searchIcon" onClick={handleClientSearch}>
-                      <FaSearch
-                        style={{
-                          margin: "0 0 0 10px",
-                          width: "20px",
-                        }}
-                      />
-                    </span>
                   </div>
                 </th>
                 <th className="client-subject">Subject</th>
-                <th className="client-type">
+                <th
+                  className="client-type"
+                  style={{ padding: props.state.searchClient && "0 0 30px 0" }}
+                >
                   <div className="mainExamDiv">
-                    <span
-                      className="examTypetext"
-                      style={{
-                        display: props.state.searchByTypeClick && "none",
-                      }}
-                    >
-                      Exam type{" "}
-                    </span>
+                    {/* <div className="searchDiv">
+                      <span className="examTypetext">Exam type </span>
+                      <span className="searchIcon" onClick={handleTypeSearch}>
+                        {props.state.searchByTypeClick ? (
+                          <img src={arrowUp} alt="arrow" />
+                        ) : (
+                          <img src={arrowDown} alt="arrow" />
+                        )}
+                      </span>
+                    </div> */}
                     <select
                       type="text"
-                      placeholder="Search..."
+                      placeholder=""
                       onClick={ResetonSelectChange}
                       onChange={searchByType}
                       value={props.state.searchType}
-                      style={{
-                        display: !props.state.searchByTypeClick && "none",
-                      }}
+                      // style={{
+                      //   display: !props.state.searchByTypeClick && "none",
+                      // }}
                     >
-                      <option value="">All</option>
+                      <option value="">Type</option>
                       <option value="mail">Email</option>
                       <option value="video">Video</option>
                       <option value="queue">Waiting room</option>
                     </select>
-                    <span className="searchIcon" onClick={handleTypeSearch}>
-                      <FaSearch
-                        style={{
-                          margin: "0 0 0 10px",
-                          width: "20px",
-                        }}
-                      />
-                    </span>
                   </div>
                 </th>
                 <th className="client-date">Date</th>
-                <th className="client-status">Status</th>
+                <th
+                  className="client-status"
+                  style={{ padding: props.state.searchClient && "0 0 30px 0" }}
+                >
+                  Status
+                </th>
               </tr>
             </thead>
             {props.state.messageIfEmpty === "" &&
@@ -355,14 +317,22 @@ const Dashboard = ({
                       <td className="client-status">
                         {exam.status === "Pending" ||
                         exam.status === "In the queue" ? (
-                          <FaRegClock className="pendi" />
+                          <img
+                            src={clockIcon}
+                            alt="clockIcon"
+                            className="pendi"
+                          />
                         ) : exam.status === "Declined" ||
                           exam.status === "Canceled" ? (
-                          <GiCancel className="declined" />
+                          <img
+                            src={declined}
+                            alt="declined"
+                            className="declined"
+                          />
                         ) : exam.status === "Finished" ? (
                           <GiCheckeredFlag className="finished" />
                         ) : (
-                          <FaCheck className="check" />
+                          <img src={chek} alt="ckeck" className="check" />
                         )}
                         <h5 className="status">{exam.status}</h5>
                       </td>
@@ -380,156 +350,17 @@ const Dashboard = ({
         </div>
       )}
 
-      {props.state.openPending ? (
-        <div className="penTable">
-          <table className="table2 test">
-            <thead className="client-head">
-              <tr className="client-row">
-                <th className="client-doctor">Client</th>
-                <th className="client-subject">Subject</th>
-                <th className="client-subject">Date</th>
-                <th className="client-status">Status</th>
-              </tr>
-            </thead>
-            {props.state.pending.map((pen) => {
-              return (
-                <tbody key={pen.id} className="client-body">
-                  <tr
-                    data-id={pen.id}
-                    className="list-group"
-                    onClick={() => handleClickMail(pen.id)}
-                  >
-                    <td className="client-doctor">{pen.client}</td>
-                    <td className="client-subject">{pen.subject}</td>
-                    <td className="created">
-                      {new Intl.DateTimeFormat("en-GB", {
-                        year: "numeric",
-                        month: "long",
-                        day: "2-digit",
-                      }).format(new Date(pen.created))}
-                    </td>
-                    <td className="client-status">
-                      <FaRegClock className="pendi" />
-                      <h5 className="status">{pen.status}</h5>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
-          <button onClick={hnlClick}>GO BACK</button>
-        </div>
-      ) : null}
-
-      {props.state.openVideoPending ? (
-        <div className="penTable">
-          <table className="table2 test">
-            <thead className="client-head">
-              <tr className="client-row">
-                <th className="client-doctor">Client</th>
-                <th className="client-subject">Subject</th>
-                <th className="client-subject">Date</th>
-                <th className="client-status">Status</th>
-              </tr>
-            </thead>
-            {props.state.videoPending.map((pen) => {
-              return (
-                <tbody key={pen.id} className="client-body">
-                  <tr
-                    data-id={pen.id}
-                    className="list-group"
-                    onClick={() => handleVideoPendingClick(pen.id)}
-                  >
-                    <td className="client-doctor">{pen.client}</td>
-                    <td className="client-subject">{pen.subject}</td>
-                    <td className="created">
-                      {/* {new Intl.DateTimeFormat("en-GB", {
-                        year: "numeric",
-                        month: "long",
-                        day: "2-digit"
-                      }).format(new Date(pen.created))} */}
-                      {moment(pen.appointed_date).format("MM/DD/YYYY")}
-                    </td>
-                    <td className="client-status">
-                      <FaRegClock className="pendi" />
-                      <h5 className="status">{pen.status}</h5>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
-          <button onClick={hnlClick2}>GO BACK</button>
-        </div>
-      ) : null}
-
-      {props.state.openWaitingRoom ? (
-        <div className="penTable">
-          <table className="table2 test">
-            <thead className="client-head">
-              <tr className="client-row">
-                <th className="client-doctor">Client</th>
-                <th className="client-subject">Subject</th>
-                <th className="client-subject">Date</th>
-                {/* <th className="client-status">Status</th> */}
-              </tr>
-            </thead>
-            {props.state.waitingRoom.map((pen) => {
-              return (
-                <tbody key={pen.id} className="client-body">
-                  <tr
-                    data-id={pen.id}
-                    className="list-group"
-                    onClick={() => handleWaitingRoom(pen.id)}
-                  >
-                    <td className="client-doctor">{pen.client}</td>
-                    <td className="client-subject">{pen.subject}</td>
-                    <td className="created">
-                      {pen.created ? (
-                        <p>
-                          {" "}
-                          Created: {moment(pen.created).format("MM/DD/YYYY")}
-                        </p>
-                      ) : (
-                        <p>
-                          {" "}
-                          Appointed:{" "}
-                          {moment(pen.appointed_date).format("MM/DD/YYYY")}
-                        </p>
-                      )}
-                    </td>
-                    {/* <td className="client-status">
-                      <FaRegClock className="pendi" />
-                      <h5 className="status">{pen.status}</h5>
-                    </td> */}
-                  </tr>
-                </tbody>
-              );
-            })}
-          </table>
-          <button onClick={hnlClick3}>GO BACK</button>
-        </div>
-      ) : null}
       <div className="pagi">
         <div className="left" onClick={handleClickLeft}>
-          <FaChevronLeft className="iconLeft" />
+          <img src={arrowLeft} alt="arrow left" className="iconLeft" />
+          {/* <FaChevronLeft className="iconLeft" /> */}
         </div>
         <div className="right" onClick={handleClickRight}>
-          <FaChevronRight className="iconRight" />
+          <img src={arrowRight} alt="arrow rigth" className="iconRight" />
+          {/* <FaChevronRight className="iconRight" /> */}
         </div>
       </div>
-      <div className="connectWithdoctor">
-        <div className="connected">
-          <p>
-            Connect with a doctor over live video in minutes. Available 24/7,
-            nights and weekends.
-          </p>
-          <h4>
-            See a Doctor <FaChevronRight className="see" />
-          </h4>
-        </div>
-      </div>
-      <div
+      {/* <div
         className="sideNav"
         style={{
           left: props.state.hamburger ? "0px" : "-300px",
@@ -613,7 +444,7 @@ const Dashboard = ({
           </span>
           <h2>Sign Out</h2>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

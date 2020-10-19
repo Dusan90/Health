@@ -1,0 +1,231 @@
+.mainEmailList {
+  margin: 80px auto 0 auto;
+  width: 65%;
+  padding: 40px 40px;
+  background: #f2f2f2;
+  height: 500px;
+  position: relative;
+
+  .iconEmail {
+    position: absolute;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    font-size: 17px;
+    top: -40px;
+    left: 0;
+    height: 40px;
+    display: flex;
+    background: #f2f2f2;
+    width: 26%;
+    justify-content: center;
+    align-items: center;
+    p {
+      margin: 0 0 0 5px;
+    }
+  }
+
+  .loading {
+    animation: rotation 2s infinite linear;
+    position: absolute;
+    top: 40%;
+    left: 45%;
+    transform: translate(-40%, -45%);
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+  .tableDiv {
+    height: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 1px;
+    }
+
+    /* Track */
+    // &::-webkit-scrollbar-track {
+    //   background: #f1f1f1;
+    //   border-radius: 5px;
+    // }
+
+    // /* Handle */
+    // &::-webkit-scrollbar-thumb {
+    //   background: #4092c2;
+    //   border: 1px solid blue;
+    //   border-radius: 5px;
+    // }
+
+    // /* Handle on hover */
+    // &::-webkit-scrollbar-thumb:hover {
+    //   background: #1184c7;
+    // }
+
+    .table2 {
+      text-align: center;
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+      color: #00aff0;
+
+      tbody {
+        // background: #f2f2f2;
+        transition: all 0.5s ease-in-out;
+        // background: green;
+
+        &:hover {
+          background: rgb(255, 255, 255);
+          cursor: pointer;
+        }
+        tr {
+          height: 40px;
+          td {
+            text-align: left;
+
+            .finished {
+              color: #00aff0;
+              font-size: 17px;
+            }
+          }
+          .client-subject {
+            color: #666666;
+          }
+          .client-status {
+            text-align: center;
+            width: 100px;
+
+            &:hover {
+              .check,
+              .pendi,
+              .finished,
+              .declined {
+                display: none;
+              }
+              .status {
+                display: block;
+              }
+            }
+          }
+          .status {
+            display: none;
+          }
+          .client-doctor {
+            padding: 0 0 0 35px;
+          }
+          .created {
+            p {
+              margin: 2px 0 0 0;
+            }
+          }
+        }
+      }
+      .client-head {
+        text-align: center;
+        color: #666666;
+
+        .client-row {
+          height: 40px;
+          color: white;
+          background: #fa9551;
+
+          .client-doctor {
+            width: 40%;
+            border-top-left-radius: 15px;
+            // border-top-right-radius: 15px;
+            background: #fa9551;
+            // display: flex;
+            // justify-content: center;
+            // flex-direction: column;
+            .mainExamDiv {
+              // margin: 0 auto;
+              height: 40px;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              width: 150px;
+              span {
+                margin-left: 24%;
+              }
+              .searchIcon {
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                padding: 0 10px 0 0;
+                height: 100%;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+              // input {
+              //   width: 100px;
+              //   height: 30px;
+              //   border: 1px solid #666666;
+              //   border-radius: 5px;
+              //   margin-left: 50px;
+              //   text-indent: 5px;
+              //   &::placeholder {
+              //     color: #666666;
+              //     font-size: 10px;
+              //   }
+              // }
+            }
+          }
+          .client-subject {
+            // text-align: center;
+            width: 40%;
+          }
+
+          .client-type {
+            // text-align: center;
+            width: 200px;
+            .mainExamDiv {
+              height: 40px;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              width: 150px;
+              .searchIcon {
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                padding: 0 10px 0 0;
+                height: 100%;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+              // select {
+              //   width: 100px;
+              //   height: 30px;
+              //   border: 1px solid #666666;
+              //   border-radius: 5px;
+              //   text-indent: 5px;
+              //   &::placeholder {
+              //     color: #666666;
+              //     font-size: 10px;
+              //   }
+              // }
+            }
+          }
+          .client-date {
+            text-align: left;
+            width: 200px;
+
+            border-top-right-radius: 15px;
+          }
+          .client-status {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import Footer from "../../components/Main/Footer";
 import WaitingRoom from "../../components/Client/WaitingRoom";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
-import moment from "moment";
+// import moment from "moment";
+import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 const doctorStatusSocket = new WebSocket(
   "wss://healthcarebackend.xyz/ws/doctor/status/"
@@ -53,6 +53,8 @@ class ClientWaitingRoom extends Component {
       notes: "",
       connection: "",
       doctorStartedVideo: false,
+      showExtendScreen: false
+
     };
   }
 
@@ -65,13 +67,13 @@ class ClientWaitingRoom extends Component {
       .then((stream) => {
         var myVideo = document.createElement("video");
         myVideo.id = "myVid";
-        var videoChat = document.getElementById("videoChat");
+        var videoChat = document.getElementById("detailInfo2");
         videoChat.appendChild(myVideo);
         myVideo.srcObject = stream;
         myVideo.play();
         var myVid = document.getElementById("myVid");
         myVid.style.cssText =
-          "position: absolute; right: 0; bottom: -100px; width: 150px;";
+        "position: absolute; left: 10px; bottom: 7px; height: 170px; width: 320px;";
       });
   };
 
@@ -513,14 +515,14 @@ class ClientWaitingRoom extends Component {
           connection.send(message);
           document.getElementById(
             "messages"
-          ).innerHTML += `<p style='color:white ; text-align: left ;margin: 5px;display: table; white-space: initial ; background: blue; padding: 10px; border-radius: 10px'>${message}</p>`;
+          ).innerHTML += `<p style='color: #666666 ;margin: 5px;display: table; white-space: initial ; background: #e6e6e6; padding: 5px 10px 0 0; border-radius: 10px'><span>Client:</span>${message}</p>`;
           this.setState({ value: "" });
         });
 
         peer.on("data", function (data) {
           document.getElementById(
             "messages"
-          ).innerHTML += `<p style='color:black ; margin: 5px 0 5px auto; background: gainsboro ;display: table; white-space: initial; padding: 10px; border-radius: 10px'>${data}</p>`;
+          ).innerHTML += `<p style='color: #666666 ; margin: 5px 0 5px auto; background: #e6e6e6 ;display: table; white-space: initial; padding: 5px 10px 0 0; border-radius: 10px'><span>Doctor:</span>${data}</p>`;
         });
 
         let track = stream.getAudioTracks()[0];
@@ -566,14 +568,14 @@ class ClientWaitingRoom extends Component {
           // connection.close();
         });
 
-        document.querySelector(".icon2").addEventListener("click", () => {
-          // this.handleExitQueue();
-          // peer.destroy();
-          connection.send(JSON.stringify("Cancel Video From Client"));
-          this.handleDivClose();
-          window.location.reload();
-          // connection.close();
-        });
+        // document.querySelector(".icon2").addEventListener("click", () => {
+        //   // this.handleExitQueue();
+        //   // peer.destroy();
+        //   connection.send(JSON.stringify("Cancel Video From Client"));
+        //   this.handleDivClose();
+        //   window.location.reload();
+        //   // connection.close();
+        // });
         document.querySelector(".iconPhone").addEventListener("click", () => {
           // this.handleExitQueue();
           // peer.destroy();
@@ -654,6 +656,10 @@ class ClientWaitingRoom extends Component {
     this.setState({ video: !this.state.video });
   };
 
+  showExtendScreenIcon=()=>{
+    this.setState({showExtendScreen: !this.state.showExtendScreen})
+  }
+
   render() {
     return (
       <>
@@ -663,6 +669,7 @@ class ClientWaitingRoom extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv />
         <WaitingRoom
           handleSpeciality={this.handleSpeciality}
           handleDoctor={this.handleDoctor}
@@ -682,10 +689,9 @@ class ClientWaitingRoom extends Component {
           cutMic={this.cutMic}
           cutVideo={this.cutVideo}
           handleMessage={this.handleMessage}
+  showExtendScreenIcon={this.showExtendScreenIcon}
+
         />
-        <div className="footerr">
-          <Footer />
-        </div>
       </>
     );
   }

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DetailVideo from "../../components/Client/ClientVideoExamDetail";
-import Footer from "../../components/Main/Footer";
 
 const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
 var Peer = require("simple-peer");
@@ -339,9 +338,6 @@ class ClientVideoExamDetail extends Component {
           cutVideo={this.cutVideo}
           cutMic={this.cutMic}
         />
-        <div className="footerr">
-          <Footer />
-        </div>
       </>
     );
   }

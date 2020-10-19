@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import "../../assets/main/header.scss";
-import logo1 from "../../img/LOGOHC-01.svg";
+import logo1 from "../../img/logo.svg";
 import { popUpFalse } from "../../actions/popUpAction";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";

@@ -4,8 +4,10 @@ import Select from "react-select";
 // import CheckoutForm from "../../containers/Client/CheckoutForm";
 // import { Elements, StripeProvider } from "react-stripe-elements";
 import DatePicker from "react-datepicker";
+import videoIcon from "../../icons/icon_Video_Appointment_blue.svg";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import arrowAttach from "../../icons/attach_white.svg";
 
 const VideoReq = ({
   handleSpeciality,
@@ -20,13 +22,32 @@ const VideoReq = ({
     return new Date(hy.appointed_date);
   });
 
+  const customStyles = {
+    control: (base, state) => ({
+      ...base,
+      height: "40px",
+      border: "1.7px solid #fa9551",
+      borderRadius: "10px",
+      width: "307px",
+      marginLeft: "2px",
+      background: "white",
+      color: "#666666",
+      fontWeight: "600",
+    }),
+  };
+
   return (
     <div className="exam">
       <div className="mainExam">
+        <div className="newVideo">
+          <img src={videoIcon} alt="video img" />
+          <p>Video Appointment</p>
+        </div>
         <div className="exam-spec">
           <Select
             type="text"
             id="speciality"
+            styles={customStyles}
             placeholder="Select Speciality..."
             options={props.specialities}
             onChange={handleSpeciality}
@@ -36,6 +57,7 @@ const VideoReq = ({
           <Select
             type="text"
             id="doctor"
+            styles={customStyles}
             placeholder="Select Doctor..."
             options={props.specDoctor}
             onChange={handleDoctor}
@@ -56,7 +78,7 @@ const VideoReq = ({
         </div>
       </div>
       <div className="DatePicker">
-        <div className="exam-mes">
+        <div className="exam-mess">
           <textarea
             type="text"
             className="form-control"
@@ -92,11 +114,22 @@ const VideoReq = ({
             maxTime={moment(new Date()).set("hour", 15).set("minute", 30)._d}
           />
         </div>
+        <div className="divAndAttach">
+          <button
+            value={props.submitted}
+            className="send"
+            onClick={handleSubmit}
+          >
+            Send
+          </button>
+          <div className="upload-btn-wrapper">
+            <button className="btn">
+              <img src={arrowAttach} alt="attach" />
+            </button>
+            <input type="file" name="myfile" />
+          </div>
+        </div>
       </div>
-      <input type="file" name="" id="file" />
-      <button value={props.submitted} className="btn" onClick={handleSubmit}>
-        Send
-      </button>
       {/* <div>
         {props.isClicked ? (
           <StripeProvider apiKey="pk_test_EolntZ7skKXUqmWzbnpuo1zy00ZxWVnWf3">

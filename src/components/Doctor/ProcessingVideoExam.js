@@ -1,16 +1,26 @@
 import React, { Fragment } from "react";
 import "../../assets/processingWaitingRoom.scss";
 // import moment from "moment";
-import { FaMicrophoneAltSlash } from "react-icons/fa";
-import { FaMicrophoneAlt } from "react-icons/fa";
-import { FaVideoSlash } from "react-icons/fa";
-import { FaVideo } from "react-icons/fa";
-import { FaPhoneSlash } from "react-icons/fa";
-import { FaRegSquare } from "react-icons/fa";
-import { FaRocketchat } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
-import { Rnd } from "react-rnd";
+// import { FaMicrophoneAltSlash } from "react-icons/fa";
+// import { FaMicrophoneAlt } from "react-icons/fa";
+// import { FaVideoSlash } from "react-icons/fa";
+// import { FaVideo } from "react-icons/fa";
+// import { FaPhoneSlash } from "react-icons/fa";
+// import { FaRegSquare } from "react-icons/fa";
+// import { FaRocketchat } from "react-icons/fa";
+// import { MdClose } from "react-icons/md";
+// import { Rnd } from "react-rnd";
 import Select from "react-select";
+import iconWaitingBlue from '../../icons/icon_Waiting_Room_blue.svg'
+import iconVideoBlue from '../../icons/icon_Video_Appointment_blue.svg'
+import moment from 'moment'
+import mute from '../../icons/videoIcons/mute.svg'
+import unmute from '../../icons/videoIcons/unmute.svg'
+import hangup from '../../icons/videoIcons/hang-up.svg'
+// import call from '../../icons/videoIcons/call.svg'
+import cameraoff from '../../icons/videoIcons/camera-off.svg'
+import cameraon from '../../icons/videoIcons/camera-on.svg'
+import ExtendScreen from '../../icons/videoIcons/Extend-screen.svg'
 
 const Processing = ({
   handleConnect,
@@ -27,7 +37,19 @@ const Processing = ({
   handleDivSize,
   cutVideo,
   cutMic,
+  showExtendScreenIcon
 }) => {
+  const customStyles = {
+    control: () => ({
+      // none of react-select's styles are passed to <Control />
+      width: 200,
+      border: "2px solid #fa9551",
+      borderRadius: "10px",
+      height: "40px",
+      fontWeight: 600,
+      display: "flex",
+    }),
+  };
   return (
     <>
       {props.exam.map((exam) => {
@@ -44,22 +66,26 @@ const Processing = ({
             : [{ value: "Finish", label: "Finish" }];
         return (
           <Fragment key={exam.exam.id}>
-            <div className="detail-exam">
+            <div className="detailExam"  style={{
+          display: !props.startVideo ? "block" : "none",
+        }}>
+            <div className="iconVideoo">
+                <img src={iconWaitingBlue} alt="email" />
+                <p>Waiting room details</p>{" "}
+              </div>
               <div className="detail">
-                <p>
+                <div className='detailInfo'>
+                <p className='ClientP'>
                   <span>Client:</span> {exam.exam.client}
                 </p>
                 <p>
-                  <span>Created:</span> {exam.exam.created}
+        <span>{exam.exam.status === 'Appointed' || exam.exam.status === 'Finished' ? 'Appointed: ' : 'Appoint: '}</span> 
+                      {moment(exam.exam.appointed_date).format("MM/DD/YYYY HH:mm")}
+
+        
                 </p>
-                <p>
+                <p className='TypeP'>
                   <span>Type:</span> {exam.exam.exam_type}
-                </p>
-                <p>
-                  <span>Subject: </span> {exam.exam.subject}
-                </p>
-                <p>
-                  <span>Message: </span> {exam.exam.notes}
                 </p>
                 {exam.exam.status === "Canceled" ||
                 exam.exam.status === "Finished" ||
@@ -74,6 +100,7 @@ const Processing = ({
                       placeholder={placeholder}
                       className="select-option"
                       value={props.statusValue}
+                      styles={customStyles}
                       options={options}
                       onChange={handleStatus}
                       isDisabled={
@@ -85,6 +112,24 @@ const Processing = ({
                     />
                   </div>
                 )}
+                </div>
+                <div className="mainMessageDiv">
+                <div className="subjectDiv">
+                  <p>
+                    <span>Subject:</span> {exam.exam.subject}
+                  </p>
+                  <p>
+                    <span>
+                      {moment(exam.exam.created).format("MM/DD/YYYY")}
+                    </span>{" "}
+                  </p>
+                </div>
+                <div className="messageDiv">
+                  <p>
+                    <span>Message:</span> {exam.exam.notes}
+                  </p>
+                </div>
+              </div>
               </div>
               {/* {exam.record ? (
                 <div key={exam.record.id} className="record-box">
@@ -101,15 +146,14 @@ const Processing = ({
                   </p>
                 </div>
               ) : null} */}
-            </div>
-            <div className="message-btn">
+                  <div className="message-btn">
               {exam.exam.status === "Accepted" &&
               !props.connectedall &&
               !props.connected ? (
-                <h3 style={{ color: "#4092c2" }}>Connecting...</h3>
+                <h3 style={{ color: "#666666" }}>Connecting...</h3>
               ) : (
                 exam.exam.status === "Canceled" && (
-                  <h3 style={{ color: "#4092c2" }}>Reject-Connection</h3>
+                  <h3 style={{ color: "#666666" }}>Reject-Connection</h3>
                 )
               )}
               <button
@@ -122,6 +166,75 @@ const Processing = ({
                 Start Video
               </button>
             </div>
+            </div>
+
+
+
+            <div className="detailExam"  style={{
+          display: props.startVideo ? "block" : "none",
+          padding: 0
+        }}>
+            <div className="iconVideoo">
+                <img src={iconVideoBlue} alt="email" />
+                <p>Video call</p>{" "}
+              </div>
+              <div className="detail2">
+                <div className='detailInfo2' id='detailInfo2'>
+                <p className='ClientP'>
+                  <span>Client:</span> {exam.exam.client}
+                </p> 
+                <div className="MainIconsDiv">
+                  <img src={mute}
+                    className="iconMic"
+                  alt="img" style={{ display: !props.audio ? "none" : "block" }}
+                onClick={cutMic}/>
+                  <img src={unmute}
+                   className="iconMicUnmute"
+                  alt="img" style={{ display: props.audio ? "none" : "block" }}
+                onClick={cutMic}/>
+                  {/* <img src={call} alt="img" style={{display: 'none' }}/> */}
+                  <img src={hangup} alt="img" className="iconPhone"/>
+                  <img src={cameraoff}
+                  className="iconVideo"
+                   alt="img" style={{ display: !props.video ? "none" : "block" }}
+                onClick={cutVideo}/>
+                  <img src={cameraon} alt="img" 
+                className="iconVideoShow"
+                style={{ display: props.video ? "none" : "block" }}
+                onClick={cutVideo}/>
+                  </div>  
+                <div className='MainDivForChat'>
+                  <p>Chat</p>
+                  <form
+            autoComplete="off"
+            action=""
+            id="form"
+          >
+            <pre id="messages"></pre>
+            <div className="inputMessage">
+              <input
+                type="text"
+                placeholder="Type a message"
+                id="yourMessage"
+                value={props.value}
+                onChange={handleChange}
+                onMouseDown={enableTipeing}
+              ></input>
+              <button style={{display: 'hidden'}} id="send">Send</button>
+            </div>
+          </form>
+                  </div>  
+                </div>
+                <div id='videoChat' onMouseEnter={showExtendScreenIcon} onMouseLeave={showExtendScreenIcon}>
+                {/* <div id='videoo' >nesto tamo</div> */}
+                  <img src={ExtendScreen} style={{display: !props.showExtendScreen && 'none'}} className="extendScreen" alt="screen icon"/>
+                </div>
+
+           
+              </div>
+       
+            </div>
+{/*         
             <div className="recordsDetail">
               <h4>Report</h4>
 
@@ -165,7 +278,7 @@ const Processing = ({
                       : null;
                   })}
               </div>
-            </div>
+            </div> */}
           </Fragment>
         );
       })}
@@ -174,7 +287,7 @@ const Processing = ({
       style={{ display: props.startVideo ? "block" : "none" }}
       id="videoo"
     ></div> */}
-      <Rnd
+      {/* <Rnd
         id="videoo"
         size={{
           width: props.width,
@@ -261,7 +374,7 @@ const Processing = ({
             </div>
           </div>
         </div>
-      </Rnd>
+      </Rnd> */}
     </>
   );
 };

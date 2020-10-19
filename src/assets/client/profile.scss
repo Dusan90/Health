@@ -1,64 +1,197 @@
 .mainClien {
   display: flex;
-  flex-direction: column;
-  width: 60%;
-  margin: 100px auto 0 auto;
+
+  width: 65%;
+  margin: 80px auto 20px auto;
+  background: #f2f2f2;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  position: relative;
+  .newVideo {
+    display: flex;
+    align-items: center;
+    background: #f2f2f2;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    position: absolute;
+
+    top: -40px;
+    left: 0;
+    height: 40px;
+    width: 140px;
+    img {
+      margin: 0 10px 0 15px;
+    }
+    p {
+      margin: 0;
+      font-weight: 400;
+    }
+  }
 
   .client {
     width: 50%;
-    border-radius: 10px;
+
+    padding: 20px 20px 20px 60px;
     margin: 20px 0 20px 0;
-    float: left;
 
     .client-p {
-      p {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        height: 40px;
+        border: 1.7px solid #fa9551;
+        border-radius: 10px;
+        background: white;
+        margin: 2px 0 20px 0;
+        text-indent: 15px;
+        font-weight: 700;
+
+        &::placeholder {
+          font-weight: 700;
+        }
+      }
+      label {
+        color: #666666;
         text-align: left;
-        text-indent: 10px;
-        color: #4092c2;
-        margin: 5px;
-        border-bottom: 1px solid #4092c2;
+      }
+      .checkboxDiv {
+        display: flex;
+        margin: 8px 0 20px 0;
+        .Male {
+          margin: 0 20px 0 0;
+        }
+
+        [type="checkbox"]:not(:checked),
+        [type="checkbox"]:checked {
+          position: absolute;
+          left: -9999px;
+        }
+
+        [type="checkbox"]:not(:checked) + label,
+        [type="checkbox"]:checked + label {
+          position: relative;
+          padding-left: 25px;
+          cursor: pointer;
+        }
+
+        [type="checkbox"]:not(:checked) + label:before,
+        [type="checkbox"]:checked + label:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          width: 17px;
+          height: 17px;
+          border-radius: 3px;
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+          border-radius: 50%;
+          outline: none;
+          border: 1px solid #00aff0;
+        }
+
+        [type="checkbox"]:not(:checked) + label:after,
+        [type="checkbox"]:checked + label:after {
+          content: "✔";
+          position: absolute;
+          top: 3px;
+          left: 2px;
+          font-size: 15px;
+          line-height: 0.8;
+          color: #00aff0;
+          transition: all 0.2s;
+        }
+
+        [type="checkbox"]:not(:checked) + label:after {
+          opacity: 0;
+          transform: scale(0);
+        }
+
+        [type="checkbox"]:checked + label:after {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .saveChanges {
+        background: #00aff0;
+        width: 100px;
+        height: 35px;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
       }
     }
   }
 
   .form {
-    left: 250px;
-    top: 15px;
-    display: flex;
+    padding: 20px 60px 20px 20px;
+    margin: 20px 0 20px 0;
+    width: 50%;
+    .conditions {
+      display: flex;
+      flex-direction: column;
+      text-align: start;
+      font-weight: 700;
+      color: #666666;
+      textarea {
+        height: 178px;
+        border: 1.7px solid #fa9551;
+        border-radius: 10px;
+        background: white;
+        margin: 5px 0 10px 0;
+        text-indent: 15px;
+        font-weight: 700;
 
-    border-radius: 10px;
-    width: 500px;
-    height: 180px;
-
-    .address {
-      left: 0px;
-      padding: 5px;
-
-      .address-input {
-        left: 100px;
-        border: 1px solid #4092c2;
-        border-radius: 5px;
-        padding: 5px;
+        &::placeholder {
+          font-weight: 700;
+        }
       }
     }
+    .allergies {
+      display: flex;
+      flex-direction: column;
+      text-align: start;
+      font-weight: 700;
+      color: #666666;
+      textarea {
+        border: 1.7px solid #fa9551;
+        border-radius: 10px;
+        background: white;
+        margin: 5px 0 20px 0;
+        text-indent: 15px;
+        font-weight: 700;
+        height: 178px;
 
-    .submit {
-      top: 50px;
-      left: 108px;
-      padding: 5px;
-
-      .btn {
-        width: 156px;
-        color: white;
-        background: #4092c2;
-        transition: all 0.5s ease-in-out;
-        border: none;
-        margin: 0;
-        outline: 0;
-        &:hover {
-          background: rgb(1, 113, 150);
-          box-shadow: 2px 2px 2px black;
+        &::placeholder {
+          font-weight: 700;
         }
+      }
+    }
+    .profilePic {
+      display: flex;
+      p {
+        padding: 8px 0 0 3px;
+        font-weight: 600;
+        color: #666666;
+      }
+      .upload-btn-wrapper {
+        position: relative;
+        overflow: hidden;
+        .btn {
+          margin: 0;
+        }
+      }
+
+      .upload-btn-wrapper input[type="file"] {
+        font-size: 100px;
+        position: absolute;
+        background: #00aff0;
+
+        left: 0;
+        top: -20px;
+        width: 60px;
+        opacity: 0;
       }
     }
   }

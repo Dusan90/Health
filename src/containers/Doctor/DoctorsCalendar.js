@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import Footer from "../../components/Main/Footer";
 import axios from "axios";
 import moment from "moment";
 import {
@@ -13,6 +12,7 @@ import {
   Month,
   Agenda,
 } from "@syncfusion/ej2-react-schedule";
+import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 export class DoctorsCalendar extends Component {
   constructor(props) {
@@ -79,9 +79,10 @@ export class DoctorsCalendar extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv/>
         <div
           style={{
-            width: "60%",
+            width: "65%",
             margin: "100px auto 58px auto",
           }}
         >
@@ -106,7 +107,6 @@ export class DoctorsCalendar extends Component {
             <Inject services={[Day, Week, WorkWeek, Month, Agenda]} />
           </ScheduleComponent>
         </div>
-        <Footer />
       </>
     );
   }

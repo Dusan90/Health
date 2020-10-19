@@ -15,6 +15,7 @@ import { FaPaypal } from "react-icons/fa";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import PaypalButton from "./PaypalCheckout";
+import HamburgerDiv from "../../components/Main/HamburgerDiv";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -184,10 +185,10 @@ class CheckoutForm extends Component {
         style: {
           base: {
             fontSize,
-            color: "#4092c2",
+            color: "#666666",
             letterSpacing: "0.025em",
             "::placeholder": {
-              color: "#4092c2",
+              color: "#666666",
               fontSize: "12px",
               fontWeight: 700,
             },
@@ -214,14 +215,15 @@ class CheckoutForm extends Component {
             <Nav />
           </div>
         </div>
+        <HamburgerDiv />
+        <h1 className="mainTitle">Payment</h1>
+        <p className="underTitle">Choose payment method below</p>
         <div className="mainCardDiv">
-          <h1>Payment</h1>
-          <p>Choose payment method below</p>
           <div className="payWay">
             <div
               className="cardIcon"
               style={{
-                border: this.state.selectedCard ? "2px solid #4092c2" : "none",
+                background: this.state.selectedCard ? "white" : "transparent",
               }}
               onClick={this.handleSelect}
             >
@@ -230,7 +232,7 @@ class CheckoutForm extends Component {
             <div
               className="paypalIcon"
               style={{
-                border: this.state.selectedPal ? "2px solid #4092c2" : "none",
+                background: this.state.selectedPal ? "white" : "transparent",
               }}
               onClick={this.handleSelectPal}
             >
@@ -242,7 +244,7 @@ class CheckoutForm extends Component {
               <div className="billingInfo">
                 <h1>Billing Info</h1>
                 <label htmlFor="fullName">
-                  FULL NAME
+                  Full Name
                   <br />
                   <input id="fullName" placeholder="John Doe" type="text" />
                 </label>
@@ -252,8 +254,8 @@ class CheckoutForm extends Component {
                     ? 0
                     : this.props.location.state.price
                     ? this.props.location.state.price
-                    : 0}{" "}
-                  €
+                    : 0}
+                   €
                 </h1>
               </div>
               <div className="creditCardInfo">
@@ -293,7 +295,7 @@ class CheckoutForm extends Component {
               </form> */}
                 <form onSubmit={this.handleSubmit}>
                   <label>
-                    CARD NUMBER
+                    Card Number
                     <CardNumberElement
                       className="CardElement"
                       onChange={this.handleChange}
@@ -302,7 +304,7 @@ class CheckoutForm extends Component {
                     />
                   </label>
                   <label>
-                    EXPIRATION DATE
+                    Expiration Date
                     <CardExpiryElement
                       className="CardElement"
                       onChange={this.handleChange}

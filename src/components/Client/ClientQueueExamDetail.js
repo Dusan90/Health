@@ -3,6 +3,8 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import "../../assets/client/detail-exam.scss";
 import moment from "moment";
+import queueIcon from '../../icons/icon_Waiting_Room_blue.svg'
+import { HamburgerDiv } from "../Main/HamburgerDiv";
 
 const DetailQueue = ({ exam }) => {
   return (
@@ -13,39 +15,58 @@ const DetailQueue = ({ exam }) => {
           <Nav />
         </div>
       </div>
+      <HamburgerDiv/>
       {exam.map((exam) => {
         return (
           <Fragment key={exam.exam.id}>
-            <div className="detail-exam">
+            <div className="detail-exam" style={{height: '300px'}}>
+            <div className="iconVideo" style={{width: '250px'}}>
+                <img src={queueIcon} alt="email" />
+                <p>Waiting room details</p>{" "}
+              </div>
               <div className="detail">
-                <p>
-                  <span>Doctor:</span> {exam.exam.doctor_name}
-                </p>
-                <p>
-                  <span>Speciality:</span> {exam.exam.speciality}
-                </p>
-
-                <p>
-                  {" "}
-                  <span>Created:</span>{" "}
-                  {moment(exam.exam.created).format("YYYY-MM-DD")}
-                </p>
-
-                <p>
-                  <span>Type:</span> {exam.exam.exam_type}
-                </p>
-                <p>
-                  <span>Subject:</span> {exam.exam.subject}
-                </p>
-                <p>
-                  <span>Message:</span> {exam.exam.notes}
-                </p>
+              <p>
+                <span>Doctor:</span> {exam/exam.doctor_name}
+              </p>
+              <p>
+                <span>Speciality:</span> {exam.exam.speciality}
+              </p>
+              <p>
+                <span>Created:</span>{" "}
+                {new Intl.DateTimeFormat("en-GB", {
+                  year: "numeric",
+                  month: "long",
+                  day: "2-digit",
+                }).format(new Date(exam.exam.created))}
+              </p>
+              <p>
+                <span>Type:</span> {exam.exam.exam_type}
+              </p>
                 <p>
                   <span>Status:</span> {exam.exam.status}
                 </p>
+            </div>
+            <div className='sideMessageDetails'>
+            <div className="SubjectMessage">
+              <div className="subjectDiv">
+                  <p>
+                    <span>Subject:</span> {exam.exam.subject}
+                  </p>
+                  <p>
+                    <span>
+                      {moment(exam.exam.created).format("MM/DD/YYYY")}
+                    </span>
+                  </p>
+                </div>
+                <div className="messageDiv">
+                  <p>
+                    <span>Message:</span> {exam.exam.notes}
+                  </p>
+                </div>
+              </div>
               </div>
             </div>
-            <div className="recordsDetail">
+            {/* <div className="recordsDetail">
               <h4>Report</h4>
 
               <div className="report">
@@ -82,7 +103,7 @@ const DetailQueue = ({ exam }) => {
                     );
                   })}
               </div>
-            </div>
+            </div> */}
           </Fragment>
         );
       })}

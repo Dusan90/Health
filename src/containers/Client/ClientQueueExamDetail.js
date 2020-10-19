@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DetailQueue from "../../components/Client/ClientQueueExamDetail";
-import Footer from "../../components/Main/Footer";
 class ClientQueueExamDetail extends Component {
   constructor(props) {
     super(props);
@@ -36,10 +35,9 @@ class ClientQueueExamDetail extends Component {
   render() {
     return (
       <>
+
         <DetailQueue exam={this.state.exam} />
-        <div className="footerr">
-          <Footer />
-        </div>
+       
       </>
     );
   }
