@@ -1,0 +1,73 @@
+.mainDoctorDiv {
+  width: 65%;
+  height: 500px;
+  margin: 100px auto 0 auto;
+  background: #f3f3f3;
+  position: relative;
+  border-radius: 15px;
+  border-top-left-radius: 0;
+
+  .doctorsAbove {
+    position: absolute;
+    top: -39px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 220px;
+    background: #f3f3f3;
+    display: flex;
+    img {
+      margin: 0 10px 0 20px;
+    }
+    h4 {
+      color: #666666;
+      text-align: left;
+    }
+  }
+
+  .row2 {
+    width: 90%;
+    margin: 0 auto;
+    color: #666666;
+    .mainDoctorInfoDiv {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 40px 0 40px;
+      .imageDiv {
+        border: 1.7px solid #666666;
+        height: 170px;
+        width: 150px;
+        p {
+          font-size: 100px;
+          text-align: center;
+          padding: 12px 0 0 0;
+        }
+        img {
+          width: 145px;
+          height: 165px;
+          object-fit: cover;
+        }
+      }
+      div {
+        width: 33.3%;
+        p {
+          text-align: left;
+          margin-bottom: 20px;
+          span {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+    .BiographyDiv {
+      width: 54%;
+      margin: 0 40px 0 auto;
+      .pForBio {
+        font-weight: 700;
+        text-align: left;
+      }
+      p {
+        text-align: left;
+      }
+    }
+  }
+}

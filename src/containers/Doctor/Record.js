@@ -13,16 +13,12 @@ class ClientRecord extends Component {
       record: null,
       token: sessionStorage.getItem("accessToken"),
       id: this.props.match.params.id,
-
       currentFilterClicked: "",
       searchClient: false,
       searchName: "",
       searchType: "",
       messageIfEmpty: "",
       paginatedExams: [],
-
-
-
     };
   }
 
@@ -46,9 +42,31 @@ class ClientRecord extends Component {
       });
   };
 
+  clientsExams = () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(
+        `https://healthcarebackend.xyz/api/exams/client/${this.state.id}/`
+        ,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
+        console.log(response, "podaciiii");
+        let AllArrays = response.data.data.mail.concat(response.data.data.queue, response.data.data.video)
+
+        return this.setState({
+          exams: AllArrays,
+        });
+      }).then(() =>{
+        this.handleUpcoming();
+      })
+  };
+
   componentDidMount() {
     this.record();
-    // this.records();
+    this.clientsExams()
   }
 
   handleUpcoming = () => {
@@ -387,7 +405,6 @@ class ClientRecord extends Component {
           hnlClick2={this.hnlClick2}
           hnlClick3={this.hnlClick3}
           hnlWaitingClick={this.hnlWaitingClick}
-          props={this}
           handleKeyPress={this.handleKeyPress}
           handleChange={this.handleChange}
           handleClickLeft={this.handleClickLeft}

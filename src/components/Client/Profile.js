@@ -6,16 +6,16 @@ import arrowAttach from '../../icons/attach_white.svg'
 
 const Profile = ({
   client,
-  addressValue,
-  handleAddress,
   handleSubmit,
   handleGenderRadio,
-  props
+  props,
+  attachInput,
+  handleChange
 }) => (
   <>
     {client &&
       client.map(client => {
-        const splited = client.user.split(" ");
+
         return (
           <div key={client.id} className="mainClien">
             <div className="newVideo">
@@ -25,22 +25,18 @@ const Profile = ({
             <div className="client">
               <div className="client-p">
                 <label htmlFor="firstName">First Name</label>
-                <input placeholder={splited[0]} type="text"/>
+                <input placeholder={client.user.first_name} id='FirstName' onChange={handleChange} type="text"/>
                 <label htmlFor="lastName">Last Name</label>
-                <input placeholder={splited[1]} type="text"/>
+                <input placeholder={client.user.last_name} id='LastName' onChange={handleChange} type="text"/>
                 <label htmlFor="address">Address</label>
-
-                <input placeholder={client.address} type="text"/>
+                <input placeholder={client.address} onChange={handleChange} id='Address' type="text"/>
+                <label htmlFor="address">E-mail</label>
+                <input placeholder={client.user.email} disabled={true} onChange={handleChange} id='Email' type="text"/>
                 <label htmlFor="Phone">Phone number</label>
-                <input placeholder={client.phone ? client.phone : '11 22 33 44'} type="number"/>
+                <input placeholder={client.user.phone ? client.user.phone : '11 22 33 44'} onChange={handleChange} id='PhoneNum' type="number"/>
                 <label htmlFor="birth">Date of birth</label>
-                <input placeholder={client.birth_date} type="text"/>
-                <div className='checkboxDiv'>
-                <input type="checkbox" name="Male" id="Male" checked={props.gender === 'M' && true}  onChange={() => handleGenderRadio("M")}/>
-                <label className='Male' value='Male' htmlFor="Male" >Male</label>
-                <input type="checkbox" value="Female" checked={props.gender === 'F' && true} name="Female" id="Female"  onChange={() => handleGenderRadio("F")}/>
-                <label htmlFor="Female">Female</label>
-                </div>
+                <input placeholder={client.birth_date} onChange={handleChange} id='BirthDate' type="text"/>
+               
                 <button 
                   onClick={handleSubmit}
                   className="saveChanges">Save</button>
@@ -52,6 +48,7 @@ const Profile = ({
                 <textarea
                   type="text"
                   className="address-input"
+                  onChange={handleChange} id='ChronicalConditions'
                 />
               </div>
               <div  className="allergies">
@@ -60,28 +57,26 @@ const Profile = ({
                 style={{height: !client.image ? '178px' : '138px'}}
                   type="text"
                   className="address-input"
+                  onChange={handleChange} id='Allergies'
                 />
               </div>
-        { !client.image ? 
-             <div className='profilePic'>
-                <p style={{margin: "0 20px 0 0"}}>Upload profile picture</p>
+              <div className='checkboxDiv'>
+                <input type="checkbox" name="Male" id="Male" checked={props.gender === 'M' && true}  onChange={() => handleGenderRadio("M")}/>
+                <label className='Male' value='Male' htmlFor="Male" >Male</label>
+                <input type="checkbox" value="Female" checked={props.gender === 'F' && true} name="Female" id="Female"  onChange={() => handleGenderRadio("F")}/>
+                <label htmlFor="Female">Female</label>
+                </div>
+          <div className='profilePic'>
               <div className="upload-btn-wrapper">
             <button className="btn">
               <img src={arrowAttach} alt="attach" />
             </button>
-            <input type="file" name="myfile" />
-          </div>
-
-              </div> :   <div className='profilePic'>
-              <div className="upload-btn-wrapper">
-            <button className="btn">
-              <img src={arrowAttach} alt="attach" />
-            </button>
-            <input type="file" name="myfile" />
+            <input type="file" name="myfile" onChange={attachInput} />
           </div>
                 <p style={{margin: "0 40px 0 20px"}} >Upload profile picture</p>
+                <img className='cliImage' src={client.image !== "/media/default.jpg" ? `https://healthcarebackend.xyz${client.image}` : clientIcon} alt='#' />
                 
-              </div>}
+              </div>
             
             </div>
           </div>

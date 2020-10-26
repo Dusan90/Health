@@ -11,6 +11,7 @@ import doctorsImg from "../../icons/icon_my-profile_doctor_white_23px.png";
 import clientsImg from '../../icons/icon_my_profile_client_white_23px.svg'
 import calendar from "../../icons/icon_calendar_white.svg";
 import alert from "../../icons/icon_alerts_white.svg";
+import doctorsImg2 from '../../icons/icon_doctor_2_white.svg'
 // import logOutImg from "../../icons/icon_Log_Out_white.svg";
 import settingsImg from "../../icons/icon_settings_white.svg";
 // import waitingRoomImg from "../../icons/icon_Waiting_Room_white.svg";
@@ -96,7 +97,7 @@ export class HamburgerDiv extends Component {
               </Link>
             </div>
             <div>
-              <Link to="doctor/profile/" className="linksPatients">
+              <Link to="/doctor/profile/" className="linksPatients">
                 <img
                   src={doctorsImg}
                   className="profileIcon"
@@ -115,6 +116,21 @@ export class HamburgerDiv extends Component {
             <img src={burger} alt="burger" />
           </div>
           <div className="rightNavIcons">
+          <div>
+              <Link
+                to="/client/Doctor-list/"
+                className="linksPatients"
+                //   onClick={hnlMyConsultations}
+              >
+                <img
+                  src={doctorsImg2}
+                  className="doctorsIcon"
+                  alt="Doctors"
+                />
+
+                {this.state.hamburger && <p>Doctors</p>}
+              </Link>
+            </div>
             <div>
               <Link
                 to="/dashboard-client"

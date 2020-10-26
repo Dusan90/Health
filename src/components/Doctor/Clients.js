@@ -22,15 +22,15 @@ function Clients({ handleClient, clients, handleSort }) {
       </div>
       <div className="row2">
         {clients.map((client) => {
-          return client.id === null ? null : (
-            <div key={client.id} className="list-group">
+          return client.client_id === null ? null : (
+            <div key={client.client_id} className="list-group">
               <button
-                data-id={client.id}
+                data-id={client.client_id}
                 className="list-group-item"
-                onClick={() => handleClient(client.id)}
+                onClick={() => handleClient(client.client_id)}
               >
                 {client.client}
-                <img src={myClientProfile} alt="cliet profile" />
+                <img src={client.image === "default.jpg" ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
               </button>
             </div>
           );

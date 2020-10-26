@@ -29,7 +29,8 @@ class ProcessingVideoExam extends Component {
       selectedStatus: "",
       connection: "",
       clientStatus: "",
-      showExtendScreen: false
+      showExtendScreen: false,
+      extended: false
     };
   }
 
@@ -181,6 +182,7 @@ class ProcessingVideoExam extends Component {
           videoChat.appendChild(video);
           video.srcObject = mediaStream;
           video.play();
+
         });
 
         peer.on("close", () => {
@@ -368,6 +370,11 @@ class ProcessingVideoExam extends Component {
     this.setState({showExtendScreen: !this.state.showExtendScreen})
   }
 
+  extendScr= () =>{
+    this.setState({extended: !this.state.extended})
+    // let vidToBeChanged = document.querySelector('.vid')
+  }
+
   render() {
     return (
       <>
@@ -394,6 +401,7 @@ class ProcessingVideoExam extends Component {
           cutVideo={this.cutVideo}
           props={this.state}
   showExtendScreenIcon={this.showExtendScreenIcon}
+  extendScr={this.extendScr}
 
         />
 

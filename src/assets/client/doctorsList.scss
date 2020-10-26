@@ -1,0 +1,82 @@
+.mainDoctorsDiv {
+  width: 50%;
+  height: 500px;
+  margin: 100px auto 0 auto;
+  background: #f3f3f3;
+  position: relative;
+  border-radius: 15px;
+  border-top-left-radius: 0;
+
+  .doctorsAbove {
+    position: absolute;
+    top: -39px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 170px;
+    background: #f3f3f3;
+    display: flex;
+    img {
+      margin: 0 10px 0 20px;
+    }
+    h4 {
+      color: #666666;
+      text-align: left;
+    }
+  }
+
+  .doctorsDiv {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 20px 0;
+    label {
+      align-self: center;
+      margin: 0 40px 0 60px;
+      color: #666666;
+      select {
+        border: 2px solid #00aff0;
+        border-radius: 8px;
+        height: 30px;
+        width: 130px;
+        color: #666666;
+        margin: 0 0 0 20px;
+        text-indent: 10px;
+      }
+    }
+  }
+
+  .row2 {
+    width: 83%;
+    margin: 0 0 0 55px;
+    .list-group {
+      box-shadow: none;
+      //   margin: 10px 0;
+      display: flex;
+
+      .list-group-item {
+        transition: all 0.5s ease-in-out;
+        border: 1.5px solid #fa9551;
+        border-radius: 10px;
+        color: #666666;
+        outline: 0;
+        font-weight: bold;
+        text-indent: 10px;
+        &:hover {
+          background: #fa9551;
+          color: white;
+        }
+        position: relative;
+        img {
+          position: absolute;
+          right: -20px;
+          bottom: -10px;
+          width: 60px;
+          height: 60px;
+          background: white;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}

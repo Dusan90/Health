@@ -36,6 +36,8 @@ import Settings from "./containers/Doctor/Settings";
 import UpdateSettings from './containers/Doctor/UpdateSettings'
 import ClientSettings from './containers/Client/Settings'
 import ClientUpdateSettings from './containers/Client/UpdateSettings'
+import DoctorsList from "./containers/Client/DoctorsList";
+import DoctorsDetails from "./containers/Client/DoctorsDetails";
 // import NotFound from "./containers/Home/NotFound";
 
 export class Routes extends Component {
@@ -96,6 +98,8 @@ export class Routes extends Component {
           component={ClientSettings}
         />
         <PrivateRoute path="/client/video-request" exact component={VideoReq} />
+        <PrivateRoute path="/client/Doctor-list" exact component={DoctorsList} />
+        <PrivateRoute path="/client/Doctor-detail/:id/" exact component={DoctorsDetails} />
 
         <PrivateRoute path="/initiate" exact component={ExamForm} />
         <Elements>

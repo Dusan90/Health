@@ -37,7 +37,8 @@ const Processing = ({
   handleDivSize,
   cutVideo,
   cutMic,
-  showExtendScreenIcon
+  showExtendScreenIcon,
+  extendScr
 }) => {
   const customStyles = {
     control: () => ({
@@ -227,7 +228,7 @@ const Processing = ({
                 </div>
                 <div id='videoChat' onMouseEnter={showExtendScreenIcon} onMouseLeave={showExtendScreenIcon}>
                 {/* <div id='videoo' >nesto tamo</div> */}
-                  <img src={ExtendScreen} style={{display: !props.showExtendScreen && 'none'}} className="extendScreen" alt="screen icon"/>
+                  <img src={ExtendScreen} onClick={extendScr} style={{display: !props.showExtendScreen && 'none'}} className="extendScreen" alt="screen icon"/>
                 </div>
 
            

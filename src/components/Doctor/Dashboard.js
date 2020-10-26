@@ -1,6 +1,5 @@
 import React from "react";
 import "../../assets/dashboard.scss";
-import { FaSearch } from "react-icons/fa";
 
 import { GiCheckeredFlag } from "react-icons/gi";
 

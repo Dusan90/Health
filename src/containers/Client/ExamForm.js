@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Header from "../../components/Main/Header";
 import InitiateExam from "../../components/Client/ExamForm";
 import Nav from "../../components/Main/Navbar";
-import Footer from "../../components/Main/Footer";
 import axios from "axios";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";

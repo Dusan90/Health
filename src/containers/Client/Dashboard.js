@@ -57,7 +57,7 @@ class ClientDashboard extends Component {
       })
       .then((response) => {
         this.connect(response.data.data.id);
-        this.props.curentDoc(response.data.data.user);
+        this.props.curentDoc([response.data.data.user]);
         return this.setState({ client: response.data.data });
       })
       .then(() => {

@@ -229,15 +229,16 @@
         border: none;
         border-radius: 10px;
         font-weight: 600;
-        margin: 70px 0 0 0;
+        margin: 100px 0 0 0;
       }
     }
   }
 
   .form {
-    padding: 20px 60px 20px 20px;
+    padding: 0px 60px 20px 20px;
     margin: 20px 0 20px 0;
     width: 50%;
+    color: #666666;
     .pricing {
       display: flex;
       justify-content: space-between;
@@ -328,6 +329,8 @@
     }
     .profilePic {
       display: flex;
+      margin: 20px 0 0 0;
+      align-items: center;
       p {
         padding: 8px 0 0 3px;
         font-weight: 600;
@@ -350,6 +353,12 @@
         top: -20px;
         width: 60px;
         opacity: 0;
+      }
+      .docImage {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
       }
     }
   }

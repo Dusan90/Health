@@ -24,28 +24,63 @@ const Nav = ({
     const access_token = "Bearer ".concat(
       sessionStorage.getItem("accessToken")
     );
-    const data = await fetch(
-      `https://healthcarebackend.xyz/api/doctor/profile/`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: access_token,
-        },
-        body: JSON.stringify({
-          prefix: "",
-          description: "",
-          email_exam_price: null,
-          web_exam_price: null,
-          status: value,
-        }),
-      }
-    );
-    const jsonData = await data.json();
-    if (jsonData.success) {
+    e.preventDefault();
+    let form_data = new FormData();
+form_data.append("user.first_name", '');
+form_data.append("user.last_name", '');
+form_data.append("user.phone", '');
+form_data.append("biography", '');
+form_data.append("email_exam_price", '');
+form_data.append("web_exam_price", '');
+form_data.append("web_exam_follow_price", '');
+form_data.append("image", '');
+form_data.append("status", value);
+
+
+let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
+
+const data = axios.put(url, form_data, {
+  headers: {
+    'content-type': 'multipart/form-data',
+    Authorization: access_token,
+  }
+})
+
+
+    console.log('submiting');
+    const jsonData = await data;
+    console.log(jsonData, "profile changed");
+    if(jsonData.data.success){
       NotificationManager.success("Profile Updated!", "Successful!", 2000);
       handleDoctorProfile();
     }
+    // const data = await fetch(
+    //   `https://healthcarebackend.xyz/api/doctor/profile/`,
+    //   {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: access_token,
+    //     },
+    //     body: JSON.stringify({
+    //       first_name: '',
+    //             last_name: '',
+    //             phone: '',
+    //             biography: '',
+    //             email_exam_price: parseInt(''),
+    //             web_exam_price: parseInt(''),
+    //             web_exam_follow_price: parseInt(''),
+    //             image: '',
+    //             status: value,
+    //     }),
+    //   }
+    // );
+    // const jsonData = await data.json();
+    // console.log(jsonData);
+    // if (jsonData.success) {
+    //   NotificationManager.success("Profile Updated!", "Successful!", 2000);
+    //   handleDoctorProfile();
+    // }
   };
 
   useEffect(() => {
@@ -69,22 +104,29 @@ const Nav = ({
   let selectStatus = null;
   const isDoctor = sessionStorage.getItem("is_doctor");
   if (isDoctor === "true") {
-    curDoc = (
-      <div className="topProfile">
-        <p>
-          {doctor.prefix} {doctor.doctor}
-        </p>
-        <div className="mainProfile">
-          <div className="profile">
-            {curentDoc.status === "Available" ? (
-              <img src={doctorOnline} alt="online doctor" />
-            ) : (
-              <img src={doctorOffline} alt="offline doctor" />
-            )}
+    if(doctor){
+      let doctorsName = `${doctor.prefix} ${doctor.user.first_name} ${doctor.user.last_name}`
+      curDoc = (
+        <div className="topProfile">
+          <p>
+            {doctorsName}
+          </p>
+          <div className="mainProfile">
+            <div className="profile">
+              {curentDoc.image === "/media/default.jpg" ?
+                curentDoc.status === "Available" ? (
+                <img src={doctorOnline} alt="online doctor" />
+              ) : (
+                <img src={doctorOffline} alt="offline doctor" />
+              ) :
+              <img style={{ width: '50px',  objectFit: 'cover'}} src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
+              }
+              
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
     selectStatus = (
       <select name="status" id="status" onChange={handleSubmit}>
         <option value="">{curentDoc.status}</option>
@@ -106,16 +148,18 @@ const Nav = ({
       </select>
     );
   } else {
-    curDoc = (
-      <div className="topProfile">
-        <p>{doctor}</p>
-        <div className="mainProfile">
-          <div className="profile">
-            <img src={clientOnline} alt="online doctor" />
+    if(doctor){
+      curDoc = (
+        <div className="topProfile">
+          <p>{doctor[0].first_name} {doctor[0].last_name}</p>
+          <div className="mainProfile">
+            <div className="profile">
+              <img src={clientOnline} alt="online doctor" />
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
   return (
     <nav className="nav">
@@ -153,6 +197,7 @@ const mapStateToProps = (state) => {
   const user = state.getIn(["authReducer", "user"]);
   const isLoggedIn = state.getIn(["authReducer", "isLoggedIn"]);
   const doctor = state.getIn(["docReducer", "doctor"]);
+ 
   return {
     user,
     isLoggedIn,

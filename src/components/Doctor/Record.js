@@ -2,7 +2,7 @@ import React from "react";
 import "../../assets/record.scss";
 // import clientImg from '../../icons/icon_my_profile_client_blue_23px.svg'
 import clientIcon from '../../icons/icon_my_profile_client_blue_23px.svg'
-import arrowAttach from '../../icons/attach_white.svg'
+// import arrowAttach from '../../icons/attach_white.svg'
 
 import chek from "../../icons/chek.svg";
 import clockIcon from "../../icons/icon_Waiting_Room_blue.svg";
@@ -20,7 +20,6 @@ import moment from "moment";
 const Record = ({
   props,
   record,
-
   handleClick,
   handleUpcoming,
   handlePast,
@@ -34,7 +33,6 @@ const Record = ({
   ResetonSelectChange,
 
 }) =>{ 
-  console.log(props.currentFilterClicked);
   return (
 
   <>

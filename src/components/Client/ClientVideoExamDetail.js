@@ -102,7 +102,7 @@ const DetailVideo = ({
                 <p>
                   <span>Type:</span> {exam.exam_type}
                 </p>
-                {exam.status === "Canceled" || exam.status === "Finished" || exam.status === 'Declined' ? (
+                {exam.status !== "Pending" ? (
                   <p>
                     <span>Status:</span> {exam.status}
                   </p>
