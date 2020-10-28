@@ -17,6 +17,7 @@ const VideoReq = ({
   handleMessage,
   handleDateChange,
   props,
+  handleAttach
 }) => {
   let exclude = props.excludeTime.map((hy) => {
     return new Date(hy.appointed_date);
@@ -126,7 +127,7 @@ const VideoReq = ({
             <button className="btn">
               <img src={arrowAttach} alt="attach" />
             </button>
-            <input type="file" name="myfile" />
+            <input type="file" name="myfile" onChange={handleAttach} />
           </div>
         </div>
       </div>

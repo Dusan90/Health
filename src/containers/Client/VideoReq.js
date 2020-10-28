@@ -199,6 +199,10 @@ class ClientVideoReq extends Component {
       });
   }
 
+  handleAttach = (e) =>{
+    this.setState({attachments: e.target.files[0]})
+  }
+
   render() {
     // console.log(this.state.testDate, "reserveddate");
 
@@ -218,6 +222,7 @@ class ClientVideoReq extends Component {
           handleSubmit={this.handleSubmit}
           handleMessage={this.handleMessage}
           handleDateChange={this.handleDateChange}
+          handleAttach={this.handleAttach}
           props={this.state}
         />
       </>
