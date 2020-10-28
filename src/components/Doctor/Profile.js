@@ -66,9 +66,9 @@ const Profile = ({
                 <input placeholder={doctor.user.email} disabled={true} id='Email' onChange={handleChange} type="text"/>
                 <label >Working Hours</label>
                 <div className='workHoursDiv'>
-                  <input type="text" id='TimeStart' onChange={handleChange} placeholder='HH:MM'/>
+                  <input type="text" id='TimeStart' onChange={handleChange} placeholder={doctor.start_hour ? doctor.start_hour : 'HH:MM'}/>
                   <p>-</p>
-                  <input type="text" id='TimeEnd'  onChange={handleChange} placeholder="HH:MM"/>
+                  <input type="text" id='TimeEnd'  onChange={handleChange} placeholder={doctor.end_hour ? doctor.end_hour : 'HH:MM'}/>
                 </div>
                 <button 
                   onClick={handleSubmit}

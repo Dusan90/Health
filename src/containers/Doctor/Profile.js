@@ -68,6 +68,8 @@ form_data.append("web_exam_price", this.state.VideoVisit);
 form_data.append("web_exam_follow_price", this.state.VideoFollowUp);
 form_data.append("image", this.state.attach);
 form_data.append("status", this.state.currentStatus);
+form_data.append("start_hour", this.state.TimeStart);
+form_data.append("end_hour", this.state.TimeEnd);
 
 const access_token = "Bearer ".concat(this.state.token);
 let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
