@@ -289,8 +289,11 @@
         .status {
           display: none;
         }
-        .client-doctor {
-          padding: 0 0 0 35px;
+        .created {
+          width: 300px;
+        }
+        .client-subject {
+          padding: 0 0 0 30px;
         }
       }
     }
@@ -301,55 +304,10 @@
       .client-row {
         // height: 40px;
         background: #b3b3b3;
-        .client-doctor {
-          // width: 35%;
-          // display: flex;
-          // justify-content: center;
-          // flex-direction: column;
-          .mainExamDiv {
-            flex-direction: column;
-            // height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 150px;
-            // margin: 0 auto;
-            .searchDiv {
-              display: flex;
-              align-items: center;
-              height: 40px;
-            }
-            .searchIcon {
-              display: flex;
-              align-items: center;
-              margin: 0 0 0 25px;
-              // padding: 0 10px 0 0;
-              height: 100%;
-              &:hover {
-                cursor: pointer;
-              }
-            }
-            input {
-              width: 120px;
-              height: 25px;
-              border: 1px solid #666666;
-              border-radius: 5px;
-              margin: 0 0 5px 10px;
-
-              text-indent: 5px;
-              &::placeholder {
-                color: #666666;
-                font-size: 13px;
-              }
-            }
-          }
-        }
         .client-subject {
           // text-align: center;
           display: flex;
-          // width: 170px;
-          // float: right;
-          margin: 0 auto;
+          margin: 0 auto 0 30px;
           justify-content: flex-start;
           align-items: center;
           height: 40px;
@@ -358,6 +316,7 @@
         .client-type {
           // text-align: center;
           height: 40px;
+          padding: 0 0 0 30px;
           width: 200px;
           .mainExamDiv {
             margin: 0 0 0 -5px;
@@ -389,12 +348,7 @@
               border: none;
               border-radius: 5px;
               background: #b3b3b3;
-              // margin: 0 0 5px 10px;
-              // width: 100px;
-              // height: 30px;
-              // border: 1px solid #666666;
-              // border-radius: 5px;
-              // text-indent: 5px;
+
               &::placeholder {
                 color: #666666;
                 font-size: 10px;
@@ -407,26 +361,16 @@
           }
         }
         .client-date {
-          // text-align: left;
-          // width: 200px;
-          // text-align: center;
           display: flex;
-          // width: 170px;
-          // float: right;
           margin: 0 auto;
           justify-content: flex-start;
           align-items: center;
           height: 40px;
+          width: 300px;
         }
         .client-status {
           text-align: center;
-          // text-align: center;
-          // display: flex;
-          // width: 170px;
-          // float: right;
           margin: 0 auto;
-          // justify-content: flex-start;
-          // align-items: center;
           height: 40px;
         }
       }

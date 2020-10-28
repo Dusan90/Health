@@ -1,6 +1,7 @@
 .testic {
   .loading {
     animation: rotation 2s infinite linear;
+    width: 70px !important;
   }
 
   @keyframes rotation {
@@ -55,7 +56,7 @@
 
         div {
           margin: 4px auto;
-          text-align: center;
+          text-align: left;
           text-indent: 20px;
           color: #666666;
           transition: all 0.5s ease-in-out;
@@ -66,7 +67,7 @@
         }
         p {
           width: 100px;
-          margin: 0 0 0 80px;
+          text-indent: 20px;
         }
       }
       .requestsVideo {
@@ -97,7 +98,7 @@
         color: #666666;
         div {
           margin: 4px auto;
-          text-align: center;
+          text-align: left;
           text-indent: 20px;
           color: #666666;
           transition: all 0.5s ease-in-out;
@@ -109,7 +110,7 @@
         }
         p {
           width: 100px;
-          margin: 0 0 0 80px;
+          text-indent: 20px;
         }
       }
 
@@ -157,7 +158,8 @@
         margin-top: 50px;
         color: #666666;
         div {
-          text-align: center;
+          text-align: left;
+          text-indent: 20px;
           color: #666666;
           transition: all 0.5s ease-in-out;
 
@@ -168,7 +170,7 @@
         }
         p {
           width: 100px;
-          margin: 0 0 0 80px;
+          text-indent: 20px;
         }
       }
     }
@@ -373,12 +375,14 @@
                 height: 25px;
                 border: 1px solid #666666;
                 border-radius: 5px;
-                margin: 0 0 5px 10px;
+                margin: 0 0 5px 40px;
+                font-weight: 400;
 
                 text-indent: 5px;
                 &::placeholder {
                   color: #666666;
                   font-size: 13px;
+                  font-weight: 400;
                 }
               }
             }
@@ -653,34 +657,49 @@
     margin: 20px auto;
     justify-content: center;
 
-    .left {
-      width: 30px;
-      height: 30px;
-      margin: 10px;
-      transition: all 0.5s ease-in-out;
-      &:hover {
-        cursor: pointer;
+    ul {
+      li {
+        a {
+          color: #00aff0;
+          border: 1px solid #00aff0;
+        }
       }
-      .iconLeft {
-        font-size: 20px;
-        margin: 4px 0 0 0;
-        color: #4092c2;
+      .active {
+        a {
+          background: #00aff0;
+          color: white;
+        }
       }
     }
 
-    .right {
-      width: 30px;
-      height: 30px;
-      margin: 10px;
-      transition: all 0.5s ease-in-out;
-      &:hover {
-        cursor: pointer;
-      }
-      .iconRight {
-        font-size: 20px;
-        margin: 4px 0 0 0;
-        color: #4092c2;
-      }
-    }
+    // .left {
+    //   width: 30px;
+    //   height: 30px;
+    //   margin: 10px;
+    //   transition: all 0.5s ease-in-out;
+    //   &:hover {
+    //     cursor: pointer;
+    //   }
+    //   .iconLeft {
+    //     font-size: 20px;
+    //     margin: 4px 0 0 0;
+    //     color: #4092c2;
+    //   }
+    // }
+
+    // .right {
+    //   width: 30px;
+    //   height: 30px;
+    //   margin: 10px;
+    //   transition: all 0.5s ease-in-out;
+    //   &:hover {
+    //     cursor: pointer;
+    //   }
+    //   .iconRight {
+    //     font-size: 20px;
+    //     margin: 4px 0 0 0;
+    //     color: #4092c2;
+    //   }
+    // }
   }
 }

@@ -69,12 +69,15 @@ const Profile = ({
           <div className='profilePic'>
               <div className="upload-btn-wrapper">
             <button className="btn">
-              <img src={arrowAttach} alt="attach" />
+            {client.image !== "/media/default.jpg" ?
+              <img className='docImage' src={ `https://healthcarebackend.xyz${client.image}`} alt='#' /> :
+              <p>+</p>
+              }
             </button>
             <input type="file" name="myfile" onChange={attachInput} />
           </div>
                 <p style={{margin: "0 40px 0 20px"}} >Upload profile picture</p>
-                <img className='cliImage' src={client.image !== "/media/default.jpg" ? `https://healthcarebackend.xyz${client.image}` : clientIcon} alt='#' />
+                {/* <img className='cliImage' src={client.image !== "/media/default.jpg" ? `https://healthcarebackend.xyz${client.image}` : clientIcon} alt='#' /> */}
                 
               </div>
             

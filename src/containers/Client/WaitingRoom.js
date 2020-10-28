@@ -105,6 +105,7 @@ class ClientWaitingRoom extends Component {
       );
     } else {
       this.props.dispatch(doctor(e));
+      console.log(e);
       this.setState({
         // price: e.price,
         doctor_id: e.iD,
@@ -410,13 +411,14 @@ class ClientWaitingRoom extends Component {
     axios
       .get("https://healthcarebackend.xyz/api/doctor/list/")
       .then((response) => {
+        console.log(response, 'response');
         const res = response.data.data.map((val) => {
           return {
             value: val.id,
             iD: val.id,
             label: val.doctor,
             spec: val.speciality,
-            price: val.price,
+            price: val.web_exam_price,
             status: val.status,
           };
         });

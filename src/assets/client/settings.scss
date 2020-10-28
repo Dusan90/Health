@@ -36,10 +36,18 @@
     width: 65%;
     .imageAndInputDiv {
       display: flex;
-      width: 375px;
+      width: 100%;
+      position: relative;
       input {
-        margin-right: 10px;
         font-size: 20px;
+        width: 100%;
+        margin: 0;
+        padding-right: 30px;
+      }
+      img {
+        position: absolute;
+        right: 5px;
+        top: 13px;
       }
     }
     label {
@@ -58,13 +66,13 @@
     .confirmPass {
       font-size: 20px;
     }
-  }
-  button {
-    background: #00aff0;
-    padding: 5px 15px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    margin: 10px auto 0 95px;
+    button {
+      background: #00aff0;
+      padding: 5px 15px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      margin: 20px auto 0 0px;
+    }
   }
 }

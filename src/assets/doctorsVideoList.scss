@@ -30,6 +30,7 @@
   .loading {
     animation: rotation 2s infinite linear;
     position: absolute;
+    width: 70px !important;
     top: 40%;
     left: 45%;
     transform: translate(-40%, -45%);

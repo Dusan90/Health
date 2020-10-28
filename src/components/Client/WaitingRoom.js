@@ -50,6 +50,7 @@ const WaitingRoom = ({
   const disabled = props.credits ? false : true;
   const disabled2 = props.credits ? true : false;
   const disabled3 = props.doctorStartedVideo ? false : true;
+  console.log(props.specDoctor);
 
   const customStyles = {
     control: (base, state) => ({
@@ -205,14 +206,15 @@ const WaitingRoom = ({
           {props.YourNumber === 0 && !props.doctorsVideoId && props.credits ? (
             <p>Be ready, Waiting from Doctors connection...</p>
           ) : null}
-        
+        <div className='startandexit'>
+
           <button
         value={props.submitted}
         disabled={disabled2}
         className="send"
         onClick={handleSubmit}
       >
-        Enter the queue
+        Enter queue
       </button>
           {/* <button onClick={handleVideoStart}>video</button> */}
           <button
@@ -220,8 +222,9 @@ const WaitingRoom = ({
             onClick={handleExitQueue}
             disabled={disabled}
           >
-            Exit the queue
+            Exit queue
           </button>
+        </div>
         </div>
       </div>
       <div className='divAndAttach'>

@@ -43,24 +43,24 @@ class DoctorDashboard extends Component {
     };
   }
 
-  handleClickLeft = () => {
-    if (this.state.page !== 1) {
-      this.setState({ page: this.state.page - 1 });
-      let test = setInterval(() => {
-        this.paginate(this.state.page);
-        clearInterval(test);
-      }, 10);
-    }
-  };
-  handleClickRight = () => {
-    if (this.state.page !== this.state.maxPages) {
-      this.setState({ page: this.state.page + 1 });
-      let test = setInterval(() => {
-        this.paginate(this.state.page);
-        clearInterval(test);
-      }, 10);
-    }
-  };
+  // handleClickLeft = () => {
+  //   if (this.state.page !== 1) {
+  //     this.setState({ page: this.state.page - 1 });
+  //     let test = setInterval(() => {
+  //       this.paginate(this.state.page);
+  //       clearInterval(test);
+  //     }, 10);
+  //   }
+  // };
+  // handleClickRight = () => {
+  //   if (this.state.page !== this.state.maxPages) {
+  //     this.setState({ page: this.state.page + 1 });
+  //     let test = setInterval(() => {
+  //       this.paginate(this.state.page);
+  //       clearInterval(test);
+  //     }, 10);
+  //   }
+  // };
 
   pnd = () => {
     const access_token = "Bearer ".concat(this.state.token);
@@ -605,7 +605,13 @@ class DoctorDashboard extends Component {
     });
     this.paginate(1);
   };
+
+  handlePageChange = (pageNumber) => {
+    this.setState({page: pageNumber});
+    this.paginate(pageNumber)
+  }
   render() {
+   
     return (
       <>
         <div className="header">
@@ -641,6 +647,7 @@ class DoctorDashboard extends Component {
           searchByType={this.searchByType}
           searchByName={this.searchByName}
           ResetonSelectChange={this.ResetonSelectChange}
+          handlePageChange={this.handlePageChange}
         />
       </>
     );

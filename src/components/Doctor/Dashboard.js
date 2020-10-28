@@ -17,6 +17,8 @@ import arrowUp from "../../icons/arrow_up_gray.svg";
 
 import Loading from "../../icons/c+.svg";
 import moment from "moment";
+import Pagination from "react-js-pagination";
+
 
 const Dashboard = ({
   hnlClick,
@@ -39,6 +41,7 @@ const Dashboard = ({
   searchByType,
   searchByName,
   ResetonSelectChange,
+  handlePageChange
 }) => {
   let short = props.state.pending ? props.state.pending.slice(0, 4) : null;
   let short2 = props.state.videoPending
@@ -238,7 +241,7 @@ const Dashboard = ({
                     </div>
                     <input
                       type="text"
-                      placeholder="Type"
+                      placeholder="Search"
                       value={props.state.searchName}
                       onChange={searchByName}
                       style={{ display: !props.state.searchClient && "none" }}
@@ -350,14 +353,21 @@ const Dashboard = ({
       )}
 
       <div className="pagi">
-        <div className="left" onClick={handleClickLeft}>
+        {/* <div className="left" onClick={handleClickLeft}>
           <img src={arrowLeft} alt="arrow left" className="iconLeft" />
-          {/* <FaChevronLeft className="iconLeft" /> */}
+       
         </div>
         <div className="right" onClick={handleClickRight}>
           <img src={arrowRight} alt="arrow rigth" className="iconRight" />
-          {/* <FaChevronRight className="iconRight" /> */}
-        </div>
+  
+        </div> */}
+        <Pagination
+          activePage={props.state.page}
+          itemsCountPerPage={5}
+          totalItemsCount={props.state.searchedUpcomingOrPast.length === 0 ? props.state.upcomingOrPast.length : props.state.searchedUpcomingOrPast.length}
+          pageRangeDisplayed={10}
+          onChange={handlePageChange}
+        />
       </div>
       {/* <div
         className="sideNav"

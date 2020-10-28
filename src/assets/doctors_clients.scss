@@ -27,16 +27,28 @@
   .clientsDiv {
     height: 70px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin: 0 0 20px 0;
     label {
       align-self: center;
-      margin: 0 40px 0 0;
+      margin: 0 40px 0 40px;
       color: #666666;
       select {
         border: 2px solid #00aff0;
         border-radius: 8px;
         height: 30px;
+        color: #666666;
+        font-weight: 400;
+        margin: 0 0 0 20px;
+        text-indent: 10px;
+        width: 110px;
+      }
+      input {
+        border: 2px solid #00aff0;
+        border-radius: 8px;
+        height: 30px;
+        width: 110px;
+        font-weight: 400;
         color: #666666;
         margin: 0 0 0 20px;
         text-indent: 10px;

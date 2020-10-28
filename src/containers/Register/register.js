@@ -18,8 +18,8 @@ class Register extends Component {
       confPasswordValue: "",
       addressValue: "",
       birthDateValue: "",
-      EmailPrice: "",
-      WebPrice: "",
+      EmailPrice: 0,
+      WebPrice: 0,
       prefixValue: "",
       specOptions: [],
       specValue: "",
@@ -104,8 +104,6 @@ class Register extends Component {
       this.state.firstNameValue &&
       this.state.lastNameValue &&
       this.state.passwordValue &&
-      this.state.EmailPrice &&
-      this.state.WebPrice &&
       this.state.prefixValue &&
       this.state.selectedSpecValue
     ) {

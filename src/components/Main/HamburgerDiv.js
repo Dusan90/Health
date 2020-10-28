@@ -21,7 +21,7 @@ export class HamburgerDiv extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hamburger: false,
+      hamburger: true,
       current: sessionStorage.getItem("is_doctor"),
     };
   }

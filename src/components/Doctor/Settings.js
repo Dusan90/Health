@@ -19,8 +19,8 @@ function Settings({props, handleImage, userLogin, handleChange}) {
                 <input id='Password' value={props.Password} onChange={handleChange}  placeholder="**********" type={props.seePass ? 'text' : "password"}/>
                 <img onClick={handleImage}  src={props.seePass ? seen : hidden } alt="img"/>
                 </div>
-              </div>
               <button onClick={userLogin}>Update</button>
+              </div>
            
             </div>
     )

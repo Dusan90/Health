@@ -19,7 +19,7 @@ function DoctorsDetails({handleClient, doctor, handleSort}) {
           <p><span>Email visit: </span>{doctor.email_exam_price}</p>
           <p><span>Video: </span>{doctor.web_exam_price}</p>
           <p><span>Video follow up: </span>{doctor.web_exam_follow_price}</p>
-          <p><span>Working Hours: </span></p>
+          <p><span>Working Hours </span></p>
           <p><span>Mon-Fri: </span>{doctor.workingHours}</p>
                 </div>
                 <div>
@@ -36,8 +36,8 @@ function DoctorsDetails({handleClient, doctor, handleSort}) {
             <div className='BiographyDiv'>
             <p className='pForBio'>Biography
                  </p>
-                <p>
-                 {doctor.biography}</p>
+                <textarea disabled={true} placeholder={doctor.biography}/>
+            
             </div>
             </Fragment>
           })}

@@ -18,7 +18,9 @@ class DoctorProfile extends Component {
     super(props);
     this.state = {
       doctor: [],
-      select: "",
+      selectEmail: "",
+      selectVideo: "",
+      selectVideoFollow: "",
       token: sessionStorage.getItem("accessToken"),
       FirstName: '',
       LastName: '',
@@ -30,7 +32,8 @@ class DoctorProfile extends Component {
       VideoFollowUp: '',
       Biography: '',
       attach: '',
-      currentStatus: ''
+      currentStatus: '',
+      Email: ''
     };
   }
 
@@ -38,7 +41,17 @@ class DoctorProfile extends Component {
 
   handleSelect = (statusValue) => {
     let { value } = statusValue;
-    this.setState({ select: value });
+    this.setState({ selectEmail: value });
+  };
+
+  handleSelect2 = (statusValue) => {
+    let { value } = statusValue;
+    this.setState({ selectEmail: value });
+  };
+
+  handleSelect3 = (statusValue) => {
+    let { value } = statusValue;
+    this.setState({ selectEmail: value });
   };
 
   
@@ -141,6 +154,8 @@ const data = axios.put(url, form_data, {
           doctor={this.state.doctor}
           handleSubmit={this.handleSubmit}
           handleSelect={this.handleSelect}
+          handleSelect2={this.handleSelect2}
+          handleSelect3={this.handleSelect3}
           props={this.state}
           handleChange={this.handleChange}
           addAttach={this.addAttach}

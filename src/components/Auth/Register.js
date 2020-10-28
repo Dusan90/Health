@@ -109,7 +109,7 @@ const RegisterUser = ({
         </div>
       </div>
       <form className="register-form">
-        {userType === "doctor" && (
+        {/* {userType === "doctor" && (
           <div className="Pricing">
             <div className="EmailPrice">
               <label htmlFor="EmailPrice">Email Exam Price</label>
@@ -134,7 +134,7 @@ const RegisterUser = ({
               />
             </div>
           </div>
-        )}
+        )} */}
         <div
           className="firstLastGender"
           // style={{

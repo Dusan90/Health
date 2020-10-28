@@ -14,7 +14,6 @@ class ClientRecord extends Component {
       token: sessionStorage.getItem("accessToken"),
       id: this.props.match.params.id,
       currentFilterClicked: "",
-      searchClient: false,
       searchName: "",
       searchType: "",
       messageIfEmpty: "",
@@ -34,7 +33,7 @@ class ClientRecord extends Component {
       )
       .then((response) => {
         console.log(response, "nzm ni ja sta");
-        this.handleUpcoming();
+        this.handleAll();
 
         return this.setState({
           record:[ response.data.data],
@@ -60,7 +59,7 @@ class ClientRecord extends Component {
           exams: AllArrays,
         });
       }).then(() =>{
-        this.handleUpcoming();
+        this.handleAll();
       })
   };
 
@@ -68,70 +67,6 @@ class ClientRecord extends Component {
     this.record();
     this.clientsExams()
   }
-
-  handleUpcoming = () => {
-    let upcomingset = setInterval(() => {
-      let upcoming = this.state.exams.filter((upco) => {
-        return (
-          upco.status === "Appointed" ||
-          upco.status === "Accepted" ||
-          upco.status === "Pending" ||
-          upco.status === "In the queue"
-        );
-      });
-
-      let resort = upcoming.sort(
-        (a, b) => Date.parse(b.created) - Date.parse(a.created)
-      );
-
-      let messageIfEmpty =
-        upcoming.length === 0 ? "No upcoming consultations" : "";
-
-      this.setState({
-        upcomingOrPast: resort,
-        page: 1,
-        messageIfEmpty,
-        currentFilterClicked: "upcoming",
-        searchedUpcomingOrPast: [],
-        filterFiltered: [],
-        searchType: "",
-        searchName: "",
-      });
-
-      this.paginate(1);
-      clearInterval(upcomingset);
-    }, 10);
-  };
-
-  handlePast = () => {
-    let pastset = setInterval(() => {
-      let past = this.state.exams.filter((pas) => {
-        return (
-          pas.status === "Declined" ||
-          pas.status === "Finished" ||
-          pas.status === "Canceled"
-        );
-      });
-      let sort = past.sort(
-        (a, b) => Date.parse(b.created) - Date.parse(a.created)
-      );
-
-      let messageIfEmpty = past.length === 0 ? "No past consultations" : "";
-
-      this.setState({
-        upcomingOrPast: sort,
-        page: 1,
-        messageIfEmpty,
-        currentFilterClicked: "past",
-        searchedUpcomingOrPast: [],
-        filterFiltered: [],
-        searchType: "",
-        searchName: "",
-      });
-      this.paginate(1);
-      clearInterval(pastset);
-    }, 10);
-  };
 
   handleAll = () => {
     let hndlAll = setInterval(() => {
@@ -159,9 +94,7 @@ class ClientRecord extends Component {
     }, 10);
   };
 
-  handleClientSearch = () => {
-    this.setState({ searchClient: !this.state.searchClient });
-  };
+ 
 
   searchByName = (e) => {
     if (e.target.value === "" && this.state.searchType === "") {
@@ -413,7 +346,6 @@ class ClientRecord extends Component {
           hnlVideoClick={this.hnlVideoClick}
           handleWaitingRoom={this.handleWaitingRoom}
           handleVideoPendingClick={this.handleVideoPendingClick}
-          handleUpcoming={this.handleUpcoming}
           handlePast={this.handlePast}
           handleAll={this.handleAll}
           hnlMyConsultations={this.hnlMyConsultations}

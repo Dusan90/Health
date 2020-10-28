@@ -65,24 +65,24 @@ class ClientDashboard extends Component {
       });
   }
 
-  handleClickLeft = () => {
-    if (this.state.page !== 1) {
-      this.setState({ page: this.state.page - 1 });
-      let test = setInterval(() => {
-        this.paginate(this.state.page);
-        clearInterval(test);
-      }, 10);
-    }
-  };
-  handleClickRight = () => {
-    if (this.state.page !== this.state.maxPages) {
-      this.setState({ page: this.state.page + 1 });
-      let test = setInterval(() => {
-        this.paginate(this.state.page);
-        clearInterval(test);
-      }, 10);
-    }
-  };
+  // handleClickLeft = () => {
+  //   if (this.state.page !== 1) {
+  //     this.setState({ page: this.state.page - 1 });
+  //     let test = setInterval(() => {
+  //       this.paginate(this.state.page);
+  //       clearInterval(test);
+  //     }, 10);
+  //   }
+  // };
+  // handleClickRight = () => {
+  //   if (this.state.page !== this.state.maxPages) {
+  //     this.setState({ page: this.state.page + 1 });
+  //     let test = setInterval(() => {
+  //       this.paginate(this.state.page);
+  //       clearInterval(test);
+  //     }, 10);
+  //   }
+  // };
 
   connect = (id) => {
     const ws = new WebSocket(
@@ -367,22 +367,22 @@ class ClientDashboard extends Component {
             const splited = doctor.split(" ");
             if (!searchName[1]) {
               if (
-                splited[0].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0]) ||
                 splited[1].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) ||
+                splited[2].toLowerCase().indexOf(searchName[0]) ===
                   searchName[0].indexOf(searchName[0])
               ) {
                 return ex;
               }
             } else {
               if (
-                (splited[0].toLowerCase().indexOf(searchName[0]) ===
+                (splited[1].toLowerCase().indexOf(searchName[0]) ===
                   searchName[0].indexOf(searchName[0]) &&
-                  splited[1].toLowerCase().indexOf(searchName[1]) ===
+                  splited[2].toLowerCase().indexOf(searchName[1]) ===
                     searchName[1].indexOf(searchName[1])) ||
-                (splited[0].toLowerCase().indexOf(searchName[1]) ===
+                (splited[1].toLowerCase().indexOf(searchName[1]) ===
                   searchName[1].indexOf(searchName[1]) &&
-                  splited[1].toLowerCase().indexOf(searchName[0]) ===
+                  splited[2].toLowerCase().indexOf(searchName[0]) ===
                     searchName[0].indexOf(searchName[0]))
               ) {
                 return ex;
@@ -395,22 +395,22 @@ class ClientDashboard extends Component {
             const splited = doctor.split(" ");
             if (!searchName[1]) {
               if (
-                splited[0].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0]) ||
                 splited[1].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]) ||
+                splited[2].toLowerCase().indexOf(searchName[0]) ===
                   searchName[0].indexOf(searchName[0])
               ) {
                 return ex;
               }
             } else {
               if (
-                (splited[0].toLowerCase().indexOf(searchName[0]) ===
+                (splited[1].toLowerCase().indexOf(searchName[0]) ===
                   searchName[0].indexOf(searchName[0]) &&
-                  splited[1].toLowerCase().indexOf(searchName[1]) ===
+                  splited[2].toLowerCase().indexOf(searchName[1]) ===
                     searchName[1].indexOf(searchName[1])) ||
-                (splited[0].toLowerCase().indexOf(searchName[1]) ===
+                (splited[1].toLowerCase().indexOf(searchName[1]) ===
                   searchName[1].indexOf(searchName[1]) &&
-                  splited[1].toLowerCase().indexOf(searchName[0]) ===
+                  splited[2].toLowerCase().indexOf(searchName[0]) ===
                     searchName[0].indexOf(searchName[0]))
               ) {
                 return ex;
@@ -506,6 +506,12 @@ class ClientDashboard extends Component {
     this.paginate(1);
   };
 
+  handlePageChange = (pageNumber) => {
+    console.log(pageNumber, this.state.page);
+    this.setState({page: pageNumber});
+    this.paginate(pageNumber)
+  }
+
   render() {
     return (
       <>
@@ -533,6 +539,7 @@ class ClientDashboard extends Component {
           searchByName={this.searchByName}
           ResetonSelectChange={this.ResetonSelectChange}
           searchByType={this.searchByType}
+          handlePageChange={this.handlePageChange}
           
 
         />

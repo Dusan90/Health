@@ -64,6 +64,7 @@
         border: 1.7px solid #00aff0;
         border-radius: 15px;
         height: 300px;
+        resize: none;
         // width: 400px;
         // border: none;
       }
@@ -131,53 +132,58 @@
         }
       }
     }
-    .exitQueue {
-      color: #00aff0;
-      padding: 5px;
-      background: white;
-      border: 1.7px solid #00aff0;
-      border-radius: 10px;
-      padding: 10px;
-      transition: all 0.5s ease-in-out;
-      outline: none;
-      margin-left: 5px;
-      &:hover {
-        // box-shadow: 2px 2px 2px black;
-        background: #00aff0;
-        color: white;
+    .startandexit {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0 0 0;
+      .exitQueue {
+        color: #00aff0;
+        padding: 5px;
+        background: white;
+        border: 1.7px solid #00aff0;
+        border-radius: 10px;
+        padding: 10px;
+        transition: all 0.5s ease-in-out;
+        outline: none;
+        margin-left: 5px;
+        &:hover {
+          // box-shadow: 2px 2px 2px black;
+          background: #00aff0;
+          color: white;
+        }
+        &:disabled,
+        button[disabled] {
+          background: lightgray;
+          color: white;
+          cursor: not-allowed;
+          box-shadow: none;
+          pointer-events: none;
+        }
       }
-      &:disabled,
-      button[disabled] {
-        background: lightgray;
-        color: white;
-        cursor: not-allowed;
-        box-shadow: none;
-        pointer-events: none;
-      }
-    }
-    button {
-      color: #00aff0;
-      padding: 5px;
-      background: white;
-      border: 1.7px solid #00aff0;
-      border-radius: 10px;
-      padding: 10px;
-      transition: all 0.5s ease-in-out;
-      outline: none;
-      width: 145px;
-      &:hover {
-        cursor: pointer;
+      button {
+        color: #00aff0;
+        padding: 5px;
+        background: white;
+        border: 1.7px solid #00aff0;
+        border-radius: 10px;
+        padding: 10px;
+        transition: all 0.5s ease-in-out;
+        outline: none;
+        width: 145px;
+        &:hover {
+          cursor: pointer;
 
-        background: #00aff0;
-        color: white;
-      }
-      &:disabled,
-      button[disabled] {
-        background: lightgray;
-        color: white;
-        cursor: not-allowed;
-        box-shadow: none;
-        pointer-events: none;
+          background: #00aff0;
+          color: white;
+        }
+        &:disabled,
+        button[disabled] {
+          background: lightgray;
+          color: white;
+          cursor: not-allowed;
+          box-shadow: none;
+          pointer-events: none;
+        }
       }
     }
   }

@@ -184,14 +184,16 @@
 
   .doctor {
     width: 50%;
-
     padding: 20px 20px 20px 60px;
     margin: 20px 0 20px 0;
 
     .doctor-p {
       display: flex;
       flex-direction: column;
-
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+      }
       input {
         height: 40px;
         border: 1.7px solid #fa9551;
@@ -200,6 +202,7 @@
         margin: 2px 0 20px 0;
         text-indent: 15px;
         font-weight: 700;
+        width: 90%;
 
         &::placeholder {
           font-weight: 700;
@@ -212,12 +215,28 @@
 
       .workHoursDiv {
         display: flex;
+        justify-content: flex-start;
+        width: 90%;
         input {
-          margin: 0 10px 0 0;
+          margin: 0;
+          font-size: 15px;
+          text-align: center;
+          width: 100px;
+          text-indent: 0;
+          &::placeholder {
+            // color: blue;
+            color: #666666;
+            text-align: center;
+          }
+        }
+        input[type="time"]::-webkit-calendar-picker-indicator {
+          background: none;
+          display: none;
         }
         p {
           display: flex;
-          margin: 0 10px 0 0;
+          margin: 0 10px 0 10px;
+          font-size: 29px;
           align-items: center;
         }
       }
@@ -229,82 +248,86 @@
         border: none;
         border-radius: 10px;
         font-weight: 600;
-        margin: 100px 0 0 0;
+        margin: 165px 0 0 0;
       }
     }
   }
 
   .form {
-    padding: 0px 60px 20px 20px;
+    padding: 20px 60px 20px 20px;
     margin: 20px 0 20px 0;
     width: 50%;
     color: #666666;
     .pricing {
+      font-weight: 700;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 10px 0;
+      margin: 0 0 30px 0;
     }
     .emailVisit {
       display: flex;
+      justify-content: flex-start;
       align-items: center;
-      margin: 10px 0;
+      margin: 20px 0;
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+      }
 
       input {
         height: 40px;
         border: 1.7px solid #fa9551;
         border-radius: 10px;
         background: white;
-        margin: 0 24% 0 auto;
+        margin: 0 0 0 auto;
 
         text-indent: 15px;
         font-weight: 700;
         width: 100px;
-
-        &::placeholder {
-          font-size: 11px;
-        }
       }
     }
     .videoVisit {
       display: flex;
+      justify-content: flex-start;
       align-items: center;
-      margin: 10px 0;
+      margin: 20px 0;
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+      }
 
       input {
         height: 40px;
         border: 1.7px solid #fa9551;
         border-radius: 10px;
         background: white;
-        margin: 0 24% 0 auto;
+        margin: 0 0 0 auto;
 
         text-indent: 15px;
         font-weight: 700;
         width: 100px;
-
-        &::placeholder {
-          font-size: 11px;
-        }
       }
     }
     .videoFollowUp {
       display: flex;
+      justify-content: flex-start;
       align-items: center;
-      margin: 10px 0;
+      margin: 20px 0;
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+      }
 
       input {
         height: 40px;
         border: 1.7px solid #fa9551;
         border-radius: 10px;
         background: white;
-        margin: 0 24% 0 auto;
+        margin: 0 0 0 auto;
         text-indent: 15px;
         font-weight: 700;
         width: 100px;
-
-        &::placeholder {
-          font-size: 11px;
-        }
       }
     }
     .allergies {
@@ -313,14 +336,16 @@
       text-align: start;
       font-weight: 700;
       color: #666666;
+      margin: 40px 0 0 0;
       textarea {
         border: 1.7px solid #fa9551;
         border-radius: 10px;
         background: white;
         margin: 5px 0 20px 0;
-        text-indent: 15px;
+        padding: 0 15px;
         font-weight: 700;
         height: 178px;
+        resize: none;
 
         &::placeholder {
           font-weight: 700;
@@ -330,35 +355,44 @@
     .profilePic {
       display: flex;
       margin: 20px 0 0 0;
-      align-items: center;
+      align-items: flex-end;
       p {
-        padding: 8px 0 0 3px;
         font-weight: 600;
         color: #666666;
+        margin: 0;
       }
       .upload-btn-wrapper {
         position: relative;
         overflow: hidden;
         .btn {
           margin: 0;
+          border: 1.7px solid #666666;
+          width: 130px;
+          height: 150px;
+          padding: 0;
+          background: transparent !important;
+          .docImage {
+            width: 125px;
+            height: 145px;
+            object-fit: cover;
+            // border-radius: 50%;
+          }
+          p {
+            font-size: 100px;
+            padding: 0;
+          }
         }
       }
 
       .upload-btn-wrapper input[type="file"] {
         font-size: 100px;
         position: absolute;
-        background: #00aff0;
+        // background: #00aff0;
 
         left: 0;
         top: -20px;
         width: 60px;
         opacity: 0;
-      }
-      .docImage {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 50%;
       }
     }
   }

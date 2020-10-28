@@ -84,50 +84,14 @@ const Record = ({
         <div className="mainTabelRecord">
           <div className="mainConsultation">
             <div className="icon_left">
-              <p>My Consultations</p>
-            </div>
-            <div className="sort">
-              <p
-                className="upcoming"
-                style={{
-                  fontWeight:
-                    props.currentFilterClicked === "upcoming"
-                      ? "bold"
-                      : "300",
-                }}
-                onClick={handleUpcoming}
-              >
-                Upcoming
-              </p>
-              <p
-                className="past"
-                style={{
-                  fontWeight:
-                    props.currentFilterClicked === "past"
-                      ? "bold"
-                      : "300",
-                }}
-                onClick={handlePast}
-              >
-                Past
-              </p>
-              <p
-                className="all"
-                style={{
-                  fontWeight:
-                    props.currentFilterClicked === "all" ? "bold" : "300",
-                }}
-                onClick={handleAll}
-              >
-                All
-              </p>
+              <p>Consultations</p>
             </div>
           </div>
 
           <table className="table2">
             <thead className="client-head">
               <tr className="client-row">
-                <th className="client-doctor">
+                {/* <th className="client-doctor">
                   <div className="mainExamDiv">
                     <div className="searchDiv">
                       <span className="examTypetext">Client </span>
@@ -141,13 +105,13 @@ const Record = ({
                     </div>
                     <input
                       type="text"
-                      placeholder="Type"
+                      placeholder="Search"
                       value={props.searchName}
                       onChange={searchByName}
                       style={{ display: !props.searchClient && "none" }}
                     />
                   </div>
-                </th>
+                </th> */}
                 <th className="client-subject">Subject</th>
                 <th
                   className="client-type"
@@ -201,7 +165,7 @@ const Record = ({
                       style={{ fontWeight: exam.isRead && 700 }}
                       onClick={() => handleClick(exam.id, exam.exam_type)}
                     >
-                      <td className="client-doctor">{exam.client}</td>
+                      {/* <td className="client-doctor">{exam.client}</td> */}
                       <td className="client-subject">{exam.subject}</td>
                       <td className="client-subject">{exam.exam_type}</td>
                       <td className="created">
