@@ -46,12 +46,12 @@ class DoctorProfile extends Component {
 
   handleSelect2 = (statusValue) => {
     let { value } = statusValue;
-    this.setState({ selectEmail: value });
+    this.setState({ selectVideo: value });
   };
 
   handleSelect3 = (statusValue) => {
     let { value } = statusValue;
-    this.setState({ selectEmail: value });
+    this.setState({ selectVideoFollow: value });
   };
 
   
@@ -141,7 +141,6 @@ const data = axios.put(url, form_data, {
   }
 
   render() {
-    console.log(this.state);
     return (
       <>
         <div className="header">
