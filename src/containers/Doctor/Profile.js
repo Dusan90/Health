@@ -58,58 +58,43 @@ class DoctorProfile extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    let form_data = new FormData();
-form_data.append("user.first_name", this.state.FirstName);
-form_data.append("user.last_name", this.state.LastName);
-form_data.append("user.phone", this.state.PhoneNum);
-form_data.append("biography", this.state.Biography);
-form_data.append("email_exam_price", this.state.EmailVisit);
-form_data.append("web_exam_price", this.state.VideoVisit);
-form_data.append("web_exam_follow_price", this.state.VideoFollowUp);
-form_data.append("image", this.state.attach);
-form_data.append("status", this.state.currentStatus);
-form_data.append("start_hour", this.state.TimeStart);
-form_data.append("end_hour", this.state.TimeEnd);
+    if((this.state.EmailVisit && !this.state.selectEmail) || (this.state.VideoVisit && !this.state.selectVideo) || (this.state.VideoFollowUp && !this.state.selectVideoFollow)){
+      NotificationManager.error("Please enter currency", "Failed!", 2000);
+    }else{
+      let form_data = new FormData();
+  form_data.append("user.first_name", this.state.FirstName);
+  form_data.append("user.last_name", this.state.LastName);
+  form_data.append("user.phone", this.state.PhoneNum);
+  form_data.append("biography", this.state.Biography);
+  form_data.append("email_exam_price", this.state.EmailVisit);
+  form_data.append("web_exam_price", this.state.VideoVisit);
+  form_data.append("web_exam_follow_price", this.state.VideoFollowUp);
+  form_data.append("image", this.state.attach);
+  form_data.append("status", this.state.currentStatus);
+  form_data.append("start_hour", this.state.TimeStart);
+  form_data.append("end_hour", this.state.TimeEnd);
+  
+  const access_token = "Bearer ".concat(this.state.token);
+  let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
+  
+  const data = axios.put(url, form_data, {
+    headers: {
+      'content-type': 'multipart/form-data',
+      Authorization: access_token,
+    }
+  })
+  
+  
+      console.log('submiting');
+     
+      const jsonData = await data;
+      console.log(jsonData, "profile changed");
+      if(jsonData.data.success){
+        NotificationManager.success("Profile Updated!", "Successful!", 2000);
+        this.handleDoctorProfile();
+        window.location.reload()
+      }
 
-const access_token = "Bearer ".concat(this.state.token);
-let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
-
-const data = axios.put(url, form_data, {
-  headers: {
-    'content-type': 'multipart/form-data',
-    Authorization: access_token,
-  }
-})
-
-
-    console.log('submiting');
-    // const access_token = "Bearer ".concat(this.state.token);
-    // const data = await fetch(
-    //   `https://healthcarebackend.xyz/api/doctor/profile/`,
-    //   {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: access_token,
-    //     },
-    //     body: JSON.stringify({
-    //       first_name: this.state.FirstName,
-    //       last_name: this.state.LastName,
-    //       phone: this.state.PhoneNum,
-    //       biography: this.state.Biography,
-    //       email_exam_price: parseInt(this.state.EmailVisit),
-    //       web_exam_price: parseInt(this.state.VideoVisit),
-    //       web_exam_follow_price: parseInt(this.state.VideoFollowUp),
-    //       image: this.state.attach,
-    //       status: '',
-    //     }),
-    //   }
-    // );
-    const jsonData = await data;
-    console.log(jsonData, "profile changed");
-    if(jsonData.data.success){
-      NotificationManager.success("Profile Updated!", "Successful!", 2000);
-      this.handleDoctorProfile();
     }
   };
 
@@ -121,8 +106,14 @@ const data = axios.put(url, form_data, {
       })
       .then((response) => {
         console.log(response, "doc profileee");
+        let start = response.data.data.start_hour.slice(0, -3)
+        let end = response.data.data.end_hour.slice(0, -3)
 
-        return this.setState({ doctor: [response.data.data], currentStatus: response.data.data.status });
+         this.setState({ doctor: [response.data.data], 
+          currentStatus: response.data.data.status, 
+          TimeStart: start, 
+          TimeEnd: end
+        });
       });
   };
 

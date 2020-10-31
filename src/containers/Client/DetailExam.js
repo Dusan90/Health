@@ -17,6 +17,7 @@ class ClientDetailExam extends Component {
       replyClicked: false,
       messageValue: "",
       selectedFile: null,
+      doctor: ''
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
@@ -62,7 +63,7 @@ class ClientDetailExam extends Component {
       .then((response) => {
         console.log(response, "detailex");
 
-        this.setState({ exam: this.state.exam.concat(response.data.data) });
+        this.setState({ exam: this.state.exam.concat(response.data.data), doctor: response.data.data.doctor });
       })
       .catch((err) => {
         console.log(err.response);
@@ -130,7 +131,7 @@ class ClientDetailExam extends Component {
         },
         body: JSON.stringify({
           message: this.state.messageValue,
-          attachment: null,
+          attachment: this.state.selectedFile,
         }),
       }
     );

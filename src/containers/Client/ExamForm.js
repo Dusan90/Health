@@ -25,8 +25,13 @@ class ExamForm extends Component {
       specDoctor: [],
       specialSP: [],
       resetDoctorSelect: null,
+      attach: null
       // isClicked: false
     };
+  }
+
+  handleAttach = (e) =>{
+    this.setState({attach: e.target.files[0]})
   }
 
   handleSpeciality = (e) => {
@@ -124,7 +129,7 @@ class ExamForm extends Component {
               iD: val.id,
               label: val.doctor,
               spec: val.speciality,
-              price: val.price,
+              price: val.email_exam_price,
             };
           });
           this.setState({ doctors: res });
@@ -142,13 +147,7 @@ class ExamForm extends Component {
   }
 
   render() {
-    // console.log(
-    //   this.state.specialSP,
-    //   this.state.doctor_id,
-    //   this.state.subject,
-    //   this.state.message
-    // );
-    console.log(this.state.doctors);
+  
     return (
       <>
         <div className="header">
@@ -170,6 +169,7 @@ class ExamForm extends Component {
           handleMessage={this.handleMessage}
           specDoctor={this.state.specDoctor}
           resetDoctorSelect={this.state.resetDoctorSelect}
+          handleAttach={this.handleAttach}
           // isClicked={this.state.isClicked}
         />
       </>

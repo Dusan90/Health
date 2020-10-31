@@ -186,13 +186,14 @@ class ClientVideoReq extends Component {
     axios
       .get("https://healthcarebackend.xyz/api/doctor/list/")
       .then((response) => {
+        console.log(response);
         const res = response.data.data.map((val) => {
           return {
             value: val.id,
             iD: val.id,
             label: val.doctor,
             spec: val.speciality,
-            price: val.price,
+            price: val.web_exam_price,
           };
         });
         this.setState({ doctors: res });
@@ -204,7 +205,7 @@ class ClientVideoReq extends Component {
   }
 
   render() {
-    // console.log(this.state.testDate, "reserveddate");
+   
 
     return (
       <>

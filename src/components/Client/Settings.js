@@ -13,10 +13,10 @@ function Settings({props, handleImage, userLogin, handleChange}) {
               </div>
               <div className="doctor">
                 <label htmlFor="Email">John</label>
-                <input id='Email' placeholder="Email" value={props.Email} onChange={handleChange}  type="text"/>
+                <input id='Email' placeholder="Email" value={props.Email} autoComplete="off" onChange={handleChange}  type="text"/>
                 <label htmlFor="Password">Password</label>
                 <div className='imageAndInputDiv'>
-                <input id='Password' value={props.Password} onChange={handleChange}  placeholder="**********" type={props.seePass ? 'text' : "password"}/>
+                <input id='Password' value={props.Password} onChange={handleChange} autoComplete="off"   type={props.seePass ? 'text' : "password"}/>
                 <img onClick={handleImage}  src={props.seePass ? seen : hidden } alt="img"/>
                 </div>
               <button onClick={userLogin}>Update</button>

@@ -4,10 +4,12 @@ import Nav from "../../components/Main/Navbar";
 import "../../assets/client/detail-exam.scss";
 import Select from "react-select";
 import moment from "moment";
-import { MdReply, MdAttachFile } from "react-icons/md";
+import { MdReply } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
 import HamburgerDiv from '../Main/HamburgerDiv'
 import EmailIcon from '../../icons/icon_Email_blue.svg'
+import attachIcon from '../../icons/attach_white.svg'
+
 
 const Detail = ({
   exam,
@@ -97,7 +99,7 @@ const Detail = ({
                   </p>
                   <p>
                     <span>
-                      {moment(exam.created).format("MM/DD/YYYY")}
+                      {moment(exam.created).format("MM/DD/YYYY HH:mm")}
                     </span>
                   </p>
                 </div>
@@ -116,8 +118,8 @@ const Detail = ({
                 <div className="MessageCorrespondence">
                   {props.correspondence.map((message, index) => {
                     return (
-                      <div key={message.id} className="Maintbody">
-                        <div className="senderMaiin">
+                      <div style={{width: message.sender === props.doctor && "90%"}} key={message.id} className="Maintbody">
+                        <div style={{background: message.sender === props.doctor && '#00aff0'}} className="senderMaiin">
                           <p className="senderP">
                             <span>From:</span> {message.sender}
                           </p>
@@ -169,7 +171,7 @@ const Detail = ({
                                 </button>
                                 <div className="upload-btn-wrapper">
                                   <button className="btn">
-                                    <MdAttachFile />
+                                  <img src={attachIcon} alt="" srcset=""/>
                                   </button>
                                   <input
                                     type="file"
@@ -198,7 +200,7 @@ const Detail = ({
                         </button>
                         <div className="upload-btn-wrapper">
                           <button className="btn">
-                            <MdAttachFile />
+                          <img src={attachIcon} alt="" srcset=""/>
                           </button>
                           <input
                             type="file"

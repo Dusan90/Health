@@ -18,6 +18,7 @@ const InitiateExam = ({
   handleMessage,
   specDoctor,
   resetDoctorSelect,
+  handleAttach,
   isClicked,
 }) => {
   const customStyles = {
@@ -86,9 +87,16 @@ const InitiateExam = ({
           <button value={submitted} className="btn" onClick={handleSubmit}>
             Submit
           </button>
-          <button className="btnattach" onClick={handleSubmit}>
-            <img src={attach} alt="attach" />
-          </button>
+          <div className='profilePic'>
+              <div className="upload-btn-wrapper">
+            <button className="btn">
+              {/* <img src={arrowAttach} alt="attach" /> */}
+              <img src={attach} alt="attach" />
+            
+            </button>
+            <input type="file" name="myfile" onChange={handleAttach}  />
+          </div>
+              </div>
         </div>
       </div>
       {/* <div className="btn"> */}

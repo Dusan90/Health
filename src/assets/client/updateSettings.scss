@@ -39,14 +39,24 @@
       color: #666666;
       margin: 10px 0 5px 0;
     }
-    input {
+    div {
       width: 100%;
-      margin: 0 0 10px 0;
-      height: 40px;
-      border-radius: 10px;
-      border: 1.7px solid #fa9551;
-      text-indent: 20px;
-      font-weight: 600;
+      position: relative;
+      input {
+        width: 100%;
+        margin: 0 0 10px 0;
+        height: 40px;
+        border-radius: 10px;
+        border: 1.7px solid #fa9551;
+        text-indent: 20px;
+        font-weight: 600;
+        padding-right: 30px;
+      }
+      img {
+        position: absolute;
+        right: 5px;
+        top: 13px;
+      }
     }
 
     .confirmPass {

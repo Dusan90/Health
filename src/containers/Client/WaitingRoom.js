@@ -418,7 +418,7 @@ class ClientWaitingRoom extends Component {
             iD: val.id,
             label: val.doctor,
             spec: val.speciality,
-            price: val.web_exam_price,
+            price: val.web_exam_follow_price,
             status: val.status,
           };
         });

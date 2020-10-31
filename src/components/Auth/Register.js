@@ -1,37 +1,26 @@
 import React from "react";
 import Select from "react-select";
 import "../../assets/auth/register.scss";
+import seen from '../../icons/password-seen.svg'
+import hidden from '../../icons/password-hidden.svg'
 
 const RegisterUser = ({
   userType,
-  emailValue,
-  firstNameValue,
-  lastNameValue,
-  passwordValue,
-  addressValue,
-  birthDateValue,
-  EmailPrice,
-  WebPrice,
-  prefixValue,
-  specOptions,
-  specValue,
-  submitValue,
   handleEmail,
   handleFirstName,
   handleLastName,
   handlePass,
   handleAddress,
   handleBirthDate,
-  handleEmailPrice,
-  handleWebPrice,
-  handlePrefix,
   handleSpec,
   handleSubmit,
-  changeTextToDate,
   handleGenderRadio,
   handleUserType,
   handleConfPass,
   handlePhoneNumber,
+  handleOrganization,
+  handleImage1,
+  handleImage2,
   props,
 }) => {
   const customStyles = {
@@ -109,46 +98,16 @@ const RegisterUser = ({
         </div>
       </div>
       <form className="register-form">
-        {/* {userType === "doctor" && (
-          <div className="Pricing">
-            <div className="EmailPrice">
-              <label htmlFor="EmailPrice">Email Exam Price</label>
-              <input
-                type="number"
-                className="form-control"
-                placeholder="20"
-                id="EmailPrice"
-                value={EmailPrice}
-                onChange={handleEmailPrice}
-              />
-            </div>
-            <div className="WebPrice">
-              <label htmlFor="WebPrice">Web Exam Price</label>
-              <input
-                type="number"
-                className="form-control"
-                placeholder="40"
-                id="WebPrice"
-                value={WebPrice}
-                onChange={handleWebPrice}
-              />
-            </div>
-          </div>
-        )} */}
         <div
           className="firstLastGender"
-          // style={{
-          //   margin: userType === "client" ? "60px 0 20px 0" : "0 0 20px 0",
-          // }}
         >
           <div className="reg-name">
             <label htmlFor="firstname">First Name</label>
             <input
               type="text"
               className="form-control"
-              placeholder="John"
               id="firstname"
-              value={firstNameValue}
+              value={props.firstNameValue}
               onChange={handleFirstName}
             />
           </div>
@@ -158,9 +117,8 @@ const RegisterUser = ({
             <input
               type="text"
               className="form-control"
-              placeholder="Doe"
               id="lastname"
-              value={lastNameValue}
+              value={props.lastNameValue}
               onChange={handleLastName}
             />
           </div>
@@ -173,23 +131,31 @@ const RegisterUser = ({
               type="email"
               className="form-control"
               id="email"
-              placeholder="name@gmail.com"
-              value={emailValue}
+              value={props.emailValue}
               onChange={handleEmail}
             />
           </div>
-          <div className="address">
+          { userType === "client" ? <div className="address">
             <label htmlFor="address">Address</label>
 
             <input
               type="text"
               className="form-control"
-              placeholder="Your address"
               id="address"
-              value={addressValue}
+              value={props.addressValue}
               onChange={handleAddress}
             />
-          </div>
+          </div> : <div className="address">
+                <label htmlFor="phone">Phone number</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="phone"
+                  // onFocus={changeTextToDate}
+                  value={props.phoneNumber}
+                  onChange={handlePhoneNumber}
+                />
+              </div>}
         </div>
 
         {userType === "client" && (
@@ -197,24 +163,26 @@ const RegisterUser = ({
             <div className="clientsBinfo">
               <div className="reg-pass">
                 <label htmlFor="pwd">Password</label>
+                <div>
                 <input
-                  type="password"
+                  type={props.seePass1 ? 'text' : "password"}
                   className="form-control"
-                  placeholder="**********"
                   id="pwd"
-                  value={passwordValue}
+                  value={props.passwordValue}
                   onChange={handlePass}
                 />
+                <img onClick={handleImage1}  src={props.seePass1 ? seen : hidden } alt="img"/>
+
+                </div>
               </div>
               <div className="date">
                 <label htmlFor="birthdate">Birth Date</label>
                 <input
-                  type="text"
+                  type="date"
                   className="form-control"
                   id="birthdate"
-                  placeholder="DD/MM/YY"
-                  onFocus={changeTextToDate}
-                  value={birthDateValue}
+                  // onFocus={changeTextToDate}
+                  value={props.birthDateValue}
                   onChange={handleBirthDate}
                 />
               </div>
@@ -222,22 +190,25 @@ const RegisterUser = ({
             <div className="confirmAndPhone">
               <div className="conf-pass">
                 <label htmlFor="pwd">Confirm Password</label>
+                <div>
                 <input
-                  type="password"
+                  type={props.seePass2 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
-                  placeholder="**********"
+           
                   value={props.confPasswordValue}
                   onChange={handleConfPass}
                 />
+                <img onClick={handleImage2}  src={props.seePass2 ? seen : hidden } alt="img"/>
+
+                </div>
               </div>
               <div className="Phone">
-                <label htmlFor="phone">Phone number (optional)</label>
+                <label htmlFor="phone">Phone number</label>
                 <input
                   type="number"
                   className="form-control"
                   id="phone"
-                  placeholder="111 222 333"
                   // onFocus={changeTextToDate}
                   value={props.phoneNumber}
                   onChange={handlePhoneNumber}
@@ -248,26 +219,55 @@ const RegisterUser = ({
         )}
         {userType === "doctor" && (
           <>
-            <div className="doctorsBinfo">
-              <div className="prefix">
-                <label htmlFor="firstname">Prefix</label>
+           <div className="clientsBinfo">
+              <div className="reg-pass">
+                <label htmlFor="pwd">Password</label>
+                <div>
+                <input
+                     type={props.seePass1 ? 'text' : "password"}
+                  className="form-control"
+                  id="pwd"
+                  value={props.passwordValue}
+                  onChange={handlePass}
+                />
+                <img onClick={handleImage1}  src={props.seePass1 ? seen : hidden } alt="img"/>
 
+                </div>
+              </div>
+              <div className="date">
+                <label htmlFor="organization">Organization</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="prefix"
-                  placeholder="Dr, Mr..."
-                  value={prefixValue}
-                  onChange={handlePrefix}
+                  id="organization"
+                  value={props.organization}
+                  onChange={handleOrganization}
                 />
+              </div>
+            </div>
+            <div className="doctorsBinfo">
+            <div className="prefix">
+                <label htmlFor="pwd">Confirm Password</label>
+                <div>
+                <input
+                   type={props.seePass2 ? 'text' : "password"}
+                  className="form-control"
+                  id="pwd"
+           
+                  value={props.confPasswordValue}
+                  onChange={handleConfPass}
+                />
+                <img onClick={handleImage2}  src={props.seePass2 ? seen : hidden } alt="img"/>
+
+                </div>
               </div>
               <div className="spec">
                 <label htmlFor="speciality">Speciality</label>
                 <Select
                   type="text"
                   id="speciality"
-                  value={specValue}
-                  options={specOptions}
+                  value={props.specValue}
+                  options={props.specOptions}
                   styles={customStyles}
                   onChange={handleSpec}
                 />
@@ -279,7 +279,7 @@ const RegisterUser = ({
           <button
             type="submit"
             className="btn"
-            value={submitValue}
+            // value={submitValue}
             onClick={handleSubmit}
           >
             Sign Up

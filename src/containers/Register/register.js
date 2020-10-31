@@ -20,17 +20,27 @@ class Register extends Component {
       birthDateValue: "",
       EmailPrice: 0,
       WebPrice: 0,
-      prefixValue: "",
       specOptions: [],
       specValue: "",
       selectedGenderValue: "",
       selectedSpecValue: "",
-      phoneNumber: "",
+      phoneNumber: '',
+      organization: '',
+      seePass1: false,
+      seePass2: false,
     };
   }
 
+  handleImage1= () =>{
+    this.setState({seePass1: !this.state.seePass1})
+  }
+
+  handleImage2= () =>{
+    this.setState({seePass2: !this.state.seePass2})
+  }
+
   handleUserType = (userType) => {
-    this.setState({ userType });
+    this.setState({ userType, seePass1: false, seePass2: false });
   };
 
   handleEmail = (e) => {
@@ -69,12 +79,12 @@ class Register extends Component {
     this.setState({ WebPrice: e.target.value });
   };
 
-  handlePrefix = (e) => {
-    this.setState({ prefixValue: e.target.value });
-  };
-
   handlePhoneNumber = (e) => {
     this.setState({phoneNumber: e.target.value})
+  }
+
+  handleOrganization = (e) =>{
+    this.setState({organization: e.target.value})
   }
 
   handleSpec = (specValue) => {
@@ -92,10 +102,10 @@ class Register extends Component {
       this.state.lastNameValue &&
       this.state.passwordValue &&
       this.state.selectedGenderValue &&
+      this.state.phoneNumber &&
       this.state.addressValue &&
       this.state.birthDateValue &&
-      this.state.confPasswordValue && 
-      this.state.phoneNumber
+      this.state.confPasswordValue 
     ) {
       this.userRegister();
     } else if (
@@ -104,7 +114,10 @@ class Register extends Component {
       this.state.firstNameValue &&
       this.state.lastNameValue &&
       this.state.passwordValue &&
-      this.state.prefixValue &&
+      this.state.confPasswordValue &&
+      this.state.organization &&
+      this.state.phoneNumber &&
+      this.state.selectedGenderValue &&
       this.state.selectedSpecValue
     ) {
       this.userRegister();
@@ -143,7 +156,7 @@ class Register extends Component {
                 gender: this.state.selectedGenderValue,
                 address: this.state.addressValue,
                 birth_date: this.state.birthDateValue,
-                phone: this.state.phoneNumber
+                phone: parseInt(this.state.phoneNumber)
               },
             }),
           }
@@ -173,15 +186,27 @@ class Register extends Component {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            // email: this.state.emailValue,
+            // first_name: this.state.firstNameValue,
+            // last_name: this.state.lastNameValue,
+            // password: this.state.passwordValue,
+            // phone: parseInt(this.state.phoneNumber),
+            // doctor: {
+            //   gender: this.state.selectedGenderValue,
+            //   organization: this.state.organization,
+            //   speciality: this.state.selectedSpecValue,
+
+            // },
             email: this.state.emailValue,
             first_name: this.state.firstNameValue,
             last_name: this.state.lastNameValue,
+            phone: this.state.phoneNumber,
             password: this.state.passwordValue,
+            confirm_password: this.state.confPasswordValue,
             doctor: {
-              email_exam_price: this.state.EmailPrice,
-              web_exam_price: this.state.WebPrice,
-              prefix: this.state.prefixValue,
-              speciality: this.state.selectedSpecValue,
+              gender: this.state.selectedGenderValue,
+               speciality: this.state.selectedSpecValue,
+               organization: this.state.organization,
             },
           }),
         }
@@ -208,11 +233,21 @@ class Register extends Component {
     this.setState({ selectedGenderValue: value });
   };
 
-  changeTextToDate = () => {
-    document.getElementById("birthdate").type = "date";
-  };
+  // changeTextToDate = () => {
+  //   document.getElementById("birthdate").type = "date";
+  // };
 
   render() {
+    console.log( this.state.emailValue,
+      this.state.firstNameValue,
+      this.state.lastNameValue,
+      this.state.phoneNumber,
+      this.state.passwordValue,
+      this.state.selectedGenderValue,
+      this.state.confPasswordValue,
+      
+         this.state.selectedSpecValue,
+         this.state.organization);
     return (
       <>
         <div className="header">
@@ -225,18 +260,6 @@ class Register extends Component {
         <RegisterUser
           props={this.state}
           userType={this.state.userType}
-          emailValue={this.state.emailValue}
-          firstNameValue={this.state.firstNameValue}
-          lastNameValue={this.state.lastNameValue}
-          passwordValue={this.state.passwordValue}
-          addressValue={this.state.addressValue}
-          birthDateValue={this.state.birthDateValue}
-          EmailPrice={this.state.EmailPrice}
-          WebPrice={this.state.WebPrice}
-          prefixValue={this.state.prefixValue}
-          specValue={this.state.specValue}
-          specOptions={this.state.specOptions}
-          submitValue={this.state.submitValue}
           handleEmail={this.handleEmail}
           handleFirstName={this.handleFirstName}
           handleLastName={this.handleLastName}
@@ -245,15 +268,15 @@ class Register extends Component {
           handleBirthDate={this.handleBirthDate}
           handleEmailPrice={this.handleEmailPrice}
           handleWebPrice={this.handleWebPrice}
-          handlePrefix={this.handlePrefix}
           handleSpec={this.handleSpec}
           handleSubmit={this.handleSubmit}
           handleGenderRadio={this.handleGenderRadio}
-          changeTextToDate={this.changeTextToDate}
           handleUserType={this.handleUserType}
           handleConfPass={this.handleConfPass}
           handlePhoneNumber={this.handlePhoneNumber}
-
+          handleOrganization={this.handleOrganization}
+          handleImage1={this.handleImage1}
+          handleImage2={this.handleImage2}
         />
       </>
     );

@@ -18,6 +18,7 @@ class DetailExam extends Component {
       replyClicked: false,
       messageValue: "",
       selectedFile: null,
+      doctor: ''
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
@@ -35,7 +36,8 @@ class DetailExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        this.setState({ exam: this.state.exam.concat(response.data.data) });
+        console.log(response, 'current');
+        this.setState({ exam: this.state.exam.concat(response.data.data), doctor: response.data.data.doctor });
       });
   };
 
@@ -132,7 +134,7 @@ class DetailExam extends Component {
         },
         body: JSON.stringify({
           message: this.state.messageValue,
-          attachment: null,
+          attachment: this.state.selectedFile,
         }),
       }
     );

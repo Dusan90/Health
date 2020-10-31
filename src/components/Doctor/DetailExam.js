@@ -4,7 +4,7 @@ import Nav from "../../components/Main/Navbar";
 import Select from "react-select";
 import "../../assets/detail_exam.scss";
 import moment from "moment";
-import { MdReply, MdAttachFile } from "react-icons/md";
+import { MdReply } from "react-icons/md";
 import { FiSend } from "react-icons/fi";
 import { HamburgerDiv } from "../Main/HamburgerDiv";
 import iconEmailBlue from '../../icons/icon_Email_blue.svg'
@@ -129,8 +129,8 @@ return (
                   <div className="MessageCorrespondence">
                     {props.correspondence.map((message, index) => {
                       return (
-                        <div key={message.id} className="Maintbody">
-                          <div className="senderMaiin">
+                        <div key={message.id} style={{width: message.sender === props.doctor && "90%"}} className="Maintbody">
+                          <div style={{background: message.sender === props.doctor && '#00aff0'}} className="senderMaiin">
                             <p className="senderP">
                               <span>From:</span> {message.sender}
                             </p>
@@ -211,7 +211,7 @@ return (
                           </button>
                           <div className="upload-btn-wrapper">
                             <button className="btn">
-                              <MdAttachFile />
+                            <img src={attachIcon} alt="" srcset=""/>
                             </button>
                             <input
                               type="file"

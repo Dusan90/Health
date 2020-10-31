@@ -16,7 +16,12 @@ class Login extends Component {
       is_doctor: false,
       invalid: false,
       rememberMe: false,
+      seePass1: false
     };
+  }
+
+  handleImage1=()=>{
+    this.setState({seePass1: !this.state.seePass1})
   }
 
   handlePassword = (e) => {
@@ -121,12 +126,14 @@ class Login extends Component {
           passwordValue={this.state.passwordValue}
           submitted={this.state.submitted}
           handleEmail={this.handleEmail}
+          seePass1={this.state.seePass1}
           handlePassword={this.handlePassword}
           handleSubmit={this.handleSubmit}
           handleRememberClick={this.handleRememberClick}
           rememberMe={this.state.rememberMe}
           handleChange={this.handleChange}
           handleChangeRmb={this.handleChangeRmb}
+          handleImage1={this.handleImage1}
         />
       </>
     );

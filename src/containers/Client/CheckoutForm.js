@@ -87,7 +87,7 @@ class CheckoutForm extends Component {
       this.state.cardExpiry &&
       this.state.cardCvc
     ) {
-      if (this.props.location.state.price === "None") {
+      if (this.props.location.state.price === "None" || this.props.location.state.price === "0") {
         NotificationManager.error(
           "Doctor did not set his price",
           "Faild",
@@ -180,6 +180,7 @@ class CheckoutForm extends Component {
   };
 
   render() {
+    console.log(this.props.location.state.price)
     const createOptions = (fontSize, padding) => {
       return {
         style: {

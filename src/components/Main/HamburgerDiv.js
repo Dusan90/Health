@@ -118,21 +118,6 @@ export class HamburgerDiv extends Component {
           <div className="rightNavIcons">
           <div>
               <Link
-                to="/client/Doctor-list/"
-                className="linksPatients"
-                //   onClick={hnlMyConsultations}
-              >
-                <img
-                  src={doctorsImg2}
-                  className="doctorsIcon"
-                  alt="Doctors"
-                />
-
-                {this.state.hamburger && <p>Doctors</p>}
-              </Link>
-            </div>
-            <div>
-              <Link
                 to="/dashboard-client"
                 className="linksPatients"
                 //   onClick={hnlMyConsultations}
@@ -146,6 +131,22 @@ export class HamburgerDiv extends Component {
                 {this.state.hamburger && <p>Dashboard</p>}
               </Link>
             </div>
+          <div>
+              <Link
+                to="/client/Doctor-list/"
+                className="linksPatients"
+                //   onClick={hnlMyConsultations}
+              >
+                <img
+                  src={doctorsImg2}
+                  className="doctorsIcon"
+                  alt="Doctors"
+                />
+
+                {this.state.hamburger && <p>Doctors</p>}
+              </Link>
+            </div>
+           
             <div>
               <Link to="/client/profile/" className="linksPatients">
                 <img

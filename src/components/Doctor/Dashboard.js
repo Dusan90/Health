@@ -90,7 +90,10 @@ const Dashboard = ({
           <div className="pendingReq">
             {short3.length !== 0 ? (
               short3.map((shorty) => {
+                console.log(shorty);
                 return (
+                    
+
                   <div
                     key={shorty.id}
                     onClick={() => handleWaitingRoom(shorty.id)}
@@ -103,7 +106,7 @@ const Dashboard = ({
                     }).format(
                       Date(shorty.estimated_start / (1000 * 60 * 60 * 24))
                     )} */}
-                    {moment(shorty.created).format("MM/DD/YYYY")}
+                    {moment(shorty.created).format("MM/DD/YYYY")} 
                   </div>
                 );
               })
@@ -133,7 +136,7 @@ const Dashboard = ({
                     onClick={() => handleVideoPendingClick(shorty.id)}
                   >
                     {shorty.client},{" "}
-                    {moment(shorty.appointed_date).format("MM/DD/YYYY")}
+                    {moment(shorty.appointed_date).format("MM/DD/YYYY hh:mm")}
                   </div>
                 );
               })
@@ -163,7 +166,7 @@ const Dashboard = ({
                     onClick={() => handleClickMail(shorty.id)}
                   >
                     {shorty.client},{" "}
-                    {moment(shorty.created).format("MM/DD/YYYY")}
+                    {moment(shorty.created).add('hour', 1).format("MM/DD/YYYY HH:mm")}
                   </div>
                 );
               })

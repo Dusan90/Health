@@ -166,8 +166,8 @@ const WaitingRoom = ({
                 {props.credits && props.YourNumber === 0 ? (
                   <h4
                     style={{
-                      border: "1.7px solid rgb(250, 250, 102)",
-                      color: "rgb(250, 250, 102)",
+                      border: "1.7px solid #fa9551",
+                      color: "#fa9551",
                       borderRadius: "10px",
                     }}
                   >

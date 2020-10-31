@@ -6,14 +6,14 @@
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 
-  top: 2px;
+  // top: 2px;
   // float: left;
   text-align: left;
-  margin: 80px auto 0 auto;
+  margin: 100px auto 20px auto;
   width: 65%;
   min-height: 500px;
   display: flex;
-  max-height: 500px;
+  // max-height: 500px;
   .iconVideo {
     position: absolute;
     border-top-right-radius: 15px;
@@ -76,6 +76,8 @@
   }
   .mainMessageDiv {
     width: 70%;
+
+    background: green;
     .subjectDiv {
       display: flex;
       justify-content: space-between;
@@ -107,14 +109,11 @@
     }
   }
   .sideMessageDetails {
-    width: 70%;
-
+    width: 100%;
     padding: 5px;
     display: flex;
     flex-direction: column;
     .SubjectMessage {
-      height: 36%;
-
       .subjectDiv {
         display: flex;
         justify-content: space-between;
@@ -145,40 +144,15 @@
       }
     }
     .mainMessageCorrespondence {
-      scroll-behavior: smooth;
-      overflow: scroll;
       height: 64%;
       margin: 40px 0 0 0;
-      overflow-x: hidden;
-      /* width */
-      &::-webkit-scrollbar {
-        width: 10px;
-      }
-
-      /* Track */
-      &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 5px;
-      }
-
-      /* Handle */
-      &::-webkit-scrollbar-thumb {
-        background: #fa9551;
-        // border: 1px solid blue;
-        border-radius: 5px;
-      }
-
-      /* Handle on hover */
-      &::-webkit-scrollbar-thumb:hover {
-        background: #db8246;
-      }
 
       .MessageCorrespondence {
         width: 100%;
         margin-top: 30px;
 
         .Maintbody {
-          margin-bottom: 20px;
+          margin: 0 0 20px auto;
           p {
             text-indent: 20px;
             color: white;
@@ -237,7 +211,7 @@
             margin-left: 20px;
             border: 1px solid #00aff0;
             border-radius: 5px;
-            margin: 10px 10px 0 20px;
+            margin: 10px auto 0 auto;
             box-shadow: 1px 1px 10px gray;
             textarea {
               margin: 5px;

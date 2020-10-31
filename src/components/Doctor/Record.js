@@ -14,6 +14,8 @@ import arrowUp from "../../icons/arrow_up_gray.svg";
 import { GiCheckeredFlag } from "react-icons/gi";
 import Loading from "../../icons/c+.svg";
 import moment from "moment";
+import Pagination from "react-js-pagination";
+
 
 
 
@@ -31,6 +33,7 @@ const Record = ({
   searchByType,
   searchByName,
   ResetonSelectChange,
+  handlePageChange
 
 }) =>{ 
   return (
@@ -217,14 +220,21 @@ const Record = ({
       )}
 
       <div className="pagi">
-        <div className="left" onClick={handleClickLeft}>
+        {/* <div className="left" onClick={handleClickLeft}>
           <img src={arrowLeft} alt="arrow left" className="iconLeft" />
-          {/* <FaChevronLeft className="iconLeft" /> */}
+       
         </div>
         <div className="right" onClick={handleClickRight}>
           <img src={arrowRight} alt="arrow rigth" className="iconRight" />
-          {/* <FaChevronRight className="iconRight" /> */}
-        </div>
+          
+        </div> */}
+           <Pagination
+          activePage={props.page}
+          itemsCountPerPage={5}
+          totalItemsCount={props.searchedUpcomingOrPast.length === 0 ? props.exams.length : props.searchedUpcomingOrPast.length}
+          pageRangeDisplayed={10}
+          onChange={handlePageChange}
+        />
       </div>
   </>
 )}

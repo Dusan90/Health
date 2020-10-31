@@ -149,9 +149,12 @@ const data = axios.put(url, form_data, {
     );
   } else {
     if(doctor){
+      // if(isDoctor === "true"){
+      console.log(doctor);
+      // }
       curDoc = (
         <div className="topProfile">
-          <p>{doctor[0].first_name} {doctor[0].last_name}</p>
+          <p>{isDoctor === "false" && doctor[0].first_name} { isDoctor === "false" && doctor[0].last_name}</p>
           <div className="mainProfile">
             <div className="profile">
               <img src={clientOnline} alt="online doctor" />

@@ -54,6 +54,7 @@
 
         &::placeholder {
           font-weight: 700;
+          color: #969696;
         }
       }
       label {
@@ -69,7 +70,7 @@
         border: none;
         border-radius: 10px;
         font-weight: 600;
-        // margin: 25px 0 0 0;
+        margin: 65px 0 0 0;
       }
     }
   }
@@ -88,14 +89,15 @@
         height: 190px;
         border: 1.7px solid #fa9551;
         border-radius: 10px;
+        padding: 10px 15px;
         background: white;
         margin: 5px 0 10px 0;
-        text-indent: 15px;
         font-weight: 700;
         resize: none;
 
         &::placeholder {
           font-weight: 700;
+          color: #969696;
         }
       }
     }
@@ -110,121 +112,167 @@
         border-radius: 10px;
         background: white;
         margin: 5px 0 20px 0;
-        text-indent: 15px;
+        padding: 10px 15px;
         font-weight: 700;
         height: 190px !important;
         resize: none;
 
         &::placeholder {
           font-weight: 700;
+          color: #969696;
         }
       }
     }
     .checkboxDiv {
       display: flex;
+      justify-content: space-between;
       margin: 8px 0 20px 0;
-      .Male {
-        margin: 0 20px 0 0;
-      }
+      .check {
+        .Male {
+          margin: 0 20px 0 0;
+        }
 
-      [type="checkbox"]:not(:checked),
-      [type="checkbox"]:checked {
-        position: absolute;
-        left: -9999px;
-      }
+        [type="checkbox"]:not(:checked),
+        [type="checkbox"]:checked {
+          position: absolute;
+          left: -9999px;
+        }
 
-      [type="checkbox"]:not(:checked) + label,
-      [type="checkbox"]:checked + label {
-        position: relative;
-        padding-left: 25px;
-        cursor: pointer;
-      }
+        [type="checkbox"]:not(:checked) + label,
+        [type="checkbox"]:checked + label {
+          position: relative;
+          padding-left: 25px;
+          cursor: pointer;
+        }
 
-      [type="checkbox"]:not(:checked) + label:before,
-      [type="checkbox"]:checked + label:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        width: 17px;
-        height: 17px;
-        border-radius: 3px;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-        border-radius: 50%;
-        outline: none;
-        border: 1px solid #00aff0;
-      }
+        [type="checkbox"]:not(:checked) + label:before,
+        [type="checkbox"]:checked + label:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          width: 17px;
+          height: 17px;
+          border-radius: 3px;
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+          border-radius: 50%;
+          outline: none;
+          border: 1px solid #00aff0;
+        }
 
-      [type="checkbox"]:not(:checked) + label:after,
-      [type="checkbox"]:checked + label:after {
-        content: "✔";
-        position: absolute;
-        top: 3px;
-        left: 2px;
-        font-size: 15px;
-        line-height: 0.8;
-        color: #00aff0;
-        transition: all 0.2s;
-      }
+        [type="checkbox"]:not(:checked) + label:after,
+        [type="checkbox"]:checked + label:after {
+          content: "✔";
+          position: absolute;
+          top: 3px;
+          left: 2px;
+          font-size: 15px;
+          line-height: 0.8;
+          color: #00aff0;
+          transition: all 0.2s;
+        }
 
-      [type="checkbox"]:not(:checked) + label:after {
-        opacity: 0;
-        transform: scale(0);
-      }
+        [type="checkbox"]:not(:checked) + label:after {
+          opacity: 0;
+          transform: scale(0);
+        }
 
-      [type="checkbox"]:checked + label:after {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    .profilePic {
-      display: flex;
-      margin: 20px 0 0 0;
-      align-items: flex-start;
-      p {
-        padding: 25px 0 0 3px;
-        font-weight: 600;
-        color: #666666;
-      }
-      .upload-btn-wrapper {
-        position: relative;
-        overflow: hidden;
-        .btn {
-          margin: 0;
-          border: 1.7px solid #666666;
-          width: 130px;
-          height: 150px;
-          padding: 0;
-          background: transparent !important;
-          .docImage {
-            width: 125px;
-            height: 145px;
-            object-fit: cover;
-            // border-radius: 50%;
-          }
-          p {
-            font-size: 100px;
-            padding: 0;
-          }
+        [type="checkbox"]:checked + label:after {
+          opacity: 1;
+          transform: scale(1);
         }
       }
-
-      .upload-btn-wrapper input[type="file"] {
-        font-size: 100px;
-        position: absolute;
-        background: #00aff0;
-
-        left: 0;
-        top: -20px;
-        width: 60px;
-        opacity: 0;
-      }
-
-      .cliImage {
+      .profilePic {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 50%;
+        height: 150px;
+        p {
+          // padding: 25px 0 0 3px;
+          font-weight: 600;
+          color: #666666;
+        }
+        .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          .btn {
+            margin: 0;
+            border: 1.7px solid #666666;
+            width: 100px;
+            height: 120px;
+            padding: 0;
+            background: transparent !important;
+            .docImage {
+              width: 95px;
+              height: 116px;
+              object-fit: cover;
+              // border-radius: 50%;
+            }
+            p {
+              font-size: 80px;
+              padding: 0;
+            }
+          }
+        }
+
+        .upload-btn-wrapper input[type="file"] {
+          font-size: 100px;
+          position: absolute;
+          background: #00aff0;
+
+          left: 0;
+          top: -20px;
+          width: 100px;
+          opacity: 0;
+        }
       }
+      // .profilePic {
+      //   display: flex;
+      //   flex-direction: column;
+      //   align-items: flex-start;
+      //   margin: 0 0 20px 20px;
+      //   width: 100px;
+      //   height: 120px;
+
+      //   p {
+      //     font-weight: 600;
+      //     color: #666666;
+      //     margin: 0 0 5px 0;
+      //   }
+      //   .upload-btn-wrapper {
+      //     position: relative;
+      //     overflow: hidden;
+      //     .btn {
+      //       margin: 0;
+      //       border: 1.7px solid #666666;
+      //       width: 100px ;
+      //       height: 120px;
+      //       padding: 0;
+      //       background: transparent !important;
+      //       .docImage {
+      //         width: 95px;
+      //         height: 116px;
+      //         object-fit: cover;
+      //         // border-radius: 50%;
+      //       }
+      //       p {
+      //         font-size: 80px;
+      //         padding: 0;
+      //       }
+      //     }
+      //   }
+
+      //   .upload-btn-wrapper input[type="file"] {
+      //     font-size: 100px;
+      //     position: absolute;
+      //     // background: #00aff0;
+
+      //     left: 0;
+      //     top: -20px;
+      //     width: 100px;
+      //     opacity: 0;
+      //   }
+      // }
     }
   }
 }

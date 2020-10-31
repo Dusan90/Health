@@ -61,12 +61,14 @@ const Profile = ({
                 />
               </div>
               <div className='checkboxDiv'>
+                <div className='check'>
                 <input type="checkbox" name="Male" id="Male" checked={props.gender === 'M' && true}  onChange={() => handleGenderRadio("M")}/>
                 <label className='Male' value='Male' htmlFor="Male" >Male</label>
                 <input type="checkbox" value="Female" checked={props.gender === 'F' && true} name="Female" id="Female"  onChange={() => handleGenderRadio("F")}/>
                 <label htmlFor="Female">Female</label>
                 </div>
-          <div className='profilePic'>
+                <div className='profilePic'>
+                  <p>Picture</p>
               <div className="upload-btn-wrapper">
             <button className="btn">
             {client.image !== "/media/default.jpg" ?
@@ -76,10 +78,11 @@ const Profile = ({
             </button>
             <input type="file" name="myfile" onChange={attachInput} />
           </div>
-                <p style={{margin: "0 40px 0 20px"}} >Upload profile picture</p>
                 {/* <img className='cliImage' src={client.image !== "/media/default.jpg" ? `https://healthcarebackend.xyz${client.image}` : clientIcon} alt='#' /> */}
                 
               </div>
+                </div>
+         
             
             </div>
           </div>

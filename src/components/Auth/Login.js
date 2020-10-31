@@ -2,6 +2,8 @@ import React from "react";
 import "../../assets/auth/login.scss";
 import { Link } from "react-router-dom";
 import cLogo from "../../icons/c+.svg";
+import seen from '../../icons/password-seen.svg'
+import hidden from '../../icons/password-hidden.svg'
 
 const LoginUser = ({
   emailValue,
@@ -13,14 +15,16 @@ const LoginUser = ({
   handleChange,
   handleChangeRmb,
   rememberMe,
+  handleImage1,
+  seePass1,
 }) => {
   return (
     <div className="mainLogin">
       <img src={cLogo} className="logo" alt="cLogo" />
-      <h1>Welcome Back!</h1>
+      <h1>Log in</h1>
       <h5>Not a Cdoctor user yet?</h5>
       <Link className="createAccount" to="/register">
-        Create your account.
+        Create your account
       </Link>
       <form className="login-form">
         <div className="email">
@@ -30,21 +34,22 @@ const LoginUser = ({
             className="form-control"
             id="email"
             name="emailValue"
-            placeholder="name@gmail.com"
             value={!emailValue ? "" : emailValue}
             onChange={handleChange}
           />
         </div>
         <div className="password">
           <label htmlFor="pwd">Password</label>
+          <div>
           <input
-            type="password"
+            type={seePass1 ? 'text' : "password"}
             className="form-control"
-            placeholder="************"
             id="pwd"
             value={passwordValue}
             onChange={handlePassword}
           />
+                <img onClick={handleImage1}  src={seePass1 ? seen : hidden } alt="img"/>
+          </div>
         </div>
         <div className="rememberForgot">
           <div onClick={handleChangeRmb}>

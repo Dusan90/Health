@@ -86,14 +86,14 @@
             color: #666666;
             margin: 0;
             font-weight: 700;
-            padding: 15px 15px 0 15px;
+            padding: 15px 15px 0 12px;
             text-align: start;
           }
           div {
             width: 150px;
             // margin: 0 auto;
             border-radius: 10px;
-            margin: 15px 15px 0 15px;
+            margin: 15px 15px 0 12px;
 
             h4 {
               padding: 10px;
@@ -108,10 +108,10 @@
             color: #666666;
             font-weight: 700;
             text-align: start;
-            padding: 0 0 0 15px;
+            padding: 0 0 0 12px;
           }
           div {
-            margin: 15px 15px 0 15px;
+            margin: 15px 15px 0 12px;
             width: 150px;
             border-radius: 10px;
             border: 1.7px solid #808080;
@@ -143,6 +143,7 @@
         border: 1.7px solid #00aff0;
         border-radius: 10px;
         padding: 10px;
+        width: 150px;
         transition: all 0.5s ease-in-out;
         outline: none;
         margin-left: 5px;
@@ -169,7 +170,7 @@
         padding: 10px;
         transition: all 0.5s ease-in-out;
         outline: none;
-        width: 145px;
+        width: 150px;
         &:hover {
           cursor: pointer;
 
@@ -318,7 +319,7 @@
           }
 
           &::-webkit-scrollbar {
-            width: 10px;
+            width: 5px;
           }
 
           /* Track */

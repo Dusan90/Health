@@ -29,7 +29,7 @@ const VideoReq = ({
       height: "40px",
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
-      width: "307px",
+      width: "305px",
       marginLeft: "2px",
       background: "white",
       color: "#666666",

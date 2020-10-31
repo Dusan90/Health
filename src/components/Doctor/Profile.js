@@ -30,8 +30,6 @@ const Profile = ({
       display: "flex",
       background: 'white',
       marginLeft: '20px',
-     
-
     }),
     option: () =>({
       height: '30px',
@@ -40,6 +38,13 @@ const Profile = ({
       "&:hover": {
         background: '#fa9551'
       }
+    }),
+    placeholder: (provided, state) => ({
+      ...provided,
+      display: 'none'
+    // state.isFocused || state.isSelected || state.selectProps.inputValue || state.value
+    // ? 'none'
+    // : 'block',
     })
   } 
   return (
@@ -64,11 +69,11 @@ const Profile = ({
                 <input placeholder={doctor.user.phone ? doctor.user.phone : '11 22 33 44'} onChange={handleChange} id='PhoneNum' type="number"/>
                 <label htmlFor="lastName">E-mail</label>
                 <input placeholder={doctor.user.email} disabled={true} id='Email' onChange={handleChange} type="text"/>
-                <label >Working Hours</label>
+                <label >Working Hours:</label>
                 <div className='workHoursDiv'>
-                  <input type="text" id='TimeStart' onChange={handleChange} placeholder={doctor.start_hour ? doctor.start_hour : 'HH:MM'}/>
+                  <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
                   <p>-</p>
-                  <input type="text" id='TimeEnd'  onChange={handleChange} placeholder={doctor.end_hour ? doctor.end_hour : 'HH:MM'}/>
+                  <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} />
                 </div>
                 <button 
                   onClick={handleSubmit}
@@ -82,7 +87,7 @@ const Profile = ({
               </div>
               <div className='emailVisit'>
                 <label htmlFor="EmailVisit">Email</label>
-                <input type="number" onChange={handleChange} id='EmailVisit' placeholder={doctor.email_exam_price}/>
+                <input type="number" onChange={handleChange} id='EmailVisit' value={props.EmailVisit} placeholder={doctor.email_exam_price}/>
                 <Select
                       type="text"
                       className="select-option"
@@ -95,7 +100,7 @@ const Profile = ({
               </div>
               <div className='videoVisit'>
                 <label htmlFor="videoVisit">Video</label>
-                <input type="number" onChange={handleChange} id='VideoVisit' placeholder={doctor.web_exam_price}/>
+                <input type="number" onChange={handleChange} id='VideoVisit' value={props.VideoVisit} placeholder={doctor.web_exam_price}/>
                 <Select
                       type="text"
                       className="select-option"
@@ -108,7 +113,7 @@ const Profile = ({
               </div>
               <div className='videoFollowUp'>
                 <label htmlFor="videoFollowUp">Video follow up</label>
-                <input type="number" onChange={handleChange} id='VideoFollowUp' placeholder={doctor.web_exam_follow_price}/>
+                <input type="number" onChange={handleChange} id='VideoFollowUp' value={props.VideoFollowUp} placeholder={doctor.web_exam_follow_price}/>
                 <Select
                       type="text"
                       className="select-option"
@@ -120,17 +125,21 @@ const Profile = ({
                     />
               </div>
               <div  className="allergies">
-               Biography{" "}
+                <div className='Nameing'>
+                  <p> Biography{" "}</p>
+                  <p style={{marginRight: '47px'}}>Picture</p>
+                </div>
+              
+               <div className='textAndProfile'>
                 <textarea
-                style={{height: !doctor.image ? '178px' : '138px'}}
+                // style={{height: !doctor.image ? '178px' : '138px'}}
                   type="text"
                   className="address-input"
                   onChange={handleChange}
                   id='Biography'
                   placeholder={doctor.biography}
                 />
-              </div>
- 
+                
             <div className='profilePic'>
               <div className="upload-btn-wrapper">
             <button className="btn">
@@ -142,9 +151,10 @@ const Profile = ({
             </button>
             <input type="file" name="myfile" onChange={addAttach}  />
           </div>
-                <p style={{margin: "0 40px 0 20px"}} >Upload profile picture</p>
-           
               </div>
+               </div>
+              </div>
+ 
             
             </div>
           </div>

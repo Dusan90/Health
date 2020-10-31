@@ -11,14 +11,21 @@ export class UpdateSettings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          seePass: false,
-          Email: '',
-          Password: '',
+          seePass1: false,
+          seePass2: false,
           NewPassword: '',
           ConfNewPassword: '',
       token: sessionStorage.getItem("accessToken"),
 
         };
+      }
+
+      handleImage1=()=>{
+        this.setState({seePass1: !this.state.seePass1})
+      }
+      handleImage2=()=>{
+        this.setState({seePass2: !this.state.seePass2})
+
       }
 
       handleChange= (e) =>{
@@ -40,7 +47,6 @@ export class UpdateSettings extends Component {
             Authorization: access_token 
           },
           body: JSON.stringify({
-            password: this.state.Password,
 new_password: this.state.NewPassword,
 confirm_password: this.state.ConfNewPassword
           }),
@@ -53,7 +59,7 @@ confirm_password: this.state.ConfNewPassword
 
         }else if(jsonData.success === true){
       NotificationManager.success(`${jsonData.message}`, "Successful!", 2000);
-
+      this.props.history.push('/client-settings')
         }
       };
     render() {
@@ -66,7 +72,7 @@ confirm_password: this.state.ConfNewPassword
             </div>
           </div>
           <HamburgerDiv/>
-          <Update props={this.state} userLogin={this.userLogin} handleChange={this.handleChange}/>
+          <Update props={this.state} userLogin={this.userLogin} handleImage1={this.handleImage1} handleImage2={this.handleImage2} handleChange={this.handleChange}/>
           </>
         )
     }

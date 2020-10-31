@@ -18,6 +18,7 @@ class ClientRecord extends Component {
       searchType: "",
       messageIfEmpty: "",
       paginatedExams: [],
+      searchedUpcomingOrPast: []
     };
   }
 
@@ -317,6 +318,11 @@ class ClientRecord extends Component {
     }, 10);
   };
 
+  handlePageChange = (pageNumber) => {
+    this.setState({page: pageNumber});
+    this.paginate(pageNumber)
+  }
+
   render() {
     return (
       <>
@@ -354,6 +360,7 @@ class ClientRecord extends Component {
           searchByType={this.searchByType}
           searchByName={this.searchByName}
           ResetonSelectChange={this.ResetonSelectChange}
+          handlePageChange={this.handlePageChange}
         />
 
       </>

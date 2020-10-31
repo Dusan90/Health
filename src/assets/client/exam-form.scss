@@ -135,6 +135,52 @@
           border: none;
         }
       }
+      .profilePic {
+        display: flex;
+        margin: 30px 0 20px 20px;
+        width: 50px;
+        height: 30px;
+        background: #00aff0;
+        border-radius: 5px;
+
+        p {
+          font-weight: 600;
+          color: #666666;
+          margin: 0;
+        }
+        .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          .btn {
+            margin: 0;
+            width: 50px;
+            height: 30px;
+            padding: 0;
+            background: transparent !important;
+            .docImage {
+              width: 50px;
+              height: 30px;
+              object-fit: cover;
+              // border-radius: 50%;
+            }
+            p {
+              font-size: 80px;
+              padding: 0;
+            }
+          }
+        }
+
+        .upload-btn-wrapper input[type="file"] {
+          font-size: 100px;
+          position: absolute;
+          // background: #00aff0;
+
+          left: 0;
+          top: -20px;
+          width: 50px;
+          opacity: 0;
+        }
+      }
     }
   }
 
