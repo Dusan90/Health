@@ -261,7 +261,7 @@ class DetailVideoExam extends Component {
         },
         body: JSON.stringify({
           status: value,
-          notes: this.state.declineReason
+          decline_notes: this.state.declineReason
         }),
       }
     );
@@ -274,7 +274,7 @@ class DetailVideoExam extends Component {
       }else{
     
         NotificationManager.success("Decline reason sent", "Successful!", 2000);
-        this.detail(this.state.id)
+        window.location.reload()
       }
     }
     return jsonData;

@@ -142,9 +142,19 @@ const DetailVideo = ({
                   </p>
                 </div>
                 <div className="messageDiv">
+                  <textarea defaultValue={exam.notes}>
+                    
+                  </textarea>
+                </div>
+              <div className='reportIfDeclined' style={{display:  exam.status !== 'Declined'  ? 'none' : 'block'}}>
+                <div className="subjectDiv">
                   <p>
-                    <span>Message:</span> {exam.notes}
+                    <span>Decline reason:</span>
                   </p>
+                </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.status === 'Declined' && true} placeholder={exam.decline_notes ? exam.decline_notes : 'text'} value={props.declineReason} id="textarea"></textarea>
+                </div>
                 </div>
               </div>
               {exam.status === "Appointed" || exam.status === "Accepted" ? (

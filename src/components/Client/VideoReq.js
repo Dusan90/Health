@@ -124,7 +124,7 @@ const VideoReq = ({
             Send
           </button>
           <div className="upload-btn-wrapper">
-            <button className="btn">
+            <button className="btnn">
               <img src={arrowAttach} alt="attach" />
             </button>
             <input type="file" name="myfile" onChange={handleAttach} />

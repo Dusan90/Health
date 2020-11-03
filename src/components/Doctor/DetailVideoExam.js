@@ -164,19 +164,19 @@ const DetailVideo = ({
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <p>
-                    <span>Message:</span> {exam.notes}
-                  </p>
+                  <textarea defaultValue={exam.notes}>
+                   
+                  </textarea>
                 </div>
-                <div className='reportIfDeclined' style={{display: props.selectedStatus !== 'Decline'  && 'none'}}>
+                <div className='reportIfDeclined' style={{display: exam.status === 'Declined' ? 'block' : 'none' &&  props.selectedStatus !== 'Decline' ? 'none' : 'block'}}>
                 <div className="subjectDiv">
                   <p>
                     <span>Decline reason:</span>
                   </p>
                 </div>
-                <div className="messageDivReport" >
-                      <textarea name="text" placeholder='text' value={props.declineReason} onChange={declineReason} id="textarea"></textarea>
-                      <button onClick={saveReason}>Save</button>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.status === 'Declined' && true} placeholder={exam.decline_notes ? exam.decline_notes : 'text'} value={props.declineReason} onChange={declineReason} id="textarea"></textarea>
+                      <button style={{display:  exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
                 </div>
                 </div>
               </div>

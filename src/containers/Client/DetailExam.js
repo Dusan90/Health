@@ -17,7 +17,8 @@ class ClientDetailExam extends Component {
       replyClicked: false,
       messageValue: "",
       selectedFile: null,
-      doctor: ''
+      doctor: '',
+      client: ''
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
@@ -72,6 +73,7 @@ class ClientDetailExam extends Component {
 
   componentWillUnmount() {
     this.socket.close();
+    
   }
 
   componentDidMount() {
@@ -90,6 +92,16 @@ class ClientDetailExam extends Component {
       }
       console.log(parsedEvent);
     };
+    const access_token = "Bearer ".concat(this.state.token);
+
+    axios
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        let name = `${response.data.data.user.first_name} ${response.data.data.user.last_name}`
+        return this.setState({ client: name });
+      })
   }
 
   handleMessage = (e) => {
@@ -180,6 +192,7 @@ class ClientDetailExam extends Component {
   };
 
   render() {
+    console.log(this.state.client);
     return (
       <>
         <Detail

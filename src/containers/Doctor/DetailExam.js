@@ -18,7 +18,7 @@ class DetailExam extends Component {
       replyClicked: false,
       messageValue: "",
       selectedFile: null,
-      doctor: ''
+      doctor: '',
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`

@@ -117,7 +117,7 @@ class ProcessingVideoExam extends Component {
                 peer.signal(this.state.clientsVideoId);
                 var myVid = document.getElementById("myVid");
                 myVid.style.cssText =
-                  "position: absolute; left: 10px; bottom: 7px; height: 170px; width: 320px;";
+                  "position: absolute; left: 10px; bottom: 9px; height: 170px; width: 320px;";
               }
             });
 
@@ -142,14 +142,18 @@ class ProcessingVideoExam extends Component {
           connection.send(message);
           document.getElementById(
             "messages"
-          ).innerHTML += `<p style='color: #666666  ;margin: 5px;display: table; white-space: initial ; background: #e6e6e6; padding: 5px 10px 0 0; border-radius: 10px'><span>Doctor:</span>${message}</p>`;
+          ).innerHTML += `<p style='color: #666666  ;margin: 5px auto 5px 0;display: table; white-space: initial ; background: #e6e6e6; border-radius: 10px'><span>Doctor:</span>${message}</p>`;
           this.setState({ value: "" });
+          var objDiv = document.getElementById("messages");
+objDiv.scrollTop = objDiv.scrollHeight;
         });
 
         peer.on("data", function (data) {
           document.getElementById(
             "messages"
-          ).innerHTML += `<p style='color: #666666 ; margin: 5px 0 5px auto; background: #e6e6e6 ;display: table; padding: 5px 10px 0 0; white-space: initial; border-radius: 10px'><span>Client:</span>${data}</p>`;
+          ).innerHTML += `<p style='color: #666666 ; margin: 5px 0 5px auto; background: #e6e6e6 ;display: table; white-space: initial; border-radius: 10px'><span>Client:</span>${data}</p>`;
+          var objDiv = document.getElementById("messages");
+          objDiv.scrollTop = objDiv.scrollHeight;
         });
 
         let track = stream.getAudioTracks()[0];

@@ -158,11 +158,15 @@
                   text-align: center;
                   color: #00aff0;
                   font-weight: 700;
+                  &:hover {
+                    height: 30px;
+                    padding: 7px 0 0 0;
+                  }
                 }
                 .react-datepicker__day--selected {
                   margin: 0;
-                  width: 30px;
-                  padding: 5px 0 0 0;
+
+                  padding: 7px 0 0 0;
                   height: 30px;
                   background: #fa9551;
                   color: white;
@@ -221,8 +225,9 @@
                   overflow-y: hidden;
                   height: 279px !important;
                   display: flex;
+                  margin: 0 auto;
                   flex-direction: column;
-
+                  width: 80px;
                   color: #00aff0;
                   font-weight: 600;
                   overflow-y: scroll;
@@ -288,25 +293,31 @@
         background: #00aff0;
         transition: all 0.5s ease-in-out;
         outline: none;
-        &:hover {
-          box-shadow: 2px 2px 2px black;
-        }
       }
 
       .upload-btn-wrapper {
         position: relative;
         overflow: hidden;
         display: inline-block;
+        .btnn {
+          background: #00aff0;
+          border: 0;
+          height: 40px;
+          width: 40px;
+          border-radius: 5px;
+        }
       }
 
       .upload-btn-wrapper input[type="file"] {
-        font-size: 100px;
+        font-size: 0px;
         position: absolute;
         background: #00aff0;
         left: 0;
         top: 0;
-        width: 60px;
+        width: 40px;
+        height: 40px;
         opacity: 0;
+        cursor: pointer;
       }
     }
   }

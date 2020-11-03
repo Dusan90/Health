@@ -151,12 +151,14 @@ class Register extends Component {
               email: this.state.emailValue,
               first_name: this.state.firstNameValue,
               last_name: this.state.lastNameValue,
+              phone: this.state.phoneNumber,
               password: this.state.passwordValue,
+confirm_password: this.state.confPasswordValue,
+
               client: {
                 gender: this.state.selectedGenderValue,
                 address: this.state.addressValue,
                 birth_date: this.state.birthDateValue,
-                phone: parseInt(this.state.phoneNumber)
               },
             }),
           }
@@ -164,11 +166,12 @@ class Register extends Component {
         this.props.history.push("/login");
         
         const jsonData = await client.json();
-        jsonData.success &&  NotificationManager.error(
+        jsonData.success &&  NotificationManager.success(
           "An email for confirmation will be sent shortly",
           "Successful!",
           4000
         );
+        !jsonData.success && NotificationManager.error(`${jsonData.message}, "Failed`)
         return jsonData;
       } else {
         NotificationManager.error(

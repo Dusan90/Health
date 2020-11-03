@@ -205,8 +205,7 @@ class ClientVideoReq extends Component {
   }
 
   render() {
-   
-
+    console.log(this.state.doctorsPrice)
     return (
       <>
         <div className="header">

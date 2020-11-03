@@ -116,13 +116,15 @@
       background: white;
       border-bottom-left-radius: 15px;
       border-bottom-right-radius: 15px;
-      padding: 10px 13px 0 13px;
-      p {
-        margin: 5px 20px 0 0;
-        span {
-          font-weight: bold;
-          margin-right: 5px;
-        }
+      // padding: 10px 13px 0 13px;
+      textarea {
+        resize: none;
+        width: 100%;
+        height: 100%;
+        border: none;
+        padding: 10px 15px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
       }
     }
 
@@ -159,6 +161,7 @@
           padding: 10px;
           text-indent: 5px;
           border: none;
+          resize: none;
           border-bottom-left-radius: 15px;
           border-bottom-right-radius: 15px;
         }
@@ -246,15 +249,16 @@
             }
           }
           .row1 {
-            .message {
-              color: #666666;
+            textarea {
               background: white;
-              padding: 10px 0 10px 0;
+              color: #666666;
+              padding: 10px 15px;
+              width: 100%;
+              height: 100px;
+              resize: none;
+              border: none;
               border-bottom-left-radius: 15px;
               border-bottom-right-radius: 15px;
-              span {
-                font-weight: bold;
-              }
             }
           }
           .ReplyMainDiv {
@@ -276,13 +280,17 @@
           }
           .SendMainDiv {
             margin-left: 20px;
-            border: 1px solid #00aff0;
-            border-radius: 5px;
+            border: none;
+            border-radius: 15px;
             margin: 10px auto 0 auto;
-            box-shadow: 1px 1px 10px gray;
+            box-shadow: none;
+            background: white;
             textarea {
-              margin: 5px;
-              width: 98%;
+              margin: 0;
+              width: 100%;
+              padding: 10px 10px;
+
+              // background: green;
               min-height: 200px;
               resize: none;
               border: none;
@@ -290,6 +298,11 @@
             }
             .sendbuttonAndAtt {
               display: flex;
+              background: white;
+              border-bottom-left-radius: 15px;
+              border-bottom-right-radius: 15px;
+              margin: 0;
+              padding: 0;
               button {
                 color: white;
                 background: #00aff0;
@@ -302,6 +315,7 @@
                 align-items: center;
                 margin: 0px 10px 20px 20px;
                 transition: all 0.5s ease-in-out;
+                box-shadow: none;
                 .replyIcon {
                   font-size: 20px;
                 }
@@ -331,11 +345,14 @@
               }
 
               .upload-btn-wrapper input[type="file"] {
-                font-size: 100px;
+                font-size: 0px;
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 60px;
+                margin-left: 20px;
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
                 opacity: 0;
               }
             }
@@ -370,24 +387,50 @@
       }
       .SendMainDiv {
         margin-left: 20px;
-        border: 1px solid #4092c2;
-        border-radius: 5px;
-        margin: 10px 10px 0 20px;
-        box-shadow: 1px 1px 10px gray;
+        border: none;
+        border-radius: 15px;
+        margin: 10px auto 0 auto;
+        box-shadow: none;
+        background: white;
+        .senderMaiin {
+          height: 30px;
+          display: flex;
+          background: #00aff0;
+          justify-content: space-between;
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+          color: white;
+          text-indent: 15px;
+          .senderP {
+            margin-top: 5px;
+            span {
+              font-weight: bold;
+            }
+          }
+          .createdP {
+            margin: 5px 20px 0 0;
+          }
+        }
         textarea {
-          margin: 5px;
-          width: 98%;
           min-height: 200px;
+          width: 100%;
           resize: none;
           border: none;
-          text-indent: 10px;
+          text-indent: 0;
+          padding: 10px 15px;
         }
         .sendbuttonAndAtt {
           display: flex;
+          background: white;
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+
+          margin: 0;
+          padding: 0;
           button {
             color: white;
-            background: #4092c2;
-            border: 1px solid #377da5;
+            background: #00aff0;
+            border: none;
             height: 40px;
             width: 80px;
             border-radius: 5px;
@@ -399,9 +442,9 @@
             .replyIcon {
               font-size: 20px;
             }
-            &:hover {
-              box-shadow: 2px 2px 1px black;
-            }
+            // &:hover {
+            //   box-shadow: 2px 2px 1px black;
+            // }
           }
           .upload-btn-wrapper {
             position: relative;
@@ -410,9 +453,9 @@
           }
 
           .btn {
-            border: 1px solid #1286c9;
+            // border: 1px solid #00aff0;
             color: white;
-            background-color: #4092c2;
+            background-color: #00aff0;
             width: 40px;
             border-radius: 8px;
             font-size: 30px;
@@ -426,11 +469,14 @@
           }
 
           .upload-btn-wrapper input[type="file"] {
-            font-size: 100px;
+            font-size: 0px;
             position: absolute;
             left: 0;
             top: 0;
-            width: 60px;
+            width: 40px;
+            height: 40px;
+            margin-left: 20px;
+            cursor: pointer;
             opacity: 0;
           }
         }

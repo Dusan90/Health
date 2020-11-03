@@ -265,7 +265,7 @@ class ClientDashboard extends Component {
         this.setState({
           exams: [...this.state.exams.concat(response.data.data.queue)],
         });
-        this.handleUpcoming();
+        this.handleAll();
         this.paginate(this.state.page);
         this.getUnreadMessages(this.state.client.id);
       })

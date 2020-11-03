@@ -144,9 +144,8 @@ return (
                             // onClick={() => handleClick(index)}
                             className="row1"
                           >
-                            <p id={message.id} className="message">
-                              <span>Message:</span> {message.message}{" "}
-                            </p>
+                            <textarea  id={message.id} defaultValue={message.message} className="message">
+                            </textarea>
                             {message.attachments ? (
                               <div className="attachments">
                                 <p className="att">
@@ -155,7 +154,7 @@ return (
                               </div>
                             ) : null}
                           </div>
-                          {!props.replyClicked &&
+                          {/* {!props.replyClicked &&
                             props.lastInArray.created === message.created &&
                             props.lastInArray.sender === exam.client &&
                             exam.status === "Accepted" && (
@@ -165,10 +164,20 @@ return (
                                   <span>Reply</span>
                                 </button>
                               </div>
-                            )}
+                            )} */}
                           {props.replyClicked &&
                             props.lastInArray.created === message.created && (
                               <div className="SendMainDiv">
+                                <div style={{background: '#00aff0'}} className="senderMaiin">
+                            <p className="senderP">
+                              <span>From:</span> {message.sender}
+                            </p>
+                            <p className="createdP">
+                              {moment(message.created)
+                                .add(2, "hours")
+                                .format("DD-MM-YYYY HH:mm")}
+                            </p>
+                          </div>
                                 <textarea
                                   type="text"
                                   placeholder="Message..."
@@ -182,7 +191,7 @@ return (
                                   </button>
                                   <div className="upload-btn-wrapper">
                                     <button className="btn">
-                                      <img src={attachIcon} alt="" srcset=""/>
+                                      <img src={attachIcon} alt=""/>
                                     </button>
                                     <input
                                       type="file"
@@ -198,47 +207,56 @@ return (
                     })}
                     {props.replyClicked && props.correspondence.length === 0 ? (
                       <div className="SendMainDiv">
-                        <textarea
-                          type="text"
-                          placeholder="Message..."
-                          onChange={handleMessage}
-                          value={props.messageValue}
-                        ></textarea>
-                        <div className="sendbuttonAndAtt">
-                          <button onClick={handleSubmitSend}>
-                            <FiSend className="replyIcon" />
-                            <span>Send</span>
+                      <div className="senderMaiin">
+                  <p className="senderP">
+                    <span>From:</span> {props.client}
+                  </p>
+                
+                </div>
+                      <textarea
+                        type="text"
+                        placeholder="Message..."
+                        onChange={handleMessage}
+                        value={props.messageValue}
+                      ></textarea>
+                      <div className="sendbuttonAndAtt">
+                        <button onClick={handleSubmitSend}>
+                          <FiSend className="replyIcon" />
+                          <span>Send</span>
+                        </button>
+                        <div className="upload-btn-wrapper">
+                          <button className="btn">
+                            <img src={attachIcon} alt="" />
                           </button>
-                          <div className="upload-btn-wrapper">
-                            <button className="btn">
-                            <img src={attachIcon} alt="" srcset=""/>
-                            </button>
-                            <input
-                              type="file"
-                              name="myfile"
-                              onChange={onChangeHandler}
-                            />
-                          </div>
+                          <input
+                            type="file"
+                            name="myfile"
+                            onChange={onChangeHandler}
+                          />
                         </div>
                       </div>
-                    ) : props.correspondence.length === 0 ? (
-                      <div className="ReplyMainDiv">
-                        <button
-                          disabled={exam.status === "Pending" && true}
-                          style={{
-                            display:
-                              exam.status !== "Accepted" &&
-                              exam.status !== "Pending" &&
-                              "none",
-                          }}
-                          onClick={handleReplyClick}
-                        >
-                          <MdReply className="replyIcon" />
-                          <span>Reply</span>
-                        </button>
-                      </div>
-                    ) : null}
-                    {props.correspondence.length !== 0 &&
+                    </div>
+                    ) 
+                    // : props.correspondence.length === 0 ? (
+                    //   <div className="ReplyMainDiv">
+                    //     <button
+                    //       disabled={exam.status === "Pending" && true}
+                    //       style={{
+                    //         display:
+                    //           exam.status !== "Accepted" &&
+                    //           exam.status !== "Pending" &&
+                    //           "none",
+                    //       }}
+                    //       onClick={handleReplyClick}
+                    //     >
+                    //       <MdReply className="replyIcon" />
+                    //       <span>Reply</span>
+                    //     </button>
+                    //   </div>
+                    // )
+                     : null}
+                    {
+                    // props.correspondence.length !== 0 &&
                       exam.status === "Accepted" && (
                         <button className="newMessage" onClick={newMessage}>
                           <h1>+</h1>

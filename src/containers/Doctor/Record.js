@@ -46,7 +46,7 @@ class ClientRecord extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(
-        `https://healthcarebackend.xyz/api/exams/client/${this.state.id}/`
+        `https://healthcarebackend.xyz/api/exams/client/${this.state.id}/list/`
         ,
         {
           headers: { Authorization: access_token },

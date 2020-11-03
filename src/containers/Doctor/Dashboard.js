@@ -242,7 +242,7 @@ class DoctorDashboard extends Component {
       })
       .then(() => {
         this.peopleInWaitingRoom(this.state.doctorCurent.id);
-        this.handleUpcoming();
+        this.handleAll();
         this.paginate(this.state.page);
         this.getUnreadMessages(this.state.doctorCurent.id);
       })
@@ -346,7 +346,7 @@ class DoctorDashboard extends Component {
         });
       })
       .then(() => {
-        this.handleUpcoming();
+        this.handleAll();
       })
       .catch((err) => {
         console.log(err.response);

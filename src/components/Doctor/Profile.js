@@ -33,18 +33,17 @@ const Profile = ({
     }),
     option: () =>({
       height: '30px',
-      alignItems: 'center',
+      alignSelf: 'center',
       padding: '5px 0 0 0',
       "&:hover": {
         background: '#fa9551'
       }
     }),
     placeholder: (provided, state) => ({
+      
+
       ...provided,
-      display: 'none'
-    // state.isFocused || state.isSelected || state.selectProps.inputValue || state.value
-    // ? 'none'
-    // : 'block',
+       display: state.isFocused || state.isSelected || state.selectProps.inputValue || state.value ? 'none' : 'block',
     })
   } 
   return (
@@ -94,7 +93,7 @@ const Profile = ({
                       styles={customStyles}
                       value={selectValue}
                       options={status}
-                      placeholder='Select'
+                      placeholder={doctor.email_currency}
                       onChange={handleSelect}
                     />
               </div>
@@ -107,7 +106,7 @@ const Profile = ({
                       styles={customStyles}
                       value={selectValue}
                       options={status}
-                      placeholder='Select'
+                      placeholder={doctor.web_currency}
                       onChange={handleSelect2}
                     />
               </div>
@@ -120,7 +119,7 @@ const Profile = ({
                       styles={customStyles}
                       value={selectValue}
                       options={status}
-                      placeholder='Select'
+                      placeholder={doctor.web_follow_up_currency}
                       onChange={handleSelect3}
                     />
               </div>
