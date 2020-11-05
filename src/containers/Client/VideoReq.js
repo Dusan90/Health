@@ -70,7 +70,7 @@ class ClientVideoReq extends Component {
     this.setState({ doctor_id: e.iD, doctorsPrice: e.price, currency: e.currency });
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/web/doc/${e.iD}/`, {
+      .get(`http://healthcarebackend.xyz/api/web/doc/${e.iD}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -116,7 +116,7 @@ class ClientVideoReq extends Component {
     ) {
       this.setState({ isClicked: true });
       const response = await fetch(
-        "https://healthcarebackend.xyz/api/web/client/initiate/",
+        "http://healthcarebackend.xyz/api/web/client/initiate/",
         {
           method: "POST",
           headers: {
@@ -164,7 +164,7 @@ class ClientVideoReq extends Component {
   handleClientProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
+      .get(`http://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -177,7 +177,7 @@ class ClientVideoReq extends Component {
   componentDidMount() {
     this.handleClientProfile();
     axios
-      .get("https://healthcarebackend.xyz/api/specialities/")
+      .get("http://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
         const res = response.data.data.map((val) => {
           return { value: val.id, iD: val.speciality_id, label: val.name };
@@ -185,7 +185,7 @@ class ClientVideoReq extends Component {
         this.setState({ specialities: res });
       });
     axios
-      .get("https://healthcarebackend.xyz/api/doctor/list/")
+      .get("http://healthcarebackend.xyz/api/doctor/list/")
       .then((response) => {
         console.log(response);
         const res = response.data.data.map((val) => {

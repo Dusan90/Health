@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import DetailVideo from "../../components/Client/ClientVideoExamDetail";
 
-// const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
+// const connection = new WebSocket("ws://healthcarebackend.xyz/ws/video/");
 var Peer = require("simple-peer");
 
 class ClientVideoExamDetail extends Component {
@@ -52,7 +52,7 @@ class ClientVideoExamDetail extends Component {
   handleCancel = async (value) => {
     const access_token = "Bearer ".concat(this.state.token);
     let clientCancel = await fetch(
-      `https://healthcarebackend.xyz/api/web/client/${this.state.id}/`,
+      `http://healthcarebackend.xyz/api/web/client/${this.state.id}/`,
       {
         method: "PUT",
         headers: {
@@ -71,7 +71,7 @@ class ClientVideoExamDetail extends Component {
     return jsonData;
     // const access_token = "Bearer ".concat(this.state.token);
     // const doctor = await fetch(
-    //   `https://healthcarebackend.xyz/api/web/client/${this.state.id}/`,
+    //   `http://healthcarebackend.xyz/api/web/client/${this.state.id}/`,
     //   {
     //     method: "DELETE",
     //     headers: {
@@ -89,7 +89,7 @@ class ClientVideoExamDetail extends Component {
   detail = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/web/client/${this.state.id}/`, {
+      .get(`http://healthcarebackend.xyz/api/web/client/${this.state.id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

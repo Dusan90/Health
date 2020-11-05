@@ -128,7 +128,7 @@ class Register extends Component {
 
   componentDidMount() {
     axios
-      .get("https://healthcarebackend.xyz/api/specialities/")
+      .get("http://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
         const res = response.data.data.map((val) => {
           return { value: val.id, label: val.name };
@@ -141,7 +141,7 @@ class Register extends Component {
     if (this.state.userType === "client") {
       if (this.state.confPasswordValue === this.state.passwordValue) {
         const client = await fetch(
-          "https://healthcarebackend.xyz/api/auth/register/client/",
+          "http://healthcarebackend.xyz/api/auth/register/client/",
           {
             method: "POST",
             headers: {
@@ -182,7 +182,7 @@ confirm_password: this.state.confPasswordValue,
       }
     } else if (this.state.userType === "doctor") {
       const doctor = await fetch(
-        "https://healthcarebackend.xyz/api/auth/register/doctor/",
+        "http://healthcarebackend.xyz/api/auth/register/doctor/",
         {
           method: "POST",
           headers: {

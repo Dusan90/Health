@@ -40,7 +40,7 @@ export class UpdateSettings extends Component {
 
       userLogin = async () => {
         const access_token = "Bearer ".concat(this.state.token);
-        const data = await fetch("https://healthcarebackend.xyz/api/auth/password-change/", {
+        const data = await fetch("http://healthcarebackend.xyz/api/auth/password-change/", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

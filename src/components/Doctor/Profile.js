@@ -144,7 +144,7 @@ const Profile = ({
             <button className="btn">
               {/* <img src={arrowAttach} alt="attach" /> */}
               {doctor.image !== "/media/default.jpg" ?
-              <img className='docImage' src={ `https://healthcarebackend.xyz${doctor.image}`} alt='#' /> :
+              <img className='docImage' src={ `http://healthcarebackend.xyz${doctor.image}`} alt='#' /> :
               <p>+</p>
               }
             </button>

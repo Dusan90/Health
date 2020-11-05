@@ -34,7 +34,7 @@ function Clients({ handleClient, clients, handleSort, handleSearch, props }) {
                 onClick={() => handleClient(client.client_id)}
               >
                 {client.client}
-                <img src={client.image === "default.jpg" ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
+                <img src={client.image === "default.jpg" ? myClientProfile : `http://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
               </button>
             </div>
           );
@@ -47,7 +47,7 @@ function Clients({ handleClient, clients, handleSort, handleSearch, props }) {
                   onClick={() => handleClient(client.client_id)}
                 >
                   {client.client}
-                  <img src={client.image === "default.jpg" ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
+                  <img src={client.image === "default.jpg" ? myClientProfile : `http://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
                 </button>
               </div>
             )

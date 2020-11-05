@@ -15,7 +15,7 @@ export class activate extends Component {
 
   getResponse = () => {
     axios
-      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`, {
+      .get(`http://healthcarebackend.xyz/api/auth/activate/${this.state.id}`, {
         headers: {
           "Content-Type": "application/json",
         },

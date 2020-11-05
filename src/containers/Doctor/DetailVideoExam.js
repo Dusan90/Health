@@ -3,7 +3,7 @@ import axios from "axios";
 // import { connect } from "react-redux";
 import DetailVideo from "../../components/Doctor/DetailVideoExam";
 import { NotificationManager } from "react-notifications";
-// const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
+// const connection = new WebSocket("ws://healthcarebackend.xyz/ws/video/");
 
 
 class DetailVideoExam extends Component {
@@ -225,7 +225,7 @@ class DetailVideoExam extends Component {
   detail = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     await axios
-      .get(`https://healthcarebackend.xyz/api/web/doctor/${id}/`, {
+      .get(`http://healthcarebackend.xyz/api/web/doctor/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -252,7 +252,7 @@ class DetailVideoExam extends Component {
     const access_token = "Bearer ".concat(this.state.token);
     console.log(value);
     const client = await fetch(
-      `https://healthcarebackend.xyz/api/web/doctor/${this.state.id}/`,
+      `http://healthcarebackend.xyz/api/web/doctor/${this.state.id}/`,
       {
         method: "PUT",
         headers: {

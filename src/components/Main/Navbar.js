@@ -37,7 +37,7 @@ form_data.append("image", '');
 form_data.append("status", value);
 
 
-let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
+let url = 'http://healthcarebackend.xyz/api/doctor/profile/';
 
 const data = axios.put(url, form_data, {
   headers: {
@@ -55,7 +55,7 @@ const data = axios.put(url, form_data, {
       handleDoctorProfile();
     }
     // const data = await fetch(
-    //   `https://healthcarebackend.xyz/api/doctor/profile/`,
+    //   `http://healthcarebackend.xyz/api/doctor/profile/`,
     //   {
     //     method: "PUT",
     //     headers: {
@@ -93,7 +93,7 @@ const data = axios.put(url, form_data, {
       sessionStorage.getItem("accessToken")
     );
     axios
-      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
+      .get(`http://healthcarebackend.xyz/api/doctor/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -119,7 +119,7 @@ const data = axios.put(url, form_data, {
               ) : (
                 <img src={doctorOffline} alt="offline doctor" />
               ) :
-              <img style={{ width: '50px',  objectFit: 'cover'}} src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
+              <img style={{ width: '50px',  objectFit: 'cover'}} src={`http://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
               }
               
             </div>

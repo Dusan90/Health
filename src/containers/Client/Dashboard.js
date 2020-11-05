@@ -52,7 +52,7 @@ class ClientDashboard extends Component {
     this._isMounted = true;
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
+      .get(`http://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -86,7 +86,7 @@ class ClientDashboard extends Component {
 
   connect = (id) => {
     const ws = new WebSocket(
-      `wss://healthcarebackend.xyz/ws/dashboard/client/${id}/`
+      `ws://healthcarebackend.xyz/ws/dashboard/client/${id}/`
     );
 
     ws.onopen = () => {
@@ -232,7 +232,7 @@ class ClientDashboard extends Component {
     const access_token = "Bearer ".concat(this.state.token);
 
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/client/`, {
+      .get(`http://healthcarebackend.xyz/api/exams/client/`, {
         headers: { Authorization: access_token },
       })
       .then((res) => {
@@ -258,7 +258,7 @@ class ClientDashboard extends Component {
   WaitingRoomList = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/${this.state.client.id}/`, {
+      .get(`http://healthcarebackend.xyz/api/queue/${this.state.client.id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -315,7 +315,7 @@ class ClientDashboard extends Component {
   getUnreadMessages = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/client/${id}/`, {
+      .get(`http://healthcarebackend.xyz/api/exams/client/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

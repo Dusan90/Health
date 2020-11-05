@@ -72,13 +72,13 @@ const Profile = ({
               <div className="upload-btn-wrapper">
             <button className="btn">
             {client.image !== "/media/default.jpg" ?
-              <img className='docImage' src={ `https://healthcarebackend.xyz${client.image}`} alt='#' /> :
+              <img className='docImage' src={ `http://healthcarebackend.xyz${client.image}`} alt='#' /> :
               <p>+</p>
               }
             </button>
             <input type="file" name="myfile" onChange={attachInput} />
           </div>
-                {/* <img className='cliImage' src={client.image !== "/media/default.jpg" ? `https://healthcarebackend.xyz${client.image}` : clientIcon} alt='#' /> */}
+                {/* <img className='cliImage' src={client.image !== "/media/default.jpg" ? `http://healthcarebackend.xyz${client.image}` : clientIcon} alt='#' /> */}
                 
               </div>
                 </div>

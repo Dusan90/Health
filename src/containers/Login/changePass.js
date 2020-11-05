@@ -39,7 +39,7 @@ export class changePass extends Component {
 
   changePass = async () => {
     const data = await fetch(
-      `https://healthcarebackend.xyz/api/auth/reset-confirm/${this.state.id}/`,
+      `http://healthcarebackend.xyz/api/auth/reset-confirm/${this.state.id}/`,
       {
         method: "PUT",
         headers: {

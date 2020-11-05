@@ -26,7 +26,7 @@ export class DoctorsEmailList extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/doctor/`, {
+      .get(`http://healthcarebackend.xyz/api/exams/doctor/`, {
         headers: { Authorization: access_token },
       })
       .then((res) => {
@@ -57,7 +57,7 @@ export class DoctorsEmailList extends Component {
   getUnreadMessages = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
+      .get(`http://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -85,7 +85,7 @@ export class DoctorsEmailList extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
+      .get(`http://healthcarebackend.xyz/api/doctor/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

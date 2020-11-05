@@ -21,7 +21,7 @@ class ClientDetailExam extends Component {
       client: ''
     };
     this.socket = new WebSocket(
-      `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
+      `ws://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
     );
   }
 
@@ -36,7 +36,7 @@ class ClientDetailExam extends Component {
   handleCancel = async (value) => {
     const access_token = "Bearer ".concat(this.state.token);
     const doctor = await fetch(
-      `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/`,
+      `http://healthcarebackend.xyz/api/client/exams/${this.state.id}/`,
       {
         method: "PUT",
         headers: {
@@ -58,7 +58,7 @@ class ClientDetailExam extends Component {
   detail = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/client/exams/${this.state.id}/`, {
+      .get(`http://healthcarebackend.xyz/api/client/exams/${this.state.id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -95,7 +95,7 @@ class ClientDetailExam extends Component {
     const access_token = "Bearer ".concat(this.state.token);
 
     axios
-      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
+      .get(`http://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -134,7 +134,7 @@ class ClientDetailExam extends Component {
   sendMessage = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/message/`,
+      `http://healthcarebackend.xyz/api/client/exams/${this.state.id}/message/`,
       {
         method: "POST",
         headers: {
@@ -165,7 +165,7 @@ class ClientDetailExam extends Component {
   correspondence = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/client/exams/${id}/messages/`, {
+      .get(`http://healthcarebackend.xyz/api/client/exams/${id}/messages/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

@@ -42,7 +42,7 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec}) {
                 onClick={() => handleClient(doctor.id)}
               >
                 {doctor.doctor}
-                <img src={doctor.image === "/media/default.jpg" ? doctorImg : `https://healthcarebackend.xyz${doctor.image}`} alt="cliet profile" />
+                <img src={doctor.image === "/media/default.jpg" ? doctorImg : `http://healthcarebackend.xyz${doctor.image}`} alt="cliet profile" />
               </button>
             </div>
           );

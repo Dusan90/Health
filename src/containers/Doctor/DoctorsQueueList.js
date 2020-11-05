@@ -23,7 +23,7 @@ export class DoctorsQueueList extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
+      .get(`http://healthcarebackend.xyz/api/doctor/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -35,7 +35,7 @@ export class DoctorsQueueList extends Component {
   peopleInWaitingRoom = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/today/${id}/`, {
+      .get(`http://healthcarebackend.xyz/api/queue/today/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

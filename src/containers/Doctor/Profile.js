@@ -78,7 +78,7 @@ class DoctorProfile extends Component {
   form_data.append("web_follow_up_currency", this.state.selectVideoFollow);
   
   const access_token = "Bearer ".concat(this.state.token);
-  let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
+  let url = 'http://healthcarebackend.xyz/api/doctor/profile/';
   
   const data = axios.put(url, form_data, {
     headers: {
@@ -104,7 +104,7 @@ class DoctorProfile extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
+      .get(`http://healthcarebackend.xyz/api/doctor/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

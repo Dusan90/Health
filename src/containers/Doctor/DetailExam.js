@@ -21,7 +21,7 @@ class DetailExam extends Component {
       doctor: '',
     };
     this.socket = new WebSocket(
-      `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
+      `ws://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
     );
   }
 
@@ -32,7 +32,7 @@ class DetailExam extends Component {
   detail = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/doctor/exams/${id}/`, {
+      .get(`http://healthcarebackend.xyz/api/doctor/exams/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -71,7 +71,7 @@ class DetailExam extends Component {
     console.log(id, value);
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `https://healthcarebackend.xyz/api/doctor/exams/${id}/`,
+      `http://healthcarebackend.xyz/api/doctor/exams/${id}/`,
       {
         method: "PUT",
         headers: {
@@ -125,7 +125,7 @@ class DetailExam extends Component {
     // const data = new FormData()
     // data.append('file', this.state.selectedFile, this.state.selectedFile.name)
     const client = await fetch(
-      `https://healthcarebackend.xyz/api/doctor/exams/${this.state.id}/message/`,
+      `http://healthcarebackend.xyz/api/doctor/exams/${this.state.id}/message/`,
       {
         method: "POST",
         headers: {
@@ -154,7 +154,7 @@ class DetailExam extends Component {
   correspondence = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/doctor/exams/${id}/messages/`, {
+      .get(`http://healthcarebackend.xyz/api/doctor/exams/${id}/messages/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

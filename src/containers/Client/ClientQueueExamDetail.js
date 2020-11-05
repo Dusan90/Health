@@ -14,7 +14,7 @@ class ClientQueueExamDetail extends Component {
   hanldeClientQueue = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/client/detail/${id}/`, {
+      .get(`http://healthcarebackend.xyz/api/queue/client/detail/${id}/`, {
         headers: { Authorization: access_token },
       })
 

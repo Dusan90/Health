@@ -47,7 +47,7 @@ class CheckoutForm extends Component {
   //     NotificationManager.error("Faild to Checkout", "Faild!", 2000);
   //   } else if (paymentMethod !== undefined) {
   //     const response = await fetch(
-  //       "https://healthcarebackend.xyz/api/charge/",
+  //       "http://healthcarebackend.xyz/api/charge/",
   //       {
   //         method: "POST",
   //         headers: {
@@ -102,7 +102,7 @@ class CheckoutForm extends Component {
         //   this.setState({ token: payload.token });
         // });
         const response = await fetch(
-          "https://healthcarebackend.xyz/api/charge/",
+          "http://healthcarebackend.xyz/api/charge/",
           {
             method: "POST",
             headers: {
@@ -153,7 +153,7 @@ class CheckoutForm extends Component {
         // The card action has been handled
         // The PaymentIntent can be confirmed again on the server
         const serverResponse = await fetch(
-          "https://healthcarebackend.xyz/api/pay",
+          "http://healthcarebackend.xyz/api/pay",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
