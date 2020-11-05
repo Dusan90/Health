@@ -6,48 +6,50 @@ import "../../assets/detail_exam.scss";
 import moment from "moment";
 import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
 
-import { FaMicrophoneAltSlash } from "react-icons/fa";
-import { FaMicrophoneAlt } from "react-icons/fa";
-import { FaVideoSlash } from "react-icons/fa";
-import { FaVideo } from "react-icons/fa";
-import { FaPhoneSlash } from "react-icons/fa";
-import { FaRegSquare } from "react-icons/fa";
-import { FaRocketchat } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
-import { Rnd } from "react-rnd";
+// import { FaMicrophoneAltSlash } from "react-icons/fa";
+// import { FaMicrophoneAlt } from "react-icons/fa";
+// import { FaVideoSlash } from "react-icons/fa";
+// import { FaVideo } from "react-icons/fa";
+// import { FaPhoneSlash } from "react-icons/fa";
+// import { FaRegSquare } from "react-icons/fa";
+// import { FaRocketchat } from "react-icons/fa";
+// import { MdClose } from "react-icons/md";
+// import { Rnd } from "react-rnd";
 import { HamburgerDiv } from "../Main/HamburgerDiv";
 
 const DetailVideo = ({
   exam,
   handleStatus,
   statusValue,
-  submitValue,
-  handleSubmit,
-  handleConnect,
-  handleVideoStart,
+  // submitValue,
+  // handleSubmit,
+  // handleConnect,
+  // handleVideoStart,
   props,
-  iconsMouseOut,
-  iconsMouseOver,
-  handleDragDrop,
-  handleResize,
-  showAndHideChat,
-  handleDivSize,
-  cutVideo,
-  cutMic,
-  handleChange,
-  enableTipeing,
+  // iconsMouseOut,
+  // iconsMouseOver,
+  // handleDragDrop,
+  // handleResize,
+  // showAndHideChat,
+  // handleDivSize,
+  // cutVideo,
+  // cutMic,
+  // handleChange,
+  // enableTipeing,
   declineReason,
-  saveReason
+  saveReason,
+  handleJoinRoom
 }) => {
-  let disabled = props.clientsVideoId === "null" ? true : false;
+  // let disabled = props.clientsVideoId === "null" ? true : false;
   let examDate =
     props.exam.length !== 0 ? new Date(props.exam[0].appointed_date) : null;
   let disabled2 =
     moment(new Date()).format("YYYY-MM-DD HH:mm") >
       moment(examDate).subtract(15, "minutes").format("YYYY-MM-DD HH:mm") &&
     moment(new Date()).format("YYYY-MM-DD HH:mm") <
-      moment(examDate).add(30, "minutes").format("YYYY-MM-DD HH:mm") &&
-    props.connectedall
+      moment(examDate).add(30, "minutes").format("YYYY-MM-DD HH:mm")
+    //    &&
+    // props.connectedall
       ? false
       : true;
 
@@ -129,7 +131,7 @@ const DetailVideo = ({
                 )}
                 {exam.status === "Appointed" && (
                   <div className="message-btn">
-                    {!props.connected ? (
+                    {/* {!props.connected ? (
                       <button
                         className="message-link"
                         disabled={disabled2}
@@ -147,7 +149,14 @@ const DetailVideo = ({
                       >
                         Start Video
                       </button>
-                    )}
+                    )} */}
+                       <button
+                        className="message-link"
+                        // disabled={disabled2}
+                        onClick={handleJoinRoom}
+                      >
+                        Join now
+                      </button>
                   </div>
                 )}
               </div>
@@ -184,7 +193,7 @@ const DetailVideo = ({
           </Fragment>
         );
       })}
-      <Rnd
+      {/* <Rnd
         id="videoo"
         size={{
           width: props.width,
@@ -269,7 +278,7 @@ const DetailVideo = ({
             </div>
           </div>
         </div>
-      </Rnd>
+      </Rnd> */}
     </>
   );
 };

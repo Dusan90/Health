@@ -81,6 +81,7 @@ class CheckoutForm extends Component {
   handleSubmit = async (ev) => {
     ev.preventDefault();
     const price = parseInt(this.props.location.state.price, 10);
+    const currency = this.props.location.state.currency
     if (
       this.props.stripe &&
       this.state.cardNumber &&
@@ -256,7 +257,7 @@ class CheckoutForm extends Component {
                     : this.props.location.state.price
                     ? this.props.location.state.price
                     : 0}
-                   €
+                   {" "}{this.props.location.state.currency}
                 </h1>
               </div>
               <div className="creditCardInfo">

@@ -38,6 +38,7 @@ import ClientSettings from './containers/Client/Settings'
 import ClientUpdateSettings from './containers/Client/UpdateSettings'
 import DoctorsList from "./containers/Client/DoctorsList";
 import DoctorsDetails from "./containers/Client/DoctorsDetails";
+import Room from './Room'
 // import NotFound from "./containers/Home/NotFound";
 
 export class Routes extends Component {
@@ -55,6 +56,8 @@ export class Routes extends Component {
           exact
           component={ChangePass}
         />
+        <Route path="/room/:roomID" exact component={Room} />
+
         <Route path="/api/auth/activate/:id/" exact component={Activate} />
 
         <PrivateRoute

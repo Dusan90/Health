@@ -3,15 +3,15 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import "../../assets/client/detail-exam.scss";
 import moment from "moment";
-import { FaMicrophoneAltSlash } from "react-icons/fa";
-import { FaMicrophoneAlt } from "react-icons/fa";
-import { FaVideoSlash } from "react-icons/fa";
-import { FaVideo } from "react-icons/fa";
-import { FaPhoneSlash } from "react-icons/fa";
-import { FaRegSquare } from "react-icons/fa";
-import { FaRocketchat } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
-import { Rnd } from "react-rnd";
+// import { FaMicrophoneAltSlash } from "react-icons/fa";
+// import { FaMicrophoneAlt } from "react-icons/fa";
+// import { FaVideoSlash } from "react-icons/fa";
+// import { FaVideo } from "react-icons/fa";
+// import { FaPhoneSlash } from "react-icons/fa";
+// import { FaRegSquare } from "react-icons/fa";
+// import { FaRocketchat } from "react-icons/fa";
+// import { MdClose } from "react-icons/md";
+// import { Rnd } from "react-rnd";
 import Select from "react-select";
 import HamburgerDiv from '../Main/HamburgerDiv'
 import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
@@ -19,23 +19,24 @@ import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
 
 const DetailVideo = ({
   exam,
-  handleCancel,
+  // handleCancel,
   props,
-  handleChange,
-  enableTipeing,
-  iconsMouseOut,
-  iconsMouseOver,
-  handleDragDrop,
-  handleResize,
-  showAndHideChat,
+  // handleChange,
+  // enableTipeing,
+  // iconsMouseOut,
+  // iconsMouseOver,
+  // handleDragDrop,
+  // handleResize,
+  // showAndHideChat,
   handleStatus,
-  handleDivSize,
-  cutVideo,
-  cutMic,
-  handleVideoStart,
+  // handleDivSize,
+  // cutVideo,
+  // cutMic,
+  // handleVideoStart,
   statusValue,
+  handleJoinRoom
 }) => {
-  let disabled = props.doctorsVideoId ? false : true;
+  // let disabled = props.doctorsVideoId ? false : true;
 
   const customStyles = {
     control: () => ({
@@ -158,23 +159,33 @@ const DetailVideo = ({
                 </div>
               </div>
               {exam.status === "Appointed" || exam.status === "Accepted" ? (
+              // <div className="message-btn">
+              //   <button
+              //     className="message-link"
+              //     id="StartVideo"
+              //     disabled={disabled}
+              //     onClick={handleVideoStart}
+              //   >
+              //     Start Video
+              //   </button>
+              // </div>
               <div className="message-btn">
-                <button
-                  className="message-link"
-                  id="StartVideo"
-                  disabled={disabled}
-                  onClick={handleVideoStart}
-                >
-                  Start Video
-                </button>
-              </div>
+              <button
+                className="message-link"
+                id="StartVideo"
+                // disabled={disabled}
+                onClick={handleJoinRoom}
+              >
+                Join now
+              </button>
+            </div>
             ) : null}
             </div>
            
           </Fragment>
         );
       })}
-      <Rnd
+      {/* <Rnd
         id="videoo"
         size={{
           width: props.width,
@@ -259,7 +270,7 @@ const DetailVideo = ({
             </div>
           </div>
         </div>
-      </Rnd>
+      </Rnd> */}
     </>
   );
 };

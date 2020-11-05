@@ -108,6 +108,7 @@ class ClientWaitingRoom extends Component {
       console.log(e);
       this.setState({
         // price: e.price,
+        currency: e.currency,
         doctor_id: e.iD,
         doctorsStatus: e.status,
         resetDoctorSelect: e,
@@ -254,6 +255,7 @@ class ClientWaitingRoom extends Component {
       state: {
         price: this.state.price,
         location: this.props.location.pathname,
+        currency: this.state.currency
       },
     });
   };
@@ -419,6 +421,7 @@ class ClientWaitingRoom extends Component {
             label: val.doctor,
             spec: val.speciality,
             price: val.web_exam_follow_price,
+            currency: val.web_follow_up_currency,
             status: val.status,
           };
         });

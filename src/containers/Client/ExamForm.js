@@ -25,7 +25,8 @@ class ExamForm extends Component {
       specDoctor: [],
       specialSP: [],
       resetDoctorSelect: null,
-      attach: null
+      attach: null,
+      currency: null
       // isClicked: false
     };
   }
@@ -50,7 +51,7 @@ class ExamForm extends Component {
     console.log(e);
 
     this.props.dispatch(doctor(e));
-    this.setState({ doctor_id: e.iD, price: e.price });
+    this.setState({ doctor_id: e.iD, price: e.price, currency: e.currency });
     this.setState({ resetDoctorSelect: e });
   };
 
@@ -103,7 +104,7 @@ class ExamForm extends Component {
     return this.props.history.push({
       pathname: "/checkout",
       // search: "?query=abc",
-      state: { price: this.state.price },
+      state: { price: this.state.price, currency: this.state.currency },
     });
   };
 
@@ -130,6 +131,7 @@ class ExamForm extends Component {
               label: val.doctor,
               spec: val.speciality,
               price: val.email_exam_price,
+              currency: val.email_currency
             };
           });
           this.setState({ doctors: res });
