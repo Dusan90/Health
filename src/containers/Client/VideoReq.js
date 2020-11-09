@@ -66,8 +66,10 @@ class ClientVideoReq extends Component {
 
   handleDoctor = (e) => {
     this.props.dispatch(doctor(e));
-
-    this.setState({ doctor_id: e.iD, doctorsPrice: e.price, currency: e.currency });
+    let startTime = e.startTime ? e.startTime.slice(0, -3) : ""
+    let endTime = e.endTime ? e.endTime.slice(0, -3) : ""
+console.log(e);
+    this.setState({ doctor_id: e.iD, doctorsPrice: e.price, currency: e.currency, startTime, endTime});
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(`http://healthcarebackend.xyz/api/web/doc/${e.iD}/`, {
@@ -195,7 +197,9 @@ class ClientVideoReq extends Component {
             label: val.doctor,
             spec: val.speciality,
             price: val.web_exam_price,
-            currency: val.web_currency
+            currency: val.web_currency,
+            startTime: val.start_hour,
+            endTime: val.end_hour
           };
         });
         this.setState({ doctors: res });

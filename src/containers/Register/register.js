@@ -163,14 +163,14 @@ confirm_password: this.state.confPasswordValue,
             }),
           }
         );
-        this.props.history.push("/login");
         
         const jsonData = await client.json();
         jsonData.success &&  NotificationManager.success(
-          "An email for confirmation will be sent shortly",
+          "Registered successfully",
           "Successful!",
           4000
-        );
+          );
+          jsonData.success && this.props.history.push("/Verification");
         !jsonData.success && NotificationManager.error(`${jsonData.message}, "Failed`)
         return jsonData;
       } else {
@@ -219,9 +219,9 @@ confirm_password: this.state.confPasswordValue,
       console.log(jsonData);
 
       if (jsonData.success) {
-        this.props.history.push("/login");
+        this.props.history.push("/Verification");
         NotificationManager.success(
-          "An email for confirmation will be sent shortly",
+          "Registered successfully",
           "Successful!",
           4000
         );

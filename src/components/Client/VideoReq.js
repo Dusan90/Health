@@ -22,6 +22,11 @@ const VideoReq = ({
   let exclude = props.excludeTime.map((hy) => {
     return new Date(hy.appointed_date);
   });
+  const startTimeHour = props.startTime &&  Number(props.startTime.split(':')[0])
+  const startTimeMinute = props.startTime && Number(props.startTime.split(':')[1])
+  const endTimeHour = props.endTime &&  Number(props.endTime.split(':')[0])
+  const endTimeMinute = props.endTime && Number(props.endTime.split(':')[1])
+
 
   const customStyles = {
     control: (base, state) => ({
@@ -111,8 +116,8 @@ const VideoReq = ({
             timeFormat="HH:mm aa"
             timeIntervals={30}
             timeCaption="time"
-            minTime={moment(new Date()).set("hour", 8).set("minute", 0)._d}
-            maxTime={moment(new Date()).set("hour", 15).set("minute", 30)._d}
+            minTime={props.startTime ? moment(new Date()).set("hour", startTimeHour).set("minute", startTimeMinute)._d : moment(new Date()).set("hour", 8).set("minute", 0)._d}
+            maxTime={props.endTime? moment(new Date()).set("hour", endTimeHour).set("minute", endTimeMinute).subtract('minute', 30)._d : moment(new Date()).set("hour", 15).set("minute", 30)._d}
           />
         </div>
         <div className="divAndAttach">

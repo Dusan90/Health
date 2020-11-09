@@ -6,6 +6,7 @@ import Header from "../../components/Main/Header";
 // import { connect } from "react-redux";
 import { NotificationManager } from "react-notifications";
 import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
+// import moment from 'moment'
 
 const options = [
   { value: "RSD", label: "RSD" },
@@ -109,13 +110,22 @@ class DoctorProfile extends Component {
       })
       .then((response) => {
         console.log(response, "doc profileee");
-        let start = response.data.data.start_hour.slice(0, -3)
-        let end = response.data.data.end_hour.slice(0, -3)
+        let selectEmail = response.data.data.email_currency ? response.data.data.email_currency : 'USD'
+        let selectVideo = response.data.data.web_currency ? response.data.data.web_currency : 'USD'
+        let selectVideoFollow = response.data.data.web_follow_up_currency ? response.data.data.web_follow_up_currency : 'USD'
+        let start = response.data.data.start_hour ? response.data.data.start_hour.slice(0, -3) : ""
+        // const testTime =  Number(start.split(':')[0]) * 60 * 60 * 1000 + Number(start.split(':')[1]) * 60 * 1000;
+        let end = response.data.data.end_hour ? response.data.data.end_hour.slice(0, -3) : ""
+        // const testTimeEnd = Number(end.split(':')[0]) * 60 * 60 * 1000 + Number(end.split(':')[1]) * 60 * 1000;
+
 
          this.setState({ doctor: [response.data.data], 
           currentStatus: response.data.data.status, 
           TimeStart: start, 
-          TimeEnd: end
+          TimeEnd: end,
+          selectEmail,
+          selectVideo,
+          selectVideoFollow
         });
       });
   };

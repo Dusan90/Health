@@ -93,7 +93,7 @@ const Profile = ({
                       styles={customStyles}
                       value={selectValue}
                       options={status}
-                      placeholder={doctor.email_currency}
+                      placeholder={doctor.email_currency ? doctor.email_currency : 'USD'}
                       onChange={handleSelect}
                     />
               </div>
@@ -106,7 +106,7 @@ const Profile = ({
                       styles={customStyles}
                       value={selectValue}
                       options={status}
-                      placeholder={doctor.web_currency}
+                      placeholder={doctor.web_currency ? doctor.web_currency : 'USD'}
                       onChange={handleSelect2}
                     />
               </div>
@@ -119,7 +119,7 @@ const Profile = ({
                       styles={customStyles}
                       value={selectValue}
                       options={status}
-                      placeholder={doctor.web_follow_up_currency}
+                      placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
                       onChange={handleSelect3}
                     />
               </div>

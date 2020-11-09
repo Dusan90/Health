@@ -126,9 +126,9 @@ const Processing = ({
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <p>
-                    <span>Message:</span> {exam.exam.notes}
-                  </p>
+                  <textarea defaultValue= {exam.exam.notes} disabled={true}>
+                  
+                  </textarea>
                 </div>
               </div>
               </div>

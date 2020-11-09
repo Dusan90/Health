@@ -262,6 +262,8 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response);
+        
         this.setState({
           exams: [...this.state.exams.concat(response.data.data.queue)],
         });
@@ -270,6 +272,11 @@ class ClientDashboard extends Component {
         this.getUnreadMessages(this.state.client.id);
       })
       .catch((err) => {
+        if(err.response.status === 404){
+          this.handleAll();
+          this.paginate(this.state.page);
+          this.getUnreadMessages(this.state.client.id);
+        }
         console.log(err.response);
       });
   };

@@ -10,6 +10,8 @@ export class DoctorsDetails extends Component {
         super(props)
         this.state ={
             doctor: [],
+            startW: '',
+            endW: '',
       token: sessionStorage.getItem("accessToken"),
         }
     }
@@ -23,8 +25,11 @@ export class DoctorsDetails extends Component {
           })
           .then((response) => {
             console.log(response.data.data);
+            let start = response.data.data.start_hour ? response.data.data.start_hour.slice(0, -3) : ""
+  let end = response.data.data.end_hour ? response.data.data.end_hour.slice(0, -3) : ""
+
     
-            this.setState({ doctor: [response.data.data] });
+            this.setState({ doctor: [response.data.data], startW: start, endW: end });
           });
       };
     
@@ -43,7 +48,7 @@ export class DoctorsDetails extends Component {
           </div>
         </div>
         <HamburgerDiv/>
-        <DoctorDetail doctor={this.state.doctor}
+        <DoctorDetail doctor={this.state.doctor} props={this.state}
           />
             </>
         )

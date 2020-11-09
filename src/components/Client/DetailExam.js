@@ -104,9 +104,9 @@ const Detail = ({
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <p>
-                    <span>Message:</span> {exam.message}
-                  </p>
+                  <textarea defaultValue={exam.message} disabled={true}>
+                     
+                  </textarea>
                 </div>
               </div>
               <div

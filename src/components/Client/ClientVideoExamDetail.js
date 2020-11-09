@@ -143,7 +143,7 @@ const DetailVideo = ({
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <textarea defaultValue={exam.notes}>
+                  <textarea defaultValue={exam.notes} disabled={true}>
                     
                   </textarea>
                 </div>

@@ -87,6 +87,7 @@ const RegisterUser = ({
                 type="radio"
                 name="userType"
                 id="F"
+                autoComplete="off"
                 value="Female"
                 onChange={() => handleGenderRadio("F")}
               />
@@ -131,6 +132,7 @@ const RegisterUser = ({
               type="email"
               className="form-control"
               id="email"
+              autoComplete="off"
               value={props.emailValue}
               onChange={handleEmail}
             />
@@ -167,6 +169,7 @@ const RegisterUser = ({
                 <input
                   type={props.seePass1 ? 'text' : "password"}
                   className="form-control"
+                  autoComplete="off"
                   id="pwd"
                   value={props.passwordValue}
                   onChange={handlePass}
@@ -195,6 +198,7 @@ const RegisterUser = ({
                   type={props.seePass2 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
+                  autoComplete="off"
            
                   value={props.confPasswordValue}
                   onChange={handleConfPass}
@@ -227,6 +231,7 @@ const RegisterUser = ({
                      type={props.seePass1 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
+                  autoComplete="off"
                   value={props.passwordValue}
                   onChange={handlePass}
                 />
@@ -253,7 +258,7 @@ const RegisterUser = ({
                    type={props.seePass2 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
-           
+                  autoComplete="off"
                   value={props.confPasswordValue}
                   onChange={handleConfPass}
                 />
