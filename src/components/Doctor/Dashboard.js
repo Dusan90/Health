@@ -50,7 +50,7 @@ const Dashboard = ({
   let short3 = props.state.waitingRoom
     ? props.state.waitingRoom.slice(0, 4)
     : null;
-
+  console.log(' da li radi ovo uopste');
   props.state.paginatedExams.map((ex) => {
     if (props.state.mail.includes(ex.id) && ex.exam_type === "mail") {
       let hello = Object.assign(ex, { isRead: true });
