@@ -40,6 +40,15 @@ const VideoReq = ({
       color: "#666666",
       fontWeight: "600",
     }),
+    menu: (provided, state) => ({
+      position: 'absolute',
+      zIndex: '40',
+      width: '100%',
+      background: 'white',
+      border: '1px solid gray',
+      borderRadius: '5px',
+      boxShadow: '2px 2px 10px gray'
+    }),
   };
 
   return (
@@ -61,6 +70,7 @@ const VideoReq = ({
         </div>
         <div className="exam-doc">
           <Select
+         
             type="text"
             id="doctor"
             styles={customStyles}

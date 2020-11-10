@@ -56,6 +56,7 @@ class ClientVideoReq extends Component {
     let filteredDoctors = this.state.doctors.filter(
       (doctor) => doctor.spec === e.label
     );
+    console.log(filteredDoctors);
 
     this.setState({
       specialSP: e.value,

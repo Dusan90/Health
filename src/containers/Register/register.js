@@ -165,13 +165,14 @@ confirm_password: this.state.confPasswordValue,
         );
         
         const jsonData = await client.json();
+        console.log(jsonData);
         jsonData.success &&  NotificationManager.success(
           "Registered successfully",
           "Successful!",
           4000
           );
           jsonData.success && this.props.history.push("/Verification");
-        !jsonData.success && NotificationManager.error(`${jsonData.message}, "Failed`)
+        !jsonData.success && NotificationManager.error(`${jsonData.error ? jsonData.error[Object.keys(jsonData.error)[0]][0] : jsonData.message}, "Failed`)
         return jsonData;
       } else {
         NotificationManager.error(
