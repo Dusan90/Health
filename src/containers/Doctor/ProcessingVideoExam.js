@@ -86,12 +86,13 @@ class ProcessingVideoExam extends Component {
     connection.send(JSON.stringify("doctor is started video"));
   };
 
-  testwebsocket = () =>
-    navigator.webkitGetUserMedia(
+  testwebsocket = () => {
+      
+    navigator.mediaDevices.getUserMedia(
       {
         video: this.state.video,
         audio: this.state.audio,
-      },
+      }).then(
       (stream) => {
         var Peer = require("simple-peer");
         // let id = Math.floor(Math.random() * 0xffffff).toString(16);
@@ -214,7 +215,7 @@ objDiv.scrollTop = objDiv.scrollHeight;
       function (err) {
         console.error(err);
       }
-    );
+    )}
 
   handleChange = (e) => {
     this.setState({ value: e.target.value });

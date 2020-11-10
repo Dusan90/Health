@@ -451,12 +451,13 @@ class ClientWaitingRoom extends Component {
     });
   };
 
-  socketStart = () =>
-    navigator.webkitGetUserMedia(
+  socketStart = () => {
+    navigator.mediaDevices
+    .getUserMedia(
       {
         video: this.state.video,
         audio: this.state.audio,
-      },
+      }).then(
       (stream) => {
         var Peer = require("simple-peer");
         // let id = Math.floor(Math.random() * 0xffffff).toString(16);
@@ -597,7 +598,7 @@ class ClientWaitingRoom extends Component {
       function (err) {
         console.error(err);
       }
-    );
+    )}
 
   handleChange = (e) => {
     this.setState({ value: e.target.value });
