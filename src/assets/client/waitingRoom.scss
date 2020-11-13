@@ -67,6 +67,32 @@
         resize: none;
         // width: 400px;
         // border: none;
+
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        &::-webkit-scrollbar-button:single-button {
+          // background-color: #bbbbbb;
+          display: block;
+
+          height: 13px;
+          width: 16px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #fa9551;
+          border-radius: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: #db8246;
+        }
       }
     }
 

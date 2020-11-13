@@ -75,6 +75,31 @@
           font-weight: 700;
           color: #969696;
         }
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        &::-webkit-scrollbar-button:single-button {
+          // background-color: #bbbbbb;
+          display: block;
+
+          height: 13px;
+          width: 16px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #fa9551;
+          border-radius: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: #db8246;
+        }
       }
     }
 
@@ -102,7 +127,7 @@
           border: 1.7px solid #00aff0;
           margin-right: 125px;
           width: 425px;
-          min-height: 347px;
+          height: 347px;
 
           .react-datepicker__navigation {
             // margin: 20px 30px 0 10px;
@@ -152,7 +177,7 @@
                 justify-content: space-around;
                 align-items: center;
                 // margin-bottom: 15px;
-                height: 52px;
+                height: 45px;
                 .react-datepicker__day {
                   font-size: 18px;
                   text-align: center;

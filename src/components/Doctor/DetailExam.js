@@ -136,7 +136,7 @@ return (
                             </p>
                             <p className="createdP">
                               {moment(message.created)
-                                .add(2, "hours")
+                                .add(1, "hours")
                                 .format("DD-MM-YYYY HH:mm")}
                             </p>
                           </div>
@@ -165,21 +165,25 @@ return (
                                 </button>
                               </div>
                             )} */}
-                          {props.replyClicked &&
-                            props.lastInArray.created === message.created && (
-                              <div className="SendMainDiv">
+                         
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {props.replyClicked && (
+                              <div className="SendMainDiv" style={{marginBottom: '20px'}} >
                                 <div style={{background: '#00aff0'}} className="senderMaiin">
-                            <p className="senderP">
-                              <span>From:</span> {message.sender}
-                            </p>
+                                <p className="senderP">
+                          <span>From:</span> {props.doctor}
+                        </p>
                             <p className="createdP">
-                              {moment(message.created)
-                                .add(2, "hours")
+                              {moment(new Date())
                                 .format("DD-MM-YYYY HH:mm")}
                             </p>
                           </div>
                                 <textarea
                                   type="text"
+                                  className='messageTextInput'
                                   placeholder="Message..."
                                   onChange={handleMessage}
                                   value={props.messageValue}
@@ -202,59 +206,7 @@ return (
                                 </div>
                               </div>
                             )}
-                        </div>
-                      );
-                    })}
-                    {props.replyClicked && props.correspondence.length === 0 ? (
-                      <div className="SendMainDiv">
-                      <div className="senderMaiin">
-                  <p className="senderP">
-                    <span>From:</span> {props.client}
-                  </p>
-                
                 </div>
-                      <textarea
-                        type="text"
-                        placeholder="Message..."
-                        onChange={handleMessage}
-                        value={props.messageValue}
-                      ></textarea>
-                      <div className="sendbuttonAndAtt">
-                        <button onClick={handleSubmitSend}>
-                          <FiSend className="replyIcon" />
-                          <span>Send</span>
-                        </button>
-                        <div className="upload-btn-wrapper">
-                          <button className="btn">
-                            <img src={attachIcon} alt="" />
-                          </button>
-                          <input
-                            type="file"
-                            name="myfile"
-                            onChange={onChangeHandler}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    ) 
-                    // : props.correspondence.length === 0 ? (
-                    //   <div className="ReplyMainDiv">
-                    //     <button
-                    //       disabled={exam.status === "Pending" && true}
-                    //       style={{
-                    //         display:
-                    //           exam.status !== "Accepted" &&
-                    //           exam.status !== "Pending" &&
-                    //           "none",
-                    //       }}
-                    //       onClick={handleReplyClick}
-                    //     >
-                    //       <MdReply className="replyIcon" />
-                    //       <span>Reply</span>
-                    //     </button>
-                    //   </div>
-                    // )
-                     : null}
                     {
                     // props.correspondence.length !== 0 &&
                       exam.status === "Accepted" && (
@@ -262,8 +214,6 @@ return (
                           <h1>+</h1>
                         </button>
                       )}
-                  </div>
-                </div>
               </div>
             </div>
             {/* {exam.status === "Accepted" && (

@@ -123,6 +123,7 @@ class Register extends Component {
       this.userRegister();
     } else {
       NotificationManager.error("All Fields Are Required", "Failed!", 2000);
+      this.setState({color: 'red'})
     }
   };
 
@@ -172,7 +173,7 @@ confirm_password: this.state.confPasswordValue,
           4000
           );
           jsonData.success && this.props.history.push("/Verification");
-        !jsonData.success && NotificationManager.error(`${jsonData.error ? jsonData.error : jsonData.message}, "Failed`)
+        !jsonData.success && NotificationManager.error(`${jsonData.error ? jsonData.error[Object.keys(jsonData.error)[0]] : jsonData.message}, "Failed`)
         return jsonData;
       } else {
         NotificationManager.error(
@@ -227,7 +228,8 @@ confirm_password: this.state.confPasswordValue,
           4000
         );
       } else {
-        NotificationManager.error(`${jsonData.error}`, "Faild!", 4000);
+        NotificationManager.error(`${jsonData.error ? jsonData.error[Object.keys(jsonData.error)[0]] : jsonData.message}, "Failed`)
+
       }
       return jsonData;
     }
@@ -242,16 +244,7 @@ confirm_password: this.state.confPasswordValue,
   // };
 
   render() {
-    console.log( this.state.emailValue,
-      this.state.firstNameValue,
-      this.state.lastNameValue,
-      this.state.phoneNumber,
-      this.state.passwordValue,
-      this.state.selectedGenderValue,
-      this.state.confPasswordValue,
-      
-         this.state.selectedSpecValue,
-         this.state.organization);
+
     return (
       <>
         <div className="header">

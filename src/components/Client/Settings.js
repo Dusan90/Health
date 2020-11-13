@@ -12,8 +12,8 @@ function Settings({props, handleImage, userLogin, handleChange}) {
                 <p>Settings</p>{" "}
               </div>
               <div className="doctor">
-                <label htmlFor="Email">John</label>
-                <input id='Email' placeholder="Email" value={props.Email} autoComplete="off" onChange={handleChange}  type="text"/>
+                <label htmlFor="Email">Email</label>
+                <input id='Email' value={props.Email} autoComplete="off" onChange={handleChange}  type="text"/>
                 <label htmlFor="Password">Password</label>
                 <div className='imageAndInputDiv'>
                 <input id='Password' value={props.Password} onChange={handleChange} autoComplete="off"   type={props.seePass ? 'text' : "password"}/>

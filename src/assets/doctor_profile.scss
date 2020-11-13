@@ -298,8 +298,8 @@
       .css-2b097c-container {
         .css-fotkz1-Control {
           .css-1hwfws3 {
-            display: flex;
-            align-self: center;
+            display: flex !important;
+            align-self: center !important;
             .css-1x8h965-placeholder {
               // padding: 12px 0 0 5px;
               // height: 40px;
@@ -339,8 +339,8 @@
       .css-2b097c-container {
         .css-fotkz1-Control {
           .css-1hwfws3 {
-            display: flex;
-            align-self: center;
+            display: flex !important;
+            align-self: center !important;
             .css-1x8h965-placeholder {
               // padding: 12px 0 0 5px;
               // height: 40px;
@@ -378,8 +378,8 @@
       .css-2b097c-container {
         .css-fotkz1-Control {
           .css-1hwfws3 {
-            display: flex;
-            align-self: center;
+            display: flex !important;
+            align-self: center !important;
             .css-1x8h965-placeholder {
               // padding: 12px 0 0 5px;
               // height: 40px;
@@ -418,6 +418,32 @@
           height: 100%;
 
           resize: none;
+
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          &::-webkit-scrollbar-button:single-button {
+            // background-color: #bbbbbb;
+            display: block;
+
+            height: 13px;
+            width: 16px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #fa9551;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: #db8246;
+          }
 
           &::placeholder {
             font-weight: 700;

@@ -31,7 +31,8 @@ const RegisterUser = ({
       borderRadius: "10px",
       width: "250px",
       marginLeft: "2px",
-      background: "white",
+      // background: "white",
+      background: !props.selectedSpecValue && props.color && 'rgb(245, 192, 192)',
       color: "#666666",
     }),
   };
@@ -67,7 +68,7 @@ const RegisterUser = ({
               Client
             </label>
           </div>
-          <div className="gender">
+          <div className="gender" >
             <div className="maleGender">
               <input
                 className="maleRadio"
@@ -85,6 +86,7 @@ const RegisterUser = ({
               <input
                 className="femaleRadio"
                 type="radio"
+                
                 name="userType"
                 id="F"
                 autoComplete="off"
@@ -95,6 +97,9 @@ const RegisterUser = ({
                 Female
               </label>
             </div>
+            <p 
+                style={{display: !props.selectedGenderValue && props.color ? 'block' : 'none'  }}
+                >Select gender</p>
           </div>
         </div>
       </div>
@@ -102,57 +107,62 @@ const RegisterUser = ({
         <div
           className="firstLastGender"
         >
-          <div className="reg-name">
+          <div className="reg-name" >
             <label htmlFor="firstname">First Name</label>
             <input
               type="text"
               className="form-control"
               id="firstname"
+              style={{background: !props.firstNameValue && props.color && 'rgb(245, 192, 192)'  }}
               value={props.firstNameValue}
               onChange={handleFirstName}
             />
           </div>
-          <div className="reg-surname">
+          <div className="reg-surname" >
             <label htmlFor="lastname">Last Name</label>
 
             <input
               type="text"
               className="form-control"
               id="lastname"
+              style={{background: !props.lastNameValue && props.color && 'rgb(245, 192, 192)'  }}
               value={props.lastNameValue}
               onChange={handleLastName}
             />
           </div>
         </div>
         <div className="regPass">
-          <div className="reg-email">
+          <div className="reg-email" >
             <label htmlFor="email">E-mail</label>
 
             <input
               type="email"
               className="form-control"
               id="email"
+              style={{background: !props.emailValue && props.color && 'rgb(245, 192, 192)'  }}
               autoComplete="off"
               value={props.emailValue}
               onChange={handleEmail}
             />
           </div>
-          { userType === "client" ? <div className="address">
+          { userType === "client" ? <div className="address" >
             <label htmlFor="address">Address</label>
 
             <input
               type="text"
               className="form-control"
+              style={{background: !props.addressValue && props.color && 'rgb(245, 192, 192)'  }}
               id="address"
               value={props.addressValue}
               onChange={handleAddress}
             />
-          </div> : <div className="address">
+          </div> : <div className="address" >
                 <label htmlFor="phone">Phone number</label>
                 <input
                   type="number"
                   className="form-control"
                   id="phone"
+                  style={{background: !props.phoneNumber && props.color && 'rgb(245, 192, 192)'  }}
                   // onFocus={changeTextToDate}
                   value={props.phoneNumber}
                   onChange={handlePhoneNumber}
@@ -163,7 +173,7 @@ const RegisterUser = ({
         {userType === "client" && (
           <>
             <div className="clientsBinfo">
-              <div className="reg-pass">
+              <div className="reg-pass" >
                 <label htmlFor="pwd">Password</label>
                 <div>
                 <input
@@ -171,6 +181,7 @@ const RegisterUser = ({
                   className="form-control"
                   autoComplete="off"
                   id="pwd"
+                  style={{background: !props.passwordValue && props.color && 'rgb(245, 192, 192)'  }}
                   value={props.passwordValue}
                   onChange={handlePass}
                 />
@@ -178,20 +189,21 @@ const RegisterUser = ({
 
                 </div>
               </div>
-              <div className="date">
+              <div className="date" >
                 <label htmlFor="birthdate">Birth Date</label>
                 <input
                   type="date"
                   className="form-control"
                   id="birthdate"
                   // onFocus={changeTextToDate}
+                  style={{background: !props.birthDateValue && props.color && 'rgb(245, 192, 192)'  }}
                   value={props.birthDateValue}
                   onChange={handleBirthDate}
                 />
               </div>
             </div>
             <div className="confirmAndPhone">
-              <div className="conf-pass">
+              <div className="conf-pass" >
                 <label htmlFor="pwd">Confirm Password</label>
                 <div>
                 <input
@@ -199,6 +211,7 @@ const RegisterUser = ({
                   className="form-control"
                   id="pwd"
                   autoComplete="off"
+                  style={{background: !props.confPasswordValue && props.color && 'rgb(245, 192, 192)'  }}
            
                   value={props.confPasswordValue}
                   onChange={handleConfPass}
@@ -207,12 +220,13 @@ const RegisterUser = ({
 
                 </div>
               </div>
-              <div className="Phone">
+              <div className="Phone" >
                 <label htmlFor="phone">Phone number</label>
                 <input
                   type="number"
                   className="form-control"
                   id="phone"
+                  style={{background: !props.phoneNumber && props.color && 'rgb(245, 192, 192)'  }}
                   // onFocus={changeTextToDate}
                   value={props.phoneNumber}
                   onChange={handlePhoneNumber}
@@ -233,18 +247,20 @@ const RegisterUser = ({
                   id="pwd"
                   autoComplete="off"
                   value={props.passwordValue}
+                  style={{background: !props.passwordValue && props.color && 'rgb(245, 192, 192)'  }}
                   onChange={handlePass}
                 />
                 <img onClick={handleImage1}  src={props.seePass1 ? seen : hidden } alt="img"/>
 
                 </div>
               </div>
-              <div className="date">
+              <div className="date" >
                 <label htmlFor="organization">Organization</label>
                 <input
                   type="text"
                   className="form-control"
                   id="organization"
+                  style={{background: !props.organization && props.color && 'rgb(245, 192, 192)'  }}
                   value={props.organization}
                   onChange={handleOrganization}
                 />
@@ -260,6 +276,7 @@ const RegisterUser = ({
                   id="pwd"
                   autoComplete="off"
                   value={props.confPasswordValue}
+                  style={{background: !props.confPasswordValue && props.color && 'rgb(245, 192, 192)'  }}
                   onChange={handleConfPass}
                 />
                 <img onClick={handleImage2}  src={props.seePass2 ? seen : hidden } alt="img"/>

@@ -156,17 +156,26 @@ const Detail = ({
                               </button>
                             </div>
                           )} */}
-                        {props.replyClicked &&
-                          props.lastInArray.created === message.created && (
-                            <div className="SendMainDiv">
+                       
+                      </div>
+                    );
+                  })}
+                </div>
+                {props.replyClicked && (
+                            <div className="SendMainDiv" style={{marginBottom: '20px'}}>
                             <div className="senderMaiin">
                         <p className="senderP">
                           <span>From:</span> {props.client}
                         </p>
+                        <p className="createdP">
+                              {moment(new Date())
+                                .format("DD-MM-YYYY HH:mm")}
+                            </p>
                       
                       </div>
                             <textarea
                               type="text"
+                              className='messageTextInput'
                               placeholder="Message..."
                               onChange={handleMessage}
                               value={props.messageValue}
@@ -189,49 +198,13 @@ const Detail = ({
                             </div>
                           </div>
                           )}
-                      </div>
-                    );
-                  })}
-                  {props.replyClicked && props.correspondence.length === 0 && (
-                   <div className="SendMainDiv">
-                   <div className="senderMaiin">
-               <p className="senderP">
-                 <span>From:</span> {props.client}
-               </p>
-             
-             </div>
-                   <textarea
-                     type="text"
-                     placeholder="Message..."
-                     onChange={handleMessage}
-                     value={props.messageValue}
-                   ></textarea>
-                   <div className="sendbuttonAndAtt">
-                     <button onClick={handleSubmitSend}>
-                       <FiSend className="replyIcon" />
-                       <span>Send</span>
-                     </button>
-                     <div className="upload-btn-wrapper">
-                       <button className="btn">
-                         <img src={attachIcon} alt="" />
-                       </button>
-                       <input
-                         type="file"
-                         name="myfile"
-                         onChange={onChangeHandler}
-                       />
-                     </div>
-                   </div>
-                 </div>
-                  )}
+              </div>
                   {
                     exam.status === "Accepted" && (
                       <button className="newMessage" onClick={newMessage}>
                         <h1>+</h1>
                       </button>
                     )}
-                </div>
-              </div>
             </div>
           </div>
         </Fragment>

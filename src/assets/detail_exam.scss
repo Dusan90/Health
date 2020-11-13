@@ -125,6 +125,31 @@
         padding: 10px 15px;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
+        &::-webkit-scrollbar {
+          width: 5px;
+        }
+
+        &::-webkit-scrollbar-button:single-button {
+          // background-color: #bbbbbb;
+          display: block;
+
+          height: 13px;
+          width: 16px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #fa9551;
+          border-radius: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: #db8246;
+        }
       }
     }
 
@@ -164,6 +189,31 @@
           resize: none;
           border-bottom-left-radius: 15px;
           border-bottom-right-radius: 15px;
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          &::-webkit-scrollbar-button:single-button {
+            // background-color: #bbbbbb;
+            display: block;
+
+            height: 13px;
+            width: 16px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #fa9551;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: #db8246;
+          }
         }
         button {
           color: white;
@@ -220,6 +270,31 @@
           resize: none;
           border-bottom-left-radius: 15px;
           border-bottom-right-radius: 15px;
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          &::-webkit-scrollbar-button:single-button {
+            // background-color: #bbbbbb;
+            display: block;
+
+            height: 13px;
+            width: 16px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #fa9551;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: #db8246;
+          }
         }
       }
     }
@@ -230,6 +305,7 @@
 
         .Maintbody {
           margin: 0 0 20px auto;
+
           p {
             text-indent: 20px;
             border: none;
@@ -266,6 +342,31 @@
               border: none;
               border-bottom-left-radius: 15px;
               border-bottom-right-radius: 15px;
+              &::-webkit-scrollbar {
+                width: 5px;
+              }
+
+              &::-webkit-scrollbar-button:single-button {
+                // background-color: #bbbbbb;
+                display: block;
+
+                height: 13px;
+                width: 16px;
+              }
+
+              &::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 5px;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                background: #fa9551;
+                border-radius: 5px;
+              }
+
+              &::-webkit-scrollbar-thumb:hover {
+                background: #db8246;
+              }
             }
           }
           .ReplyMainDiv {
@@ -286,7 +387,6 @@
             }
           }
           .SendMainDiv {
-            margin-left: 20px;
             border: none;
             border-radius: 15px;
             margin: 10px auto 0 auto;
@@ -302,6 +402,31 @@
               resize: none;
               border: none;
               text-indent: 10px;
+              &::-webkit-scrollbar {
+                width: 5px;
+              }
+
+              &::-webkit-scrollbar-button:single-button {
+                // background-color: #bbbbbb;
+                display: block;
+
+                height: 13px;
+                width: 16px;
+              }
+
+              &::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 5px;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                background: #fa9551;
+                border-radius: 5px;
+              }
+
+              &::-webkit-scrollbar-thumb:hover {
+                background: #db8246;
+              }
             }
             .sendbuttonAndAtt {
               display: flex;
@@ -393,7 +518,6 @@
         }
       }
       .SendMainDiv {
-        margin-left: 20px;
         border: none;
         border-radius: 15px;
         margin: 10px auto 0 auto;
@@ -408,6 +532,7 @@
           border-top-right-radius: 15px;
           color: white;
           text-indent: 15px;
+
           .senderP {
             margin-top: 5px;
             span {
@@ -419,12 +544,37 @@
           }
         }
         textarea {
-          min-height: 200px;
           width: 100%;
           resize: none;
           border: none;
+
           text-indent: 0;
           padding: 10px 15px;
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          &::-webkit-scrollbar-button:single-button {
+            // background-color: #bbbbbb;
+            display: block;
+
+            height: 13px;
+            width: 16px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #fa9551;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: #db8246;
+          }
         }
         .sendbuttonAndAtt {
           display: flex;
@@ -488,27 +638,28 @@
           }
         }
       }
-      .newMessage {
-        border: 2px solid #00aff0;
-        color: #00aff0;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        position: relative;
-        transition: all 0.5s ease-in-out;
-        float: right;
-        h1 {
-          margin: 0;
-          position: absolute;
-          font-size: 40px;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        &:hover {
-          background: #00aff0;
-          color: white;
-        }
+    }
+    .newMessage {
+      border: 2px solid #00aff0;
+      color: #00aff0;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      position: relative;
+      transition: all 0.5s ease-in-out;
+      float: right;
+      margin: auto 0 0 auto;
+      h1 {
+        margin: 0;
+        position: absolute;
+        font-size: 40px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      &:hover {
+        background: #00aff0;
+        color: white;
       }
     }
   }

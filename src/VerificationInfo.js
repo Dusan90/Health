@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import cLogo from "./icons/c+.svg";
+import Header from "./components/Main/Header";
+import Nav from "./components/Main/Navbar";
 
 
 const divStyle ={
@@ -32,12 +34,20 @@ const logo ={
 export class VerificationInfo extends Component {
     render() {
         return (
+            <>
+            <div className="header">
+            <div>
+              <Header />
+              <Nav />
+            </div>
+          </div>
             <div style={divStyle}>
       <img src={cLogo} style={logo} alt="cLogo" />
 
                 <h1 style={divh1}>Verification Email sent</h1>
                 <h5 style={{color: '#00aff0'}}>Click on the link in your verification email to complete registration</h5>
             </div>
+            </>
         )
     }
 }

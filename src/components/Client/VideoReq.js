@@ -70,7 +70,8 @@ const VideoReq = ({
         </div>
         <div className="exam-doc">
           <Select
-         
+           
+            noOptionsMessage={() => "Select speciality"}
             type="text"
             id="doctor"
             styles={customStyles}
@@ -123,9 +124,10 @@ const VideoReq = ({
             showTimeSelect
             excludeOutOfBoundsTimes
             minDate={new Date()}
-            timeFormat="HH:mm aa"
+            timeFormat="hh:mm aa"
             timeIntervals={30}
             timeCaption="time"
+            fixedHeight
             minTime={props.startTime ? moment(new Date()).set("hour", startTimeHour).set("minute", startTimeMinute)._d : moment(new Date()).set("hour", 8).set("minute", 0)._d}
             maxTime={props.endTime? moment(new Date()).set("hour", endTimeHour).set("minute", endTimeMinute).subtract('minute', 30)._d : moment(new Date()).set("hour", 15).set("minute", 30)._d}
           />

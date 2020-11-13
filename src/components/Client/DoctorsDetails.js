@@ -23,7 +23,6 @@ function DoctorsDetails({handleClient, doctor, handleSort, props}) {
               return <Fragment key={doctor.id}>
             <div className='mainDoctorInfoDiv'>
                 <div>
-                <p><span>Pricing: </span>{doctor.pricing}</p>
           <p><span>Email visit: </span>{doctor.email_exam_price} {doctor.email_currency}</p>
           <p><span>Video: </span>{doctor.web_exam_price} {doctor.web_currency}</p>
           <p><span>Video follow up: </span>{doctor.web_exam_follow_price} {doctor.web_follow_up_currency}</p>

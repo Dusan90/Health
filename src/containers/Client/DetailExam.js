@@ -105,6 +105,7 @@ class ClientDetailExam extends Component {
   }
 
   handleMessage = (e) => {
+    document.querySelector('.messageTextInput').style.height = `${e.target.scrollHeight}px`
     this.setState({ messageValue: e.target.value });
   };
 
