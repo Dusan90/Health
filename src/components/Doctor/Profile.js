@@ -30,6 +30,11 @@ const Profile = ({
       display: "flex",
       background: 'white',
       marginLeft: '20px',
+      // position: "relative",
+      'div': {
+        display: 'flex',
+        alignSelf: 'center'
+      }
     }),
     option: () =>({
       height: '30px',
@@ -41,8 +46,7 @@ const Profile = ({
     }),
     placeholder: (provided, state) => ({
       ...provided,
-     position: 'relative',
-     margin: '20px 0 0 0',
+ 
        display: state.isFocused || state.isSelected || state.selectProps.inputValue || state.value ? 'none' : 'block',
     })
   } 
