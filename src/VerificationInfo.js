@@ -18,12 +18,13 @@ const divStyle ={
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '10px'
+    padding: '20px'
     
 }
 const divh1={
     color: '#00aff0',
-    marginBottom: '30px'
+    marginBottom: '30px',
+    fontWeight: '700'
 }
 const logo ={
     position: "absolute",
@@ -45,7 +46,7 @@ export class VerificationInfo extends Component {
       <img src={cLogo} style={logo} alt="cLogo" />
 
                 <h1 style={divh1}>Verification Email sent</h1>
-                <h5 style={{color: '#00aff0'}}>Click on the link in your verification email to complete registration</h5>
+                <h3 style={{color: '#00aff0'}}>Click on the link in your verification email to complete registration</h3>
             </div>
             </>
         )

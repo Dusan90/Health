@@ -20,6 +20,7 @@ const InitiateExam = ({
   resetDoctorSelect,
   handleAttach,
   isClicked,
+  props
 }) => {
   const customStyles = {
     control: (base, state) => ({
@@ -27,8 +28,8 @@ const InitiateExam = ({
       height: "40px",
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
-      width: "305px",
-      marginLeft: "2px",
+      width: "100%",
+      // marginLeft: "2px",
       background: "white",
       color: "#666666",
       fontWeight: "600",
@@ -57,9 +58,9 @@ const InitiateExam = ({
             type="text"
             id="doctor"
             placeholder="Select Doctor..."
-            options={specDoctor}
+            options={props.specDoctor.length === 0 ? props.doctors : props.specDoctor}
             onChange={handleDoctor}
-            value={specDoctor.length === 0 ? null : [resetDoctorSelect]}
+            // value={specDoctor.length === 0 ? null : [resetDoctorSelect]}
           />
         </div>
         <div className="exam-sub">

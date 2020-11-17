@@ -122,6 +122,9 @@ class ClientDashboard extends Component {
 
   componentWillUnmount() {
     this._isMounted = false;
+      if(window.location.pathname === "/login"){
+        this.props.history.push('/logOutQuestion')
+      }
   }
 
   handleClick = (id, type) => {
@@ -370,11 +373,11 @@ class ClientDashboard extends Component {
     let searchedDoctor =
       this.state.filterFiltered.length === 0
         ? this.state.upcomingOrPast.filter((ex) => {
-            const doctor = ex.doctor_name ? ex.doctor_name : ex.doctor;
-            const splited = doctor.split(" ");
+          const doctor = ex.doctor_name ? ex.doctor_name : ex.doctor;
+          const splited = doctor.split(" ");
             if (!searchName[1]) {
               if (
-                splited[1].toLowerCase().indexOf(searchName[0]) ===
+                  splited[1].toLowerCase().indexOf(searchName[0]) ===
                   searchName[0].indexOf(searchName[0]) ||
                 splited[2].toLowerCase().indexOf(searchName[0]) ===
                   searchName[0].indexOf(searchName[0])
@@ -403,22 +406,22 @@ class ClientDashboard extends Component {
             if (!searchName[1]) {
               if (
                 splited[1].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0]) ||
-                splited[2].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0])
+                searchName[0].indexOf(searchName[0]) ||
+              splited[2].toLowerCase().indexOf(searchName[0]) ===
+                searchName[0].indexOf(searchName[0])
               ) {
                 return ex;
               }
             } else {
               if (
                 (splited[1].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0]) &&
-                  splited[2].toLowerCase().indexOf(searchName[1]) ===
-                    searchName[1].indexOf(searchName[1])) ||
-                (splited[1].toLowerCase().indexOf(searchName[1]) ===
-                  searchName[1].indexOf(searchName[1]) &&
-                  splited[2].toLowerCase().indexOf(searchName[0]) ===
-                    searchName[0].indexOf(searchName[0]))
+                searchName[0].indexOf(searchName[0]) &&
+                splited[2].toLowerCase().indexOf(searchName[1]) ===
+                  searchName[1].indexOf(searchName[1])) ||
+              (splited[1].toLowerCase().indexOf(searchName[1]) ===
+                searchName[1].indexOf(searchName[1]) &&
+                splited[2].toLowerCase().indexOf(searchName[0]) ===
+                  searchName[0].indexOf(searchName[0]))  
               ) {
                 return ex;
               }

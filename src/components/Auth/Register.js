@@ -30,6 +30,7 @@ const RegisterUser = ({
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
       width: "250px",
+      fontWeight: '700',
       marginLeft: "2px",
       // background: "white",
       background: !props.selectedSpecValue && props.color && 'rgb(245, 192, 192)',
@@ -89,7 +90,6 @@ const RegisterUser = ({
                 
                 name="userType"
                 id="F"
-                autoComplete="off"
                 value="Female"
                 onChange={() => handleGenderRadio("F")}
               />
@@ -103,7 +103,7 @@ const RegisterUser = ({
           </div>
         </div>
       </div>
-      <form className="register-form">
+      <div className="register-form" autoComplete='nope'>
         <div
           className="firstLastGender"
         >
@@ -112,6 +112,8 @@ const RegisterUser = ({
             <input
               type="text"
               className="form-control"
+              autoComplete='nope'
+              name='field'
               id="firstname"
               style={{background: !props.firstNameValue && props.color && 'rgb(245, 192, 192)'  }}
               value={props.firstNameValue}
@@ -125,6 +127,8 @@ const RegisterUser = ({
               type="text"
               className="form-control"
               id="lastname"
+              autoComplete='nope'
+              name='field'
               style={{background: !props.lastNameValue && props.color && 'rgb(245, 192, 192)'  }}
               value={props.lastNameValue}
               onChange={handleLastName}
@@ -140,7 +144,8 @@ const RegisterUser = ({
               className="form-control"
               id="email"
               style={{background: !props.emailValue && props.color && 'rgb(245, 192, 192)'  }}
-              autoComplete="off"
+              autoComplete="nope"
+              name='field'
               value={props.emailValue}
               onChange={handleEmail}
             />
@@ -151,6 +156,8 @@ const RegisterUser = ({
             <input
               type="text"
               className="form-control"
+              autoComplete='nope'
+              name='field'
               style={{background: !props.addressValue && props.color && 'rgb(245, 192, 192)'  }}
               id="address"
               value={props.addressValue}
@@ -162,6 +169,8 @@ const RegisterUser = ({
                   type="number"
                   className="form-control"
                   id="phone"
+                  autoComplete='nope'
+                  name='field'
                   style={{background: !props.phoneNumber && props.color && 'rgb(245, 192, 192)'  }}
                   // onFocus={changeTextToDate}
                   value={props.phoneNumber}
@@ -179,7 +188,8 @@ const RegisterUser = ({
                 <input
                   type={props.seePass1 ? 'text' : "password"}
                   className="form-control"
-                  autoComplete="off"
+                  autoComplete="nope"
+                  name='field'
                   id="pwd"
                   style={{background: !props.passwordValue && props.color && 'rgb(245, 192, 192)'  }}
                   value={props.passwordValue}
@@ -195,6 +205,8 @@ const RegisterUser = ({
                   type="date"
                   className="form-control"
                   id="birthdate"
+                  autoComplete='nope'
+                  name='field'
                   // onFocus={changeTextToDate}
                   style={{background: !props.birthDateValue && props.color && 'rgb(245, 192, 192)'  }}
                   value={props.birthDateValue}
@@ -210,7 +222,8 @@ const RegisterUser = ({
                   type={props.seePass2 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
-                  autoComplete="off"
+                  autoComplete="nope"
+                  name='field'
                   style={{background: !props.confPasswordValue && props.color && 'rgb(245, 192, 192)'  }}
            
                   value={props.confPasswordValue}
@@ -226,6 +239,8 @@ const RegisterUser = ({
                   type="number"
                   className="form-control"
                   id="phone"
+                  autoComplete='nope'
+                  name='field'
                   style={{background: !props.phoneNumber && props.color && 'rgb(245, 192, 192)'  }}
                   // onFocus={changeTextToDate}
                   value={props.phoneNumber}
@@ -245,7 +260,8 @@ const RegisterUser = ({
                      type={props.seePass1 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
-                  autoComplete="off"
+                  autoComplete="nope"
+                  name='field'
                   value={props.passwordValue}
                   style={{background: !props.passwordValue && props.color && 'rgb(245, 192, 192)'  }}
                   onChange={handlePass}
@@ -260,6 +276,8 @@ const RegisterUser = ({
                   type="text"
                   className="form-control"
                   id="organization"
+                  autoComplete='nope'
+                  name='field'
                   style={{background: !props.organization && props.color && 'rgb(245, 192, 192)'  }}
                   value={props.organization}
                   onChange={handleOrganization}
@@ -274,7 +292,8 @@ const RegisterUser = ({
                    type={props.seePass2 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
-                  autoComplete="off"
+                  autoComplete="nope"
+                  name='field'
                   value={props.confPasswordValue}
                   style={{background: !props.confPasswordValue && props.color && 'rgb(245, 192, 192)'  }}
                   onChange={handleConfPass}
@@ -307,7 +326,7 @@ const RegisterUser = ({
             Sign Up
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

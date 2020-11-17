@@ -10,7 +10,8 @@ function DoctorsDetails({handleClient, doctor, handleSort, props}) {
   const startTime =  Number(props.startW.split(':')[0]) * 60 * 60 * 1000 + Number(props.startW.split(':')[1]) * 60 * 1000;
   // let end = doctor.end_hour ? doctor.end_hour.slice(0, -3) : ""
   const endTime = Number(props.endW.split(':')[0]) * 60 * 60 * 1000 + Number(props.endW.split(':')[1]) * 60 * 1000;
-
+  console.log(startTime );
+  const time = `${moment(startTime).subtract(1, 'hour').format("HH:mm A")} - ${moment(endTime).subtract(1, 'hour').format("HH:mm A")}`
     return (
         <div className="mainDoctorDiv">
         <div className="doctorsAbove">
@@ -27,7 +28,7 @@ function DoctorsDetails({handleClient, doctor, handleSort, props}) {
           <p><span>Video: </span>{doctor.web_exam_price} {doctor.web_currency}</p>
           <p><span>Video follow up: </span>{doctor.web_exam_follow_price} {doctor.web_follow_up_currency}</p>
           <p><span>Working Hours: </span> </p>
-          <p><span>Mon-Fri: </span>{moment(startTime).subtract(1, 'hour').format("HH:mm A")}{' '}- {' '}{moment(endTime).subtract(1, 'hour').format("HH:mm A")}</p>
+          <p><span>Mon-Fri: </span>{!startTime ? null : time}</p>
                 </div>
                 <div>
           <p><span>First Name: </span>{doctor.doctor.split((" "))[0]}</p>

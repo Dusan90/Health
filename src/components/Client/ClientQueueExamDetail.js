@@ -26,7 +26,7 @@ const DetailQueue = ({ exam }) => {
               </div>
               <div className="detail">
               <p>
-                <span>Doctor:</span> {exam/exam.doctor_name}
+                <span>Doctor:</span> {exam.exam.doctor_name}
               </p>
               <p>
                 <span>Speciality:</span> {exam.exam.speciality}

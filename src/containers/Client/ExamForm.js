@@ -49,10 +49,12 @@ class ExamForm extends Component {
 
   handleDoctor = (e) => {
     console.log(e);
-
+    const docsSpec = this.state.specialities.filter((spec) => {return spec.label === e.spec})
     this.props.dispatch(doctor(e));
     this.setState({ doctor_id: e.iD, price: e.price, currency: e.currency });
-    this.setState({ resetDoctorSelect: e });
+    this.setState({ resetDoctorSelect: e,
+      specialSP: docsSpec[0].value
+    });
   };
 
   handleSubject = (e) => {
@@ -169,6 +171,7 @@ class ExamForm extends Component {
           handleSubject={this.handleSubject}
           handleSubmit={this.handleSubmit}
           handleMessage={this.handleMessage}
+          props={this.state}
           specDoctor={this.state.specDoctor}
           resetDoctorSelect={this.state.resetDoctorSelect}
           handleAttach={this.handleAttach}

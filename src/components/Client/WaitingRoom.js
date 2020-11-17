@@ -58,8 +58,8 @@ const WaitingRoom = ({
       height: "40px",
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
-      width: "305px",
-      marginLeft: "2px",
+      width: "100%",
+      // marginLeft: "2px",
       background: "white",
       color: "#666666",
       fontWeight: "600",
@@ -79,8 +79,8 @@ const WaitingRoom = ({
       height: "40px",
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
-      width: "305px",
-      marginLeft: "2px",
+      width: "100%",
+      // marginLeft: "2px",
       background: "white",
       color: "#666666",
       fontWeight: "600",
@@ -120,16 +120,16 @@ const WaitingRoom = ({
                 ? props.currentClient.doctor_name
                 : "Select Doctor..."
             }
-            options={props.specDoctor}
+            options={props.specDoctor.length === 0 ? props.doctors : props.specDoctor }
             getOptionLabel={(option) => `${option.label}: (${option.status})`}
             // isOptionDisabled={(option) =>
             //   option.status !== "Available" ? true : false
             // }
             isDisabled={disabled2}
             onChange={handleDoctor}
-            value={
-              props.specDoctor.length === 0 ? null : [props.resetDoctorSelect]
-            }
+            // value={
+            //   props.specDoctor.length === 0 ? null : [props.resetDoctorSelect]
+            // }
           />
         </div>
         <div className="exam-sub">

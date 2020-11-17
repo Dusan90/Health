@@ -344,7 +344,7 @@
           // height: 40px;
           background: #b3b3b3;
           .client-doctor {
-            // width: 35%;
+            width: 400px;
             // display: flex;
             // justify-content: center;
             // flex-direction: column;
@@ -391,9 +391,9 @@
           .client-subject {
             // text-align: center;
             display: flex;
-            // width: 170px;
+            width: 100px;
             // float: right;
-            margin: 0 auto;
+            margin: 0;
             justify-content: flex-start;
             align-items: center;
             height: 40px;
@@ -453,12 +453,13 @@
           }
           .client-date {
             // text-align: left;
-            // width: 200px;
+            width: 150px;
             // text-align: center;
             display: flex;
             // width: 170px;
             // float: right;
-            margin: 0 auto;
+            margin: 0;
+
             justify-content: flex-start;
             align-items: center;
             height: 40px;

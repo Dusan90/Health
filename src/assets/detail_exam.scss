@@ -396,8 +396,6 @@
               margin: 0;
               width: 100%;
               padding: 10px 10px;
-
-              // background: green;
               min-height: 200px;
               resize: none;
               border: none;
@@ -547,7 +545,7 @@
           width: 100%;
           resize: none;
           border: none;
-
+          height: 100px;
           text-indent: 0;
           padding: 10px 15px;
           &::-webkit-scrollbar {

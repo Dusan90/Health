@@ -104,6 +104,7 @@ class ClientWaitingRoom extends Component {
         4000
       );
     } else {
+      const docsSpec = this.state.specialities.filter((spec) => {return spec.label === e.spec})
       this.props.dispatch(doctor(e));
       console.log(e);
       this.setState({
@@ -112,6 +113,7 @@ class ClientWaitingRoom extends Component {
         doctor_id: e.iD,
         doctorsStatus: e.status,
         resetDoctorSelect: e,
+        specialSP: docsSpec[0].value
       });
       this.QueueList(e.iD);
     }

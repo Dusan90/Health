@@ -19,7 +19,7 @@ const VideoReq = ({
   props,
   handleAttach
 }) => {
-  let exclude = props.excludeTime.map((hy) => {
+  let exclude = props.excludeTime && props.excludeTime.map((hy) => {
     return new Date(hy.appointed_date);
   });
   const startTimeHour = props.startTime &&  Number(props.startTime.split(':')[0])
@@ -34,8 +34,7 @@ const VideoReq = ({
       height: "40px",
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
-      width: "305px",
-      marginLeft: "2px",
+      width: "100%",
       background: "white",
       color: "#666666",
       fontWeight: "600",
@@ -76,11 +75,11 @@ const VideoReq = ({
             id="doctor"
             styles={customStyles}
             placeholder="Select Doctor..."
-            options={props.specDoctor}
+            options={props.specDoctor.length === 0 ? props.doctors : props.specDoctor }
             onChange={handleDoctor}
-            value={
-              props.specDoctor.length === 0 ? null : [props.resetDoctorSelect]
-            }
+            // value={
+            //   props.specDoctor.length === 0 ? null : [props.resetDoctorSelect]
+            // }
           />
         </div>
         <div className="exam-sub">

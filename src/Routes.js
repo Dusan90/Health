@@ -39,6 +39,7 @@ import ClientUpdateSettings from './containers/Client/UpdateSettings'
 import DoctorsList from "./containers/Client/DoctorsList";
 import DoctorsDetails from "./containers/Client/DoctorsDetails";
 import Verification from './VerificationInfo'
+import LogOutQuestion from './LogOutQuestion'
 import Room from './Room'
 // import NotFound from "./containers/Home/NotFound";
 
@@ -53,6 +54,7 @@ export class Routes extends Component {
         <Route path="/logout" exact component={Logout} />
         <Route path="/forgot-password" exact component={ForgotPass} />
         <Route path="/Verification" exact component={Verification} />
+        <Route path="/logOutQuestion" exact component={LogOutQuestion} />
 
         <Route
           path="/api/auth/reset-confirm/:id/"

@@ -70,6 +70,7 @@ class ClientVideoReq extends Component {
     let startTime = e.startTime ? e.startTime.slice(0, -3) : ""
     let endTime = e.endTime ? e.endTime.slice(0, -3) : ""
 console.log(e);
+    const docsSpec = this.state.specialities.filter((spec) => {return spec.label === e.spec})
     this.setState({ doctor_id: e.iD, doctorsPrice: e.price, currency: e.currency, startTime, endTime});
     const access_token = "Bearer ".concat(this.state.token);
     axios
@@ -78,7 +79,7 @@ console.log(e);
       })
       .then((response) => {
         console.log(response);
-        let data = response.data.data.filter((data) => {
+        let data = response.data.data && response.data.data.filter((data) => {
           return (
             moment(data.appointed_date).format("YYYY-MM-DD") >=
             moment(new Date()).format("YYYY-MM-DD")
@@ -88,7 +89,7 @@ console.log(e);
       })
       .then(() => {
         let DDate = moment(new Date()).format("YYYY-MM-DD");
-        let excludeTime = this.state.doctorsExams.filter((ex) => {
+        let excludeTime =this.state.doctorsExams && this.state.doctorsExams.filter((ex) => {
           if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate) {
             return ex;
           } else {
@@ -97,7 +98,7 @@ console.log(e);
         });
         this.setState({ excludeTime });
       });
-    this.setState({ resetDoctorSelect: e });
+    this.setState({ resetDoctorSelect: e, specialSP: docsSpec[0].value });
   };
 
   handleSubject = (e) => {
@@ -182,6 +183,7 @@ console.log(e);
     axios
       .get("http://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
+        console.log(response, 'spec');
         const res = response.data.data.map((val) => {
           return { value: val.id, iD: val.speciality_id, label: val.name };
         });
@@ -212,7 +214,7 @@ console.log(e);
   }
 
   render() {
-    console.log(this.state.doctorsPrice)
+    console.log(this.state.specialSP)
     return (
       <>
         <div className="header">

@@ -175,7 +175,7 @@ const data = axios.put(url, form_data, {
           </li>
           <li className="li-log">
             <Link to="/login" onClick={login} className="login">
-              Join Now
+              Log in
             </Link>
           </li>
         </ul>

@@ -79,12 +79,13 @@ const divStyle ={
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '10px'
+    padding: '20px'
     
 }
 const divh1={
     color: '#00aff0',
-    marginBottom: '30px'
+    marginBottom: '30px',
+    fontWeight: '700'
 }
 const logo ={
     position: "absolute",
@@ -137,7 +138,7 @@ export class activate extends Component {
       <img src={cLogo} style={logo} alt="cLogo" />
 
                 <h1 style={divh1}>{!this.state.message && 'Email confirmed!'}</h1>
-                <h5 style={{color: '#00aff0'}}>{this.state.message ? this.state.message : "Click on Join now to access your account"}</h5>
+                <h3 style={{color: '#00aff0'}}>{this.state.message ? this.state.message : "Click on Log in to access your account"}</h3>
             </div>
             </>
         )

@@ -7,7 +7,9 @@
     display: flex;
     width: 100%;
     .exam-spec {
-      width: 305px;
+      // width: 305px;
+      width: 100%;
+
       margin: 0 10px 10px 0;
 
       #speciality {
@@ -22,7 +24,9 @@
     }
 
     .exam-doc {
-      width: 305px;
+      // width: 305px;
+      width: 100%;
+
       margin-right: 10px;
 
       #doctor {
@@ -37,7 +41,11 @@
     }
 
     .exam-sub {
-      width: 305px;
+      width: 100%;
+      input {
+        margin: 0;
+        width: 100% !important;
+      }
     }
   }
 
@@ -58,12 +66,12 @@
     // grid-gap: 5px;
 
     .exam-mes {
-      height: 300px;
+      height: 350px;
       width: 64%;
       textarea {
         border: 1.7px solid #00aff0;
         border-radius: 15px;
-        height: 300px;
+        height: 350px;
         resize: none;
         // width: 400px;
         // border: none;
@@ -101,7 +109,7 @@
       background: white;
       border: 1.7px solid #00aff0;
       border-radius: 15px;
-      height: 300px;
+      height: 350px;
       width: 35%;
 
       .queueMain {
@@ -431,7 +439,7 @@
     }
   }
 }
-@media (max-width: 1400px) {
+@media (max-width: 1500px) {
   .exam {
     width: 80%;
   }

@@ -200,6 +200,7 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
+        console.log(res);
         if (
           res.data.data.mail.length !== 0 ||
           res.data.data.video.length !== 0
@@ -386,6 +387,12 @@ class DoctorDashboard extends Component {
     this.handleDoctorProfile();
     this.paginatedExams();
     this.pnd();
+  }
+  
+  componentWillUnmount(){
+    if(window.location.pathname === "/login"){
+      this.props.history.push('/logOutQuestion')
+    }
   }
 
   connecSocket = (id) => {

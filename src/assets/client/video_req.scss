@@ -32,17 +32,18 @@
       }
     }
     .exam-spec {
-      width: 305px;
       margin: 0 10px 10px 0;
     }
 
     .exam-doc {
-      width: 305px;
       margin-right: 10px;
     }
 
     .exam-sub {
-      width: 305px;
+      width: 100%;
+      input {
+        width: 100%;
+      }
     }
   }
 
