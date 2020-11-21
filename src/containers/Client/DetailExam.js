@@ -150,7 +150,8 @@ class ClientDetailExam extends Component {
     );
     const jsonData = await client.json();
     if (jsonData.success) {
-      this.correspondence(this.state.id);
+      window.location.reload()
+      // this.correspondence(this.state.id);
       NotificationManager.success("Message Sent", "Successful!", 2000);
       this.socket.send({
         exam_id: this.state.id,
@@ -186,6 +187,19 @@ class ClientDetailExam extends Component {
           correspondence: res,
           lastInArray: res[res.length - 1],
         });
+      }).then(() =>{
+        let textar = [...document.querySelectorAll('.message')]
+        textar.map(ex =>{
+          if (ex.clientHeight < ex.scrollHeight){
+
+            let imageDiv1 = document.createElement("div");
+            imageDiv1.id = "imageDiv1";
+            imageDiv1.onclick = function() { ex.style.height = '300px' };
+            let parentOfElement = ex.parentElement.previousSibling
+            parentOfElement.insertBefore(imageDiv1, parentOfElement.firstChild);
+
+          }
+        })
       })
       .catch((error) => {
         console.log(error.response);

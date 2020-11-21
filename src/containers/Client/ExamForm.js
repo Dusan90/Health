@@ -20,6 +20,7 @@ class ExamForm extends Component {
       message: "",
       submitted: false,
       price: null,
+      currentSpec: '',
       doctor_id: null,
       token: sessionStorage.getItem("accessToken"),
       specDoctor: [],
@@ -53,7 +54,9 @@ class ExamForm extends Component {
     this.props.dispatch(doctor(e));
     this.setState({ doctor_id: e.iD, price: e.price, currency: e.currency });
     this.setState({ resetDoctorSelect: e,
-      specialSP: docsSpec[0].value
+      specialSP: docsSpec[0].value,
+      currentSpec: docsSpec[0].label
+
     });
   };
 

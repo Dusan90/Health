@@ -13,7 +13,8 @@
       transform: translate(-50%);
       text-align: start;
       color: #00aff0;
-      width: 65%;
+      width: 85%;
+
       img {
         height: 140px;
         margin: 0 auto 20px auto;
@@ -34,9 +35,12 @@
     .MainDivInfo {
       position: absolute;
       bottom: 140px;
-      width: 100%;
+      left: 50%;
+      transform: translate(-50%);
+      width: 85%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+
       .firstDivInfo,
       .secondDivInfo,
       .thirdDivInfo,

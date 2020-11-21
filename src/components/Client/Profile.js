@@ -15,7 +15,7 @@ const Profile = ({
   <>
     {client &&
       client.map(client => {
-
+        console.log(client);
         return (
           <div key={client.id} className="mainClien">
             <div className="newVideo">
@@ -48,6 +48,7 @@ const Profile = ({
                 <textarea
                   type="text"
                   className="address-input"
+                  placeholder={client.chronical_conditions}
                   onChange={handleChange} id='ChronicalConditions'
                 />
               </div>
@@ -57,6 +58,7 @@ const Profile = ({
                 style={{height: !client.image ? '178px' : '138px'}}
                   type="text"
                   className="address-input"
+                  placeholder={client.allergies}
                   onChange={handleChange} id='Allergies'
                 />
               </div>

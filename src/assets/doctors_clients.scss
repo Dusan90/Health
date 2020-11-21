@@ -1,7 +1,7 @@
 .mainClientsDiv {
   width: 50%;
   min-height: 500px;
-  margin: 100px auto 20px auto;
+  margin: 80px auto 20px auto;
   background: #f3f3f3;
   position: relative;
   border-radius: 15px;
@@ -25,34 +25,44 @@
   }
 
   .clientsDiv {
-    height: 70px;
+    height: 80px;
+    width: 50%;
     display: flex;
+    gap: 30px;
     justify-content: space-between;
-    margin: 0 0 20px 0;
-    label {
-      align-self: center;
-      margin: 0 40px 0 40px;
-      color: #666666;
-      select {
-        border: 2px solid #00aff0;
-        border-radius: 8px;
-        height: 30px;
-        color: #666666;
-        font-weight: 400;
-        margin: 0 0 0 20px;
-        text-indent: 10px;
-        width: 110px;
-      }
-      input {
-        border: 2px solid #00aff0;
-        border-radius: 8px;
-        height: 30px;
-        width: 110px;
-        font-weight: 400;
-        color: #666666;
-        margin: 0 0 0 20px;
-        text-indent: 10px;
-      }
+    align-items: center;
+    margin: 20px 0;
+    padding: 0 30px;
+    // label {
+    //   align-self: center;
+    //   margin: 0 40px 0 40px;
+    //   color: #666666;
+    //   select {
+    //     border: 2px solid #00aff0;
+    //     border-radius: 8px;
+    //     height: 30px;
+    //     color: #666666;
+    //     font-weight: 400;
+    //     margin: 0 0 0 20px;
+    //     text-indent: 10px;
+    //     width: 110px;
+    //   }
+    //   input {
+    //     border: 2px solid #00aff0;
+    //     border-radius: 8px;
+    //     height: 30px;
+    //     width: 110px;
+    //     font-weight: 400;
+    //     color: #666666;
+    //     margin: 0 0 0 20px;
+    //     text-indent: 10px;
+    //   }
+    // }
+    .exam-spec {
+      flex: 1;
+    }
+    .exam-doc {
+      flex: 1;
     }
   }
 
@@ -62,7 +72,7 @@
     margin: 0 0 0 55px;
     .list-group {
       box-shadow: none;
-      margin: 10px 0;
+      // margin: 10px 0;
       display: flex;
 
       .list-group-item {
@@ -86,6 +96,7 @@
           height: 60px;
           background: white;
           border-radius: 50%;
+          object-fit: cover;
         }
       }
     }

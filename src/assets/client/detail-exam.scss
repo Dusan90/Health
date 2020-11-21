@@ -9,8 +9,8 @@
   // top: 2px;
   // float: left;
   text-align: left;
-  margin: 100px auto 20px auto;
-  width: 65%;
+  margin: 80px auto 20px auto;
+  width: 85%;
   min-height: 500px;
   display: flex;
   // max-height: 500px;
@@ -75,7 +75,7 @@
     }
   }
   .mainMessageDiv {
-    width: 70%;
+    width: 100%;
 
     .subjectDiv {
       display: flex;
@@ -304,12 +304,27 @@
             border-top-right-radius: 15px;
             .senderP {
               margin-top: 5px;
+              width: 70%;
+              text-indent: 10px;
               span {
                 font-weight: bold;
               }
             }
             .createdP {
-              margin: 5px 20px 0 0;
+              margin: 5px 0 0 0;
+              width: 150px;
+            }
+            #imageDiv1 {
+              background: transparent;
+              border: 1.7px solid white;
+              // position: absolute;
+              width: 20px;
+              border-radius: 5px;
+              height: 20px;
+              margin: 5px 0 0 20px;
+              &:hover {
+                cursor: pointer;
+              }
             }
           }
           .row1 {

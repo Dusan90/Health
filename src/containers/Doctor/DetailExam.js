@@ -112,6 +112,8 @@ class DetailExam extends Component {
     };
   }
 
+  
+
   handleSubmitSend = (e) => {
     if (this.state.messageValue) {
       this.sendMessage();
@@ -142,7 +144,8 @@ class DetailExam extends Component {
     );
     const jsonData = await client.json();
     if (jsonData.success) {
-      this.correspondence(this.state.id);
+      window.location.reload()
+      // this.correspondence(this.state.id);
       NotificationManager.success("Message Sent", "Successful!", 2000);
       this.socket.send({
         exam_id: this.state.id,
@@ -177,11 +180,26 @@ class DetailExam extends Component {
         });
         // var sender_obj = this.state.correspondence[0].sender;
         // this.props.dispatch(doctor(sender_obj));
+      }).then(() =>{
+        let textar = [...document.querySelectorAll('.message')]
+        textar.map(ex =>{
+          if (ex.clientHeight < ex.scrollHeight){
+
+            let imageDiv = document.createElement("div");
+            imageDiv.id = "imageDiv";
+            imageDiv.onclick = function() { ex.style.height = '300px' };
+            let parentOfElement = ex.parentElement.previousSibling
+            parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
+
+          }
+        })
       })
       .catch((error) => {
         console.log(error.response);
       });
   };
+
+  
 
   render() {
     return (

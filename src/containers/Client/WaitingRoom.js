@@ -34,6 +34,7 @@ class ClientWaitingRoom extends Component {
       specialSP: [],
       resetDoctorSelect: null,
       isClicked: false,
+      currentSpec: '',
       credits: false,
       attachment: null,
       currentClient: "",
@@ -86,6 +87,8 @@ class ClientWaitingRoom extends Component {
       specialSP: e.value,
       specDoctor: filteredDoctors,
       resetDoctorSelect: null,
+      currentSpec: ''
+
     });
   };
 
@@ -113,7 +116,8 @@ class ClientWaitingRoom extends Component {
         doctor_id: e.iD,
         doctorsStatus: e.status,
         resetDoctorSelect: e,
-        specialSP: docsSpec[0].value
+        specialSP: docsSpec[0].value,
+        currentSpec: docsSpec[0].label
       });
       this.QueueList(e.iD);
     }

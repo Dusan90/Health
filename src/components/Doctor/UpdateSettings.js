@@ -23,8 +23,8 @@ function UpdateSettings({props, userLogin, handleChange, handleImage1, handleIma
                 <input id='ConfNewPassword'  value={props.ConfNewPassword} autoComplete="off" onChange={handleChange}  type={props.seePass2 ? 'text' : "password"}/>
                 <img onClick={handleImage2}  src={props.seePass2 ? seen : hidden } alt="img"/>
                 </div>
-              </div>
               <button onClick={userLogin}>Update</button>
+              </div>
            
             </div>
     )

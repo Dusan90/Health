@@ -18,7 +18,7 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     margin: 80px auto 30px auto;
     grid-gap: 10px;
-    width: 65%;
+    width: 85%;
     background: #f2f2f2;
     padding: 20px 15px;
     position: relative;
@@ -224,7 +224,7 @@
   }
 
   .mainTabel {
-    width: 65%;
+    width: 85%;
     margin: 0 auto;
     border-radius: 15px;
     height: 280px;
@@ -297,10 +297,24 @@
       tbody {
         background: #f2f2f2;
         transition: all 0.5s ease-in-out;
-        // &:hover {
-        //   background: rgb(208, 242, 253);
-        //   cursor: pointer;
-        // }
+        &:last-of-type {
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+          overflow: hidden !important;
+          tr {
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            overflow: hidden !important;
+            td {
+              &:first-of-type {
+                border-bottom-left-radius: 15px;
+              }
+              &:last-of-type {
+                border-bottom-right-radius: 15px !important;
+              }
+            }
+          }
+        }
         tr {
           height: 40px;
 
@@ -333,6 +347,16 @@
           }
           .client-doctor {
             padding: 0 0 0 35px;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+
+            text-overflow: ellipsis !important;
+          }
+          .client-subject {
+            white-space: nowrap !important;
+            overflow: hidden !important;
+
+            text-overflow: ellipsis !important;
           }
         }
       }
@@ -344,7 +368,7 @@
           // height: 40px;
           background: #b3b3b3;
           .client-doctor {
-            width: 400px;
+            width: 320px;
             // display: flex;
             // justify-content: center;
             // flex-direction: column;
@@ -391,7 +415,7 @@
           .client-subject {
             // text-align: center;
             display: flex;
-            width: 100px;
+            width: 150px;
             // float: right;
             margin: 0;
             justify-content: flex-start;

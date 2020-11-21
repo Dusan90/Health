@@ -1,7 +1,7 @@
 .mainDoctorsDiv {
   width: 50%;
   min-height: 500px;
-  margin: 100px auto 20px auto;
+  margin: 80px auto 20px auto;
   background: #f3f3f3;
   position: relative;
   border-radius: 15px;
@@ -25,23 +25,32 @@
   }
 
   .doctorsDiv {
-    height: 70px;
+    height: 80px;
     display: flex;
+    gap: 30px;
     justify-content: space-between;
-    margin: 0 0 20px 0;
-    label {
-      align-self: center;
-      margin: 0 40px 0 60px;
-      color: #666666;
-      select {
-        border: 2px solid #00aff0;
-        border-radius: 8px;
-        height: 30px;
-        width: 130px;
-        color: #666666;
-        margin: 0 0 0 20px;
-        text-indent: 10px;
-      }
+    align-items: center;
+    margin: 20px 0;
+    padding: 0 30px;
+    // label {
+    //   align-self: center;
+    //   margin: 0 40px 0 60px;
+    //   color: #666666;
+    //   select {
+    //     border: 2px solid #00aff0;
+    //     border-radius: 8px;
+    //     height: 30px;
+    //     width: 130px;
+    //     color: #666666;
+    //     margin: 0 0 0 20px;
+    //     text-indent: 10px;
+    //   }
+    // }
+    .exam-spec {
+      flex: 1;
+    }
+    .exam-doc {
+      flex: 1;
     }
   }
 

@@ -17,7 +17,7 @@ const VideoReq = ({
   handleMessage,
   handleDateChange,
   props,
-  handleAttach
+  handleAttach,
 }) => {
   let exclude = props.excludeTime && props.excludeTime.map((hy) => {
     return new Date(hy.appointed_date);
@@ -48,6 +48,11 @@ const VideoReq = ({
       borderRadius: '5px',
       boxShadow: '2px 2px 10px gray'
     }),
+
+    placeholder: () =>({
+      fontWeight: '550',
+      color: 'black'
+    })
   };
 
   return (
@@ -62,9 +67,11 @@ const VideoReq = ({
             type="text"
             id="speciality"
             styles={customStyles}
-            placeholder="Select Speciality..."
+            placeholder={props.currentSpec ? props.currentSpec : `Select Speciality...`}
             options={props.specialities}
             onChange={handleSpeciality}
+
+
           />
         </div>
         <div className="exam-doc">
@@ -77,9 +84,10 @@ const VideoReq = ({
             placeholder="Select Doctor..."
             options={props.specDoctor.length === 0 ? props.doctors : props.specDoctor }
             onChange={handleDoctor}
-            // value={
-            //   props.specDoctor.length === 0 ? null : [props.resetDoctorSelect]
-            // }
+            value={
+              props.resetDoctorSelect
+              // props.specDoctor.length === 0 ? null : [props.resetDoctorSelect]
+            }
           />
         </div>
         <div className="exam-sub">
@@ -88,6 +96,7 @@ const VideoReq = ({
             className="form-control"
             id="subject"
             placeholder="Enter subject"
+            maxLength='25'
             value={props.subject}
             onChange={handleSubject}
           />
@@ -97,7 +106,7 @@ const VideoReq = ({
         <div className="exam-mess">
           <textarea
             type="text"
-            className="form-control"
+        
             id="exam-notes"
             placeholder="Enter notes"
             value={props.notes}

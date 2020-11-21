@@ -34,6 +34,10 @@ const InitiateExam = ({
       color: "#666666",
       fontWeight: "600",
     }),
+    placeholder: () =>({
+      color: 'black',
+      fontWeight: '550'
+    })
   };
   return (
     <div className="exam">
@@ -47,7 +51,7 @@ const InitiateExam = ({
             type="text"
             styles={customStyles}
             id="speciality"
-            placeholder="Select Speciality..."
+            placeholder={props.currentSpec ? props.currentSpec : `Select Speciality...`}
             options={specialities}
             onChange={handleSpeciality}
           />
@@ -60,6 +64,7 @@ const InitiateExam = ({
             placeholder="Select Doctor..."
             options={props.specDoctor.length === 0 ? props.doctors : props.specDoctor}
             onChange={handleDoctor}
+            value={   props.resetDoctorSelect}
             // value={specDoctor.length === 0 ? null : [resetDoctorSelect]}
           />
         </div>
@@ -68,6 +73,7 @@ const InitiateExam = ({
             type="text"
             className="form-control"
             id="subject"
+            maxLength='25'
             placeholder="Enter subject"
             value={subject}
             onChange={handleSubject}

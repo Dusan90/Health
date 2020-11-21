@@ -61,14 +61,25 @@ const Record = ({
               </div>
             </div>
             <div className="form">
-              <div className="conditions">
-                Chronical conditions:{" "}
-
-        <p>{client.medical_conditions}</p>
+              <div className="conditionss">
+                Chronical conditions:{" "} <br/>
+                <textarea
+                  type="text"
+                  readOnly
+                  className="address-input"
+                  placeholder={client.chronical_conditions}
+                 id='ChronicalConditions'
+                />
               </div>
-              <div  className="allergies">
+              <div  className="allergiess">
                Allergies:{" "}
-        <p>{client.allergies}</p>
+               <textarea
+                  type="text"
+                  readOnly
+                  className="address-input"
+                  placeholder={client.allergies}
+                 id='Allergies'
+                />
          
               </div>
             </div>

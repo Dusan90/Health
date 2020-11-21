@@ -25,8 +25,8 @@ function UpdateSettings({props, userLogin, handleChange, handleImage1, handleIma
                 <img onClick={handleImage2}  src={props.seePass2 ? seen : hidden } alt="img"/>
 
                 </div>
-              </div>
               <button onClick={userLogin}>Update</button>
+              </div>
            
             </div>
     )

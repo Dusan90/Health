@@ -239,6 +239,7 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
+        console.log(res);
         if (
           res.data.data.mail.length !== 0 ||
           res.data.data.video.length !== 0
@@ -375,13 +376,23 @@ class ClientDashboard extends Component {
         ? this.state.upcomingOrPast.filter((ex) => {
           const doctor = ex.doctor_name ? ex.doctor_name : ex.doctor;
           const splited = doctor.split(" ");
+          console.log(searchName)
+          console.log(splited)
             if (!searchName[1]) {
               if (
+                // splited[0].toLowerCase().indexOf(searchName[0]) ===
+                // searchName[0].indexOf(searchName[0]) ||
+                // splited[1].toLowerCase().indexOf(searchName[0]) ===
+                //   searchName[0].indexOf(searchName[0]) ||
+                // splited[2].toLowerCase().indexOf(searchName[0]) ===
+                //   searchName[0].indexOf(searchName[0])
+
                   splited[1].toLowerCase().indexOf(searchName[0]) ===
                   searchName[0].indexOf(searchName[0]) ||
                 splited[2].toLowerCase().indexOf(searchName[0]) ===
                   searchName[0].indexOf(searchName[0])
               ) {
+                console.log(ex);
                 return ex;
               }
             } else {
@@ -409,6 +420,13 @@ class ClientDashboard extends Component {
                 searchName[0].indexOf(searchName[0]) ||
               splited[2].toLowerCase().indexOf(searchName[0]) ===
                 searchName[0].indexOf(searchName[0])
+
+                // splited[0].toLowerCase().indexOf(searchName[0]) ===
+                // searchName[0].indexOf(searchName[0]) ||
+                // splited[1].toLowerCase().indexOf(searchName[0]) ===
+                //   searchName[0].indexOf(searchName[0]) ||
+                // splited[2].toLowerCase().indexOf(searchName[0]) ===
+                //   searchName[0].indexOf(searchName[0])
               ) {
                 return ex;
               }
@@ -421,7 +439,32 @@ class ClientDashboard extends Component {
               (splited[1].toLowerCase().indexOf(searchName[1]) ===
                 searchName[1].indexOf(searchName[1]) &&
                 splited[2].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0]))  
+                  searchName[0].indexOf(searchName[0]))
+
+                // (splited[1].toLowerCase().indexOf(searchName[0]) ===
+                //   searchName[0].indexOf(searchName[0]) &&
+                //   splited[2].toLowerCase().indexOf(searchName[1]) ===
+                //     searchName[1].indexOf(searchName[1])) ||
+                // (splited[1].toLowerCase().indexOf(searchName[1]) ===
+                //   searchName[1].indexOf(searchName[1]) &&
+                //   splited[2].toLowerCase().indexOf(searchName[0]) ===
+                //     searchName[0].indexOf(searchName[0])) ||
+                // (splited[0].toLowerCase().indexOf(searchName[0]) ===
+                //     searchName[0].indexOf(searchName[0]) &&
+                //     splited[1].toLowerCase().indexOf(searchName[1]) ===
+                //       searchName[1].indexOf(searchName[1])) || 
+                // (splited[0].toLowerCase().indexOf(searchName[0]) ===
+                //       searchName[0].indexOf(searchName[0]) &&
+                //       splited[1].toLowerCase().indexOf(searchName[1]) ===
+                //         searchName[1].indexOf(searchName[1])) ||
+
+                // (splited[0].toLowerCase().indexOf(searchName[0]) ===
+                //         searchName[0].indexOf(searchName[0]) &&
+                //         splited[2].toLowerCase().indexOf(searchName[1]) ===
+                //           searchName[1].indexOf(searchName[1]))
+                
+                    
+                // )
               ) {
                 return ex;
               }

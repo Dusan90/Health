@@ -72,6 +72,10 @@ const WaitingRoom = ({
           ? "#C7CD00"
           : state.data.status === "Offline" && "red",
     }),
+    placeholder: () => ({
+      fontWeight: '550',
+      color: 'black'
+    })
   };
   const customS = {
     control: (base, state) => ({
@@ -85,6 +89,10 @@ const WaitingRoom = ({
       color: "#666666",
       fontWeight: "600",
     }),
+    placeholder: () => ({
+      fontWeight: '550',
+      color: 'black'
+    })
   };
   return (
     <>
@@ -100,7 +108,8 @@ const WaitingRoom = ({
             id="speciality"
             placeholder={
               props.currentClient
-                ? props.currentClient.speciality
+                ? props.currentClient.speciality : 
+                props.currentSpec ? props.currentSpec
                 : "Select Speciality..."
             }
             options={props.specialities}
@@ -127,9 +136,11 @@ const WaitingRoom = ({
             // }
             isDisabled={disabled2}
             onChange={handleDoctor}
-            // value={
+
+            value={
+              props.resetDoctorSelect
             //   props.specDoctor.length === 0 ? null : [props.resetDoctorSelect]
-            // }
+            }
           />
         </div>
         <div className="exam-sub">
@@ -137,6 +148,7 @@ const WaitingRoom = ({
             type="text"
             className="form-control"
             id="subject"
+            maxLength='25'
             placeholder="Enter subject"
             value={
               props.currentClient ? props.currentClient.subject : props.subject

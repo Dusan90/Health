@@ -7,7 +7,7 @@ import Nav from "./components/Main/Navbar";
 const divStyle ={
     width: "37%",
     margin: '120px auto 0px auto',
-    height: "500px",
+    height: "400px",
     backgroundColor: "#f2f2f2",
     borderRadius: '15px',
     position: 'relative',
@@ -16,14 +16,14 @@ const divStyle ={
     // transform: 'translate(-50%, -50%)',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '20px'
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    padding: '70px 20px 20px 20px'
     
 }
 const divh1={
     color: '#00aff0',
-    marginBottom: '30px',
+    marginBottom: '70px',
     fontWeight: '700'
 }
 const logo ={
@@ -41,12 +41,12 @@ const buttonDiv = {
 
 const buttonStyle = {
     backgroundColor: 'rgb(0,175,240)',
-    width: '100px',
-    height: '35px',
+    width: '130px',
+    height: '50px',
     borderRadius: '10px',
     color: 'white',
     border: 'none',
-    fontSize: '16px',
+    fontSize: '18px',
     fontWeight: '600'
 
 }

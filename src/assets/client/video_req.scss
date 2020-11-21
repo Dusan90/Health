@@ -2,7 +2,7 @@
   .mainExam {
     display: flex;
     align-items: center;
-    width: 65%;
+    width: 85%;
     background: #f2f2f2;
     padding: 30px 20px;
     margin: 80px auto 20px auto;
@@ -70,6 +70,8 @@
         border-radius: 15px;
         height: 347px;
         margin: 0;
+        width: 100%;
+        padding: 10px;
         resize: none;
 
         ::placeholder {
@@ -239,25 +241,23 @@
               }
             }
             .react-datepicker__time {
-              font-size: 10px;
+              font-size: 12px;
               margin: 10px 0 0 0;
               border-bottom-left-radius: 15px;
               border-bottom-right-radius: 15px;
-
               display: flex;
               height: 85%;
 
               .react-datepicker__time-box {
-                height: 100%;
                 // width: 380px;
                 .react-datepicker__time-list {
                   overflow-y: hidden;
-                  height: 279px !important;
+                  height: 270px !important;
                   display: flex;
                   margin: 0 auto;
                   flex-direction: column;
                   width: 75px;
-                  padding: 6px;
+                  padding: 6px 6px 0 6px;
                   color: #00aff0;
                   font-weight: 600;
                   overflow-y: scroll;

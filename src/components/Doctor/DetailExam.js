@@ -115,7 +115,7 @@ return (
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <textarea defaultValue= {exam.message} disabled={true}>
+                  <textarea defaultValue= {exam.message} readOnly>
                    
                   </textarea>
                 </div>
@@ -144,7 +144,7 @@ return (
                             // onClick={() => handleClick(index)}
                             className="row1"
                           >
-                            <textarea  id={message.id} defaultValue={message.message} className="message">
+                            <textarea  id={message.id} defaultValue={message.message} readOnly className="message">
                             </textarea>
                             {message.attachments ? (
                               <div className="attachments">

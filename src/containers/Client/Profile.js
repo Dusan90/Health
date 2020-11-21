@@ -35,8 +35,8 @@ form_data.append("user.last_name", this.state.LastName);
 form_data.append("gender", this.state.gender);
 form_data.append("address", this.state.Address);
 form_data.append("birth_date", this.state.BirthDate);
-// form_data.append("conditions", this.state.ChronicalConditions);
-// form_data.append("allergies", this.state.Allergies);
+form_data.append("chronical_conditions", this.state.ChronicalConditions);
+form_data.append("allergies", this.state.Allergies);
 form_data.append("image", this.state.attach);
 form_data.append("user.phone", this.state.PhoneNum);
 

@@ -2,7 +2,7 @@ import React from "react";
 import "../../assets/main/main.scss";
 // import { Pagination } from 'reactstrap';
 import logo1 from "../../icons/c+.svg";
-import MainImg from "../../icons/C-doctor_photo.jpg";
+import MainImg from "../../icons/C-doctor_photo_1920px.jpg";
 import iconsingUp from '../../icons/icon_sign-up.svg'
 import requestConsultation from '../../icons/icon_Request-consultation.svg'
 import iconPayment from '../../icons/icon_Payment.svg'

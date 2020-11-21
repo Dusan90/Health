@@ -10,7 +10,7 @@
   // float: left;
   text-align: left;
   margin: 80px auto 0 auto;
-  width: 65%;
+  width: 85% !important;
   min-height: 400px;
   display: flex;
   height: 500px;
@@ -60,7 +60,7 @@
       }
     }
     .mainMessageDiv {
-      width: 70%;
+      width: 100%;
       .subjectDiv {
         display: flex;
         justify-content: space-between;

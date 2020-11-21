@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 50%;
   background: #f2f2f2;
   margin: 80px auto 20px auto;
   padding: 40px 40px;
@@ -21,7 +21,7 @@
     height: 40px;
     display: flex;
     background: #f2f2f2;
-    width: 35%;
+    width: 30%;
     justify-content: flex-start;
     align-items: center;
     p {
@@ -69,6 +69,6 @@
     border: none;
     border-radius: 5px;
     color: white;
-    margin: 10px auto 0 95px;
+    margin: 10px auto 0 0;
   }
 }

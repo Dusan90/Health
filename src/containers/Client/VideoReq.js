@@ -25,6 +25,7 @@ class ClientVideoReq extends Component {
       token: sessionStorage.getItem("accessToken"),
       specDoctor: [],
       specialSP: [],
+      currentSpec: '',
       resetDoctorSelect: null,
       isClicked: false,
       startDate: new Date(),
@@ -62,6 +63,7 @@ class ClientVideoReq extends Component {
       specialSP: e.value,
       specDoctor: filteredDoctors,
       resetDoctorSelect: null,
+      currentSpec: ''
     });
   };
 
@@ -98,7 +100,7 @@ console.log(e);
         });
         this.setState({ excludeTime });
       });
-    this.setState({ resetDoctorSelect: e, specialSP: docsSpec[0].value });
+    this.setState({ resetDoctorSelect: e, specialSP: docsSpec[0].value, currentSpec: docsSpec[0].label });
   };
 
   handleSubject = (e) => {

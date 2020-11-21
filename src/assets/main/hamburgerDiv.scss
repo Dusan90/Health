@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
+    width: 85%;
     height: 100%;
     margin: 0 auto;
     font-size: 16px;
@@ -87,11 +87,11 @@
       // }
     }
   }
-  @media (max-width: 1500px) {
-    .hamNprofil {
-      width: 80%;
-    }
-  }
+  // @media (max-width: 1500px) {
+  //   .hamNprofil {
+  //     width: 80%;
+  //   }
+  // }
   position: relative;
   .sideNav {
     position: absolute;

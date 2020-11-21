@@ -183,7 +183,7 @@ const Dashboard = ({
           style={{ width: "150px" }}
         />
       ) : (
-        <div className="mainTabel">
+        props.state.paginatedExams.length !== 0 && <div className="mainTabel">
           <div className="mainConsultation">
             <div className="icon_left">
               <p>My Consultations</p>
@@ -354,7 +354,7 @@ const Dashboard = ({
         </div>
       )}
 
-      <div className="pagi">
+      {props.state.paginatedExams.length !== 0 && <div className="pagi">
         {/* <div className="left" onClick={handleClickLeft}>
           <img src={arrowLeft} alt="arrow left" className="iconLeft" />
        
@@ -370,7 +370,7 @@ const Dashboard = ({
           pageRangeDisplayed={10}
           onChange={handlePageChange}
         />
-      </div>
+      </div>}
       {/* <div
         className="sideNav"
         style={{

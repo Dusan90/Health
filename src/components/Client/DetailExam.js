@@ -104,7 +104,7 @@ const Detail = ({
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <textarea defaultValue={exam.message} disabled={true}>
+                  <textarea defaultValue={exam.message} readOnly>
                      
                   </textarea>
                 </div>
@@ -133,9 +133,9 @@ const Detail = ({
                           // onClick={() => handleClick(index)}
                           className="row1"
                         >
-                          <textarea id={message.id}
+                          <textarea id={message.id} readOnly
                            defaultValue={message.message} className="message">
-                            
+                          
                           </textarea>
                           {message.attachments ? (
                             <div className="attachments">

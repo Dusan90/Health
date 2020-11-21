@@ -163,25 +163,39 @@
     width: 50%;
     color: #666666;
 
-    .conditions {
+    .conditionss {
       display: flex;
       flex-direction: column;
       text-align: start;
       font-weight: 700;
       color: #666666;
+      margin: 20px 0;
+      textarea {
+        background: transparent;
+        border: none;
+        padding: 15px 0 15px 0;
+        resize: none;
+      }
     }
-    .allergies {
+    .allergiess {
       display: flex;
       flex-direction: column;
       text-align: start;
       font-weight: 700;
       color: #666666;
+      margin: 20px 0;
+      textarea {
+        background: transparent;
+        border: none;
+        padding: 15px 0 15px 0;
+        resize: none;
+      }
     }
   }
 }
 
 .mainTabelRecord {
-  width: 65%;
+  width: 85%;
   margin: 0 auto;
   height: 280px;
 
@@ -294,6 +308,7 @@
           width: 300px;
         }
         .client-subject {
+          width: 300px;
           padding: 0 0 0 30px;
         }
       }
@@ -363,7 +378,7 @@
         }
         .client-date {
           display: flex;
-          margin: 0 auto;
+          margin: 0;
           justify-content: flex-start;
           align-items: center;
           height: 40px;

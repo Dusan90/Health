@@ -39,7 +39,12 @@ class ClientRecord extends Component {
         return this.setState({
           record:[ response.data.data],
         });
-      });
+      }).then(() =>{
+        let cronic = document.getElementById('ChronicalConditions')
+        cronic.style.height = `${cronic.scrollHeight}px`
+        let alerg = document.getElementById('Allergies')
+        alerg.style.height = `${alerg.scrollHeight}px`
+      })
   };
 
   clientsExams = () => {
