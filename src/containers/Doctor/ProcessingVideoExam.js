@@ -5,7 +5,7 @@ import Processing from "../../components/Doctor/ProcessingVideoExam";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import HamburgerDiv from '../../components/Main/HamburgerDiv'
-const connection = new WebSocket("ws://healthcarebackend.xyz/ws/video/");
+const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
 class ProcessingVideoExam extends Component {
   constructor(props) {
     super(props);
