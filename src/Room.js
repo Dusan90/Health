@@ -23,7 +23,7 @@ const handlerName = mediasoupClient.detectDevice();
 if (handlerName) {
   console.log("detected handler: %s", handlerName);
 } else {
-  console.warn("no suitable handler found for current browsser/device");
+  console.warn("no suitable handler found for current browser/device");
 }
 
 const Container = styled.div`

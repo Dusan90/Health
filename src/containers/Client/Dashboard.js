@@ -86,7 +86,7 @@ class ClientDashboard extends Component {
 
   connect = (id) => {
     const wss = new WebSocket(
-      `wss://healthcarebackend.xyz/wss/dashboard/client/${id}/`
+      `wss://healthcarebackend.xyz/ws/dashboard/client/${id}/`
     );
 
     wss.onopen = () => {

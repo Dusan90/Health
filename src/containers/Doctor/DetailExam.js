@@ -21,7 +21,7 @@ class DetailExam extends Component {
       doctor: '',
     };
     this.socket = new WebSocket(
-      `wss://healthcarebackend.xyz/wss/message/${this.props.match.params.id}/`
+      `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
     );
   }
 

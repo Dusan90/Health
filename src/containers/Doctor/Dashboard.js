@@ -397,7 +397,7 @@ class DoctorDashboard extends Component {
 
   connecSocket = (id) => {
     const webs = new WebSocket(
-      `wss://healthcarebackend.xyz/wss/dashboard/doctor/${id}/`
+      `wss://healthcarebackend.xyz/ws/dashboard/doctor/${id}/`
     );
 
     webs.onopen = () => {

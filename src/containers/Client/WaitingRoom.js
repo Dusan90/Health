@@ -10,10 +10,10 @@ import { NotificationManager } from "react-notifications";
 import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 const doctorStatusSocket = new WebSocket(
-  "wss://healthcarebackend.xyz/wss/doctor/status/"
+  "wss://healthcarebackend.xyz/ws/doctor/status/"
 );
 
-const connection = new WebSocket("wss://healthcarebackend.xyz/wss/video/");
+const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
 
 class ClientWaitingRoom extends Component {
   _isMounted = false;
