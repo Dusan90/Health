@@ -43,7 +43,7 @@ class ProcessingVideoExam extends Component {
   detail = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/queue/detail/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/detail/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -285,7 +285,7 @@ objDiv.scrollTop = objDiv.scrollHeight;
   statusSelecting = async (value) => {
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `http://healthcarebackend.xyz/api/queue/detail/${this.props.match.params.id}/`,
+      `https://healthcarebackend.xyz/api/queue/detail/${this.props.match.params.id}/`,
       {
         method: "PUT",
         headers: {
