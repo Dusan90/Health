@@ -5,7 +5,7 @@ import Processing from "../../components/Doctor/ProcessingVideoExam";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import HamburgerDiv from '../../components/Main/HamburgerDiv'
-const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
+const connection = new WebSocket("ws://healthcarebackend.xyz/ws/video/");
 class ProcessingVideoExam extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +43,7 @@ class ProcessingVideoExam extends Component {
   detail = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/detail/${id}/`, {
+      .get(`http://healthcarebackend.xyz/api/queue/detail/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -285,7 +285,7 @@ objDiv.scrollTop = objDiv.scrollHeight;
   statusSelecting = async (value) => {
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `https://healthcarebackend.xyz/api/queue/detail/${this.props.match.params.id}/`,
+      `http://healthcarebackend.xyz/api/queue/detail/${this.props.match.params.id}/`,
       {
         method: "PUT",
         headers: {

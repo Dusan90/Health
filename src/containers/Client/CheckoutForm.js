@@ -103,7 +103,7 @@ class CheckoutForm extends Component {
         //   this.setState({ token: payload.token });
         // });
         const response = await fetch(
-          "httpss://healthcarebackend.xyz/api/charge/",
+          "https://healthcarebackend.xyz/api/charge/",
           {
             method: "POST",
             headers: {

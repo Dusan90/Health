@@ -570,8 +570,8 @@ class ClientWaitingRoom extends Component {
           const mediaStream = new MediaStream(stream);
           var video = document.createElement("video");
           video.classList.add("vid");
-          var videoChat = document.getElementById("videoChat");
-          videoChat.appendChild(video);
+          var videoChat1 = document.getElementById("videoChat");
+          videoChat1.appendChild(video);
           video.srcObject = mediaStream;
           video.play();
         });
