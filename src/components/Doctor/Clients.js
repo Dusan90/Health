@@ -12,15 +12,14 @@ function Clients({ handleClient, clients, handleSort, handleSearch, props, handl
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
       width: "100%",
-      flex: 1,
-      // marginLeft: "2px",
+       // marginLeft: "2px",
       background: "white",
       color: "#666666",
       fontWeight: "600",
     }),
     placeholder: () =>({
-      color: 'black',
-      fontWeight: '550'
+      color: '#666666',
+      fontWeight: '500'
     })
   };
   return (
@@ -65,7 +64,7 @@ function Clients({ handleClient, clients, handleSort, handleSearch, props, handl
                 onClick={() => handleClient(client.iD)}
               >
                 {client.label}
-                <img src={client.image === "default.jpg" ? myClientProfile : `http://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
+                <img src={client.image === "default.jpg" ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
               </button>
             </div>
           )

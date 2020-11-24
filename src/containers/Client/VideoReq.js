@@ -76,7 +76,7 @@ console.log(e);
     this.setState({ doctor_id: e.iD, doctorsPrice: e.price, currency: e.currency, startTime, endTime});
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/web/doc/${e.iD}/`, {
+      .get(`https://healthcarebackend.xyz/api/web/doc/${e.iD}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -122,7 +122,7 @@ console.log(e);
     ) {
       this.setState({ isClicked: true });
       const response = await fetch(
-        "http://healthcarebackend.xyz/api/web/client/initiate/",
+        "https://healthcarebackend.xyz/api/web/client/initiate/",
         {
           method: "POST",
           headers: {
@@ -170,7 +170,7 @@ console.log(e);
   handleClientProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/client/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -183,7 +183,7 @@ console.log(e);
   componentDidMount() {
     this.handleClientProfile();
     axios
-      .get("http://healthcarebackend.xyz/api/specialities/")
+      .get("https://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
         console.log(response, 'spec');
         const res = response.data.data.map((val) => {
@@ -192,7 +192,7 @@ console.log(e);
         this.setState({ specialities: res });
       });
     axios
-      .get("http://healthcarebackend.xyz/api/doctor/list/")
+      .get("https://healthcarebackend.xyz/api/doctor/list/")
       .then((response) => {
         console.log(response);
         const res = response.data.data.map((val) => {

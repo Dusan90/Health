@@ -79,7 +79,7 @@ class ExamForm extends Component {
     ) {
       // this.setState({ isClicked: true });
       const response = await fetch(
-        "http://healthcarebackend.xyz/api/client/initiate/",
+        "https://healthcarebackend.xyz/api/client/initiate/",
         {
           method: "POST",
           headers: {
@@ -115,7 +115,7 @@ class ExamForm extends Component {
 
   componentDidMount() {
     axios
-      .get("http://healthcarebackend.xyz/api/specialities/")
+      .get("https://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
         console.log(response, "examform");
 
@@ -125,7 +125,7 @@ class ExamForm extends Component {
         this.setState({ specialities: res });
       });
     axios
-      .get("http://healthcarebackend.xyz/api/doctor/list/")
+      .get("https://healthcarebackend.xyz/api/doctor/list/")
       .then((response) => {
         console.log(response, "examform2");
         if (response.data.data) {

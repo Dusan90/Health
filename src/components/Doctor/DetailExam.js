@@ -109,13 +109,13 @@ return (
                   </p>
                   <p>
                     <span>
-                      {moment(exam.appointed_date).format("MM/DD/YYY")}
+                      {moment(exam.appointed_date).format("MM/DD/YYYY")}
                     </span>{" "}
                     {moment(exam.appointed_date).format(" HH:mm")}
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <textarea defaultValue= {exam.message} readOnly>
+                  <textarea defaultValue= {exam.message} id='messageMainText' readOnly>
                    
                   </textarea>
                 </div>

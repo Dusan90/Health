@@ -62,7 +62,7 @@ const WaitingRoom = ({
       // marginLeft: "2px",
       background: "white",
       color: "#666666",
-      fontWeight: "600",
+      fontWeight: "500",
     }),
     option: (provided, state) => ({
       ...provided,
@@ -73,8 +73,8 @@ const WaitingRoom = ({
           : state.data.status === "Offline" && "red",
     }),
     placeholder: () => ({
-      fontWeight: '550',
-      color: 'black'
+      fontWeight: '500',
+      color: '#666666'
     })
   };
   const customS = {
@@ -87,11 +87,11 @@ const WaitingRoom = ({
       // marginLeft: "2px",
       background: "white",
       color: "#666666",
-      fontWeight: "600",
+      fontWeight: "500",
     }),
     placeholder: () => ({
-      fontWeight: '550',
-      color: 'black'
+      fontWeight: '500',
+      color: '#666666'
     })
   };
   return (
@@ -148,7 +148,7 @@ const WaitingRoom = ({
             type="text"
             className="form-control"
             id="subject"
-            maxLength='25'
+            maxLength='35'
             placeholder="Enter subject"
             value={
               props.currentClient ? props.currentClient.subject : props.subject

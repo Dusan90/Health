@@ -47,7 +47,7 @@ class CheckoutForm extends Component {
   //     NotificationManager.error("Faild to Checkout", "Faild!", 2000);
   //   } else if (paymentMethod !== undefined) {
   //     const response = await fetch(
-  //       "http://healthcarebackend.xyz/api/charge/",
+  //       "https://healthcarebackend.xyz/api/charge/",
   //       {
   //         method: "POST",
   //         headers: {
@@ -88,13 +88,14 @@ class CheckoutForm extends Component {
       this.state.cardExpiry &&
       this.state.cardCvc
     ) {
-      if (this.props.location.state.price === "None" || this.props.location.state.price === "0") {
-        NotificationManager.error(
-          "Doctor did not set his price",
-          "Faild",
-          3000
-        );
-      } else {
+      // if (this.props.location.state.price === "None" || this.props.location.state.price === "0") {
+      //   NotificationManager.error(
+      //     "Doctor did not set his price",
+      //     "Faild",
+      //     3000
+      //   );
+      // }
+      //  else {
         const result = await this.props.stripe.createPaymentMethod("card", {});
         console.log(result.paymentMethod);
         // await this.props.stripe.createToken().then((payload) => {
@@ -102,7 +103,7 @@ class CheckoutForm extends Component {
         //   this.setState({ token: payload.token });
         // });
         const response = await fetch(
-          "http://healthcarebackend.xyz/api/charge/",
+          "httpss://healthcarebackend.xyz/api/charge/",
           {
             method: "POST",
             headers: {
@@ -131,7 +132,7 @@ class CheckoutForm extends Component {
           NotificationManager.error("Faild to Checkout", "Faild!", 2000);
           console.log("Stripe.js hasn't loaded yet.");
         }
-      }
+      // }
     }
   };
 
@@ -153,7 +154,7 @@ class CheckoutForm extends Component {
         // The card action has been handled
         // The PaymentIntent can be confirmed again on the server
         const serverResponse = await fetch(
-          "http://healthcarebackend.xyz/api/pay",
+          "https://healthcarebackend.xyz/api/pay",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

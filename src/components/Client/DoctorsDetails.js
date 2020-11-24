@@ -38,7 +38,7 @@ function DoctorsDetails({handleClient, doctor, handleSort, props}) {
           <p><span>E-mail: </span>{doctor.email}</p>
                 </div>
                 <div className='imageDiv'>
-                {doctor.image !== "/media/default.jpg" ? <img src={`http://healthcarebackend.xyz${doctor.image}`} alt="pic"/> : <p>+</p>}
+                {doctor.image !== "/media/default.jpg" ? <img src={`https://healthcarebackend.xyz${doctor.image}`} alt="pic"/> : <p>+</p>}
                 </div>
             </div>
             <div className='BiographyDiv'>

@@ -23,7 +23,7 @@ export class DoctorsVideoList extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/exams/doctor/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/doctor/`, {
         headers: { Authorization: access_token },
       })
       .then((res) => {

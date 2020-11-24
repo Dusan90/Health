@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "../../assets/main/navbar.scss";
 import { NotificationManager } from "react-notifications";
 import doctorOnline from "../../icons/icon_my_profile_doctor_on-line_46px.svg";
@@ -19,6 +19,8 @@ const Nav = ({
   selectValue,
 }) => {
   const [curentDoc, setcurentDoc] = useState({});
+  const [nameF, setnameF] = useState({});
+  const [nameL, setnameL] = useState({});
   const handleSubmit = async (e) => {
     let { value } = e.target;
     const access_token = "Bearer ".concat(
@@ -37,7 +39,7 @@ form_data.append("image", '');
 form_data.append("status", value);
 
 
-let url = 'http://healthcarebackend.xyz/api/doctor/profile/';
+let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
 
 const data = axios.put(url, form_data, {
   headers: {
@@ -55,7 +57,7 @@ const data = axios.put(url, form_data, {
       handleDoctorProfile();
     }
     // const data = await fetch(
-    //   `http://healthcarebackend.xyz/api/doctor/profile/`,
+    //   `https://healthcarebackend.xyz/api/doctor/profile/`,
     //   {
     //     method: "PUT",
     //     headers: {
@@ -86,6 +88,8 @@ const data = axios.put(url, form_data, {
   useEffect(() => {
     if (sessionStorage.getItem("is_doctor") === "true") {
       handleDoctorProfile();
+    }else if(sessionStorage.getItem('is_doctor') === 'false'){
+      handleClientProfile()
     }
   }, []);
   const handleDoctorProfile = async () => {
@@ -93,19 +97,41 @@ const data = axios.put(url, form_data, {
       sessionStorage.getItem("accessToken")
     );
     axios
-      .get(`http://healthcarebackend.xyz/api/doctor/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        return setcurentDoc(response.data.data);
+        return setcurentDoc(response.data.data),
+        setnameF(response.data.data.user.first_name),
+        setnameL(response.data.data.user.last_name)
       });
   };
+  const handleClientProfile = async () => {
+    const access_token = "Bearer ".concat(
+      sessionStorage.getItem("accessToken")
+    );
+    axios
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        return setcurentDoc(response.data.data),
+        setnameF(response.data.data.user.first_name),
+        setnameL(response.data.data.user.last_name)
+      });
+  };
+
+  const handleClickImage = (e) => {
+      window.open(e.target.src)
+    
+  }
   let curDoc = null;
   let selectStatus = null;
   const isDoctor = sessionStorage.getItem("is_doctor");
   if (isDoctor === "true") {
-    if(doctor){
-      let doctorsName = `${doctor.prefix} ${doctor.user.first_name} ${doctor.user.last_name}`
+    console.log(curentDoc);
+    if(Object.keys(curentDoc).length !== 0){
+      let doctorsName = `${curentDoc.prefix} ${nameF} ${nameL}`
       curDoc = (
         <div className="topProfile">
           <p>
@@ -119,7 +145,7 @@ const data = axios.put(url, form_data, {
               ) : (
                 <img src={doctorOffline} alt="offline doctor" />
               ) :
-              <img style={{ width: '50px',  objectFit: 'cover'}} src={`http://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
+              <img onClick={ (e) => handleClickImage(e)} style={{ width: '50px',  objectFit: 'cover'}} src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
               }
               
             </div>
@@ -148,16 +174,26 @@ const data = axios.put(url, form_data, {
       </select>
     );
   } else {
-    if(doctor){
+    if(Object.keys(curentDoc).length !== 0){
       // if(isDoctor === "true"){
-      console.log(doctor);
+      console.log(curentDoc);
       // }
       curDoc = (
         <div className="topProfile">
-          <p>{isDoctor === "false" && doctor[0].first_name} { isDoctor === "false" && doctor[0].last_name}</p>
+          <p>{`${isDoctor === "false" && nameF} ${ isDoctor === "false" && nameL}`}</p>
           <div className="mainProfile">
             <div className="profile">
+
+
+              {curentDoc.image === "/media/default.jpg" ?
               <img src={clientOnline} alt="online doctor" />
+                :
+              <img onClick={ (e) => handleClickImage(e)}  style={{ width: '50px',  objectFit: 'cover'}} src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
+              }
+
+
+
+
             </div>
           </div>
         </div>

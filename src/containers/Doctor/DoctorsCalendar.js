@@ -41,7 +41,7 @@ export class DoctorsCalendar extends Component {
   peopleVideoPending = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     await axios
-      .get(`http://healthcarebackend.xyz/api/exams/doctor/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/doctor/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -82,7 +82,7 @@ export class DoctorsCalendar extends Component {
         <HamburgerDiv/>
         <div
           style={{
-            width: "65%",
+            width: "85%",
             margin: "100px auto 58px auto",
           }}
         >

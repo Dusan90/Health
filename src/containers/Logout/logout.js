@@ -32,7 +32,7 @@ class Logout extends Component {
       sessionStorage.getItem("accessToken")
     );
     const data = await fetch(
-      `http://healthcarebackend.xyz/api/doctor/profile/`,
+      `https://healthcarebackend.xyz/api/doctor/profile/`,
       {
         method: "PUT",
         headers: {

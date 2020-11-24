@@ -50,7 +50,7 @@ export class DoctorsClients extends Component {
     const access_token = "Bearer ".concat(this.state.token);
 
     axios
-      .get("http://healthcarebackend.xyz/api/doctor/clients/", {
+      .get("https://healthcarebackend.xyz/api/doctor/clients/", {
         headers: { Authorization: access_token },
       })
       .then((response) => {

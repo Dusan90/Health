@@ -130,5 +130,5 @@ class PaypalButton extends React.Component {
 }
 
 export default scriptLoader(
-  `http://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=EUR`
+  `https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=EUR`
 )(PaypalButton);

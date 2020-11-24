@@ -10,10 +10,10 @@ import { NotificationManager } from "react-notifications";
 import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 const doctorStatusSocket = new WebSocket(
-  "ws://healthcarebackend.xyz/ws/doctor/status/"
+  "wss://healthcarebackend.xyz/wss/doctor/status/"
 );
 
-const connection = new WebSocket("ws://healthcarebackend.xyz/ws/video/");
+const connection = new WebSocket("wss://healthcarebackend.xyz/wss/video/");
 
 class ClientWaitingRoom extends Component {
   _isMounted = false;
@@ -130,7 +130,7 @@ class ClientWaitingRoom extends Component {
   handleExitQueue = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     let clientCancel = await fetch(
-      `http://healthcarebackend.xyz/api/queue/client/delete/${this.state.currentClient.id}/`,
+      `https://healthcarebackend.xyz/api/queue/client/delete/${this.state.currentClient.id}/`,
       {
         method: "PUT",
         headers: {
@@ -160,7 +160,7 @@ class ClientWaitingRoom extends Component {
   hanldeClientQueue = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/queue/client/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/client/${id}/`, {
         headers: { Authorization: access_token },
       })
 
@@ -216,7 +216,7 @@ class ClientWaitingRoom extends Component {
     ) {
       this.setState({ isClicked: true });
       const response = await fetch(
-        "http://healthcarebackend.xyz/api/queue/enter/",
+        "https://healthcarebackend.xyz/api/queue/enter/",
         {
           method: "POST",
           headers: {
@@ -269,7 +269,7 @@ class ClientWaitingRoom extends Component {
   handleClientProfile = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/client/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -282,7 +282,7 @@ class ClientWaitingRoom extends Component {
   QueueList = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/queue/doctor/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/doctor/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -401,7 +401,7 @@ class ClientWaitingRoom extends Component {
 
   specialitiesOfDoctors = () => {
     axios
-      .get("http://healthcarebackend.xyz/api/specialities/")
+      .get("https://healthcarebackend.xyz/api/specialities/")
       .then((response) => {
         const res = response.data.data.map((val) => {
           return {
@@ -417,7 +417,7 @@ class ClientWaitingRoom extends Component {
 
   allDoctors = () => {
     axios
-      .get("http://healthcarebackend.xyz/api/doctor/list/")
+      .get("https://healthcarebackend.xyz/api/doctor/list/")
       .then((response) => {
         console.log(response, 'response');
         const res = response.data.data.map((val) => {

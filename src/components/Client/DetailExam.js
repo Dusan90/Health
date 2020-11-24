@@ -104,7 +104,7 @@ const Detail = ({
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <textarea defaultValue={exam.message} readOnly>
+                  <textarea defaultValue={exam.message} id='messageMainText' readOnly>
                      
                   </textarea>
                 </div>

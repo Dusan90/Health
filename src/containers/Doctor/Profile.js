@@ -34,7 +34,9 @@ class DoctorProfile extends Component {
       Biography: '',
       attach: '',
       currentStatus: '',
-      Email: ''
+      Email: '',
+      Organization: '',
+      specialities: []
     };
   }
 
@@ -79,7 +81,7 @@ class DoctorProfile extends Component {
   form_data.append("web_follow_up_currency", this.state.selectVideoFollow);
   
   const access_token = "Bearer ".concat(this.state.token);
-  let url = 'http://healthcarebackend.xyz/api/doctor/profile/';
+  let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
   
   const data = axios.put(url, form_data, {
     headers: {
@@ -95,7 +97,7 @@ class DoctorProfile extends Component {
       console.log(jsonData, "profile changed");
       if(jsonData.data.success){
         NotificationManager.success("Profile Updated!", "Successful!", 2000);
-        this.handleDoctorProfile();
+        // this.handleDoctorProfile();
         window.location.reload()
       }
 
@@ -105,7 +107,7 @@ class DoctorProfile extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/doctor/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -132,11 +134,33 @@ class DoctorProfile extends Component {
 
   componentDidMount() {
     this.handleDoctorProfile();
+    axios
+    .get("https://healthcarebackend.xyz/api/specialities/")
+    .then((response) => {
+      console.log(response, "examform");
+
+      const res = response.data.data.map((val) => {
+        return { value: val.id, iD: val.speciality_id, label: val.name };
+      });
+      this.setState({ specialities: res });
+    });
   }
+
+  handleSpeciality = (e) => {
+    console.log(e);
+    this.setState({
+      specialSP: e.value,
+      resetDoctorSelect: null,
+    });
+  };
 
   handleChange = (e) =>{
     this.setState({[e.target.id]: e.target.value})
   } 
+
+  handleChangeBiography = (e) =>{
+    this.setState({Biography: e.target.innerHTML})
+  }
 
   addAttach= (e) =>{
     this.setState({attach: e.target.files[0]})
@@ -145,6 +169,7 @@ class DoctorProfile extends Component {
   }
 
   render() {
+    console.log(this.state.EmailVisit);
     return (
       <>
         <div className="header">
@@ -164,6 +189,8 @@ class DoctorProfile extends Component {
           props={this.state}
           handleChange={this.handleChange}
           addAttach={this.addAttach}
+          handleSpeciality={this.handleSpeciality}
+          handleChangeBiography= {this.handleChangeBiography}
         />
       </>
     );

@@ -65,7 +65,7 @@ class DoctorDashboard extends Component {
   pnd = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/doctor/exams/req/`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/exams/req/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -196,7 +196,7 @@ class DoctorDashboard extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/exams/doctor/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/doctor/`, {
         headers: { Authorization: access_token },
       })
       .then((res) => {
@@ -305,7 +305,7 @@ class DoctorDashboard extends Component {
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/doctor/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -323,7 +323,7 @@ class DoctorDashboard extends Component {
   peopleInWaitingRoom = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/queue/today/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/today/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -357,7 +357,7 @@ class DoctorDashboard extends Component {
   changeStatusOfPastExams = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `http://healthcarebackend.xyz/api/queue/detail/${id}/`,
+      `https://healthcarebackend.xyz/api/queue/detail/${id}/`,
       {
         method: "PUT",
         headers: {
@@ -397,7 +397,7 @@ class DoctorDashboard extends Component {
 
   connecSocket = (id) => {
     const webs = new WebSocket(
-      `ws://healthcarebackend.xyz/ws/dashboard/doctor/${id}/`
+      `wss://healthcarebackend.xyz/wss/dashboard/doctor/${id}/`
     );
 
     webs.onopen = () => {
@@ -423,7 +423,7 @@ class DoctorDashboard extends Component {
   getUnreadMessages = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {

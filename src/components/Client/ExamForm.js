@@ -32,11 +32,11 @@ const InitiateExam = ({
       // marginLeft: "2px",
       background: "white",
       color: "#666666",
-      fontWeight: "600",
+      fontWeight: "500",
     }),
     placeholder: () =>({
-      color: 'black',
-      fontWeight: '550'
+      color: '#666666',
+      fontWeight: '500'
     })
   };
   return (
@@ -73,7 +73,7 @@ const InitiateExam = ({
             type="text"
             className="form-control"
             id="subject"
-            maxLength='25'
+            maxLength='35'
             placeholder="Enter subject"
             value={subject}
             onChange={handleSubject}

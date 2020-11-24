@@ -15,11 +15,14 @@
         .profile {
           img {
             margin: 2px 0 0 0;
+            &:hover {
+              cursor: pointer;
+            }
           }
         }
       }
       p {
-        margin: 13px 20px 13px 40px;
+        margin: 13px 10px 13px 40px;
         color: #666666;
         font-weight: 500;
         // align-self: center;

@@ -21,7 +21,7 @@ class ClientDetailExam extends Component {
       client: ''
     };
     this.socket = new WebSocket(
-      `ws://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
+      `wss://healthcarebackend.xyz/wss/message/${this.props.match.params.id}/`
     );
   }
 
@@ -36,7 +36,7 @@ class ClientDetailExam extends Component {
   handleCancel = async (value) => {
     const access_token = "Bearer ".concat(this.state.token);
     const doctor = await fetch(
-      `http://healthcarebackend.xyz/api/client/exams/${this.state.id}/`,
+      `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/`,
       {
         method: "PUT",
         headers: {
@@ -58,13 +58,21 @@ class ClientDetailExam extends Component {
   detail = () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/client/exams/${this.state.id}/`, {
+      .get(`https://healthcarebackend.xyz/api/client/exams/${this.state.id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
         console.log(response, "detailex");
 
         this.setState({ exam: this.state.exam.concat(response.data.data), doctor: response.data.data.doctor });
+        let mess = document.getElementById('messageMainText')
+        let messageDiv = document.querySelector('.messageDiv')
+
+        console.log(mess);
+        if(mess.clientHeight < mess.scrollHeight){
+          mess.style.height = '280px'
+          messageDiv.style.height = '300px'
+        }
       })
       .catch((err) => {
         console.log(err.response);
@@ -95,7 +103,7 @@ class ClientDetailExam extends Component {
     const access_token = "Bearer ".concat(this.state.token);
 
     axios
-      .get(`http://healthcarebackend.xyz/api/client/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -135,7 +143,7 @@ class ClientDetailExam extends Component {
   sendMessage = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `http://healthcarebackend.xyz/api/client/exams/${this.state.id}/message/`,
+      `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/message/`,
       {
         method: "POST",
         headers: {
@@ -167,7 +175,7 @@ class ClientDetailExam extends Component {
   correspondence = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/client/exams/${id}/messages/`, {
+      .get(`https://healthcarebackend.xyz/api/client/exams/${id}/messages/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -194,7 +202,7 @@ class ClientDetailExam extends Component {
 
             let imageDiv1 = document.createElement("div");
             imageDiv1.id = "imageDiv1";
-            imageDiv1.onclick = function() { ex.style.height = '300px' };
+            imageDiv1.onclick = function() { ex.clientHeight === 300 ? ex.style.height = '100px' : ex.style.height = '300px' };
             let parentOfElement = ex.parentElement.previousSibling
             parentOfElement.insertBefore(imageDiv1, parentOfElement.firstChild);
 

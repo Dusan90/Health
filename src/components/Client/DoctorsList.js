@@ -20,8 +20,8 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleS
       fontWeight: "600",
     }),
     placeholder: () =>({
-      color: 'black',
-      fontWeight: '550'
+      color: '#666666',
+      fontWeight: '500'
     })
   };
   const filteredorNot = props.filteredBySpec.length === 0 ? props.doctors : props.filteredBySpec
@@ -85,7 +85,7 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleS
                 onClick={() => handleClient(doctor.iD)}
               >
                 {doctor.label}
-                <img src={doctor.image === "/media/default.jpg" ? doctorImg : `http://healthcarebackend.xyz${doctor.image}`} alt="cliet profile" />
+                <img src={doctor.image === "/media/default.jpg" ? doctorImg : `https://healthcarebackend.xyz${doctor.image}`} alt="cliet profile" />
               </button>
             </div>
           );

@@ -285,8 +285,10 @@
           }
         }
         .created {
+          margin: 0 auto;
+          padding: 0 0 0 50px;
           p {
-            margin: 0;
+            margin: 0 auto;
           }
         }
       }
@@ -412,6 +414,7 @@
             display: flex;
             // width: 170px;
             // float: right;
+            padding: 0 0 0 50px;
             margin: 0;
             justify-content: flex-start;
             align-items: center;

@@ -41,7 +41,7 @@ form_data.append("image", this.state.attach);
 form_data.append("user.phone", this.state.PhoneNum);
 
 const access_token = "Bearer ".concat(this.state.token);
-let url = 'http://healthcarebackend.xyz/api/client/profile/';
+let url = 'https://healthcarebackend.xyz/api/client/profile/';
 
 const data = axios.put(url, form_data, {
   headers: {
@@ -56,12 +56,12 @@ const data = axios.put(url, form_data, {
     console.log(jsonData, "profile changed");
     if(jsonData.data.success){
       NotificationManager.success("Profile Updated!", "Successful!", 2000);
-      this.handleClientProfile();
+      window.location.reload()
     }
     // e.preventDefault();
     // const access_token = "Bearer ".concat(this.state.token);
     // const data = await fetch(
-    //   "http://healthcarebackend.xyz/api/client/profile/",
+    //   "https://healthcarebackend.xyz/api/client/profile/",
     //   {
     //     method: "PUT",
     //     headers: {
@@ -89,7 +89,7 @@ const data = axios.put(url, form_data, {
   handleClientProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/client/profile/`, {
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -102,7 +102,7 @@ const data = axios.put(url, form_data, {
   // record = async () => {
   //   const access_token = "Bearer ".concat(this.state.token);
   //   axios
-  //     .get(`http://healthcarebackend.xyz/api/client/records/`, {
+  //     .get(`https://healthcarebackend.xyz/api/client/records/`, {
   //       headers: { Authorization: access_token },
   //     })
   //     .then((response) => {
@@ -131,8 +131,13 @@ const data = axios.put(url, form_data, {
     output.src = URL.createObjectURL(e.target.files[0]);
   }
 
+  handleImage = (e) =>{
+    console.log(e.target);
+    window.open(e.target.src)
+  }
+
   render() {
-    console.log(this.state.records);
+    console.log(this.state.attach.name);
     return (
       <>
         <div className="header">
@@ -149,6 +154,7 @@ const data = axios.put(url, form_data, {
           props={this.state}
           handleChange={this.handleChange}
           attachInput={this.attachInput}
+          handleImage={this.handleImage}
         />
       </>
     );

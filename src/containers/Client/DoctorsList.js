@@ -53,7 +53,7 @@ export class DoctorsList extends Component {
       //   const access_token = "Bearer ".concat(this.state.token);
     
       //   axios
-      //     .get("http://healthcarebackend.xyz/api/doctor/list/", {
+      //     .get("https://healthcarebackend.xyz/api/doctor/list/", {
       //       headers: { Authorization: access_token },
       //     })
       //     .then((response) => {
@@ -70,7 +70,7 @@ export class DoctorsList extends Component {
 
       componentDidMount() {
         axios
-          .get("http://healthcarebackend.xyz/api/specialities/")
+          .get("https://healthcarebackend.xyz/api/specialities/")
           .then((response) => {
             console.log(response, "examform");
     
@@ -80,7 +80,7 @@ export class DoctorsList extends Component {
             this.setState({ specialities: res });
           });
           axios
-          .get("http://healthcarebackend.xyz/api/doctor/list/")
+          .get("https://healthcarebackend.xyz/api/doctor/list/")
           .then((response) => {
             console.log(response, "examform2");
             if (response.data.data) {

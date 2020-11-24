@@ -25,7 +25,7 @@ export class forgotPass extends Component {
   };
 
   userCheck = async () => {
-    const data = await fetch("http://healthcarebackend.xyz/api/auth/reset/", {
+    const data = await fetch("https://healthcarebackend.xyz/api/auth/reset/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

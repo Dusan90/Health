@@ -358,6 +358,13 @@
 
             text-overflow: ellipsis !important;
           }
+          .created {
+            margin: 0 auto;
+            padding: 0 0 0 50px;
+            p {
+              margin: 0 auto;
+            }
+          }
         }
       }
       .client-head {
@@ -478,6 +485,8 @@
           .client-date {
             // text-align: left;
             width: 150px;
+            padding: 0 0 0 50px;
+
             // text-align: center;
             display: flex;
             // width: 170px;

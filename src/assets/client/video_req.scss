@@ -75,7 +75,7 @@
         resize: none;
 
         ::placeholder {
-          font-weight: 700;
+          font-weight: 500;
           color: #969696;
         }
         &::-webkit-scrollbar {
@@ -360,4 +360,5 @@
 
 #subject {
   height: 38px;
+  font-weight: 500;
 }

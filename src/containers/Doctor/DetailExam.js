@@ -21,7 +21,7 @@ class DetailExam extends Component {
       doctor: '',
     };
     this.socket = new WebSocket(
-      `ws://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
+      `wss://healthcarebackend.xyz/wss/message/${this.props.match.params.id}/`
     );
   }
 
@@ -34,12 +34,19 @@ class DetailExam extends Component {
   detail = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/doctor/exams/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/exams/${id}/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
         console.log(response, 'current');
         this.setState({ exam: this.state.exam.concat(response.data.data), doctor: response.data.data.doctor });
+        let mess = document.getElementById('messageMainText')
+        let messageDiv = document.querySelector('.messageDiv')
+        console.log(mess);
+        if(mess.clientHeight < mess.scrollHeight){
+          mess.style.height = '280px'
+          messageDiv.style.height = '300px'
+        }
       });
   };
 
@@ -73,7 +80,7 @@ class DetailExam extends Component {
     console.log(id, value);
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `http://healthcarebackend.xyz/api/doctor/exams/${id}/`,
+      `https://healthcarebackend.xyz/api/doctor/exams/${id}/`,
       {
         method: "PUT",
         headers: {
@@ -129,7 +136,7 @@ class DetailExam extends Component {
     // const data = new FormData()
     // data.append('file', this.state.selectedFile, this.state.selectedFile.name)
     const client = await fetch(
-      `http://healthcarebackend.xyz/api/doctor/exams/${this.state.id}/message/`,
+      `https://healthcarebackend.xyz/api/doctor/exams/${this.state.id}/message/`,
       {
         method: "POST",
         headers: {
@@ -159,7 +166,7 @@ class DetailExam extends Component {
   correspondence = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`http://healthcarebackend.xyz/api/doctor/exams/${id}/messages/`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/exams/${id}/messages/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -184,18 +191,22 @@ class DetailExam extends Component {
         let textar = [...document.querySelectorAll('.message')]
         textar.map(ex =>{
           if (ex.clientHeight < ex.scrollHeight){
-
+            console.log(ex);
             let imageDiv = document.createElement("div");
             imageDiv.id = "imageDiv";
-            imageDiv.onclick = function() { ex.style.height = '300px' };
+            imageDiv.onclick = function() { ex.clientHeight === 300 ? ex.style.height = '100px' : ex.style.height = '300px' };
             let parentOfElement = ex.parentElement.previousSibling
-            parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
+            // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
+            console.log(parentOfElement);
+            parentOfElement.appendChild(imageDiv)
 
           }
         })
+    
       })
       .catch((error) => {
         console.log(error.response);
+      
       });
   };
 

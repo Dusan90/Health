@@ -23,7 +23,7 @@ const handlerName = mediasoupClient.detectDevice();
 if (handlerName) {
   console.log("detected handler: %s", handlerName);
 } else {
-  console.warn("no suitable handler found for current browser/device");
+  console.warn("no suitable handler found for current browsser/device");
 }
 
 const Container = styled.div`
@@ -66,7 +66,7 @@ const Room = (props) => {
   const roomID = props.match.params.roomID;
 
   useEffect(() => {
-    socketRef.current = io.connect("ws://localhost:3000");
+    socketRef.current = io.connect("wss://localhost:3000");
     navigator.mediaDevices
       .getUserMedia({ video: videoConstraints, audio: true })
       .then((stream) => {

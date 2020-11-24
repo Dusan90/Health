@@ -15,7 +15,7 @@
 
 //   getResponse = () => {
 //     axios
-//       .get(`http://healthcarebackend.xyz/api/auth/activate/${this.state.id}`, {
+//       .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`, {
 //         headers: {
 //           "Content-Type": "application/json",
 //         },
@@ -110,7 +110,7 @@ export class activate extends Component {
 
     getResponse = () => {
     axios
-      .get(`http://healthcarebackend.xyz/api/auth/activate/${this.state.id}`, {
+      .get(`https://healthcarebackend.xyz/api/auth/activate/${this.state.id}`, {
         headers: {
           "Content-Type": "application/json",
         },

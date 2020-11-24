@@ -37,7 +37,7 @@ const VideoReq = ({
       width: "100%",
       background: "white",
       color: "#666666",
-      fontWeight: "600",
+      fontWeight: "500",
     }),
     menu: (provided, state) => ({
       position: 'absolute',
@@ -50,8 +50,8 @@ const VideoReq = ({
     }),
 
     placeholder: () =>({
-      fontWeight: '550',
-      color: 'black'
+      fontWeight: '500',
+      color: '#666666'
     })
   };
 
@@ -96,7 +96,7 @@ const VideoReq = ({
             className="form-control"
             id="subject"
             placeholder="Enter subject"
-            maxLength='25'
+            maxLength='35'
             value={props.subject}
             onChange={handleSubject}
           />

@@ -10,7 +10,8 @@ const Profile = ({
   handleGenderRadio,
   props,
   attachInput,
-  handleChange
+  handleChange,
+  handleImage
 }) => (
   <>
     {client &&
@@ -25,17 +26,33 @@ const Profile = ({
             <div className="client">
               <div className="client-p">
                 <label htmlFor="firstName">First Name</label>
-                <input placeholder={client.user.first_name} id='FirstName' onChange={handleChange} type="text"/>
+                <input 
+                  onFocus={ (e) => {e.target.value = client.user.first_name}}
+                  onBlur={ (e) => {e.target.value = ''}}
+                placeholder={client.user.first_name} id='FirstName' onChange={handleChange} type="text"/>
                 <label htmlFor="lastName">Last Name</label>
-                <input placeholder={client.user.last_name} id='LastName' onChange={handleChange} type="text"/>
+                <input
+                 onFocus={ (e) => {e.target.value = client.user.last_name}}
+                 onBlur={ (e) => {e.target.value = ''}}
+                placeholder={client.user.last_name} id='LastName' onChange={handleChange} type="text"/>
                 <label htmlFor="address">Address</label>
-                <input placeholder={client.address} onChange={handleChange} id='Address' type="text"/>
+                <input 
+                 onFocus={ (e) => {e.target.value = client.address}}
+                 onBlur={ (e) => {e.target.value = ''}}
+                placeholder={client.address} onChange={handleChange} id='Address' type="text"/>
                 <label htmlFor="address">E-mail</label>
                 <input placeholder={client.user.email} disabled={true} onChange={handleChange} id='Email' type="text"/>
                 <label htmlFor="Phone">Phone number</label>
-                <input placeholder={client.user.phone ? client.user.phone : '11 22 33 44'} onChange={handleChange} id='PhoneNum' type="number"/>
+                <input
+                  onFocus={ (e) => {e.target.value = client.user.phone}}
+                  onBlur={ (e) => {e.target.value = ''}}
+                  autoComplete='nope'
+                placeholder={client.user.phone ? client.user.phone : '11 22 33 44'} onChange={handleChange} id='PhoneNum' type="number"/>
                 <label htmlFor="birth">Date of birth</label>
-                <input placeholder={client.birth_date} onChange={handleChange} id='BirthDate' type="text"/>
+                <input
+                 onFocus={ (e) => {e.target.value = client.birth_date}}
+                 onBlur={ (e) => {e.target.value = ''}}
+                placeholder={client.birth_date} onChange={handleChange} id='BirthDate' type="text"/>
                
                 <button 
                   onClick={handleSubmit}
@@ -47,6 +64,8 @@ const Profile = ({
                 Chronical conditions:{" "}
                 <textarea
                   type="text"
+                  onFocus={ (e) => {e.target.defaultValue = client.chronical_conditions}}
+                  onBlur={ (e) => {e.target.defaultValue = ''}}
                   className="address-input"
                   placeholder={client.chronical_conditions}
                   onChange={handleChange} id='ChronicalConditions'
@@ -57,6 +76,8 @@ const Profile = ({
                 <textarea
                 style={{height: !client.image ? '178px' : '138px'}}
                   type="text"
+                  onFocus={ (e) => {e.target.defaultValue = client.allergies}}
+                  onBlur={ (e) => {e.target.defaultValue = ''}}
                   className="address-input"
                   placeholder={client.allergies}
                   onChange={handleChange} id='Allergies'
@@ -70,17 +91,18 @@ const Profile = ({
                 <label htmlFor="Female">Female</label>
                 </div>
                 <div className='profilePic'>
-                  <p>Picture</p>
               <div className="upload-btn-wrapper">
-            <button className="btn">
-            {client.image !== "/media/default.jpg" ?
-              <img className='docImage' src={ `http://healthcarebackend.xyz${client.image}`} alt='#' /> :
+            {/* <button className="btn"> */}
+                {client.image !== "/media/default.jpg" ? <li href='#'>Remove picture</li> : <li href='#'>Add picture</li>}
+            {/* {client.image !== "/media/default.jpg" ?
+              <img className='docImage' src={ `https://healthcarebackend.xyz${client.image}`} alt='#' /> :
               <p>+</p>
-              }
-            </button>
+              } */}
+            {/* </button> */}
             <input type="file" name="myfile" onChange={attachInput} />
           </div>
-                {/* <img className='cliImage' src={client.image !== "/media/default.jpg" ? `http://healthcarebackend.xyz${client.image}` : clientIcon} alt='#' /> */}
+          <img className='cliImage' onClick={(e) => handleImage(e)} src={client.image !== "/media/default.jpg" ? `https://healthcarebackend.xyz${client.image}` : null} alt='#' />
+            
                 
               </div>
                 </div>
