@@ -23,6 +23,25 @@
   width: 65%;
   margin: 0 auto;
 
+  .loading {
+    animation: rotation 2s infinite linear;
+    width: 70px !important;
+    position: absolute;
+    top: 45%;
+    left: 48%;
+    transform: translate(-45%, -48%);
+    z-index: 20;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
   .payWay {
     color: #00aff0;
     width: 65%;

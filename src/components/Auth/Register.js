@@ -3,6 +3,8 @@ import Select from "react-select";
 import "../../assets/auth/register.scss";
 import seen from '../../icons/password-seen.svg'
 import hidden from '../../icons/password-hidden.svg'
+import Loading from "../../icons/c+.svg";
+
 
 const RegisterUser = ({
   userType,
@@ -39,6 +41,12 @@ const RegisterUser = ({
   };
   return (
     <div className="mainRegisterDiv">
+        {  props.loading && <img
+src={Loading}
+className="loading"
+alt="loading..."
+style={{ width: "150px" }}
+/>}
       <div className="radioDiv">
         <h1 className="head">Are you a doctor or a client?</h1>
         <div className="checkingInputs">

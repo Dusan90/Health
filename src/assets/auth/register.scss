@@ -18,6 +18,25 @@
   padding: 0 70px;
   border-radius: 15px;
   color: #666666;
+
+  .loading {
+    animation: rotation 2s infinite linear;
+    width: 70px !important;
+    position: absolute;
+    top: 45%;
+    left: 48%;
+    transform: translate(-45%, -48%);
+    z-index: 20;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
   .radioDiv {
     width: 100% !important;
     h1 {

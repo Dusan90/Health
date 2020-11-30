@@ -38,6 +38,7 @@ const DetailVideo = ({
   // enableTipeing,
   declineReason,
   saveReason,
+  report,
   handleJoinRoom
 }) => {
   // let disabled = props.clientsVideoId === "null" ? true : false;
@@ -188,6 +189,19 @@ const DetailVideo = ({
                       <button style={{display:  exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
                 </div>
                 </div>
+
+                <div className='reportIfFinished' style={{display: exam.status === 'Finished' ? 'block' : 'none' &&  props.selectedStatus !== 'Finish' ? 'none' : 'block'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Report:</span>
+                  </p>
+                </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.status === 'Finished' && true} placeholder={exam.report ? exam.report : 'text'} value={props.report} onChange={report} id="textarea"></textarea>
+                      <button style={{display:  exam.status === 'Finished' && 'none'}} onClick={saveReason}>Save</button>
+                </div>
+                </div>
+
               </div>
             </div>
           </Fragment>

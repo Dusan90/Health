@@ -13,11 +13,11 @@ const Header =
         const history = useHistory();
         const location = useLocation();
 
-        useEffect(() => {
-          if (location.pathname === "/client/waiting-room") {
-            props.popUpFalse();
-          }
-        }, []);
+        // useEffect(() => {
+        //   if (location.pathname === "/client/waiting-room") {
+        //     props.popUpFalse();
+        //   }
+        // }, []);
 
         useEffect(() => {
           if (props.popUp) {
@@ -62,7 +62,7 @@ const Header =
                       Connect
                     </button>
                     <button
-                      style={{ background: "lightcoral" }}
+                      style={{ background: "darkgray" }}
                       onClick={() => {
                         history.push({
                           pathname: "/client/waiting-room",
@@ -75,7 +75,7 @@ const Header =
                   </div>
                 </div>
               </Fragment>
-            )}
+             )} 
           </Fragment>
         );
       }

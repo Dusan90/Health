@@ -6,6 +6,7 @@ import Nav from "../../components/Main/Navbar";
 import axios from "axios";
 import { NotificationManager } from "react-notifications";
 
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +29,7 @@ class Register extends Component {
       organization: '',
       seePass1: false,
       seePass2: false,
+      loading: false
     };
   }
 
@@ -108,6 +110,7 @@ class Register extends Component {
       this.state.confPasswordValue 
     ) {
       this.userRegister();
+      this.setState({loading: true})
     } else if (
       this.state.userType === "doctor" &&
       this.state.emailValue &&
@@ -121,6 +124,8 @@ class Register extends Component {
       this.state.selectedSpecValue
     ) {
       this.userRegister();
+      this.setState({loading: true})
+
     } else {
       NotificationManager.error("All Fields Are Required", "Failed!", 2000);
       this.setState({color: 'red'})
@@ -167,6 +172,7 @@ confirm_password: this.state.confPasswordValue,
         
         const jsonData = await client.json();
         console.log(jsonData);
+        jsonData && this.setState({loading: false})
         jsonData.success &&  NotificationManager.success(
           "Registered successfully",
           "Successful!",

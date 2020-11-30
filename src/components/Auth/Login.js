@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import cLogo from "../../icons/c+.svg";
 import seen from '../../icons/password-seen.svg'
 import hidden from '../../icons/password-hidden.svg'
+import Loading from "../../icons/c+.svg";
+
 
 const LoginUser = ({
   emailValue,
@@ -17,9 +19,16 @@ const LoginUser = ({
   rememberMe,
   handleImage1,
   seePass1,
+  props
 }) => {
   return (
     <div className="mainLogin">
+  {  props.loading && <img
+src={Loading}
+className="loading"
+alt="loading..."
+style={{ width: "150px" }}
+/>}
       <img src={cLogo} className="logo" alt="cLogo" />
       <h1>Log in</h1>
       <h5>Not a Cdoctor user yet?</h5>

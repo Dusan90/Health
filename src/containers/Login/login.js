@@ -6,6 +6,9 @@ import Nav from "../../components/Main/Navbar";
 import { userLogin, userLoggedIn } from "../../actions/authActions";
 import { NotificationManager } from "react-notifications";
 
+
+
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +19,8 @@ class Login extends Component {
       is_doctor: false,
       invalid: false,
       rememberMe: false,
-      seePass1: false
+      seePass1: false,
+      loading: false
     };
   }
 
@@ -30,6 +34,7 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({loading: true})
     this.userLogin();
     const { emailValue, rememberMe } = this.state;
     localStorage.setItem("rememberMe", rememberMe);
@@ -50,6 +55,7 @@ class Login extends Component {
 
     const jsonData = await data.json();
     console.log(jsonData);
+    jsonData && this.setState({loading: false})
     if (jsonData.success === false && jsonData.status_code === 400) {
       NotificationManager.error(`${jsonData.error}`, "Failed!", 3000);
     } else if (
@@ -134,6 +140,7 @@ class Login extends Component {
           handleChange={this.handleChange}
           handleChangeRmb={this.handleChangeRmb}
           handleImage1={this.handleImage1}
+          props={this.state}
         />
       </>
     );

@@ -5,6 +5,25 @@
   position: relative;
   border-radius: 15px;
 
+  .loading {
+    animation: rotation 2s infinite linear;
+    width: 70px !important;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    transform: translate(-45%, -45%);
+    z-index: 20;
+  }
+
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
   .logo {
     position: absolute;
     width: 110px;

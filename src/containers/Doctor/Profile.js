@@ -79,6 +79,7 @@ class DoctorProfile extends Component {
   form_data.append("email_currency", this.state.selectEmail);
   form_data.append("web_currency", this.state.selectVideo);
   form_data.append("web_follow_up_currency", this.state.selectVideoFollow);
+  form_data.append("organization", this.state.Organization);
   
   const access_token = "Bearer ".concat(this.state.token);
   let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
@@ -169,7 +170,7 @@ class DoctorProfile extends Component {
   }
 
   render() {
-    console.log(this.state.EmailVisit);
+    console.log(this.state.Organization);
     return (
       <>
         <div className="header">

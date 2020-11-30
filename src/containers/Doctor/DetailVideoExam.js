@@ -29,7 +29,8 @@ class DetailVideoExam extends Component {
       // video: true,
       // audio: true,
       // connectedall: false,
-      declineReason: ""
+      declineReason: "",
+      report: ''
     };
   }
 
@@ -235,7 +236,7 @@ class DetailVideoExam extends Component {
   };
 
   handleSubmit = (value) => {
-    if(value !== 'Decline'){
+    if(value !== 'Decline' && value !== 'Finish'){
       this.doctorExam( value);
     }
   };
@@ -269,7 +270,7 @@ class DetailVideoExam extends Component {
     const jsonData = await client.json();
     console.log(jsonData);
     if (jsonData.success === true) {
-      if (jsonData.data.status !== "Declined") {
+      if (jsonData.data.status !== "Declined" && jsonData.data.status !== "Finished") {
         this.props.history.push("/dashboard-doctor");
       }else{
     
@@ -324,6 +325,11 @@ class DetailVideoExam extends Component {
     this.doctorExam(this.state.selectedStatus)
   }
 
+  report= (e) =>{
+    this.setState({report: e.target.value})
+  }
+
+
   handleJoinRoom = () => {
     // let id = uuid();
     // this.props.history.push(`/room/${this.props.match.params.id}`);
@@ -353,6 +359,7 @@ class DetailVideoExam extends Component {
           // cutVideo={this.cutVideo}
           declineReason={this.declineReason}
           saveReason={this.saveReason}
+          report={this.report}
           handleJoinRoom={this.handleJoinRoom}
            // iconsMouseOut,
   // iconsMouseOver,

@@ -380,6 +380,18 @@ objDiv.scrollTop = objDiv.scrollHeight;
     // let vidToBeChanged = document.querySelector('.vid')
   }
 
+  declineReason = (e)=>{
+    this.setState({declineReason: e.target.value})
+  }
+
+  saveReason = () =>{
+    this.doctorExam(this.state.selectedStatus)
+  }
+
+  report= (e) =>{
+    this.setState({report: e.target.value})
+  }
+
   render() {
     return (
       <>
@@ -407,6 +419,9 @@ objDiv.scrollTop = objDiv.scrollHeight;
           props={this.state}
   showExtendScreenIcon={this.showExtendScreenIcon}
   extendScr={this.extendScr}
+      declineReason={this.declineReason}
+          saveReason={this.saveReason}
+          report={this.report}
 
         />
 

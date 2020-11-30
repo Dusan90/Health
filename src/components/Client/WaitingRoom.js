@@ -237,6 +237,7 @@ const WaitingRoom = ({
             Exit queue
           </button>
         </div>
+        {props.messageIfFinished && <p className='IfFinished'>{props.messageIfFinished}</p>  }
         </div>
       </div>
       <div className='divAndAttach'>
@@ -374,21 +375,21 @@ const WaitingRoom = ({
         <div className="MainIconsDiv">
           <img src={mute}
             className="iconMic"
-          alt="img" style={{ display: !props.audio ? "none" : "block" }}
+          alt="img" style={{ display: props.audio ? "none" : "block" }}
         onClick={cutMic}/>
           <img src={unmute}
            className="iconMicUnmute"
-          alt="img" style={{ display: props.audio ? "none" : "block" }}
+          alt="img" style={{ display: !props.audio ? "none" : "block" }}
         onClick={cutMic}/>
           {/* <img src={call} alt="img" style={{display: 'none' }}/> */}
           <img src={hangup} alt="img" className="iconPhone"/>
           <img src={cameraoff}
           className="iconVideo"
-           alt="img" style={{ display: !props.video ? "none" : "block" }}
+           alt="img" style={{ display: props.video ? "none" : "block" }}
         onClick={cutVideo}/>
           <img src={cameraon} alt="img" 
         className="iconVideoShow"
-        style={{ display: props.video ? "none" : "block" }}
+        style={{ display: !props.video ? "none" : "block" }}
         onClick={cutVideo}/>
           </div>  
         <div className='MainDivForChat'>

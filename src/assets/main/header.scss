@@ -35,7 +35,7 @@
   .duca {
     position: absolute;
     z-index: 11;
-    background: black;
+    background: #f2f2f2;
     bottom: -400px;
     height: 200px;
     width: 50%;
@@ -44,12 +44,14 @@
     display: flex;
     flex-direction: column;
     h1 {
-      color: white;
+      color: #00aff0;
       font-size: 30px;
+      font-weight: bold;
       margin: 0;
     }
     h4 {
-      color: lightcoral;
+      color: #00aff0;
+      font-weight: bold;
     }
     .buttons {
       display: flex;
@@ -60,8 +62,9 @@
         height: 35px;
         border: 1px solid white;
         border-radius: 5px;
+        color: white;
         font-weight: bold;
-        background: lightgreen;
+        background: #00aff0;
       }
     }
   }

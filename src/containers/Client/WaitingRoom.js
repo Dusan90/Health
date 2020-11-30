@@ -54,8 +54,8 @@ class ClientWaitingRoom extends Component {
       notes: "",
       connection: "",
       doctorStartedVideo: false,
-      showExtendScreen: false
-
+      showExtendScreen: false,
+      messageIfFinished: ''
     };
   }
 
@@ -338,7 +338,11 @@ class ClientWaitingRoom extends Component {
           JSON.parse(test.text).status === "Finished" ||
           JSON.parse(test.text).status === "Declined"
         ) {
-          window.location.reload();
+          JSON.parse(test.text).status === "Finished" && this.setState({messageIfFinished: 'Consultation finished'})
+          let realoadPage = setInterval(() => {
+            window.location.reload();
+            clearInterval(realoadPage)
+          }, 5000);
         }
       } else if (
         !this.state.doctorsVideoId &&

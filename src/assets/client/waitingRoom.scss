@@ -112,6 +112,15 @@
       height: 350px;
       width: 35%;
 
+      .IfFinished {
+        color: #666666;
+        margin: 0;
+        font-weight: 700;
+        padding: 15px 15px 0 12px;
+        margin-top: 10px;
+        text-align: start;
+      }
+
       .queueMain {
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
@@ -178,6 +187,7 @@
         border-radius: 10px;
         padding: 10px;
         width: 150px;
+        font-weight: bold;
         transition: all 0.5s ease-in-out;
         outline: none;
         margin-left: 5px;
@@ -201,6 +211,7 @@
         background: white;
         border: 1.7px solid #00aff0;
         border-radius: 10px;
+        font-weight: bold;
         padding: 10px;
         transition: all 0.5s ease-in-out;
         outline: none;

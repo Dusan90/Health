@@ -59,9 +59,12 @@ const DetailQueue = ({ exam }) => {
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <p>
+                <textarea defaultValue={exam.exam.notes} disabled={true}>
+                    
+                    </textarea>
+                  {/* <p>
                     <span>Message:</span> {exam.exam.notes}
-                  </p>
+                  </p> */}
                 </div>
               </div>
               </div>

@@ -25,7 +25,7 @@ const Profile = ({
     control: () => ({
       // none of react-select's styles are passed to <Control />
       width: 100,
-      border: "2px solid #fa9551",
+      border: "1px solid #fa9551",
       borderRadius: "10px",
       height: "40px",
       fontWeight: 500,
@@ -57,7 +57,7 @@ const Profile = ({
     control: () => ({
       // none of react-select's styles are passed to <Control />
       width: '90%',
-      border: "2px solid #fa9551",
+      border: "1px solid #fa9551",
       borderRadius: "10px",
       height: "40px",
       fontWeight: 700,
@@ -177,6 +177,7 @@ const Profile = ({
           </div>
               </div>
               <div contentEditable="true" 
+              suppressContentEditableWarning={true}
                 className="changeDiv"
                 onInput={handleChangeBiography}
                 onFocus={ (e) => {e.target.style.color = '#666666'}}

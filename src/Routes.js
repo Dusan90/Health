@@ -41,6 +41,8 @@ import DoctorsDetails from "./containers/Client/DoctorsDetails";
 import Verification from './VerificationInfo'
 import LogOutQuestion from './LogOutQuestion'
 import Room from './Room'
+import IdleTimerContainer from './components/IdleTimerContainer'
+
 // import NotFound from "./containers/Home/NotFound";
 
 export class Routes extends Component {
@@ -182,7 +184,9 @@ export class Routes extends Component {
         {/* <Route component={NotFound} /> */}
         {/* <Route path="/404" component={NotFound} />
         <Redirect to="/404" /> */}
+        <IdleTimerContainer/>
         <Switch />
+
       </>
     );
   }

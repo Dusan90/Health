@@ -16,6 +16,8 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import PaypalButton from "./PaypalCheckout";
 import HamburgerDiv from "../../components/Main/HamburgerDiv";
+import Loading from "../../icons/c+.svg";
+
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -28,6 +30,7 @@ class CheckoutForm extends Component {
       cardNumber: false,
       cardCvc: false,
       cardExpiry: false,
+      loading: false
     };
   }
 
@@ -96,6 +99,7 @@ class CheckoutForm extends Component {
       //   );
       // }
       //  else {
+        this.setState({loading: true})
         const result = await this.props.stripe.createPaymentMethod("card", {});
         console.log(result.paymentMethod);
         // await this.props.stripe.createToken().then((payload) => {
@@ -120,7 +124,7 @@ class CheckoutForm extends Component {
         // await this.handleServerResponse(await response.json());
         const data = await response.json();
         console.log(data);
-
+          data && this.setState({loading: false})
         if (data.message === "Payment completed") {
           this.setState({ complete: true });
           NotificationManager.success(
@@ -223,6 +227,12 @@ class CheckoutForm extends Component {
         <h1 className="mainTitle">Payment</h1>
         <p className="underTitle">Choose payment method below</p>
         <div className="mainCardDiv">
+        {  this.state.loading && <img
+src={Loading}
+className="loading"
+alt="loading..."
+style={{ width: "150px" }}
+/>}
           <div className="payWay">
             <div
               className="cardIcon"

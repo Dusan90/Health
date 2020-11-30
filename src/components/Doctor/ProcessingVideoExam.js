@@ -38,7 +38,10 @@ const Processing = ({
   cutVideo,
   cutMic,
   showExtendScreenIcon,
-  extendScr
+  extendScr,
+  declineReason,
+  saveReason,
+  report,
 }) => {
   const customStyles = {
     control: () => ({
@@ -129,6 +132,32 @@ const Processing = ({
                   <textarea defaultValue= {exam.exam.notes} disabled={true}>
                   
                   </textarea>
+
+
+
+                </div>
+                  <div className='reportIfDeclined' style={{display: exam.exam.status === 'Declined' ? 'block' : 'none' &&  props.selectedStatus !== 'Decline' ? 'none' : 'block'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Decline reason:</span>
+                  </p>
+                </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.exam.status === 'Declined' && true} placeholder={exam.exam.decline_notes ? exam.exam.decline_notes : 'text'} value={props.declineReason} onChange={declineReason} id="textarea"></textarea>
+                      <button style={{display:  exam.exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
+                </div>
+                </div>
+
+                <div className='reportIfFinished' style={{display: exam.exam.status === 'Finished' ? 'block' : 'none' &&  props.selectedStatus !== 'Finish' ? 'none' : 'block'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Report:</span>
+                  </p>
+                </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.exam.status === 'Finished' && true} placeholder={exam.exam.report ? exam.exam.report : 'text'} value={props.report} onChange={report} id="textarea"></textarea>
+                      <button style={{display:  exam.exam.status === 'Finished' && 'none'}} onClick={saveReason}>Save</button>
+                </div>
                 </div>
               </div>
               </div>
@@ -157,7 +186,7 @@ const Processing = ({
                   <h3 style={{ color: "#666666" }}>Reject-Connection</h3>
                 )
               )}
-              <button
+              {exam.exam.status !== 'Finished' && <button
                 id="DoctorStartVideo"
                 type="submit"
                 className="btn"
@@ -165,7 +194,7 @@ const Processing = ({
                 disabled={disabled2}
               >
                 Start Video
-              </button>
+              </button>}
             </div>
             </div>
 
@@ -187,21 +216,21 @@ const Processing = ({
                 <div className="MainIconsDiv">
                   <img src={mute}
                     className="iconMic"
-                  alt="img" style={{ display: !props.audio ? "none" : "block" }}
+                  alt="img" style={{ display: props.audio ? "none" : "block" }}
                 onClick={cutMic}/>
                   <img src={unmute}
                    className="iconMicUnmute"
-                  alt="img" style={{ display: props.audio ? "none" : "block" }}
+                  alt="img" style={{ display: !props.audio ? "none" : "block" }}
                 onClick={cutMic}/>
                   {/* <img src={call} alt="img" style={{display: 'none' }}/> */}
                   <img src={hangup} alt="img" className="iconPhone"/>
                   <img src={cameraoff}
                   className="iconVideo"
-                   alt="img" style={{ display: !props.video ? "none" : "block" }}
+                   alt="img" style={{ display: props.video ? "none" : "block" }}
                 onClick={cutVideo}/>
                   <img src={cameraon} alt="img" 
                 className="iconVideoShow"
-                style={{ display: props.video ? "none" : "block" }}
+                style={{ display: !props.video ? "none" : "block" }}
                 onClick={cutVideo}/>
                   </div>  
                 <div className='MainDivForChat'>
