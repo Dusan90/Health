@@ -21,6 +21,15 @@ class ClientQueueExamDetail extends Component {
       .then((response) => {
         console.log(response, "queue");
         this.setState({ exam: [response.data.data] });
+        let mess = document.getElementById('messageMainText')
+        let messageDiv = document.querySelector('.messageDiv')
+        console.log(mess);
+        if(mess.scrollHeight < 300){
+          mess.style.height = `${mess.scrollHeight}px`
+          messageDiv.style.height = `${mess.scrollHeight + 20}px` 
+        }else{
+          mess.style.height = '300px'
+        }
       })
       .catch((error) => {
         console.log(error.response);

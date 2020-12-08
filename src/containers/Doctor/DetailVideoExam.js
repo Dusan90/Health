@@ -30,7 +30,9 @@ class DetailVideoExam extends Component {
       // audio: true,
       // connectedall: false,
       declineReason: "",
-      report: ''
+      report: '',
+      displayReport: false,
+      clientID: ''
     };
   }
 
@@ -231,12 +233,23 @@ class DetailVideoExam extends Component {
       })
       .then((response) => {
         console.log(response.data.data);
-        this.setState({ exam: this.state.exam.concat(response.data.data) });
+        this.setState({ exam: this.state.exam.concat(response.data.data), 
+          // clientID: response.data.data.exam.client_id
+         });
+         let mess = document.getElementById('messageMainText')
+         let messageDiv = document.querySelector('.messageDiv')
+         console.log(mess);
+         if(mess.scrollHeight < 300){
+           mess.style.height = `${mess.scrollHeight}px`
+           messageDiv.style.height = `${mess.scrollHeight + 20}px` 
+         }else{
+           mess.style.height = '300px'
+         }
       });
   };
 
   handleSubmit = (value) => {
-    if(value !== 'Decline' && value !== 'Finish'){
+    if(value !== 'Decline'){
       this.doctorExam( value);
     }
   };
@@ -319,15 +332,45 @@ class DetailVideoExam extends Component {
 
   declineReason = (e)=>{
     this.setState({declineReason: e.target.value})
+    e.target.style.height = '300px'
+    // e.target.style.height = `${e.target.scrollHeight}px`
+
   }
 
   saveReason = () =>{
     this.doctorExam(this.state.selectedStatus)
   }
 
+  // saveReport= async () =>{
+  //   const access_token = "Bearer ".concat(this.state.token);
+  //   const client = await fetch(
+  //     `https://healthcarebackend.xyz/api/doctor/report/${this.state.clientID}/`,
+  //     {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: access_token,
+  //       },
+  //       body: JSON.stringify({
+  //         report: this.state.report
+  //       }),
+  //     }
+  //   );
+
+  //   const jsonData = await client.json();
+  //   console.log(jsonData);
+  //   return jsonData;
+  // }
+
   report= (e) =>{
     this.setState({report: e.target.value})
+    e.target.style.height = '300px'
+    // e.target.style.height = `${e.target.scrollHeight}px`
   }
+
+  handleReport = () =>{
+      this.setState({displayReport: true})
+  } 
 
 
   handleJoinRoom = () => {
@@ -359,8 +402,10 @@ class DetailVideoExam extends Component {
           // cutVideo={this.cutVideo}
           declineReason={this.declineReason}
           saveReason={this.saveReason}
+          saveReport={this.saveReport}
           report={this.report}
           handleJoinRoom={this.handleJoinRoom}
+          handleReport={this.handleReport}
            // iconsMouseOut,
   // iconsMouseOver,
   // handleDragDrop,

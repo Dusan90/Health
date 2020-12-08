@@ -30,7 +30,25 @@ const InitiateExam = ({
       borderRadius: "10px",
       width: "100%",
       // marginLeft: "2px",
-      background: "white",
+      background: props.color && props.specialSP.length === 0 ? 'rgb(245, 192, 192)' : "white",
+      color: "#666666",
+      fontWeight: "500",
+    }),
+    placeholder: () =>({
+      color: '#666666',
+      fontWeight: '500'
+    })
+  };
+
+  const customStyles2 = {
+    control: (base, state) => ({
+      ...base,
+      height: "40px",
+      border: "1.7px solid #fa9551",
+      borderRadius: "10px",
+      width: "100%",
+      // marginLeft: "2px",
+      background: props.color && !props.doctor_id ? 'rgb(245, 192, 192)' : "white",
       color: "#666666",
       fontWeight: "500",
     }),
@@ -58,7 +76,7 @@ const InitiateExam = ({
         </div>
         <div className="exam-doc">
           <Select
-            styles={customStyles}
+            styles={customStyles2}
             type="text"
             id="doctor"
             placeholder="Select Doctor..."
@@ -74,6 +92,8 @@ const InitiateExam = ({
             className="form-control"
             id="subject"
             maxLength='35'
+            style={{background: props.color && !subject ? 'rgb(245, 192, 192)' : "white"}}
+
             placeholder="Enter subject"
             value={subject}
             onChange={handleSubject}
@@ -87,6 +107,8 @@ const InitiateExam = ({
           className="form-control"
           id="exam-message"
           placeholder="Enter message"
+          style={{background: props.color && !message ? 'rgb(245, 192, 192)' : "white"}}
+
           value={message}
           onChange={handleMessage}
         />

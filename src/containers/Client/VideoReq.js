@@ -29,13 +29,14 @@ class ClientVideoReq extends Component {
       resetDoctorSelect: null,
       isClicked: false,
       startDate: new Date(),
-      reservedDate: new Date(),
+      reservedDate: '',
       doctorsPrice: "",
       clientId: null,
       attachments: null,
       doctorsExams: [],
       excludeTime: [],
-      currency: null
+      currency: null,
+      color: ''
     };
   }
 
@@ -113,6 +114,7 @@ console.log(e);
 
   handleSubmit = async (e) => {
     const access_token = "Bearer ".concat(this.state.token);
+    this.setState({color: 'red'})
     if (
       this.state.specialSP &&
       this.state.doctor_id &&
@@ -216,7 +218,7 @@ console.log(e);
   }
 
   render() {
-    console.log(this.state.specialSP)
+    console.log(this.state.reservedDate)
     return (
       <>
         <div className="header">

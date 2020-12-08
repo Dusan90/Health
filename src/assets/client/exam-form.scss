@@ -6,7 +6,7 @@
     justify-content: space-between;
     width: 65%;
     background: #f2f2f2;
-    padding: 30px 20px;
+    padding: 30px 15px !important;
     margin: 80px auto 20px auto;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
@@ -20,17 +20,20 @@
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
       position: absolute;
+      font-size: 15px;
 
       top: -40px;
       left: 0;
       height: 40px;
-      width: 150px;
+      width: 250px;
       img {
         margin: 0 10px 0 15px;
       }
       p {
         margin: 0;
-        font-weight: 400;
+        font-size: 15px;
+        font-weight: 450;
+        color: #666666;
       }
     }
     .exam-spec {
@@ -67,7 +70,7 @@
     width: 100%;
     margin: 0 auto;
     background: #f2f2f2;
-    padding: 30px 20px;
+    padding: 30px 15px;
 
     .messageTitle {
       height: 40px;

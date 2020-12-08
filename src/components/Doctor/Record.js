@@ -184,12 +184,12 @@ const Record = ({
                       <td className="client-subject">{exam.exam_type}</td>
                       <td className="created">
                         {exam.created && !exam.appointed_date ? (
-                          <p> {moment(exam.created).format("MM/DD/YYYY")}</p>
+                          <p> {moment(exam.created).format("MM/DD/YY")}</p>
                         ) : exam.appointed_date ? (
                           <p>
                             {" "}
                             {moment(exam.appointed_date).format(
-                              "MM/DD/YYYY HH:mm"
+                              "MM/DD/YY HH:mm"
                             )}
                           </p>
                         ) : null}
@@ -241,7 +241,7 @@ const Record = ({
         </div> */}
            <Pagination
           activePage={props.page}
-          itemsCountPerPage={5}
+          itemsCountPerPage={10}
           totalItemsCount={props.searchedUpcomingOrPast.length === 0 ? props.exams.length : props.searchedUpcomingOrPast.length}
           pageRangeDisplayed={10}
           onChange={handlePageChange}

@@ -12,26 +12,30 @@
     top: -39px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    width: 220px;
+    width: 250px;
+    font-size: 15px;
+    height: 40px;
+
     background: #f3f3f3;
     display: flex;
     img {
-      margin: 0 10px 0 20px;
+      margin: 0 10px 0 15px;
     }
     h4 {
+      font-size: 15px;
+      font-weight: 450;
       color: #666666;
-      text-align: left;
     }
   }
 
   .row2 {
-    width: 90%;
+    // width: 90%;
     margin: 0 auto;
     color: #666666;
     .mainDoctorInfoDiv {
       display: flex;
       justify-content: space-between;
-      padding: 40px 40px 0 40px;
+      padding: 40px 15px 0 15px;
       .imageDiv {
         border: 1.7px solid #666666;
         height: 170px;

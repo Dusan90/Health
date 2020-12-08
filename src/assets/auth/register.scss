@@ -18,6 +18,14 @@
   padding: 0 70px;
   border-radius: 15px;
   color: #666666;
+  position: relative;
+
+  .logo {
+    position: absolute;
+    width: 110px;
+    right: -30px;
+    top: -25px;
+  }
 
   .loading {
     animation: rotation 2s infinite linear;
@@ -54,13 +62,13 @@
         font-weight: 700;
         color: LightCoral;
         position: absolute;
-        left: 42px;
+        left: 0;
         bottom: -40px;
       }
       .doctorORClient {
         display: flex;
-        width: 50%;
-        margin: 10px 0 0 0;
+        width: 100%;
+        margin: 10px 10px 0 0;
 
         input[type="checkbox"] {
           visibility: hidden;
@@ -132,7 +140,7 @@
         // }
 
         .doctorLabel {
-          margin: 0 50px 0px 0;
+          margin: 0 20px 0px 0;
           color: #666666;
           font-size: 15px;
           font-weight: 700;
@@ -146,7 +154,8 @@
       }
 
       .gender {
-        width: 50%;
+        width: 100%;
+        margin: 0 0 0 10px;
         height: 20px;
         position: relative;
         display: flex;
@@ -156,7 +165,7 @@
           float: right !important;
         }
         .maleGender {
-          margin: 10px 10px 0 40px;
+          margin: 10px 10px 0 0;
           input[type="radio"] {
             visibility: hidden;
             position: absolute;
@@ -249,7 +258,7 @@
       justify-content: space-between;
       margin: 0 0 20px 0;
       .reg-name {
-        width: 250px;
+        width: 100%;
         margin: 0 20px 0 0;
         ::placeholder {
           color: #666666;
@@ -257,25 +266,30 @@
           font-weight: 600;
         }
         input {
+          flex: 1;
           height: 40px;
           border: 1.7px solid #fa9551;
           border-radius: 10px;
           background: white;
           font-weight: 700;
+          margin: 0;
         }
       }
       .reg-surname {
-        width: 250px;
+        width: 100%;
         ::placeholder {
           color: #666666;
           font-size: 12px;
           font-weight: 600;
         }
         input {
+          flex: 1;
           height: 40px;
-          max-width: 250px;
+          // max-width: 250px;
           border: 1.7px solid #fa9551;
           border-radius: 10px;
+          margin: 0;
+
           background: white;
           font-weight: 700;
         }
@@ -288,7 +302,7 @@
       justify-content: space-between;
       .reg-email {
         margin: 0 20px 0 0;
-        max-width: 250px !important;
+        width: 100% !important;
         ::placeholder {
           color: #666666;
           font-size: 12px;
@@ -296,16 +310,19 @@
         }
         input {
           height: 40px;
-          max-width: 250px;
+          // max-width: 250px;
+          flex: 1;
           border: 1.7px solid #fa9551;
           border-radius: 10px;
           background: white;
+          margin: 0;
+
           font-weight: 700;
         }
       }
       .address {
         // margin: 0 0 0 20px;
-        width: 250px;
+        width: 100%;
         ::placeholder {
           color: #666666;
           font-size: 12px;
@@ -317,6 +334,8 @@
           border-radius: 10px;
           background: white;
           font-weight: 700;
+          flex: 1;
+          margin: 0;
         }
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
@@ -331,7 +350,7 @@
       display: flex;
       justify-content: space-between;
       .reg-pass {
-        width: 250px;
+        width: 100%;
         margin: 0 20px 0 0;
         ::placeholder {
           color: #666666;
@@ -342,12 +361,13 @@
           width: 100%;
           position: relative;
           input {
-            width: 100%;
+            flex: 1;
             margin: 0 0 10px 0;
             height: 40px;
             border-radius: 10px;
             border: 1.7px solid #fa9551;
             font-weight: 700;
+            margin: 0;
 
             padding-right: 30px;
           }
@@ -366,7 +386,7 @@
       }
 
       .date {
-        width: 250px;
+        width: 100%;
         ::placeholder {
           color: #666666;
           font-size: 12px;
@@ -378,6 +398,8 @@
           border-radius: 10px;
           background: white;
           font-weight: 700;
+          flex: 1;
+          margin: 0;
         }
       }
     }
@@ -394,7 +416,7 @@
         font-size: 10px;
       }
       .prefix {
-        width: 250px;
+        width: 100%;
         margin: 0 20px 30px 0;
         div {
           width: 100%;
@@ -406,7 +428,8 @@
             border-radius: 10px;
             border: 1.7px solid #fa9551;
             font-weight: 700;
-
+            flex: 1;
+            margin: 0;
             padding-right: 30px;
           }
           img {
@@ -418,7 +441,9 @@
       }
 
       .spec {
-        width: 250px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
         height: 40px;
         margin: 0px 0 0 0;
         border-radius: 10px;
@@ -456,18 +481,19 @@
       display: flex;
       justify-content: space-between;
       .conf-pass {
-        width: 250px;
+        width: 100%;
         margin: 0 20px 30px 0;
         div {
           width: 100%;
           position: relative;
           input {
-            width: 100%;
+            flex: 1;
             margin: 0 0 10px 0;
             height: 40px;
             border-radius: 10px;
             border: 1.7px solid #fa9551;
             font-weight: 700;
+            margin: 0;
 
             padding-right: 30px;
           }
@@ -490,7 +516,7 @@
         // }
       }
       .Phone {
-        width: 250px;
+        width: 100%;
         margin: 0 0 30px 0;
         input {
           height: 40px;
@@ -498,6 +524,8 @@
           border-radius: 10px;
           background: white;
           font-weight: 700;
+          flex: 1;
+          margin: 0;
 
           &::placeholder {
             color: #666666;

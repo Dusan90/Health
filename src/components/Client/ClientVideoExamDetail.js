@@ -71,7 +71,7 @@ const DetailVideo = ({
             <div className="detail-exam">
             <div className="iconVideo">
                 <img src={iconVideoBlue} alt="email" />
-                <p>Video details</p>{" "}
+                <p>Consultation details</p>{" "}
               </div>
               <div className="detail">
                 <p>
@@ -87,7 +87,7 @@ const DetailVideo = ({
                        ? "Appointed date: :"
                        : "Appoint date: "}
                    </span>{" "}
-                   {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
+                   {moment(exam.appointed_date).format("MM/DD/YY HH:mm")}
                  </p>
                 ) : (
                   <p>
@@ -109,7 +109,6 @@ const DetailVideo = ({
                   </p>
                 ) : (
                   <div
-                    style={{ marginLeft: "10px" }}
                     className="divSelectButton"
                   >
                     <Select
@@ -138,12 +137,12 @@ const DetailVideo = ({
                   </p>
                   <p>
                     <span>
-                      {moment(exam.created).format("MM/DD/YYYY")}
+                      {moment(exam.created).format("MM/DD/YY")}
                     </span>
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <textarea defaultValue={exam.notes} disabled={true}>
+                  <textarea defaultValue={exam.notes} id='messageMainText' disabled={true}>
                     
                   </textarea>
                 </div>
@@ -157,6 +156,21 @@ const DetailVideo = ({
                       <textarea name="text" disabled={ exam.status === 'Declined' && true} placeholder={exam.decline_notes ? exam.decline_notes : 'text'} value={props.declineReason} id="textarea"></textarea>
                 </div>
                 </div>
+
+
+                <div className='reportIfFinished' style={{display:  exam.status !== 'Finished'  ? 'none' : 'block'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Report:</span>
+                  </p>
+                </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.status === 'Finished' && true} placeholder={exam.report ? exam.report : 'text'} value={props.declineReason} id="textarea"></textarea>
+                </div>
+                </div>
+
+
+
               </div>
               {exam.status === "Appointed" || exam.status === "Accepted" ? (
               // <div className="message-btn">

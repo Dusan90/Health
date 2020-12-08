@@ -105,7 +105,7 @@ const Dashboard = ({
                     }).format(
                       Date(shorty.estimated_start / (1000 * 60 * 60 * 24))
                     )} */}
-                    {moment(shorty.created).format("MM/DD/YYYY")} 
+                    {moment(shorty.created).format("MM/DD/YY")} 
                   </div>
                 );
               })
@@ -135,7 +135,7 @@ const Dashboard = ({
                     onClick={() => handleVideoPendingClick(shorty.id)}
                   >
                     {shorty.client},{" "}
-                    {moment(shorty.appointed_date).format("MM/DD/YYYY hh:mm")}
+                    {moment(shorty.appointed_date).format("MM/DD/YY hh:mm")}
                   </div>
                 );
               })
@@ -165,7 +165,7 @@ const Dashboard = ({
                     onClick={() => handleClickMail(shorty.id)}
                   >
                     {shorty.client},{" "}
-                    {moment(shorty.created).add('hour', 1).format("MM/DD/YYYY HH:mm")}
+                    {moment(shorty.created).add('hour', 1).format("MM/DD/YY HH:mm")}
                   </div>
                 );
               })
@@ -304,16 +304,16 @@ const Dashboard = ({
                       onClick={() => handleClick(exam.id, exam.exam_type)}
                     >
                       <td className="client-doctor">{exam.client}</td>
-                      <td className="client-subject">{exam.subject}</td>
+                      <td className="client-subject1">{exam.subject}</td>
                       <td className="client-subject">{exam.exam_type}</td>
                       <td className="created">
                         {exam.created && !exam.appointed_date ? (
-                          <p> {moment(exam.created).format("MM/DD/YYYY")}</p>
+                          <p> {moment(exam.created).format("MM/DD/YY")}</p>
                         ) : exam.appointed_date ? (
                           <p>
                             {" "}
                             {moment(exam.appointed_date).format(
-                              "MM/DD/YYYY HH:mm"
+                              "MM/DD/YY HH:mm"
                             )}
                           </p>
                         ) : null}
@@ -365,7 +365,7 @@ const Dashboard = ({
         </div> */}
         <Pagination
           activePage={props.state.page}
-          itemsCountPerPage={5}
+          itemsCountPerPage={10}
           totalItemsCount={props.state.searchedUpcomingOrPast.length === 0 ? props.state.upcomingOrPast.length : props.state.searchedUpcomingOrPast.length}
           pageRangeDisplayed={10}
           onChange={handlePageChange}

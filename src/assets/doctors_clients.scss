@@ -12,15 +12,17 @@
     top: -39px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    width: 200px;
+    width: 250px;
+    height: 40px;
     background: #f3f3f3;
     display: flex;
     img {
-      margin: 0 10px 0 20px;
+      margin: 0 10px 0 15px;
     }
     h4 {
+      font-size: 15px;
+      font-weight: 450 !important;
       color: #666666;
-      text-align: left;
     }
   }
 
@@ -31,7 +33,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
-    padding: 0 0 0 20px;
+    padding: 0 0 0 15px;
     // label {
     //   align-self: center;
     //   margin: 0 40px 0 40px;
@@ -66,7 +68,7 @@
   .row2 {
     // width: 83%;
     padding: 0 0 20px 0;
-    margin: 0 35px 0 20px;
+    margin: 0 35px 0 15px;
     .list-group {
       box-shadow: none;
       // margin: 10px 0;

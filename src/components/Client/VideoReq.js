@@ -35,7 +35,34 @@ const VideoReq = ({
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
       width: "100%",
-      background: "white",
+      background: props.color && props.specialSP.length === 0 ? 'rgb(245, 192, 192)' : "white",
+      color: "#666666",
+      fontWeight: "500",
+    }),
+    menu: (provided, state) => ({
+      position: 'absolute',
+      zIndex: '40',
+      width: '100%',
+      background: 'white',
+      border: '1px solid gray',
+      borderRadius: '5px',
+      boxShadow: '2px 2px 10px gray'
+    }),
+
+    placeholder: () =>({
+      fontWeight: '500',
+      color: '#666666'
+    })
+  };
+
+  const customStyles2 = {
+    control: (base, state) => ({
+      ...base,
+      height: "40px",
+      border: "1.7px solid #fa9551",
+      borderRadius: "10px",
+      width: "100%",
+      background: props.color && !props.doctor_id ? 'rgb(245, 192, 192)' : "white",
       color: "#666666",
       fontWeight: "500",
     }),
@@ -80,7 +107,7 @@ const VideoReq = ({
             noOptionsMessage={() => "Select speciality"}
             type="text"
             id="doctor"
-            styles={customStyles}
+            styles={customStyles2}
             placeholder="Select Doctor..."
             options={props.specDoctor.length === 0 ? props.doctors : props.specDoctor }
             onChange={handleDoctor}
@@ -95,6 +122,7 @@ const VideoReq = ({
             type="text"
             className="form-control"
             id="subject"
+            style={{background: props.color && !props.subject ? 'rgb(245, 192, 192)' : "white"}}
             placeholder="Enter subject"
             maxLength='35'
             value={props.subject}
@@ -109,6 +137,8 @@ const VideoReq = ({
         
             id="exam-notes"
             placeholder="Enter notes"
+            style={{background: props.color && !props.notes ? 'rgb(245, 192, 192)' : "white"}}
+
             value={props.notes}
             onChange={handleMessage}
           />
@@ -139,6 +169,8 @@ const VideoReq = ({
             minTime={props.startTime ? moment(new Date()).set("hour", startTimeHour).set("minute", startTimeMinute)._d : moment(new Date()).set("hour", 8).set("minute", 0)._d}
             maxTime={props.endTime? moment(new Date()).set("hour", endTimeHour).set("minute", endTimeMinute).subtract('minute', 30)._d : moment(new Date()).set("hour", 15).set("minute", 30)._d}
           />
+           <p style={{display: props.color && !props.reservedDate ? 'block' : "none"}}
+           >Please select Time and Date</p>
         </div>
         <div className="divAndAttach">
           <button

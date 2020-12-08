@@ -27,7 +27,8 @@ class ExamForm extends Component {
       specialSP: [],
       resetDoctorSelect: null,
       attach: null,
-      currency: null
+      currency: null,
+      color: ''
       // isClicked: false
     };
   }
@@ -70,6 +71,7 @@ class ExamForm extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    this.setState({color: 'red'})
     const access_token = "Bearer ".concat(this.state.token);
     if (
       this.state.specialSP &&

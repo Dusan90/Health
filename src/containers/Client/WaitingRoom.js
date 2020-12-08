@@ -68,13 +68,14 @@ class ClientWaitingRoom extends Component {
       .then((stream) => {
         var myVideo = document.createElement("video");
         myVideo.id = "myVid";
-        var videoChat = document.getElementById("detailInfo2");
+        var videoChat = document.getElementById("videoChat");
         videoChat.appendChild(myVideo);
         myVideo.srcObject = stream;
         myVideo.play();
         var myVid = document.getElementById("myVid");
         myVid.style.cssText =
-        "position: absolute; left: 10px; bottom: 9px; height: 170px; width: 320px;";
+        "position: absolute; right: 15px; top: 10px; height: 140px; width: 170px; z-index: 20";
+
       });
   };
 
@@ -207,6 +208,7 @@ class ClientWaitingRoom extends Component {
 
   handleSubmit = async (e) => {
     const access_token = "Bearer ".concat(this.state.token);
+    this.setState({color: 'red'})
     if (
       this.state.specialSP &&
       this.state.doctor_id &&
@@ -367,6 +369,8 @@ class ClientWaitingRoom extends Component {
           window.location.reload();
         } else if (JSON.parse(test.text) === "doctor is started video") {
           this.setState({ doctorStartedVideo: true });
+          // this.handleVideoStart()
+          document.getElementById("StartVideo").click()
         }
       }
     };
@@ -514,6 +518,15 @@ class ClientWaitingRoom extends Component {
         document.getElementById("send").addEventListener("click", function () {
           var yourMessage = document.getElementById("yourMessage").value;
           peer.send(yourMessage);
+
+          let message = document.querySelector("#yourMessage").value;
+          connection.send(message);
+          document.getElementById(
+            "messages"
+          ).innerHTML += `<p style='color: #666666 ;margin: 5px auto 5px 0;display: table; white-space: initial ; background: #e6e6e6; padding: 5px 10px 0 0; border-radius: 10px'><span>Client:</span>${message}</p>`;
+          // this.setState({ value: "" });
+          var objDiv = document.getElementById("messages");
+          objDiv.scrollTop = objDiv.scrollHeight;
         });
 
         connection.onclose = () => {
@@ -525,17 +538,17 @@ class ClientWaitingRoom extends Component {
           console.error("failed to connect", error);
         };
 
-        document.querySelector("form").addEventListener("submit", (event) => {
-          event.preventDefault();
-          let message = document.querySelector("#yourMessage").value;
-          connection.send(message);
-          document.getElementById(
-            "messages"
-          ).innerHTML += `<p style='color: #666666 ;margin: 5px auto 5px 0;display: table; white-space: initial ; background: #e6e6e6; padding: 5px 10px 0 0; border-radius: 10px'><span>Client:</span>${message}</p>`;
-          this.setState({ value: "" });
-          var objDiv = document.getElementById("messages");
-          objDiv.scrollTop = objDiv.scrollHeight;
-        });
+        // document.querySelector("form").addEventListener("submit", (event) => {
+        //   event.preventDefault();
+        //   let message = document.querySelector("#yourMessage").value;
+        //   connection.send(message);
+        //   document.getElementById(
+        //     "messages"
+        //   ).innerHTML += `<p style='color: #666666 ;margin: 5px auto 5px 0;display: table; white-space: initial ; background: #e6e6e6; padding: 5px 10px 0 0; border-radius: 10px'><span>Client:</span>${message}</p>`;
+        //   this.setState({ value: "" });
+        //   var objDiv = document.getElementById("messages");
+        //   objDiv.scrollTop = objDiv.scrollHeight;
+        // });
 
         peer.on("data", function (data) {
           document.getElementById(
@@ -612,6 +625,16 @@ class ClientWaitingRoom extends Component {
 
   handleChange = (e) => {
     this.setState({ value: e.target.value });
+    let inputMessage = document.querySelector(".inputMessage")
+    if(e.target.value === ''){
+      e.target.style.height = "30px";
+    inputMessage.style.height = '30px'
+    }else{
+      e.target.style.height = "30px";
+      inputMessage.style.height = '30px'
+      e.target.clientHeight < e.target.scrollHeight && (e.target.style.height = (5 + e.target.scrollHeight)+"px")
+      e.target.clientHeight < e.target.scrollHeight && (inputMessage.style.height = (5 + e.target.scrollHeight)+"px")
+    }
   };
   handleMessage = (e) => {
     this.setState({ notes: e.target.value });
@@ -680,6 +703,14 @@ class ClientWaitingRoom extends Component {
     this.setState({showExtendScreen: !this.state.showExtendScreen})
   }
 
+  resetValue = () =>{
+    this.setState({value: ''})
+    let inputMessage = document.querySelector(".inputMessage")
+    let yourMessage = document.getElementById("yourMessage")
+    yourMessage.style.height = "30px";
+  inputMessage.style.height = '30px'
+  }
+
   render() {
     return (
       <>
@@ -710,6 +741,7 @@ class ClientWaitingRoom extends Component {
           cutVideo={this.cutVideo}
           handleMessage={this.handleMessage}
   showExtendScreenIcon={this.showExtendScreenIcon}
+  resetValue={this.resetValue}
 
         />
       </>

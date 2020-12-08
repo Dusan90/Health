@@ -22,7 +22,7 @@ const DetailQueue = ({ exam }) => {
             <div className="detail-exam" style={{height: '300px'}}>
             <div className="iconVideo" style={{width: '250px'}}>
                 <img src={queueIcon} alt="email" />
-                <p>Waiting room details</p>{" "}
+                <p>Consultation details</p>{" "}
               </div>
               <div className="detail">
               <p>
@@ -33,11 +33,9 @@ const DetailQueue = ({ exam }) => {
               </p>
               <p>
                 <span>Created:</span>{" "}
-                {new Intl.DateTimeFormat("en-GB", {
-                  year: "numeric",
-                  month: "long",
-                  day: "2-digit",
-                }).format(new Date(exam.exam.created))}
+                {moment(exam.exam.appointed_date)
+                                .add(1, "hours")
+                                .format("MM/DD/YY")}
               </p>
               <p>
                 <span>Type:</span> {exam.exam.exam_type}
@@ -54,12 +52,12 @@ const DetailQueue = ({ exam }) => {
                   </p>
                   <p>
                     <span>
-                      {moment(exam.exam.created).format("MM/DD/YYYY")}
+                      {moment(exam.exam.created).format("MM/DD/YY")}
                     </span>
                   </p>
                 </div>
                 <div className="messageDiv">
-                <textarea defaultValue={exam.exam.notes} disabled={true}>
+                <textarea defaultValue={exam.exam.notes} id='messageMainText' disabled={true}>
                     
                     </textarea>
                   {/* <p>

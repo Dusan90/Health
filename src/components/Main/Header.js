@@ -40,7 +40,11 @@ const Header =
         };
 
         const handleConnectingButton = () => {
-          history.push("/client/waiting-room");
+          if (location.pathname === "/client/waiting-room") {
+                props.popUpFalse();
+              }else{
+                history.push("/client/waiting-room");
+              }
         };
         return (
           <Fragment>

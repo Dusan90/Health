@@ -45,7 +45,8 @@ const WaitingRoom = ({
   handleDivSize,
   cutVideo,
   cutMic,
-  showExtendScreenIcon
+  showExtendScreenIcon,
+  resetValue
 }) => {
   const disabled = props.credits ? false : true;
   const disabled2 = props.credits ? true : false;
@@ -60,13 +61,14 @@ const WaitingRoom = ({
       borderRadius: "10px",
       width: "100%",
       // marginLeft: "2px",
-      background: "white",
+      background: props.color && props.specialSP.length === 0 ? 'rgb(245, 192, 192)' : "white",
+
       color: "#666666",
       fontWeight: "500",
     }),
     option: (provided, state) => ({
       ...provided,
-      textAlign: "left",
+      textAlign: "center",
       color:
         state.data.status === "Away"
           ? "#C7CD00"
@@ -77,6 +79,7 @@ const WaitingRoom = ({
       color: '#666666'
     })
   };
+  
   const customS = {
     control: (base, state) => ({
       ...base,
@@ -85,7 +88,7 @@ const WaitingRoom = ({
       borderRadius: "10px",
       width: "100%",
       // marginLeft: "2px",
-      background: "white",
+      background: props.color && !props.doctor_id ? 'rgb(245, 192, 192)' : "white",
       color: "#666666",
       fontWeight: "500",
     }),
@@ -114,14 +117,14 @@ const WaitingRoom = ({
             }
             options={props.specialities}
             isDisabled={disabled2}
-            styles={customS}
+            styles={customStyles}
             onChange={handleSpeciality}
           />
         </div>
         <div className="exam-doc">
           <Select
             style
-            styles={customStyles}
+            styles={ customS}
             type="text"
             id="doctor"
             placeholder={
@@ -149,6 +152,7 @@ const WaitingRoom = ({
             className="form-control"
             id="subject"
             maxLength='35'
+            style={{background: props.color && !props.subject ? 'rgb(245, 192, 192)' : "white"}}
             placeholder="Enter subject"
             value={
               props.currentClient ? props.currentClient.subject : props.subject
@@ -164,6 +168,8 @@ const WaitingRoom = ({
             className="form-control"
             id="exam-notes"
             placeholder="Enter notes"
+            style={{background: props.color && !props.notes ? 'rgb(245, 192, 192)' : "white"}}
+
             value={
               props.currentClient ? props.currentClient.notes : props.notes
             }
@@ -242,20 +248,21 @@ const WaitingRoom = ({
       </div>
       <div className='divAndAttach'>
       {/* <input type="file" name="" id="file" /> */}
-      <button
-            id="StartVideo"
-            className='startThatChat'
-            disabled={disabled3}
-            onClick={handleVideoStart}
-          >
-            Start video
-          </button>
-      <div className="upload-btn-wrapper">
+      <div className="upload-btn-wrapper" style={{marginLeft: '15px'}}>
             <button className="btn">
               <img src={arrowAttach} alt="attach" />
             </button>
             <input type="file" name="myfile" />
           </div>
+      <button
+            id="StartVideo"
+            className='startThatChat'
+            disabled={disabled3}
+            style={{visibility: 'hidden'}}
+            onClick={handleVideoStart}
+          >
+            Start video
+          </button>
       </div>
       
       <div>
@@ -361,7 +368,10 @@ const WaitingRoom = ({
 
 <div className="detailExam"  style={{
   display: props.startVideo ? "block" : "none",
-  padding: 0
+  padding: 0,
+  height: '550px',
+  marginBottom: '20px'
+
 }}>
     <div className="iconVideoo">
         <img src={iconVideoBlue} alt="email" />
@@ -401,18 +411,18 @@ const WaitingRoom = ({
   >
     <pre id="messages"></pre>
     <div className="inputMessage">
-      <input
+      <textarea
         type="text"
         placeholder="Type a message"
         id="yourMessage"
-        value={props.value}
+       value={props.value}
         onChange={handleChange}
         onMouseDown={enableTipeing}
-      ></input>
-      <button style={{display: 'hidden'}} id="send">Send</button>
+      ></textarea>
     </div>
   </form>
           </div>  
+      <button id="send" onClick={resetValue}>Send</button>
         </div>
         <div id='videoChat' onMouseEnter={showExtendScreenIcon} onMouseLeave={showExtendScreenIcon}>
         <img src={ExtendScreen} style={{display: !props.showExtendScreen && 'none'}} className="extendScreen" alt="screen icon"/>

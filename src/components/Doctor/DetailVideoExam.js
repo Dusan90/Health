@@ -38,6 +38,8 @@ const DetailVideo = ({
   // enableTipeing,
   declineReason,
   saveReason,
+  saveReport,
+  handleReport,
   report,
   handleJoinRoom
 }) => {
@@ -90,7 +92,7 @@ const DetailVideo = ({
             <div className="detail_exam">
               <div className="iconVideo">
                 <img src={iconVideoBlue} alt="email" />
-                <p>Video details</p>{" "}
+                <p>Consultation details</p>{" "}
               </div>
               <div className="detail">
                 <p>
@@ -98,7 +100,7 @@ const DetailVideo = ({
                 </p>
                 <p>
                   <span>Created:</span>{" "}
-                  {moment(exam.created).format("MM/DD/YYYY HH:mm")}
+                  {moment(exam.created).format("MM/DD/YY HH:mm")}
                 </p>
 
                 <p>
@@ -107,7 +109,7 @@ const DetailVideo = ({
                       ? "Appointed date:"
                       : "Appoint date"}
                   </span>{" "}
-                  {moment(exam.appointed_date).format("MM/DD/YYYY HH:mm")}
+                  {moment(exam.appointed_date).format("MM/DD/YY HH:mm")}
                 </p>
                 <p>
                   <span>Type:</span> {exam.exam_type}
@@ -130,7 +132,7 @@ const DetailVideo = ({
                     />
                   </div>
                 )}
-                {exam.status === "Appointed" && (
+                {exam.status === "Appointed" ? (
                   <div className="message-btn">
                     {/* {!props.connected ? (
                       <button
@@ -159,7 +161,18 @@ const DetailVideo = ({
                         Join now
                       </button>
                   </div>
-                )}
+                ) : exam.status === 'Finished' ? 
+                <div className="message-btn">
+                   <button
+                    className="message-link"
+                    onClick={handleReport}
+                  >
+                    Report
+                  </button>
+              </div> : null
+              
+              
+              }
               </div>
               <div className="mainMessageDiv">
                 <div className="subjectDiv">
@@ -168,13 +181,13 @@ const DetailVideo = ({
                   </p>
                   <p>
                     <span>
-                      {moment(exam.appointed_date).format("MM/DD/YYYY")}
+                      {moment(exam.appointed_date).format("MM/DD/YY")}
                     </span>{" "}
                     {moment(exam.appointed_date).format(" HH:mm")}
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <textarea defaultValue={exam.notes} disabled={true}>
+                  <textarea defaultValue={exam.notes} id='messageMainText' disabled={true}>
                    
                   </textarea>
                 </div>
@@ -186,20 +199,26 @@ const DetailVideo = ({
                 </div>
                 <div className="messageDivReport"  >
                       <textarea name="text" disabled={ exam.status === 'Declined' && true} placeholder={exam.decline_notes ? exam.decline_notes : 'text'} value={props.declineReason} onChange={declineReason} id="textarea"></textarea>
+                </div>
                       <button style={{display:  exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
                 </div>
-                </div>
 
-                <div className='reportIfFinished' style={{display: exam.status === 'Finished' ? 'block' : 'none' &&  props.selectedStatus !== 'Finish' ? 'none' : 'block'}}>
+                <div className='reportIfFinished' style={{display: !props.displayReport && 'none'}}>
                 <div className="subjectDiv">
                   <p>
                     <span>Report:</span>
                   </p>
                 </div>
                 <div className="messageDivReport"  >
-                      <textarea name="text" disabled={ exam.status === 'Finished' && true} placeholder={exam.report ? exam.report : 'text'} value={props.report} onChange={report} id="textarea"></textarea>
-                      <button style={{display:  exam.status === 'Finished' && 'none'}} onClick={saveReason}>Save</button>
+                      <textarea name="text" 
+                      // disabled={ exam.status === 'Finished' && true} 
+                      // placeholder={exam.report ? exam.report : 'text'} 
+                      value={props.report} 
+                      onChange={report} id="textarea"></textarea>
                 </div>
+                      <button 
+                      // style={{display:  exam.status === 'Finished' && 'none'}} 
+                      onClick={saveReport}>Save</button>
                 </div>
 
               </div>

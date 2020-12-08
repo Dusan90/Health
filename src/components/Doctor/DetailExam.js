@@ -20,6 +20,11 @@ const Detail = ({
   handleMessage,
   newMessage,
   props,
+  declineReason,
+  saveReason,
+  report,
+  saveReport,
+  handleReport
 }) =>{
   const customStyles = {
   control: () => ({
@@ -30,7 +35,7 @@ const Detail = ({
     height: "40px",
     fontWeight: 600,
     display: "flex",
-    background: 'white'
+    background: 'transparent'
   })
 } 
 return (
@@ -58,7 +63,7 @@ return (
             <div className="detail_exam">
             <div className="iconVideo">
                 <img src={iconEmailBlue} alt="email" />
-                <p>Email details</p>{" "}
+                <p>Consultation details</p>{" "}
               </div>
               <div className="detail">
                 <p>
@@ -66,11 +71,9 @@ return (
                 </p>
                 <p>
                   <span>Created:</span>{" "}
-                  {new Intl.DateTimeFormat("en-GB", {
-                    year: "numeric",
-                    month: "long",
-                    day: "2-digit",
-                  }).format(new Date(exam.created))}
+                   {moment(exam.created)
+                                .add(1, "hours")
+                                .format("MM/DD/YY HH:mm")}
                 </p>
                 <p>
                   <span>Type:</span> {exam.exam_type}
@@ -109,7 +112,7 @@ return (
                   </p>
                   <p>
                     <span>
-                      {moment(exam.appointed_date).format("MM/DD/YYYY")}
+                      {moment(exam.appointed_date).format("MM/DD/YY")}
                     </span>{" "}
                     {moment(exam.appointed_date).format(" HH:mm")}
                   </p>
@@ -119,7 +122,40 @@ return (
                    
                   </textarea>
                 </div>
+                  <div className=''></div>
+                <div className='reportIfDeclined' style={{display: exam.status === 'Declined' ? 'block' : 'none' &&  props.selectedStatus !== 'Decline' ? 'none' : 'block'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Decline reason:</span>
+                  </p>
                 </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.status === 'Declined' && true} placeholder={exam.decline_notes ? exam.decline_notes : 'text'} value={props.declineReason} onChange={declineReason} id="textarea"></textarea>
+                </div>
+                      <button style={{display:  exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
+                </div>
+                <div className='reportIfFinished' style={{display: !props.displayReport && 'none'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Report:</span>
+                  </p>
+                </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" 
+                      // disabled={ exam.status === 'Finished' && true} 
+                      // placeholder={exam.report ? exam.report : 'text'} 
+                      value={props.report} 
+                      onChange={report} id="textarea"></textarea>
+                </div>
+                      <button 
+                      // style={{display:  exam.exam.status === 'Finished' && 'none'}} 
+                      onClick={saveReport} type='submit'>Save</button>
+                </div>
+                </div>
+                
+                  
+
+
                 <div
                   className="mainMessageCorrespondence"
                   style={{
@@ -137,7 +173,7 @@ return (
                             <p className="createdP">
                               {moment(message.created)
                                 .add(1, "hours")
-                                .format("DD-MM-YYYY HH:mm")}
+                                .format("MM/DD/YY HH:mm")}
                             </p>
                           </div>
                           <div
@@ -178,7 +214,7 @@ return (
                         </p>
                             <p className="createdP">
                               {moment(new Date())
-                                .format("DD-MM-YYYY HH:mm")}
+                                .format("MM/DD/YY HH:mm")}
                             </p>
                           </div>
                                 <textarea
@@ -215,6 +251,13 @@ return (
                         </button>
                       )}
               </div>
+              { exam.status === 'Finished' ? 
+                 <button
+                  className="btn1"
+                  onClick={handleReport}
+                >
+                  Report
+                </button> : null}
             </div>
             {/* {exam.status === "Accepted" && (
               <div className="message-btn">

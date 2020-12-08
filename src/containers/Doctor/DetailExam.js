@@ -19,6 +19,7 @@ class DetailExam extends Component {
       messageValue: "",
       selectedFile: null,
       doctor: '',
+      declineReason: ''
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
@@ -43,16 +44,20 @@ class DetailExam extends Component {
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
         console.log(mess);
-        if(mess.clientHeight < mess.scrollHeight){
-          mess.style.height = '280px'
-          messageDiv.style.height = '300px'
+        if(mess.scrollHeight < 300){
+          mess.style.height = `${mess.scrollHeight}px`
+          messageDiv.style.height = `${mess.scrollHeight + 20}px`
+        }else{
+          mess.style.height = '300px'
         }
       });
   };
 
   handleSubmit = (value) => {
     let id = this.props.match.params.id;
-    this.doctorExam(id, value);
+    if(value !== 'Decline'){
+      this.doctorExam(id, value);
+    }
   };
 
   handleReplyClick = () => {
@@ -89,10 +94,12 @@ class DetailExam extends Component {
         },
         body: JSON.stringify({
           status: value,
+          decline_notes: this.state.declineReason
         }),
       }
     );
     const jsonData = await client.json();
+    console.log(jsonData);
     jsonData.success && window.location.reload();
 
     return jsonData;
@@ -114,7 +121,8 @@ class DetailExam extends Component {
       let parsedEvent = JSON.parse(event.data);
       console.log(parsedEvent);
       if (parsedEvent.exam_id === parseInt(id)) {
-        this.correspondence(id);
+        window.location.reload()
+
       }
     };
   }
@@ -151,13 +159,13 @@ class DetailExam extends Component {
     );
     const jsonData = await client.json();
     if (jsonData.success) {
-      window.location.reload()
       // this.correspondence(this.state.id);
       NotificationManager.success("Message Sent", "Successful!", 2000);
       this.socket.send({
         exam_id: this.state.id,
         message: this.state.messageValue,
       });
+      window.location.reload()
     }
 
     return jsonData;
@@ -181,8 +189,12 @@ class DetailExam extends Component {
         });
         // let lastIn = response.data.data.reverse();
 
+        let resort = res.sort(
+          (a, b) => Date.parse(a.created) - Date.parse(b.created)
+        );
+
         this.setState({
-          correspondence: res,
+          correspondence: resort,
           lastInArray: res[res.length - 1],
         });
         // var sender_obj = this.state.correspondence[0].sender;
@@ -194,7 +206,9 @@ class DetailExam extends Component {
             console.log(ex);
             let imageDiv = document.createElement("div");
             imageDiv.id = "imageDiv";
-            imageDiv.onclick = function() { ex.clientHeight === 300 ? ex.style.height = '100px' : ex.style.height = '300px' };
+            imageDiv.onclick = function() { 
+             
+              ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' };
             let parentOfElement = ex.parentElement.previousSibling
             // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
             console.log(parentOfElement);
@@ -210,6 +224,41 @@ class DetailExam extends Component {
       });
   };
 
+  declineReason = (e)=>{
+    this.setState({declineReason: e.target.value})
+    e.target.style.height = '300px'
+    // e.target.style.height = `${e.target.scrollHeight}px`
+    
+  }
+
+  saveReason = () =>{
+    let id = this.props.match.params.id;
+    this.doctorExam(id, this.state.selectedStatus)
+  }
+
+  report= (e) =>{
+    this.setState({report: e.target.value})
+    e.target.style.height = '300px'
+    // e.target.style.height = `${e.target.scrollHeight}px`
+  }
+
+  saveReport= () =>{
+    console.log('hello');
+  }
+
+  handleReport = () =>{
+    console.log('hy');
+      this.setState({displayReport: true})
+  } 
+
+  resetValue = () =>{
+    this.setState({value: ''})
+    let inputMessage = document.querySelector(".inputMessage")
+    let yourMessage = document.getElementById("yourMessage")
+    yourMessage.style.height = "30px";
+  inputMessage.style.height = '30px'
+  }
+
   
 
   render() {
@@ -224,6 +273,12 @@ class DetailExam extends Component {
           onChangeHandler={this.onChangeHandler}
           handleMessage={this.handleMessage}
           newMessage={this.newMessage}
+          declineReason={this.declineReason}
+          saveReason={this.saveReason}
+          report={this.report}
+          saveReport={this.saveReport}
+          handleReport={this.handleReport}
+          resetValue={this.resetValue}
         />
       </>
     );

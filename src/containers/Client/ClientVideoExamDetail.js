@@ -98,6 +98,15 @@ class ClientVideoExamDetail extends Component {
           exam: this.state.exam.concat(response.data.data),
           appointedDate: response.data.data.appointed_date,
         });
+        let mess = document.getElementById('messageMainText')
+        let messageDiv = document.querySelector('.messageDiv')
+        console.log(mess);
+        if(mess.scrollHeight < 300){
+          mess.style.height = `${mess.scrollHeight}px`
+          messageDiv.style.height = `${mess.scrollHeight + 20}px` 
+        }else{
+          mess.style.height = '300px'
+        }
       });
   };
 

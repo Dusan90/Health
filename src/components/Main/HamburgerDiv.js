@@ -87,16 +87,6 @@ export class HamburgerDiv extends Component {
               {this.state.hamburger && <p>Alerts</p>}
             </div>
             <div>
-              <Link to='/doctors-settings' className="linksPatients">
-                <img
-                  src={settingsImg}
-                  className="profileIcon"
-                  alt="settings img"
-                />
-                {this.state.hamburger && <p>Settings</p>}
-              </Link>
-            </div>
-            <div>
               <Link to="/doctor/profile/" className="linksPatients">
                 <img
                   src={doctorsImg}
@@ -106,6 +96,17 @@ export class HamburgerDiv extends Component {
                 {this.state.hamburger && <p>Profile</p>}
               </Link>
             </div>
+            <div>
+              <Link to='/doctors-settings' className="linksPatients">
+                <img
+                  src={settingsImg}
+                  className="profileIcon"
+                  alt="settings img"
+                />
+                {this.state.hamburger && <p>Settings</p>}
+              </Link>
+            </div>
+           
           </div>
         </div>
       </div>

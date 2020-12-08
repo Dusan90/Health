@@ -32,7 +32,7 @@
       border-top-right-radius: 15px;
       display: flex;
       height: 40px;
-      width: 200px;
+      width: 250px;
       .dashIcon {
         font-size: 18px;
         align-self: center;
@@ -43,6 +43,7 @@
         align-self: center;
         color: #666666;
         margin: 1px 0 0 0;
+        font-weight: 450;
       }
     }
 
@@ -227,7 +228,7 @@
     width: 85%;
     margin: 0 auto;
     border-radius: 15px;
-    height: 280px;
+    height: 480px;
 
     overflow: hidden;
 
@@ -352,10 +353,15 @@
 
             text-overflow: ellipsis !important;
           }
+          .client-subject1 {
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            width: 350px;
+          }
           .client-subject {
             white-space: nowrap !important;
             overflow: hidden !important;
-
             text-overflow: ellipsis !important;
           }
           .created {

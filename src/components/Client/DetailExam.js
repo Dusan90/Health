@@ -22,6 +22,8 @@ const Detail = ({
   handleMessage,
   newMessage,
 }) =>{
+  console.log(props.correspondence, 'correspodencesesdfa');
+  console.log(exam, 'exaaaaaaaaaaaaam');
   const customStyles = {
     control: () => ({
       // none of react-select's styles are passed to <Control />
@@ -53,7 +55,7 @@ const Detail = ({
           <div className="detail-exam">
           <div className="iconVideo">
                 <img src={EmailIcon} alt="email" />
-                <p>Email details</p>{" "}
+                <p>Consultation details</p>{" "}
               </div>
             <div className="detail">
               <p>
@@ -64,11 +66,9 @@ const Detail = ({
               </p>
               <p>
                 <span>Created:</span>{" "}
-                {new Intl.DateTimeFormat("en-GB", {
-                  year: "numeric",
-                  month: "long",
-                  day: "2-digit",
-                }).format(new Date(exam.created))}
+                {moment(exam.created)
+                                .add(1, "hours")
+                                .format("MM/DD/YY HH:mm")}
               </p>
               <p>
                 <span>Type:</span> {exam.exam_type}
@@ -99,7 +99,7 @@ const Detail = ({
                   </p>
                   <p>
                     <span>
-                      {moment(exam.created).format("MM/DD/YYYY HH:mm")}
+                      {moment(exam.created).format("MM/DD/YY HH:mm")}
                     </span>
                   </p>
                 </div>
@@ -126,7 +126,7 @@ const Detail = ({
                           <p className="createdP">
                             {moment(message.created)
                               .add(2, "hours")
-                              .format("DD-MM-YYYY HH:mm")}
+                              .format("MM/DD/YY HH:mm")}
                           </p>
                         </div>
                         <div
@@ -169,7 +169,7 @@ const Detail = ({
                         </p>
                         <p className="createdP">
                               {moment(new Date())
-                                .format("DD-MM-YYYY HH:mm")}
+                                .format("MM/DD/YY HH:mm")}
                             </p>
                       
                       </div>

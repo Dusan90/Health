@@ -36,7 +36,8 @@ class DoctorProfile extends Component {
       currentStatus: '',
       Email: '',
       Organization: '',
-      specialities: []
+      specialities: [],
+      specialSP: ''
     };
   }
 
@@ -80,6 +81,7 @@ class DoctorProfile extends Component {
   form_data.append("web_currency", this.state.selectVideo);
   form_data.append("web_follow_up_currency", this.state.selectVideoFollow);
   form_data.append("organization", this.state.Organization);
+  form_data.append("speciality", this.state.specialSP);
   
   const access_token = "Bearer ".concat(this.state.token);
   let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
@@ -128,7 +130,8 @@ class DoctorProfile extends Component {
           TimeEnd: end,
           selectEmail,
           selectVideo,
-          selectVideoFollow
+          selectVideoFollow,
+          specialSP: response.data.data.speciality
         });
       });
   };
@@ -151,6 +154,7 @@ class DoctorProfile extends Component {
     console.log(e);
     this.setState({
       specialSP: e.value,
+      selectedSpec: e.label,
       resetDoctorSelect: null,
     });
   };
@@ -170,7 +174,7 @@ class DoctorProfile extends Component {
   }
 
   render() {
-    console.log(this.state.Organization);
+    console.log(this.state.VideoFollowUp);
     return (
       <>
         <div className="header">

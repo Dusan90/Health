@@ -4,6 +4,8 @@ import "../../assets/auth/register.scss";
 import seen from '../../icons/password-seen.svg'
 import hidden from '../../icons/password-hidden.svg'
 import Loading from "../../icons/c+.svg";
+import cLogo from "../../icons/c+.svg";
+
 
 
 const RegisterUser = ({
@@ -31,7 +33,7 @@ const RegisterUser = ({
       height: "40px",
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
-      width: "250px",
+      flex: '1',
       fontWeight: '700',
       marginLeft: "2px",
       // background: "white",
@@ -47,6 +49,7 @@ className="loading"
 alt="loading..."
 style={{ width: "150px" }}
 />}
+<img src={cLogo} className="logo" alt="cLogo" />
       <div className="radioDiv">
         <h1 className="head">Are you a doctor or a client?</h1>
         <div className="checkingInputs">

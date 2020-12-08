@@ -30,7 +30,9 @@ class ProcessingVideoExam extends Component {
       connection: "",
       clientStatus: "",
       showExtendScreen: false,
-      extended: false
+      extended: false,
+      displayReport: false,
+      declineReason: ''
     };
   }
 
@@ -52,6 +54,15 @@ class ProcessingVideoExam extends Component {
           exam: [response.data.data],
           clientStatus: response.data.data.exam.status,
         });
+        let mess = document.getElementById('messageMainText')
+        let messageDiv = document.querySelector('.messageDiv')
+        console.log(mess);
+        if(mess.scrollHeight < 300){
+          mess.style.height = `${mess.scrollHeight}px`
+          messageDiv.style.height = `${mess.scrollHeight + 20}px` 
+        }else{
+          mess.style.height = '300px'
+        }
       })
       .catch((error) => {
         error.response && error.response.data.message === "Bad request"
@@ -73,7 +84,7 @@ class ProcessingVideoExam extends Component {
       .then((stream) => {
         var myVideo = document.createElement("video");
         myVideo.id = "myVid";
-        var videoChat = document.getElementById("detailInfo2");
+        var videoChat = document.getElementById("videoChat");
         videoChat.appendChild(myVideo);
         myVideo.srcObject = stream;
         myVideo.play();
@@ -118,13 +129,21 @@ class ProcessingVideoExam extends Component {
                 peer.signal(this.state.clientsVideoId);
                 var myVid = document.getElementById("myVid");
                 myVid.style.cssText =
-                  "position: absolute; left: 10px; bottom: 9px; height: 170px; width: 320px;";
+                  "position: absolute; right: 15px; top: 10px; height: 140px; width: 170px; z-index: 20";
               }
             });
 
         document.getElementById("send").addEventListener("click", function () {
           var yourMessage = document.getElementById("yourMessage").value;
           peer.send(yourMessage);
+        
+          let message = document.querySelector("#yourMessage").value;
+          connection.send(message);
+          document.getElementById(
+            "messages"
+          ).innerHTML += `<p style='color: #666666  ;margin: 5px auto 5px 0;display: table; padding: 5px 10px 0 0; white-space: initial ; background: #e6e6e6; border-radius: 10px'><span>Doctor:</span>${message}</p>`;
+          var objDiv = document.getElementById("messages");
+          objDiv.scrollTop = objDiv.scrollHeight;
         });
 
         connection.onclose = () => {
@@ -137,22 +156,22 @@ class ProcessingVideoExam extends Component {
           console.error("failed to connect", error);
         };
 
-        document.querySelector("form").addEventListener("submit", (event) => {
-          event.preventDefault();
-          let message = document.querySelector("#yourMessage").value;
-          connection.send(message);
-          document.getElementById(
-            "messages"
-          ).innerHTML += `<p style='color: #666666  ;margin: 5px auto 5px 0;display: table; white-space: initial ; background: #e6e6e6; border-radius: 10px'><span>Doctor:</span>${message}</p>`;
-          this.setState({ value: "" });
-          var objDiv = document.getElementById("messages");
-objDiv.scrollTop = objDiv.scrollHeight;
-        });
+//         document.querySelector("form").addEventListener("submit", (event) => {
+//           event.preventDefault();
+//           let message = document.querySelector("#yourMessage").value;
+//           connection.send(message);
+//           document.getElementById(
+//             "messages"
+//           ).innerHTML += `<p style='color: #666666  ;margin: 5px auto 5px 0;display: table; white-space: initial ; background: #e6e6e6; border-radius: 10px'><span>Doctor:</span>${message}</p>`;
+//           this.setState({ value: "" });
+//           var objDiv = document.getElementById("messages");
+// objDiv.scrollTop = objDiv.scrollHeight;
+//         });
 
         peer.on("data", function (data) {
           document.getElementById(
             "messages"
-          ).innerHTML += `<p style='color: #666666 ; margin: 5px 0 5px auto; background: #e6e6e6 ;display: table; white-space: initial; border-radius: 10px'><span>Client:</span>${data}</p>`;
+          ).innerHTML += `<p style='color: #666666 ; margin: 5px 0 5px auto; background: #e6e6e6 ;display: table; padding: 5px 10px 0 0; white-space: initial; border-radius: 10px'><span>Client:</span>${data}</p>`;
           var objDiv = document.getElementById("messages");
           objDiv.scrollTop = objDiv.scrollHeight;
         });
@@ -217,8 +236,18 @@ objDiv.scrollTop = objDiv.scrollHeight;
       }
     )}
 
-  handleChange = (e) => {
+  handleChange = (e) => {    
     this.setState({ value: e.target.value });
+    let inputMessage = document.querySelector(".inputMessage")
+    if(e.target.value === ''){
+      e.target.style.height = "30px";
+    inputMessage.style.height = '30px'
+    }else{
+      e.target.style.height = "30px";
+      inputMessage.style.height = '30px'
+      e.target.clientHeight < e.target.scrollHeight && (e.target.style.height = (5 + e.target.scrollHeight)+"px")
+      e.target.clientHeight < e.target.scrollHeight && (inputMessage.style.height = (5 + e.target.scrollHeight)+"px")
+    }
   };
   enableTipeing = (e) => {
     e.stopPropagation();
@@ -294,6 +323,7 @@ objDiv.scrollTop = objDiv.scrollHeight;
         },
         body: JSON.stringify({
           status: value,
+          decline_notes: this.state.declineReason
         }),
       }
     );
@@ -305,8 +335,8 @@ objDiv.scrollTop = objDiv.scrollHeight;
       jsonData.data.exam.status === "Accepted" &&
         this.state.connectedall &&
         this.handleConnect();
-      jsonData.data.exam.status === "Declined" &&
-        this.props.history.push("/dashboard-doctor");
+      // jsonData.data.exam.status !== "Declined" && jsonData.data.exam.status !== "Finished" &&
+      //   this.props.history.push("/dashboard-doctor");
       connection.send(
         JSON.stringify({
           id: this.props.match.params.id,
@@ -368,7 +398,9 @@ objDiv.scrollTop = objDiv.scrollHeight;
     console.log(value, label);
     this.setState({ selectedStatus: value });
     // this.handleCancel(value);
-    this.statusSelecting(value);
+    if(value !== 'Decline'){
+      this.statusSelecting(value);
+    }
   };
 
   showExtendScreenIcon=()=>{
@@ -382,14 +414,36 @@ objDiv.scrollTop = objDiv.scrollHeight;
 
   declineReason = (e)=>{
     this.setState({declineReason: e.target.value})
+    e.target.style.height = '300px'
+    // e.target.style.height = `${e.target.scrollHeight}px`
+
   }
 
   saveReason = () =>{
-    this.doctorExam(this.state.selectedStatus)
+    this.statusSelecting(this.state.selectedStatus)
   }
 
   report= (e) =>{
     this.setState({report: e.target.value})
+    e.target.style.height = '300px'
+    // e.target.style.height = `${e.target.scrollHeight}px`
+  }
+
+  saveReport= () =>{
+    console.log('hello');
+  }
+
+  handleReport = () =>{
+    console.log('hy');
+      this.setState({displayReport: true})
+  } 
+
+  resetValue = () =>{
+    this.setState({value: ''})
+    let inputMessage = document.querySelector(".inputMessage")
+    let yourMessage = document.getElementById("yourMessage")
+    yourMessage.style.height = "30px";
+  inputMessage.style.height = '30px'
   }
 
   render() {
@@ -417,11 +471,14 @@ objDiv.scrollTop = objDiv.scrollHeight;
           cutMic={this.cutMic}
           cutVideo={this.cutVideo}
           props={this.state}
-  showExtendScreenIcon={this.showExtendScreenIcon}
-  extendScr={this.extendScr}
-      declineReason={this.declineReason}
+          showExtendScreenIcon={this.showExtendScreenIcon}
+          extendScr={this.extendScr}
+          declineReason={this.declineReason}
           saveReason={this.saveReason}
           report={this.report}
+          saveReport={this.saveReport}
+          handleReport={this.handleReport}
+          resetValue={this.resetValue}
 
         />
 

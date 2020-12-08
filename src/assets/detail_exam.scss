@@ -1,7 +1,7 @@
 .detail_exam {
   background: #f2f2f2;
   position: relative;
-  padding: 40px 40px;
+  padding: 40px 15px !important;
   border-top-right-radius: 15px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -23,21 +23,24 @@
     height: 40px;
     display: flex;
     background: #f2f2f2;
-    width: 18%;
-    justify-content: center;
+    width: 250px;
+    justify-content: flex-start;
+    padding: 0 15px;
     align-items: center;
     p {
       margin: 0 0 0 5px;
+      font-size: 15px;
+      font-weight: 450 !important;
+      color: #666666;
     }
   }
   .detail {
-    padding: 3px 10px 5px 10px;
+    padding: 0px 10px 5px 0px;
     position: relative;
     width: 300px;
     .divSelectButton {
       display: flex;
       .select-option {
-        margin-left: -12px;
         width: 200px;
         // border: 1px solid #fa9551;
       }
@@ -73,7 +76,7 @@
     .message-btn {
       position: absolute;
       bottom: 0;
-      margin: 0 0 0 -10px;
+      // margin: 0 0 0 -10px;
       button {
         background: #00aff0;
         margin: 0;
@@ -102,28 +105,34 @@
       color: white;
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
-      height: 40px;
+      height: 30px;
       p {
-        margin: 5px 15px 0 15px;
+        margin: 0px 15px 0 15px;
+        // font-weight: 700;
+
         span {
-          font-weight: 700;
+          // font-weight: 700;
+          margin-right: 5px;
         }
       }
     }
     .messageDiv {
-      height: 30%;
+      min-height: 150px;
       width: 100%;
       background: white;
       border-bottom-left-radius: 15px;
       border-bottom-right-radius: 15px;
+      padding: 10px 15px !important;
+
       // padding: 10px 13px 0 13px;
       textarea {
         resize: none;
         width: 100%;
-        height: 100%;
+        height: 100% !important;
         border: none;
-        padding: 10px 15px;
+        // padding: 10px 15px;
         border-bottom-left-radius: 15px;
+        background: white;
         border-bottom-right-radius: 15px;
         &::-webkit-scrollbar {
           width: 5px;
@@ -156,8 +165,8 @@
     .reportIfDeclined,
     .reportIfFinished {
       margin: 20px 0 0 0;
-
-      height: 45%;
+      // height: 400px;
+      // height: 45%;
       .subjectDiv {
         display: flex;
         justify-content: space-between;
@@ -166,11 +175,14 @@
         color: #666666;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
-        height: 40px;
+        height: 30px;
         p {
-          margin: 5px 15px 0 15px;
+          margin: 0px 15px 0 15px;
+          // font-weight: 700;
+
           span {
-            font-weight: 700;
+            // font-weight: 700;
+            margin-right: 5px;
           }
         }
       }
@@ -183,9 +195,10 @@
         // padding: 10px 13px 0 13px;
         textarea {
           width: 100%;
-          height: 100%;
+          min-height: 300px;
           padding: 10px;
-          text-indent: 5px;
+
+          background: white;
           border: none;
           resize: none;
           border-bottom-left-radius: 15px;
@@ -216,21 +229,20 @@
             background: #db8246;
           }
         }
-        button {
-          color: white;
-          background: #00aff0;
-          border: none;
-          border-radius: 5px;
-          padding: 5px 10px;
-          font-weight: 600;
-          margin: 20px auto 20px 0;
-        }
+      }
+      button {
+        color: white;
+        background: #00aff0;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        font-weight: 600;
+        margin: 50px auto 0px 0;
       }
     }
   }
   .sideMessageDetails {
     width: 100%;
-    padding: 5px;
     display: flex;
     flex-direction: column;
     .SubjectMessage {
@@ -242,14 +254,14 @@
         margin: 0;
         justify-content: space-between;
         align-items: center;
-        text-indent: 10px;
+        // text-indent: 10px;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
         p {
-          margin: 0 20px 0 0;
-          font-weight: 700;
+          margin: 0px 15px 0 15px;
+
+          // font-weight: 700;
           span {
-            font-weight: 700;
             margin-right: 5px;
           }
         }
@@ -257,15 +269,17 @@
       .messageDiv {
         background: white;
         color: #666666;
-        height: 100px;
+        min-height: 150px;
+        padding: 10px 15px !important;
+
         // padding: 10px 0 0 0;
         // text-indent: 20px;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
         textarea {
           width: 100%;
-          height: 100%;
-          padding: 10px;
+          height: 100% !important;
+          // padding: 10px;
           background: white;
           // text-indent: 10px;
           border: none;
@@ -297,6 +311,82 @@
           &::-webkit-scrollbar-thumb:hover {
             background: #db8246;
           }
+        }
+      }
+      .reportIfDeclined,
+      .reportIfFinished {
+        margin: 20px 0 0 0;
+        // height: 45%;
+        .subjectDiv {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: #e6e6e6;
+          color: #666666;
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+          height: 30px;
+          p {
+            margin: 0px 15px 0 15px;
+            // font-weight: 700;
+
+            span {
+              // font-weight: 700;
+              margin-right: 5px;
+            }
+          }
+        }
+        .messageDivReport {
+          width: 100%;
+          height: 72%;
+          background: white;
+          border-bottom-left-radius: 15px;
+          border-bottom-right-radius: 15px;
+          // padding: 10px 13px 0 13px;
+          textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 10px;
+            background: white;
+            border: none;
+            resize: none;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            &::-webkit-scrollbar {
+              width: 5px;
+            }
+
+            &::-webkit-scrollbar-button:single-button {
+              // background-color: #bbbbbb;
+              display: block;
+
+              height: 13px;
+              width: 16px;
+            }
+
+            &::-webkit-scrollbar-track {
+              background: #f1f1f1;
+              border-radius: 5px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background: #fa9551;
+              border-radius: 5px;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+              background: #db8246;
+            }
+          }
+        }
+        button {
+          color: white;
+          background: #00aff0;
+          border: none;
+          border-radius: 5px;
+          padding: 5px 10px;
+          font-weight: 600;
+          margin: 50px auto 0px 0;
         }
       }
     }
@@ -678,6 +768,31 @@
         background: #00aff0;
         color: white;
       }
+    }
+  }
+  .btn1 {
+    background: #00aff0;
+    position: absolute;
+    bottom: 40px;
+    margin: 0;
+    font-size: 14px;
+    padding: 12px;
+    font-weight: bold;
+    color: white;
+    width: 150px;
+    border-radius: 6px;
+    box-shadow: none !important;
+    border: none !important;
+    &:hover {
+      color: white !important;
+    }
+    &:disabled,
+    button[disabled] {
+      background: lightgray;
+      cursor: not-allowed;
+      box-shadow: none;
+      border: none;
+      pointer-events: none;
     }
   }
 }

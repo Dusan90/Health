@@ -21,11 +21,14 @@
     height: 40px;
     display: flex;
     background: #f2f2f2;
-    width: 35%;
+    width: 250px;
     justify-content: flex-start;
     align-items: center;
     p {
       margin: 0 0 0 5px;
+      font-size: 15px;
+      font-weight: 450 !important;
+      color: #666666;
     }
   }
   .doctor {

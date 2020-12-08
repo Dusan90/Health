@@ -15,12 +15,17 @@
     width: 170px;
     background: #f3f3f3;
     display: flex;
+    width: 250px;
+    height: 40px;
+    font-size: 15px;
+
     img {
-      margin: 0 10px 0 20px;
+      margin: 0 10px 0 15px;
     }
     h4 {
+      font-size: 15px;
+      font-weight: 450;
       color: #666666;
-      text-align: left;
     }
   }
 
@@ -32,7 +37,7 @@
     justify-content: space-between;
     align-items: flex-start;
     margin: 20px 0;
-    padding: 10px 20px;
+    padding: 10px 15px;
     width: 100%;
     // label {
     //   align-self: center;
@@ -61,7 +66,7 @@
   .row2 {
     // width: 83%;
     padding: 0 0 20px 0;
-    margin: 0 35px 0 20px;
+    margin: 0 35px 0 15px;
 
     .list-group {
       box-shadow: none;

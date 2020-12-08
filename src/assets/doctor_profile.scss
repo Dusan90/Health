@@ -172,19 +172,21 @@
     top: -40px;
     left: 0;
     height: 40px;
-    width: 160px;
+    width: 250px;
     img {
       margin: 0 10px 0 15px;
     }
     p {
       margin: 0;
-      font-weight: 400;
+      font-size: 15px;
+      font-weight: 450 !important;
+      color: #666666;
     }
   }
 
   .doctor {
     width: 50%;
-    padding: 20px 20px 20px 40px;
+    padding: 20px 20px 20px 15px;
     margin: 20px 0 20px 0;
 
     .doctor-p {
@@ -228,7 +230,7 @@
   }
 
   .form {
-    padding: 20px 40px 20px 20px;
+    padding: 20px 15px 20px 20px;
     margin: 20px 0 20px 0;
     width: 50%;
     color: #666666;

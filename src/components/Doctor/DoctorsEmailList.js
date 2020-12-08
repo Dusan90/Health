@@ -75,12 +75,12 @@ const DoctorsEmailList = ({ props, handleClick }) => {
                       </td>
                       <td className="created">
                         {exam.created && !exam.appointed_date ? (
-                          <p> {moment(exam.created).format("MM/DD/YYYY")}</p>
+                          <p> {moment(exam.created).format("MM/DD/YY")}</p>
                         ) : exam.appointed_date ? (
                           <p>
                             {" "}
                             {moment(exam.appointed_date).format(
-                              "MM/DD/YYYY HH:mm"
+                              "MM/DD/YY HH:mm"
                             )}
                           </p>
                         ) : null}

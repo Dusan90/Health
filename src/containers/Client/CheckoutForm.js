@@ -30,7 +30,9 @@ class CheckoutForm extends Component {
       cardNumber: false,
       cardCvc: false,
       cardExpiry: false,
-      loading: false
+      loading: false,
+      name: '',
+      color: ''
     };
   }
 
@@ -75,7 +77,14 @@ class CheckoutForm extends Component {
 
   handleChange = (change) => {
     // console.log("[change]", change);
+    console.log(change);
     this.setState({ [change.elementType]: change.complete });
+    const CardElement = document.getElementById('CardElement')
+    CardElement.style.backgroundColor = !this.state.cardNumber && 'white'
+    const Expire = document.getElementById('Expire')
+    Expire.style.backgroundColor = this.state.cardExpiry && 'white'
+    const elementCvc = document.getElementById('elementCvc')
+    elementCvc.style.backgroundColor = this.state.cardCvc && 'white'
   };
   handleReady = () => {
     console.log("[ready]");
@@ -85,6 +94,13 @@ class CheckoutForm extends Component {
     ev.preventDefault();
     const price = parseInt(this.props.location.state.price, 10);
     const currency = this.props.location.state.currency
+    this.setState({color: 'red'})
+    const CardElement = document.getElementById('CardElement')
+    CardElement.style.backgroundColor = !this.state.cardNumber ? 'rgb(245, 192, 192)' : 'white'
+    const Expire = document.getElementById('Expire')
+    Expire.style.backgroundColor = !this.state.cardExpiry ? 'rgb(245, 192, 192)' : 'white'
+    const elementCvc = document.getElementById('elementCvc')
+    elementCvc.style.backgroundColor = !this.state.cardCvc ? 'rgb(245, 192, 192)' : 'white'
     if (
       this.props.stripe &&
       this.state.cardNumber &&
@@ -185,20 +201,27 @@ class CheckoutForm extends Component {
     this.setState({ cardElement: element });
   };
 
+  handleName = (e) =>{
+    this.setState({name: e.target.value})
+  }
+
   render() {
     console.log(this.props.location.state);
     console.log(this.props.location.state.price)
-    const createOptions = (fontSize, padding) => {
+    const createOptions = (fontSize, padding, background) => {
       return {
         style: {
           base: {
             fontSize,
             color: "#666666",
             letterSpacing: "0.025em",
+            color: "#666666",
+            fontSize: "14px",
+            fontWeight: 'bold',
             "::placeholder": {
               color: "#666666",
-              fontSize: "12px",
-              fontWeight: 700,
+              fontSize: "14px",
+              fontWeight: '450',
             },
             padding,
           },
@@ -260,7 +283,9 @@ style={{ width: "150px" }}
                 <label htmlFor="fullName">
                   Full Name
                   <br />
-                  <input id="fullName" placeholder="John Doe" type="text" />
+                  <input
+                  style={{background: !this.state.name && this.state.color && 'rgb(245, 192, 192)'  }}
+                  id="fullName" onChange={this.handleName} placeholder="Full Name" type="text" />
                 </label>
                 <h1 className="totalPrice">
                   Total:{" "}
@@ -312,7 +337,10 @@ style={{ width: "150px" }}
                     Card Number
                     <CardNumberElement
                       className="CardElement"
+                      id='CardElement'
                       onChange={this.handleChange}
+                 
+                    
                       onReady={this.handleReady}
                       {...createOptions(this.props.fontSize)}
                     />
@@ -321,7 +349,9 @@ style={{ width: "150px" }}
                     Expiration Date
                     <CardExpiryElement
                       className="CardElement"
+                      id='Expire'
                       onChange={this.handleChange}
+
                       onReady={this.handleReady}
                       {...createOptions(this.props.fontSize)}
                     />
@@ -330,7 +360,9 @@ style={{ width: "150px" }}
                     CVC
                     <CardCVCElement
                       className="CardElement cvc"
+                      id="elementCvc"
                       onChange={this.handleChange}
+
                       onReady={this.handleReady}
                       {...createOptions(this.props.fontSize)}
                     />

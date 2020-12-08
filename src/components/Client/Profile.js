@@ -11,7 +11,8 @@ const Profile = ({
   props,
   attachInput,
   handleChange,
-  handleImage
+  handleImage,
+  handleRemoveImage
 }) => (
   <>
     {client &&
@@ -91,9 +92,12 @@ const Profile = ({
                 <label htmlFor="Female">Female</label>
                 </div>
                 <div className='profilePic'>
+                {client.image !== "/media/default.jpg" && <li onClick={handleRemoveImage} href='#'>Remove picture</li>}
+
+                
               <div className="upload-btn-wrapper">
             {/* <button className="btn"> */}
-                {client.image !== "/media/default.jpg" ? <li href='#'>Remove picture</li> : <li href='#'>Add picture</li>}
+                {client.image === "/media/default.jpg" && <li href='#'>Add picture</li>}
             {/* {client.image !== "/media/default.jpg" ?
               <img className='docImage' src={ `https://healthcarebackend.xyz${client.image}`} alt='#' /> :
               <p>+</p>

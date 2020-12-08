@@ -67,11 +67,12 @@ class ClientDetailExam extends Component {
         this.setState({ exam: this.state.exam.concat(response.data.data), doctor: response.data.data.doctor });
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
-
         console.log(mess);
-        if(mess.clientHeight < mess.scrollHeight){
-          mess.style.height = '280px'
-          messageDiv.style.height = '300px'
+        if(mess.scrollHeight < 300){
+          mess.style.height = `${mess.scrollHeight}px`
+          messageDiv.style.height = `${mess.scrollHeight + 20}px`
+        }else{
+          mess.style.height = '300px'
         }
       })
       .catch((err) => {
@@ -96,7 +97,7 @@ class ClientDetailExam extends Component {
       let parsedEvent = JSON.parse(event.data);
 
       if (parsedEvent.exam_id === parseInt(id)) {
-        this.correspondence(id);
+        window.location.reload()
       }
       console.log(parsedEvent);
     };
@@ -190,24 +191,33 @@ class ClientDetailExam extends Component {
             attachment: val.attachment,
           };
         });
+
+        let resort = res.sort(
+          (a, b) => Date.parse(a.created) - Date.parse(b.created)
+        );
         // let lastIn = response.data.data.reverse();
         this.setState({
-          correspondence: res,
+          correspondence: resort,
           lastInArray: res[res.length - 1],
         });
       }).then(() =>{
         let textar = [...document.querySelectorAll('.message')]
         textar.map(ex =>{
           if (ex.clientHeight < ex.scrollHeight){
+            console.log(ex);
+            let imageDiv = document.createElement("div");
+            imageDiv.id = "imageDiv";
+            imageDiv.onclick = function() { 
+              ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' };
 
-            let imageDiv1 = document.createElement("div");
-            imageDiv1.id = "imageDiv1";
-            imageDiv1.onclick = function() { ex.clientHeight === 300 ? ex.style.height = '100px' : ex.style.height = '300px' };
             let parentOfElement = ex.parentElement.previousSibling
-            parentOfElement.insertBefore(imageDiv1, parentOfElement.firstChild);
+            // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
+            console.log(parentOfElement);
+            parentOfElement.appendChild(imageDiv)
 
           }
         })
+    
       })
       .catch((error) => {
         console.log(error.response);

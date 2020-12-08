@@ -14,18 +14,21 @@
     position: absolute;
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
-    font-size: 17px;
+    font-size: 15px;
     top: -40px;
     left: 0;
     padding: 0 0 0 20px;
     height: 40px;
     display: flex;
     background: #f2f2f2;
-    width: 25%;
+    width: 250px;
     justify-content: flex-start;
     align-items: center;
     p {
       margin: 0 0 0 5px;
+      font-size: 15px;
+      font-weight: 450;
+      color: #666666;
     }
   }
   .doctor {

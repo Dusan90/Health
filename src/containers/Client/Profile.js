@@ -136,6 +136,11 @@ const data = axios.put(url, form_data, {
     window.open(e.target.src)
   }
 
+  handleRemoveImage = (e) =>{
+    // this.setState({attach: 'default.jpg'})
+    // this.handleSubmit(e)
+  }
+
   render() {
     console.log(this.state.attach.name);
     return (
@@ -155,6 +160,7 @@ const data = axios.put(url, form_data, {
           handleChange={this.handleChange}
           attachInput={this.attachInput}
           handleImage={this.handleImage}
+          handleRemoveImage={this.handleRemoveImage}
         />
       </>
     );

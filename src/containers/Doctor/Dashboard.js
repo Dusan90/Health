@@ -255,8 +255,8 @@ class DoctorDashboard extends Component {
 
   paginate = (page) => {
     if (this.state.searchedUpcomingOrPast.length === 0) {
-      let limit = 5;
-      let pages = Math.ceil(this.state.upcomingOrPast.length / 5);
+      let limit = 10;
+      let pages = Math.ceil(this.state.upcomingOrPast.length / 10);
       const offset = (page - 1) * limit;
       const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
 
@@ -266,8 +266,8 @@ class DoctorDashboard extends Component {
         maxPages: pages,
       });
     } else {
-      let limit = 5;
-      let pages = Math.ceil(this.state.searchedUpcomingOrPast.length / 5);
+      let limit = 10;
+      let pages = Math.ceil(this.state.searchedUpcomingOrPast.length / 10);
       const offset = (page - 1) * limit;
       const newArray = this.state.searchedUpcomingOrPast.slice(
         offset,
@@ -427,6 +427,7 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response, 'messages')
         const unreadMessages = response.data.data.filter((ex) => {
           if (ex.messages.length !== 0) {
             return (

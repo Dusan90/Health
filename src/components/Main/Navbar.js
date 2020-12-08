@@ -36,6 +36,12 @@ form_data.append("email_exam_price", '');
 form_data.append("web_exam_price", '');
 form_data.append("web_exam_follow_price", '');
 form_data.append("image", '');
+form_data.append("organization", '');
+form_data.append("start_hour", '');
+form_data.append("end_hour", '');
+form_data.append("email_currency", '');
+  form_data.append("web_currency", '');
+  form_data.append("web_follow_up_currency", '');
 form_data.append("status", value);
 
 

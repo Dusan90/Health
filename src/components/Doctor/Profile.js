@@ -25,7 +25,7 @@ const Profile = ({
     control: () => ({
       // none of react-select's styles are passed to <Control />
       width: 100,
-      border: "1px solid #fa9551",
+      border: "1.7px solid #fa9551",
       borderRadius: "10px",
       height: "40px",
       fontWeight: 500,
@@ -57,7 +57,7 @@ const Profile = ({
     control: () => ({
       // none of react-select's styles are passed to <Control />
       width: '90%',
-      border: "1px solid #fa9551",
+      border: "1.7px solid #fa9551",
       borderRadius: "10px",
       height: "40px",
       fontWeight: 700,
@@ -126,7 +126,7 @@ const Profile = ({
             styles={customStyles2}
             isSearchable={false}
             id="speciality"
-            placeholder={props.currentSpec ? props.currentSpec : doctor.speciality}
+            placeholder={doctor.spec_name}
             options={props.specialities}
             onChange={handleSpeciality}
           />

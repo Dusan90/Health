@@ -35,6 +35,7 @@ const Processing = ({
   handleResize,
   showAndHideChat,
   handleDivSize,
+  resetValue,
   cutVideo,
   cutMic,
   showExtendScreenIcon,
@@ -42,6 +43,8 @@ const Processing = ({
   declineReason,
   saveReason,
   report,
+  saveReport, 
+  handleReport
 }) => {
   const customStyles = {
     control: () => ({
@@ -57,6 +60,7 @@ const Processing = ({
   return (
     <>
       {props.exam.map((exam) => {
+        console.log(exam)
         let disabled2 =
           props.connected && exam.exam.status === "Accepted" ? false : true;
         let placeholder =
@@ -75,7 +79,7 @@ const Processing = ({
         }}>
             <div className="iconVideoo">
                 <img src={iconWaitingBlue} alt="email" />
-                <p>Waiting room details</p>{" "}
+                <p>Consultation details</p>{" "}
               </div>
               <div className="detail">
                 <div className='detailInfo'>
@@ -83,8 +87,8 @@ const Processing = ({
                   <span>Client:</span> {exam.exam.client}
                 </p>
                 <p>
-        <span>{exam.exam.status === 'Appointed' || exam.exam.status === 'Finished' ? 'Appointed: ' : 'Appoint: '}</span> 
-                      {moment(exam.exam.appointed_date).format("MM/DD/YYYY HH:mm")}
+      <span>Created: {" "}</span> 
+                      {moment(exam.exam.appointed_date).format("MM/DD/YY ")}
 
         
                 </p>
@@ -115,7 +119,9 @@ const Processing = ({
                       }
                     />
                   </div>
+                  
                 )}
+                
                 </div>
                 <div className="mainMessageDiv">
                 <div className="subjectDiv">
@@ -124,12 +130,12 @@ const Processing = ({
                   </p>
                   <p>
                     <span>
-                      {moment(exam.exam.created).format("MM/DD/YYYY")}
+                      {moment(exam.exam.created).format("MM/DD/YY")}
                     </span>{" "}
                   </p>
                 </div>
                 <div className="messageDiv">
-                  <textarea defaultValue= {exam.exam.notes} disabled={true}>
+                  <textarea defaultValue= {exam.exam.notes} id='messageMainText' disabled={true}>
                   
                   </textarea>
 
@@ -147,18 +153,24 @@ const Processing = ({
                       <button style={{display:  exam.exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
                 </div>
                 </div>
-
-                <div className='reportIfFinished' style={{display: exam.exam.status === 'Finished' ? 'block' : 'none' &&  props.selectedStatus !== 'Finish' ? 'none' : 'block'}}>
+                <div className='reportIfFinished' style={{display: !props.displayReport && 'none'}}>
                 <div className="subjectDiv">
                   <p>
                     <span>Report:</span>
                   </p>
                 </div>
                 <div className="messageDivReport"  >
-                      <textarea name="text" disabled={ exam.exam.status === 'Finished' && true} placeholder={exam.exam.report ? exam.exam.report : 'text'} value={props.report} onChange={report} id="textarea"></textarea>
-                      <button style={{display:  exam.exam.status === 'Finished' && 'none'}} onClick={saveReason}>Save</button>
+                      <textarea name="text" 
+                      // disabled={ exam.status === 'Finished' && true} 
+                      // placeholder={exam.report ? exam.report : 'text'} 
+                      value={props.report} 
+                      onChange={report} id="textarea"></textarea>
+                      <button 
+                      // style={{display:  exam.exam.status === 'Finished' && 'none'}} 
+                      onClick={saveReport} type='submit'>Save</button>
                 </div>
                 </div>
+                
               </div>
               </div>
               {/* {exam.record ? (
@@ -194,15 +206,25 @@ const Processing = ({
                 disabled={disabled2}
               >
                 Start Video
-              </button>}
+              </button>
+            }
             </div>
+            { exam.exam.status === 'Finished' ? 
+                 <button
+                  className="btn1"
+                  onClick={handleReport}
+                >
+                  Report
+                </button> : null}
             </div>
 
 
 
             <div className="detailExam"  style={{
           display: props.startVideo ? "block" : "none",
-          padding: 0
+          padding: 0,
+          height: '550px',
+          marginBottom: '20px'
         }}>
             <div className="iconVideoo">
                 <img src={iconVideoBlue} alt="email" />
@@ -242,18 +264,19 @@ const Processing = ({
           >
             <pre id="messages"></pre>
             <div className="inputMessage">
-              <input
+              <textarea
                 type="text"
                 placeholder="Type a message"
                 id="yourMessage"
                 value={props.value}
                 onChange={handleChange}
                 onMouseDown={enableTipeing}
-              ></input>
-              <button style={{display: 'hidden'}} id="send">Send</button>
+              ></textarea>
             </div>
           </form>
                   </div>  
+              <button id="send" onClick={resetValue}>Send</button>
+
                 </div>
                 <div id='videoChat' onMouseEnter={showExtendScreenIcon} onMouseLeave={showExtendScreenIcon}>
                 {/* <div id='videoo' >nesto tamo</div> */}
