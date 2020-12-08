@@ -32,7 +32,8 @@ class ProcessingVideoExam extends Component {
       showExtendScreen: false,
       extended: false,
       displayReport: false,
-      declineReason: ''
+      declineReason: '',
+      report: ''
     };
   }
 
@@ -323,7 +324,8 @@ class ProcessingVideoExam extends Component {
         },
         body: JSON.stringify({
           status: value,
-          decline_notes: this.state.declineReason
+          decline_notes: this.state.declineReason,
+          report: this.state.report
         }),
       }
     );
@@ -335,8 +337,7 @@ class ProcessingVideoExam extends Component {
       jsonData.data.exam.status === "Accepted" &&
         this.state.connectedall &&
         this.handleConnect();
-      // jsonData.data.exam.status !== "Declined" && jsonData.data.exam.status !== "Finished" &&
-      //   this.props.history.push("/dashboard-doctor");
+      jsonData.data.exam.status === "Finished" && window.location.reload();
       connection.send(
         JSON.stringify({
           id: this.props.match.params.id,
@@ -430,7 +431,7 @@ class ProcessingVideoExam extends Component {
   }
 
   saveReport= () =>{
-    console.log('hello');
+    this.statusSelecting("Finish")
   }
 
   handleReport = () =>{

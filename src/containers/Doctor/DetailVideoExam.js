@@ -275,7 +275,8 @@ class DetailVideoExam extends Component {
         },
         body: JSON.stringify({
           status: value,
-          decline_notes: this.state.declineReason
+          decline_notes: this.state.declineReason,
+          report: this.state.report
         }),
       }
     );
@@ -339,6 +340,12 @@ class DetailVideoExam extends Component {
 
   saveReason = () =>{
     this.doctorExam(this.state.selectedStatus)
+  }
+
+  saveReport= () =>{
+    let value = 'Finish'
+    this.doctorExam(value)
+
   }
 
   // saveReport= async () =>{

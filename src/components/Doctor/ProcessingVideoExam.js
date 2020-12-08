@@ -162,8 +162,10 @@ const Processing = ({
                 <div className="messageDivReport"  >
                       <textarea name="text" 
                       // disabled={ exam.status === 'Finished' && true} 
-                      // placeholder={exam.report ? exam.report : 'text'} 
-                      value={props.report} 
+                      placeholder={exam.exam.report ? exam.exam.report : 'Add report'} 
+                      // value={props.report} 
+                      onFocus={ (e) => {e.target.value = exam.exam.report}}
+                      onBlur={ (e) => {e.target.value = ''}}
                       onChange={report} id="textarea"></textarea>
                       <button 
                       // style={{display:  exam.exam.status === 'Finished' && 'none'}} 

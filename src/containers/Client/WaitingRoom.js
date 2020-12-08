@@ -257,15 +257,20 @@ class ClientWaitingRoom extends Component {
   };
 
   toCheckout = async () => {
-    return this.props.history.push({
-      pathname: "/checkout",
-      // search: "?query=abc",
-      state: {
-        price: this.state.price,
-        location: this.props.location.pathname,
-        currency: this.state.currency
-      },
-    });
+    if(this.state.price !== "0.00"
+    ){
+      return this.props.history.push({
+        pathname: "/checkout",
+        // search: "?query=abc",
+        state: {
+          price: this.state.price,
+          location: this.props.location.pathname,
+          currency: this.state.currency
+        },
+      });
+    }else{
+      return this.props.history.push("/dashboard-client")
+    }
   };
 
   handleClientProfile = () => {

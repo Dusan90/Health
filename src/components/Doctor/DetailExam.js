@@ -143,8 +143,10 @@ return (
                 <div className="messageDivReport"  >
                       <textarea name="text" 
                       // disabled={ exam.status === 'Finished' && true} 
-                      // placeholder={exam.report ? exam.report : 'text'} 
-                      value={props.report} 
+                      placeholder={exam.report ? exam.report : 'Add report'} 
+                      // value={props.report} 
+                      onFocus={ (e) => {e.target.value = exam.report}}
+                      onBlur={ (e) => {e.target.value = ''}}
                       onChange={report} id="textarea"></textarea>
                 </div>
                       <button 

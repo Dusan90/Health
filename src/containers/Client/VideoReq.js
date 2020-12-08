@@ -162,11 +162,17 @@ console.log(e);
   };
 
   toCheckout = async () => {
-    return this.props.history.push({
-      pathname: "/checkout",
-      // search: "?query=abc",
-      state: { price: this.state.doctorsPrice, currency: this.state.currency },
-    });
+    if(this.state.doctorsPrice !== '0.00'){
+
+      return this.props.history.push({
+        pathname: "/checkout",
+        // search: "?query=abc",
+        state: { price: this.state.doctorsPrice, 
+          currency: this.state.currency },
+      });
+    }else{
+      return this.props.history.push("/dashboard-client")
+    }
   };
 
   handleClientProfile = async () => {

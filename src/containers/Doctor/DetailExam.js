@@ -19,7 +19,8 @@ class DetailExam extends Component {
       messageValue: "",
       selectedFile: null,
       doctor: '',
-      declineReason: ''
+      declineReason: '',
+      report: ""
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
@@ -94,7 +95,8 @@ class DetailExam extends Component {
         },
         body: JSON.stringify({
           status: value,
-          decline_notes: this.state.declineReason
+          decline_notes: this.state.declineReason,
+          report: this.state.report
         }),
       }
     );
@@ -243,12 +245,16 @@ class DetailExam extends Component {
   }
 
   saveReport= () =>{
-    console.log('hello');
+    let id = this.props.match.params.id;
+    let value = 'Finish'
+    this.doctorExam(id, value)
+
   }
 
   handleReport = () =>{
     console.log('hy');
       this.setState({displayReport: true})
+
   } 
 
   resetValue = () =>{
