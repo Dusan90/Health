@@ -368,7 +368,7 @@ const WaitingRoom = ({
 
 <div className="detailExam"  style={{
   display: props.startVideo ? "block" : "none",
-  padding: 0,
+  padding: "0px 15px",
   height: '550px',
   marginBottom: '20px'
 

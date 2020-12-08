@@ -76,6 +76,7 @@ const Processing = ({
           <Fragment key={exam.exam.id}>
             <div className="detailExam"  style={{
           display: !props.startVideo ? "block" : "none",
+          padding: '40px 15px'
         }}>
             <div className="iconVideoo">
                 <img src={iconWaitingBlue} alt="email" />
@@ -224,7 +225,7 @@ const Processing = ({
 
             <div className="detailExam"  style={{
           display: props.startVideo ? "block" : "none",
-          padding: 0,
+          padding: "0px 15px",
           height: '550px',
           marginBottom: '20px'
         }}>
