@@ -18,7 +18,9 @@ const Profile = ({
   handleChange,
   addAttach,
   handleSpeciality,
-  handleChangeBiography
+  handleChangeBiography,
+  deletePicture,
+  handleDeleteImageShow
   
 }) => {
   const customStyles = {
@@ -165,7 +167,7 @@ const Profile = ({
                 /> */}
                 
                 <div className='profilePic'>
-              <div className="upload-btn-wrapper">
+              <div className="upload-btn-wrapper" onMouseEnter={handleDeleteImageShow} onMouseLeave={handleDeleteImageShow}>
             <button className="btn">
               {/* <img src={arrowAttach} alt="attach" /> */}
              {doctor.image !== "/media/default.jpg" ?
@@ -174,6 +176,8 @@ const Profile = ({
               }
             </button>
             <input type="file" name="myfile" onChange={addAttach}  />
+            <button className="deleteImage" style={{display: props.showDeleteImage && !doctor.image.includes('default') ? "block" : "none"}}  onClick={deletePicture}> X</button>
+
           </div>
               </div>
               <div contentEditable="true" 

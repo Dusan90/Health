@@ -230,15 +230,75 @@
           }
         }
       }
-      button {
-        color: white;
-        background: #00aff0;
-        border: none;
-        border-radius: 5px;
-        padding: 5px 10px;
-        font-weight: 600;
-        margin: 50px auto 0px 0;
+      .sendbuttonAndAtt {
+        display: flex;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        margin: 5px 0 0 0;
+        padding: 0;
+        button {
+          color: white;
+          background: #00aff0;
+          border: none;
+          height: 40px;
+          width: 80px;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: auto 10px 0 0;
+          transition: all 0.5s ease-in-out;
+          .replyIcon {
+            font-size: 20px;
+          }
+          // &:hover {
+          //   box-shadow: 2px 2px 1px black;
+          // }
+        }
+        .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          display: inline-block;
+        }
+
+        .btn {
+          // border: 1px solid #00aff0;
+          color: white;
+          background-color: #00aff0;
+          width: 40px;
+          border-radius: 8px;
+          font-size: 30px;
+          font-weight: bold;
+          outline: none;
+          box-shadow: none;
+          // &:hover {
+          //   cursor: pointer;
+          //   background: #4092c2;
+          //   color: white;
+          // }
+        }
+
+        .upload-btn-wrapper input[type="file"] {
+          font-size: 0px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 40px;
+          height: 40px;
+          margin-left: 0px;
+          cursor: pointer;
+          opacity: 0;
+        }
       }
+      // button {
+      //   color: white;
+      //   background: #00aff0;
+      //   border: none;
+      //   border-radius: 5px;
+      //   padding: 5px 10px;
+      //   font-weight: 600;
+      //   margin: 50px auto 0px 0;
+      // }
     }
   }
   .sideMessageDetails {
@@ -435,6 +495,7 @@
               border-radius: 5px;
               height: 20px;
               margin: 5px 20px 0 0;
+              display: none;
               &:hover {
                 cursor: pointer;
               }

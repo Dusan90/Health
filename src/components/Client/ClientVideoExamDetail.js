@@ -133,7 +133,7 @@ const DetailVideo = ({
                   <div className="mainMessageDiv">
                 <div className="subjectDiv">
                   <p>
-                    <span>Subject:</span> {exam.subject}
+                    <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.subject}
                   </p>
                   <p>
                     <span>

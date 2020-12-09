@@ -48,7 +48,7 @@ const DetailQueue = ({ exam }) => {
             <div className="SubjectMessage">
               <div className="subjectDiv">
                   <p>
-                    <span>Subject:</span> {exam.exam.subject}
+                    <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.exam.subject}
                   </p>
                   <p>
                     <span>

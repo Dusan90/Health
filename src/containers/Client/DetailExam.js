@@ -64,7 +64,7 @@ class ClientDetailExam extends Component {
       .then((response) => {
         console.log(response, "detailex");
 
-        this.setState({ exam: this.state.exam.concat(response.data.data), doctor: response.data.data.doctor });
+        this.setState({ exam: [response.data.data], doctor: response.data.data.doctor });
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
         console.log(mess);
@@ -97,7 +97,9 @@ class ClientDetailExam extends Component {
       let parsedEvent = JSON.parse(event.data);
 
       if (parsedEvent.exam_id === parseInt(id)) {
-        window.location.reload()
+        // window.location.reload()
+        this.detail(id);
+        this.correspondence(id);
       }
       console.log(parsedEvent);
     };
@@ -159,7 +161,8 @@ class ClientDetailExam extends Component {
     );
     const jsonData = await client.json();
     if (jsonData.success) {
-      window.location.reload()
+      this.detail(this.state.id);
+      this.correspondence(this.state.id);
       // this.correspondence(this.state.id);
       NotificationManager.success("Message Sent", "Successful!", 2000);
       this.socket.send({
@@ -201,22 +204,37 @@ class ClientDetailExam extends Component {
           lastInArray: res[res.length - 1],
         });
       }).then(() =>{
-        let textar = [...document.querySelectorAll('.message')]
+              let textar = [...document.querySelectorAll('.message')]
         textar.map(ex =>{
           if (ex.clientHeight < ex.scrollHeight){
             console.log(ex);
-            let imageDiv = document.createElement("div");
-            imageDiv.id = "imageDiv";
-            imageDiv.onclick = function() { 
-              ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' };
-
             let parentOfElement = ex.parentElement.previousSibling
-            // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
-            console.log(parentOfElement);
-            parentOfElement.appendChild(imageDiv)
-
+            let div = parentOfElement.lastChild
+            div.style.display = 'block'
+        
+            div.onclick = function() { 
+            console.log(ex.scrollHeight, ex.clientHeight);
+            ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
           }
         })
+        // let textar = [...document.querySelectorAll('.message')]
+        // textar.map(ex =>{
+        //   if (ex.clientHeight < ex.scrollHeight){
+        //     console.log(ex);
+        //     let imageDiv = document.createElement("div");
+        //     imageDiv.id = "imageDiv";
+        //     imageDiv.onclick = function() { 
+        //     ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
+
+        //       // ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' };
+
+        //     let parentOfElement = ex.parentElement.previousSibling
+        //     // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
+        //     console.log(parentOfElement);
+        //     parentOfElement.appendChild(imageDiv)
+
+        //   }
+        // })
     
       })
       .catch((error) => {

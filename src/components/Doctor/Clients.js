@@ -64,7 +64,7 @@ function Clients({ handleClient, clients, handleSort, handleSearch, props, handl
                 onClick={() => handleClient(client.iD)}
               >
                 {client.label}
-                <img src={client.image === "default.jpg" ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
+                <img src={client.image.includes('default') ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
               </button>
             </div>
           )

@@ -42,6 +42,7 @@ form_data.append("end_hour", '');
 form_data.append("email_currency", '');
   form_data.append("web_currency", '');
   form_data.append("web_follow_up_currency", '');
+  form_data.append("speciality", curentDoc.speciality);
 form_data.append("status", value);
 
 
@@ -145,13 +146,13 @@ const data = axios.put(url, form_data, {
           </p>
           <div className="mainProfile">
             <div className="profile">
-              {curentDoc.image === "/media/default.jpg" ?
+              {curentDoc.image.includes('default')  ?
                 curentDoc.status === "Available" ? (
                 <img src={doctorOnline} alt="online doctor" />
               ) : (
                 <img src={doctorOffline} alt="offline doctor" />
               ) :
-              <img onClick={ (e) => handleClickImage(e)} style={{ width: '50px',  objectFit: 'cover'}} src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
+              <img onClick={ (e) => handleClickImage(e)} src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
               }
               
             </div>
@@ -191,10 +192,10 @@ const data = axios.put(url, form_data, {
             <div className="profile">
 
 
-              {curentDoc.image === "/media/default.jpg" ?
+              {curentDoc.image.includes('default') ?
               <img src={clientOnline} alt="online doctor" />
                 :
-              <img onClick={ (e) => handleClickImage(e)}  style={{ width: '50px',  objectFit: 'cover'}} src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
+              <img onClick={ (e) => handleClickImage(e)}  src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
               }
 
 

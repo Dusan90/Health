@@ -46,7 +46,8 @@ const WaitingRoom = ({
   cutVideo,
   cutMic,
   showExtendScreenIcon,
-  resetValue
+  resetValue,
+  handleKeyPress
 }) => {
   const disabled = props.credits ? false : true;
   const disabled2 = props.credits ? true : false;
@@ -418,6 +419,7 @@ const WaitingRoom = ({
        value={props.value}
         onChange={handleChange}
         onMouseDown={enableTipeing}
+        onKeyPress={(e) =>{handleKeyPress(e)}}
       ></textarea>
     </div>
   </form>

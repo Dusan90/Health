@@ -16,6 +16,8 @@ import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
 // import { MdClose } from "react-icons/md";
 // import { Rnd } from "react-rnd";
 import { HamburgerDiv } from "../Main/HamburgerDiv";
+import attachIcon from '../../icons/attach_white.svg'
+
 
 const DetailVideo = ({
   exam,
@@ -39,9 +41,11 @@ const DetailVideo = ({
   declineReason,
   saveReason,
   saveReport,
-  handleReport,
+  // handleReport,
   report,
-  handleJoinRoom
+  handleJoinRoom,
+  handleshowSave,
+  onChangeHandler
 }) => {
   // let disabled = props.clientsVideoId === "null" ? true : false;
   let examDate =
@@ -161,15 +165,17 @@ const DetailVideo = ({
                         Join now
                       </button>
                   </div>
-                ) : exam.status === 'Finished' ? 
-                <div className="message-btn">
-                   <button
-                    className="message-link"
-                    onClick={handleReport}
-                  >
-                    Report
-                  </button>
-              </div> : null
+                ) 
+              //   : exam.status === 'Finished' ? 
+              //   <div className="message-btn">
+              //      <button
+              //       className="message-link"
+              //       onClick={handleReport}
+              //     >
+              //       Report
+              //     </button>
+              // </div>
+               : null
               
               
               }
@@ -177,7 +183,7 @@ const DetailVideo = ({
               <div className="mainMessageDiv">
                 <div className="subjectDiv">
                   <p>
-                    <span>Subject:</span> {exam.subject}
+                    <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.subject}
                   </p>
                   <p>
                     <span>
@@ -203,10 +209,10 @@ const DetailVideo = ({
                       <button style={{display:  exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
                 </div>
 
-                <div className='reportIfFinished' style={{display: !props.displayReport && 'none'}}>
+                <div className='reportIfFinished' style={{display: !exam.status === "Finished" && 'none'}}>
                 <div className="subjectDiv">
                   <p>
-                    <span>Report:</span>
+                    <span style={{fontWeight: 'bold'}}>Report:</span>
                   </p>
                 </div>
                 <div className="messageDivReport"  >
@@ -214,13 +220,26 @@ const DetailVideo = ({
                       // disabled={ exam.status === 'Finished' && true} 
                       placeholder={exam.report ? exam.report : 'Add report'} 
                       // value={props.report} 
-                      onFocus={ (e) => {e.target.value = exam.report}}
+                      onFocus={ (e) => handleshowSave(e, exam.report)}
                       onBlur={ (e) => {e.target.value = ''}}
                       onChange={report} id="textarea"></textarea>
                 </div>
+                <div className="sendbuttonAndAtt">
+
                       <button 
                       // style={{display:  exam.status === 'Finished' && 'none'}} 
-                      onClick={saveReport}>Save</button>
+                      onClick={saveReport} style={{display: !props.showSaveButton && "none"}} type='submit'>Save</button>
+                       <div className="upload-btn-wrapper" style={{display: !props.showSaveButton && "none"}}>
+                                <button className="btn">
+                                  <img src={attachIcon} alt="" />
+                                </button>
+                                <input
+                                  type="file"
+                                  name="myfile"
+                                  onChange={onChangeHandler}
+                                />
+                              </div>
+                </div>
                 </div>
 
               </div>

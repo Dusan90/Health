@@ -32,7 +32,8 @@ class DetailVideoExam extends Component {
       declineReason: "",
       report: '',
       displayReport: false,
-      clientID: ''
+      clientID: '',
+      showSaveButton: false
     };
   }
 
@@ -375,15 +376,26 @@ class DetailVideoExam extends Component {
     // e.target.style.height = `${e.target.scrollHeight}px`
   }
 
-  handleReport = () =>{
-      this.setState({displayReport: true})
-  } 
+  // handleReport = () =>{
+  //     this.setState({displayReport: true})
+  // } 
 
 
   handleJoinRoom = () => {
     // let id = uuid();
     // this.props.history.push(`/room/${this.props.match.params.id}`);
     window.open(`/room/${this.props.match.params.id}`);
+  };
+
+  handleshowSave = (e, value) =>{
+    e.target.value = value
+    this.setState({showSaveButton: true})
+  }
+
+  onChangeHandler = (e) => {
+    this.setState({
+      selectedFile: e.target.files[0],
+    });
   };
 
   render() {
@@ -412,7 +424,9 @@ class DetailVideoExam extends Component {
           saveReport={this.saveReport}
           report={this.report}
           handleJoinRoom={this.handleJoinRoom}
-          handleReport={this.handleReport}
+          handleshowSave={this.handleshowSave}
+          onChangeHandler={this.onChangeHandler}
+          // handleReport={this.handleReport}
            // iconsMouseOut,
   // iconsMouseOver,
   // handleDragDrop,

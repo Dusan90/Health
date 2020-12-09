@@ -22,9 +22,9 @@ const Detail = ({
   props,
   declineReason,
   saveReason,
-  report,
-  saveReport,
-  handleReport
+  // report,
+  // saveReport,
+  // handleReport
 }) =>{
   const customStyles = {
   control: () => ({
@@ -108,7 +108,7 @@ return (
                   </div> */}
                   <div className="sideSub">
                   <p>
-                    <span>Subject:</span> {exam.subject}
+                    <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.subject}
                   </p>
                   <p>
                     <span>
@@ -134,7 +134,7 @@ return (
                 </div>
                       <button style={{display:  exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
                 </div>
-                <div className='reportIfFinished' style={{display: !props.displayReport && 'none'}}>
+                {/* <div className='reportIfFinished' style={{display: !props.displayReport && 'none'}}>
                 <div className="subjectDiv">
                   <p>
                     <span>Report:</span>
@@ -152,7 +152,7 @@ return (
                       <button 
                       // style={{display:  exam.exam.status === 'Finished' && 'none'}} 
                       onClick={saveReport} type='submit'>Save</button>
-                </div>
+                </div> */}
                 </div>
                 
                   
@@ -177,6 +177,7 @@ return (
                                 .add(1, "hours")
                                 .format("MM/DD/YY HH:mm")}
                             </p>
+                            <div id="imageDiv"></div>
                           </div>
                           <div
                             // onClick={() => handleClick(index)}
@@ -253,13 +254,13 @@ return (
                         </button>
                       )}
               </div>
-              { exam.status === 'Finished' ? 
+              {/* { exam.status === 'Finished' ? 
                  <button
                   className="btn1"
                   onClick={handleReport}
                 >
                   Report
-                </button> : null}
+                </button> : null} */}
             </div>
             {/* {exam.status === "Accepted" && (
               <div className="message-btn">

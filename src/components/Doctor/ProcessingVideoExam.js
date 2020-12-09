@@ -21,6 +21,8 @@ import hangup from '../../icons/videoIcons/hang-up.svg'
 import cameraoff from '../../icons/videoIcons/camera-off.svg'
 import cameraon from '../../icons/videoIcons/camera-on.svg'
 import ExtendScreen from '../../icons/videoIcons/Extend-screen.svg'
+import attachIcon from '../../icons/attach_white.svg'
+
 
 const Processing = ({
   handleConnect,
@@ -44,7 +46,10 @@ const Processing = ({
   saveReason,
   report,
   saveReport, 
-  handleReport
+  // handleReport,
+  handleKeyPress,
+  handleshowSave,
+  onChangeHandler
 }) => {
   const customStyles = {
     control: () => ({
@@ -127,7 +132,7 @@ const Processing = ({
                 <div className="mainMessageDiv">
                 <div className="subjectDiv">
                   <p>
-                    <span>Subject:</span> {exam.exam.subject}
+                    <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.exam.subject}
                   </p>
                   <p>
                     <span>
@@ -154,10 +159,10 @@ const Processing = ({
                       <button style={{display:  exam.exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
                 </div>
                 </div>
-                <div className='reportIfFinished' style={{display: !props.displayReport && 'none'}}>
+                <div className='reportIfFinished' style={{display: !exam.exam.status === "Finished" && 'none'}}>
                 <div className="subjectDiv">
                   <p>
-                    <span>Report:</span>
+                    <span style={{fontWeight: 'bold'}}>Report:</span>
                   </p>
                 </div>
                 <div className="messageDivReport"  >
@@ -165,12 +170,26 @@ const Processing = ({
                       // disabled={ exam.status === 'Finished' && true} 
                       placeholder={exam.exam.report ? exam.exam.report : 'Add report'} 
                       // value={props.report} 
-                      onFocus={ (e) => {e.target.value = exam.exam.report}}
+                      onFocus={ (e) => handleshowSave(e, exam.exam.report)}
                       onBlur={ (e) => {e.target.value = ''}}
                       onChange={report} id="textarea"></textarea>
+
+                      <div className="sendbuttonAndAtt">
+
                       <button 
                       // style={{display:  exam.exam.status === 'Finished' && 'none'}} 
-                      onClick={saveReport} type='submit'>Save</button>
+                      onClick={saveReport} style={{display: !props.showSaveButton && "none"}} type='submit'>Save</button>
+                       <div className="upload-btn-wrapper" style={{display: !props.showSaveButton && "none"}}>
+                                <button className="btn">
+                                  <img src={attachIcon} alt="" />
+                                </button>
+                                <input
+                                  type="file"
+                                  name="myfile"
+                                  onChange={onChangeHandler}
+                                />
+                              </div>
+                      </div>
                 </div>
                 </div>
                 
@@ -212,13 +231,13 @@ const Processing = ({
               </button>
             }
             </div>
-            { exam.exam.status === 'Finished' ? 
+            {/* { exam.exam.status === 'Finished' ? 
                  <button
                   className="btn1"
                   onClick={handleReport}
                 >
                   Report
-                </button> : null}
+                </button> : null} */}
             </div>
 
 
@@ -274,6 +293,7 @@ const Processing = ({
                 value={props.value}
                 onChange={handleChange}
                 onMouseDown={enableTipeing}
+                onKeyPress={(e) => {handleKeyPress(e)}}
               ></textarea>
             </div>
           </form>

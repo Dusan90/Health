@@ -144,7 +144,7 @@ class ClientWaitingRoom extends Component {
       }
     );
     let jsonData = await clientCancel.json();
-
+      console.log(jsonData);
     if (jsonData.success === true) {
       connection.close();
       this.setState({
@@ -152,7 +152,8 @@ class ClientWaitingRoom extends Component {
         peopleInQueue: [],
         doctorsVideoId: null,
       });
-      this.hanldeClientQueue(this.state.client_id);
+      // this.hanldeClientQueue(this.state.client_id);
+      window.location.reload()
     }
 
     return jsonData;
@@ -716,6 +717,14 @@ class ClientWaitingRoom extends Component {
   inputMessage.style.height = '30px'
   }
 
+  handleKeyPress = (e) =>{
+    if(e.key === "Enter"){
+      e.preventDefault()
+      document.getElementById('send').click()
+      this.resetValue()
+    }
+  }
+
   render() {
     return (
       <>
@@ -747,7 +756,7 @@ class ClientWaitingRoom extends Component {
           handleMessage={this.handleMessage}
   showExtendScreenIcon={this.showExtendScreenIcon}
   resetValue={this.resetValue}
-
+        handleKeyPress={this.handleKeyPress}
         />
       </>
     );

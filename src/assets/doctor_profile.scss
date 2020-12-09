@@ -469,7 +469,7 @@
         .profilePic {
           display: flex;
           float: right;
-          margin: 7px 0 20px 20px;
+          // margin: 7px 0 20px 20px;
           width: 100px;
           height: 120px;
 
@@ -498,6 +498,19 @@
                 font-size: 80px;
                 padding: 0;
               }
+            }
+            .deleteImage {
+              position: absolute;
+              width: 20px;
+              height: 20px;
+              padding-top: 1px;
+              background: red;
+              color: white;
+              border: none;
+              border-radius: 5px;
+              z-index: 1000;
+              top: 5px;
+              left: 75px;
             }
           }
 

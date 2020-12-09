@@ -95,7 +95,7 @@ const Detail = ({
               <div className="SubjectMessage">
               <div className="subjectDiv">
                   <p>
-                    <span>Subject:</span> {exam.subject}
+                    <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.subject}
                   </p>
                   <p>
                     <span>
@@ -128,6 +128,7 @@ const Detail = ({
                               .add(2, "hours")
                               .format("MM/DD/YY HH:mm")}
                           </p>
+                          <div id="imageDiv"></div>
                         </div>
                         <div
                           // onClick={() => handleClick(index)}

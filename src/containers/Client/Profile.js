@@ -136,9 +136,22 @@ const data = axios.put(url, form_data, {
     window.open(e.target.src)
   }
 
-  handleRemoveImage = (e) =>{
+  handleRemoveImage = async (e) =>{
     // this.setState({attach: 'default.jpg'})
     // this.handleSubmit(e)
+    const access_token = "Bearer ".concat(this.state.token);
+
+    let data = axios.delete("https://healthcarebackend.xyz/api/client/image/", {
+      headers: {
+        Authorization: access_token
+      },
+      data: {
+        // image: ''
+      }
+    });
+    const jsonData = await data
+    console.log(jsonData);
+    jsonData.data && window.location.reload()
   }
 
   render() {

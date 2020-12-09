@@ -33,7 +33,8 @@ class ProcessingVideoExam extends Component {
       extended: false,
       displayReport: false,
       declineReason: '',
-      report: ''
+      report: '',
+      showSaveButton: false
     };
   }
 
@@ -349,6 +350,7 @@ class ProcessingVideoExam extends Component {
   };
 
   componentDidMount() {
+    
     let id = this.props.match.params.id;
 
     let isItconnected = setInterval(() => {
@@ -432,12 +434,13 @@ class ProcessingVideoExam extends Component {
 
   saveReport= () =>{
     this.statusSelecting("Finish")
+
   }
 
-  handleReport = () =>{
-    console.log('hy');
-      this.setState({displayReport: true})
-  } 
+  // handleReport = () =>{
+  //   console.log('hy');
+  //     this.setState({displayReport: true})
+  // } 
 
   resetValue = () =>{
     this.setState({value: ''})
@@ -445,7 +448,27 @@ class ProcessingVideoExam extends Component {
     let yourMessage = document.getElementById("yourMessage")
     yourMessage.style.height = "30px";
   inputMessage.style.height = '30px'
+  console.log('jel radi ovo');
   }
+
+  handleKeyPress = (e) =>{
+    if(e.key === "Enter"){
+      e.preventDefault()
+      document.getElementById('send').click()
+      this.resetValue()
+    }
+  }
+
+  handleshowSave = (e, value) =>{
+    e.target.value = value
+    this.setState({showSaveButton: true})
+  }
+
+  onChangeHandler = (e) => {
+    this.setState({
+      selectedFile: e.target.files[0],
+    });
+  };
 
   render() {
     return (
@@ -478,9 +501,11 @@ class ProcessingVideoExam extends Component {
           saveReason={this.saveReason}
           report={this.report}
           saveReport={this.saveReport}
-          handleReport={this.handleReport}
+          // handleReport={this.handleReport}
           resetValue={this.resetValue}
-
+          handleKeyPress={this.handleKeyPress}
+          handleshowSave={this.handleshowSave}
+          onChangeHandler={this.onChangeHandler}
         />
 
       </>

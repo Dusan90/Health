@@ -41,7 +41,7 @@ class DetailExam extends Component {
       })
       .then((response) => {
         console.log(response, 'current');
-        this.setState({ exam: this.state.exam.concat(response.data.data), doctor: response.data.data.doctor });
+        this.setState({ exam: [response.data.data], doctor: response.data.data.doctor });
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
         console.log(mess);
@@ -123,8 +123,9 @@ class DetailExam extends Component {
       let parsedEvent = JSON.parse(event.data);
       console.log(parsedEvent);
       if (parsedEvent.exam_id === parseInt(id)) {
-        window.location.reload()
-
+        // window.location.reload()
+        this.detail(this.state.id);
+    this.correspondence(this.state.id);
       }
     };
   }
@@ -167,7 +168,9 @@ class DetailExam extends Component {
         exam_id: this.state.id,
         message: this.state.messageValue,
       });
-      window.location.reload()
+      // window.location.reload()
+      this.detail(this.state.id);
+      this.correspondence(this.state.id);
     }
 
     return jsonData;
@@ -201,21 +204,21 @@ class DetailExam extends Component {
         });
         // var sender_obj = this.state.correspondence[0].sender;
         // this.props.dispatch(doctor(sender_obj));
-      }).then(() =>{
+      })
+      .then(() =>{
         let textar = [...document.querySelectorAll('.message')]
         textar.map(ex =>{
           if (ex.clientHeight < ex.scrollHeight){
             console.log(ex);
-            let imageDiv = document.createElement("div");
-            imageDiv.id = "imageDiv";
-            imageDiv.onclick = function() { 
-             
-              ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' };
             let parentOfElement = ex.parentElement.previousSibling
+            let div = parentOfElement.lastChild
+            div.style.display = 'block'
+        
+            div.onclick = function() { 
+            console.log(ex.scrollHeight, ex.clientHeight);
+            ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
+              // ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.clientHeight === ex.scrollHeight ? console.log('hello') : ex.scrollHeight > 300 ? ex.style.height = '300px' : ex.style.height = '100px'  };
             // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
-            console.log(parentOfElement);
-            parentOfElement.appendChild(imageDiv)
-
           }
         })
     
@@ -238,24 +241,24 @@ class DetailExam extends Component {
     this.doctorExam(id, this.state.selectedStatus)
   }
 
-  report= (e) =>{
-    this.setState({report: e.target.value})
-    e.target.style.height = '300px'
-    // e.target.style.height = `${e.target.scrollHeight}px`
-  }
+  // report= (e) =>{
+  //   this.setState({report: e.target.value})
+  //   e.target.style.height = '300px'
+  //   // e.target.style.height = `${e.target.scrollHeight}px`
+  // }
 
-  saveReport= () =>{
-    let id = this.props.match.params.id;
-    let value = 'Finish'
-    this.doctorExam(id, value)
+  // saveReport= () =>{
+  //   let id = this.props.match.params.id;
+  //   let value = 'Finish'
+  //   this.doctorExam(id, value)
 
-  }
+  // }
 
-  handleReport = () =>{
-    console.log('hy');
-      this.setState({displayReport: true})
+  // handleReport = () =>{
+  //   console.log('hy');
+  //     this.setState({displayReport: true})
 
-  } 
+  // } 
 
   resetValue = () =>{
     this.setState({value: ''})
@@ -281,10 +284,11 @@ class DetailExam extends Component {
           newMessage={this.newMessage}
           declineReason={this.declineReason}
           saveReason={this.saveReason}
-          report={this.report}
-          saveReport={this.saveReport}
-          handleReport={this.handleReport}
+          // report={this.report}
+          // saveReport={this.saveReport}
+          // handleReport={this.handleReport}
           resetValue={this.resetValue}
+          extendTextArea={this.extendTextArea}
         />
       </>
     );

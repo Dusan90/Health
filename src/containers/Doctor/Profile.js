@@ -37,7 +37,8 @@ class DoctorProfile extends Component {
       Email: '',
       Organization: '',
       specialities: [],
-      specialSP: ''
+      specialSP: '',
+      showDeleteImage: false
     };
   }
 
@@ -173,6 +174,26 @@ class DoctorProfile extends Component {
     output.src = URL.createObjectURL(e.target.files[0]);
   }
 
+  deletePicture = async () =>{
+    const access_token = "Bearer ".concat(this.state.token);
+
+    let data = axios.delete("https://healthcarebackend.xyz/api/doctor/image/", {
+      headers: {
+        Authorization: access_token
+      },
+      data: {
+        // image: ''
+      }
+    });
+    const jsonData = await data
+    console.log(jsonData);
+    jsonData.data && window.location.reload()
+  }
+
+  handleDeleteImageShow = () =>{
+    this.setState({showDeleteImage: !this.state.showDeleteImage})
+  }
+
   render() {
     console.log(this.state.VideoFollowUp);
     return (
@@ -196,6 +217,8 @@ class DoctorProfile extends Component {
           addAttach={this.addAttach}
           handleSpeciality={this.handleSpeciality}
           handleChangeBiography= {this.handleChangeBiography}
+          deletePicture={this.deletePicture}
+          handleDeleteImageShow={this.handleDeleteImageShow}
         />
       </>
     );
