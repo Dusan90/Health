@@ -209,7 +209,7 @@ const DetailVideo = ({
                       <button style={{display:  exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
                 </div>
 
-                <div className='reportIfFinished' style={{display: !exam.status === "Finished" && 'none'}}>
+                <div className='reportIfFinished' style={{display: exam.status !== "Finished" && 'none'}}>
                 <div className="subjectDiv">
                   <p>
                     <span style={{fontWeight: 'bold'}}>Report:</span>
