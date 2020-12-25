@@ -1,14 +1,5 @@
 import React, { Fragment } from "react";
 import "../../assets/processingWaitingRoom.scss";
-// import moment from "moment";
-// import { FaMicrophoneAltSlash } from "react-icons/fa";
-// import { FaMicrophoneAlt } from "react-icons/fa";
-// import { FaVideoSlash } from "react-icons/fa";
-// import { FaVideo } from "react-icons/fa";
-// import { FaPhoneSlash } from "react-icons/fa";
-// import { FaRegSquare } from "react-icons/fa";
-// import { FaRocketchat } from "react-icons/fa";
-// import { MdClose } from "react-icons/md";
 // import { Rnd } from "react-rnd";
 import Select from "react-select";
 import iconWaitingBlue from '../../icons/icon_Waiting_Room_blue.svg'
@@ -17,11 +8,22 @@ import moment from 'moment'
 import mute from '../../icons/videoIcons/mute.svg'
 import unmute from '../../icons/videoIcons/unmute.svg'
 import hangup from '../../icons/videoIcons/hang-up.svg'
-// import call from '../../icons/videoIcons/call.svg'
 import cameraoff from '../../icons/videoIcons/camera-off.svg'
 import cameraon from '../../icons/videoIcons/camera-on.svg'
 import ExtendScreen from '../../icons/videoIcons/Extend-screen.svg'
 import attachIcon from '../../icons/attach_white.svg'
+
+
+import myClientProfile from "../../icons/newIconsForDesign/client_picture.svg";
+import messageSend from '../../icons/newIconsForDesign/massage.svg'
+import chek from "../../icons/chek.svg";
+import clockIcon from "../../icons/icon_Waiting_Room_blue.svg";
+import declined from "../../icons/icon_Log_Out_blue.svg";
+import { GiCheckeredFlag } from "react-icons/gi";
+import Loading from "../../icons/c+.svg";
+import Pagination from "react-js-pagination";
+
+import { FaFileDownload } from "react-icons/fa";
 
 
 const Processing = ({
@@ -49,15 +51,25 @@ const Processing = ({
   // handleReport,
   handleKeyPress,
   handleshowSave,
-  onChangeHandler
+  onChangeHandler,
+  handlePage,
+
+
+  record,
+  handleClick,
+  loading,
+  searchByType,
+  ResetonSelectChange,
+  handlePageChange,
+  redirectThis
 }) => {
   const customStyles = {
     control: () => ({
       // none of react-select's styles are passed to <Control />
-      width: 200,
+      width: 160,
       border: "2px solid #fa9551",
       borderRadius: "10px",
-      height: "40px",
+      height: "33px",
       fontWeight: 600,
       display: "flex",
     }),
@@ -78,16 +90,20 @@ const Processing = ({
               ]
             : [{ value: "Finish", label: "Finish" }];
         return (
-          <Fragment key={exam.exam.id}>
-            <div className="detailExam"  style={{
+          <Fragment key={exam.exam.id} >
+             {props.PageonNav === 'consultDetail' && <div className="detailExam"  style={{
           display: !props.startVideo ? "block" : "none",
           padding: '40px 15px'
         }}>
             <div className="iconVideoo">
-                <img src={iconWaitingBlue} alt="email" />
-                <p>Consultation details</p>{" "}
+            <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'consultDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('consultDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'consultDetail' && 'bold' }}>Consultations details</h4>{" "}
+                </div>
+                <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'clientDetail' && 'bold' }}>Client details</h4>{" "}
+                </div>
               </div>
-              <div className="detail">
+               <div className="detail">
                 <div className='detailInfo'>
                 <p className='ClientP'>
                   <span>Client:</span> {exam.exam.client}
@@ -144,7 +160,10 @@ const Processing = ({
                   <textarea defaultValue= {exam.exam.notes} id='messageMainText' disabled={true}>
                   
                   </textarea>
-
+                  <div className='mainFileDiv'>
+                    <div className='FileDiv'><p>Files</p></div>
+                    {exam.exam.attachments && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.attachments}`}} className='fileForDownload'><FaFileDownload/><p>{exam.exam.attachments.substring(exam.exam.attachments.lastIndexOf('/') + 1)}</p></div>}
+                  </div>
 
 
                 </div>
@@ -195,32 +214,17 @@ const Processing = ({
                 
               </div>
               </div>
-              {/* {exam.record ? (
-                <div key={exam.record.id} className="record-box">
-                  <h4>Record</h4>
-                  <p>
-                    <span>Allergies: </span> {exam.record.allergies}
-                  </p>
-                  <p>
-                    <span>Teraphy history: </span> {exam.record.teraphy_history}
-                  </p>
-                  <p>
-                    <span>Medical conditions: </span>{" "}
-                    {exam.record.medical_conditions}
-                  </p>
-                </div>
-              ) : null} */}
                   <div className="message-btn">
               {exam.exam.status === "Accepted" &&
               !props.connectedall &&
               !props.connected ? (
-                <h3 style={{ color: "#666666" }}>Connecting...</h3>
+                <h4 style={{ color: "#666666" }}>Connecting...</h4>
               ) : (
                 exam.exam.status === "Canceled" && (
-                  <h3 style={{ color: "#666666" }}>Reject-Connection</h3>
+                  <h4 style={{ color: "#666666" }}>Reject-Connection</h4>
                 )
               )}
-              {exam.exam.status !== 'Finished' && <button
+              {exam.exam.status === 'Accepted' && <button
                 id="DoctorStartVideo"
                 type="submit"
                 className="btn"
@@ -231,14 +235,7 @@ const Processing = ({
               </button>
             }
             </div>
-            {/* { exam.exam.status === 'Finished' ? 
-                 <button
-                  className="btn1"
-                  onClick={handleReport}
-                >
-                  Report
-                </button> : null} */}
-            </div>
+            </div>}
 
 
 
@@ -248,35 +245,21 @@ const Processing = ({
           height: '550px',
           marginBottom: '20px'
         }}>
-            <div className="iconVideoo">
-                <img src={iconVideoBlue} alt="email" />
-                <p>Video call</p>{" "}
+            <div className="iconVideooCall">
+                {/* <img src={iconVideoBlue} alt="email" /> */}
+                <h4>Video call</h4>{" "}
               </div>
               <div className="detail2">
+              <div id='videoChat'
+              //  onMouseEnter={showExtendScreenIcon} onMouseLeave={showExtendScreenIcon}
+              >
+                {/* <div id='videoo' >nesto tamo</div> */}
+                  {/* <img src={ExtendScreen} onClick={extendScr} style={{display: !props.showExtendScreen && 'none'}} className="extendScreen" alt="screen icon"/> */}
+                </div>
                 <div className='detailInfo2' id='detailInfo2'>
-                <p className='ClientP'>
+                {/* <p className='ClientP'>
                   <span>Client:</span> {exam.exam.client}
-                </p> 
-                <div className="MainIconsDiv">
-                  <img src={mute}
-                    className="iconMic"
-                  alt="img" style={{ display: props.audio ? "none" : "block" }}
-                onClick={cutMic}/>
-                  <img src={unmute}
-                   className="iconMicUnmute"
-                  alt="img" style={{ display: !props.audio ? "none" : "block" }}
-                onClick={cutMic}/>
-                  {/* <img src={call} alt="img" style={{display: 'none' }}/> */}
-                  <img src={hangup} alt="img" className="iconPhone"/>
-                  <img src={cameraoff}
-                  className="iconVideo"
-                   alt="img" style={{ display: props.video ? "none" : "block" }}
-                onClick={cutVideo}/>
-                  <img src={cameraon} alt="img" 
-                className="iconVideoShow"
-                style={{ display: !props.video ? "none" : "block" }}
-                onClick={cutVideo}/>
-                  </div>  
+                </p>  */}
                 <div className='MainDivForChat'>
                   <p>Chat</p>
                   <form
@@ -298,16 +281,35 @@ const Processing = ({
             </div>
           </form>
                   </div>  
-              <button id="send" onClick={resetValue}>Send</button>
+              <button id="send" onClick={resetValue}>
+              <img src={messageSend} alt="sendimg"/>
+              </button>
 
                 </div>
-                <div id='videoChat' onMouseEnter={showExtendScreenIcon} onMouseLeave={showExtendScreenIcon}>
-                {/* <div id='videoo' >nesto tamo</div> */}
-                  <img src={ExtendScreen} onClick={extendScr} style={{display: !props.showExtendScreen && 'none'}} className="extendScreen" alt="screen icon"/>
-                </div>
+               
 
            
               </div>
+              <div className="MainIconsDiv">
+                  <img src={mute}
+                    className="iconMic"
+                  alt="img" style={{ display: props.audio ? "none" : "block" }}
+                onClick={cutMic}/>
+                  <img src={unmute}
+                   className="iconMicUnmute"
+                  alt="img" style={{ display: !props.audio ? "none" : "block" }}
+                onClick={cutMic}/>
+                  {/* <img src={call} alt="img" style={{display: 'none' }}/> */}
+                  <img src={hangup} alt="img" className="iconPhone"/>
+                  <img src={cameraoff}
+                  className="iconVideo"
+                   alt="img" style={{ display: props.video ? "none" : "block" }}
+                onClick={cutVideo}/>
+                  <img src={cameraon} alt="img" 
+                className="iconVideoShow"
+                style={{ display: !props.video ? "none" : "block" }}
+                onClick={cutVideo}/>
+                  </div>  
        
             </div>
 {/*         
@@ -355,6 +357,196 @@ const Processing = ({
                   })}
               </div>
             </div> */}
+
+
+
+{props.record && props.PageonNav === 'clientDetail' &&
+      props.record.map(client => {
+        console.log(client);
+        const splited = client.client.split(" ");
+        return (
+          <div key={client.id} className="mainClien">
+             <div className="iconVideoo">
+            <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'consultDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('consultDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'consultDetail' && 'bold' }}>Consultations details</h4>{" "}
+                </div>
+                <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'clientDetail' && 'bold' }}>Client details</h4>{" "}
+                </div>
+              </div>
+            <div className="client">
+            <img src={client.image.includes('default') ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
+              <div className="client-p">
+        <p><span>First Name:</span> {splited[0]}</p>
+        <p><span>Last Name:</span> {splited[1]}</p>
+        <p><span>Address:</span> {client.address}</p>
+        <p><span>E-mail:</span> {client.email}</p>
+        <p><span>Phone number:</span> {client.phone}</p>
+        <p><span>Date of birth:</span> {client.birth_date}</p>
+        <p><span>{client.gender === 'M' ? 'Male' : 'Female'}</span></p>
+              </div>
+            </div>
+            <div className="form">
+              <div className="conditionss">
+                Chronical conditions:{" "} <br/>
+                <textarea
+                // style={{height: `${this.scrollHeight}px`}}
+                  type="text"
+                  readOnly
+                  className="address-input"
+                  placeholder={client.chronical_conditions}
+                 id='ChronicalConditions'
+                />
+              </div>
+              <div  className="allergiess">
+               Allergies:{" "}
+               <textarea
+                  type="text"
+                  readOnly
+                  className="address-input"
+                  placeholder={client.allergies}
+                 id='Allergies'
+                />
+         
+              </div>
+            </div>
+          </div>
+        );
+      })}
+
+{props.PageonNav === 'clientDetail'&& loading ? (
+        <img
+          src={Loading}
+          className="loading"
+          alt="loading..."
+          style={{ width: "150px" }}
+        />
+      ) : props.PageonNav === 'clientDetail' && !loading ? (
+        <div className="mainTabelRecord">
+          <div className="mainConsultation">
+            <div className="icon_left">
+              <p>Consultations</p>
+            </div>
+          </div>
+
+          <table className="table2">
+            <thead className="client-head">
+              <tr className="client-row">
+              
+                <th className="client-subject">Subject</th>
+                <th
+                  className="client-type"
+                  style={{ padding: props.searchClient && "0 0 30px 0" }}
+                >
+                  <div className="mainExamDiv">
+             
+                    <select
+                      type="text"
+                      placeholder=""
+                      onClick={ResetonSelectChange}
+                      onChange={searchByType}
+                      defaultValue={props.searchType}
+                      
+                    >
+                      <option value="">Type</option>
+                      <option value="mail">Email</option>
+                      <option value="video">Video</option>
+                      <option value="queue">Waiting room</option>
+                    </select>
+                  </div>
+                </th>
+                <th className="client-date">Date</th>
+                <th
+                  className="client-status"
+                  style={{ padding: props.searchClient && "0 0 30px 0" }}
+                >
+                  Status
+                </th>
+              </tr>
+            </thead>
+            {props.messageIfEmpty === "" &&
+              props.paginatedExams.map((exam, index) => {
+                console.log(exam);
+                return (
+                  <tbody key={index} className="client-body">
+                    <tr
+                      // data-id={exam.id}
+                      className="list-group"
+                      style={{ fontWeight: exam.isRead && 700 }}
+                      onClick={() => handleClick(exam.id, exam.exam_type)}
+                    >
+                      <td className="client-subject">{exam.subject}</td>
+                      <td className="client-subject">{exam.exam_type}</td>
+                      <td className="created">
+                        {exam.created && !exam.appointed_date ? (
+                          <p> {moment(exam.created).format("MM/DD/YY")}</p>
+                        ) : exam.appointed_date ? (
+                          <p>
+                            {" "}
+                            {moment(exam.appointed_date).format(
+                              "MM/DD/YY HH:mm"
+                            )}
+                          </p>
+                        ) : null}
+                      </td>
+                      <td className="client-status">
+                        {exam.status === "Pending" ||
+                        exam.status === "In the queue" ? (
+                          <img
+                            src={clockIcon}
+                            alt="clockIcon"
+                            className="pendi"
+                          />
+                        ) : exam.status === "Declined" ||
+                          exam.status === "Canceled" ? (
+                          <img
+                            src={declined}
+                            alt="declined"
+                            className="declined"
+                          />
+                        ) : exam.status === "Finished" ? (
+                          <GiCheckeredFlag className="finished" />
+                        ) : (
+                          <img src={chek} alt="ckeck" className="check" />
+                        )}
+                        <h5 className="status">{exam.status}</h5>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              
+              })}
+          </table>
+          {props.messageIfEmpty !== "" && (
+            <div className="NoResultDiv">{props.messageIfEmpty}</div>
+          )}
+        </div>
+      ): null}
+
+      {props.PageonNav === 'clientDetail' && <div className="pagi">
+           <Pagination
+          activePage={props.page}
+          itemsCountPerPage={10}
+          totalItemsCount={props.searchedUpcomingOrPast.length === 0 ? props.exams.length : props.searchedUpcomingOrPast.length}
+          pageRangeDisplayed={10}
+          onChange={handlePageChange}
+        />
+      </div>}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           </Fragment>
         );
       })}

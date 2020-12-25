@@ -17,10 +17,20 @@ class DetailExam extends Component {
       lastInArray: null,
       replyClicked: false,
       messageValue: "",
-      selectedFile: null,
+      selectedFile: '',
       doctor: '',
       declineReason: '',
-      report: ""
+      report: "",
+      page: 1,
+      PageonNav: '',
+      clientID: '',
+      currentFilterClicked: "",
+      searchName: "",
+      searchType: "",
+      messageIfEmpty: "",
+      paginatedExams: [],
+      searchedUpcomingOrPast: [],
+      exams: []
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
@@ -41,13 +51,17 @@ class DetailExam extends Component {
       })
       .then((response) => {
         console.log(response, 'current');
-        this.setState({ exam: [response.data.data], doctor: response.data.data.doctor });
+        this.setState({ exam: [response.data.data],
+            clientID: response.data.data.client_id,
+             doctor: response.data.data.doctor });
+             this.record(response.data.data.client_id);
+             this.clientsExams(response.data.data.client_id)
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
         console.log(mess);
         if(mess.scrollHeight < 300){
           mess.style.height = `${mess.scrollHeight}px`
-          messageDiv.style.height = `${mess.scrollHeight + 20}px`
+          messageDiv.style.height = `${mess.scrollHeight + 60}px`
         }else{
           mess.style.height = '300px'
         }
@@ -102,7 +116,11 @@ class DetailExam extends Component {
     );
     const jsonData = await client.json();
     console.log(jsonData);
-    jsonData.success && window.location.reload();
+    jsonData.success &&  this.socket.send({
+      exam_id: this.state.id,
+      changedStatus: true,
+    })
+    //  && window.location.reload()
 
     return jsonData;
   };
@@ -113,7 +131,7 @@ class DetailExam extends Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    this.setState({ id: id });
+    this.setState({ id: id, PageonNav: 'consultDetail' });
     this.detail(id);
     this.correspondence(id);
     this.socket.onopen = () => {
@@ -128,7 +146,42 @@ class DetailExam extends Component {
     this.correspondence(this.state.id);
       }
     };
+
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        let current = response.data.data;
+        // this.peopleInWaitingRoom(current.id);
+        this.connecSocket(current.id);
+      });
   }
+
+
+  connecSocket = (id) => {
+    const webs = new WebSocket(
+      `wss://healthcarebackend.xyz/ws/dashboard/doctor/${id}/`
+    );
+
+    webs.onopen = () => {
+      // on connecting, do nothing but log it to the console
+      console.log("connected to port");
+    };
+    webs.onmessage = (e) => {
+      // listen to data sent from the websocket server
+      const message = JSON.parse(e.data);
+      console.log(message);
+      if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
+        console.log('da li se ovo pokrece nekako');
+        this.detail(this.state.id);
+        this.correspondence(this.state.id);
+      }
+      
+
+    };
+  };
 
   
 
@@ -143,27 +196,25 @@ class DetailExam extends Component {
   };
 
   sendMessage = async () => {
+    let form_data = new FormData();
+    form_data.append("message", this.state.messageValue);
+    form_data.append("attachment", this.state.selectedFile);
+  
+    
     const access_token = "Bearer ".concat(this.state.token);
-    // const data = new FormData()
-    // data.append('file', this.state.selectedFile, this.state.selectedFile.name)
-    const client = await fetch(
-      `https://healthcarebackend.xyz/api/doctor/exams/${this.state.id}/message/`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;",
-          Authorization: access_token,
-        },
-        body: JSON.stringify({
-          message: this.state.messageValue,
-          attachment: this.state.selectedFile,
-        }),
+    let url =  `https://healthcarebackend.xyz/api/doctor/exams/${this.state.id}/message/`;
+    
+    const data = axios.post(url, form_data, {
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: access_token,
       }
-    );
-    const jsonData = await client.json();
-    if (jsonData.success) {
-      // this.correspondence(this.state.id);
-      NotificationManager.success("Message Sent", "Successful!", 2000);
+    })
+    
+    const jsonData = await data;
+    console.log(jsonData);
+    if(jsonData.data.success){
+     NotificationManager.success("Message Sent", "Successful!", 2000);
       this.socket.send({
         exam_id: this.state.id,
         message: this.state.messageValue,
@@ -172,8 +223,39 @@ class DetailExam extends Component {
       this.detail(this.state.id);
       this.correspondence(this.state.id);
     }
+  
+    return data;
+    // const access_token = "Bearer ".concat(this.state.token);
+    // // const data = new FormData()
+    // // data.append('file', this.state.selectedFile, this.state.selectedFile.name)
+    // const client = await fetch(
+    //   `https://healthcarebackend.xyz/api/doctor/exams/${this.state.id}/message/`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json;",
+    //       Authorization: access_token,
+    //     },
+    //     body: JSON.stringify({
+    //       message: this.state.messageValue,
+    //       attachment: this.state.selectedFile,
+    //     }),
+    //   }
+    // );
+    // const jsonData = await client.json();
+    // if (jsonData.success) {
+    //   // this.correspondence(this.state.id);
+    //   NotificationManager.success("Message Sent", "Successful!", 2000);
+    //   this.socket.send({
+    //     exam_id: this.state.id,
+    //     message: this.state.messageValue,
+    //   });
+    //   // window.location.reload()
+    //   this.detail(this.state.id);
+    //   this.correspondence(this.state.id);
+    // }
 
-    return jsonData;
+    // return jsonData;
   };
 
   correspondence = (id) => {
@@ -183,6 +265,7 @@ class DetailExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response)
         const res = response.data.data.map((val) => {
           return {
             id: val.id,
@@ -231,8 +314,9 @@ class DetailExam extends Component {
 
   declineReason = (e)=>{
     this.setState({declineReason: e.target.value})
-    e.target.style.height = '300px'
-    // e.target.style.height = `${e.target.scrollHeight}px`
+    if(e.target.scrollHeight < 300){
+      e.target.style.height = `${e.target.scrollHeight}px`
+    }else{e.target.style.height = '300px'}
     
   }
 
@@ -268,6 +352,242 @@ class DetailExam extends Component {
   inputMessage.style.height = '30px'
   }
 
+  handlePage = (value) =>{
+    this.setState({PageonNav: value})
+    let test = setInterval(() => {
+      if(value === 'clientDetail'){
+          let cronic = document.getElementById('ChronicalConditions')
+         
+          cronic.style.height = `${cronic.scrollHeight}px`
+          console.log(cronic);
+          let alerg = document.getElementById('Allergies')
+          alerg.style.height = `${alerg.scrollHeight}px`
+    
+      }
+      clearInterval(test)
+    }, 200);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  record = (id) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(
+        `https://healthcarebackend.xyz/api/doctor/record/${id}/`
+        ,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
+        console.log(response, "nzm ni ja sta");
+        this.handleAll();
+
+        return this.setState({
+          record:[ response.data.data],
+        });
+      })
+      // .then(() =>{
+      //   let cronic = document.getElementById('ChronicalConditions')
+      //   cronic.style.height = `${cronic.scrollHeight}px`
+      //   let alerg = document.getElementById('Allergies')
+      //   alerg.style.height = `${alerg.scrollHeight}px`
+      // })
+  };
+
+  clientsExams = (id) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(
+        `https://healthcarebackend.xyz/api/exams/client/${id}/list/`
+        ,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
+        console.log(response, "podaciiii");
+        let AllArrays = response.data.data.mail.concat(response.data.data.queue, response.data.data.video)
+
+        return this.setState({
+          exams: AllArrays,
+        });
+      }).then(() =>{
+        this.handleAll();
+      })
+  };
+
+
+  handleAll = () => {
+    let hndlAll = setInterval(() => {
+      let all = this.state.exams;
+
+      let resortall = all.sort(
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
+      );
+
+      let messageIfEmpty = all.length === 0 ? "No consultations" : "";
+
+      this.setState({
+        upcomingOrPast: resortall,
+        page: 1,
+        messageIfEmpty,
+        currentFilterClicked: "all",
+        searchedUpcomingOrPast: [],
+        filterFiltered: [],
+        searchType: "",
+        searchName: "",
+      });
+
+      this.paginate(1);
+      clearInterval(hndlAll);
+    }, 10);
+  };
+
+  paginate = (page) => {
+    if (this.state.searchedUpcomingOrPast.length === 0) {
+      let limit = 10;
+      let pages = Math.ceil(this.state.upcomingOrPast.length / 10);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
+
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    } else {
+      let limit = 10;
+      let pages = Math.ceil(this.state.searchedUpcomingOrPast.length / 10);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.searchedUpcomingOrPast.slice(
+        offset,
+        offset + limit
+      );
+
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    }
+  };
+
+  searchByType = (e) => {
+    if (e.target.value === "" && this.state.searchName === "") {
+      this.setState({ filterFiltered: [] });
+    } else if (e.target.value === "" && this.state.searchName !== "") {
+      this.setState({ filterFiltered: [] });
+    }
+    let letter = e.target.value.toLowerCase();
+    this.setState({ searchType: letter });
+    let callFunction = setInterval(() => {
+      this.handlingSearchByType();
+      clearInterval(callFunction);
+    }, 10);
+  };
+
+  
+  handlingSearchByType = () => {
+    let searchedClient =
+      this.state.filterFiltered.length === 0
+        ? this.state.upcomingOrPast.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          })
+        : this.state.filterFiltered.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          });
+    let messageIfEmpty =
+      searchedClient.length === 0
+        ? "No Such Type"
+        : searchedClient.length !== 0 &&
+          this.state.messageIfEmpty !== "No Such Type"
+        ? this.state.messageIfEmpty
+        : "";
+    this.state.filterFiltered.length === 0 &&
+      this.setState({ filterFiltered: searchedClient });
+    this.setState({
+      searchedUpcomingOrPast: searchedClient,
+      page: 1,
+      messageIfEmpty,
+    });
+    this.paginate(1);
+  };
+
+  handleClick = (id, type) => {
+    if (type === "mail") {
+      this.props.history.push(`/doctor/exam/detail/${id}`);
+    } else if (type === "video") {
+      this.props.history.push(`/doctor/video/exam/detail/${id}/#init`);
+    } else if (type === "queue") {
+      this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
+    }
+  };
+
+  ResetonSelectChange = () => {
+    this.setState({ filterFiltered: [] });
+  };
+
+  handlePageChange = (pageNumber) => {
+    this.setState({page: pageNumber});
+    this.paginate(pageNumber)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
 
   render() {
@@ -289,6 +609,14 @@ class DetailExam extends Component {
           // handleReport={this.handleReport}
           resetValue={this.resetValue}
           extendTextArea={this.extendTextArea}
+          handlePage={this.handlePage}
+
+
+          handleClick={this.handleClick}
+          loading={this.state.loading}
+          searchByType={this.searchByType}
+          ResetonSelectChange={this.ResetonSelectChange}
+          handlePageChange={this.handlePageChange}
         />
       </>
     );

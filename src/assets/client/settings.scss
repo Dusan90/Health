@@ -1,34 +1,108 @@
+// .mainSettingsClient {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   width: 40%;
+//   background: #f2f2f2;
+//   margin: 80px auto 20px auto;
+//   padding: 40px 40px;
+//   position: relative;
+//   border-radius: 15px;
+//   border-top-left-radius: 0;
+//   .iconVideo {
+//     position: absolute;
+//     border-top-right-radius: 15px;
+//     border-top-left-radius: 15px;
+//     font-size: 15px;
+//     top: -40px;
+//     left: 0;
+//     padding: 0 0 0 20px;
+//     height: 40px;
+//     display: flex;
+//     background: #f2f2f2;
+//     width: 250px;
+//     justify-content: flex-start;
+//     align-items: center;
+//     p {
+//       margin: 0 0 0 5px;
+//       font-size: 15px;
+//       font-weight: 450;
+//       color: #666666;
+//     }
+//   }
+//   .doctor {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: flex-start;
+//     width: 65%;
+//     .imageAndInputDiv {
+//       display: flex;
+//       width: 100%;
+//       position: relative;
+//       input {
+//         font-size: 20px;
+//         width: 100%;
+//         margin: 0;
+//         padding-right: 30px;
+//       }
+//       img {
+//         position: absolute;
+//         right: 5px;
+//         top: 13px;
+//       }
+//     }
+//     label {
+//       color: #666666;
+//       margin: 10px 0 5px 0;
+//     }
+//     input {
+//       width: 100%;
+//       margin: 0 0 10px 0;
+//       height: 40px;
+//       border-radius: 10px;
+//       border: 1.7px solid #fa9551;
+//       text-indent: 20px;
+//     }
+
+//     .confirmPass {
+//       font-size: 20px;
+//     }
+//     button {
+//       background: #00aff0;
+//       padding: 5px 15px;
+//       border: none;
+//       border-radius: 5px;
+//       color: white;
+//       margin: 20px auto 0 0px;
+//     }
+//   }
+// }
+
 .mainSettingsClient {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 40%;
   background: #f2f2f2;
-  margin: 80px auto 20px auto;
-  padding: 40px 40px;
+  margin: 110px auto 20px 360px;
+  padding: 30px 30px;
   position: relative;
   border-radius: 15px;
-  border-top-left-radius: 0;
   .iconVideo {
     position: absolute;
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-    font-size: 15px;
-    top: -40px;
+    top: -76px;
     left: 0;
-    padding: 0 0 0 20px;
-    height: 40px;
+    z-index: 20;
+    border-bottom: 4px solid #fa9551;
+    height: 35px;
     display: flex;
-    background: #f2f2f2;
-    width: 250px;
-    justify-content: flex-start;
-    align-items: center;
-    p {
-      margin: 0 0 0 5px;
+    h4 {
       font-size: 15px;
-      font-weight: 450;
-      color: #666666;
+      font-weight: bold !important;
+      color: #2cace3;
     }
   }
   .doctor {
@@ -36,7 +110,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 65%;
+    width: 50%;
     .imageAndInputDiv {
       display: flex;
       width: 100%;
@@ -50,17 +124,17 @@
       img {
         position: absolute;
         right: 5px;
-        top: 13px;
+        top: 10px;
       }
     }
     label {
       color: #666666;
-      margin: 10px 0 5px 0;
+      margin: 0px 0 5px 0;
     }
     input {
       width: 100%;
       margin: 0 0 10px 0;
-      height: 40px;
+      height: 33px;
       border-radius: 10px;
       border: 1.7px solid #fa9551;
       text-indent: 20px;
@@ -75,7 +149,7 @@
       border: none;
       border-radius: 5px;
       color: white;
-      margin: 20px auto 0 0px;
+      margin: 35px auto 0 0;
     }
   }
 }

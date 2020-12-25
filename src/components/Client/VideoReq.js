@@ -31,13 +31,19 @@ const VideoReq = ({
   const customStyles = {
     control: (base, state) => ({
       ...base,
-      height: "40px",
+      height: "33px",
+      minHeight: '33px',
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
       width: "100%",
       background: props.color && props.specialSP.length === 0 ? 'rgb(245, 192, 192)' : "white",
       color: "#666666",
       fontWeight: "500",
+      'div': {
+        display: 'flex',
+        alignSelf: 'center',
+        height: '33px'
+      }
     }),
     menu: (provided, state) => ({
       position: 'absolute',
@@ -51,20 +57,47 @@ const VideoReq = ({
 
     placeholder: () =>({
       fontWeight: '500',
-      color: '#666666'
+      color: '#666666',
+      heigth: '33px'
+    }),
+
+    valueContainer: (provided, state) => ({
+      ...provided,
+      height: '33px',
+      padding: '6px'
+    }),
+    input: (provided, state) => ({
+      ...provided,
+      margin: '0px',
+    }),
+    indicatorSeparator: state => ({
+      display: 'none',
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: '33px',
+    }),
+
+    singleValue: () =>({
     })
   };
 
   const customStyles2 = {
     control: (base, state) => ({
       ...base,
-      height: "40px",
+      height: "33px",
+      minHeight: '33px',
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
       width: "100%",
       background: props.color && !props.doctor_id ? 'rgb(245, 192, 192)' : "white",
       color: "#666666",
       fontWeight: "500",
+      'div': {
+        display: 'flex',
+        alignSelf: 'center',
+        height: '33px'
+      }
     }),
     menu: (provided, state) => ({
       position: 'absolute',
@@ -78,7 +111,27 @@ const VideoReq = ({
 
     placeholder: () =>({
       fontWeight: '500',
-      color: '#666666'
+      color: '#666666',
+      heigth: '33px'
+    }),
+    valueContainer: (provided, state) => ({
+      ...provided,
+      height: '33px',
+      padding: '6px'
+    }),
+    input: (provided, state) => ({
+      ...provided,
+      margin: '0px',
+    }),
+    indicatorSeparator: state => ({
+      display: 'none',
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: '33px',
+    }),
+
+    singleValue: () =>({
     })
   };
 
@@ -86,8 +139,8 @@ const VideoReq = ({
     <div className="exam">
       <div className="mainExam">
         <div className="newVideo">
-          <img src={videoIcon} alt="video img" />
-          <p>Video Appointment</p>
+          {/* <img src={videoIcon} alt="video img" /> */}
+          <h4>Video Appointment</h4>
         </div>
         <div className="exam-spec">
           <Select
@@ -131,7 +184,10 @@ const VideoReq = ({
         </div>
       </div>
       <div className="DatePicker">
-        <div className="exam-mess">
+        <div className="exam-mess" 
+            style={{background: props.color && !props.notes ? 'rgb(245, 192, 192)' : "white"}}
+
+        >
           <textarea
             type="text"
         
@@ -142,6 +198,15 @@ const VideoReq = ({
             value={props.notes}
             onChange={handleMessage}
           />
+          <div className='mainDivForFile'>
+          <div className="upload-btn-wrapper">
+            <button className="btnn">
+              <div className='attachDiv'><p>Add file</p></div>
+            </button>
+            <input type="file" name="myfile" onChange={handleAttach} />
+          </div>
+          {props.attachments && <div className='fileForDownload'><p>{props.attachments.name.substring(props.attachments.name.lastIndexOf('/') + 1)}</p></div>}
+          </div>
         </div>
         <div className="MainDate">
           {/* <DatePicker
@@ -180,12 +245,6 @@ const VideoReq = ({
           >
             Send
           </button>
-          <div className="upload-btn-wrapper">
-            <button className="btnn">
-              <img src={arrowAttach} alt="attach" />
-            </button>
-            <input type="file" name="myfile" onChange={handleAttach} />
-          </div>
         </div>
       </div>
       {/* <div>

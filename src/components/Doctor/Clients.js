@@ -1,32 +1,33 @@
 import React from "react";
 import "../../assets/doctors_clients.scss";
 import myPatients from "../../icons/My_Patients_blue.svg";
-import myClientProfile from "../../icons/icon_my_profile_client_blue_23px.svg";
+import myClientProfile from "../../icons/newIconsForDesign/client_picture.svg";
 import Select from 'react-select'
+import { Link } from "@material-ui/core";
 
 function Clients({ handleClient, clients, handleSort, handleSearch, props, handleDoctor }) {
   const customStyles = {
     control: (base, state) => ({
       ...base,
-      height: "40px",
+      height: "33px",
       border: "1.7px solid #fa9551",
-      borderRadius: "10px",
+      borderRadius: "15px",
       width: "100%",
        // marginLeft: "2px",
       background: "white",
       color: "#666666",
-      fontWeight: "600",
+      fontWeight: "bold",
     }),
     placeholder: () =>({
       color: '#666666',
-      fontWeight: '500'
+      fontWeight: 'bold'
     })
   };
   return (
     <div className="mainClientsDiv">
       <div className="clientsAbove">
-        <img src={myPatients} alt="my patients" />
-        <h4>Clients</h4>
+        {/* <img src={myPatients} alt="my patients" /> */}
+        <h4>Clients List</h4>
       </div>
       <div className="clientsDiv">
       {/* <label>
@@ -46,7 +47,7 @@ function Clients({ handleClient, clients, handleSort, handleSearch, props, handl
             styles={customStyles}
             type="text"
             id="doctor"
-            placeholder="Select Client..."
+            placeholder="Choose Client"
             options={ props.clients}
             onChange={handleDoctor}
             value={   props.resetDoctorSelect}
@@ -56,17 +57,38 @@ function Clients({ handleClient, clients, handleSort, handleSearch, props, handl
       </div>
       <div className="row2">
         { clients.map((client) => {
+          console.log(client);
           return client.iD === null ? null : (
             <div key={client.iD} className="list-group">
-              <button
+              <div
                 data-id={client.iD}
                 className="list-group-item"
-                onClick={() => handleClient(client.iD)}
+                
               >
-                {client.label}
                 <img src={client.image.includes('default') ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
-              </button>
+                {/* <p>
+                {client.label}
+                </p> */}
+                <div className='docInfo'>
+  <p>
+  {client.label}
+  </p>
+  <h5>Email: <span>{client.email}</span></h5>
+  <h5>Phone: <span>{client.phone}</span></h5>
+  </div>
+                <Link to='#' onClick={() => handleClient(client.iD)} className='Details' >Details</Link>
+              </div>
             </div>
+
+
+
+
+
+
+
+
+
+
           )
           }) }
       </div>

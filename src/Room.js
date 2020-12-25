@@ -1,12 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
+import './assets/main/room.scss'
 import styled from "styled-components";
 import { FaMicrophoneAltSlash } from "react-icons/fa";
 // import { FaMicrophoneAlt } from "react-icons/fa";
 import { FaVideoSlash } from "react-icons/fa";
 // import { FaVideo } from "react-icons/fa";
 import { FaPhoneSlash } from "react-icons/fa";
+import Header from "./components/Main/Header";
+import Nav from "./components/Main/Navbar";
+import { HamburgerDiv } from "./components/Main/HamburgerDiv";
+
 
 import * as mediasoupClient from "mediasoup-client";
 
@@ -27,12 +32,15 @@ if (handlerName) {
 }
 
 const Container = styled.div`
-  padding: 20px;
+  padding: 5px 15px;
+  margin: 80px auto 20px auto;
+  border-radius: 15px;
   display: flex;
-  height: 100vh;
-  width: 90%;
-  margin: auto;
+  height: 550px;
+  width: 85%;
   flex-wrap: wrap;
+  background: #f2f2f2;
+  border-top-left-radius: 0px
 `;
 
 const StyledVideo = styled.video`
@@ -154,12 +162,22 @@ const Room = (props) => {
   console.log(peers);
 
   return (
+    <>
+    <div className="header">
+    <div>
+      <Header />
+      <Nav />
+    </div>
+  </div>
+  <HamburgerDiv />
     <Container>
+      <div style={{position: 'absolute'}} className='topBarDiv'>Video Consultation Room</div>
       <div
         style={{
           position: "relative",
-          width: "50%",
-          height: "300px",
+          width: "70%",
+          height: "540px",
+          objectFit: 'cover'
         }}
         onMouseOver={() => {
           setHovered(true);
@@ -229,6 +247,7 @@ const Room = (props) => {
         }
       })}
     </Container>
+    </>
   );
 };
 

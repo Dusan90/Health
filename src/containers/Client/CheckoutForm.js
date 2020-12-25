@@ -103,6 +103,7 @@ class CheckoutForm extends Component {
     elementCvc.style.backgroundColor = !this.state.cardCvc ? 'rgb(245, 192, 192)' : 'white'
     if (
       this.props.stripe &&
+      this.state.name &&
       this.state.cardNumber &&
       this.state.cardExpiry &&
       this.state.cardCvc
@@ -153,6 +154,8 @@ class CheckoutForm extends Component {
           console.log("Stripe.js hasn't loaded yet.");
         }
       // }
+    }else{
+      NotificationManager.error("Empty Fields", "Faild!", 2000);
     }
   };
 

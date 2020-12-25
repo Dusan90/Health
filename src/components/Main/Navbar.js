@@ -44,6 +44,13 @@ form_data.append("email_currency", '');
   form_data.append("web_follow_up_currency", '');
   form_data.append("speciality", curentDoc.speciality);
 form_data.append("status", value);
+form_data.append("waiting_room_price", '');
+form_data.append("waiting_room_currency", '');
+
+form_data.append("web_exam_status", '');
+form_data.append("email_exam_status", '');
+  form_data.append("waiting_room_status", '');
+  form_data.append("web_exam_follow_status", '');
 
 
 let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
@@ -128,84 +135,86 @@ const data = axios.put(url, form_data, {
       });
   };
 
-  const handleClickImage = (e) => {
-      window.open(e.target.src)
+  // const handleClickImage = (e) => {
+  //     window.open(e.target.src)
     
-  }
+  // }
   let curDoc = null;
   let selectStatus = null;
   const isDoctor = sessionStorage.getItem("is_doctor");
   if (isDoctor === "true") {
     console.log(curentDoc);
-    if(Object.keys(curentDoc).length !== 0){
-      let doctorsName = `${curentDoc.prefix} ${nameF} ${nameL}`
-      curDoc = (
-        <div className="topProfile">
-          <p>
-            {doctorsName}
-          </p>
-          <div className="mainProfile">
-            <div className="profile">
-              {curentDoc.image.includes('default')  ?
-                curentDoc.status === "Available" ? (
-                <img src={doctorOnline} alt="online doctor" />
-              ) : (
-                <img src={doctorOffline} alt="offline doctor" />
-              ) :
-              <img onClick={ (e) => handleClickImage(e)} src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
-              }
+    // if(Object.keys(curentDoc).length !== 0){
+    //   let doctorsName = `${curentDoc.prefix} ${nameF} ${nameL}`
+    //   curDoc = (
+    //     <div className="topProfile">
+    //       <p>
+    //         {doctorsName}
+    //       </p>
+    //       <div className="mainProfile">
+    //         <div className="profile">
+    //           {curentDoc.image.includes('default')  ?
+    //             curentDoc.status === "Available" ? (
+    //             <img src={doctorOnline} alt="online doctor" />
+    //           ) : (
+    //             <img src={doctorOffline} alt="offline doctor" />
+    //           ) :
+    //           <img onClick={ (e) => handleClickImage(e)} src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
+    //           }
               
-            </div>
-          </div>
-        </div>
-      );
-    }
+    //         </div>
+    //       </div>
+    //     </div>
+    //   );
+    // }
     selectStatus = (
-      <select name="status" id="status" onChange={handleSubmit}>
+      <select style={{background: curentDoc.status === "Away" ? 'Yellow' : curentDoc.status === "Offline" ? 'red' : '#3cb54a' }} name="status" id="status" onChange={handleSubmit}>
         <option value="">{curentDoc.status}</option>
         <option
           value="Available"
+          style={{background: '#3cb54a'}}
           hidden={curentDoc.status === "Available" && true}
         >
           Available
         </option>
         <option
+        style={{background: 'yellow'}}
           defaultValue="Away"
           hidden={curentDoc.status === "Away" && true}
         >
           Away
         </option>
-        <option value="Offline" hidden={curentDoc.status === "Offline" && true}>
+        <option style={{background: 'red'}} value="Offline" hidden={curentDoc.status === "Offline" && true}>
           Offline
         </option>
       </select>
     );
   } else {
-    if(Object.keys(curentDoc).length !== 0){
-      // if(isDoctor === "true"){
-      console.log(curentDoc);
-      // }
-      curDoc = (
-        <div className="topProfile">
-          <p>{`${isDoctor === "false" && nameF} ${ isDoctor === "false" && nameL}`}</p>
-          <div className="mainProfile">
-            <div className="profile">
+    // if(Object.keys(curentDoc).length !== 0){
+    //   // if(isDoctor === "true"){
+    //   console.log(curentDoc);
+    //   // }
+    //   curDoc = (
+    //     <div className="topProfile">
+    //       <p>{`${isDoctor === "false" && nameF} ${ isDoctor === "false" && nameL}`}</p>
+    //       <div className="mainProfile">
+    //         <div className="profile">
 
 
-              {curentDoc.image.includes('default') ?
-              <img src={clientOnline} alt="online doctor" />
-                :
-              <img onClick={ (e) => handleClickImage(e)}  src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
-              }
+    //           {curentDoc.image.includes('default') ?
+    //           <img src={clientOnline} alt="online doctor" />
+    //             :
+    //           <img onClick={ (e) => handleClickImage(e)}  src={`https://healthcarebackend.xyz${curentDoc.image}`} alt="#"/>
+    //           }
 
 
 
 
-            </div>
-          </div>
-        </div>
-      );
-    }
+    //         </div>
+    //       </div>
+    //     </div>
+    //   );
+    // }
   }
   return (
     <nav className="nav">
@@ -225,14 +234,14 @@ const data = axios.put(url, form_data, {
       )}
       {isLoggedIn && (
         <ul className="nav navbar-nav">
-          <li className="userName">{curDoc}</li>
+          {/* <li className="userName">{curDoc}</li> */}
           <li className="selectStatus">{selectStatus}</li>
 
-          <li style={{ fontWeight: "500", marginLeft: "10px" }}>
+          {/* <li style={{ fontWeight: "500", marginLeft: "10px" }}>
             <Link to="/logout" onClick={handleLogout}>
               Log Out
             </Link>
-          </li>
+          </li> */}
         </ul>
       )}
     </nav>

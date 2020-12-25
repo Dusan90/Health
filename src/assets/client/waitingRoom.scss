@@ -1,40 +1,36 @@
 .exam {
-  width: 85%;
-  margin-top: 80px auto 167px auto;
+  width: calc(100% - 480px) !important;
+  margin: 110px auto 20px 360px !important;
   margin: 0 auto;
   padding: 0 !important;
 
   .mainExam {
     display: flex;
     width: 100%;
+    padding: 30px !important;
     .newVideo {
-      display: flex;
-      align-items: center;
-      background: #f2f2f2;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
       position: absolute;
-      font-size: 15px;
-
-      top: -40px;
+      top: -76px;
       left: 0;
-      height: 40px;
-      width: 250px !important;
-      img {
-        margin: 0 10px 0 15px;
-      }
-      p {
-        margin: 0;
+      z-index: 20;
+      height: 35px;
+      display: flex;
+      border-bottom: 4px solid #fa9551;
+      margin-right: 45px;
+      h4 {
+        font-weight: bold;
         font-size: 15px;
-        font-weight: 450 !important;
-        color: #666666;
+        color: #2cace3;
+      }
+      &:hover {
+        cursor: pointer;
       }
     }
     .exam-spec {
       // width: 305px;
+      flex: 1;
       width: 100%;
-
-      margin: 0 10px 10px 0;
+      margin-right: 10px;
 
       #speciality {
         select[disabled] {
@@ -48,6 +44,7 @@
     }
 
     .exam-doc {
+      flex: 1;
       // width: 305px;
       width: 100%;
 
@@ -65,6 +62,7 @@
     }
 
     .exam-sub {
+      flex: 1;
       width: 100%;
       input {
         margin: 0;
@@ -79,7 +77,7 @@
 
   .queue {
     margin: 20px 0 20px 0;
-    padding: 40px 15px 90px 15px;
+    padding: 30px;
 
     border-radius: 15px;
     display: flex;
@@ -91,14 +89,18 @@
 
     .exam-mes {
       height: 350px;
-      width: 64%;
+      width: 66%;
+      margin-right: 5px;
+      background: white;
+      border: 1.7px solid #00aff0 !important;
+      border-radius: 15px;
+      padding: 10px;
       textarea {
-        border: 1.7px solid #00aff0;
-        border-radius: 15px;
-        height: 350px;
+        height: 290px;
         resize: none;
-        // width: 400px;
-        // border: none;
+        border: none !important;
+        box-shadow: none;
+        padding: 0;
 
         &::-webkit-scrollbar {
           width: 5px;
@@ -126,15 +128,76 @@
           background: #db8246;
         }
       }
+      .mainDivForFile {
+        display: flex;
+        padding-top: 4px;
+        border-top: 1px solid #666666;
+        position: relative;
+        .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          display: inline-block;
+          .btn {
+            background: white;
+            border: 1.7px solid #00aff0;
+            height: 30px;
+            color: #00aff0;
+            font-weight: bold;
+            padding: 0 5px;
+            width: 70px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            margin: 0;
+            .attachDiv {
+              align-items: center;
+              p {
+                margin: 0;
+              }
+            }
+          }
+        }
+
+        .upload-btn-wrapper input[type="file"] {
+          font-size: 0px;
+          position: absolute;
+          background: #00aff0;
+          left: 0;
+          top: 0;
+          width: 70px;
+          height: 30px;
+          opacity: 0;
+          cursor: pointer;
+        }
+        .fileForDownload {
+          border: 1.7px solid #00aff0;
+          // position: absolute;
+          left: 120px;
+          border-radius: 5px;
+          color: #00aff0;
+          padding: 0 5px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          width: 100px;
+          margin: 0 0 0 10px;
+          p {
+            margin: 0;
+          }
+        }
+      }
     }
 
     .queueInfo {
-      //   margin-left: 5px;
+      margin-left: 10px;
+      flex: 1;
       background: white;
       border: 1.7px solid #00aff0;
       border-radius: 15px;
       height: 350px;
-      width: 35%;
+      width: 33%;
+      position: relative;
 
       .IfFinished {
         color: #666666;
@@ -164,6 +227,8 @@
 
             h4 {
               padding: 10px;
+              height: 42px;
+              width: 170px;
               margin: 0;
               font-weight: 600;
             }
@@ -179,12 +244,14 @@
           }
           div {
             margin: 15px 15px 0 12px;
-            width: 150px;
+            width: 170px;
             border-radius: 10px;
             border: 1.7px solid #808080;
             color: #666666;
-            height: 40px;
+            height: 42px;
+
             font-weight: 700;
+
             p {
               padding: 9px;
               border-right: 1px solid #808080;
@@ -202,15 +269,18 @@
     .startandexit {
       display: flex;
       justify-content: flex-start;
-      margin: 20px 0 0 12px;
+      position: absolute;
+      left: 12px;
+      bottom: 20px;
       .exitQueue {
         color: #00aff0;
         padding: 5px;
         background: white;
         border: 1.7px solid #00aff0;
         border-radius: 10px;
-        padding: 10px;
-        width: 150px;
+        padding-top: 7px;
+        width: 100px;
+        height: 33px;
         font-weight: bold;
         transition: all 0.5s ease-in-out;
         outline: none;
@@ -236,10 +306,13 @@
         border: 1.7px solid #00aff0;
         border-radius: 10px;
         font-weight: bold;
-        padding: 10px;
+        font-size: 13px;
+        padding-top: 7px;
+        width: 100px;
+        height: 33px;
         transition: all 0.5s ease-in-out;
         outline: none;
-        width: 150px;
+        // width: 150px;
         &:hover {
           cursor: pointer;
 
@@ -263,7 +336,7 @@
   }
   position: relative;
   .divAndAttach {
-    background: #f2f2f2;
+    height: 10px;
     width: 270px;
     display: flex;
     justify-content: flex-start;
@@ -272,7 +345,7 @@
     border-bottom-left-radius: 15px;
     position: absolute;
     bottom: 20px;
-    left: 0;
+    left: 15px;
 
     .startThatChat {
       margin: 10px auto;
@@ -296,22 +369,6 @@
         box-shadow: 2px 2px 2px black;
       }
     }
-
-    .upload-btn-wrapper {
-      position: relative;
-      overflow: hidden;
-      display: inline-block;
-    }
-
-    .upload-btn-wrapper input[type="file"] {
-      font-size: 100px;
-      position: absolute;
-      background: #00aff0;
-      left: 0;
-      top: 0;
-      width: 60px;
-      opacity: 0;
-    }
   }
 }
 
@@ -332,32 +389,54 @@
   display: flex;
   height: 500px;
 
+  .MainIconsDiv {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    img {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .iconVideooCall {
+    position: absolute;
+    top: -79px;
+    z-index: 20;
+    height: 35px;
+    display: flex;
+    border-bottom: 4px solid #fa9551;
+    margin-right: 45px;
+    h4 {
+      font-size: 15px;
+      color: #2cace3;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   .detail2 {
     color: #666666;
     display: flex;
     .detailInfo2 {
       width: 35%;
-      padding: 10px 10px 10px 10px;
+      margin: 0px 30px 0px 10px;
       overflow: hidden;
       display: flex;
       height: 550px;
       flex-direction: column;
+      border-bottom: 1px solid #fa9551;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
       .ClientP {
         text-indent: 10px;
         span {
           font-weight: 700;
         }
       }
-      .MainIconsDiv {
-        display: flex;
-        justify-content: space-around;
-        padding: 10px 0;
-        img {
-          &:hover {
-            cursor: pointer;
-          }
-        }
-      }
+
       .MainDivForChat {
         height: 100%;
         display: flex;
@@ -376,26 +455,30 @@
           margin: 0;
         }
         form {
-          height: 405px !important;
+          height: 518px;
           overflow: hidden;
+          position: relative;
 
           #messages {
             // height: 375px !important;
-            height: 377px !important;
+            height: 488px;
             margin: 0;
-            border: 0;
-            padding: 20px !important;
+            padding: 20px;
+            border-bottom: none;
+            border-left: 1px solid #fa9551;
+            border-right: 1px solid #fa9551;
+            border-radius: 0;
             p {
               position: relative;
-              margin-top: 25px !important;
-              margin-bottom: 20px !important;
-              padding-left: 10px !important;
+              margin-top: 25px;
+              margin-bottom: 20px;
+              padding-left: 10px;
               text-indent: 0;
               span {
                 display: flex;
                 position: absolute;
                 top: -18px;
-                left: -2px;
+                left: -10px;
                 width: 48px;
                 text-indent: 0;
               }
@@ -432,29 +515,37 @@
             position: absolute;
             bottom: 0;
             width: 100%;
+            // border-left: 1px solid #fa9551 !important;
+            // border-right: 1px solid #fa9551 !important;
+            border-top: none !important;
+            // border-bottom-left-radius: 10px;
+            // border-bottom-right-radius: 10px;
 
             #yourMessage {
               border: 0;
-              width: calc(100% - 65px);
-              padding: 5px;
+              border-left: 1px solid #fa9551 !important;
+              border-right: 1px solid #fa9551 !important;
+              // width: calc(100% - 65px);
+              width: 100%;
+              padding: 5px 35px 5px 5px;
               height: 30px;
               resize: none;
+              // border-radius: 10px;
             }
           }
         }
       }
       #send {
-        // visibility: hidden;
-        height: 30px !important;
-        background: #00aff0;
-        color: white;
-        border: none;
-        width: 60px;
-        padding: 5px 10px;
         position: absolute;
         right: 10px;
-        bottom: 11px !important;
+        bottom: 3px !important;
         z-index: 20;
+        border: none;
+        background: white;
+        img {
+          width: 26px;
+          height: 26px !important;
+        }
       }
       position: relative;
     }

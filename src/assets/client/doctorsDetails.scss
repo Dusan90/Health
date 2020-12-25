@@ -1,30 +1,26 @@
 .mainDoctorDiv {
-  width: 63%;
-  height: 500px;
-  margin: 80px auto 0 auto;
+  width: calc(100% - 480px);
+  height: 520px;
+  margin: 110px 0 20px 360px;
   background: #f3f3f3;
   position: relative;
   border-radius: 15px;
-  border-top-left-radius: 0;
 
   .doctorsAbove {
     position: absolute;
-    top: -39px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    width: 250px;
-    font-size: 15px;
-    height: 40px;
-
-    background: #f3f3f3;
+    top: -76px;
+    z-index: 20;
+    height: 35px;
     display: flex;
-    img {
-      margin: 0 10px 0 15px;
-    }
+    border-bottom: 4px solid #fa9551;
+    margin-right: 45px;
     h4 {
       font-size: 15px;
-      font-weight: 450;
-      color: #666666;
+      font-weight: bold;
+      color: #2cace3;
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
 
@@ -32,72 +28,138 @@
     // width: 90%;
     margin: 0 auto;
     color: #666666;
+    padding: 30px 30px;
     .mainDoctorInfoDiv {
       display: flex;
       justify-content: space-between;
-      padding: 40px 15px 0 15px;
       .imageDiv {
-        border: 1.7px solid #666666;
-        height: 170px;
-        width: 150px;
-        p {
-          font-size: 100px;
-          text-align: center;
-          padding: 12px 0 0 0;
+        border: 1.7px solid #fa9551;
+        border-radius: 15px;
+        background: white;
+        flex: 1;
+        height: 220px;
+        display: flex;
+        margin: 0 5px 5px 0;
+        .info {
+          padding: 20px;
+          p {
+            text-align: start;
+            font-size: 14px;
+            span {
+              font-weight: bold;
+            }
+          }
         }
         img {
-          width: 145px;
-          height: 165px;
+          width: 110px;
+          height: 110px;
+          margin: 20px;
+          border-radius: 10px;
           object-fit: cover;
         }
       }
-      div {
-        width: 33.3%;
-        p {
-          text-align: left;
-          margin-bottom: 20px;
-          span {
-            font-weight: 700;
+      .pricesAndDoing {
+        flex: 1;
+        border: 1.7px solid #fa9551;
+        background: white;
+        border-radius: 15px;
+        margin: 0 0 5px 5px;
+        height: 220px;
+        .priceInfo {
+          padding: 20px;
+          div {
+            display: flex;
+            justify-content: space-between;
+            p {
+              text-align: left;
+
+              span {
+                font-weight: 700;
+              }
+            }
+            button {
+              width: 45px;
+              height: 20px;
+              font-size: 12px;
+              font-weight: 550;
+              padding-top: 2px;
+              display: flex;
+              justify-content: center;
+              background: #00aff0;
+              border: none;
+              border-radius: 3px;
+              color: white;
+            }
           }
         }
       }
     }
     .BiographyDiv {
-      width: 54%;
-      margin: 0 40px 0 auto;
-      .pForBio {
-        font-weight: 700;
-        text-align: left;
+      display: flex;
+      .bio {
+        flex: 1;
+        border: 1.7px solid #fa9551;
+        background: white;
+        border-radius: 15px;
+        margin: 5px 5px 0 0;
+        height: 220px;
+        .pForBio {
+          font-weight: 700;
+          text-align: left;
+          padding: 20px 20px 0 20px;
+        }
+        textarea {
+          resize: none;
+          width: 100%;
+          height: 150px;
+          padding: 0px 20px 20px 20px;
+          background: white;
+
+          border: none;
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          &::-webkit-scrollbar-button:single-button {
+            // background-color: #bbbbbb;
+            display: block;
+
+            height: 13px;
+            width: 16px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #fa9551;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: #db8246;
+          }
+        }
       }
-      textarea {
-        resize: none;
-        width: 100%;
-        height: 150px;
-        border: none;
-        &::-webkit-scrollbar {
-          width: 5px;
-        }
-
-        &::-webkit-scrollbar-button:single-button {
-          // background-color: #bbbbbb;
-          display: block;
-
-          height: 13px;
-          width: 16px;
-        }
-
-        &::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 5px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background: #fa9551;
-          border-radius: 5px;
-        }
-
-        &::-webkit-scrollbar-thumb:hover {
-          background: #db8246;
+      .workHours {
+        flex: 1;
+        border: 1.7px solid #fa9551;
+        background: white;
+        border-radius: 15px;
+        margin: 5px 0 0 5px;
+        height: 220px;
+        // font-size: 12px;
+        div {
+          padding: 20px;
+          p {
+            text-align: left;
+            margin-bottom: 7px;
+            span {
+              font-weight: bold;
+            }
+          }
         }
       }
     }

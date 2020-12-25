@@ -8,8 +8,8 @@ function Settings({props, handleImage, userLogin, handleChange}) {
     return (
         <div className="mainSettings">
               <div className="iconVideo">
-                <img src={settings} alt="img" />
-                <p>Settings</p>{" "}
+                {/* <img src={settings} alt="img" /> */}
+                <h4>Settings</h4>{" "}
               </div>
               <div className="doctor">
                 <label htmlFor="Email">Email</label>

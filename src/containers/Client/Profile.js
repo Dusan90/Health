@@ -23,7 +23,8 @@ class ClientProfile extends Component {
       ChronicalConditions: '',
       Allergies: '',
       attach: '',
-      Email: ''
+      Email: '',
+      showDeleteImage: false
     };
   }
 
@@ -131,14 +132,34 @@ const data = axios.put(url, form_data, {
     output.src = URL.createObjectURL(e.target.files[0]);
   }
 
-  handleImage = (e) =>{
-    console.log(e.target);
-    window.open(e.target.src)
-  }
+  // handleImage = (e) =>{
+  //   console.log(e.target);
+  //   window.open(e.target.src)
+  // }
 
   handleRemoveImage = async (e) =>{
     // this.setState({attach: 'default.jpg'})
     // this.handleSubmit(e)
+    const access_token = "Bearer ".concat(this.state.token);
+
+    let data = axios.delete("https://healthcarebackend.xyz/api/client/image/", {
+      headers: {
+        Authorization: access_token
+      },
+      data: {
+        // image: ''
+      }
+    });
+    const jsonData = await data
+    console.log(jsonData);
+    jsonData.data && window.location.reload()
+  }
+
+  handleDeleteImageShow = () =>{
+    this.setState({showDeleteImage: !this.state.showDeleteImage})
+  }
+
+  deletePicture = async () =>{
     const access_token = "Bearer ".concat(this.state.token);
 
     let data = axios.delete("https://healthcarebackend.xyz/api/client/image/", {
@@ -174,6 +195,8 @@ const data = axios.put(url, form_data, {
           attachInput={this.attachInput}
           handleImage={this.handleImage}
           handleRemoveImage={this.handleRemoveImage}
+          handleDeleteImageShow={this.handleDeleteImageShow}
+          deletePicture={this.deletePicture}
         />
       </>
     );

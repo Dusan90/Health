@@ -9,6 +9,7 @@ import { NotificationManager } from "react-notifications";
 // import moment from "moment";
 import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
+
 const doctorStatusSocket = new WebSocket(
   "wss://healthcarebackend.xyz/ws/doctor/status/"
 );
@@ -36,7 +37,7 @@ class ClientWaitingRoom extends Component {
       isClicked: false,
       currentSpec: '',
       credits: false,
-      attachment: null,
+      attachment: '',
       currentClient: "",
       peopleInQueue: [],
       YourNumber: null,
@@ -54,7 +55,7 @@ class ClientWaitingRoom extends Component {
       notes: "",
       connection: "",
       doctorStartedVideo: false,
-      showExtendScreen: false,
+      // showExtendScreen: false,
       messageIfFinished: ''
     };
   }
@@ -66,6 +67,13 @@ class ClientWaitingRoom extends Component {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
       .then((stream) => {
+        let cutMYVideo = stream.getVideoTracks()[0];
+        document.querySelector(".iconVideoShow").addEventListener("click", () => {  
+            cutMYVideo.enabled = !cutMYVideo.enabled;
+        });
+        document.querySelector(".iconVideo").addEventListener("click", () => {  
+          cutMYVideo.enabled = !cutMYVideo.enabled;
+      });
         var myVideo = document.createElement("video");
         myVideo.id = "myVid";
         var videoChat = document.getElementById("videoChat");
@@ -74,7 +82,7 @@ class ClientWaitingRoom extends Component {
         myVideo.play();
         var myVid = document.getElementById("myVid");
         myVid.style.cssText =
-        "position: absolute; right: 15px; top: 10px; height: 140px; width: 170px; z-index: 20";
+        "position: absolute; left: 45px; top: 40px; height: 140px; width: 170px; z-index: 20";
 
       });
   };
@@ -112,7 +120,7 @@ class ClientWaitingRoom extends Component {
       this.props.dispatch(doctor(e));
       console.log(e);
       this.setState({
-        // price: e.price,
+        price: e.price,
         currency: e.currency,
         doctor_id: e.iD,
         doctorsStatus: e.status,
@@ -146,7 +154,8 @@ class ClientWaitingRoom extends Component {
     let jsonData = await clientCancel.json();
       console.log(jsonData);
     if (jsonData.success === true) {
-      connection.close();
+    connection.send(JSON.stringify("Cancel Video From Client"));
+    connection.close();
       this.setState({
         credits: false,
         peopleInQueue: [],
@@ -218,31 +227,61 @@ class ClientWaitingRoom extends Component {
       this.state.doctorsStatus === "Available"
     ) {
       this.setState({ isClicked: true });
-      const response = await fetch(
-        "https://healthcarebackend.xyz/api/queue/enter/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: access_token,
-          },
-          body: JSON.stringify({
-            client: this.state.client_id,
-            speciality: this.state.specialSP,
-            doctor: this.state.doctor_id,
-            subject: this.state.subject,
-            attachments: this.state.attachment,
-            notes: this.state.notes,
-          }),
-        }
-      );
-      const data = await response.json();
+      let form_data = new FormData();
+  form_data.append("client", this.state.client_id);
+  form_data.append("speciality", this.state.specialSP);
+  form_data.append("doctor", this.state.doctor_id);
+  form_data.append("subject", this.state.subject);
+  form_data.append("attachments", this.state.attachment);
+  form_data.append("notes", this.state.notes);
 
-      this.setState({ price: data.data.price });
-      this.hanldeClientQueue(this.state.client_id);
-      this.toCheckout();
+  
+  const access_token = "Bearer ".concat(this.state.token);
+  let url = 'https://healthcarebackend.xyz/api/queue/enter/';
+  
+  const data = axios.post(url, form_data, {
+    headers: {
+      'content-type': 'multipart/form-data',
+      Authorization: access_token,
+    }
+  })
+  
+  
+  const jsonData = await data;
 
-      return data;
+  // this.setState({ price: jsonData.data.price });
+  this.hanldeClientQueue(this.state.client_id);
+  this.toCheckout();
+
+  return data;
+
+
+      // this.setState({ isClicked: true });
+      // const response = await fetch(
+      //   "https://healthcarebackend.xyz/api/queue/enter/",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: access_token,
+      //     },
+      //     body: JSON.stringify({
+      //       client: this.state.client_id,
+      //       speciality: this.state.specialSP,
+      //       doctor: this.state.doctor_id,
+      //       subject: this.state.subject,
+      //       attachments: this.state.attachment,
+      //       notes: this.state.notes,
+      //     }),
+      //   }
+      // );
+      // const data = await response.json();
+
+      // this.setState({ price: data.data.price });
+      // this.hanldeClientQueue(this.state.client_id);
+      // this.toCheckout();
+
+      // return data;
     } else if (
       this.state.doctorsStatus &&
       this.state.doctorsStatus !== "Available"
@@ -258,7 +297,7 @@ class ClientWaitingRoom extends Component {
   };
 
   toCheckout = async () => {
-    if(this.state.price !== "0.00"
+    if(this.state.price !== "0.00" && this.state.price !== '0'
     ){
       return this.props.history.push({
         pathname: "/checkout",
@@ -269,7 +308,8 @@ class ClientWaitingRoom extends Component {
           currency: this.state.currency
         },
       });
-    }else{
+    }
+    else{
       return this.props.history.push("/dashboard-client")
     }
   };
@@ -325,7 +365,12 @@ class ClientWaitingRoom extends Component {
   };
 
   socketTestStart = () => {
+    !this.state.connection && this.state.currentClient && connection.readyState === 1 && !this.props.popUp && connection.send(JSON.stringify({
+      id: this.state.currentClient.id,
+      connectedClient: true,
+       }));
     if (this.state.currentClient) {
+
       connection.onopen = () => {
         console.log("connected");
         this.setState({ connection });
@@ -383,18 +428,20 @@ class ClientWaitingRoom extends Component {
   };
 
   componentWillUnmount() {
+    connection.send(JSON.stringify("Cancel Video From Client"));
     this._isMounted = false;
     connection.close();
+    // this.handleDivClose();
   }
 
   componentDidMount() {
     this._isMounted = true;
-    let isItconnected = setInterval(() => {
-      if (!this.state.connection && this.state.currentClient) {
-        window.location.reload();
-      }
-      clearInterval(isItconnected);
-    }, 15000);
+    // let isItconnected = setInterval(() => {
+    //   if (!this.state.connection && this.state.currentClient) {
+    //     window.location.reload();
+    //   }
+    //   clearInterval(isItconnected);
+    // }, 5000);
     doctorStatusSocket.onopen = () => {
       console.log("connected to the doctor status socket");
     };
@@ -446,6 +493,22 @@ class ClientWaitingRoom extends Component {
           };
         });
         this.setState({ doctors: res });
+        if(this.props.location.state){
+          response.data.data.filter(doctor =>{
+              if (doctor.id === this.props.location.state.doctorId){
+               const test = {
+                  value: doctor.id,
+                  iD: doctor.id,
+                  label: doctor.doctor,
+                  spec: doctor.speciality,
+                  price: doctor.web_exam_follow_price,
+                  currency: doctor.web_follow_up_currency,
+                  status: doctor.status,
+                }
+                this.handleDoctor(test)
+              }
+            })
+          }
       });
   };
 
@@ -529,7 +592,7 @@ class ClientWaitingRoom extends Component {
           connection.send(message);
           document.getElementById(
             "messages"
-          ).innerHTML += `<p style='color: #666666 ;margin: 5px auto 5px 0;display: table; white-space: initial ; background: #e6e6e6; padding: 5px 10px 0 0; border-radius: 10px'><span>Client:</span>${message}</p>`;
+          ).innerHTML += `<p style='color: #666666 ;margin: 20px 0 5px auto;display: table; white-space: initial ; background: #e6e6e6; padding: 8px 5px; border-radius: 10px'><span>Client:</span>${message}</p>`;
           // this.setState({ value: "" });
           var objDiv = document.getElementById("messages");
           objDiv.scrollTop = objDiv.scrollHeight;
@@ -541,6 +604,7 @@ class ClientWaitingRoom extends Component {
         };
 
         connection.onerror = (error) => {
+          window.location.reload()
           console.error("failed to connect", error);
         };
 
@@ -559,10 +623,19 @@ class ClientWaitingRoom extends Component {
         peer.on("data", function (data) {
           document.getElementById(
             "messages"
-          ).innerHTML += `<p style='color: #666666 ; margin: 5px 0 5px auto; background: #e6e6e6 ;display: table; white-space: initial; padding: 5px 10px 0 0; border-radius: 10px'><span>Doctor:</span>${data}</p>`;
+          ).innerHTML += `<p style='color: #666666 ; margin: 20px auto 5px 0; background: #e6e6e6 ;display: table; white-space: initial; padding: 8px 5px; border-radius: 10px'><span>Doctor:</span>${data}</p>`;
           var objDiv = document.getElementById("messages");
           objDiv.scrollTop = objDiv.scrollHeight;
         });
+
+        peer._pc.onconnectionstatechange = function(event) {
+          console.log('status je promenje', event);
+          if(event.currentTarget.connectionState === 'disconnected' || event.currentTarget.connectionState === "failed"){
+            window.location.reload()
+          }
+        }
+
+        
 
         let track = stream.getAudioTracks()[0];
         let cutVideo = stream.getVideoTracks()[0];
@@ -705,9 +778,9 @@ class ClientWaitingRoom extends Component {
     this.setState({ video: !this.state.video });
   };
 
-  showExtendScreenIcon=()=>{
-    this.setState({showExtendScreen: !this.state.showExtendScreen})
-  }
+  // showExtendScreenIcon=()=>{
+  //   this.setState({showExtendScreen: !this.state.showExtendScreen})
+  // }
 
   resetValue = () =>{
     this.setState({value: ''})
@@ -725,7 +798,13 @@ class ClientWaitingRoom extends Component {
     }
   }
 
+  handleAttach = (e) =>{
+    console.log(e.target.files);
+    this.setState({attachment: e.target.files[0]})
+  }
+
   render() {
+    console.log(this.state.price);
     return (
       <>
         <div className="header">
@@ -754,9 +833,10 @@ class ClientWaitingRoom extends Component {
           cutMic={this.cutMic}
           cutVideo={this.cutVideo}
           handleMessage={this.handleMessage}
-  showExtendScreenIcon={this.showExtendScreenIcon}
+  // showExtendScreenIcon={this.showExtendScreenIcon}
   resetValue={this.resetValue}
         handleKeyPress={this.handleKeyPress}
+        handleAttach={this.handleAttach}
         />
       </>
     );
@@ -765,10 +845,12 @@ class ClientWaitingRoom extends Component {
 
 const mapStateToProps = (state) => {
   const doctor = state.getIn(["doctorReducer", "doctor"]);
-
+  const popUp = state.getIn(["popUpReducer", "popUp"]);
   return {
     doctor,
     price: state.price,
+    popUp,
+
   };
 };
 

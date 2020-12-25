@@ -25,7 +25,7 @@ const Footer = () => {
           <li>
             <FiMapPin className="mapPin" />
             Kralja Milana 4,
-            <br /> 11000 Belgrade, Serbia
+            <br /> <span style={{marginLeft: '20px'}}>11000 Belgrade, Serbia</span>
           </li>
         </ul>
         <ul className="company">

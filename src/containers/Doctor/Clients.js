@@ -64,7 +64,8 @@ export class DoctorsClients extends Component {
               spec: val.speciality,
               price: val.email_exam_price,
               currency: val.email_currency,
-              image: val.image
+              image: val.image,
+              email: val.email
             };
           });
           this.setState({ clients: res });

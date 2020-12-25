@@ -16,7 +16,7 @@ class ClientDetailExam extends Component {
       lastInArray: null,
       replyClicked: false,
       messageValue: "",
-      selectedFile: null,
+      selectedFile: '',
       doctor: '',
       client: ''
     };
@@ -51,7 +51,7 @@ class ClientDetailExam extends Component {
     const jsonData = await doctor.json();
     // this.toRefund();
     console.log(jsonData);
-    jsonData.success && this.props.history.push("/dashboard-client");
+    jsonData.success &&  this.props.history.push("/dashboard-client");
     return jsonData;
   };
 
@@ -95,7 +95,7 @@ class ClientDetailExam extends Component {
     };
     this.socket.onmessage = (event) => {
       let parsedEvent = JSON.parse(event.data);
-
+      console.log(parsedEvent);
       if (parsedEvent.exam_id === parseInt(id)) {
         // window.location.reload()
         this.detail(id);
@@ -111,9 +111,35 @@ class ClientDetailExam extends Component {
       })
       .then((response) => {
         let name = `${response.data.data.user.first_name} ${response.data.data.user.last_name}`
+        this.connect(response.data.data.id);
         return this.setState({ client: name });
       })
+
+      
   }
+
+  connect = (id) => {
+    const wss = new WebSocket(
+      `wss://healthcarebackend.xyz/ws/dashboard/client/${id}/`
+    );
+
+    wss.onopen = () => {
+      // on connecting, do nothing but log it to the console
+      console.log("connected to test socket");
+    };
+    wss.onmessage = (e) => {
+      // listen to data sent from the websocket server
+      const message = JSON.parse(e.data);
+      console.log(message);
+      if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
+        console.log('da li se ovo pokrece nekako');
+        this.detail(this.state.id);
+        this.correspondence(this.state.id);
+      }
+      
+
+    };
+  };
 
   handleMessage = (e) => {
     document.querySelector('.messageTextInput').style.height = `${e.target.scrollHeight}px`
@@ -144,36 +170,65 @@ class ClientDetailExam extends Component {
   };
 
   sendMessage = async () => {
+
+    let form_data = new FormData();
+    form_data.append("message", this.state.messageValue);
+    form_data.append("attachment", this.state.selectedFile);
+    
     const access_token = "Bearer ".concat(this.state.token);
-    const client = await fetch(
-      `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/message/`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;",
-          Authorization: access_token,
-        },
-        body: JSON.stringify({
-          message: this.state.messageValue,
-          attachment: this.state.selectedFile,
-        }),
+    let url =  `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/message/`;
+    
+    const data = axios.post(url, form_data, {
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: access_token,
       }
-    );
-    const jsonData = await client.json();
-    if (jsonData.success) {
-      this.detail(this.state.id);
-      this.correspondence(this.state.id);
-      // this.correspondence(this.state.id);
-      NotificationManager.success("Message Sent", "Successful!", 2000);
+    })
+    
+    const jsonData = await data;
+    console.log(jsonData);
+    if(jsonData.data.success){
+         NotificationManager.success("Message Sent", "Successful!", 2000);
       this.socket.send({
         exam_id: this.state.id,
         message: this.state.messageValue,
       });
+      this.detail(this.state.id);
+      this.correspondence(this.state.id);
     }
-    console.log(jsonData);
-    console.log(client);
+  
+    return data;
 
-    return jsonData;
+    // const access_token = "Bearer ".concat(this.state.token);
+    // const client = await fetch(
+    //   `https://healthcarebackend.xyz/api/client/exams/${this.state.id}/message/`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json;",
+    //       Authorization: access_token,
+    //     },
+    //     body: JSON.stringify({
+    //       message: this.state.messageValue,
+    //       attachment: this.state.selectedFile,
+    //     }),
+    //   }
+    // );
+    // const jsonData = await client.json();
+    // if (jsonData.success) {
+    //   // this.correspondence(this.state.id);
+    //   NotificationManager.success("Message Sent", "Successful!", 2000);
+    //   this.socket.send({
+    //     exam_id: this.state.id,
+    //     message: this.state.messageValue,
+    //   });
+    //   this.detail(this.state.id);
+    //   this.correspondence(this.state.id);
+    // }
+    // console.log(jsonData);
+    // console.log(client);
+
+    // return jsonData;
   };
 
   correspondence = (id) => {
@@ -243,7 +298,7 @@ class ClientDetailExam extends Component {
   };
 
   render() {
-    console.log(this.state.client);
+    console.log(this.state.id);
     return (
       <>
         <Detail

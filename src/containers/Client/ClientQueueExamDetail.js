@@ -28,7 +28,7 @@ class ClientQueueExamDetail extends Component {
           mess.style.height = `${mess.scrollHeight}px`
           messageDiv.style.height = `${mess.scrollHeight + 20}px` 
         }else{
-          mess.style.height = '300px'
+          mess.style.height = '160px'
         }
       })
       .catch((error) => {
@@ -45,7 +45,7 @@ class ClientQueueExamDetail extends Component {
     return (
       <>
 
-        <DetailQueue exam={this.state.exam} />
+        <DetailQueue exam={this.state.exam} props={this.state} />
        
       </>
     );

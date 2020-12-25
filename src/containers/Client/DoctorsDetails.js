@@ -39,6 +39,7 @@ export class DoctorsDetails extends Component {
         
       }
     render() {
+      console.log(this);
         return (
             <>
                      <div className="header">
@@ -48,7 +49,7 @@ export class DoctorsDetails extends Component {
           </div>
         </div>
         <HamburgerDiv/>
-        <DoctorDetail doctor={this.state.doctor} props={this.state}
+        <DoctorDetail doctor={this.state.doctor} props={this.state} main={this}
           />
             </>
         )

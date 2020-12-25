@@ -7,11 +7,14 @@
   color: #00aff0;
   font-weight: 700;
   font-size: 30pt;
-  margin-bottom: 3px;
+  width: calc(100% - 480px);
+  margin: 110px 3px 20px 360px;
 }
 .underTitle {
   color: #666666;
   font-weight: 700;
+  width: calc(100% - 480px);
+  margin: 0px 3px 20px 360px;
 }
 
 .mainCardDiv {
@@ -20,8 +23,8 @@
   align-self: center;
   background: #f2f2f2;
   border-radius: 15px;
-  width: 65%;
-  margin: 0 auto;
+  width: calc(100% - 480px);
+  margin: 0px 0 20px 360px;
 
   .loading {
     animation: rotation 2s infinite linear;

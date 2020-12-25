@@ -42,8 +42,11 @@ const Header =
         const handleConnectingButton = () => {
           if (location.pathname === "/client/waiting-room") {
                 props.popUpFalse();
+                window.location.reload()
               }else{
                 history.push("/client/waiting-room");
+                props.popUpFalse();
+                window.location.reload()
               }
         };
         return (
@@ -60,7 +63,7 @@ const Header =
                     0:{timer < 10 && "0"}
                     {timer}
                   </h4>
-                  <h1>Your WR video consultation is ready</h1>
+                  <h1>Your video consultation is ready</h1>
                   <div className="buttons">
                     <button onClick={() => handleConnectingButton()}>
                       Connect

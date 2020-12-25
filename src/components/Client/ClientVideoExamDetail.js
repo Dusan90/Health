@@ -41,10 +41,10 @@ const DetailVideo = ({
   const customStyles = {
     control: () => ({
       // none of react-select's styles are passed to <Control />
-      width: 200,
+      width: 160,
       border: "2px solid #fa9551",
       borderRadius: "10px",
-      height: "40px",
+      height: "33px",
       fontWeight: 600,
       display: "flex",
     }),
@@ -70,8 +70,8 @@ const DetailVideo = ({
           <Fragment key={exam.id}>
             <div className="detail-exam">
             <div className="iconVideo">
-                <img src={iconVideoBlue} alt="email" />
-                <p>Consultation details</p>{" "}
+                {/* <img src={iconVideoBlue} alt="email" /> */}
+                <h4>Consultation details</h4>{" "}
               </div>
               <div className="detail">
                 <p>

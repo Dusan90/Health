@@ -14,6 +14,16 @@ const options = [
   { value: "USD", label: "USD" },
 ];
 
+const days = [
+  { value: "Monday", label: "Monday" },
+  { value: "Tuesday", label: "Tuesday" },
+  { value: "Wednesday", label: "Wednesday" },
+  { value: "Thursday", label: "Thursday" },
+  { value: "Friday", label: "Friday" },
+  { value: "Saturday", label: "Saturday" },
+  { value: "Sunday", label: "Sunday" },
+]
+
 class DoctorProfile extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +32,7 @@ class DoctorProfile extends Component {
       selectEmail: "",
       selectVideo: "",
       selectVideoFollow: "",
+      selectWaitingRoom: '',
       token: sessionStorage.getItem("accessToken"),
       FirstName: '',
       LastName: '',
@@ -38,7 +49,14 @@ class DoctorProfile extends Component {
       Organization: '',
       specialities: [],
       specialSP: '',
-      showDeleteImage: false
+      showDeleteImage: false,
+      // gender: ''
+      page: '',
+      WaitingRoom: '',
+      EmailVisitChecked: '',
+      VideoVisitChecked: '',
+      VideoVisitFollowUp: '',
+      WaitingRoomVisit: ''
     };
   }
 
@@ -59,6 +77,11 @@ class DoctorProfile extends Component {
     this.setState({ selectVideoFollow: value });
   };
 
+  handleSelect4 = (statusValue) => {
+    let { value } = statusValue;
+    this.setState({ selectWaitingRoom: value });
+  };
+
   
 
   handleSubmit = async (e) => {
@@ -74,6 +97,7 @@ class DoctorProfile extends Component {
   form_data.append("email_exam_price", this.state.EmailVisit);
   form_data.append("web_exam_price", this.state.VideoVisit);
   form_data.append("web_exam_follow_price", this.state.VideoFollowUp);
+  form_data.append("waiting_room_price", this.state.WaitingRoom);
   form_data.append("image", this.state.attach);
   form_data.append("status", '');
   form_data.append("start_hour", this.state.TimeStart);
@@ -81,8 +105,14 @@ class DoctorProfile extends Component {
   form_data.append("email_currency", this.state.selectEmail);
   form_data.append("web_currency", this.state.selectVideo);
   form_data.append("web_follow_up_currency", this.state.selectVideoFollow);
+  form_data.append("waiting_room_currency", this.state.selectWaitingRoom);
   form_data.append("organization", this.state.Organization);
   form_data.append("speciality", this.state.specialSP);
+  form_data.append("email_exam_status", this.state.EmailVisitChecked);
+  form_data.append("web_exam_status", this.state.VideoVisitChecked);
+  form_data.append("waiting_room_status", this.state.WaitingRoomVisit);
+  form_data.append("web_exam_follow_status", this.state.VideoVisitFollowUp);
+  // form_data.append("gender", this.state.gender);
   
   const access_token = "Bearer ".concat(this.state.token);
   let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
@@ -132,7 +162,12 @@ class DoctorProfile extends Component {
           selectEmail,
           selectVideo,
           selectVideoFollow,
-          specialSP: response.data.data.speciality
+          specialSP: response.data.data.speciality,
+          EmailVisitChecked: response.data.data.email_exam_status,
+          VideoVisitChecked: response.data.data.web_exam_status,
+          VideoVisitFollowUp: response.data.data.web_exam_follow_status,
+          WaitingRoomVisit: response.data.data.waiting_room_status
+          // gender: response.data.data.gender
         });
       });
   };
@@ -147,7 +182,7 @@ class DoctorProfile extends Component {
       const res = response.data.data.map((val) => {
         return { value: val.id, iD: val.speciality_id, label: val.name };
       });
-      this.setState({ specialities: res });
+      this.setState({ specialities: res, page: 'DocProfile' });
     });
   }
 
@@ -194,8 +229,26 @@ class DoctorProfile extends Component {
     this.setState({showDeleteImage: !this.state.showDeleteImage})
   }
 
+  // handleGenderRadio =(value) =>{
+  //   this.setState({gender: value})
+  // }
+
+  handlePage = (value) =>{
+    this.setState({page: value})
+  }
+
+  handleServiceRadio = (e) =>{
+    console.log(e.target.checked);
+    if(e.target.checked){
+      this.setState({[e.target.id]: "True"})
+    }else if(!e.target.checked){
+      this.setState({[e.target.id]: "False"})
+
+    }
+  }
+
   render() {
-    console.log(this.state.VideoFollowUp);
+    console.log(this.state.WaitingRoom);
     return (
       <>
         <div className="header">
@@ -212,6 +265,7 @@ class DoctorProfile extends Component {
           handleSelect={this.handleSelect}
           handleSelect2={this.handleSelect2}
           handleSelect3={this.handleSelect3}
+          handleSelect4={this.handleSelect4}
           props={this.state}
           handleChange={this.handleChange}
           addAttach={this.addAttach}
@@ -219,6 +273,10 @@ class DoctorProfile extends Component {
           handleChangeBiography= {this.handleChangeBiography}
           deletePicture={this.deletePicture}
           handleDeleteImageShow={this.handleDeleteImageShow}
+          // handleGenderRadio={this.handleGenderRadio}
+          handlePage={this.handlePage}
+          handleServiceRadio={this.handleServiceRadio}
+          days={days}
         />
       </>
     );

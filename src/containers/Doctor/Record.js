@@ -18,7 +18,7 @@ class ClientRecord extends Component {
       searchType: "",
       messageIfEmpty: "",
       paginatedExams: [],
-      searchedUpcomingOrPast: []
+      searchedUpcomingOrPast: [],
     };
   }
 
@@ -102,99 +102,99 @@ class ClientRecord extends Component {
 
  
 
-  searchByName = (e) => {
-    if (e.target.value === "" && this.state.searchType === "") {
-      this.setState({ filterFiltered: [] });
-    } else if (e.target.value === "" && this.state.searchName !== "") {
-      this.setState({ filterFiltered: [] });
-      let callBFunction = setInterval(() => {
-        this.handlingSearchByType();
-        clearInterval(callBFunction);
-      }, 10);
-    }
-    this.setState({ searchName: e.target.value });
-    let callFunction = setInterval(() => {
-      this.handlingSearchByName();
-      clearInterval(callFunction);
-    }, 10);
-  };
+  // searchByName = (e) => {
+  //   if (e.target.value === "" && this.state.searchType === "") {
+  //     this.setState({ filterFiltered: [] });
+  //   } else if (e.target.value === "" && this.state.searchName !== "") {
+  //     this.setState({ filterFiltered: [] });
+  //     let callBFunction = setInterval(() => {
+  //       this.handlingSearchByType();
+  //       clearInterval(callBFunction);
+  //     }, 10);
+  //   }
+  //   this.setState({ searchName: e.target.value });
+  //   let callFunction = setInterval(() => {
+  //     this.handlingSearchByName();
+  //     clearInterval(callFunction);
+  //   }, 10);
+  // };
 
-  handlingSearchByName = () => {
-    let searchName = this.state.searchName.toLowerCase().split(" ");
-    let searchedClient =
-      this.state.filterFiltered.length === 0
-        ? this.state.upcomingOrPast.filter((ex) => {
-            const client = ex.client;
-            const splited = client.split(" ");
-            if (!searchName[1]) {
-              if (
-                splited[0].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0]) ||
-                splited[1].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0])
-              ) {
-                return ex;
-              }
-            } else {
-              if (
-                (splited[0].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0]) &&
-                  splited[1].toLowerCase().indexOf(searchName[1]) ===
-                    searchName[1].indexOf(searchName[1])) ||
-                (splited[0].toLowerCase().indexOf(searchName[1]) ===
-                  searchName[1].indexOf(searchName[1]) &&
-                  splited[1].toLowerCase().indexOf(searchName[0]) ===
-                    searchName[0].indexOf(searchName[0]))
-              ) {
-                return ex;
-              }
-            }
-            return null;
-          })
-        : this.state.filterFiltered.filter((ex) => {
-            const client = ex.client;
-            const splited = client.split(" ");
-            if (!searchName[1]) {
-              if (
-                splited[0].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0]) ||
-                splited[1].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0])
-              ) {
-                return ex;
-              }
-            } else {
-              if (
-                (splited[0].toLowerCase().indexOf(searchName[0]) ===
-                  searchName[0].indexOf(searchName[0]) &&
-                  splited[1].toLowerCase().indexOf(searchName[1]) ===
-                    searchName[1].indexOf(searchName[1])) ||
-                (splited[0].toLowerCase().indexOf(searchName[1]) ===
-                  searchName[1].indexOf(searchName[1]) &&
-                  splited[1].toLowerCase().indexOf(searchName[0]) ===
-                    searchName[0].indexOf(searchName[0]))
-              ) {
-                return ex;
-              }
-            }
-            return null;
-          });
-    let messageIfEmpty =
-      searchedClient.length === 0
-        ? "No Such Client"
-        : searchedClient.length !== 0 &&
-          this.state.messageIfEmpty !== "No Such Client"
-        ? this.state.messageIfEmpty
-        : "";
-    this.state.filterFiltered.length === 0 &&
-      this.setState({ filterFiltered: searchedClient });
-    this.setState({
-      searchedUpcomingOrPast: searchedClient,
-      page: 1,
-      messageIfEmpty,
-    });
-    this.paginate(1);
-  };
+  // handlingSearchByName = () => {
+  //   let searchName = this.state.searchName.toLowerCase().split(" ");
+  //   let searchedClient =
+  //     this.state.filterFiltered.length === 0
+  //       ? this.state.upcomingOrPast.filter((ex) => {
+  //           const client = ex.client;
+  //           const splited = client.split(" ");
+  //           if (!searchName[1]) {
+  //             if (
+  //               splited[0].toLowerCase().indexOf(searchName[0]) ===
+  //                 searchName[0].indexOf(searchName[0]) ||
+  //               splited[1].toLowerCase().indexOf(searchName[0]) ===
+  //                 searchName[0].indexOf(searchName[0])
+  //             ) {
+  //               return ex;
+  //             }
+  //           } else {
+  //             if (
+  //               (splited[0].toLowerCase().indexOf(searchName[0]) ===
+  //                 searchName[0].indexOf(searchName[0]) &&
+  //                 splited[1].toLowerCase().indexOf(searchName[1]) ===
+  //                   searchName[1].indexOf(searchName[1])) ||
+  //               (splited[0].toLowerCase().indexOf(searchName[1]) ===
+  //                 searchName[1].indexOf(searchName[1]) &&
+  //                 splited[1].toLowerCase().indexOf(searchName[0]) ===
+  //                   searchName[0].indexOf(searchName[0]))
+  //             ) {
+  //               return ex;
+  //             }
+  //           }
+  //           return null;
+  //         })
+  //       : this.state.filterFiltered.filter((ex) => {
+  //           const client = ex.client;
+  //           const splited = client.split(" ");
+  //           if (!searchName[1]) {
+  //             if (
+  //               splited[0].toLowerCase().indexOf(searchName[0]) ===
+  //                 searchName[0].indexOf(searchName[0]) ||
+  //               splited[1].toLowerCase().indexOf(searchName[0]) ===
+  //                 searchName[0].indexOf(searchName[0])
+  //             ) {
+  //               return ex;
+  //             }
+  //           } else {
+  //             if (
+  //               (splited[0].toLowerCase().indexOf(searchName[0]) ===
+  //                 searchName[0].indexOf(searchName[0]) &&
+  //                 splited[1].toLowerCase().indexOf(searchName[1]) ===
+  //                   searchName[1].indexOf(searchName[1])) ||
+  //               (splited[0].toLowerCase().indexOf(searchName[1]) ===
+  //                 searchName[1].indexOf(searchName[1]) &&
+  //                 splited[1].toLowerCase().indexOf(searchName[0]) ===
+  //                   searchName[0].indexOf(searchName[0]))
+  //             ) {
+  //               return ex;
+  //             }
+  //           }
+  //           return null;
+  //         });
+  //   let messageIfEmpty =
+  //     searchedClient.length === 0
+  //       ? "No Such Client"
+  //       : searchedClient.length !== 0 &&
+  //         this.state.messageIfEmpty !== "No Such Client"
+  //       ? this.state.messageIfEmpty
+  //       : "";
+  //   this.state.filterFiltered.length === 0 &&
+  //     this.setState({ filterFiltered: searchedClient });
+  //   this.setState({
+  //     searchedUpcomingOrPast: searchedClient,
+  //     page: 1,
+  //     messageIfEmpty,
+  //   });
+  //   this.paginate(1);
+  // };
 
   paginate = (page) => {
     if (this.state.searchedUpcomingOrPast.length === 0) {
@@ -230,10 +230,10 @@ class ClientRecord extends Component {
       this.setState({ filterFiltered: [] });
     } else if (e.target.value === "" && this.state.searchName !== "") {
       this.setState({ filterFiltered: [] });
-      let callBFunction = setInterval(() => {
-        this.handlingSearchByName();
-        clearInterval(callBFunction);
-      }, 10);
+      // let callBFunction = setInterval(() => {
+      //   this.handlingSearchByName();
+      //   clearInterval(callBFunction);
+      // }, 10);
     }
     let letter = e.target.value.toLowerCase();
     this.setState({ searchType: letter });
@@ -286,24 +286,24 @@ class ClientRecord extends Component {
     this.paginate(1);
   };
 
-  handleClickLeft = () => {
-    if (this.state.page !== 1) {
-      this.setState({ page: this.state.page - 1 });
-      let test = setInterval(() => {
-        this.paginate(this.state.page);
-        clearInterval(test);
-      }, 10);
-    }
-  };
-  handleClickRight = () => {
-    if (this.state.page !== this.state.maxPages) {
-      this.setState({ page: this.state.page + 1 });
-      let test = setInterval(() => {
-        this.paginate(this.state.page);
-        clearInterval(test);
-      }, 10);
-    }
-  };
+  // handleClickLeft = () => {
+  //   if (this.state.page !== 1) {
+  //     this.setState({ page: this.state.page - 1 });
+  //     let test = setInterval(() => {
+  //       this.paginate(this.state.page);
+  //       clearInterval(test);
+  //     }, 10);
+  //   }
+  // };
+  // handleClickRight = () => {
+  //   if (this.state.page !== this.state.maxPages) {
+  //     this.setState({ page: this.state.page + 1 });
+  //     let test = setInterval(() => {
+  //       this.paginate(this.state.page);
+  //       clearInterval(test);
+  //     }, 10);
+  //   }
+  // };
 
   handleClick = (id, type) => {
     if (type === "mail") {
@@ -317,10 +317,10 @@ class ClientRecord extends Component {
 
   ResetonSelectChange = () => {
     this.setState({ filterFiltered: [] });
-    let callBFunction = setInterval(() => {
-      this.handlingSearchByName();
-      clearInterval(callBFunction);
-    }, 10);
+    // let callBFunction = setInterval(() => {
+    //   this.handlingSearchByName();
+    //   clearInterval(callBFunction);
+    // }, 10);
   };
 
   handlePageChange = (pageNumber) => {

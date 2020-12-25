@@ -9,8 +9,8 @@ function UpdateSettings({props, userLogin, handleChange, handleImage1, handleIma
     return (
         <div className="mainUpdateClient">
               <div className="iconVideo">
-                <img src={settings} alt="img" />
-                <p>Update account</p>{" "}
+                {/* <img src={settings} alt="img" /> */}
+                <h4>Update account</h4>{" "}
               </div>
               <div className="doctor">
                 <label htmlFor="Password">New Password</label>

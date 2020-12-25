@@ -1,7 +1,8 @@
 import React from 'react'
-import doctorImg from '../../icons/icon_my_profile_doctor_blue_23px.svg'
+import doctorImg from '../../icons/newIconsForDesign/doctor_picture.svg'
 import doctor2Img from '../../icons/icon_doctor_2_blue.svg'
 import Select from 'react-select'
+import {Link} from 'react-router-dom'
 
 import '../../assets/client/doctorsList.scss'
 
@@ -10,18 +11,18 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleS
   const customStyles = {
     control: (base, state) => ({
       ...base,
-      height: "40px",
+      height: "33px",
       border: "1.7px solid #fa9551",
-      borderRadius: "10px",
+      borderRadius: "15px",
       width: "100%",
       // marginLeft: "2px",
       background: "white",
       color: "#666666",
-      fontWeight: "600",
+      fontWeight: "bold",
     }),
     placeholder: () =>({
       color: '#666666',
-      fontWeight: '500'
+      fontWeight: 'bold'
     })
   };
   const filteredorNot = props.filteredBySpec.length === 0 ? props.doctors : props.filteredBySpec
@@ -30,8 +31,8 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleS
     
              <div className="mainDoctorsDiv">
       <div className="doctorsAbove">
-        <img src={doctor2Img} alt="my patients" />
-        <h4>Doctors</h4>
+        {/* <img src={doctor2Img} alt="my patients" /> */}
+        <h4>Doctors list</h4>
       </div>
       <div className="doctorsDiv">
       {/* <label>
@@ -56,7 +57,7 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleS
             type="text"
             styles={customStyles}
             id="speciality"
-            placeholder={props.currentSpec ? props.currentSpec : `Select Speciality...`}
+            placeholder={props.currentSpec ? props.currentSpec : `Select Speciality`}
             options={props.specialities}
             onChange={handleSpeciality}
           />
@@ -66,7 +67,7 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleS
             styles={customStyles}
             type="text"
             id="doctor"
-            placeholder="Select Doctor..."
+            placeholder="Choose Doctor"
             options={props.specDoctor.length === 0 ? props.doctors : props.specDoctor}
             onChange={handleDoctor}
             value={   props.resetDoctorSelect}
@@ -79,15 +80,33 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleS
           console.log(doctor);
           return doctor.id === null ? null : (
             <div key={doctor.iD} className="list-group">
-              <button
+              <div
                 data-id={doctor.id}
                 className="list-group-item"
-                onClick={() => handleClient(doctor.iD)}
+                // onClick={() => handleClient(doctor.iD)}
               >
+                <img src={doctor.image.includes('default') ? doctorImg : `https://healthcarebackend.xyz${doctor.image}`} alt="cliet profile" />
+                <div className='docInfo'>
+                <p>
                 {doctor.label}
-                <img src={doctor.image === "/media/default.jpg" ? doctorImg : `https://healthcarebackend.xyz${doctor.image}`} alt="cliet profile" />
-              </button>
+                </p>
+                <h5>Speciality: <span>{doctor.spec}</span></h5>
+                <h5>Organization: <span>{doctor.organization}</span></h5>
+                </div>
+                <Link to='#' onClick={() => handleClient(doctor.iD)} className='Details' >Details</Link>
+              </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+
           );
         })}
       </div>

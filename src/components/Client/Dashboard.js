@@ -52,12 +52,12 @@ const Dashboard = ({
     <div className="mainClientDashboard">
       <div className="main">
         <div className="dashboardIcon">
-          <img
+          {/* <img
             src={MyConsultationsBlue}
             className="dashIcon"
             alt="my consultation icon"
-          />
-          <h2>Dashboard</h2>
+          /> */}
+          <h4>Dashboard</h4>
         </div>{" "}
         <div className="videoApp" onClick={() => VideoReq()}>
           <span className="video">

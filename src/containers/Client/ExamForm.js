@@ -26,7 +26,7 @@ class ExamForm extends Component {
       specDoctor: [],
       specialSP: [],
       resetDoctorSelect: null,
-      attach: null,
+      attach: '',
       currency: null,
       color: ''
       // isClicked: false
@@ -79,29 +79,56 @@ class ExamForm extends Component {
       this.state.subject &&
       this.state.message
     ) {
-      // this.setState({ isClicked: true });
-      const response = await fetch(
-        "https://healthcarebackend.xyz/api/client/initiate/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: access_token,
-          },
-          body: JSON.stringify({
-            speciality: this.state.specialSP,
-            doctor: this.state.doctor_id,
-            subject: this.state.subject,
-            message: this.state.message,
-          }),
+      let form_data = new FormData();
+      form_data.append("speciality", this.state.specialSP);
+      form_data.append("doctor", this.state.doctor_id);
+      form_data.append("subject", this.state.subject);
+      form_data.append("attachment", this.state.attach);
+      form_data.append("message", this.state.message);
+
+
+      const access_token = "Bearer ".concat(this.state.token);
+      let url = 'https://healthcarebackend.xyz/api/client/initiate/';
+      
+      const data = axios.post(url, form_data, {
+        headers: {
+          'content-type': 'multipart/form-data',
+          Authorization: access_token,
         }
-      );
-      const data = await response.json();
-      if (data.success) {
+      })
+      
+      
+      const jsonData = await data;
+      console.log(jsonData);
+      if(jsonData.data.success){
         this.toCheckout();
       }
-      console.log(data, "data examform");
+    
       return data;
+      // this.setState({ isClicked: true });
+      // const response = await fetch(
+      //   "https://healthcarebackend.xyz/api/client/initiate/",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //       Authorization: access_token,
+      //     },
+      //     body: JSON.stringify({
+      //       speciality: this.state.specialSP,
+      //       doctor: this.state.doctor_id,
+      //       subject: this.state.subject,
+      //       message: this.state.message,
+      //       attachments: this.state.attach
+      //     }),
+      //   }
+      // );
+      // const data = await response.json();
+      // if (data.success) {
+      //   this.toCheckout();
+      // }
+      // console.log(data, "data examform");
+      // return data;
     } else {
       NotificationManager.error("Empty Fields", "Failed!", 2000);
     }
@@ -147,6 +174,22 @@ class ExamForm extends Component {
             };
           });
           this.setState({ doctors: res });
+          if(this.props.location.state){
+            response.data.data.filter(doctor =>{
+                if (doctor.id === this.props.location.state.doctorId){
+                 const test = {
+                    value: doctor.id,
+                    iD: doctor.id,
+                    label: doctor.doctor,
+                    spec: doctor.speciality,
+                    price: doctor.email_exam_price,
+                    currency: doctor.email_currency,
+                    
+                  }
+                  this.handleDoctor(test)
+                }
+              })
+            }
         } else {
           NotificationManager.warning(
             `${response.data.message}`,

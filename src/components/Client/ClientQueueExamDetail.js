@@ -6,7 +6,7 @@ import moment from "moment";
 import queueIcon from '../../icons/icon_Waiting_Room_blue.svg'
 import { HamburgerDiv } from "../Main/HamburgerDiv";
 
-const DetailQueue = ({ exam }) => {
+const DetailQueue = ({ exam, props }) => {
   return (
     <>
       <div className="header">
@@ -20,9 +20,9 @@ const DetailQueue = ({ exam }) => {
         return (
           <Fragment key={exam.exam.id}>
             <div className="detail-exam" style={{height: '300px'}}>
-            <div className="iconVideo" style={{width: '250px'}}>
-                <img src={queueIcon} alt="email" />
-                <p>Consultation details</p>{" "}
+            <div className="iconVideo">
+                {/* <img src={queueIcon} alt="email" /> */}
+                <h4>Consultation details</h4>{" "}
               </div>
               <div className="detail">
               <p>
@@ -63,6 +63,28 @@ const DetailQueue = ({ exam }) => {
                   {/* <p>
                     <span>Message:</span> {exam.exam.notes}
                   </p> */}
+                </div>
+                <div className='reportIfDeclined' style={{display:  exam.exam.status !== 'Declined'  ? 'none' : 'block'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Decline reason:</span>
+                  </p>
+                </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.exam.status === 'Declined' && true} placeholder={exam.exam.decline_notes ? exam.exam.decline_notes : 'text'} value={props.declineReason} id="textarea"></textarea>
+                </div>
+                </div>
+
+
+                <div className='reportIfFinished' style={{display:  exam.exam.status !== 'Finished'  ? 'none' : 'block'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Report:</span>
+                  </p>
+                </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.exam.status === 'Finished' && true} placeholder={exam.exam.report ? exam.exam.report : 'text'} value={props.declineReason} id="textarea"></textarea>
+                </div>
                 </div>
               </div>
               </div>

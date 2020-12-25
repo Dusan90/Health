@@ -5,6 +5,9 @@ import Processing from "../../components/Doctor/ProcessingVideoExam";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import HamburgerDiv from '../../components/Main/HamburgerDiv'
+
+
+
 const connection = new WebSocket("wss://healthcarebackend.xyz/ws/video/");
 class ProcessingVideoExam extends Component {
   constructor(props) {
@@ -29,12 +32,24 @@ class ProcessingVideoExam extends Component {
       selectedStatus: "",
       connection: "",
       clientStatus: "",
-      showExtendScreen: false,
+      // showExtendScreen: false,
       extended: false,
       displayReport: false,
       declineReason: '',
       report: '',
-      showSaveButton: false
+      showSaveButton: false,
+      PageonNav: '',
+      page: 1,
+      exams: [],
+      record: null,
+      id: this.props.match.params.id,
+      currentFilterClicked: "",
+      searchName: "",
+      searchType: "",
+      messageIfEmpty: "",
+      paginatedExams: [],
+      searchedUpcomingOrPast: [],
+      clientID: ''
     };
   }
 
@@ -54,6 +69,7 @@ class ProcessingVideoExam extends Component {
         console.log(response);
         this.setState({
           exam: [response.data.data],
+          clientID: response.data.data.record.id,
           clientStatus: response.data.data.exam.status,
         });
         let mess = document.getElementById('messageMainText')
@@ -61,10 +77,12 @@ class ProcessingVideoExam extends Component {
         console.log(mess);
         if(mess.scrollHeight < 300){
           mess.style.height = `${mess.scrollHeight}px`
-          messageDiv.style.height = `${mess.scrollHeight + 20}px` 
+          messageDiv.style.height = `${mess.scrollHeight + 60}px` 
         }else{
           mess.style.height = '300px'
         }
+        this.record();
+    this.clientsExams()
       })
       .catch((error) => {
         error.response && error.response.data.message === "Bad request"
@@ -85,6 +103,13 @@ class ProcessingVideoExam extends Component {
       .getUserMedia({ video: true, audio: false })
       .then((stream) => {
         var myVideo = document.createElement("video");
+        let cutMYVideo = stream.getVideoTracks()[0];
+        document.querySelector(".iconVideoShow").addEventListener("click", () => {  
+            cutMYVideo.enabled = !cutMYVideo.enabled;
+        });
+        document.querySelector(".iconVideo").addEventListener("click", () => {  
+          cutMYVideo.enabled = !cutMYVideo.enabled;
+      });
         myVideo.id = "myVid";
         var videoChat = document.getElementById("videoChat");
         videoChat.appendChild(myVideo);
@@ -131,7 +156,7 @@ class ProcessingVideoExam extends Component {
                 peer.signal(this.state.clientsVideoId);
                 var myVid = document.getElementById("myVid");
                 myVid.style.cssText =
-                  "position: absolute; right: 15px; top: 10px; height: 140px; width: 170px; z-index: 20";
+                  "position: absolute; left: 45px; top: 40px; height: 140px; width: 170px; z-index: 20";
               }
             });
 
@@ -143,14 +168,14 @@ class ProcessingVideoExam extends Component {
           connection.send(message);
           document.getElementById(
             "messages"
-          ).innerHTML += `<p style='color: #666666  ;margin: 5px auto 5px 0;display: table; padding: 5px 10px 0 0; white-space: initial ; background: #e6e6e6; border-radius: 10px'><span>Doctor:</span>${message}</p>`;
+          ).innerHTML += `<p style='color: #666666  ;margin: 20px 0 5px auto;display: table; padding: 8px 5px; white-space: initial ; background: #e6e6e6; border-radius: 10px'><span>Doctor:</span>${message}</p>`;
           var objDiv = document.getElementById("messages");
           objDiv.scrollTop = objDiv.scrollHeight;
         });
 
         connection.onclose = () => {
           console.error("disconnected");
-          this.props.history.push("/dashboard-doctor");
+          // this.props.history.push("/dashboard-doctor");
           window.location.reload();
         };
 
@@ -173,10 +198,17 @@ class ProcessingVideoExam extends Component {
         peer.on("data", function (data) {
           document.getElementById(
             "messages"
-          ).innerHTML += `<p style='color: #666666 ; margin: 5px 0 5px auto; background: #e6e6e6 ;display: table; padding: 5px 10px 0 0; white-space: initial; border-radius: 10px'><span>Client:</span>${data}</p>`;
+          ).innerHTML += `<p style='color: #666666 ; margin: 20px auto 5px 0; background: #e6e6e6 ;display: table; padding: 8px 5px; white-space: initial; border-radius: 10px'><span>Client:</span>${data}</p>`;
           var objDiv = document.getElementById("messages");
           objDiv.scrollTop = objDiv.scrollHeight;
         });
+
+        peer._pc.onconnectionstatechange = function(event) {
+          console.log('status je promenje', event);
+          if(event.currentTarget.connectionState === 'disconnected' || event.currentTarget.connectionState === "failed"){
+            window.location.reload()
+          }
+        }
 
         let track = stream.getAudioTracks()[0];
         let cutVideo = stream.getVideoTracks()[0];
@@ -310,7 +342,11 @@ class ProcessingVideoExam extends Component {
   };
 
   componentWillUnmount() {
-    connection.close();
+    // this.state.connection && connection.send(JSON.stringify("Cancel Video From Doctor"));
+    // this._isMounted = false;
+    // connection.close();
+    window.location.reload()
+    // this.handleDivClose();
   }
 
   statusSelecting = async (value) => {
@@ -348,24 +384,28 @@ class ProcessingVideoExam extends Component {
     }
     return jsonData;
   };
+  
 
   componentDidMount() {
     
     let id = this.props.match.params.id;
-
-    let isItconnected = setInterval(() => {
-      if (!this.state.connection && this.state.clientStatus === "Accepted") {
-        window.location.reload();
-      }
-      clearInterval(isItconnected);
-    }, 15000);
-
-    this.detail(id);
-    connection.onopen = () => {
+    this.setState({PageonNav: 'consultDetail'})
+    
+    // let isItconnected = setInterval(() => {
+    //   if (!this.state.connection && this.state.clientStatus === "Accepted") {
+        // window.location.reload();
+        console.log(connection.readyState, 'connection status');
+        connection.readyState === 1 && connection.send(JSON.stringify({ id: id, connectedDoctor: true }));
+        connection.onopen = () => {
       console.log("connected");
       this.setState({ connection: connection });
       connection.send(JSON.stringify({ id: id, connectedDoctor: true }));
     };
+    //   }
+    //   clearInterval(isItconnected);
+    // }, 2000);
+
+    this.detail(id);
     connection.onmessage = (event) => {
       let test = JSON.parse(event.data);
       console.log(test, "testonja");
@@ -388,6 +428,7 @@ class ProcessingVideoExam extends Component {
       }
       this.setState({ clientsVideoId: test.text });
     };
+    
   }
 
   connectedAll = () => {
@@ -406,9 +447,9 @@ class ProcessingVideoExam extends Component {
     }
   };
 
-  showExtendScreenIcon=()=>{
-    this.setState({showExtendScreen: !this.state.showExtendScreen})
-  }
+  // showExtendScreenIcon=()=>{
+  //   this.setState({showExtendScreen: !this.state.showExtendScreen})
+  // }
 
   extendScr= () =>{
     this.setState({extended: !this.state.extended})
@@ -417,7 +458,9 @@ class ProcessingVideoExam extends Component {
 
   declineReason = (e)=>{
     this.setState({declineReason: e.target.value})
-    e.target.style.height = '300px'
+    if(e.target.scrollHeight < 300){
+      e.target.style.height = `${e.target.scrollHeight}px`
+    }else{e.target.style.height = '300px'}
     // e.target.style.height = `${e.target.scrollHeight}px`
 
   }
@@ -428,7 +471,9 @@ class ProcessingVideoExam extends Component {
 
   report= (e) =>{
     this.setState({report: e.target.value})
-    e.target.style.height = '300px'
+    if(e.target.scrollHeight < 300){
+      e.target.style.height = `${e.target.scrollHeight}px`
+    }else{e.target.style.height = '300px'}
     // e.target.style.height = `${e.target.scrollHeight}px`
   }
 
@@ -470,6 +515,308 @@ class ProcessingVideoExam extends Component {
     });
   };
 
+  handlePage = (value) =>{
+    this.setState({PageonNav: value})
+    let test = setInterval(() => {
+      if(value === 'clientDetail'){
+          let cronic = document.getElementById('ChronicalConditions')
+          cronic.style.height = `${cronic.scrollHeight}px`
+          console.log(cronic);
+          let alerg = document.getElementById('Allergies')
+          alerg.style.height = `${alerg.scrollHeight}px`
+    
+      }
+      clearInterval(test)
+    }, 100);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  record = () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(
+        `https://healthcarebackend.xyz/api/doctor/record/${this.state.clientID}/`
+        ,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
+        console.log(response, "nzm ni ja sta");
+        this.handleAll();
+
+        return this.setState({
+          record:[ response.data.data],
+        });
+      })
+      // .then(() =>{
+      //   let cronic = document.getElementById('ChronicalConditions')
+      //   cronic.style.height = `${cronic.scrollHeight}px`
+      //   let alerg = document.getElementById('Allergies')
+      //   alerg.style.height = `${alerg.scrollHeight}px`
+      // })
+  };
+
+  clientsExams = () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(
+        `https://healthcarebackend.xyz/api/exams/client/${this.state.clientID}/list/`
+        ,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
+        console.log(response, "podaciiii");
+        let AllArrays = response.data.data.mail.concat(response.data.data.queue, response.data.data.video)
+
+        return this.setState({
+          exams: AllArrays,
+        });
+      }).then(() =>{
+        this.handleAll();
+      })
+  };
+
+
+  handleAll = () => {
+    let hndlAll = setInterval(() => {
+      let all = this.state.exams;
+
+      let resortall = all.sort(
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
+      );
+
+      let messageIfEmpty = all.length === 0 ? "No consultations" : "";
+
+      this.setState({
+        upcomingOrPast: resortall,
+        page: 1,
+        messageIfEmpty,
+        currentFilterClicked: "all",
+        searchedUpcomingOrPast: [],
+        filterFiltered: [],
+        searchType: "",
+        searchName: "",
+      });
+
+      this.paginate(1);
+      clearInterval(hndlAll);
+    }, 10);
+  };
+
+  paginate = (page) => {
+    if (this.state.searchedUpcomingOrPast.length === 0) {
+      let limit = 10;
+      let pages = Math.ceil(this.state.upcomingOrPast.length / 10);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
+
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    } else {
+      let limit = 10;
+      let pages = Math.ceil(this.state.searchedUpcomingOrPast.length / 10);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.searchedUpcomingOrPast.slice(
+        offset,
+        offset + limit
+      );
+
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    }
+  };
+
+  searchByType = (e) => {
+    if (e.target.value === "" && this.state.searchName === "") {
+      this.setState({ filterFiltered: [] });
+    } else if (e.target.value === "" && this.state.searchName !== "") {
+      this.setState({ filterFiltered: [] });
+    }
+    let letter = e.target.value.toLowerCase();
+    this.setState({ searchType: letter });
+    let callFunction = setInterval(() => {
+      this.handlingSearchByType();
+      clearInterval(callFunction);
+    }, 10);
+  };
+
+  
+  handlingSearchByType = () => {
+    let searchedClient =
+      this.state.filterFiltered.length === 0
+        ? this.state.upcomingOrPast.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          })
+        : this.state.filterFiltered.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          });
+    let messageIfEmpty =
+      searchedClient.length === 0
+        ? "No Such Type"
+        : searchedClient.length !== 0 &&
+          this.state.messageIfEmpty !== "No Such Type"
+        ? this.state.messageIfEmpty
+        : "";
+    this.state.filterFiltered.length === 0 &&
+      this.setState({ filterFiltered: searchedClient });
+    this.setState({
+      searchedUpcomingOrPast: searchedClient,
+      page: 1,
+      messageIfEmpty,
+    });
+    this.paginate(1);
+  };
+
+  handleClick = (id, type) => {
+    if (type === "mail") {
+      this.props.history.push(`/doctor/exam/detail/${id}`);
+    } else if (type === "video") {
+      this.props.history.push(`/doctor/video/exam/detail/${id}/#init`);
+    } else if (type === "queue") {
+      this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
+    }
+  };
+
+  ResetonSelectChange = () => {
+    this.setState({ filterFiltered: [] });
+  };
+
+  handlePageChange = (pageNumber) => {
+    this.setState({page: pageNumber});
+    this.paginate(pageNumber)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   render() {
     return (
       <>
@@ -495,7 +842,8 @@ class ProcessingVideoExam extends Component {
           cutMic={this.cutMic}
           cutVideo={this.cutVideo}
           props={this.state}
-          showExtendScreenIcon={this.showExtendScreenIcon}
+          redirectThis={this}
+          // showExtendScreenIcon={this.showExtendScreenIcon}
           extendScr={this.extendScr}
           declineReason={this.declineReason}
           saveReason={this.saveReason}
@@ -506,6 +854,15 @@ class ProcessingVideoExam extends Component {
           handleKeyPress={this.handleKeyPress}
           handleshowSave={this.handleshowSave}
           onChangeHandler={this.onChangeHandler}
+          handlePage={this.handlePage}
+          
+          
+          
+          handleClick={this.handleClick}
+          loading={this.state.loading}
+          searchByType={this.searchByType}
+          ResetonSelectChange={this.ResetonSelectChange}
+          handlePageChange={this.handlePageChange}
         />
 
       </>

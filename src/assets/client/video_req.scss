@@ -1,41 +1,35 @@
 .exam {
+  width: calc(100% - 480px) !important;
+  margin: 110px auto 20px 360px !important;
   .mainExam {
+    padding: 30px;
     display: flex;
     align-items: center;
-    width: 85%;
     background: #f2f2f2;
-    padding: 30px 20px;
-    margin: 80px auto 20px auto;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
+    border-radius: 15px;
     position: relative;
 
     .newVideo {
-      display: flex;
-      align-items: center;
-      background: #f2f2f2;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
       position: absolute;
-      font-size: 15px;
-
-      top: -40px;
-      left: 0;
-      height: 40px;
-      width: 250px !important;
-      img {
-        margin: 0 10px 0 15px;
-      }
-      p {
-        margin: 0;
+      top: -76px;
+      left: 0px;
+      z-index: 20;
+      height: 35px;
+      display: flex;
+      border-bottom: 4px solid #fa9551;
+      margin-right: 45px;
+      h4 {
+        font-weight: bold;
         font-size: 15px;
-        font-weight: 450 !important;
-        color: #666666;
+        color: #2cace3;
+      }
+      &:hover {
+        cursor: pointer;
       }
     }
+
     .exam-spec {
-      margin: 0 10px 10px 0;
+      margin-right: 10px;
     }
 
     .exam-doc {
@@ -46,15 +40,16 @@
       width: 100%;
       input {
         width: 100%;
+        height: 33px !important;
       }
     }
   }
 
   .DatePicker {
     width: 100%;
-    height: 500px;
+    height: 450px;
     margin: 20px auto 20px auto;
-    padding: 40px 15px;
+    padding: 30px;
     display: flex;
     justify-content: space-between;
     background: #f2f2f2;
@@ -64,17 +59,18 @@
     .exam-mess {
       border-radius: 15px;
       height: 347px;
-      padding: 0;
+      padding: 10px;
+
       width: 100%;
       margin: 0;
       color: #666666;
+      background: white;
+      border: 1.7px solid #00aff0 !important;
       textarea {
-        border: 1.7px solid #00aff0 !important;
-        border-radius: 15px;
-        height: 347px;
+        border: none;
+        height: 280px;
         margin: 0;
         width: 100%;
-        padding: 10px;
         resize: none;
 
         ::placeholder {
@@ -105,6 +101,64 @@
 
         &::-webkit-scrollbar-thumb:hover {
           background: #db8246;
+        }
+      }
+      .mainDivForFile {
+        display: flex;
+        padding-top: 4px;
+        border-top: 1px solid #666666;
+        position: relative;
+        .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          display: inline-block;
+          .btnn {
+            background: white;
+            border: 1.7px solid #00aff0;
+            height: 30px;
+            color: #00aff0;
+            font-weight: bold;
+            padding: 0 5px;
+            width: 70px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            .attachDiv {
+              align-items: center;
+              p {
+                margin: 0;
+              }
+            }
+          }
+        }
+
+        .upload-btn-wrapper input[type="file"] {
+          font-size: 0px;
+          position: absolute;
+          background: #00aff0;
+          left: 0;
+          top: 0;
+          width: 70px;
+          height: 40px;
+          opacity: 0;
+          cursor: pointer;
+        }
+        .fileForDownload {
+          border: 1.7px solid #00aff0;
+          // position: absolute;
+          left: 120px;
+          border-radius: 5px;
+          color: #00aff0;
+          padding: 0 5px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          width: 100px;
+          margin: 0 0 0 10px;
+          p {
+            margin: 0;
+          }
         }
       }
     }
@@ -221,7 +275,6 @@
             position: absolute;
             right: -127px;
             top: -2px;
-
             // display: flex;
             // flex-direction: column;
             height: 347px;
@@ -322,43 +375,18 @@
       border-bottom-left-radius: 15px;
       position: absolute;
       bottom: 30px;
-      left: 0;
+      left: 10px;
 
       .send {
-        margin: 10px auto;
-        width: 100px;
-        height: 40px;
+        margin: 0px 20px 0 20px;
+        width: 80px;
+        height: 30px;
         border: none;
         border-radius: 5px;
         color: white;
         background: #00aff0;
         transition: all 0.5s ease-in-out;
         outline: none;
-      }
-
-      .upload-btn-wrapper {
-        position: relative;
-        overflow: hidden;
-        display: inline-block;
-        .btnn {
-          background: #00aff0;
-          border: 0;
-          height: 40px;
-          width: 40px;
-          border-radius: 5px;
-        }
-      }
-
-      .upload-btn-wrapper input[type="file"] {
-        font-size: 0px;
-        position: absolute;
-        background: #00aff0;
-        left: 0;
-        top: 0;
-        width: 40px;
-        height: 40px;
-        opacity: 0;
-        cursor: pointer;
       }
     }
   }

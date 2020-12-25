@@ -82,8 +82,8 @@ export class DoctorsCalendar extends Component {
         <HamburgerDiv/>
         <div
           style={{
-            width: "85%",
-            margin: "100px auto 58px auto",
+            width: 'calc(100% - 480px)',
+            margin: "110px 120px 58px auto",
           }}
         >
           <ScheduleComponent

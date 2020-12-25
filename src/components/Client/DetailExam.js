@@ -27,10 +27,10 @@ const Detail = ({
   const customStyles = {
     control: () => ({
       // none of react-select's styles are passed to <Control />
-      width: 200,
+      width: 160,
       border: "2px solid #fa9551",
       borderRadius: "10px",
-      height: "40px",
+      height: "33px",
       fontWeight: 600,
       display: "flex",
     }),
@@ -54,8 +54,8 @@ const Detail = ({
         <Fragment key={exam.id}>
           <div className="detail-exam">
           <div className="iconVideo">
-                <img src={EmailIcon} alt="email" />
-                <p>Consultation details</p>{" "}
+                {/* <img src={EmailIcon} alt="email" /> */}
+                <h4>Consultation details</h4>{" "}
               </div>
             <div className="detail">
               <p>
@@ -138,12 +138,11 @@ const Detail = ({
                            defaultValue={message.message} className="message">
                           
                           </textarea>
-                          {message.attachments ? (
-                            <div className="attachments">
-                              <p className="att">
-                                Attachments: {message.attachments}
-                              </p>
-                            </div>
+                          {message.attachment ? (
+                             <div className='mainFileDiv'>
+                             <div className='FileDiv'><p>Files</p></div>
+                             {message.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.attachments}`}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
+                           </div>
                           ) : null}
                         </div>
                         {/* {!props.replyClicked &&
@@ -196,6 +195,8 @@ const Detail = ({
                                   onChange={onChangeHandler}
                                 />
                               </div>
+          {props.selectedFile && <div className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
+
                             </div>
                           </div>
                           )}

@@ -25,6 +25,8 @@ import hangup from '../../icons/videoIcons/hang-up.svg'
 import cameraoff from '../../icons/videoIcons/camera-off.svg'
 import cameraon from '../../icons/videoIcons/camera-on.svg'
 import ExtendScreen from '../../icons/videoIcons/Extend-screen.svg'
+import messageSend from '../../icons/newIconsForDesign/massage.svg'
+
 
 const WaitingRoom = ({
   handleSpeciality,
@@ -37,6 +39,7 @@ const WaitingRoom = ({
   props,
   handleChange,
   enableTipeing,
+  handleAttach,
   iconsMouseOut,
   iconsMouseOver,
   handleDragDrop,
@@ -45,7 +48,7 @@ const WaitingRoom = ({
   handleDivSize,
   cutVideo,
   cutMic,
-  showExtendScreenIcon,
+  // showExtendScreenIcon,
   resetValue,
   handleKeyPress
 }) => {
@@ -57,15 +60,26 @@ const WaitingRoom = ({
   const customStyles = {
     control: (base, state) => ({
       ...base,
-      height: "40px",
+      height: "33px",
+      minHeight: '33px',
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
       width: "100%",
       // marginLeft: "2px",
       background: props.color && props.specialSP.length === 0 ? 'rgb(245, 192, 192)' : "white",
-
       color: "#666666",
       fontWeight: "500",
+      'div': {
+        display: 'flex',
+        alignSelf: 'center',
+        height: '33px'
+      }
+    }),
+
+    valueContainer: (provided, state) => ({
+      ...provided,
+      height: '33px',
+      padding: '6px'
     }),
     option: (provided, state) => ({
       ...provided,
@@ -77,14 +91,30 @@ const WaitingRoom = ({
     }),
     placeholder: () => ({
       fontWeight: '500',
-      color: '#666666'
+      color: '#666666',
+      heigth: '33px'
+    }),
+    input: (provided, state) => ({
+      ...provided,
+      margin: '0px',
+    }),
+    indicatorSeparator: state => ({
+      display: 'none',
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: '33px',
+    }),
+
+    singleValue: () =>({
     })
   };
   
   const customS = {
     control: (base, state) => ({
       ...base,
-      height: "40px",
+      height: "33px",
+      minHeight: '33px',
       border: "1.7px solid #fa9551",
       borderRadius: "10px",
       width: "100%",
@@ -92,10 +122,37 @@ const WaitingRoom = ({
       background: props.color && !props.doctor_id ? 'rgb(245, 192, 192)' : "white",
       color: "#666666",
       fontWeight: "500",
+      'div': {
+        display: 'flex',
+        alignSelf: 'center',
+        height: '33px'
+      }
     }),
+
+    valueContainer: (provided, state) => ({
+      ...provided,
+      height: '33px',
+      padding: '6px'
+    }),
+
     placeholder: () => ({
       fontWeight: '500',
-      color: '#666666'
+      color: '#666666',
+    }),
+
+    input: (provided, state) => ({
+      ...provided,
+      margin: '0px',
+    }),
+    indicatorSeparator: state => ({
+      display: 'none',
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: '33px',
+    }),
+
+    singleValue: () =>({
     })
   };
   return (
@@ -103,8 +160,8 @@ const WaitingRoom = ({
     <div className="exam" style={{ display: !props.startVideo ? "block" : "none",}}>
       <div className="mainExam">
         <div className="newVideo">
-          <img src={RoomIcon} alt="video img" />
-          <p>Waiting room</p>
+          {/* <img src={RoomIcon} alt="video img" /> */}
+          <h4>Waiting room</h4>
         </div>
         <div className="exam-spec">
           <Select
@@ -163,7 +220,9 @@ const WaitingRoom = ({
         </div>
       </div>
       <div className="queue">
-        <div className="exam-mes">
+        <div className="exam-mes"
+        style={{background: props.color && !props.notes ? 'rgb(245, 192, 192)' : "white"}}
+        >
           <textarea
             type="text"
             className="form-control"
@@ -176,6 +235,16 @@ const WaitingRoom = ({
             }
             onChange={handleMessage}
           />
+
+           <div className='mainDivForFile'>
+          <div className="upload-btn-wrapper">
+            <button className="btn">
+              <div className='attachDiv'><p>Add file</p></div>
+            </button>
+            <input type="file" name="myfile" onChange={handleAttach} />
+          </div>
+          {props.attachment && <div className='fileForDownload'><p>{props.attachment.name.substring(props.attachment.name.lastIndexOf('/') + 1)}</p></div>}
+          </div>
         </div>
         <div className="queueInfo">
           <div className="queueMain">
@@ -249,12 +318,6 @@ const WaitingRoom = ({
       </div>
       <div className='divAndAttach'>
       {/* <input type="file" name="" id="file" /> */}
-      <div className="upload-btn-wrapper" style={{marginLeft: '15px'}}>
-            <button className="btn">
-              <img src={arrowAttach} alt="attach" />
-            </button>
-            <input type="file" name="myfile" />
-          </div>
       <button
             id="StartVideo"
             className='startThatChat'
@@ -374,35 +437,23 @@ const WaitingRoom = ({
   marginBottom: '20px'
 
 }}>
-    <div className="iconVideoo">
-        <img src={iconVideoBlue} alt="email" />
+    <div className="iconVideooCall">
+        {/* <img src={iconVideoBlue} alt="email" /> */}
         <p>Video call</p>{" "}
       </div>
       <div className="detail2">
+      <div id='videoChat' 
+      // onMouseEnter={showExtendScreenIcon} onMouseLeave={showExtendScreenIcon}
+      >
+        {/* <img src={ExtendScreen} style={{display: !props.showExtendScreen && 'none'}} className="extendScreen" alt="screen icon"/> */}
+
+        {/* <div id='videoo' >nesto tamo</div> */}
+
+        </div>
         <div className='detailInfo2' id='detailInfo2'>
-        <p className='ClientP'>
+        {/* <p className='ClientP'>
           <span>Doctor:</span> {props.currentClient.doctor_name}
-        </p> 
-        <div className="MainIconsDiv">
-          <img src={mute}
-            className="iconMic"
-          alt="img" style={{ display: props.audio ? "none" : "block" }}
-        onClick={cutMic}/>
-          <img src={unmute}
-           className="iconMicUnmute"
-          alt="img" style={{ display: !props.audio ? "none" : "block" }}
-        onClick={cutMic}/>
-          {/* <img src={call} alt="img" style={{display: 'none' }}/> */}
-          <img src={hangup} alt="img" className="iconPhone"/>
-          <img src={cameraoff}
-          className="iconVideo"
-           alt="img" style={{ display: props.video ? "none" : "block" }}
-        onClick={cutVideo}/>
-          <img src={cameraon} alt="img" 
-        className="iconVideoShow"
-        style={{ display: !props.video ? "none" : "block" }}
-        onClick={cutVideo}/>
-          </div>  
+        </p>  */}
         <div className='MainDivForChat'>
           <p>Chat</p>
           <form
@@ -424,21 +475,40 @@ const WaitingRoom = ({
     </div>
   </form>
           </div>  
-      <button id="send" onClick={resetValue}>Send</button>
+      <button id="send" onClick={resetValue}>
+        <img src={messageSend} alt="messageImg"/>
+      </button>
         </div>
-        <div id='videoChat' onMouseEnter={showExtendScreenIcon} onMouseLeave={showExtendScreenIcon}>
-        <img src={ExtendScreen} style={{display: !props.showExtendScreen && 'none'}} className="extendScreen" alt="screen icon"/>
-
-        {/* <div id='videoo' >nesto tamo</div> */}
-
-        </div>
+     
 
    
       </div>
+      <div className="MainIconsDiv">
+          <img src={mute}
+            className="iconMic"
+          alt="img" style={{ display: props.audio ? "none" : "block" }}
+        onClick={cutMic}/>
+          <img src={unmute}
+           className="iconMicUnmute"
+          alt="img" style={{ display: !props.audio ? "none" : "block" }}
+        onClick={cutMic}/>
+          {/* <img src={call} alt="img" style={{display: 'none' }}/> */}
+          <img src={hangup} alt="img" className="iconPhone"/>
+          <img src={cameraoff}
+          className="iconVideo"
+           alt="img" style={{ display: props.video ? "none" : "block" }}
+        onClick={cutVideo}/>
+          <img src={cameraon} alt="img" 
+        className="iconVideoShow"
+        style={{ display: !props.video ? "none" : "block" }}
+        onClick={cutVideo}/>
+          </div>  
 
     </div>
     </>
   );
 };
+
+
 
 export default WaitingRoom;

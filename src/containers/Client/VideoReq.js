@@ -32,7 +32,7 @@ class ClientVideoReq extends Component {
       reservedDate: '',
       doctorsPrice: "",
       clientId: null,
-      attachments: null,
+      attachments: '',
       doctorsExams: [],
       excludeTime: [],
       currency: null,
@@ -44,7 +44,7 @@ class ClientVideoReq extends Component {
     let clickedDate = moment(date).format("YYYY-MM-DDTHH:mm:ss");
     let DDate = moment(date).format("YYYY-MM-DD");
     this.setState({ startDate: date, reservedDate: clickedDate });
-    let excludeTime = this.state.doctorsExams.filter((ex) => {
+    let excludeTime = this.state.doctorsExams && this.state.doctorsExams.filter((ex) => {
       if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate) {
         return ex;
       } else {
@@ -69,11 +69,13 @@ class ClientVideoReq extends Component {
   };
 
   handleDoctor = (e) => {
+    console.log(e);
     this.props.dispatch(doctor(e));
     let startTime = e.startTime ? e.startTime.slice(0, -3) : ""
     let endTime = e.endTime ? e.endTime.slice(0, -3) : ""
 console.log(e);
     const docsSpec = this.state.specialities.filter((spec) => {return spec.label === e.spec})
+    console.log(this.state.specialities);
     this.setState({ doctor_id: e.iD, doctorsPrice: e.price, currency: e.currency, startTime, endTime});
     const access_token = "Bearer ".concat(this.state.token);
     axios
@@ -123,35 +125,66 @@ console.log(e);
       this.state.reservedDate
     ) {
       this.setState({ isClicked: true });
-      const response = await fetch(
-        "https://healthcarebackend.xyz/api/web/client/initiate/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+      let form_data = new FormData();
+      form_data.append("client", this.state.clientId);
+      form_data.append("speciality", this.state.specialSP);
+      form_data.append("doctor", this.state.doctor_id);
+      form_data.append("subject", this.state.subject);
+      form_data.append("attachments", this.state.attachments);
+      form_data.append("appointed_date", this.state.reservedDate);
+      form_data.append("notes", this.state.notes);
+      form_data.append("price", '');
 
-            Authorization: access_token,
-          },
-          body: JSON.stringify({
-            client: this.state.clientId,
-            speciality: this.state.specialSP,
-            doctor: this.state.doctor_id,
-            subject: this.state.subject,
-            notes: this.state.notes,
-            appointed_date: this.state.reservedDate,
-            price: "",
-            attachments: this.state.attachments,
-          }),
+    
+      
+      const access_token = "Bearer ".concat(this.state.token);
+      let url = 'https://healthcarebackend.xyz/api/web/client/initiate/';
+      
+      const data = axios.post(url, form_data, {
+        headers: {
+          'content-type': 'multipart/form-data',
+          Authorization: access_token,
         }
-      );
-      const data = await response.json();
-      if (data.success) {
-        this.setState({ doctorsPrice: data.data.price });
+      })
+      
+      
+      const jsonData = await data;
+      console.log(jsonData);
+      if(jsonData.data.success){
+        // this.setState({ doctorsPrice: jsonData.data.price });
         this.toCheckout();
       }
-      console.log(data, "post video requesttttt");
-
+    
       return data;
+      // const response = await fetch(
+      //   "https://healthcarebackend.xyz/api/web/client/initiate/",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+
+      //       Authorization: access_token,
+      //     },
+      //     body: JSON.stringify({
+      //       client: this.state.clientId,
+      //       speciality: this.state.specialSP,
+      //       doctor: this.state.doctor_id,
+      //       subject: this.state.subject,
+      //       notes: this.state.notes,
+      //       appointed_date: this.state.reservedDate,
+      //       price: "",
+      //       attachments: this.state.attachments,
+      //     }),
+      //   }
+      // );
+      // const data = await response.json();
+      // if (data.success) {
+      //   this.setState({ doctorsPrice: data.data.price });
+      //   this.toCheckout();
+      // }
+      // console.log(data, "post video requesttttt");
+
+      // return data;
     } else {
       NotificationManager.error(
         "Empty Fielde Or You Did Not Set Time And Date",
@@ -163,7 +196,6 @@ console.log(e);
 
   toCheckout = async () => {
     if(this.state.doctorsPrice !== '0.00'){
-
       return this.props.history.push({
         pathname: "/checkout",
         // search: "?query=abc",
@@ -172,6 +204,7 @@ console.log(e);
       });
     }else{
       return this.props.history.push("/dashboard-client")
+
     }
   };
 
@@ -216,7 +249,24 @@ console.log(e);
           };
         });
         this.setState({ doctors: res });
-      });
+        if(this.props.location.state){
+        response.data.data.filter(doctor =>{
+            if (doctor.id === this.props.location.state.doctorId){
+             const test = {
+                value: doctor.id,
+                iD: doctor.id,
+                label: doctor.doctor,
+                spec: doctor.speciality,
+                price: doctor.web_exam_price,
+                currency: doctor.web_currency,
+                startTime: doctor.start_hour,
+                endTime: doctor.end_hour
+              }
+              this.handleDoctor(test)
+            }
+          })
+        }
+      })
   }
 
   handleAttach = (e) =>{
@@ -224,7 +274,7 @@ console.log(e);
   }
 
   render() {
-    console.log(this.state.reservedDate)
+    console.log(this.state.doctorsPrice)
     return (
       <>
         <div className="header">

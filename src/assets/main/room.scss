@@ -1,0 +1,20 @@
+.sc-bdfBwQ {
+  position: relative;
+  .topBarDiv {
+    background: #f2f2f2;
+    position: "absolute";
+    top: -40px;
+    left: 0;
+    height: 40px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 10px 15px;
+    font-weight: 450;
+  }
+  video {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 15px;
+    object-fit: cover;
+  }
+}

@@ -1,16 +1,9 @@
 import React from "react";
 import "../../assets/record.scss";
-// import clientImg from '../../icons/icon_my_profile_client_blue_23px.svg'
-import clientIcon from '../../icons/icon_my_profile_client_blue_23px.svg'
-// import arrowAttach from '../../icons/attach_white.svg'
-
+import myClientProfile from "../../icons/newIconsForDesign/client_picture.svg";
 import chek from "../../icons/chek.svg";
 import clockIcon from "../../icons/icon_Waiting_Room_blue.svg";
 import declined from "../../icons/icon_Log_Out_blue.svg";
-import arrowLeft from "../../icons/arrow-left.svg";
-import arrowRight from "../../icons/arrow-right.svg";
-import arrowDown from "../../icons/arrow_down_gray.svg";
-import arrowUp from "../../icons/arrow_up_gray.svg";
 import { GiCheckeredFlag } from "react-icons/gi";
 import Loading from "../../icons/c+.svg";
 import moment from "moment";
@@ -23,15 +16,8 @@ const Record = ({
   props,
   record,
   handleClick,
-  handleUpcoming,
-  handlePast,
-  handleAll,
-  handleClickLeft,
-  handleClickRight,
   loading,
-  handleClientSearch,
   searchByType,
-  searchByName,
   ResetonSelectChange,
   handlePageChange
 
@@ -45,11 +31,11 @@ const Record = ({
         const splited = client.client.split(" ");
         return (
           <div key={client.id} className="mainClien">
-            <div className="newVideo">
-          <img src={clientIcon} alt="video img" />
-          <p>Client details </p>
+            <div className="clDetails">
+          <h4>Client details </h4>
         </div>
             <div className="client">
+            <img src={client.image.includes('default') ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
               <div className="client-p">
         <p><span>First Name:</span> {splited[0]}</p>
         <p><span>Last Name:</span> {splited[1]}</p>
@@ -105,52 +91,21 @@ const Record = ({
           <table className="table2">
             <thead className="client-head">
               <tr className="client-row">
-                {/* <th className="client-doctor">
-                  <div className="mainExamDiv">
-                    <div className="searchDiv">
-                      <span className="examTypetext">Client </span>
-                      <span className="searchIcon" onClick={handleClientSearch}>
-                        {props.searchClient ? (
-                          <img src={arrowUp} alt="arrow" />
-                        ) : (
-                          <img src={arrowDown} alt="arrow" />
-                        )}
-                      </span>
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="Search"
-                      value={props.searchName}
-                      onChange={searchByName}
-                      style={{ display: !props.searchClient && "none" }}
-                    />
-                  </div>
-                </th> */}
+              
                 <th className="client-subject">Subject</th>
                 <th
                   className="client-type"
                   style={{ padding: props.searchClient && "0 0 30px 0" }}
                 >
                   <div className="mainExamDiv">
-                    {/* <div className="searchDiv">
-                      <span className="examTypetext">Exam type </span>
-                      <span className="searchIcon" onClick={handleTypeSearch}>
-                        {props.state.searchByTypeClick ? (
-                          <img src={arrowUp} alt="arrow" />
-                        ) : (
-                          <img src={arrowDown} alt="arrow" />
-                        )}
-                      </span>
-                    </div> */}
+             
                     <select
                       type="text"
                       placeholder=""
                       onClick={ResetonSelectChange}
                       onChange={searchByType}
                       value={props.searchType}
-                      // style={{
-                      //   display: !props.state.searchByTypeClick && "none",
-                      // }}
+                      
                     >
                       <option value="">Type</option>
                       <option value="mail">Email</option>
@@ -170,7 +125,6 @@ const Record = ({
             </thead>
             {props.messageIfEmpty === "" &&
               props.paginatedExams.map((exam, index) => {
-                // if (exam.status === "Accepted" || exam.status === "Appointed") {
                 return (
                   <tbody key={index} className="client-body">
                     <tr
@@ -179,7 +133,6 @@ const Record = ({
                       style={{ fontWeight: exam.isRead && 700 }}
                       onClick={() => handleClick(exam.id, exam.exam_type)}
                     >
-                      {/* <td className="client-doctor">{exam.client}</td> */}
                       <td className="client-subject">{exam.subject}</td>
                       <td className="client-subject">{exam.exam_type}</td>
                       <td className="created">
@@ -219,9 +172,7 @@ const Record = ({
                     </tr>
                   </tbody>
                 );
-                // } else {
-                //   return null;
-                // }
+              
               })}
           </table>
           {props.messageIfEmpty !== "" && (
@@ -231,14 +182,6 @@ const Record = ({
       )}
 
       <div className="pagi">
-        {/* <div className="left" onClick={handleClickLeft}>
-          <img src={arrowLeft} alt="arrow left" className="iconLeft" />
-       
-        </div>
-        <div className="right" onClick={handleClickRight}>
-          <img src={arrowRight} alt="arrow rigth" className="iconRight" />
-          
-        </div> */}
            <Pagination
           activePage={props.page}
           itemsCountPerPage={10}

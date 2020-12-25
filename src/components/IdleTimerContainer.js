@@ -17,7 +17,7 @@ export class IdleTimerContainer extends Component {
         }
         return (
             <div>
-        <IdleTimer ref={this.idleTimerRef} timeout={3600 * 1000} onIdle={onIdle}></IdleTimer>
+        <IdleTimer ref={this.idleTimerRef} timeout={7200 * 1000} onIdle={onIdle}></IdleTimer>
             </div>
           )
     }

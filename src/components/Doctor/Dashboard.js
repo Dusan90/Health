@@ -63,12 +63,7 @@ const Dashboard = ({
     <div className="testic">
       <div className="main">
         <div className="dashboardIcon">
-          <img
-            src={MyConsultationsBlue}
-            className="dashIcon"
-            alt="my consultation icon"
-          />
-          <h2>Dashboard</h2>
+          <h4>Dashboard</h4>
         </div>{" "}
         <div className="divClock">
           <div className="waitRoom1" onClick={hnlWaitingClick}>

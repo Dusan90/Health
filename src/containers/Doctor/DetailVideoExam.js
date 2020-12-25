@@ -3,6 +3,7 @@ import axios from "axios";
 // import { connect } from "react-redux";
 import DetailVideo from "../../components/Doctor/DetailVideoExam";
 import { NotificationManager } from "react-notifications";
+import { getJSDocThisTag } from "typescript";
 // const connection = new WebSocket("wss://healthcarebackend.xyz/wss/video/");
 
 
@@ -32,8 +33,18 @@ class DetailVideoExam extends Component {
       declineReason: "",
       report: '',
       displayReport: false,
+      showSaveButton: false,
+      page: 1,
+      PageonNav: '',
       clientID: '',
-      showSaveButton: false
+      currentFilterClicked: "",
+      searchName: "",
+      searchType: "",
+      messageIfEmpty: "",
+      paginatedExams: [],
+      searchedUpcomingOrPast: [],
+      exams: []
+
     };
   }
 
@@ -233,16 +244,18 @@ class DetailVideoExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response.data.data);
+        console.log(response, 'test');
         this.setState({ exam: this.state.exam.concat(response.data.data), 
-          // clientID: response.data.data.exam.client_id
+          clientID: response.data.data.client_id
          });
+         this.record(response.data.data.client_id)
+         this.clientsExams(response.data.data.client_id)
          let mess = document.getElementById('messageMainText')
          let messageDiv = document.querySelector('.messageDiv')
          console.log(mess);
          if(mess.scrollHeight < 300){
            mess.style.height = `${mess.scrollHeight}px`
-           messageDiv.style.height = `${mess.scrollHeight + 20}px` 
+           messageDiv.style.height = `${mess.scrollHeight + 60}px` 
          }else{
            mess.style.height = '300px'
          }
@@ -324,7 +337,7 @@ class DetailVideoExam extends Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    this.setState({ id: id });
+    this.setState({ id: id, PageonNav: 'consultDetail' });
     this.detail(id);
   }
 
@@ -334,7 +347,9 @@ class DetailVideoExam extends Component {
 
   declineReason = (e)=>{
     this.setState({declineReason: e.target.value})
-    e.target.style.height = '300px'
+    if(e.target.scrollHeight < 300){
+      e.target.style.height = `${e.target.scrollHeight}px`
+    }else{e.target.style.height = '300px'}
     // e.target.style.height = `${e.target.scrollHeight}px`
 
   }
@@ -372,7 +387,9 @@ class DetailVideoExam extends Component {
 
   report= (e) =>{
     this.setState({report: e.target.value})
-    e.target.style.height = '300px'
+    if(e.target.scrollHeight < 300){
+      e.target.style.height = `${e.target.scrollHeight}px`
+    }else{e.target.style.height = '300px'}
     // e.target.style.height = `${e.target.scrollHeight}px`
   }
 
@@ -397,6 +414,246 @@ class DetailVideoExam extends Component {
       selectedFile: e.target.files[0],
     });
   };
+
+  handlePage = (value) =>{
+     this.setState({PageonNav: value})
+    let test = setInterval(() => {
+      if(value === 'clientDetail'){
+          let cronic = document.getElementById('ChronicalConditions')
+         
+          cronic.style.height = `${cronic.scrollHeight}px`
+          console.log(cronic);
+          let alerg = document.getElementById('Allergies')
+          alerg.style.height = `${alerg.scrollHeight}px`
+    
+      }
+      clearInterval(test)
+    }, 200);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  record = (id) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(
+        `https://healthcarebackend.xyz/api/doctor/record/${id}/`
+        ,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
+        console.log(response, "nzm ni ja sta");
+        this.handleAll();
+
+        return this.setState({
+          record:[ response.data.data],
+        });
+      })
+      // .then(() =>{
+      //   let cronic = document.getElementById('ChronicalConditions')
+      //   cronic.style.height = `${cronic.scrollHeight}px`
+      //   let alerg = document.getElementById('Allergies')
+      //   alerg.style.height = `${alerg.scrollHeight}px`
+      // })
+  };
+
+  clientsExams = (id) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(
+        `https://healthcarebackend.xyz/api/exams/client/${id}/list/`
+        ,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
+        console.log(response, "podaciiii");
+        let AllArrays = response.data.data.mail.concat(response.data.data.queue, response.data.data.video)
+
+        return this.setState({
+          exams: AllArrays,
+        });
+      }).then(() =>{
+        this.handleAll();
+      })
+  };
+
+
+  handleAll = () => {
+    let hndlAll = setInterval(() => {
+      let all = this.state.exams;
+
+      let resortall = all.sort(
+        (a, b) => Date.parse(b.created) - Date.parse(a.created)
+      );
+
+      let messageIfEmpty = all.length === 0 ? "No consultations" : "";
+
+      this.setState({
+        upcomingOrPast: resortall,
+        page: 1,
+        messageIfEmpty,
+        currentFilterClicked: "all",
+        searchedUpcomingOrPast: [],
+        filterFiltered: [],
+        searchType: "",
+        searchName: "",
+      });
+
+      this.paginate(1);
+      clearInterval(hndlAll);
+    }, 10);
+  };
+
+  paginate = (page) => {
+    if (this.state.searchedUpcomingOrPast.length === 0) {
+      let limit = 10;
+      let pages = Math.ceil(this.state.upcomingOrPast.length / 10);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
+
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    } else {
+      let limit = 10;
+      let pages = Math.ceil(this.state.searchedUpcomingOrPast.length / 10);
+      const offset = (page - 1) * limit;
+      const newArray = this.state.searchedUpcomingOrPast.slice(
+        offset,
+        offset + limit
+      );
+
+      this.setState({
+        paginatedExams: newArray,
+        loading: false,
+        maxPages: pages,
+      });
+    }
+  };
+
+  searchByType = (e) => {
+    if (e.target.value === "" && this.state.searchName === "") {
+      this.setState({ filterFiltered: [] });
+    } else if (e.target.value === "" && this.state.searchName !== "") {
+      this.setState({ filterFiltered: [] });
+    }
+    let letter = e.target.value.toLowerCase();
+    this.setState({ searchType: letter });
+    let callFunction = setInterval(() => {
+      this.handlingSearchByType();
+      clearInterval(callFunction);
+    }, 10);
+  };
+
+  
+  handlingSearchByType = () => {
+    let searchedClient =
+      this.state.filterFiltered.length === 0
+        ? this.state.upcomingOrPast.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          })
+        : this.state.filterFiltered.filter((ex) => {
+            const examType = ex.exam_type;
+            if (
+              examType.toLowerCase().indexOf(this.state.searchType) ===
+              this.state.searchType.indexOf(this.state.searchType)
+            ) {
+              return ex;
+            } else {
+              return null;
+            }
+          });
+    let messageIfEmpty =
+      searchedClient.length === 0
+        ? "No Such Type"
+        : searchedClient.length !== 0 &&
+          this.state.messageIfEmpty !== "No Such Type"
+        ? this.state.messageIfEmpty
+        : "";
+    this.state.filterFiltered.length === 0 &&
+      this.setState({ filterFiltered: searchedClient });
+    this.setState({
+      searchedUpcomingOrPast: searchedClient,
+      page: 1,
+      messageIfEmpty,
+    });
+    this.paginate(1);
+  };
+
+  handleClick = (id, type) => {
+    if (type === "mail") {
+      this.props.history.push(`/doctor/exam/detail/${id}`);
+    } else if (type === "video") {
+      this.props.history.push(`/doctor/video/exam/detail/${id}/#init`);
+    } else if (type === "queue") {
+      this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
+    }
+  };
+
+  ResetonSelectChange = () => {
+    this.setState({ filterFiltered: [] });
+  };
+
+  handlePageChange = (pageNumber) => {
+    this.setState({page: pageNumber});
+    this.paginate(pageNumber)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   render() {
     return (
@@ -426,6 +683,14 @@ class DetailVideoExam extends Component {
           handleJoinRoom={this.handleJoinRoom}
           handleshowSave={this.handleshowSave}
           onChangeHandler={this.onChangeHandler}
+          handlePage={this.handlePage}
+
+
+          handleClick={this.handleClick}
+          loading={this.state.loading}
+          searchByType={this.searchByType}
+          ResetonSelectChange={this.ResetonSelectChange}
+          handlePageChange={this.handlePageChange}
           // handleReport={this.handleReport}
            // iconsMouseOut,
   // iconsMouseOver,

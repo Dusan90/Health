@@ -10,6 +10,19 @@ import { HamburgerDiv } from "../Main/HamburgerDiv";
 import iconEmailBlue from '../../icons/icon_Email_blue.svg'
 import attachIcon from '../../icons/attach_white.svg'
 
+
+
+import myClientProfile from "../../icons/newIconsForDesign/client_picture.svg";
+import chek from "../../icons/chek.svg";
+import clockIcon from "../../icons/icon_Waiting_Room_blue.svg";
+import declined from "../../icons/icon_Log_Out_blue.svg";
+import { GiCheckeredFlag } from "react-icons/gi";
+import Loading from "../../icons/c+.svg";
+import Pagination from "react-js-pagination";
+
+import { FaFileDownload } from "react-icons/fa";
+
+
 const Detail = ({
   exam,
   handleStatus,
@@ -22,17 +35,23 @@ const Detail = ({
   props,
   declineReason,
   saveReason,
+  handlePage,
   // report,
   // saveReport,
   // handleReport
+  handleClick,
+  loading,
+  searchByType,
+  ResetonSelectChange,
+  handlePageChange
 }) =>{
   const customStyles = {
   control: () => ({
     // none of react-select's styles are passed to <Control />
-    width: 200,
+    width: 160,
     border: "2px solid #fa9551",
     borderRadius: "10px",
-    height: "40px",
+    height: "33px",
     fontWeight: 600,
     display: "flex",
     background: 'transparent'
@@ -60,10 +79,15 @@ return (
             : [{ value: "Finish", label: "Finish" }];
         return (
           <Fragment key={exam.id}>
-            <div className="detail_exam">
+            {props.PageonNav === 'consultDetail' && <div className="detail_exam">
             <div className="iconVideo">
-                <img src={iconEmailBlue} alt="email" />
-                <p>Consultation details</p>{" "}
+                {/* <img src={iconEmailBlue} alt="email" /> */}
+                <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'consultDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('consultDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'consultDetail' && 'bold' }}>Consultations details</h4>{" "}
+                </div>
+                <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'clientDetail' && 'bold' }}>Client details</h4>{" "}
+                </div>
               </div>
               <div className="detail">
                 <p>
@@ -121,6 +145,10 @@ return (
                   <textarea defaultValue= {exam.message} id='messageMainText' readOnly>
                    
                   </textarea>
+                  <div className='mainFileDiv'>
+                    <div className='FileDiv'><p>Files</p></div>
+                    {exam.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.attachment}`}} className='fileForDownload'><FaFileDownload/><p>{exam.attachment.substring(exam.attachment.lastIndexOf('/') + 1)}</p></div>}
+                  </div>
                 </div>
                   <div className=''></div>
                 <div className='reportIfDeclined' style={{display: exam.status === 'Declined' ? 'block' : 'none' &&  props.selectedStatus !== 'Decline' ? 'none' : 'block'}}>
@@ -185,13 +213,12 @@ return (
                           >
                             <textarea  id={message.id} defaultValue={message.message} readOnly className="message">
                             </textarea>
-                            {message.attachments ? (
-                              <div className="attachments">
-                                <p className="att">
-                                  Attachments: {message.attachments}
-                                </p>
-                              </div>
-                            ) : null}
+                            {message.attachment ? (
+                             <div className='mainFileDiv'>
+                             <div className='FileDiv'><p>Files</p></div>
+                             {message.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.attachments}`}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
+                           </div>
+                          ) : null}
                           </div>
                           {/* {!props.replyClicked &&
                             props.lastInArray.created === message.created &&
@@ -242,6 +269,9 @@ return (
                                       onChange={onChangeHandler}
                                     />
                                   </div>
+                                
+          {props.selectedFile && <div className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
+
                                 </div>
                               </div>
                             )}
@@ -261,7 +291,7 @@ return (
                 >
                   Report
                 </button> : null} */}
-            </div>
+            </div>}
             {/* {exam.status === "Accepted" && (
               <div className="message-btn">
                 <button className="messages-link" onClick={handleLink}>
@@ -272,6 +302,248 @@ return (
                 </button>
               </div>
             )} */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+{props.record && props.PageonNav === 'clientDetail' &&
+      props.record.map(client => {
+        console.log(client);
+        const splited = client.client.split(" ");
+        return (
+          <div key={client.id} className="mainClien">
+             <div className="iconVideoo">
+            <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'consultDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('consultDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'consultDetail' && 'bold' }}>Consultations details</h4>{" "}
+                </div>
+                <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'clientDetail' && 'bold' }}>Client details</h4>{" "}
+                </div>
+              </div>
+            <div className="client">
+            <img src={client.image.includes('default') ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
+              <div className="client-p">
+        <p><span>First Name:</span> {splited[0]}</p>
+        <p><span>Last Name:</span> {splited[1]}</p>
+        <p><span>Address:</span> {client.address}</p>
+        <p><span>E-mail:</span> {client.email}</p>
+        <p><span>Phone number:</span> {client.phone}</p>
+        <p><span>Date of birth:</span> {client.birth_date}</p>
+        <p><span>{client.gender === 'M' ? 'Male' : 'Female'}</span></p>
+              </div>
+            </div>
+            <div className="form">
+              <div className="conditionss">
+                Chronical conditions:{" "} <br/>
+                <textarea
+                // style={{height: `${this.scrollHeight}px`}}
+                  type="text"
+                  readOnly
+                  className="address-input"
+                  placeholder={client.chronical_conditions}
+                 id='ChronicalConditions'
+                />
+              </div>
+              <div  className="allergiess">
+               Allergies:{" "}
+               <textarea
+                  type="text"
+                  readOnly
+                  className="address-input"
+                  placeholder={client.allergies}
+                 id='Allergies'
+                />
+         
+              </div>
+            </div>
+          </div>
+        );
+      })}
+
+{props.PageonNav === 'clientDetail'&& loading ? (
+        <img
+          src={Loading}
+          className="loading"
+          alt="loading..."
+          style={{ width: "150px" }}
+        />
+      ) : props.PageonNav === 'clientDetail' && !loading ? (
+        <div className="mainTabelRecord">
+          <div className="mainConsultation">
+            <div className="icon_left">
+              <p>Consultations</p>
+            </div>
+          </div>
+
+          <table className="table2">
+            <thead className="client-head">
+              <tr className="client-row">
+              
+                <th className="client-subject">Subject</th>
+                <th
+                  className="client-type"
+                  style={{ padding: props.searchClient && "0 0 30px 0" }}
+                >
+                  <div className="mainExamDiv">
+             
+                    <select
+                      type="text"
+                      placeholder=""
+                      onClick={ResetonSelectChange}
+                      onChange={searchByType}
+                      defaultValue={props.searchType}
+                      
+                    >
+                      <option value="">Type</option>
+                      <option value="mail">Email</option>
+                      <option value="video">Video</option>
+                      <option value="queue">Waiting room</option>
+                    </select>
+                  </div>
+                </th>
+                <th className="client-date">Date</th>
+                <th
+                  className="client-status"
+                  style={{ padding: props.searchClient && "0 0 30px 0" }}
+                >
+                  Status
+                </th>
+              </tr>
+            </thead>
+            {props.messageIfEmpty === "" &&
+              props.paginatedExams.map((exam, index) => {
+                console.log(exam);
+                return (
+                  <tbody key={index} className="client-body">
+                    <tr
+                      // data-id={exam.id}
+                      className="list-group"
+                      style={{ fontWeight: exam.isRead && 700 }}
+                      onClick={() => handleClick(exam.id, exam.exam_type)}
+                    >
+                      <td className="client-subject">{exam.subject}</td>
+                      <td className="client-subject">{exam.exam_type}</td>
+                      <td className="created">
+                        {exam.created && !exam.appointed_date ? (
+                          <p> {moment(exam.created).format("MM/DD/YY")}</p>
+                        ) : exam.appointed_date ? (
+                          <p>
+                            {" "}
+                            {moment(exam.appointed_date).format(
+                              "MM/DD/YY HH:mm"
+                            )}
+                          </p>
+                        ) : null}
+                      </td>
+                      <td className="client-status">
+                        {exam.status === "Pending" ||
+                        exam.status === "In the queue" ? (
+                          <img
+                            src={clockIcon}
+                            alt="clockIcon"
+                            className="pendi"
+                          />
+                        ) : exam.status === "Declined" ||
+                          exam.status === "Canceled" ? (
+                          <img
+                            src={declined}
+                            alt="declined"
+                            className="declined"
+                          />
+                        ) : exam.status === "Finished" ? (
+                          <GiCheckeredFlag className="finished" />
+                        ) : (
+                          <img src={chek} alt="ckeck" className="check" />
+                        )}
+                        <h5 className="status">{exam.status}</h5>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              
+              })}
+          </table>
+          {props.messageIfEmpty !== "" && (
+            <div className="NoResultDiv">{props.messageIfEmpty}</div>
+          )}
+        </div>
+      ): null}
+
+      {props.PageonNav === 'clientDetail' && <div className="pagi">
+           <Pagination
+          activePage={props.page}
+          itemsCountPerPage={10}
+          totalItemsCount={props.searchedUpcomingOrPast.length === 0 ? props.exams.length : props.searchedUpcomingOrPast.length}
+          pageRangeDisplayed={10}
+          onChange={handlePageChange}
+        />
+      </div>}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           </Fragment>
         );
       })}

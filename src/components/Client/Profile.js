@@ -3,6 +3,7 @@ import React from "react";
 import "../../assets/client/profile.scss";
 import clientIcon from '../../icons/icon_my_profile_client_blue_23px.svg'
 import arrowAttach from '../../icons/attach_white.svg'
+import addPicture from '../../icons/newIconsForDesign/add-picture.svg'
 
 const Profile = ({
   client,
@@ -12,17 +13,19 @@ const Profile = ({
   attachInput,
   handleChange,
   handleImage,
-  handleRemoveImage
+  handleRemoveImage,
+  handleDeleteImageShow,
+  deletePicture
 }) => (
   <>
     {client &&
       client.map(client => {
         console.log(client);
         return (
-          <div key={client.id} className="mainClien">
+          <div key={client.id} className="mainClientic">
             <div className="newVideo">
-          <img src={clientIcon} alt="video img" />
-          <p>My profile</p>
+          {/* <img src={clientIcon} alt="video img" /> */}
+          <h4>My profile</h4>
         </div>
             <div className="client">
               <div className="client-p">
@@ -61,6 +64,35 @@ const Profile = ({
               </div>
             </div>
             <div className="form">
+            <p className='picturelabel' htmlFor="picture">Picture</p>
+            <div className='checkboxDiv'>
+            <div className='profilePic'>
+                {/* {!client.image.includes('default') && <li onClick={handleRemoveImage} href='#'>Remove picture</li>} */}
+
+                
+              <div className="upload-btn-wrapper" onMouseEnter={handleDeleteImageShow} onMouseLeave={handleDeleteImageShow}>
+            <button className="btn">
+                {/* {client.image.includes('default') && <li href='#'>Add picture</li>} */}
+            {/* {client.image !== "/media/default.jpg" ?
+              <img className='docImage' src={ `https://healthcarebackend.xyz${client.image}`} alt='#' /> :
+              <p>+</p>
+            } */}
+            <img className='cliImage' src={!client.image.includes('default') ? `https://healthcarebackend.xyz${client.image}` : addPicture} alt='#' />
+            </button>
+            <input type="file" name="myfile" onChange={attachInput} />
+          <button className="deleteImage" style={{display: props.showDeleteImage && !client.image.includes('default') ? "block" : "none"}}  onClick={deletePicture}> X</button>
+          </div>
+            
+                
+              </div>
+                <div className='check'>
+                <input type="checkbox" name="Male" id="Male" checked={props.gender === 'M' && true}  onChange={() => handleGenderRadio("M")}/>
+                <label className='Male' value='Male' htmlFor="Male" >Male</label>
+                <input type="checkbox" value="Female" checked={props.gender === 'F' && true} name="Female" id="Female"  onChange={() => handleGenderRadio("F")}/>
+                <label htmlFor="Female">Female</label>
+                </div>
+              
+                </div>
               <div className="conditions">
                 Chronical conditions:{" "}
                 <textarea
@@ -84,34 +116,6 @@ const Profile = ({
                   onChange={handleChange} id='Allergies'
                 />
               </div>
-              <div className='checkboxDiv'>
-                <div className='check'>
-                <input type="checkbox" name="Male" id="Male" checked={props.gender === 'M' && true}  onChange={() => handleGenderRadio("M")}/>
-                <label className='Male' value='Male' htmlFor="Male" >Male</label>
-                <input type="checkbox" value="Female" checked={props.gender === 'F' && true} name="Female" id="Female"  onChange={() => handleGenderRadio("F")}/>
-                <label htmlFor="Female">Female</label>
-                </div>
-                <div className='profilePic'>
-                {!client.image.includes('default') && <li onClick={handleRemoveImage} href='#'>Remove picture</li>}
-
-                
-              <div className="upload-btn-wrapper">
-            {/* <button className="btn"> */}
-                {client.image.includes('default') && <li href='#'>Add picture</li>}
-            {/* {client.image !== "/media/default.jpg" ?
-              <img className='docImage' src={ `https://healthcarebackend.xyz${client.image}`} alt='#' /> :
-              <p>+</p>
-              } */}
-            {/* </button> */}
-            <input type="file" name="myfile" onChange={attachInput} />
-          </div>
-          <img className='cliImage' onClick={(e) => handleImage(e)} src={client.image !== "/media/default.jpg" ? `https://healthcarebackend.xyz${client.image}` : null} alt='#' />
-            
-                
-              </div>
-                </div>
-         
-            
             </div>
           </div>
         );
