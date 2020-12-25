@@ -171,8 +171,11 @@
             margin: 5px 0 0 0;
             padding: 0 5px;
             overflow: hidden;
+            white-space: nowrap;
             p {
               margin: 0;
+              width: 100px;
+              white-space: nowrap;
             }
             &:hover {
               cursor: pointer;

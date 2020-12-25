@@ -9,8 +9,8 @@ const DoctorsQueueList = ({ props, handleClick }) => {
   return (
     <div className="mainEmailList">
       <div className="iconEmail">
-        <img src={iconVideoBlue} alt="email" />
-        <p>Waiting room requests</p>{" "}
+        {/* <img src={iconVideoBlue} alt="email" /> */}
+        <h4>Waiting room requests</h4>{" "}
       </div>
       {props.loading ? (
         <img src={loading} alt="loading" className="loading" />

@@ -168,23 +168,26 @@ const data = axios.put(url, form_data, {
     //   );
     // }
     selectStatus = (
-      <select style={{background: curentDoc.status === "Away" ? 'Yellow' : curentDoc.status === "Offline" ? 'red' : '#3cb54a' }} name="status" id="status" onChange={handleSubmit}>
+      <select style={{background: curentDoc.status === "Away" ? '#9a9a9a' : curentDoc.status === "Offline" ? 'red' : '#3cb54a' }} name="status" id="status" onChange={handleSubmit}>
         <option value="">{curentDoc.status}</option>
         <option
           value="Available"
-          style={{background: '#3cb54a'}}
+          style={{background: 'white', color: '#666666'}}
           hidden={curentDoc.status === "Available" && true}
         >
           Available
         </option>
         <option
-        style={{background: 'yellow'}}
+        style={{background: 'white', color:'#666666'}}
           defaultValue="Away"
           hidden={curentDoc.status === "Away" && true}
         >
           Away
         </option>
-        <option style={{background: 'red'}} value="Offline" hidden={curentDoc.status === "Offline" && true}>
+        <option 
+        style={{background: 'white', color:'#666666'}}
+        value="Offline" 
+        hidden={curentDoc.status === "Offline" && true}>
           Offline
         </option>
       </select>

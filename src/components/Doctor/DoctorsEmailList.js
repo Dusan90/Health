@@ -18,8 +18,8 @@ const DoctorsEmailList = ({ props, handleClick }) => {
   return (
     <div className="mainEmailList">
       <div className="iconEmail">
-        <img src={iconEmailBlue} alt="email" />
-        <p>Email request</p>{" "}
+        {/* <img src={iconEmailBlue} alt="email" /> */}
+        <h4>Email request</h4>{" "}
       </div>
       {props.loading ? (
         <img src={loading} alt="loading" className="loading" />

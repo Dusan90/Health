@@ -9,8 +9,8 @@ const DoctorsVideoList = ({ props, handleClick }) => {
   return (
     <div className="mainEmailList">
       <div className="iconEmail">
-        <img src={iconVideoBlue} alt="email" />
-        <p>Video requests</p>{" "}
+        {/* <img src={iconVideoBlue} alt="email" /> */}
+        <h4>Video requests</h4>{" "}
       </div>
       {props.loading ? (
         <img src={loading} alt="loading" className="loading" />

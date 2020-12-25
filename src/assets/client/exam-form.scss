@@ -170,8 +170,11 @@
           overflow: hidden;
           width: 100px;
           margin: 0 0 0 10px;
+          white-space: nowrap;
           p {
             margin: 0;
+            width: 100px;
+            white-space: nowrap;
           }
         }
       }

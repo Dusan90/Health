@@ -186,8 +186,11 @@
           margin: 5px 0 0 0;
           padding: 0 5px;
           overflow: hidden;
+          white-space: nowrap;
           p {
             margin: 0;
+            width: 100px;
+            white-space: nowrap;
           }
           &:hover {
             cursor: pointer;
@@ -225,8 +228,11 @@
           margin: 5px 0 0 0;
           padding: 0 5px;
           overflow: hidden;
+          white-space: nowrap;
           p {
             margin: 0;
+            width: 100px;
+            white-space: nowrap;
           }
           &:hover {
             cursor: pointer;
@@ -477,8 +483,11 @@
             margin: 5px 0 0 0;
             padding: 0 5px;
             overflow: hidden;
+            white-space: nowrap;
             p {
               margin: 0;
+              width: 100px;
+              white-space: nowrap;
             }
             &:hover {
               cursor: pointer;
@@ -690,7 +699,10 @@
                 margin: 5px 0 0 0;
                 padding: 0 5px;
                 overflow: hidden;
+                white-space: nowrap;
                 p {
+                  white-space: nowrap;
+                  width: 100px;
                   margin: 0;
                   color: #00aff0;
                   text-indent: 0;
@@ -830,7 +842,10 @@
                 margin: 5px 0 0 0;
                 padding: 0 5px;
                 overflow: hidden;
+                white-space: nowrap;
                 p {
+                  white-space: nowrap;
+                  width: 100px;
                   margin: 0;
                   color: #00aff0;
                   text-indent: 0;
@@ -1001,7 +1016,10 @@
             margin: 0 0 0 20px;
             padding: 0 5px;
             overflow: hidden;
+            white-space: nowrap;
             p {
+              white-space: nowrap;
+              width: 100px;
               margin: 0;
               color: #00aff0;
               text-indent: 0;
