@@ -195,6 +195,7 @@ class ClientDetailExam extends Component {
       });
       this.detail(this.state.id);
       this.correspondence(this.state.id);
+      this.setState({selectedFile: ''})
     }
   
     return data;

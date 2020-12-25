@@ -222,6 +222,7 @@ class DetailExam extends Component {
       // window.location.reload()
       this.detail(this.state.id);
       this.correspondence(this.state.id);
+      this.setState({selectedFile: ''})
     }
   
     return data;
