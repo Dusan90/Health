@@ -49,7 +49,8 @@ class ProcessingVideoExam extends Component {
       messageIfEmpty: "",
       paginatedExams: [],
       searchedUpcomingOrPast: [],
-      clientID: ''
+      clientID: '',
+      selectedFile: ''
     };
   }
 
@@ -350,39 +351,89 @@ class ProcessingVideoExam extends Component {
   }
 
   statusSelecting = async (value) => {
-    const access_token = "Bearer ".concat(this.state.token);
-    const client = await fetch(
-      `https://healthcarebackend.xyz/api/queue/detail/${this.props.match.params.id}/`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: access_token,
-        },
-        body: JSON.stringify({
-          status: value,
-          decline_notes: this.state.declineReason,
-          report: this.state.report
-        }),
-      }
-    );
+    // const access_token = "Bearer ".concat(this.state.token);
+    // const client = await fetch(
+    //   `https://healthcarebackend.xyz/api/queue/detail/${this.props.match.params.id}/`,
+    //   {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: access_token,
+    //     },
+    //     body: JSON.stringify({
+    //       status: value,
+    //       decline_notes: this.state.declineReason,
+    //       report: this.state.report
+    //     }),
+    //   }
+    // );
 
-    const jsonData = await client.json();
-    console.log(jsonData);
-    if (jsonData.success === true) {
-      this.detail(this.props.match.params.id);
-      jsonData.data.exam.status === "Accepted" &&
-        this.state.connectedall &&
-        this.handleConnect();
-      jsonData.data.exam.status === "Finished" && window.location.reload();
-      connection.send(
-        JSON.stringify({
-          id: this.props.match.params.id,
-          status: jsonData.data.exam.status,
-        })
-      );
+    // const jsonData = await client.json();
+    // console.log(jsonData);
+    // if (jsonData.success === true) {
+    //   this.detail(this.props.match.params.id);
+    //   jsonData.data.exam.status === "Accepted" &&
+    //     this.state.connectedall &&
+    //     this.handleConnect();
+    //   jsonData.data.exam.status === "Finished" && window.location.reload();
+    //   connection.send(
+    //     JSON.stringify({
+    //       id: this.props.match.params.id,
+    //       status: jsonData.data.exam.status,
+    //     })
+    //   );
+    // }
+    // return jsonData;
+
+
+
+
+
+
+
+    
+    const access_token = "Bearer ".concat(this.state.token);
+    let form_data = new FormData();
+
+  form_data.append("status", value);
+  form_data.append("decline_notes", this.state.declineReason);
+  form_data.append("report", this.state.report);
+  form_data.append("report_file", this.state.selectedFile);
+
+  let url = `https://healthcarebackend.xyz/api/queue/detail/${this.props.match.params.id}/`;
+  
+  const data = axios.put(url, form_data, {
+    headers: {
+      'content-type': 'multipart/form-data',
+      Authorization: access_token,
     }
-    return jsonData;
+  })
+  
+  
+  const jsonData = await data;
+  console.log(jsonData)
+  if (jsonData.data.success === true) {
+    this.detail(this.props.match.params.id);
+    jsonData.data.data.exam.status === "Accepted" &&
+      this.state.connectedall &&
+      this.handleConnect();
+    jsonData.data.data.exam.status === "Finished" && window.location.reload();
+    connection.send(
+      JSON.stringify({
+        id: this.props.match.params.id,
+        status: jsonData.data.data.exam.status,
+      })
+    );
+  }
+
+  return data;
+
+
+
+
+
+
+
   };
   
 
@@ -818,6 +869,7 @@ class ProcessingVideoExam extends Component {
 
 
   render() {
+    console.log(this.state.selectedFile);
     return (
       <>
         <div className="header">

@@ -208,6 +208,8 @@ const Processing = ({
                                   onChange={onChangeHandler}
                                 />
                               </div>
+                              {props.selectedFile && <div style={{marginRight: '10px'}} className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
+                    {exam.exam.report_file && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.report_file}`}} className='fileForDownload'><p>{exam.exam.report_file.substring(exam.exam.report_file.lastIndexOf('/') + 1)}</p></div>}
                       </div>
                 </div>
                 </div>

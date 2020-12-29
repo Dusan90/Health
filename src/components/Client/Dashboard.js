@@ -216,7 +216,7 @@ const Dashboard = ({
                     <tr
                       // data-id={exam.id}
                       className="list-group"
-                      style={{ fontWeight: exam.isRead && 700 }}
+                      style={{ fontWeight: exam.isRead && 900 }}
                       onClick={() => handleClick(exam.id, exam.exam_type)}
                     >
                       <td className="client-doctor">
@@ -237,7 +237,10 @@ const Dashboard = ({
                         ) : null}
                       </td>
                       <td className="client-status">
-                        {exam.status === "Pending" ||
+                        {
+                        //   exam.transaction && exam['transaction']['status'] === 'Pending' ?
+                        // <h5 style={{color: '#00aff0'}}>PAY</h5> :
+                         exam.status === "Pending" ||
                         exam.status === "In the queue" ? (
                           <img
                             src={clockIcon}

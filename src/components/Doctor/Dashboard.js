@@ -295,7 +295,7 @@ const Dashboard = ({
                     <tr
                       // data-id={exam.id}
                       className="list-group"
-                      style={{ fontWeight: exam.isRead && 700 }}
+                      style={{ fontWeight: exam.isRead && 900 }}
                       onClick={() => handleClick(exam.id, exam.exam_type)}
                     >
                       <td className="client-doctor">{exam.client}</td>

@@ -309,14 +309,17 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response, 'currentDoctor');
         let current = response.data.data;
         // this.peopleInWaitingRoom(current.id);
         this.connecSocket(current.id);
 
         this.props.curentDoc(current);
+        this.paginatedExams();
         return this.setState({
-          doctorCurent: current,
+        doctorCurent: current,
         });
+
       });
   };
 
@@ -385,7 +388,6 @@ class DoctorDashboard extends Component {
 
   componentDidMount() {
     this.handleDoctorProfile();
-    this.paginatedExams();
     this.pnd();
   }
   
@@ -427,12 +429,13 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, 'messages')
         const unreadMessages = response.data.data.filter((ex) => {
           if (ex.messages.length !== 0) {
+            // const sortedActivities = ex.messages.sort((a, b) => a.created - b.created)
             return (
-              ex.messages[ex.messages.length - 1].sender !==
-              `${this.state.doctorCurent.prefix} ${this.state.doctorCurent.doctor}`
+              // sortedActivities[sortedActivities.length - 1].sender !==
+              ex.messages[0].sender !==
+              `${this.state.doctorCurent.user.first_name} ${this.state.doctorCurent.user.last_name}`
             );
           } else {
             return ex;

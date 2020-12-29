@@ -276,7 +276,7 @@ class ClientDashboard extends Component {
         this.getUnreadMessages(this.state.client.id);
       })
       .catch((err) => {
-        if(err.response.status === 404){
+        if(err || err.response.status === 404){
           this.handleAll();
           this.paginate(this.state.page);
           this.getUnreadMessages(this.state.client.id);
@@ -332,14 +332,16 @@ class ClientDashboard extends Component {
       .then((response) => {
         const unreadMessages = response.data.data.filter((ex) => {
           if (ex.messages.length !== 0) {
+            // const sortedActivities = ex.messages.sort((a, b) => a.created - b.created)
             return (
-              ex.messages[ex.messages.length - 1].sender !==
-              `${this.state.client.user}`
+              ex.messages[0].sender !==
+              `${this.state.client.user.first_name} ${this.state.client.user.last_name}`
             );
           } else {
             return null;
           }
         });
+        console.log(unreadMessages);
         const unreadIds = unreadMessages.map((ex) => ex.exam.id);
         this.setState({ mail: unreadIds });
       })

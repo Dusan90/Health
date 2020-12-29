@@ -43,7 +43,8 @@ class DetailVideoExam extends Component {
       messageIfEmpty: "",
       paginatedExams: [],
       searchedUpcomingOrPast: [],
-      exams: []
+      exams: [],
+      selectedFile: ''
 
     };
   }
@@ -277,36 +278,90 @@ class DetailVideoExam extends Component {
   };
 
   doctorExam = async ( value) => {
-    const access_token = "Bearer ".concat(this.state.token);
-    console.log(value);
-    const client = await fetch(
-      `https://healthcarebackend.xyz/api/web/doctor/${this.state.id}/`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: access_token,
-        },
-        body: JSON.stringify({
-          status: value,
-          decline_notes: this.state.declineReason,
-          report: this.state.report
-        }),
-      }
-    );
+    // const access_token = "Bearer ".concat(this.state.token);
+    // const client = await fetch(
+    //   `https://healthcarebackend.xyz/api/web/doctor/${this.state.id}/`,
+    //   {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: access_token,
+    //     },
+    //     body: JSON.stringify({
+    //       status: value,
+    //       decline_notes: this.state.declineReason,
+    //       report: this.state.report,
+    //       report_file: this.state.selectedFile
+    //     }),
+    //   }
+    // );
 
-    const jsonData = await client.json();
-    console.log(jsonData);
-    if (jsonData.success === true) {
-      if (jsonData.data.status !== "Declined" && jsonData.data.status !== "Finished") {
-        this.props.history.push("/dashboard-doctor");
-      }else{
+    // const jsonData = await client.json();
+    // console.log(jsonData);
+    // if (jsonData.success === true) {
+    //   if (jsonData.data.status !== "Declined" && jsonData.data.status !== "Finished") {
+    //     this.props.history.push("/dashboard-doctor");
+    //   }else{
     
-        NotificationManager.success("Decline reason sent", "Successful!", 2000);
-        window.location.reload()
-      }
+    //     NotificationManager.success("Decline reason sent", "Successful!", 2000);
+    //     window.location.reload()
+    //   }
+    // }
+    // return jsonData;
+
+
+
+
+
+
+
+
+
+
+
+    const access_token = "Bearer ".concat(this.state.token);
+    let form_data = new FormData();
+
+  form_data.append("status", value);
+  form_data.append("decline_notes", this.state.declineReason);
+  form_data.append("report", this.state.report);
+  form_data.append("report_file", this.state.selectedFile);
+
+  let url = `https://healthcarebackend.xyz/api/web/doctor/${this.state.id}/`;
+  
+  const data = axios.put(url, form_data, {
+    headers: {
+      'content-type': 'multipart/form-data',
+      Authorization: access_token,
     }
-    return jsonData;
+  })
+  
+  
+  const jsonData = await data;
+  console.log(jsonData)
+  if (jsonData.data.success === true) {
+    if (jsonData.data.data.status !== "Declined" && jsonData.data.data.status !== "Finished") {
+      this.props.history.push("/dashboard-doctor");
+    }else{
+  
+      NotificationManager.success("Decline reason sent", "Successful!", 2000);
+      window.location.reload()
+    }
+  }
+
+  return data;
+
+
+
+
+
+
+
+
+
+
+
+
   };
 
   UNSAFE_componentWillMount() {

@@ -251,7 +251,6 @@ const DetailVideo = ({
                       onFocus={ (e) => handleshowSave(e, exam.report)}
                       onBlur={ (e) => {e.target.value = ''}}
                       onChange={report} id="textarea"></textarea>
-                </div>
                 <div className="sendbuttonAndAtt">
 
                       <button 
@@ -267,6 +266,10 @@ const DetailVideo = ({
                                   onChange={onChangeHandler}
                                 />
                               </div>
+                    {props.selectedFile && <div style={{marginRight: '10px'}} className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
+                    {exam.report_file && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.report_file}`}} className='fileForDownload'><p>{exam.report_file.substring(exam.report_file.lastIndexOf('/') + 1)}</p></div>}
+
+                </div>
                 </div>
                 </div>
 

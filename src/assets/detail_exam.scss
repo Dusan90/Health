@@ -313,8 +313,10 @@
         display: flex;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
-        margin: 5px 0 0 0;
+        margin: 0;
         padding: 0;
+        height: 50px;
+        padding: 10px;
         button {
           color: white;
           background: #00aff0;
@@ -325,7 +327,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          margin: 40px 10px 0 0;
+          margin: 0px 10px 0 0;
           transition: all 0.5s ease-in-out;
           .replyIcon {
             font-size: 20px;
@@ -367,6 +369,29 @@
           margin-left: 0px;
           cursor: pointer;
           opacity: 0;
+        }
+        .fileForDownload {
+          display: flex;
+          border: 1.7px solid #00aff0;
+          color: #00aff0;
+          width: 100px;
+          border-radius: 5px;
+          text-align: left;
+          align-items: center;
+          justify-content: flex-start;
+          height: 30px;
+          // margin: 5px 0 0 0;
+          padding: 0 5px;
+          overflow: hidden;
+          white-space: nowrap;
+          p {
+            margin: 0;
+            width: 100px;
+            white-space: nowrap;
+          }
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
       button {
