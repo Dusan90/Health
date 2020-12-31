@@ -203,7 +203,7 @@ const VideoReq = ({
             <button className="btnn">
               <div className='attachDiv'><p>Add file</p></div>
             </button>
-            <input type="file" name="myfile" onChange={handleAttach} />
+            <input type="file" name="myfile" onChange={handleAttach} multiple />
           </div>
           {props.attachments && <div className='fileForDownload'><p>{props.attachments.name.substring(props.attachments.name.lastIndexOf('/') + 1)}</p></div>}
           </div>

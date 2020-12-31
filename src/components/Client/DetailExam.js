@@ -209,6 +209,7 @@ const Detail = ({
                                   type="file"
                                   name="myfile"
                                   onChange={onChangeHandler}
+                                  multiple
                                 />
                               </div>
           {props.selectedFile && <div className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}

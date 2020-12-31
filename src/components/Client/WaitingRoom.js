@@ -241,7 +241,7 @@ const WaitingRoom = ({
             <button className="btn">
               <div className='attachDiv'><p>Add file</p></div>
             </button>
-            <input type="file" name="myfile" onChange={handleAttach} />
+            <input type="file" name="myfile" onChange={handleAttach} multiple />
           </div>
           {props.attachment && <div className='fileForDownload'><p>{props.attachment.name.substring(props.attachment.name.lastIndexOf('/') + 1)}</p></div>}
           </div>

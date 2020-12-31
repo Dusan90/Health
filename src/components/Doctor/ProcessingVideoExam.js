@@ -206,6 +206,7 @@ const Processing = ({
                                   type="file"
                                   name="myfile"
                                   onChange={onChangeHandler}
+                                  multiple
                                 />
                               </div>
                               {props.selectedFile && <div style={{marginRight: '10px'}} className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}

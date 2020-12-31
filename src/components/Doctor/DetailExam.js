@@ -267,7 +267,7 @@ return (
                                       type="file"
                                       name="myfile"
                                       onChange={onChangeHandler}
-                                      multiple={true}
+                                      multiple
                                     />
                                   </div>
                                 

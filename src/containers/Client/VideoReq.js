@@ -271,7 +271,7 @@ console.log(e);
 
   handleAttach = (e) =>{
     const propertyValues = Object.values(e.target.files);
-
+    console.log(propertyValues);
     this.setState({attachments: propertyValues})
   }
 
