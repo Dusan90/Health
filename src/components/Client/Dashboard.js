@@ -397,6 +397,7 @@ const Dashboard = ({
           totalItemsCount={props.state.searchedUpcomingOrPast.length === 0 ? props.state.upcomingOrPast.length : props.state.searchedUpcomingOrPast.length}
           pageRangeDisplayed={10}
           onChange={handlePageChange}
+          itemClassLast={'lastPage'}
         />
       </div>}
     </div>

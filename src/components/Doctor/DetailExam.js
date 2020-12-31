@@ -267,10 +267,11 @@ return (
                                       type="file"
                                       name="myfile"
                                       onChange={onChangeHandler}
+                                      multiple={true}
                                     />
                                   </div>
                                 
-          {props.selectedFile && <div className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
+          {/* {props.selectedFile && <div className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>} */}
 
                                 </div>
                               </div>
@@ -491,6 +492,7 @@ return (
           totalItemsCount={props.searchedUpcomingOrPast.length === 0 ? props.exams.length : props.searchedUpcomingOrPast.length}
           pageRangeDisplayed={10}
           onChange={handlePageChange}
+          itemClassLast={'lastPage'}
         />
       </div>}
 

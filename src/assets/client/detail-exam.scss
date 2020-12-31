@@ -56,7 +56,7 @@
       color: #666666;
       border: none;
       span {
-        font-weight: bold;
+        font-weight: 900;
       }
     }
 
@@ -239,7 +239,7 @@
         }
       }
       .messageDiv {
-        min-height: 150px;
+        min-height: 160px;
         background: white;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
@@ -247,7 +247,7 @@
 
         textarea {
           width: 100%;
-          height: 100% !important;
+          min-height: 100px !important;
           // padding: 10px;
           // text-indent: 5px;
           background: white !important;
@@ -279,6 +279,48 @@
 
           &::-webkit-scrollbar-thumb:hover {
             background: #db8246;
+          }
+        }
+        .mainFileDiv {
+          border-top: 1px solid #f2f2f2;
+          height: 30px;
+          display: flex;
+          .FileDiv {
+            height: 40px;
+            p {
+              border: 1.7px solid #00aff0;
+              color: #00aff0;
+              font-weight: bold;
+              width: 50px;
+              height: 25px;
+              border-radius: 5px;
+              text-align: center;
+              align-items: center;
+              margin: 5px 10px 0 0;
+            }
+          }
+          .fileForDownload {
+            display: flex;
+            border: 1.7px solid #00aff0;
+            color: #00aff0;
+            width: 100px;
+            border-radius: 5px;
+            text-align: left;
+            align-items: center;
+            justify-content: flex-start;
+            height: 25px;
+            margin: 5px 0 0 0;
+            padding: 0 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            p {
+              margin: 0;
+              width: 100px;
+              white-space: nowrap;
+            }
+            &:hover {
+              cursor: pointer;
+            }
           }
         }
       }
@@ -372,7 +414,7 @@
             color: white;
             border: none;
             span {
-              font-weight: bold;
+              font-weight: 900;
             }
           }
           .senderMaiin {
@@ -388,7 +430,7 @@
               text-indent: 10px;
               flex: 3;
               span {
-                font-weight: bold;
+                font-weight: 900;
               }
             }
             .createdP {
@@ -452,7 +494,7 @@
               }
             }
             .mainFileDiv {
-              border-top: 1px solid #666666;
+              border-top: 1px solid #f2f2f2;
               height: 30px;
               display: flex;
               .FileDiv {
@@ -684,7 +726,7 @@
           .senderP {
             margin-top: 5px;
             span {
-              font-weight: bold;
+              font-weight: 900;
             }
           }
           .createdP {

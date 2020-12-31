@@ -1,5 +1,6 @@
 .mainDoctorDiv {
-  width: calc(100% - 480px);
+  // width: calc(100% - 480px);
+  width: 780px;
   height: 520px;
   margin: 110px 0 20px 360px;
   background: #f3f3f3;
@@ -41,19 +42,19 @@
         display: flex;
         margin: 0 5px 5px 0;
         .info {
-          padding: 20px;
+          padding: 20px 20px 20px 0;
           p {
             text-align: start;
             font-size: 14px;
             span {
-              font-weight: bold;
+              font-weight: 900;
             }
           }
         }
         img {
           width: 110px;
           height: 110px;
-          margin: 20px;
+          margin: 20px 5px 20px 20px;
           border-radius: 10px;
           object-fit: cover;
         }
@@ -74,7 +75,7 @@
               text-align: left;
 
               span {
-                font-weight: 700;
+                font-weight: 900;
               }
             }
             button {
@@ -104,7 +105,7 @@
         margin: 5px 5px 0 0;
         height: 220px;
         .pForBio {
-          font-weight: 700;
+          font-weight: 900;
           text-align: left;
           padding: 20px 20px 0 20px;
         }
@@ -157,7 +158,7 @@
             text-align: left;
             margin-bottom: 7px;
             span {
-              font-weight: bold;
+              font-weight: 900;
             }
           }
         }

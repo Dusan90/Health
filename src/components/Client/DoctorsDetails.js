@@ -38,7 +38,7 @@ function DoctorsDetails({handleClient, doctor, handleSort, props, main}) {
             </div>
                 <div className='pricesAndDoing'>
                 <div className="priceInfo">
-                  <p style={{fontWeight: 'bold', textAlign: 'start' }}>Services</p>
+                  <p style={{fontWeight: '900', textAlign: 'start' }}>Services</p>
                   <div>
                   <p><span>Email consultation: </span>{doctor.email_exam_price} {doctor.email_currency}</p>
                   {doctor.email_exam_status === 'True' && <button onClick={() => {main.props.history.push({pathname: '/initiate', state: { doctorId: doctor.id }})}}>Start</button>}

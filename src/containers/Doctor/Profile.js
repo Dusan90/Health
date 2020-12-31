@@ -131,8 +131,8 @@ class DoctorProfile extends Component {
       console.log(jsonData, "profile changed");
       if(jsonData.data.success){
         NotificationManager.success("Profile Updated!", "Successful!", 2000);
-        // this.handleDoctorProfile();
-        window.location.reload()
+        this.handleDoctorProfile();
+        // window.location.reload()
       }
 
     }

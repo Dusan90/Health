@@ -532,6 +532,7 @@ const Processing = ({
           totalItemsCount={props.searchedUpcomingOrPast.length === 0 ? props.exams.length : props.searchedUpcomingOrPast.length}
           pageRangeDisplayed={10}
           onChange={handlePageChange}
+          itemClassLast={'lastPage'}
         />
       </div>}
 

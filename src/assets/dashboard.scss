@@ -485,8 +485,8 @@
           }
           .client-date {
             // text-align: left;
-            width: 150px;
-            padding: 0 0 0 50px;
+            width: 160px;
+            padding: 0 0 0 40px;
 
             // text-align: center;
             display: flex;
@@ -693,13 +693,17 @@
     margin: 20px auto;
     justify-content: center;
     width: 100%;
-
     ul {
+      margin: 20px auto;
       li {
+        border: none;
         a {
           color: #00aff0;
-          border: 1px solid #00aff0;
+          border: none;
         }
+      }
+      .lastPage {
+        display: none;
       }
       .active {
         a {

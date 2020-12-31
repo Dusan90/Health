@@ -107,6 +107,22 @@ const Detail = ({
                   <textarea defaultValue={exam.message} id='messageMainText' readOnly>
                      
                   </textarea>
+                  {exam.attachment ? (
+                             <div className='mainFileDiv'>
+                             <div className='FileDiv'><p>Files</p></div>
+                             {exam.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.attachments}`}} className='fileForDownload'><p>{exam.attachment.substring(exam.attachment.lastIndexOf('/') + 1)}</p></div>}
+                           </div>
+                          ) : null}
+                </div>
+                <div className='reportIfDeclined' style={{display: exam.status === 'Declined' ? 'block' : 'none'}}>
+                <div className="subjectDiv">
+                  <p>
+                    <span>Decline reason:</span>
+                  </p>
+                </div>
+                <div className="messageDivReport"  >
+                      <textarea name="text" disabled={ exam.status === 'Declined' && true} placeholder={exam.decline_notes ? exam.decline_notes : 'text'}  id="textarea"></textarea>
+                </div>
                 </div>
               </div>
               <div

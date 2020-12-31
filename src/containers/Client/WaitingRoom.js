@@ -799,8 +799,10 @@ class ClientWaitingRoom extends Component {
   }
 
   handleAttach = (e) =>{
-    console.log(e.target.files);
-    this.setState({attachment: e.target.files[0]})
+   
+    const propertyValues = Object.values(e.target.files);
+
+    this.setState({attachment: propertyValues})
   }
 
   render() {

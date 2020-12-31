@@ -91,8 +91,10 @@ class DetailExam extends Component {
   };
 
   onChangeHandler = (e) => {
+    const propertyValues = Object.values(e.target.files);
+    console.log(propertyValues);
     this.setState({
-      selectedFile: e.target.files[0],
+      selectedFile: propertyValues,
     });
   };
 

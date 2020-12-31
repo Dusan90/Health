@@ -283,11 +283,11 @@ class DoctorDashboard extends Component {
   };
 
   handleWaitingRoom = (id) => {
-    if (this.state.waitingRoom[0].id === id) {
+    // if (this.state.waitingRoom[0].id === id) {
       this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
-    } else {
-      NotificationManager.error(`Client is not next in line`, "Failed!", 3000);
-    }
+    // } else {
+    //   NotificationManager.error(`Client is not next in line`, "Failed!", 3000);
+    // }
   };
 
   hnlClick = () => {
@@ -333,7 +333,7 @@ class DoctorDashboard extends Component {
         console.log(response);
         response.data.data.queue.forEach((e) => {
           if (
-            e.created !== moment(new Date()).format("YYYY-MM-DD") &&
+            moment(e.created).format("YYYY-MM-DD") !== moment(new Date()).format("YYYY-MM-DD") &&
             e.status === "In the queue"
           ) {
             this.changeStatusOfPastExams(e.id);
@@ -369,6 +369,9 @@ class DoctorDashboard extends Component {
         },
         body: JSON.stringify({
           status: "Decline",
+          decline_notes: '',
+          report: '',
+          report_file: null
         }),
       }
     );

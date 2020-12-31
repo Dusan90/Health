@@ -255,8 +255,8 @@ const Profile = ({
                <div className='emailVisit'>
                 <label htmlFor="EmailVisit">Email consultation</label>
                 <input type="number"
-                    onFocus={ (e) => {e.target.value = doctor.email_exam_price}}
-                    onBlur={ (e) => {e.target.value = ''}}
+                    // onFocus={ (e) => {e.target.value = doctor.email_exam_price}}
+                    // onBlur={ (e) => {e.target.value = ''}}
                     disabled={props.EmailVisitChecked !== 'True' && true}
                 onChange={handleChange} id='EmailVisit' value={props.EmailVisit} placeholder={doctor.email_exam_price}/>
                 <Select
@@ -277,8 +277,8 @@ const Profile = ({
                <div className='videoVisit'>
                 <label htmlFor="videoVisit">Video consultation</label>
                 <input type="number"
-                onFocus={ (e) => {e.target.value = doctor.web_exam_price}}
-                onBlur={ (e) => {e.target.value = ''}}
+                // onFocus={ (e) => {e.target.value = doctor.web_exam_price}}
+                // onBlur={ (e) => {e.target.value = ''}}
                 disabled={props.VideoVisitChecked !== 'True' && true}
                 onChange={handleChange} id='VideoVisit' value={props.VideoVisit} placeholder={doctor.web_exam_price}/>
                 <Select
@@ -300,8 +300,8 @@ const Profile = ({
                <div className='videoFollowUp'>
                 <label htmlFor="videoFollowUp">Video follow up</label>
                 <input type="number"
-                   onFocus={ (e) => {e.target.value = doctor.web_exam_follow_price}}
-                   onBlur={ (e) => {e.target.value = ''}}
+                  //  onFocus={ (e) => {e.target.value = doctor.web_exam_follow_price}}
+                  //  onBlur={ (e) => {e.target.value = ''}}
                    disabled={props.VideoVisitFollowUp !== 'True' && true}
                    
                 onChange={handleChange} id='VideoFollowUp' value={props.VideoFollowUp} placeholder={doctor.web_exam_follow_price}/>
@@ -324,8 +324,8 @@ const Profile = ({
               <div className='WaitingRoomVisit'>
                 <label htmlFor="WaitingRoomVisit">Waiting room</label>
                 <input type="number"
-                   onFocus={ (e) => {e.target.value = doctor.waiting_room_price}}
-                   onBlur={ (e) => {e.target.value = ''}}
+                  //  onFocus={ (e) => {e.target.value = doctor.waiting_room_price}}
+                  //  onBlur={ (e) => {e.target.value = ''}}
                    disabled={props.WaitingRoomVisit !== 'True' && true}
                 onChange={handleChange} id='WaitingRoom' value={props.WaitingRoom} placeholder={doctor.waiting_room_price}
                 />

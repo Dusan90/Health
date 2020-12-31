@@ -49,7 +49,7 @@
       color: #666666;
       border: none;
       span {
-        font-weight: bold;
+        font-weight: 900;
       }
     }
 
@@ -156,7 +156,7 @@
         }
       }
       .mainFileDiv {
-        border-top: 1px solid #666666;
+        border-top: 1px solid #f2f2f2;
         height: 30px;
         display: flex;
         .FileDiv {
@@ -198,7 +198,7 @@
         }
       }
       .mainFileDiv {
-        border-top: 1px solid #666666;
+        border-top: 1px solid #f2f2f2;
         height: 30px;
         display: flex;
         .FileDiv {
@@ -400,7 +400,7 @@
         border: none;
         border-radius: 5px;
         padding: 5px 10px;
-        font-weight: 600;
+        font-weight: bold;
         margin: 20px auto 0px 0;
       }
     }
@@ -478,7 +478,7 @@
           }
         }
         .mainFileDiv {
-          border-top: 1px solid #666666;
+          border-top: 1px solid #f2f2f2;
           height: 30px;
           display: flex;
           .FileDiv {
@@ -594,7 +594,7 @@
           height: 30px;
           border-radius: 5px;
           padding: 5px 10px;
-          font-weight: 600;
+          font-weight: bold;
           margin: 45px auto 0px 0;
         }
       }
@@ -629,7 +629,7 @@
               flex: 3;
               text-indent: 10px;
               span {
-                font-weight: bold;
+                font-weight: 900;
               }
             }
             .createdP {
@@ -691,7 +691,7 @@
               }
             }
             .mainFileDiv {
-              border-top: 1px solid #666666;
+              border-top: 1px solid #f2f2f2;
               height: 30px;
               display: flex;
               .FileDiv {
@@ -928,7 +928,7 @@
           .senderP {
             margin-top: 5px;
             span {
-              font-weight: bold;
+              font-weight: 900;
             }
           }
           .createdP {
@@ -1106,7 +1106,8 @@
 
 .mainClien {
   display: flex;
-  width: calc(100% - 480px) !important;
+  // width: calc(100% - 480px) !important;
+  width: 780px;
   margin: 110px 120px 40px 360px;
   background: #f2f2f2;
   padding: 30px 30px 30px 0 !important;
@@ -1133,7 +1134,8 @@
   }
 
   .client {
-    width: 50%;
+    // width: 50%;
+    width: 360px;
     padding: 20px 20px 20px 20px;
     border: 1.7px solid #fa9551;
     border-radius: 15px;
@@ -1160,7 +1162,7 @@
         text-align: left;
         margin: 0 0 15px 0;
         span {
-          font-weight: 700;
+          font-weight: 900;
         }
       }
     }
@@ -1171,7 +1173,8 @@
     padding: 0px !important;
     margin: 0 0 0 5px;
     height: 300px;
-    width: 50%;
+    // width: 50%;
+    width: 360px;
     color: #666666;
 
     .conditionss {
@@ -1181,7 +1184,7 @@
       height: 140px;
       border: 1.7px solid #fa9551;
       border-radius: 15px;
-      font-weight: 700;
+      font-weight: 900;
       color: #666666;
       margin: 0 0 20px 0;
       padding: 10px;
@@ -1223,7 +1226,7 @@
       display: flex;
       flex-direction: column;
       text-align: start;
-      font-weight: 700;
+      font-weight: 900;
       border: 1.7px solid #fa9551;
       border-radius: 15px;
       height: 140px;
@@ -1274,7 +1277,8 @@
   border-radius: 15px;
   overflow: hidden;
 
-  width: calc(100% - 480px) !important;
+  // width: calc(100% - 480px) !important;
+  width: 780px;
   margin: 20px 120px 0px 360px;
   background: #f2f2f2;
 
@@ -1473,36 +1477,61 @@
 
 .pagi {
   display: flex;
-  width: calc(100% - 480px);
+  // width: calc(100% - 480px);
+  width: 780px;
   margin: 20px auto 0px 360px;
   justify-content: center;
-  .left {
-    width: 30px;
-    height: 30px;
-    margin: 10px;
-    transition: all 0.5s ease-in-out;
-    &:hover {
-      cursor: pointer;
-    }
-    .iconLeft {
-      font-size: 20px;
-      margin: 4px 0 0 0;
-      color: #4092c2;
-    }
-  }
 
-  .right {
-    width: 30px;
-    height: 30px;
-    margin: 10px;
-    transition: all 0.5s ease-in-out;
-    &:hover {
-      cursor: pointer;
+  ul {
+    margin: 20px auto;
+    li {
+      a {
+        color: #00aff0;
+        border: none;
+      }
     }
-    .iconRight {
-      font-size: 20px;
-      margin: 4px 0 0 0;
-      color: #4092c2;
+    .lastPage {
+      display: none;
+    }
+    .active {
+      a {
+        background: #00aff0;
+        color: white;
+      }
+    }
+    .disabled {
+      a {
+        color: #00aff0;
+      }
     }
   }
+  // .left {
+  //   width: 30px;
+  //   height: 30px;
+  //   margin: 10px;
+  //   transition: all 0.5s ease-in-out;
+  //   &:hover {
+  //     cursor: pointer;
+  //   }
+  //   .iconLeft {
+  //     font-size: 20px;
+  //     margin: 4px 0 0 0;
+  //     color: #4092c2;
+  //   }
+  // }
+
+  // .right {
+  //   width: 30px;
+  //   height: 30px;
+  //   margin: 10px;
+  //   transition: all 0.5s ease-in-out;
+  //   &:hover {
+  //     cursor: pointer;
+  //   }
+  //   .iconRight {
+  //     font-size: 20px;
+  //     margin: 4px 0 0 0;
+  //     color: #4092c2;
+  //   }
+  // }
 }

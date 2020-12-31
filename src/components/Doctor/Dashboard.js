@@ -100,7 +100,7 @@ const Dashboard = ({
                     }).format(
                       Date(shorty.estimated_start / (1000 * 60 * 60 * 24))
                     )} */}
-                    {moment(shorty.created).format("MM/DD/YY")} 
+                    {moment(shorty.created).add(1, 'hours').format("MM/DD/YY HH:mm")} 
                   </div>
                 );
               })
@@ -160,7 +160,7 @@ const Dashboard = ({
                     onClick={() => handleClickMail(shorty.id)}
                   >
                     {shorty.client},{" "}
-                    {moment(shorty.created).add('hour', 1).format("MM/DD/YY HH:mm")}
+                    {moment(shorty.created).add(1, 'hours').format("MM/DD/YY HH:mm")}
                   </div>
                 );
               })
@@ -303,7 +303,7 @@ const Dashboard = ({
                       <td className="client-subject">{exam.exam_type}</td>
                       <td className="created">
                         {exam.created && !exam.appointed_date ? (
-                          <p> {moment(exam.created).format("MM/DD/YY")}</p>
+                          <p> {moment(exam.created).add(1, 'hours').format("MM/DD/YY HH:mm")}</p>
                         ) : exam.appointed_date ? (
                           <p>
                             {" "}
@@ -364,6 +364,7 @@ const Dashboard = ({
           totalItemsCount={props.state.searchedUpcomingOrPast.length === 0 ? props.state.upcomingOrPast.length : props.state.searchedUpcomingOrPast.length}
           pageRangeDisplayed={10}
           onChange={handlePageChange}
+          itemClassLast={'lastPage'}
         />
       </div>}
       {/* <div
