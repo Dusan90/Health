@@ -110,7 +110,7 @@ const Processing = ({
                 </p>
                 <p>
       <span>Created: {" "}</span> 
-                      {moment(exam.exam.appointed_date).format("MM/DD/YY ")}
+                      {moment(exam.exam.created).add(1, 'hours').format("MM/DD/YY HH:mm")}
 
         
                 </p>

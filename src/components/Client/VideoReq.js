@@ -227,12 +227,13 @@ const VideoReq = ({
             showTimeSelect
             excludeOutOfBoundsTimes
             minDate={new Date()}
-            timeFormat="hh:mm aa"
+            // timeFormat="hh:mm aa"
+            timeFormat="HH:mm"
             timeIntervals={30}
             timeCaption="time"
             fixedHeight
             minTime={props.startTime ? moment(new Date()).set("hour", startTimeHour).set("minute", startTimeMinute)._d : moment(new Date()).set("hour", 8).set("minute", 0)._d}
-            maxTime={props.endTime? moment(new Date()).set("hour", endTimeHour).set("minute", endTimeMinute).subtract('minute', 30)._d : moment(new Date()).set("hour", 15).set("minute", 30)._d}
+            maxTime={props.endTime? moment(new Date()).set("hour", endTimeHour).set("minute", endTimeMinute).subtract(30, 'minute')._d : moment(new Date()).set("hour", 15).set("minute", 30)._d}
           />
            <p style={{display: props.color && !props.reservedDate ? 'block' : "none"}}
            >Please select Time and Date</p>

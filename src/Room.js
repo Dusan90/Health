@@ -33,14 +33,13 @@ if (handlerName) {
 
 const Container = styled.div`
   padding: 5px 15px;
-  margin: 80px auto 20px auto;
+  margin: 110px auto 20px 360px;
   border-radius: 15px;
   display: flex;
   height: 550px;
-  width: 85%;
+  width: calc(100% - 480px);
   flex-wrap: wrap;
-  background: #f2f2f2;
-  border-top-left-radius: 0px
+  background: #f2f2f2
 `;
 
 const StyledVideo = styled.video`
@@ -171,7 +170,7 @@ const Room = (props) => {
   </div>
   <HamburgerDiv />
     <Container>
-      <div style={{position: 'absolute'}} className='topBarDiv'>Video Consultation Room</div>
+      <div className='topBarDiv'><h4>Video Consultation Room</h4></div>
       <div
         style={{
           position: "relative",

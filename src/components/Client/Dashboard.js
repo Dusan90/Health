@@ -226,7 +226,7 @@ const Dashboard = ({
                       <td className="client-subject">{exam.exam_type}</td>
                       <td className="created">
                         {exam.created && !exam.appointed_date ? (
-                          <p> {moment(exam.created).format("MM/DD/YY")}</p>
+                          <p> {moment(exam.created).format("MM/DD/YY HH:mm")}</p>
                         ) : exam.appointed_date ? (
                           <p>
                             {" "}

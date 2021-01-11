@@ -56,7 +56,8 @@ class ClientWaitingRoom extends Component {
       connection: "",
       doctorStartedVideo: false,
       // showExtendScreen: false,
-      messageIfFinished: ''
+      messageIfFinished: '',
+      waitingRoomExamStatus: true
     };
   }
 
@@ -103,6 +104,10 @@ class ClientWaitingRoom extends Component {
 
   handleDoctor = (e) => {
     console.log(e);
+    if(e.waiting_room_status !== "True"){
+      this.setState({waitingRoomExamStatus: false});
+      NotificationManager.error("This Doctor doesn't provide this services", "Warning", 2000) 
+    }
     if (e.status === "Away") {
       NotificationManager.warning(
         `Doctor is Away at the moment and not available for consultation.`,
@@ -217,82 +222,85 @@ class ClientWaitingRoom extends Component {
   };
 
   handleSubmit = async (e) => {
-    const access_token = "Bearer ".concat(this.state.token);
     this.setState({color: 'red'})
-    if (
-      this.state.specialSP &&
-      this.state.doctor_id &&
-      this.state.notes &&
-      this.state.subject &&
-      this.state.doctorsStatus === "Available"
-    ) {
-      this.setState({ isClicked: true });
-      let form_data = new FormData();
-  form_data.append("client", this.state.client_id);
-  form_data.append("speciality", this.state.specialSP);
-  form_data.append("doctor", this.state.doctor_id);
-  form_data.append("subject", this.state.subject);
-  form_data.append("attachments", this.state.attachment);
-  form_data.append("notes", this.state.notes);
-
+    if(this.state.waitingRoomExamStatus){
+      if (
+        this.state.specialSP &&
+        this.state.doctor_id &&
+        this.state.notes &&
+        this.state.subject &&
+        this.state.doctorsStatus === "Available"
+      ) {
+        this.setState({ isClicked: true });
+        let form_data = new FormData();
+    form_data.append("client", this.state.client_id);
+    form_data.append("speciality", this.state.specialSP);
+    form_data.append("doctor", this.state.doctor_id);
+    form_data.append("subject", this.state.subject);
+    form_data.append("attachments", this.state.attachment);
+    form_data.append("notes", this.state.notes);
   
-  const access_token = "Bearer ".concat(this.state.token);
-  let url = 'https://healthcarebackend.xyz/api/queue/enter/';
+    
+    const access_token = "Bearer ".concat(this.state.token);
+    let url = 'https://healthcarebackend.xyz/api/queue/enter/';
+    
+    const data = axios.post(url, form_data, {
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: access_token,
+      }
+    })
+    
+    
+    const jsonData = await data;
   
-  const data = axios.post(url, form_data, {
-    headers: {
-      'content-type': 'multipart/form-data',
-      Authorization: access_token,
-    }
-  })
+    // this.setState({ price: jsonData.data.price });
+    this.hanldeClientQueue(this.state.client_id);
+    this.toCheckout();
+  
+    return data;
   
   
-  const jsonData = await data;
-
-  // this.setState({ price: jsonData.data.price });
-  this.hanldeClientQueue(this.state.client_id);
-  this.toCheckout();
-
-  return data;
-
-
-      // this.setState({ isClicked: true });
-      // const response = await fetch(
-      //   "https://healthcarebackend.xyz/api/queue/enter/",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Authorization: access_token,
-      //     },
-      //     body: JSON.stringify({
-      //       client: this.state.client_id,
-      //       speciality: this.state.specialSP,
-      //       doctor: this.state.doctor_id,
-      //       subject: this.state.subject,
-      //       attachments: this.state.attachment,
-      //       notes: this.state.notes,
-      //     }),
-      //   }
-      // );
-      // const data = await response.json();
-
-      // this.setState({ price: data.data.price });
-      // this.hanldeClientQueue(this.state.client_id);
-      // this.toCheckout();
-
-      // return data;
-    } else if (
-      this.state.doctorsStatus &&
-      this.state.doctorsStatus !== "Available"
-    ) {
-      NotificationManager.error(
-        `Doctor is not Available at the moment`,
-        "Failed!",
-        4000
-      );
-    } else {
-      NotificationManager.error("Empty Fields", "Failed!", 2000);
+        // this.setState({ isClicked: true });
+        // const response = await fetch(
+        //   "https://healthcarebackend.xyz/api/queue/enter/",
+        //   {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //       Authorization: access_token,
+        //     },
+        //     body: JSON.stringify({
+        //       client: this.state.client_id,
+        //       speciality: this.state.specialSP,
+        //       doctor: this.state.doctor_id,
+        //       subject: this.state.subject,
+        //       attachments: this.state.attachment,
+        //       notes: this.state.notes,
+        //     }),
+        //   }
+        // );
+        // const data = await response.json();
+  
+        // this.setState({ price: data.data.price });
+        // this.hanldeClientQueue(this.state.client_id);
+        // this.toCheckout();
+  
+        // return data;
+      } else if (
+        this.state.doctorsStatus &&
+        this.state.doctorsStatus !== "Available"
+      ) {
+        NotificationManager.error(
+          `Doctor is not Available at the moment`,
+          "Failed!",
+          4000
+        );
+      } else {
+        NotificationManager.error("Empty Fields", "Failed!", 2000);
+      }
+    }else{
+      NotificationManager.error("This Doctor doesn't provide this services", "Warning", 2000) 
     }
   };
 
@@ -490,6 +498,7 @@ class ClientWaitingRoom extends Component {
             price: val.web_exam_follow_price,
             currency: val.web_follow_up_currency,
             status: val.status,
+            waiting_room_status: val.waiting_room_status
           };
         });
         this.setState({ doctors: res });
@@ -504,6 +513,7 @@ class ClientWaitingRoom extends Component {
                   price: doctor.web_exam_follow_price,
                   currency: doctor.web_follow_up_currency,
                   status: doctor.status,
+                  waiting_room_status: doctor.waiting_room_status
                 }
                 this.handleDoctor(test)
               }

@@ -432,6 +432,7 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response, 'messages');
         const unreadMessages = response.data.data.filter((ex) => {
           if (ex.messages.length !== 0) {
             // const sortedActivities = ex.messages.sort((a, b) => a.created - b.created)

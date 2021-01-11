@@ -36,7 +36,8 @@ class ClientVideoReq extends Component {
       doctorsExams: [],
       excludeTime: [],
       currency: null,
-      color: ''
+      color: '',
+      webExamStatus: true
     };
   }
 
@@ -70,6 +71,10 @@ class ClientVideoReq extends Component {
 
   handleDoctor = (e) => {
     console.log(e);
+    if(e.web_exam_status !== "True"){
+      this.setState({webExamStatus: false});
+      NotificationManager.error("This Doctor doesn't provide this services", "Warning", 2000) 
+    }
     this.props.dispatch(doctor(e));
     let startTime = e.startTime ? e.startTime.slice(0, -3) : ""
     let endTime = e.endTime ? e.endTime.slice(0, -3) : ""
@@ -115,82 +120,85 @@ console.log(e);
   };
 
   handleSubmit = async (e) => {
-    const access_token = "Bearer ".concat(this.state.token);
     this.setState({color: 'red'})
-    if (
-      this.state.specialSP &&
-      this.state.doctor_id &&
-      this.state.subject &&
-      this.state.notes &&
-      this.state.reservedDate
-    ) {
-      this.setState({ isClicked: true });
-      let form_data = new FormData();
-      form_data.append("client", this.state.clientId);
-      form_data.append("speciality", this.state.specialSP);
-      form_data.append("doctor", this.state.doctor_id);
-      form_data.append("subject", this.state.subject);
-      form_data.append("attachments", this.state.attachments);
-      form_data.append("appointed_date", this.state.reservedDate);
-      form_data.append("notes", this.state.notes);
-      form_data.append("price", '');
-
-    
+    if(this.state.webExamStatus){
+      if (
+        this.state.specialSP &&
+        this.state.doctor_id &&
+        this.state.subject &&
+        this.state.notes &&
+        this.state.reservedDate
+      ) {
+        this.setState({ isClicked: true });
+        let form_data = new FormData();
+        form_data.append("client", this.state.clientId);
+        form_data.append("speciality", this.state.specialSP);
+        form_data.append("doctor", this.state.doctor_id);
+        form_data.append("subject", this.state.subject);
+        form_data.append("attachments", this.state.attachments);
+        form_data.append("appointed_date", this.state.reservedDate);
+        form_data.append("notes", this.state.notes);
+        form_data.append("price", '');
+  
       
-      const access_token = "Bearer ".concat(this.state.token);
-      let url = 'https://healthcarebackend.xyz/api/web/client/initiate/';
-      
-      const data = axios.post(url, form_data, {
-        headers: {
-          'content-type': 'multipart/form-data',
-          Authorization: access_token,
+        
+        const access_token = "Bearer ".concat(this.state.token);
+        let url = 'https://healthcarebackend.xyz/api/web/client/initiate/';
+        
+        const data = axios.post(url, form_data, {
+          headers: {
+            'content-type': 'multipart/form-data',
+            Authorization: access_token,
+          }
+        })
+        
+        
+        const jsonData = await data;
+        console.log(jsonData);
+        if(jsonData.data.success){
+          // this.setState({ doctorsPrice: jsonData.data.price });
+          this.toCheckout();
         }
-      })
       
-      
-      const jsonData = await data;
-      console.log(jsonData);
-      if(jsonData.data.success){
-        // this.setState({ doctorsPrice: jsonData.data.price });
-        this.toCheckout();
+        return data;
+        // const response = await fetch(
+        //   "https://healthcarebackend.xyz/api/web/client/initiate/",
+        //   {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+  
+        //       Authorization: access_token,
+        //     },
+        //     body: JSON.stringify({
+        //       client: this.state.clientId,
+        //       speciality: this.state.specialSP,
+        //       doctor: this.state.doctor_id,
+        //       subject: this.state.subject,
+        //       notes: this.state.notes,
+        //       appointed_date: this.state.reservedDate,
+        //       price: "",
+        //       attachments: this.state.attachments,
+        //     }),
+        //   }
+        // );
+        // const data = await response.json();
+        // if (data.success) {
+        //   this.setState({ doctorsPrice: data.data.price });
+        //   this.toCheckout();
+        // }
+        // console.log(data, "post video requesttttt");
+  
+        // return data;
+      } else {
+        NotificationManager.error(
+          "Empty Fielde Or You Did Not Set Time And Date",
+          "Failed!",
+          4000
+        );
       }
-    
-      return data;
-      // const response = await fetch(
-      //   "https://healthcarebackend.xyz/api/web/client/initiate/",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-
-      //       Authorization: access_token,
-      //     },
-      //     body: JSON.stringify({
-      //       client: this.state.clientId,
-      //       speciality: this.state.specialSP,
-      //       doctor: this.state.doctor_id,
-      //       subject: this.state.subject,
-      //       notes: this.state.notes,
-      //       appointed_date: this.state.reservedDate,
-      //       price: "",
-      //       attachments: this.state.attachments,
-      //     }),
-      //   }
-      // );
-      // const data = await response.json();
-      // if (data.success) {
-      //   this.setState({ doctorsPrice: data.data.price });
-      //   this.toCheckout();
-      // }
-      // console.log(data, "post video requesttttt");
-
-      // return data;
-    } else {
-      NotificationManager.error(
-        "Empty Fielde Or You Did Not Set Time And Date",
-        "Failed!",
-        4000
-      );
+    }else{
+      NotificationManager.error("This Doctor doesn't provide this services", "Warning", 2000) 
     }
   };
 
@@ -245,7 +253,8 @@ console.log(e);
             price: val.web_exam_price,
             currency: val.web_currency,
             startTime: val.start_hour,
-            endTime: val.end_hour
+            endTime: val.end_hour,
+            web_exam_status: val.web_exam_status
           };
         });
         this.setState({ doctors: res });
@@ -260,7 +269,8 @@ console.log(e);
                 price: doctor.web_exam_price,
                 currency: doctor.web_currency,
                 startTime: doctor.start_hour,
-                endTime: doctor.end_hour
+                endTime: doctor.end_hour,
+                web_exam_status: doctor.web_exam_status
               }
               this.handleDoctor(test)
             }

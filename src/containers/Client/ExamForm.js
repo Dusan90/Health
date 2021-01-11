@@ -28,7 +28,9 @@ class ExamForm extends Component {
       resetDoctorSelect: null,
       attach: '',
       currency: null,
-      color: ''
+      color: '',
+      emailExamStatus: true,
+      transaction_id: ''
       // isClicked: false
     };
   }
@@ -53,6 +55,10 @@ class ExamForm extends Component {
 
   handleDoctor = (e) => {
     console.log(e);
+    if(e.email_exam_status !== "True"){
+      this.setState({emailExamStatus: false});
+      NotificationManager.error("This Doctor doesn't provide this services", "Warning", 2000) 
+    }
     const docsSpec = this.state.specialities.filter((spec) => {return spec.label === e.spec})
     this.props.dispatch(doctor(e));
     this.setState({ doctor_id: e.iD, price: e.price, currency: e.currency });
@@ -74,65 +80,69 @@ class ExamForm extends Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     this.setState({color: 'red'})
-    const access_token = "Bearer ".concat(this.state.token);
-    if (
-      this.state.specialSP &&
-      this.state.doctor_id &&
-      this.state.subject &&
-      this.state.message
-    ) {
-      let form_data = new FormData();
-      form_data.append("speciality", this.state.specialSP);
-      form_data.append("doctor", this.state.doctor_id);
-      form_data.append("subject", this.state.subject);
-      form_data.append("attachment", this.state.attach);
-      form_data.append("message", this.state.message);
-
-
-      const access_token = "Bearer ".concat(this.state.token);
-      let url = 'https://healthcarebackend.xyz/api/client/initiate/';
-      
-      const data = axios.post(url, form_data, {
-        headers: {
-          'content-type': 'multipart/form-data',
-          Authorization: access_token,
+    if(this.state.emailExamStatus){
+      if (
+        this.state.specialSP &&
+        this.state.doctor_id &&
+        this.state.subject &&
+        this.state.message 
+      ) {
+        let form_data = new FormData();
+        form_data.append("speciality", this.state.specialSP);
+        form_data.append("doctor", this.state.doctor_id);
+        form_data.append("subject", this.state.subject);
+        form_data.append("attachment", this.state.attach);
+        form_data.append("message", this.state.message);
+  
+  
+        const access_token = "Bearer ".concat(this.state.token);
+        let url = 'https://healthcarebackend.xyz/api/client/initiate/';
+        
+        const data = axios.post(url, form_data, {
+          headers: {
+            'content-type': 'multipart/form-data',
+            Authorization: access_token,
+          }
+        })
+        
+        
+        const jsonData = await data;
+        console.log(jsonData);
+        this.setState({transaction_id: jsonData.data.data.transaction})
+        if(jsonData.data.success){
+          this.toCheckout();
         }
-      })
       
-      
-      const jsonData = await data;
-      console.log(jsonData);
-      if(jsonData.data.success){
-        this.toCheckout();
+        return data;
+        // this.setState({ isClicked: true });
+        // const response = await fetch(
+        //   "https://healthcarebackend.xyz/api/client/initiate/",
+        //   {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //       Authorization: access_token,
+        //     },
+        //     body: JSON.stringify({
+        //       speciality: this.state.specialSP,
+        //       doctor: this.state.doctor_id,
+        //       subject: this.state.subject,
+        //       message: this.state.message,
+        //       attachments: this.state.attach
+        //     }),
+        //   }
+        // );
+        // const data = await response.json();
+        // if (data.success) {
+        //   this.toCheckout();
+        // }
+        // console.log(data, "data examform");
+        // return data;
+      } else {
+        NotificationManager.error("Empty Fields", "Failed!", 2000);
       }
-    
-      return data;
-      // this.setState({ isClicked: true });
-      // const response = await fetch(
-      //   "https://healthcarebackend.xyz/api/client/initiate/",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //       Authorization: access_token,
-      //     },
-      //     body: JSON.stringify({
-      //       speciality: this.state.specialSP,
-      //       doctor: this.state.doctor_id,
-      //       subject: this.state.subject,
-      //       message: this.state.message,
-      //       attachments: this.state.attach
-      //     }),
-      //   }
-      // );
-      // const data = await response.json();
-      // if (data.success) {
-      //   this.toCheckout();
-      // }
-      // console.log(data, "data examform");
-      // return data;
-    } else {
-      NotificationManager.error("Empty Fields", "Failed!", 2000);
+    } else{
+      NotificationManager.error("This Doctor doesn't provide this services", "Warning", 2000)
     }
   };
 
@@ -141,7 +151,7 @@ class ExamForm extends Component {
       return this.props.history.push({
         pathname: "/checkout",
         // search: "?query=abc",
-        state: { price: this.state.price, currency: this.state.currency },
+        state: { price: this.state.price, currency: this.state.currency, transaction_id: this.state.transaction_id },
       });
 
     }else{
@@ -172,7 +182,8 @@ class ExamForm extends Component {
               label: val.doctor,
               spec: val.speciality,
               price: val.email_exam_price,
-              currency: val.email_currency
+              currency: val.email_currency,
+              email_exam_status: val.email_exam_status
             };
           });
           this.setState({ doctors: res });
@@ -186,7 +197,7 @@ class ExamForm extends Component {
                     spec: doctor.speciality,
                     price: doctor.email_exam_price,
                     currency: doctor.email_currency,
-                    
+                    email_exam_status: doctor.email_exam_status
                   }
                   this.handleDoctor(test)
                 }
@@ -206,7 +217,7 @@ class ExamForm extends Component {
   }
 
   render() {
-  
+  console.log(this.state.emailExamStatus);
     return (
       <>
         <div className="header">

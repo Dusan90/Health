@@ -22,6 +22,8 @@ const days = [
   { value: "Friday", label: "Friday" },
   { value: "Saturday", label: "Saturday" },
   { value: "Sunday", label: "Sunday" },
+  { value: "Everyday", label: "Everyday" },
+  { value: "Mon-Fri", label: "Mon-Fri" },
 ]
 
 class DoctorProfile extends Component {
@@ -56,7 +58,10 @@ class DoctorProfile extends Component {
       EmailVisitChecked: '',
       VideoVisitChecked: '',
       VideoVisitFollowUp: '',
-      WaitingRoomVisit: ''
+      WaitingRoomVisit: '',
+      // howManySlots: 1,
+      daysInArray: []
+      // daysInArray: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Everyday","Mon-Fri"]
     };
   }
 
@@ -196,6 +201,7 @@ class DoctorProfile extends Component {
   };
 
   handleChange = (e) =>{
+    console.log(e);
     this.setState({[e.target.id]: e.target.value})
   } 
 
@@ -247,8 +253,35 @@ class DoctorProfile extends Component {
     }
   }
 
+  handlePlusImg = () =>{
+    // console.log('test plusa');
+    // if(this.state.howManySlots !== 7 ){
+    //   this.setState({howManySlots: this.state.howManySlots + 1})
+    // }
+    if(this.state.daysInArray.length < 6){
+    const daysInArray = [1, 2, 3, 4, 5, 6]
+    let sorted = this.state.daysInArray.sort((a,b) => a - b)
+    let missing = daysInArray.filter((i => a => a !== sorted[i] || !++i)(0));
+   console.log(missing, 'sta se desava ovde');
+      this.setState({daysInArray: [...this.state.daysInArray, missing[0]]})
+      // this.state.daysInArray.push(missing[0])
+    }
+  }
+
+  handleMinusImage = (e) =>{
+    console.log(e.target.parentElement);
+    const id_of_element = parseInt(e.target.parentElement.id)
+
+    const filter_day = this.state.daysInArray.filter(ex =>{
+      return ex !== id_of_element
+    })
+    this.setState({daysInArray: filter_day})
+    // e.target.parentElement.style.display = 'none'
+    // this.setState({howManySlots: this.state.howManySlots - 1})
+  }
+
   render() {
-    console.log(this.state.WaitingRoom);
+    console.log(this.state.daysInArray);
     return (
       <>
         <div className="header">
@@ -277,6 +310,8 @@ class DoctorProfile extends Component {
           handlePage={this.handlePage}
           handleServiceRadio={this.handleServiceRadio}
           days={days}
+          handlePlusImg={this.handlePlusImg}
+          handleMinusImage={this.handleMinusImage}
         />
       </>
     );

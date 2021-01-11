@@ -38,8 +38,9 @@ class DetailExam extends Component {
   }
 
   handleMessage = (e) => {
-
-    document.querySelector('.messageTextInput').style.height = `${e.target.scrollHeight}px`
+    let text = document.querySelector('.messageTextInput')
+    text.style.height = ''
+    text.style.height = `${text.scrollHeight}px`
     this.setState({ messageValue: e.target.value });
   };
 
@@ -294,14 +295,15 @@ class DetailExam extends Component {
       .then(() =>{
         let textar = [...document.querySelectorAll('.message')]
         textar.map(ex =>{
-          if (ex.clientHeight < ex.scrollHeight){
-            console.log(ex);
+          if(ex.scrollHeight > 100){
+            ex.style.height = `${ex.scrollHeight}px`
+          // }
+          // if (ex.clientHeight < ex.scrollHeight){
             let parentOfElement = ex.parentElement.previousSibling
             let div = parentOfElement.lastChild
             div.style.display = 'block'
         
             div.onclick = function() { 
-            console.log(ex.scrollHeight, ex.clientHeight);
             ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
               // ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.clientHeight === ex.scrollHeight ? console.log('hello') : ex.scrollHeight > 300 ? ex.style.height = '300px' : ex.style.height = '100px'  };
             // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
@@ -594,6 +596,7 @@ class DetailExam extends Component {
   
 
   render() {
+  console.log(this.state.selectedFile);
     return (
       <>
         <Detail

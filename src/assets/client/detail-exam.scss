@@ -734,7 +734,7 @@
           }
         }
         textarea {
-          height: 100px;
+          height: 200px;
           width: 100%;
           resize: none;
           border: none;
@@ -768,12 +768,13 @@
         }
         .sendbuttonAndAtt {
           display: flex;
+          flex-direction: column;
           background: white;
           border-bottom-left-radius: 15px;
           border-bottom-right-radius: 15px;
 
           margin: 0;
-          padding: 0;
+          padding: 0 15px;
           button {
             color: white;
             background: #00aff0;
@@ -784,7 +785,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0px 10px 20px 20px;
+            margin: 0px 10px 10px 0px;
             transition: all 0.5s ease-in-out;
             .replyIcon {
               font-size: 20px;
@@ -801,18 +802,47 @@
 
           .btn {
             // border: 1px solid #00aff0;
-            color: white;
-            background-color: #00aff0;
-            width: 30px;
-            border-radius: 8px;
-            font-size: 30px;
-            font-weight: bold;
+            // color: white;
+            // background-color: white;
+            // width: 50px;
+            // height: 25px;
+            // border-radius: 5px;
+            // font-size: 14px;
+            // font-weight: bold;
             outline: none;
-            // &:hover {
-            //   cursor: pointer;
-            //   background: #4092c2;
-            //   color: white;
-            // }
+            // // &:hover {
+            // //   cursor: pointer;
+            // //   background: #4092c2;
+            // //   color: white;
+            // // }
+            // border: 1.7px solid #00aff0;
+            // color: #00aff0;
+            // font-weight: bold;
+            // width: 60px;
+            // height: 25px;
+            // border-radius: 5px;
+            // text-align: center;
+            // justify-content: center;
+            // align-items: center;
+            // margin: 5px 10px 0 0;
+            // text-indent: 0;
+
+            background: white;
+            border: 1.7px solid #00aff0;
+            height: 30px;
+            color: #00aff0;
+            font-weight: bold;
+            padding: 0 5px;
+            width: 70px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            margin: 0;
+            align-items: center;
+            box-shadow: none;
+            p {
+              margin: 0;
+            }
           }
 
           .upload-btn-wrapper input[type="file"] {
@@ -847,6 +877,12 @@
               text-indent: 0;
               white-space: nowrap;
             }
+          }
+          .attachess {
+            display: flex;
+            border-top: 1.7px solid #f2f2f2;
+            padding: 5px 0 0 0;
+            height: 40px;
           }
         }
       }

@@ -94,6 +94,7 @@ class CheckoutForm extends Component {
     ev.preventDefault();
     const price = parseInt(this.props.location.state.price, 10);
     const currency = this.props.location.state.currency
+    const transaction_id = this.props.location.state.transaction_id
     this.setState({color: 'red'})
     const CardElement = document.getElementById('CardElement')
     CardElement.style.backgroundColor = !this.state.cardNumber ? 'rgb(245, 192, 192)' : 'white'

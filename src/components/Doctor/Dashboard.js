@@ -130,7 +130,7 @@ const Dashboard = ({
                     onClick={() => handleVideoPendingClick(shorty.id)}
                   >
                     {shorty.client},{" "}
-                    {moment(shorty.appointed_date).format("MM/DD/YY hh:mm")}
+                    {moment(shorty.appointed_date).format("MM/DD/YY HH:mm")}
                   </div>
                 );
               })

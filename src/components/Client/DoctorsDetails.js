@@ -39,22 +39,22 @@ function DoctorsDetails({handleClient, doctor, handleSort, props, main}) {
                 <div className='pricesAndDoing'>
                 <div className="priceInfo">
                   <p style={{fontWeight: '900', textAlign: 'start' }}>Services</p>
-                  <div>
+                  {doctor.email_exam_status === 'True' && <div>
                   <p><span>Email consultation: </span>{doctor.email_exam_price} {doctor.email_currency}</p>
                   {doctor.email_exam_status === 'True' && <button onClick={() => {main.props.history.push({pathname: '/initiate', state: { doctorId: doctor.id }})}}>Start</button>}
-                  </div>
-                  <div>
+                  </div>}
+                  {doctor.web_exam_status === 'True' && <div>
                   <p><span>Video consultation: </span>{doctor.web_exam_price} {doctor.web_currency}</p>
                   {doctor.web_exam_status === 'True' && <button onClick={() => {main.props.history.push({pathname: '/client/video-request', state: { doctorId: doctor.id }})}}>Start</button>}
-                  </div>
-                  <div>
+                  </div>}
+                  {doctor.web_exam_follow_status === 'True' &&<div>
                   <p><span>Video follow up: </span>{doctor.web_exam_follow_price} {doctor.web_follow_up_currency}</p>
                   {doctor.web_exam_follow_status === 'True' && <button onClick={() => {main.props.history.push({pathname: '/client/video-request', state: { doctorId: doctor.id }})}}>Start</button>}
-                  </div>
-                  <div>
+                  </div>}
+                  {doctor.waiting_room_status === 'True' &&<div>
                   <p><span>Waiting room: </span>{doctor.waiting_room_price} {doctor.waiting_room_currency}</p>
                   {doctor.waiting_room_status === 'True' && <button onClick={() => {main.props.history.push({pathname: '/client/waiting-room', state: { doctorId: doctor.id }})}}>Start</button>}
-                  </div>
+                  </div>}
                 </div>
                 </div>
             </div>

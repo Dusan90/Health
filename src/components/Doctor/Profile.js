@@ -6,6 +6,9 @@ import doctorImg from '../../icons/icon_my_profile_doctor_blue_23px.svg'
 import arrowAttach from '../../icons/attach_white.svg'
 import addImage from '../../icons/newIconsForDesign/add-picture.svg'
 import plus from '../../icons/newIconsForDesign/plus.svg'
+import minus from '../../icons/newIconsForDesign/minus.svg'
+import TimePicker from 'react-time-picker';
+
 
 
 
@@ -27,7 +30,9 @@ const Profile = ({
   deletePicture,
   handleDeleteImageShow,
   handlePage,
-  handleServiceRadio
+  handleServiceRadio,
+  handlePlusImg,
+  handleMinusImage
   // handleGenderRadio
   
 }) => {
@@ -350,21 +355,218 @@ const Profile = ({
                   className="saveChanges">Save</button>
             </div>
             <div className='mainWorkHours' style={{display: props.page !== 'WorkHours' && 'none'}}>
-                <div className='workHoursDiv'>
-                <Select
-                      type="text"
-                      className="select-option"
-                      styles={customStyles3}
-                      value={selectValue}
-                      options={days}
-                      // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
-                      onChange={handleSelect3}
-                    />
-                  <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
-                  <p>-</p>
-                  <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} />
-                </div>
-                <img src={plus} alt="plus"/>
+            <div className='workHoursDiv'>
+  <Select
+        type="text"
+        className="select-option"
+        styles={customStyles3}
+        value={selectValue}
+        options={days}
+        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
+        onChange={handleSelect3}
+      />
+    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
+    <p>-</p>
+    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
+     <TimePicker
+        onChange={handleChange}
+        value={props.TimeStart}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <p>-</p>
+    <TimePicker
+        onChange={handleChange}
+        value={props.TimeEnd}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+  </div>
+  {props.daysInArray.map(ex => ex === 1 && <div key='1' id='1' className='workHoursDiv'>
+  <Select
+        type="text"
+        className="select-option"
+        styles={customStyles3}
+        value={selectValue}
+        options={days}
+        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
+        onChange={handleSelect3}
+      />
+    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
+    <p>-</p>
+    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
+     <TimePicker
+        onChange={handleChange}
+        value={props.TimeStart}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <p>-</p>
+    <TimePicker
+        onChange={handleChange}
+        value={props.TimeEnd}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <img src={minus} alt="minusImg" onClick={handleMinusImage}/>
+  </div>)}
+  {props.daysInArray.map(ex => ex === 2 && <div key='2' id='2' className='workHoursDiv'>
+  <Select
+        type="text"
+        className="select-option"
+        styles={customStyles3}
+        value={selectValue}
+        options={days}
+        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
+        onChange={handleSelect3}
+      />
+    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
+    <p>-</p>
+    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
+     <TimePicker
+        onChange={handleChange}
+        value={props.TimeStart}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <p>-</p>
+    <TimePicker
+        onChange={handleChange}
+        value={props.TimeEnd}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <img src={minus} alt="minusImg" onClick={handleMinusImage}/>
+  </div>)}
+  {props.daysInArray.map(ex => ex === 3 && <div key='3' id='3'  className='workHoursDiv'>
+  <Select
+        type="text"
+        className="select-option"
+        styles={customStyles3}
+        value={selectValue}
+        options={days}
+        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
+        onChange={handleSelect3}
+      />
+    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
+    <p>-</p>
+    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
+     <TimePicker
+        onChange={handleChange}
+        value={props.TimeStart}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <p>-</p>
+    <TimePicker
+        onChange={handleChange}
+        value={props.TimeEnd}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <img src={minus} alt="minusImg" onClick={handleMinusImage}/>
+  </div>)}
+  {props.daysInArray.map(ex => ex === 4 &&<div key='4' id='4' className='workHoursDiv'>
+  <Select
+        type="text"
+        className="select-option"
+        styles={customStyles3}
+        value={selectValue}
+        options={days}
+        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
+        onChange={handleSelect3}
+      />
+    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
+    <p>-</p>
+    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
+     <TimePicker
+        onChange={handleChange}
+        value={props.TimeStart}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <p>-</p>
+    <TimePicker
+        onChange={handleChange}
+        value={props.TimeEnd}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <img src={minus} alt="minusImg" onClick={handleMinusImage}/>
+  </div>)}
+  {props.daysInArray.map(ex => ex === 5 &&<div key='5' id='5'  className='workHoursDiv'>
+  <Select
+        type="text"
+        className="select-option"
+        styles={customStyles3}
+        value={selectValue}
+        options={days}
+        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
+        onChange={handleSelect3}
+      />
+    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
+    <p>-</p>
+    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
+     <TimePicker
+        onChange={handleChange}
+        value={props.TimeStart}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <p>-</p>
+    <TimePicker
+        onChange={handleChange}
+        value={props.TimeEnd}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <img src={minus} alt="minusImg" onClick={handleMinusImage}/>
+  </div>)}
+  {props.daysInArray.map(ex => ex === 6 && <div key='6' id='6' className='workHoursDiv'>
+  <Select
+        type="text"
+        className="select-option"
+        styles={customStyles3}
+        value={selectValue}
+        options={days}
+        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
+        onChange={handleSelect3}
+      />
+    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
+    <p>-</p>
+    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
+     <TimePicker
+        onChange={handleChange}
+        value={props.TimeStart}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <p>-</p>
+    <TimePicker
+        onChange={handleChange}
+        value={props.TimeEnd}
+        disableClock
+        format='HH:mm'
+        clearIcon= {null}
+      />
+    <img src={minus} alt="minusImg" onClick={handleMinusImage}/>
+  </div>)}
+
+            
+                <img src={plus} alt="plus" onClick={handlePlusImg}/>
                 <button 
                   onClick={handleSubmit}
                   className="saveChanges">Save</button>

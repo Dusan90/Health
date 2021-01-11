@@ -201,9 +201,10 @@ const Detail = ({
                                 <FiSend className="replyIcon" />
                                 <span>Send</span>
                               </button>
+                              <div className="attachess">
                               <div className="upload-btn-wrapper">
                                 <button className="btn">
-                                  <img src={attachIcon} alt="" />
+                                  <p>Add file</p>
                                 </button>
                                 <input
                                   type="file"
@@ -212,7 +213,11 @@ const Detail = ({
                                   multiple
                                 />
                               </div>
-          {props.selectedFile && <div className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
+          {/* {props.selectedFile && <div className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>} */}
+          {props.selectedFile && props.selectedFile.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)}
+
+                              </div>
+
 
                             </div>
                           </div>

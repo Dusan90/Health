@@ -1,15 +1,18 @@
 .sc-bdfBwQ {
   position: relative;
   .topBarDiv {
-    background: #f2f2f2;
-    position: "absolute";
-    top: -40px;
+    position: absolute;
+    top: -76px;
     left: 0;
-    height: 40px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    padding: 10px 15px;
-    font-weight: 450;
+    z-index: 20;
+    height: 35px;
+    display: flex;
+    border-bottom: 4px solid #fa9551;
+    margin-right: 45px;
+    h4 {
+      font-size: 15px;
+      color: #2cace3;
+    }
   }
   video {
     width: 100% !important;
