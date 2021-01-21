@@ -127,14 +127,22 @@ class ClientDashboard extends Component {
       }
   }
 
-  handleClick = (id, type) => {
-    if (type === "mail") {
-      this.props.history.push(`/client/exam/detail/${id}`);
-    } else if (type === "video") {
-      this.props.history.push(`/client/video/exam/detail/${id}`);
-    } else if (type === "queue") {
-      this.props.history.push(`/client/queue/exam/detail/${id}`);
-    }
+  handleClick = (exam) => {  
+    // if(exam.transaction && exam['transaction']['status'] === 'Pending'){
+    //   this.props.history.push({
+    //     pathname: "/checkout",
+    //     // search: "?query=abc",
+    //     state: { price: exam.price, currency: exam.currency, transaction_id: exam['transaction']['id'] },
+    //   });
+    // }else{
+      if (exam.exam_type === "mail") {
+        this.props.history.push(`/client/exam/detail/${exam.id}`);
+      } else if (exam.exam_type === "video") {
+        this.props.history.push(`/client/video/exam/detail/${exam.id}`);
+      } else if (exam.exam_type === "queue") {
+        this.props.history.push(`/client/queue/exam/detail/${exam.id}`);
+      }
+    // }
   };
 
   handleUpcoming = () => {
@@ -291,9 +299,9 @@ class ClientDashboard extends Component {
       let pages = Math.ceil(this.state.upcomingOrPast.length / 10);
       const offset = (page - 1) * limit;
       const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
-
+      const sorted = newArray.sort( (a,b) => a.created - b.created)
       this.setState({
-        paginatedExams: newArray,
+        paginatedExams: sorted,
         loading: false,
         maxPages: pages,
       });
@@ -305,9 +313,11 @@ class ClientDashboard extends Component {
         offset,
         offset + limit
       );
+      const sorted = newArray.sort( (a,b) => a.created - b.created)
+
 
       this.setState({
-        paginatedExams: newArray,
+        paginatedExams: sorted,
         loading: false,
         maxPages: pages,
       });
@@ -335,8 +345,8 @@ class ClientDashboard extends Component {
           if (ex.messages.length !== 0) {
             // const sortedActivities = ex.messages.sort((a, b) => a.created - b.created)
             return (
-              ex.messages[0].sender !==
-              `${this.state.client.user.first_name} ${this.state.client.user.last_name}`
+              ex.messages[0].sender_id !==
+              id
             );
           } else {
             return null;

@@ -32,7 +32,8 @@ class CheckoutForm extends Component {
       cardExpiry: false,
       loading: false,
       name: '',
-      color: ''
+      color: '',
+      token: sessionStorage.getItem("accessToken"),
     };
   }
 
@@ -124,17 +125,20 @@ class CheckoutForm extends Component {
         //   console.log("[token]", payload.token);
         //   this.setState({ token: payload.token });
         // });
+        const access_token = "Bearer ".concat(this.state.token);
         const response = await fetch(
-          "https://healthcarebackend.xyz/api/charge/",
+          "https://healthcarebackend.xyz/api/payment/charge/",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              Authorization: access_token,
             },
             body: JSON.stringify({
               payment_method_id: result.paymentMethod.id,
               amount: price,
               currency: "",
+              transaction_id: transaction_id 
             }),
           }
         );

@@ -15,15 +15,15 @@ const options = [
 ];
 
 const days = [
-  { value: "Monday", label: "Monday" },
-  { value: "Tuesday", label: "Tuesday" },
-  { value: "Wednesday", label: "Wednesday" },
-  { value: "Thursday", label: "Thursday" },
-  { value: "Friday", label: "Friday" },
-  { value: "Saturday", label: "Saturday" },
-  { value: "Sunday", label: "Sunday" },
-  { value: "Everyday", label: "Everyday" },
-  { value: "Mon-Fri", label: "Mon-Fri" },
+  { value: "0", label: "Monday" },
+  { value: "1", label: "Tuesday" },
+  { value: "2", label: "Wednesday" },
+  { value: "3", label: "Thursday" },
+  { value: "4", label: "Friday" },
+  { value: "5", label: "Saturday" },
+  { value: "6", label: "Sunday" },
+  // { value: "Everyday", label: "Everyday" },
+  // { value: "Mon-Fri", label: "Mon-Fri" },
 ]
 
 class DoctorProfile extends Component {
@@ -60,8 +60,13 @@ class DoctorProfile extends Component {
       VideoVisitFollowUp: '',
       WaitingRoomVisit: '',
       // howManySlots: 1,
-      daysInArray: []
-      // daysInArray: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Everyday","Mon-Fri"]
+      daysInArray: [],
+      // daysInArray: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Everyday","Mon-Fri"],
+      daysAndTime: [],
+      // convertedDays: []
+      selectForDays: '',
+      plusClicked: false,
+      daysAndTimeAndDays: ''
     };
   }
 
@@ -86,6 +91,143 @@ class DoctorProfile extends Component {
     let { value } = statusValue;
     this.setState({ selectWaitingRoom: value });
   };
+
+  handleSelectForDays = (statusValue) => {
+    let { value } = statusValue;
+    this.setState({ selectForDays: JSON.parse(value) });
+  };
+
+  handleSubmitForWorkingHours = async (e) =>{
+    if(!this.state.daysAndTime.includes(this.state.selectForDays)){
+
+      let form_data = new FormData();
+  
+      form_data.append("day", this.state.selectForDays);
+      form_data.append("start_hour", this.state.TimeStart);
+      form_data.append("end_hour", this.state.TimeEnd);
+  
+      const access_token = "Bearer ".concat(this.state.token);
+      let url = 'https://healthcarebackend.xyz/api/doctor/schedule/';
+      
+      const data = axios.post(url, form_data, {
+        headers: {
+          'content-type': 'multipart/form-data',
+          Authorization: access_token,
+        }
+      })
+  
+      console.log('submiting');
+       
+      const jsonData = await data;
+      console.log(jsonData, "profile changed");
+      if(jsonData.data.success){
+        this.setState({plusClicked: false})
+        NotificationManager.success("Profile Updated!", "Successful!", 2000);
+        this.handleWorkingHowrs();
+      }
+    }else{
+      let idOfDay = this.state.daysAndTimeAndDays.filter(ex => {
+        if(ex.day === this.state.selectForDays){
+          return ex
+        }
+      }) 
+      this.ChangePutDayInArray(idOfDay[0]['id'])
+    }
+  }
+
+  handleWorkingHowrs = () =>{
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(
+        "https://healthcarebackend.xyz/api/doctor/schedule/list/"
+        ,
+        {
+          headers: { Authorization: access_token },
+        }
+      )
+      .then((response) => {
+        console.log(response, "novi podaciiii");
+        let daysAndTimeAndDays = response.data.data.map(ex =>{
+          return ex
+        })
+        let daysAndTimeIDS = response.data.data.map(ex =>{
+          return ex.day
+        })
+        // let convertedDays = response.data.data.map(ex =>{
+        //   if(ex.day === 0){
+        //       let conDay = Object.assign(ex, { convertDay: 'Monday' });
+        //       return conDay
+        //   }
+        //   else if(ex.day === 1){
+        //     let conDay = Object.assign(ex, { convertDay: 'Tuesday' });
+        //       return conDay
+        //   }
+        //   else if(ex.day === 2){
+        //     let conDay = Object.assign(ex, { convertDay: 'Wednesday' });
+        //     return conDay 
+        //   }
+        //   else if(ex.day === 3){
+        //     let conDay = Object.assign(ex, { convertDay: 'Thursday' });
+        //     return conDay 
+        //   }
+        //   else if(ex.day === 4){
+        //     let conDay = Object.assign(ex, { convertDay: 'Friday' });
+        //     return conDay 
+        //   }
+        //   else if(ex.day === 5){
+        //     let conDay = Object.assign(ex, { convertDay: 'Saturday' });
+        //     return conDay 
+        //   }
+        //   else if(ex.day === 6){
+        //     let conDay = Object.assign(ex, { convertDay: 'Sunday' });
+        //     return conDay 
+        // }
+        // })
+        this.setState({daysInArray: daysAndTimeIDS, daysAndTime: daysAndTimeIDS, daysAndTimeAndDays })
+      })
+      // this.deleteDayInArray(0)
+  }
+
+  deleteDayInArray = async (id) =>{
+    const access_token = "Bearer ".concat(this.state.token);
+    let data = axios.delete(`https://healthcarebackend.xyz/api/doctor/schedule/${id}/`, {
+      headers: {
+        Authorization: access_token
+      },
+    });
+    const jsonData = await data
+    console.log(jsonData);
+    this.handleWorkingHowrs()
+    // jsonData.data && window.location.reload()
+  }
+
+  ChangePutDayInArray = async (id) =>{
+    let form_data = new FormData();
+  
+    form_data.append("day", this.state.selectForDays);
+    form_data.append("start_hour", this.state.TimeStart);
+    form_data.append("end_hour", this.state.TimeEnd);
+
+    const access_token = "Bearer ".concat(this.state.token);
+    let url = `https://healthcarebackend.xyz/api/doctor/schedule/${id}/`;
+    
+    const data = axios.put(url, form_data, {
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: access_token,
+      }
+    })
+
+    console.log('submiting');
+     
+    const jsonData = await data;
+    console.log(jsonData, "profile changed");
+    if(jsonData.data.success){
+      // this.setState({plusClicked: false})
+      NotificationManager.success("Profile Updated!", "Successful!", 2000);
+      this.handleWorkingHowrs();
+    }
+  }
 
   
 
@@ -189,6 +331,7 @@ class DoctorProfile extends Component {
       });
       this.setState({ specialities: res, page: 'DocProfile' });
     });
+    this.handleWorkingHowrs()
   }
 
   handleSpeciality = (e) => {
@@ -207,6 +350,14 @@ class DoctorProfile extends Component {
 
   handleChangeBiography = (e) =>{
     this.setState({Biography: e.target.innerHTML})
+  }
+
+  handleChangeTime = e =>{
+    this.setState({TimeStart: e})
+  }
+
+  handleChangeTimeEnd = e =>{
+    this.setState({TimeEnd: e})
   }
 
   addAttach= (e) =>{
@@ -258,17 +409,17 @@ class DoctorProfile extends Component {
     // if(this.state.howManySlots !== 7 ){
     //   this.setState({howManySlots: this.state.howManySlots + 1})
     // }
-    if(this.state.daysInArray.length < 6){
-    const daysInArray = [1, 2, 3, 4, 5, 6]
+    if(this.state.daysInArray.length < 7 && !this.state.plusClicked){
+    const daysInArray = [0, 1, 2, 3, 4, 5, 6]
     let sorted = this.state.daysInArray.sort((a,b) => a - b)
     let missing = daysInArray.filter((i => a => a !== sorted[i] || !++i)(0));
    console.log(missing, 'sta se desava ovde');
-      this.setState({daysInArray: [...this.state.daysInArray, missing[0]]})
+      this.setState({daysInArray: [...this.state.daysInArray, missing[0]], plusClicked: true})
       // this.state.daysInArray.push(missing[0])
     }
   }
 
-  handleMinusImage = (e) =>{
+  handleMinusImage = (e, id) =>{
     console.log(e.target.parentElement);
     const id_of_element = parseInt(e.target.parentElement.id)
 
@@ -276,12 +427,14 @@ class DoctorProfile extends Component {
       return ex !== id_of_element
     })
     this.setState({daysInArray: filter_day})
+    this.deleteDayInArray(id)
     // e.target.parentElement.style.display = 'none'
     // this.setState({howManySlots: this.state.howManySlots - 1})
   }
 
   render() {
-    console.log(this.state.daysInArray);
+    console.log(this.state.selectForDays);
+    console.log(this.state.daysAndTimeAndDays);
     return (
       <>
         <div className="header">
@@ -312,6 +465,10 @@ class DoctorProfile extends Component {
           days={days}
           handlePlusImg={this.handlePlusImg}
           handleMinusImage={this.handleMinusImage}
+          handleSubmitForWorkingHours={this.handleSubmitForWorkingHours}
+          handleSelectForDays={this.handleSelectForDays}
+          handleChangeTime={this.handleChangeTime}
+          handleChangeTimeEnd={this.handleChangeTimeEnd}
         />
       </>
     );

@@ -259,9 +259,9 @@ class DoctorDashboard extends Component {
       let pages = Math.ceil(this.state.upcomingOrPast.length / 10);
       const offset = (page - 1) * limit;
       const newArray = this.state.upcomingOrPast.slice(offset, offset + limit);
-
+      const sorted = newArray.sort( (a,b) => a.created - b.created)
       this.setState({
-        paginatedExams: newArray,
+        paginatedExams: sorted,
         loading: false,
         maxPages: pages,
       });
@@ -273,9 +273,11 @@ class DoctorDashboard extends Component {
         offset,
         offset + limit
       );
+      const sorted = newArray.sort( (a,b) => a.created - b.created)
+
 
       this.setState({
-        paginatedExams: newArray,
+        paginatedExams: sorted,
         loading: false,
         maxPages: pages,
       });
@@ -433,13 +435,14 @@ class DoctorDashboard extends Component {
       })
       .then((response) => {
         console.log(response, 'messages');
+        console.log(this.state.doctorCurent)
         const unreadMessages = response.data.data.filter((ex) => {
           if (ex.messages.length !== 0) {
             // const sortedActivities = ex.messages.sort((a, b) => a.created - b.created)
             return (
               // sortedActivities[sortedActivities.length - 1].sender !==
-              ex.messages[0].sender !==
-              `${this.state.doctorCurent.user.first_name} ${this.state.doctorCurent.user.last_name}`
+              ex.messages[0].sender_id !==
+              this.state.doctorCurent.id 
             );
           } else {
             return ex;

@@ -52,9 +52,9 @@ const Header =
         return (
           <Fragment>
             {/* {props.popUp && startTimer()} */}
-            <Link to="/">
+            {/* <Link to="/"> */}
               <img src={logo1} alt="logo" />
-            </Link>
+            {/* </Link> */}
             {props.popUp && (
               <Fragment>
                 <div className="duca1"></div>
@@ -89,9 +89,9 @@ const Header =
     : () => {
         return (
           <Fragment>
-            <Link to="/">
+            {/* <Link to="/"> */}
               <img src={logo1} alt="logo" />
-            </Link>
+            {/* </Link> */}
           </Fragment>
         );
       };

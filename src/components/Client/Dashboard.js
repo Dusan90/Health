@@ -37,7 +37,8 @@ const Dashboard = ({
   searchByType,
   searchByName,
   ResetonSelectChange,
-  handlePageChange
+  handlePageChange,
+  handlePayButton
 }) => {
   props.state.paginatedExams.map((ex) => {
     if (props.state.mail.includes(ex.id) && ex.exam_type === "mail") {
@@ -217,7 +218,7 @@ const Dashboard = ({
                       // data-id={exam.id}
                       className="list-group"
                       style={{ fontWeight: exam.isRead && 900 }}
-                      onClick={() => handleClick(exam.id, exam.exam_type)}
+                      onClick={() => handleClick(exam)}
                     >
                       <td className="client-doctor">
                         {!exam.doctor_name ? exam.doctor : exam.doctor_name}
@@ -259,7 +260,7 @@ const Dashboard = ({
                         ) : (
                           <img src={chek} alt="ckeck" className="check" />
                         )}
-                        <h5 className="status">{exam.status}</h5>
+                        <h5 style={{display:  exam.transaction && exam['transaction']['status'] === 'Pending' && 'none' }} className="status">{exam.status}</h5>
                       </td>
                     </tr>
                   </tbody>

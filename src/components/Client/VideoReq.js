@@ -76,6 +76,11 @@ const VideoReq = ({
     indicatorsContainer: (provided, state) => ({
       ...provided,
       height: '33px',
+      'div': {
+        padding: '5px',
+        alignSelf: 'center',
+        height: '33px'
+      }
     }),
 
     singleValue: () =>({
@@ -129,6 +134,11 @@ const VideoReq = ({
     indicatorsContainer: (provided, state) => ({
       ...provided,
       height: '33px',
+      'div': {
+        padding: '5px',
+        alignSelf: 'center',
+        height: '33px'
+      }
     }),
 
     singleValue: () =>({
@@ -205,7 +215,8 @@ const VideoReq = ({
             </button>
             <input type="file" name="myfile" onChange={handleAttach} multiple />
           </div>
-          {props.attachments && <div className='fileForDownload'><p>{props.attachments.name.substring(props.attachments.name.lastIndexOf('/') + 1)}</p></div>}
+          {/* {props.attachments && <div className='fileForDownload'><p>{props.attachments.name.substring(props.attachments.name.lastIndexOf('/') + 1)}</p></div>} */}
+          {props.attachments && props.attachments.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)}
           </div>
         </div>
         <div className="MainDate">

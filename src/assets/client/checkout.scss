@@ -31,7 +31,7 @@
     width: 70px !important;
     position: absolute;
     top: 45%;
-    left: 48%;
+    left: calc(48% - 240px);
     transform: translate(-45%, -48%);
     z-index: 20;
   }
