@@ -37,14 +37,35 @@ class ClientVideoReq extends Component {
       excludeTime: [],
       currency: null,
       color: '',
-      webExamStatus: true
+      webExamStatus: true,
+      workingHoursArray: [],
+      selectedDateForStart: '',
+      selectedDateForEnd: '',
+      excludeDate: '',
+      selectedWorkingHours: []
     };
   }
 
   handleDateChange = (date) => {
     let clickedDate = moment(date).format("YYYY-MM-DDTHH:mm:ss");
     let DDate = moment(date).format("YYYY-MM-DD");
+    console.log(clickedDate);
+    let selectedWorkingHours = this.state.workingHoursArray.length !== 0 && this.state.workingHoursArray.filter(ex =>{
+      return ex.day === (moment(date).day() - 1) 
+    })
+
     this.setState({ startDate: date, reservedDate: clickedDate });
+    if (selectedWorkingHours.length !== 0){
+      let selecteddate = moment(date).format('YYYY-MM-DD')
+      let selectedDateForStart = selecteddate + 'T' + selectedWorkingHours[0]['start_hour']; 
+      let selectedDateForEnd = selecteddate + "T" + selectedWorkingHours[0]['end_hour']; 
+      this.setState({
+        selectedDateForEnd, selectedDateForStart,
+         selectedWorkingHours})
+    }else{
+      this.setState({selectedDateForEnd: '', selectedDateForStart: '', selectedWorkingHours: []})
+      
+    }
     let excludeTime = this.state.doctorsExams && this.state.doctorsExams.filter((ex) => {
       if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate) {
         return ex;
@@ -76,12 +97,14 @@ class ClientVideoReq extends Component {
       NotificationManager.error("This Doctor doesn't provide this services", "Warning", 2000) 
     }
     this.props.dispatch(doctor(e));
-    let startTime = e.startTime ? e.startTime.slice(0, -3) : ""
-    let endTime = e.endTime ? e.endTime.slice(0, -3) : ""
+    // let startTime = e.startTime ? e.startTime.slice(0, -3) : ""
+    // let endTime = e.endTime ? e.endTime.slice(0, -3) : ""
 console.log(e);
     const docsSpec = this.state.specialities.filter((spec) => {return spec.label === e.spec})
     console.log(this.state.specialities);
-    this.setState({ doctor_id: e.iD, doctorsPrice: e.price, currency: e.currency, startTime, endTime});
+    this.setState({ doctor_id: e.iD, doctorsPrice: e.price, currency: e.currency,
+      //  startTime, endTime
+      });
     const access_token = "Bearer ".concat(this.state.token);
     axios
       .get(`https://healthcarebackend.xyz/api/web/doc/${e.iD}/`, {
@@ -109,6 +132,7 @@ console.log(e);
         this.setState({ excludeTime });
       });
     this.setState({ resetDoctorSelect: e, specialSP: docsSpec[0].value, currentSpec: docsSpec[0].label });
+    this.noviApiNoviTest(e.iD)
   };
 
   handleSubject = (e) => {
@@ -229,6 +253,19 @@ console.log(e);
       });
   };
 
+  noviApiNoviTest = (id) =>{
+    const access_token = "Bearer ".concat(this.state.token);
+    
+    axios
+      .get(`https://healthcarebackend.xyz/api/client/schedule/${id}/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        console.log(response, 'noviapinovitesssssssssssssssssttttttttttttt');
+        this.setState({workingHoursArray: response.data.data})
+      })
+  }
+
   componentDidMount() {
     this.handleClientProfile();
     axios
@@ -252,8 +289,8 @@ console.log(e);
             spec: val.speciality,
             price: val.web_exam_price,
             currency: val.web_currency,
-            startTime: val.start_hour,
-            endTime: val.end_hour,
+            // startTime: val.start_hour,
+            // endTime: val.end_hour,
             web_exam_status: val.web_exam_status
           };
         });
@@ -268,8 +305,8 @@ console.log(e);
                 spec: doctor.speciality,
                 price: doctor.web_exam_price,
                 currency: doctor.web_currency,
-                startTime: doctor.start_hour,
-                endTime: doctor.end_hour,
+                // startTime: doctor.start_hour,
+                // endTime: doctor.end_hour,
                 web_exam_status: doctor.web_exam_status
               }
               this.handleDoctor(test)
@@ -286,7 +323,6 @@ console.log(e);
   }
 
   render() {
-    console.log(this.state.doctorsPrice)
     return (
       <>
         <div className="header">

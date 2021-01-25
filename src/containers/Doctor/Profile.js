@@ -66,7 +66,8 @@ class DoctorProfile extends Component {
       // convertedDays: []
       selectForDays: '',
       plusClicked: false,
-      daysAndTimeAndDays: ''
+      daysAndTimeAndDays: '',
+      idForPut: ''
     };
   }
 
@@ -93,13 +94,14 @@ class DoctorProfile extends Component {
   };
 
   handleSelectForDays = (statusValue) => {
+    console.log(statusValue);
     let { value } = statusValue;
-    this.setState({ selectForDays: JSON.parse(value) });
+    this.setState({ selectForDays: JSON.parse(value), plusClicked: true });
   };
 
   handleSubmitForWorkingHours = async (e) =>{
     if(!this.state.daysAndTime.includes(this.state.selectForDays)){
-
+      console.log('nema ga u redu i on ovde odradi POST', this.state.daysAndTime, this.state.selectForDays);
       let form_data = new FormData();
   
       form_data.append("day", this.state.selectForDays);
@@ -131,6 +133,8 @@ class DoctorProfile extends Component {
           return ex
         }
       }) 
+      console.log('ima ga u redu i on ovde odradi PUT', idOfDay);
+
       this.ChangePutDayInArray(idOfDay[0]['id'])
     }
   }
@@ -184,6 +188,8 @@ class DoctorProfile extends Component {
         // }
         // })
         this.setState({daysInArray: daysAndTimeIDS, daysAndTime: daysAndTimeIDS, daysAndTimeAndDays })
+      }).catch(() =>{
+        this.setState({daysInArray: [], daysAndTime: [], daysAndTimeAndDays: []})
       })
       // this.deleteDayInArray(0)
   }
@@ -196,15 +202,15 @@ class DoctorProfile extends Component {
       },
     });
     const jsonData = await data
+    jsonData.data.success && this.handleWorkingHowrs()
     console.log(jsonData);
-    this.handleWorkingHowrs()
+   
     // jsonData.data && window.location.reload()
   }
 
   ChangePutDayInArray = async (id) =>{
+    console.log('radi li? ');
     let form_data = new FormData();
-  
-    form_data.append("day", this.state.selectForDays);
     form_data.append("start_hour", this.state.TimeStart);
     form_data.append("end_hour", this.state.TimeEnd);
 
@@ -223,7 +229,7 @@ class DoctorProfile extends Component {
     const jsonData = await data;
     console.log(jsonData, "profile changed");
     if(jsonData.data.success){
-      // this.setState({plusClicked: false})
+      this.setState({plusClicked: false})
       NotificationManager.success("Profile Updated!", "Successful!", 2000);
       this.handleWorkingHowrs();
     }
@@ -296,16 +302,16 @@ class DoctorProfile extends Component {
         let selectEmail = response.data.data.email_currency ? response.data.data.email_currency : 'USD'
         let selectVideo = response.data.data.web_currency ? response.data.data.web_currency : 'USD'
         let selectVideoFollow = response.data.data.web_follow_up_currency ? response.data.data.web_follow_up_currency : 'USD'
-        let start = response.data.data.start_hour ? response.data.data.start_hour.slice(0, -3) : ""
+        // let start = response.data.data.start_hour ? response.data.data.start_hour.slice(0, -3) : ""
         // const testTime =  Number(start.split(':')[0]) * 60 * 60 * 1000 + Number(start.split(':')[1]) * 60 * 1000;
-        let end = response.data.data.end_hour ? response.data.data.end_hour.slice(0, -3) : ""
+        // let end = response.data.data.end_hour ? response.data.data.end_hour.slice(0, -3) : ""
         // const testTimeEnd = Number(end.split(':')[0]) * 60 * 60 * 1000 + Number(end.split(':')[1]) * 60 * 1000;
 
 
          this.setState({ doctor: [response.data.data], 
           currentStatus: response.data.data.status, 
-          TimeStart: start, 
-          TimeEnd: end,
+          // TimeStart: start, 
+          // TimeEnd: end,
           selectEmail,
           selectVideo,
           selectVideoFollow,
@@ -352,12 +358,23 @@ class DoctorProfile extends Component {
     this.setState({Biography: e.target.innerHTML})
   }
 
-  handleChangeTime = e =>{
-    this.setState({TimeStart: e})
+  handleChangeTime = (e,day) =>{
+    console.log(e, day);
+    console.log(this.state.daysAndTimeAndDays);
+    let idForPut = this.state.daysAndTimeAndDays.length !== 0 && this.state.daysAndTimeAndDays.filter(ex => ex.day === day)[0] && this.state.daysAndTimeAndDays.filter(ex => ex.day === day)[0]['day']
+    this.setState({TimeStart: e, plusClicked: true })
+    if(idForPut){
+      this.setState({selectForDays: idForPut})
+    }
   }
 
-  handleChangeTimeEnd = e =>{
-    this.setState({TimeEnd: e})
+  handleChangeTimeEnd = (e, day) =>{
+    console.log(e, day);
+    let idForPut = this.state.daysAndTimeAndDays.length !== 0 && this.state.daysAndTimeAndDays.filter(ex => ex.day === day)[0] && this.state.daysAndTimeAndDays.filter(ex => ex.day === day)[0]['day']
+    this.setState({TimeEnd: e, plusClicked: true})
+    if(idForPut){
+      this.setState({selectForDays: idForPut})
+    }
   }
 
   addAttach= (e) =>{
@@ -435,6 +452,7 @@ class DoctorProfile extends Component {
   render() {
     console.log(this.state.selectForDays);
     console.log(this.state.daysAndTimeAndDays);
+    console.log(this.state.daysAndTime.includes(this.state.selectForDays))
     return (
       <>
         <div className="header">

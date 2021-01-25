@@ -50,15 +50,15 @@ const Dashboard = ({
   let short3 = props.state.waitingRoom
     ? props.state.waitingRoom.slice(0, 4)
     : null;
-  props.state.paginatedExams.map((ex) => {
-    if (props.state.mail.includes(ex.id) && ex.exam_type === "mail") {
-      let hello = Object.assign(ex, { isRead: true });
-      return hello;
-    } else {
-      let hy = Object.assign(ex, { isRead: false });
-      return hy;
-    }
-  });
+  // props.state.paginatedExams.map((ex) => {
+  //   if (props.state.mail.includes(ex.id) && ex.exam_type === "mail") {
+  //     let hello = Object.assign(ex, { isRead: true });
+  //     return hello;
+  //   } else {
+  //     let hy = Object.assign(ex, { isRead: false });
+  //     return hy;
+  //   }
+  // });
   return (
     <div className="testic">
       <div className="main">

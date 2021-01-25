@@ -40,15 +40,15 @@ const Dashboard = ({
   handlePageChange,
   handlePayButton
 }) => {
-  props.state.paginatedExams.map((ex) => {
-    if (props.state.mail.includes(ex.id) && ex.exam_type === "mail") {
-      let hello = Object.assign(ex, { isRead: true });
-      return hello;
-    } else {
-      let hy = Object.assign(ex, { isRead: false });
-      return hy;
-    }
-  });
+  // props.state.paginatedExams.map((ex) => {
+  //   if (props.state.mail.includes(ex.id) && ex.exam_type === "mail") {
+  //     let hello = Object.assign(ex, { isRead: true });
+  //     return hello;
+  //   } else {
+  //     let hy = Object.assign(ex, { isRead: false });
+  //     return hy;
+  //   }
+  // });
   return (
     <div className="mainClientDashboard">
       <div className="main">

@@ -245,7 +245,7 @@ class DoctorDashboard extends Component {
         this.peopleInWaitingRoom(this.state.doctorCurent.id);
         this.handleAll();
         this.paginate(this.state.page);
-        this.getUnreadMessages(this.state.doctorCurent.id);
+        // this.getUnreadMessages(this.state.doctorCurent.id);
       })
       .catch((error) => {
         console.log(error.response, "error");
@@ -427,34 +427,34 @@ class DoctorDashboard extends Component {
     this.pnd();
   };
 
-  getUnreadMessages = async (id) => {
-    const access_token = "Bearer ".concat(this.state.token);
-    axios
-      .get(`https://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
-        headers: { Authorization: access_token },
-      })
-      .then((response) => {
-        console.log(response, 'messages');
-        console.log(this.state.doctorCurent)
-        const unreadMessages = response.data.data.filter((ex) => {
-          if (ex.messages.length !== 0) {
-            // const sortedActivities = ex.messages.sort((a, b) => a.created - b.created)
-            return (
-              // sortedActivities[sortedActivities.length - 1].sender !==
-              ex.messages[0].sender_id !==
-              this.state.doctorCurent.id 
-            );
-          } else {
-            return ex;
-          }
-        });
-        const unreadIds = unreadMessages.map((ex) => ex.exam.id);
-        this.setState({ mail: unreadIds });
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  };
+  // getUnreadMessages = async (id) => {
+  //   const access_token = "Bearer ".concat(this.state.token);
+  //   axios
+  //     .get(`https://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
+  //       headers: { Authorization: access_token },
+  //     })
+  //     .then((response) => {
+  //       console.log(response, 'messages');
+  //       console.log(this.state.doctorCurent)
+  //       const unreadMessages = response.data.data.filter((ex) => {
+  //         if (ex.messages.length !== 0) {
+  //           // const sortedActivities = ex.messages.sort((a, b) => a.created - b.created)
+  //           return (
+  //             // sortedActivities[sortedActivities.length - 1].sender !==
+  //             ex.messages[0].sender_id !==
+  //             this.state.doctorCurent.id 
+  //           );
+  //         } else {
+  //           return ex;
+  //         }
+  //       });
+  //       const unreadIds = unreadMessages.map((ex) => ex.exam.id);
+  //       this.setState({ mail: unreadIds });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response);
+  //     });
+  // };
 
   handleClientSearch = () => {
     this.setState({ searchClient: !this.state.searchClient });

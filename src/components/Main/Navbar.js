@@ -143,7 +143,7 @@ const data = axios.put(url, form_data, {
   let selectStatus = null;
   const isDoctor = sessionStorage.getItem("is_doctor");
   if (isDoctor === "true") {
-    console.log(curentDoc);
+   
     // if(Object.keys(curentDoc).length !== 0){
     //   let doctorsName = `${curentDoc.prefix} ${nameF} ${nameL}`
     //   curDoc = (
