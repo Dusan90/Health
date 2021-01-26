@@ -253,8 +253,8 @@ const WaitingRoom = ({
             </button>
             <input type="file" name="myfile" onChange={handleAttach} multiple />
           </div>
-          {/* {props.attachment && <div className='fileForDownload'><p>{props.attachment.name.substring(props.attachment.name.lastIndexOf('/') + 1)}</p></div>} */}
-          {props.attachment && props.attachment.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)}
+          {props.attachment && <div className='fileForDownload'><p>{props.attachment.name.substring(props.attachment.name.lastIndexOf('/') + 1)}</p></div>}
+          {/* {props.attachment && props.attachment.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
 
           </div>
         </div>

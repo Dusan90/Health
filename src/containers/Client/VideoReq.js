@@ -317,9 +317,10 @@ console.log(e);
   }
 
   handleAttach = (e) =>{
-    const propertyValues = Object.values(e.target.files);
-    console.log(propertyValues);
-    this.setState({attachments: propertyValues})
+    // const propertyValues = Object.values(e.target.files);
+    // console.log(propertyValues);
+    // this.setState({attachments: propertyValues})
+    this.setState({attachments: e.target.files[0]})
   }
 
   render() {

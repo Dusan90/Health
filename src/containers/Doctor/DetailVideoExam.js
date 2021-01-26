@@ -465,11 +465,12 @@ class DetailVideoExam extends Component {
   }
 
   onChangeHandler = (e) => {
-    const propertyValues = Object.values(e.target.files);
+    this.setState({selectedFile: e.target.files[0]})
+    // const propertyValues = Object.values(e.target.files);
 
-    this.setState({
-      selectedFile: propertyValues,
-    });
+    // this.setState({
+    //   selectedFile: propertyValues,
+    // });
   };
 
   handlePage = (value) =>{

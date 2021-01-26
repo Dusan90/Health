@@ -36,9 +36,10 @@ class ExamForm extends Component {
   }
 
   handleAttach = (e) =>{
-    const propertyValues = Object.values(e.target.files);
+    // const propertyValues = Object.values(e.target.files);
 
-    this.setState({attach: propertyValues})
+    // this.setState({attach: propertyValues})
+    this.setState({attach: e.target.files[0]})
   }
 
   handleSpeciality = (e) => {

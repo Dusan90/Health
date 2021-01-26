@@ -186,8 +186,8 @@ const InitiateExam = ({
             </button>
             <input type="file" name="myfile" onChange={handleAttach} multiple />
           </div>
-          {/* {props.attach && <div className='fileForDownload'><p>{props.attach.name.substring(props.attach.name.lastIndexOf('/') + 1)}</p></div>} */}
-          {props.attach && props.attach.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)}
+          {props.attach && <div className='fileForDownload'><p>{props.attach.name.substring(props.attach.name.lastIndexOf('/') + 1)}</p></div>}
+          {/* {props.attach && props.attach.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
           </div>
         </div>
         {/* <div className='profilePic'>

@@ -271,8 +271,8 @@ return (
                                       multiple
                                     />
                                   </div>
-
-          {props.selectedFile && props.selectedFile.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)}
+                                  {props.selectedFile && <div className='fileForDownload'><p >{props.selectedFile.name}</p></div>}
+          {/* {props.selectedFile && props.selectedFile.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
                                   </div>
                                 
 

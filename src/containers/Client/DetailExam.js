@@ -157,11 +157,12 @@ class ClientDetailExam extends Component {
   };
 
   onChangeHandler = (e) => {
-    const propertyValues = Object.values(e.target.files);
+    // const propertyValues = Object.values(e.target.files);
 
-    this.setState({
-      selectedFile: propertyValues,
-    });
+    // this.setState({
+    //   selectedFile: propertyValues,
+    // });
+    this.setState({selectedFile: e.target.files[0]})
   };
 
   handleSubmitSend = (e) => {
