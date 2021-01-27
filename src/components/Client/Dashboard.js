@@ -239,8 +239,8 @@ const Dashboard = ({
                       </td>
                       <td className="client-status">
                         {
-                        //   exam.transaction && exam['transaction']['status'] === 'Pending' ?
-                        // <h5 style={{color: '#00aff0'}}>PAY</h5> :
+                          exam.transaction && exam['transaction']['status'] === 'Pending' ?
+                        <h5 style={{color: '#00aff0'}}>PAY</h5> :
                          exam.status === "Pending" ||
                         exam.status === "In the queue" ? (
                           <img

@@ -40,6 +40,7 @@ const WaitingRoom = ({
   handleChange,
   enableTipeing,
   handleAttach,
+  handleAttach2,
   iconsMouseOut,
   iconsMouseOver,
   handleDragDrop,
@@ -486,7 +487,19 @@ const WaitingRoom = ({
       ></textarea>
     </div>
   </form>
-          </div>  
+    </div> 
+    {/* <div className='mainDivForFile'>
+    <div className="upload-btn-wrapper">
+      <button className="btn">
+        <div className='attachDiv'><img src={arrowAttach} alt="" srcset=""/></div>
+      </button>
+      <input type="file" name="myfile" onChange={handleAttach2} multiple />
+    </div>
+    {props.attachment2 && <div className='fileForDownload'><p>{props.attachment.name.substring(props.attachment.name.lastIndexOf('/') + 1)}</p></div>}
+    {/* {props.attachment && props.attachment.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
+
+    {/* </div> */} 
+      
       <button id="send" onClick={resetValue}>
         <img src={messageSend} alt="messageImg"/>
       </button>

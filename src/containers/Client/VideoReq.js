@@ -42,7 +42,8 @@ class ClientVideoReq extends Component {
       selectedDateForStart: '',
       selectedDateForEnd: '',
       excludeDate: '',
-      selectedWorkingHours: []
+      selectedWorkingHours: [],
+      transaction_id: ''
     };
   }
 
@@ -181,6 +182,7 @@ console.log(e);
         console.log(jsonData);
         if(jsonData.data.success){
           // this.setState({ doctorsPrice: jsonData.data.price });
+          this.setState({transaction_id: jsonData.data.data.transaction})
           this.toCheckout();
         }
       
@@ -232,7 +234,7 @@ console.log(e);
         pathname: "/checkout",
         // search: "?query=abc",
         state: { price: this.state.doctorsPrice, 
-          currency: this.state.currency },
+          currency: this.state.currency, transaction_id: this.state.transaction_id },
       });
     }else{
       return this.props.history.push("/dashboard-client")

@@ -538,6 +538,77 @@
           }
         }
       }
+      .mainDivForFile {
+        position: absolute;
+        right: 40px;
+        bottom: -2px !important;
+        z-index: 20;
+        border: none;
+        background: white;
+
+        // display: flex;
+        // padding-top: 4px;
+        // border-top: 1px solid #f2f2f2;
+        // position: relative;
+        .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          display: inline-block;
+          .btn {
+            background: #00aff0;
+            // border: 1.7px solid #00aff0;
+            height: 25px;
+            color: #00aff0;
+            font-weight: bold;
+            padding: 0 5px;
+            width: 25px;
+            display: flex;
+            align-items: center;
+            border-radius: 50%;
+            margin: 0;
+            .attachDiv {
+              align-items: center;
+              img {
+                width: 15px;
+                margin: 0 0 2px auto !important;
+              }
+            }
+          }
+        }
+
+        .upload-btn-wrapper input[type="file"] {
+          font-size: 0px;
+          position: absolute;
+          background: #00aff0;
+          left: 0;
+          top: 0;
+          width: 25px;
+          height: 25px;
+          opacity: 0;
+          cursor: pointer;
+        }
+
+        .fileForDownload {
+          border: 1.7px solid #00aff0;
+          // position: absolute;
+          left: 120px;
+          border-radius: 5px;
+          color: #00aff0;
+          padding: 0 5px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          width: 100px;
+          margin: 0 0 0 10px;
+          white-space: nowrap;
+          p {
+            margin: 0;
+            width: 100px;
+            white-space: nowrap;
+          }
+        }
+      }
       #send {
         position: absolute;
         right: 10px;

@@ -38,6 +38,7 @@ class ClientWaitingRoom extends Component {
       currentSpec: '',
       credits: false,
       attachment: '',
+      attachment2: '',
       currentClient: "",
       peopleInQueue: [],
       YourNumber: null,
@@ -57,7 +58,8 @@ class ClientWaitingRoom extends Component {
       doctorStartedVideo: false,
       // showExtendScreen: false,
       messageIfFinished: '',
-      waitingRoomExamStatus: true
+      waitingRoomExamStatus: true,
+      transaction_id: ''
     };
   }
 
@@ -256,8 +258,11 @@ class ClientWaitingRoom extends Component {
   
     // this.setState({ price: jsonData.data.price });
     this.hanldeClientQueue(this.state.client_id);
-    this.toCheckout();
-  
+    if(jsonData.data.success){
+      this.setState({transaction_id: jsonData.data.data.transaction})
+      this.toCheckout();
+    }
+
     return data;
   
   
@@ -313,7 +318,8 @@ class ClientWaitingRoom extends Component {
         state: {
           price: this.state.price,
           location: this.props.location.pathname,
-          currency: this.state.currency
+          currency: this.state.currency,
+          transaction_id: this.state.transaction_id
         },
       });
     }
@@ -811,9 +817,15 @@ class ClientWaitingRoom extends Component {
   handleAttach = (e) =>{
    
     // const propertyValues = Object.values(e.target.files);
-
     // this.setState({attachment: propertyValues})
     this.setState({attachment: e.target.files[0]})
+  }
+
+  handleAttach2 = (e) =>{
+   
+    // const propertyValues = Object.values(e.target.files);
+    // this.setState({attachment: propertyValues})
+    this.setState({attachment2: e.target.files[0]})
   }
 
   render() {

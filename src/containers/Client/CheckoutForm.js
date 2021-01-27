@@ -137,7 +137,7 @@ class CheckoutForm extends Component {
             body: JSON.stringify({
               payment_method_id: result.paymentMethod.id,
               amount: price,
-              currency: "",
+              currency: currency,
               transaction_id: transaction_id 
             }),
           }
