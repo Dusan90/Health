@@ -128,13 +128,13 @@ class ClientDashboard extends Component {
   }
 
   handleClick = (exam) => {  
-    if(exam.transaction && exam['transaction']['status'] === 'Pending'){
-      this.props.history.push({
-        pathname: "/checkout",
-        // search: "?query=abc",
-        state: { price: exam.price, currency: exam.currency, transaction_id: exam['transaction']['id'] },
-      });
-    }else{
+    // if(exam.transaction && exam['transaction']['status'] === 'Pending'){
+    //   this.props.history.push({
+    //     pathname: "/checkout",
+    //     // search: "?query=abc",
+    //     state: { price: exam.price, currency: exam.currency, transaction_id: exam['transaction']['id'] },
+    //   });
+    // }else{
       if (exam.exam_type === "mail") {
         this.props.history.push(`/client/exam/detail/${exam.id}`);
       } else if (exam.exam_type === "video") {
@@ -142,7 +142,7 @@ class ClientDashboard extends Component {
       } else if (exam.exam_type === "queue") {
         this.props.history.push(`/client/queue/exam/detail/${exam.id}`);
       }
-    }
+    // }
   };
 
   handleUpcoming = () => {
