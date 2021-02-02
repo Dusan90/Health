@@ -428,8 +428,10 @@ class DoctorProfile extends Component {
     // }
     if(this.state.daysInArray.length < 7 && !this.state.plusClicked){
     const daysInArray = [0, 1, 2, 3, 4, 5, 6]
-    let sorted = this.state.daysInArray.sort((a,b) => a - b)
-    let missing = daysInArray.filter((i => a => a !== sorted[i] || !++i)(0));
+    let sorted = this.state.daysInArray.sort((a,b) => b - a)
+    let sorted2 = daysInArray.sort((a,b) => b - a)
+    console.log(sorted);
+    let missing = sorted2.filter((i => a => a !== sorted[i] || !++i)(0));
    console.log(missing, 'sta se desava ovde');
       this.setState({daysInArray: [...this.state.daysInArray, missing[0]], plusClicked: true})
       // this.state.daysInArray.push(missing[0])

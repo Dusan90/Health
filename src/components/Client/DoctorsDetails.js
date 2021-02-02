@@ -27,18 +27,17 @@ function DoctorsDetails({handleClient, doctor, handleSort, props, main}) {
             <div className='imageDiv'>
                 <img src={doctor.image.includes('default') ? doctorImg : `https://healthcarebackend.xyz${doctor.image}`} alt="pic"/>
                 <div className='info'>
-                  <p><span>First Name: </span>{doctor.doctor.split((" "))[0]}</p>
-                  <p><span>Last Name: </span>{doctor.doctor.split(" ")[1]}</p>
-                  <p><span>Speciality: </span>{doctor.speciality}</p>
-                  <p><span>Phone: </span>{doctor.phone}</p>
-                  <p><span>Email: </span>{doctor.email}</p>
-                  <p><span>Organization: </span>{doctor.organization}</p>
+                  <p>{doctor.doctor}</p>
+                  <h5>Speciality: <span>{doctor.speciality}</span></h5>
+                  <h5>Organization: <span>{doctor.organization}</span></h5>
+                  <h5>Email: <span>{doctor.email}</span></h5>
+                  <h5>Phone: <span>{doctor.phone}</span></h5>
                 </div>
                 
             </div>
                 <div className='pricesAndDoing'>
                 <div className="priceInfo">
-                  <p style={{fontWeight: '900', textAlign: 'start' }}>Services</p>
+                  <p style={{fontWeight: '900', textAlign: 'start', fontSize: '16px' }}>Services</p>
                   {doctor.email_exam_status === 'True' && <div>
                   <p><span>Email consultation: </span>{doctor.email_exam_price} {doctor.email_currency}</p>
                   {doctor.email_exam_status === 'True' && <button onClick={() => {main.props.history.push({pathname: '/initiate', state: { doctorId: doctor.id }})}}>Start</button>}
@@ -59,21 +58,24 @@ function DoctorsDetails({handleClient, doctor, handleSort, props, main}) {
                 </div>
             </div>
             <div className='BiographyDiv'>
-              <div className='bio'>
-                <p className='pForBio'>Biography
-                 </p>
-                <textarea disabled={true} placeholder={doctor.biography}/>
-              </div>
               <div className="workHours">
                 <div>
-                <p><span>Working Hours </span> </p>
-                  <p><span>Mon: </span>{!startTime ? null : time}</p>
+                <p style={{fontSize: '16px'}}><span>Working Hours </span> </p>
+                  {props.workingHoursArray.map(ex =>{
+                    return <p key={ex.id}><span>{ex.day === 0 ? 'Mon: ' : ex.day === 1 ? 'Tue: ' : ex.day === 2 ? 'Wed: ' : ex.day === 3 ? 'Thu: ' : ex.day === 4 ? 'Fri: ' : ex.day === 5 ? 'Sat: ' : ex.day === 6 ? 'Sun: ' : null }</span>{moment(ex.start_hour, "HH:mm:ss").format('HH:mm')} : {moment(ex.end_hour, "HH:mm:ss").format('HH:mm')}</p>
+                  })}
+                  {/* <p><span>Mon: </span>{!startTime ? null : time}</p>
                   <p><span>Tue: </span>{!startTime ? null : time}</p>
                   <p><span>Wed: </span>{!startTime ? null : time}</p>
                   <p><span>Thu: </span>{!startTime ? null : time}</p>
                   <p><span>Fri: </span>{!startTime ? null : time}</p>
-                  <p style={{margin: 0}}><span>Sat: </span>{!startTime ? null : time}</p>
+                  <p style={{margin: 0}}><span>Sat: </span>{!startTime ? null : time}</p> */}
                 </div>
+              </div>
+              <div className='bio'>
+                <p className='pForBio' style={{fontSize: '16px'}}>Biography
+                 </p>
+                <textarea disabled={true} className='bioText' placeholder={doctor.biography}/>
               </div>
             </div>
             </Fragment>

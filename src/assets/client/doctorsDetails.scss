@@ -1,7 +1,7 @@
 .mainDoctorDiv {
   // width: calc(100% - 480px);
   width: 780px;
-  height: 520px;
+  min-height: 520px;
   margin: 110px 0 20px 360px;
   background: #f3f3f3;
   position: relative;
@@ -32,6 +32,7 @@
     padding: 30px 30px;
     .mainDoctorInfoDiv {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
       .imageDiv {
         border: 1.7px solid #fa9551;
@@ -40,14 +41,20 @@
         flex: 1;
         height: 220px;
         display: flex;
-        margin: 0 5px 5px 0;
+        margin: 0 0 20px 0;
         .info {
-          padding: 20px 20px 20px 0;
+          padding: 20px;
+          text-align: start;
           p {
-            text-align: start;
-            font-size: 14px;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+          }
+          h5 {
+            font-weight: 900;
+            margin: 20px 0 0 0 !important;
             span {
-              font-weight: 900;
+              font-weight: 400;
             }
           }
         }
@@ -64,8 +71,9 @@
         border: 1.7px solid #fa9551;
         background: white;
         border-radius: 15px;
-        margin: 0 0 5px 5px;
-        height: 220px;
+        margin: 0 0 20px 0;
+        min-height: 130px;
+
         .priceInfo {
           padding: 20px;
           div {
@@ -97,13 +105,15 @@
     }
     .BiographyDiv {
       display: flex;
+      flex-direction: column;
       .bio {
         flex: 1;
         border: 1.7px solid #fa9551;
         background: white;
         border-radius: 15px;
-        margin: 5px 5px 0 0;
-        height: 220px;
+        margin: 20px 0 0 0;
+        min-height: 130px;
+
         .pForBio {
           font-weight: 900;
           text-align: left;
@@ -112,36 +122,37 @@
         textarea {
           resize: none;
           width: 100%;
-          height: 150px;
+          min-height: 70px;
           padding: 0px 20px 20px 20px;
+          border-radius: 5px;
           background: white;
 
           border: none;
-          &::-webkit-scrollbar {
-            width: 5px;
-          }
+          // &::-webkit-scrollbar {
+          //   width: 5px;
+          // }
 
-          &::-webkit-scrollbar-button:single-button {
-            // background-color: #bbbbbb;
-            display: block;
+          // &::-webkit-scrollbar-button:single-button {
+          //   // background-color: #bbbbbb;
+          //   display: block;
 
-            height: 13px;
-            width: 16px;
-          }
+          //   height: 13px;
+          //   width: 16px;
+          // }
 
-          &::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 5px;
-          }
+          // &::-webkit-scrollbar-track {
+          //   background: #f1f1f1;
+          //   border-radius: 5px;
+          // }
 
-          &::-webkit-scrollbar-thumb {
-            background: #fa9551;
-            border-radius: 5px;
-          }
+          // &::-webkit-scrollbar-thumb {
+          //   background: #fa9551;
+          //   border-radius: 5px;
+          // }
 
-          &::-webkit-scrollbar-thumb:hover {
-            background: #db8246;
-          }
+          // &::-webkit-scrollbar-thumb:hover {
+          //   background: #db8246;
+          // }
         }
       }
       .workHours {
@@ -149,8 +160,8 @@
         border: 1.7px solid #fa9551;
         background: white;
         border-radius: 15px;
-        margin: 5px 0 0 5px;
-        height: 220px;
+        min-height: 130px;
+
         // font-size: 12px;
         div {
           padding: 20px;

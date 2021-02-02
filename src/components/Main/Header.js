@@ -13,11 +13,11 @@ const Header =
         const history = useHistory();
         const location = useLocation();
 
-        // useEffect(() => {
-        //   if (location.pathname === "/client/waiting-room") {
-        //     props.popUpFalse();
-        //   }
-        // }, []);
+        useEffect(() => {
+          if (location.pathname === "/client/waiting-room") {
+            props.popUpFalse();
+          }
+        }, []);
 
         useEffect(() => {
           if (props.popUp) {
@@ -40,13 +40,13 @@ const Header =
         };
 
         const handleConnectingButton = () => {
-          if (location.pathname === "/client/waiting-room") {
-                props.popUpFalse();
-                window.location.reload()
-              }else{
-                history.push("/client/waiting-room");
-                props.popUpFalse();
-                window.location.reload()
+          if (location.pathname !== "/client/waiting-room") {
+            history.push("/client/waiting-room");
+            props.popUpFalse();
+            window.location.reload()
+              //   props.popUpFalse();
+              //   window.location.reload()
+              // }else{
               }
         };
         return (

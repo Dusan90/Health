@@ -205,6 +205,8 @@ class DoctorDashboard extends Component {
           res.data.data.mail.length !== 0 ||
           res.data.data.video.length !== 0
         ) {
+          // const filteredMail = res.data.data.mail.length !== 0 && res.data.data.mail.filter(ex => ex.transaction['status'] === 'Pending')
+          // const filteredVideo = res.data.data.video.length !== 0 && res.data.data.video.filter(ex => ex.transaction['status'] === 'Pending')
           let combineExams = res.data.data.mail.concat(res.data.data.video);
           this.setState({
             exams: combineExams,
@@ -328,7 +330,7 @@ class DoctorDashboard extends Component {
   peopleInWaitingRoom = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/today/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/${id}/list/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -362,7 +364,7 @@ class DoctorDashboard extends Component {
   changeStatusOfPastExams = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     const client = await fetch(
-      `https://healthcarebackend.xyz/api/queue/detail/${id}/`,
+      `https://healthcarebackend.xyz/api/queue/${id}/detail/`,
       {
         method: "PUT",
         headers: {

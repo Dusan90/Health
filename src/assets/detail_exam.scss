@@ -1112,6 +1112,25 @@
         color: white;
       }
     }
+    .sendButtonForReplay {
+      color: white;
+      background: #00aff0;
+      border: none;
+      height: 30px;
+      width: 80px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0px 10px 10px 0px;
+      transition: all 0.5s ease-in-out;
+      .replyIcon {
+        font-size: 20px;
+      }
+      // &:hover {
+      //   box-shadow: 2px 2px 1px black;
+      // }
+    }
   }
   .btn1 {
     background: #00aff0;

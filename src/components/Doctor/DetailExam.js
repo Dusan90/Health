@@ -255,10 +255,6 @@ return (
                                   value={props.messageValue}
                                 ></textarea>
                                 <div className="sendbuttonAndAtt">
-                                  <button onClick={handleSubmitSend}>
-                                    <FiSend className="replyIcon" />
-                                    <span>Send</span>
-                                  </button>
                                   <div className="attachess">
                                   <div className="upload-btn-wrapper">
                                     <button className="btn">
@@ -282,11 +278,14 @@ return (
                 </div>
                     {
                     // props.correspondence.length !== 0 &&
-                      exam.status === "Accepted" && (
+                      exam.status === "Accepted" && !props.replyClicked ? (
                         <button className="newMessage" onClick={newMessage}>
                           <h1>+</h1>
                         </button>
-                      )}
+                      ) : <button className='sendButtonForReplay' onClick={handleSubmitSend}>
+                      <FiSend className="replyIcon" />
+                      <span>Send</span>
+                    </button>}
               </div>
               {/* { exam.status === 'Finished' ? 
                  <button

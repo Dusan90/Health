@@ -28,8 +28,11 @@ export class DoctorsVideoList extends Component {
       })
       .then((res) => {
         if (res.data.data.video.length !== 0) {
+          const filtered = res.data.data.video.filter(ex=>{
+            return ex.status === 'Pending'
+          })
           this.setState({
-            exams: res.data.data.video,
+            exams: filtered,
             loading: false,
           });
         } else {

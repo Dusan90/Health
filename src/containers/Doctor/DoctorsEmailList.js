@@ -30,9 +30,14 @@ export class DoctorsEmailList extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
+        console.log(res);
+
         if (res.data.data.mail.length !== 0) {
+          const filtered = res.data.data.mail.filter(ex=>{
+            return ex.status === 'Pending'
+          })
           this.setState({
-            exams: res.data.data.mail,
+            exams: filtered,
             loading: false,
           });
         } else {
@@ -54,33 +59,33 @@ export class DoctorsEmailList extends Component {
     }
   };
 
-  getUnreadMessages = async (id) => {
-    const access_token = "Bearer ".concat(this.state.token);
-    axios
-      .get(`https://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
-        headers: { Authorization: access_token },
-      })
-      .then((response) => {
-        console.log(response, "response");
-        const unreadMessages = response.data.data.filter((ex) => {
-          if (ex.messages.length !== 0) {
-            return (
-              ex.messages[ex.messages.length - 1].sender !==
-              `${this.state.doctorCurent.prefix} ${this.state.doctorCurent.doctor}`
-            );
-          } else {
-            return ex;
-          }
-        });
+  // getUnreadMessages = async (id) => {
+  //   const access_token = "Bearer ".concat(this.state.token);
+  //   axios
+  //     .get(`https://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
+  //       headers: { Authorization: access_token },
+  //     })
+  //     .then((response) => {
+  //       console.log(response, "response");
+  //       const unreadMessages = response.data.data.filter((ex) => {
+  //         if (ex.messages.length !== 0) {
+  //           return (
+  //             ex.messages[ex.messages.length - 1].sender !==
+  //             `${this.state.doctorCurent.prefix} ${this.state.doctorCurent.doctor}`
+  //           );
+  //         } else {
+  //           return ex;
+  //         }
+  //       });
 
-        console.log(unreadMessages, "od nzm ni ja");
-        const unreadIds = unreadMessages.map((ex) => ex.exam.id);
-        this.setState({ mail: unreadIds });
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  };
+  //       console.log(unreadMessages, "od nzm ni ja");
+  //       const unreadIds = unreadMessages.map((ex) => ex.exam.id);
+  //       this.setState({ mail: unreadIds });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response);
+  //     });
+  // };
 
   handleDoctorProfile = async () => {
     const access_token = "Bearer ".concat(this.state.token);
@@ -96,7 +101,7 @@ export class DoctorsEmailList extends Component {
           doctorCurent: current,
         });
         this.paginatedExams();
-        this.getUnreadMessages(this.state.doctorCurent.id);
+        // this.getUnreadMessages(this.state.doctorCurent.id);
       });
   };
 

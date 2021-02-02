@@ -133,7 +133,7 @@ console.log(e);
         this.setState({ excludeTime });
       });
     this.setState({ resetDoctorSelect: e, specialSP: docsSpec[0].value, currentSpec: docsSpec[0].label });
-    this.noviApiNoviTest(e.iD)
+    this.workingHoursForDoctor(e.iD)
   };
 
   handleSubject = (e) => {
@@ -255,7 +255,7 @@ console.log(e);
       });
   };
 
-  noviApiNoviTest = (id) =>{
+  workingHoursForDoctor = (id) =>{
     const access_token = "Bearer ".concat(this.state.token);
     
     axios

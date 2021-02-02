@@ -1,10 +1,11 @@
 .mainClien {
   display: flex;
+  flex-direction: column;
   // width: calc(100% - 480px) !important;
   width: 780px !important;
   margin: 110px 120px 40px 360px;
   background: #f2f2f2;
-  padding: 30px 30px 30px 0 !important;
+  padding: 30px !important;
   border-radius: 15px;
 
   position: relative;
@@ -26,15 +27,15 @@
   }
 
   .client {
-    width: 360px;
+    width: 100%;
     padding: 20px 20px 20px 20px;
     border: 1.7px solid #fa9551;
     border-radius: 15px;
-    height: 300px;
+    height: 250px;
     display: flex;
-    margin: 0 5px 0 30px;
+    margin: 0 0 20px 0 !important;
     background: white;
-    justify-content: space-between;
+    justify-content: flex-start;
 
     img {
       width: 110px;
@@ -47,13 +48,20 @@
     .client-p {
       display: flex;
       flex-direction: column;
-
+      text-align: left;
+      padding: 0 0 0 20px;
       p {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 20px;
+        // padding: 20px 0 0 0;
+      }
+      h5 {
+        font-weight: 900;
         color: #666666;
-        text-align: left;
-        margin: 0 0 15px 0;
+        margin: 0 0 20px 0;
         span {
-          font-weight: 900;
+          font-weight: 400;
         }
       }
     }
@@ -62,9 +70,9 @@
   .form {
     // padding: 20px 15px 20px 20px;
     padding: 0px !important;
-    margin: 0 0 0 5px;
+    margin: 0;
     height: 300px;
-    width: 360px;
+    width: 100%;
     color: #666666;
 
     .conditionss {
@@ -79,12 +87,16 @@
       margin: 0 0 20px 0;
       padding: 10px;
       background: white;
+      span {
+        font-size: 16px;
+      }
       textarea {
         background: transparent;
         border: none;
-        // padding: 15px 0 15px 0;
+        // padding: 15px 0 15px 0
         font-weight: 400;
         resize: none;
+
         &::-webkit-scrollbar {
           width: 5px;
         }
@@ -124,6 +136,9 @@
       margin: 20px 0;
       padding: 10px;
       background: white;
+      span {
+        font-size: 16px;
+      }
       textarea {
         background: transparent;
         border: none;
@@ -275,8 +290,11 @@
         .status {
           display: none;
         }
+        .client-type {
+          width: 120px !important;
+        }
         .created {
-          width: 300px;
+          width: 120px;
         }
         .client-subject {
           width: 300px;
@@ -303,8 +321,8 @@
         .client-type {
           // text-align: center;
           height: 40px;
-          padding: 0 0 0 30px;
-          width: 200px;
+          padding: 0;
+          width: 120px;
           .mainExamDiv {
             margin: 0 0 0 -5px;
             height: 40px;
@@ -312,7 +330,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            width: 150px;
+            width: 120px;
             // .searchDiv {
             //   display: flex;
             //   align-items: center;
@@ -353,7 +371,7 @@
           justify-content: flex-start;
           align-items: center;
           height: 40px;
-          width: 200px;
+          width: 120px;
         }
         .client-status {
           text-align: center;

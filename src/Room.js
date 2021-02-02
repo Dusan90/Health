@@ -11,6 +11,12 @@ import { FaPhoneSlash } from "react-icons/fa";
 import Header from "./components/Main/Header";
 import Nav from "./components/Main/Navbar";
 import { HamburgerDiv } from "./components/Main/HamburgerDiv";
+import mute from './icons/videoIcons/mute.svg'
+import unmute from './icons/videoIcons/unmute.svg'
+import hangup from './icons/videoIcons/hang-up.svg'
+import cameraoff from './icons/videoIcons/camera-off.svg'
+import cameraon from './icons/videoIcons/camera-on.svg'
+
 
 
 import * as mediasoupClient from "mediasoup-client";
@@ -36,7 +42,7 @@ const Container = styled.div`
   margin: 110px auto 20px 360px;
   border-radius: 15px;
   display: flex;
-  height: 550px;
+  height: 650px;
   width: calc(100% - 480px);
   flex-wrap: wrap;
   background: #f2f2f2
@@ -66,6 +72,8 @@ const videoConstraints = {
 const Room = (props) => {
   const [peers, setPeers] = useState([]);
   const [hovered, setHovered] = useState(false);
+  const [mic, setMic] = useState(false);
+  const [video, setVideo] = useState(false);
 
   const socketRef = useRef();
   const userVideo = useRef();
@@ -113,7 +121,15 @@ const Room = (props) => {
           track.enabled = !track.enabled;
         });
 
+        document.querySelector(".iconMicUnmute").addEventListener("click", () => {
+          track.enabled = !track.enabled;
+        });
+
         document.querySelector(".iconVideo").addEventListener("click", () => {
+          cutVideo.enabled = !cutVideo.enabled;
+        });
+
+        document.querySelector(".iconVideoShow").addEventListener("click", () => {
           cutVideo.enabled = !cutVideo.enabled;
         });
       });
@@ -158,6 +174,13 @@ const Room = (props) => {
     return peer;
   }
 
+  function cutMic() {
+      setMic(!mic)
+  }
+  function cutVideo() {
+      setVideo(!video)
+  }
+
   console.log(peers);
 
   return (
@@ -186,65 +209,34 @@ const Room = (props) => {
         }}
       >
         <StyledVideo muted ref={userVideo} autoPlay playsInline />
-        <div
-          style={{
-            display: hovered ? "flex" : "none",
-            position: "absolute",
-            zIndex: "5",
-            width: "100%",
-            top: "80%",
-            justifyContent: "space-around",
-          }}
-        >
-          <button
-            style={{
-              fontSize: "40px",
-              width: "50px",
-              height: "50px",
-              color: "white",
-              borderRadius: "50%",
-              background: "transparent",
-              border: "1px solid white",
-            }}
-            className="iconMic"
-          >
-            <FaMicrophoneAltSlash />
-          </button>
-          <button
-            style={{
-              fontSize: "40px",
-              width: "50px",
-              color: "white",
-              border: "1px solid white",
-              height: "50px",
-              borderRadius: "50%",
-              background: "transparent",
-            }}
-            className="iconPhone"
-          >
-            <FaPhoneSlash />
-          </button>
-          <button
-            style={{
-              fontSize: "40px",
-              width: "50px",
-              color: "white",
-              border: "1px solid white",
-              height: "50px",
-              borderRadius: "50%",
-              background: "transparent",
-            }}
-            className="iconVideo"
-          >
-            <FaVideoSlash />
-          </button>
-        </div>
+        
       </div>
+      <div className="MainIconsDiv">
+                  <img src={mute}
+                    className="iconMic"
+                  alt="img" style={{ display: mic ? "none" : "block" }}
+                onClick={cutMic}/>
+                  <img src={unmute}
+                   className="iconMicUnmute"
+                  alt="img" style={{ display: !mic ? "none" : "block" }}
+                onClick={cutMic}/>
+                  {/* <img src={call} alt="img" style={{display: 'none' }}/> */}
+                  <img src={hangup} alt="img" className="iconPhone"/>
+                  <img src={cameraoff}
+                  className="iconVideo"
+                   alt="img" style={{ display: video ? "none" : "block" }}
+                onClick={cutVideo}/>
+                  <img src={cameraon} alt="img" 
+                className="iconVideoShow"
+                style={{ display: !video ? "none" : "block" }}
+                onClick={cutVideo}/>
+      </div> 
       {peers.map((peer, index) => {
         if (peer.readable) {
           return <Video key={index} peer={peer} />;
         }
       })}
+         
     </Container>
     </>
   );

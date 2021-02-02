@@ -20,4 +20,15 @@
     border-radius: 15px;
     object-fit: cover;
   }
+  .MainIconsDiv {
+    display: flex;
+    width: 400px;
+    justify-content: space-around;
+    margin: 20px auto 0 auto;
+    img {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }

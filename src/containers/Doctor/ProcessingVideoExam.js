@@ -63,7 +63,7 @@ class ProcessingVideoExam extends Component {
   detail = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/detail/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/${id}/detail/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
@@ -400,7 +400,7 @@ class ProcessingVideoExam extends Component {
   form_data.append("report", this.state.report);
   form_data.append("report_file", this.state.selectedFile);
 
-  let url = `https://healthcarebackend.xyz/api/queue/detail/${this.props.match.params.id}/`;
+  let url = `https://healthcarebackend.xyz/api/queue/${this.props.match.params.id}/detail/`;
   
   const data = axios.put(url, form_data, {
     headers: {

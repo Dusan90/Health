@@ -146,7 +146,7 @@ class ClientWaitingRoom extends Component {
   handleExitQueue = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     let clientCancel = await fetch(
-      `https://healthcarebackend.xyz/api/queue/client/delete/${this.state.currentClient.id}/`,
+      `https://healthcarebackend.xyz/api/queue/${this.state.currentClient.id}/delete/`,
       {
         method: "PUT",
         headers: {
@@ -829,7 +829,7 @@ class ClientWaitingRoom extends Component {
   }
 
   render() {
-    console.log(this.state.price);
+    console.log(this.state.attachment2);
     return (
       <>
         <div className="header">
@@ -862,6 +862,7 @@ class ClientWaitingRoom extends Component {
   resetValue={this.resetValue}
         handleKeyPress={this.handleKeyPress}
         handleAttach={this.handleAttach}
+        handleAttach2={this.handleAttach2}
         />
       </>
     );

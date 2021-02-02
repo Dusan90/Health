@@ -35,16 +35,20 @@ export class DoctorsQueueList extends Component {
   peopleInWaitingRoom = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/queue/today/${id}/`, {
+      .get(`https://healthcarebackend.xyz/api/queue/${id}/list/`, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
         console.log(response);
-
-        this.setState({
-          exams: response.data.data.queue,
-          loading: false,
-        });
+        if(response.data.data.queue !== 0){
+        const filtered = response.data.data.queue.filter(ex =>{
+          return ex.status === 'In the queue'
+        })
+          this.setState({
+            exams: filtered,
+            loading: false,
+          });
+        }
       })
       .catch((err) => {
         console.log(err.response);

@@ -13,6 +13,7 @@ export class DoctorsDetails extends Component {
             startW: '',
             endW: '',
       token: sessionStorage.getItem("accessToken"),
+      workingHoursArray: []
         }
     }
 
@@ -30,13 +31,29 @@ export class DoctorsDetails extends Component {
 
     
             this.setState({ doctor: [response.data.data], startW: start, endW: end });
-          });
+          }).then(() =>{
+            const bioText = document.querySelector('.bioText')
+            bioText.style.height = `${bioText.scrollHeight}px`
+          })
       };
     
       componentDidMount() {
         const id = this.props.match.params.id
         this.doctor(id);
+        this.workingHoursForDoctor(id)
+      }
+
+      workingHoursForDoctor = (id) =>{
+        const access_token = "Bearer ".concat(this.state.token);
         
+        axios
+          .get(`https://healthcarebackend.xyz/api/client/schedule/${id}/`, {
+            headers: { Authorization: access_token },
+          })
+          .then((response) => {
+            console.log(response, 'noviapinovitesssssssssssssssssttttttttttttt');
+            this.setState({workingHoursArray: response.data.data})
+          })
       }
     render() {
       console.log(this);

@@ -6,15 +6,15 @@ import loading from "../../icons/c+.svg";
 import "../../assets/doctorEmailList.scss";
 
 const DoctorsEmailList = ({ props, handleClick }) => {
-  props.exams.map((ex) => {
-    if (props.mail.includes(ex.id) && ex.exam_type === "mail") {
-      let hello = Object.assign(ex, { isRead: true });
-      return hello;
-    } else {
-      let hy = Object.assign(ex, { isRead: false });
-      return hy;
-    }
-  });
+  // props.exams.map((ex) => {
+  //   if (props.mail.includes(ex.id) && ex.exam_type === "mail") {
+  //     let hello = Object.assign(ex, { isRead: true });
+  //     return hello;
+  //   } else {
+  //     let hy = Object.assign(ex, { isRead: false });
+  //     return hy;
+  //   }
+  // });
   return (
     <div className="mainEmailList">
       <div className="iconEmail">

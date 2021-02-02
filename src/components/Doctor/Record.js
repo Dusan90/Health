@@ -28,7 +28,6 @@ const Record = ({
     {record &&
       record.map(client => {
         console.log(client);
-        const splited = client.client.split(" ");
         return (
           <div key={client.id} className="mainClien">
             <div className="clDetails">
@@ -37,18 +36,17 @@ const Record = ({
             <div className="client">
             <img src={client.image.includes('default') ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
               <div className="client-p">
-        <p><span>First Name:</span> {splited[0]}</p>
-        <p><span>Last Name:</span> {splited[1]}</p>
-        <p><span>Address:</span> {client.address}</p>
-        <p><span>E-mail:</span> {client.email}</p>
-        <p><span>Phone number:</span> {client.phone}</p>
-        <p><span>Date of birth:</span> {client.birth_date}</p>
-        <p><span>{client.gender === 'M' ? 'Male' : 'Female'}</span></p>
+        <p>{client.client}</p>
+        <h5>Address: <span>{client.address}</span></h5>
+        <h5>E-mail: <span>{client.address}</span></h5>
+        <h5>Phone number: <span>{client.address}</span></h5>
+        <h5>Date of birth: <span>{client.address}</span></h5>
+        <h5>{client.gender === 'M' ? 'Male' : 'Female'}</h5>
               </div>
             </div>
             <div className="form">
               <div className="conditionss">
-                Chronical conditions:{" "} <br/>
+                <span>Chronical conditions:{" "}</span>
                 <textarea
                   type="text"
                   readOnly
@@ -58,7 +56,7 @@ const Record = ({
                 />
               </div>
               <div  className="allergiess">
-               Allergies:{" "}
+               <span>Allergies:{" "}</span>
                <textarea
                   type="text"
                   readOnly
@@ -134,7 +132,7 @@ const Record = ({
                       onClick={() => handleClick(exam.id, exam.exam_type)}
                     >
                       <td className="client-subject">{exam.subject}</td>
-                      <td className="client-subject">{exam.exam_type}</td>
+                      <td className="client-type">{exam.exam_type}</td>
                       <td className="created">
                         {exam.created && !exam.appointed_date ? (
                           <p> {moment(exam.created).format("MM/DD/YY HH:mm")}</p>

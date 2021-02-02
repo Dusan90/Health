@@ -477,6 +477,7 @@ const WaitingRoom = ({
     <pre id="messages"></pre>
     <div className="inputMessage">
       <textarea
+      style={{textIndent: props.attachment2 && '110px'}}
         type="text"
         placeholder="Type a message"
         id="yourMessage"
@@ -485,20 +486,21 @@ const WaitingRoom = ({
         onMouseDown={enableTipeing}
         onKeyPress={(e) =>{handleKeyPress(e)}}
       ></textarea>
+    {props.attachment2 && <div className='fileForDownload'><p>{props.attachment2.name.substring(props.attachment2.name.lastIndexOf('/') + 1)}</p></div>}
+
     </div>
   </form>
     </div> 
     {/* <div className='mainDivForFile'>
     <div className="upload-btn-wrapper">
       <button className="btn">
-        <div className='attachDiv'><img src={arrowAttach} alt="" srcset=""/></div>
+        <div className='attachDiv'><img src={arrowAttach} alt="slika"/></div>
       </button>
       <input type="file" name="myfile" onChange={handleAttach2} multiple />
-    </div>
-    {props.attachment2 && <div className='fileForDownload'><p>{props.attachment.name.substring(props.attachment.name.lastIndexOf('/') + 1)}</p></div>}
-    {/* {props.attachment && props.attachment.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
+    </div> */}
+    {/* {{props.attachment && props.attachment.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
 
-    {/* </div> */} 
+    {/* </div>  */}
       
       <button id="send" onClick={resetValue}>
         <img src={messageSend} alt="messageImg"/>
