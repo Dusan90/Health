@@ -243,8 +243,8 @@ const VideoReq = ({
             timeIntervals={30}
             timeCaption="time"
             fixedHeight
-            minTime={props.selectedWorkingHours.length === 0 ? moment(new Date()).set("hour", 15).set("minute", 30)._d : new Date(props.selectedDateForStart)}
-            maxTime={props.selectedWorkingHours.length === 0 ? moment(new Date()).set("hour", 15).set("minute", 30)._d : new Date(props.selectedDateForEnd) }
+            minTime={props.whichDayIsIt === 7 ? new Date(props.selectedDateForStart) : props.selectedWorkingHours.length === 0 ? moment(new Date()).set("hour", 15).set("minute", 30)._d : new Date(props.selectedDateForStart)}
+            maxTime={props.whichDayIsIt === 7 ? new Date(props.selectedDateForEnd) : props.selectedWorkingHours.length === 0 ? moment(new Date()).set("hour", 15).set("minute", 30)._d : new Date(props.selectedDateForEnd) }
             // minTime={props.startTime ? moment(new Date()).set("hour", startTimeHour).set("minute", startTimeMinute)._d : moment(new Date()).set("hour", 8).set("minute", 0)._d}
             // maxTime={props.endTime? moment(new Date()).set("hour", endTimeHour).set("minute", endTimeMinute).subtract(30, 'minute')._d : moment(new Date()).set("hour", 15).set("minute", 30)._d}
           />

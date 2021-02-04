@@ -43,7 +43,8 @@ class ClientVideoReq extends Component {
       selectedDateForEnd: '',
       excludeDate: '',
       selectedWorkingHours: [],
-      transaction_id: ''
+      transaction_id: '',
+      whichDayIsIt: ''
     };
   }
 
@@ -54,15 +55,22 @@ class ClientVideoReq extends Component {
     let selectedWorkingHours = this.state.workingHoursArray.length !== 0 && this.state.workingHoursArray.filter(ex =>{
       return ex.day === (moment(date).day() - 1) 
     })
-
     this.setState({ startDate: date, reservedDate: clickedDate });
-    if (selectedWorkingHours.length !== 0){
+    if(this.state.workingHoursArray.length !== 0 && this.state.workingHoursArray[0]['day'] === 7){
+      console.log('duca');
+      let selecteddate = moment(date).format('YYYY-MM-DD')
+      let selectedDateForStart = selecteddate + 'T' + this.state.workingHoursArray[0]['start_hour']; 
+      let selectedDateForEnd = selecteddate + "T" + this.state.workingHoursArray[0]['end_hour']; 
+      this.setState({
+        selectedDateForEnd, selectedDateForStart, whichDayIsIt: this.state.workingHoursArray[0]['day']
+      })
+    }else if (selectedWorkingHours.length !== 0){
       let selecteddate = moment(date).format('YYYY-MM-DD')
       let selectedDateForStart = selecteddate + 'T' + selectedWorkingHours[0]['start_hour']; 
       let selectedDateForEnd = selecteddate + "T" + selectedWorkingHours[0]['end_hour']; 
       this.setState({
         selectedDateForEnd, selectedDateForStart,
-         selectedWorkingHours})
+        selectedWorkingHours})
     }else{
       this.setState({selectedDateForEnd: '', selectedDateForStart: '', selectedWorkingHours: []})
       
@@ -326,6 +334,8 @@ console.log(e);
   }
 
   render() {
+    console.log(this.state.selectedDateForStart, this.state.selectedDateForEnd);
+    console.log(this.state.workingHoursArray.length !== 0 && this.state.workingHoursArray[0]['day']);
     return (
       <>
         <div className="header">

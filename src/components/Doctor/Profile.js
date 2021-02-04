@@ -7,7 +7,9 @@ import arrowAttach from '../../icons/attach_white.svg'
 import addImage from '../../icons/newIconsForDesign/add-picture.svg'
 import plus from '../../icons/newIconsForDesign/plus.svg'
 import minus from '../../icons/newIconsForDesign/minus.svg'
-import TimePicker from 'react-time-picker';
+// import TimePicker from 'react-time-picker';
+import TimeField from 'react-simple-timefield'
+
 
 
 
@@ -43,7 +45,11 @@ const Profile = ({
      if(props.daysAndTime.includes(JSON.parse(ex.value))){
        let isDisabledConstant = Object.assign(ex, { isdisabled: true })
        return isDisabledConstant
+     }else if(props.daysAndTime.length !== 0 && ex.value === "7"){
+      let test = Object.assign(ex, { isdisabled: true })
+      return test
      }else{
+       delete ex.isdisabled
        return ex
      }
   })
@@ -376,31 +382,23 @@ const Profile = ({
         options={newOptions}
         isDisabled={props.daysAndTime.includes(0)}
         isOptionDisabled={(option) => option.isdisabled}
-        // placeholder={props.daysAndTime.length !== 0 && props.daysAndTime.map(ex => ex.day === 0) && 'Monday' }
         placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0]["day"] === 0 ? 'Monday' : 'Select...'}
-
-
         onChange={handleSelectForDays}
       />
-    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
-    <p>-</p>
-    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
-     <TimePicker
+     <TimeField
+       colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTime(e, 0)}
         onClick={ (e) => handleChangeTime(e, 0)}
-        value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0]['start_hour']}
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
+        value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0] ? props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0]['start_hour'] : '00:00'}
       />
     <p>-</p>
-    <TimePicker
+    <TimeField
+      colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTimeEnd(e, 0)}
         onClick={ (e) => handleChangeTimeEnd(e, 0)}
-        value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0]['end_hour']}
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
+        value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0] ? props.daysAndTimeAndDays.filter(ex => ex.day === 0)[0]['end_hour'] : '00:00'}
       />
        <img src={minus} alt="minusImg" onClick={(e) => {
       let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 0 && ex)
@@ -416,31 +414,21 @@ const Profile = ({
         isDisabled={props.daysAndTime.includes(1)}
         options={newOptions}
         isOptionDisabled={(option) => option.isdisabled}
-        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
         placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 1)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 1)[0]["day"] === 1 && 'Tuesday'}
-
-
-
-
         onChange={handleSelectForDays}
       />
-    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
-    <p>-</p>
-    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
-     <TimePicker
+     <TimeField
+       colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTime(e, 1)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 1)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 1)[0]['start_hour']}
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <p>-</p>
-    <TimePicker
+    <TimeField
+      colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTimeEnd(e, 1)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 1)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 1)[0]['end_hour']}
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <img src={minus} alt="minusImg" onClick={(e) => {
       let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 1 && ex)
@@ -456,32 +444,21 @@ const Profile = ({
         isDisabled={props.daysAndTime.includes(2)}
         options={newOptions}
         isOptionDisabled={(option) => option.isdisabled}
-        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
         placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 2)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 2)[0]["day"] === 2 && 'Wednesday'}
-
-
-
-
         onChange={handleSelectForDays}
       />
-    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
-    <p>-</p>
-    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
-     <TimePicker
+     <TimeField
+       colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTime(e, 2)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 2)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 2)[0]['start_hour']}
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <p>-</p>
-    <TimePicker
+    <TimeField
+      colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTimeEnd(e, 2)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 2)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 2)[0]['end_hour']}
-
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <img src={minus} alt="minusImg" onClick={(e) => {
       let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 2 && ex)
@@ -496,35 +473,22 @@ const Profile = ({
         value={selectValue}
         options={newOptions}
         isDisabled={props.daysAndTime.includes(3)}
-
         isOptionDisabled={(option) => option.isdisabled}
-        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
         placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 3)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 3)[0]["day"] === 3 && 'Thursday'}
-
-
-
-
         onChange={handleSelectForDays}
       />
-    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
-    <p>-</p>
-    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
-     <TimePicker
+     <TimeField
+       colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTime(e, 3)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 3)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 3)[0]['start_hour']}
-        disableClock
-        placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 3)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 3)[0]['start_hour']}
-        format='HH:mm'
-        clearIcon= {null}
       />
     <p>-</p>
-    <TimePicker
+    <TimeField
+      colon=":"                          
+    showSeconds={false}  
         onChange={  (e) => handleChangeTimeEnd(e, 3)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 3)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 3)[0]['end_hour']}
-
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <img src={minus} alt="minusImg" onClick={(e) => {
       let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 3 && ex)
@@ -539,32 +503,22 @@ const Profile = ({
         value={selectValue}
         options={newOptions}
         isDisabled={props.daysAndTime.includes(4)}
-
         isOptionDisabled={(option) => option.isdisabled}
-        // placeholder={props.daysAndTime.length !== 0 && props.daysAndTime[4]["day"] === 4 && 'Friday' }
         placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 4)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 4)[0]["day"] === 4 && 'Friday'}
-
-
         onChange={handleSelectForDays}
       />
-    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
-    <p>-</p>
-    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
-     <TimePicker
+     <TimeField
+       colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTime(e, 4)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 4)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 4)[0]['start_hour']}
-
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <p>-</p>
-    <TimePicker
+    <TimeField
+      colon=":"                          
+    showSeconds={false}  
         onChange={  (e) => handleChangeTimeEnd(e, 4)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 4)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 4)[0]['end_hour']}
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <img src={minus} alt="minusImg" onClick={(e) => {
       let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 4 && ex)
@@ -581,32 +535,21 @@ const Profile = ({
         isDisabled={props.daysAndTime.includes(5)}
 
         isOptionDisabled={(option) => option.isdisabled}
-        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
         placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 5)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 5)[0]["day"] === 5 && 'Saturday'}
-
-
-
         onChange={handleSelectForDays}
       />
-    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
-    <p>-</p>
-    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
-     <TimePicker
+     <TimeField
+       colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTime(e, 5)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 5)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 5)[0]['start_hour']}
-
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <p>-</p>
-    <TimePicker
+    <TimeField
+      colon=":"                          
+    showSeconds={false}  
         onChange={  (e) => handleChangeTimeEnd(e, 5)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 5)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 5)[0]['end_hour']}
-
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <img src={minus} alt="minusImg" onClick={(e) => {
       let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 5 && ex)
@@ -621,33 +564,22 @@ const Profile = ({
         value={selectValue}
         options={newOptions}
         isDisabled={props.daysAndTime.includes(6)}
-
         isOptionDisabled={(option) => option.isdisabled}
-        // placeholder={doctor.web_follow_up_currency ? doctor.web_follow_up_currency : 'USD' }
         placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 6)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 6)[0]["day"] === 6 && 'Sunday'}
-
-
         onChange={handleSelectForDays}
       />
-    {/* <input type="time" id='TimeStart' value={props.TimeStart} onChange={handleChange} />
-    <p>-</p>
-    <input type="time" id='TimeEnd' value={props.TimeEnd}  onChange={handleChange} /> */}
-     <TimePicker
+     <TimeField
+       colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTime(e, 6)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 6)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 6)[0]['start_hour']}
-
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <p>-</p>
-    <TimePicker
+    <TimeField
+      colon=":"                          
+    showSeconds={false}  
         onChange={ (e) => handleChangeTimeEnd(e, 6)}
         value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 6)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 6)[0]['end_hour']}
-
-        disableClock
-        format='HH:mm'
-        clearIcon= {null}
       />
     <img src={minus} alt="minusImg" onClick={(e) => {
       let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 6 && ex)
@@ -655,7 +587,39 @@ const Profile = ({
       }}/>
   </div>}
 
-            
+  {props.daysInArray.includes(7) && <div key='7' id='7' className='workHoursDiv'>
+  <Select
+        type="text"
+        className="select-option"
+        styles={customStyles3}
+        value={selectValue}
+        options={newOptions}
+        isDisabled={props.daysAndTime.includes(7)}
+        isOptionDisabled={(option) => option.isdisabled}
+        placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 7)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 7)[0]["day"] === 7 && 'Every day'}
+        onChange={handleSelectForDays}
+      />
+     <TimeField
+       colon=":"                          
+    showSeconds={false}  
+        onChange={ (e) => handleChangeTime(e, 7)}
+        value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 7)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 7)[0]['start_hour']}
+      />
+    <p>-</p>
+    <TimeField
+      colon=":"                          
+    showSeconds={false}  
+        onChange={ (e) => handleChangeTimeEnd(e, 7)}
+        value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 7)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 7)[0]['end_hour']}
+      />
+    <img src={minus} alt="minusImg" onClick={(e) => {
+      let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 7 && ex)
+      handleMinusImage(e, idOfday[0]['id'])
+      }}/>
+  </div>}
+
+
+
                 <img src={plus} alt="plus" onClick={handlePlusImg}/>
                 <button 
                 style={{display: !props.plusClicked && 'none'}}

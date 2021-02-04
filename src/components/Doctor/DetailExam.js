@@ -341,13 +341,12 @@ return (
             <div className="client">
             <img src={client.image.includes('default') ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
               <div className="client-p">
-        <p><span>First Name:</span> {splited[0]}</p>
-        <p><span>Last Name:</span> {splited[1]}</p>
-        <p><span>Address:</span> {client.address}</p>
-        <p><span>E-mail:</span> {client.email}</p>
-        <p><span>Phone number:</span> {client.phone}</p>
-        <p><span>Date of birth:</span> {client.birth_date}</p>
-        <p><span>{client.gender === 'M' ? 'Male' : 'Female'}</span></p>
+              <p>{client.client}</p>
+        <h5>Address: <span>{client.address}</span></h5>
+        <h5>E-mail: <span>{client.address}</span></h5>
+        <h5>Phone number: <span>{client.address}</span></h5>
+        <h5>Date of birth: <span>{client.address}</span></h5>
+        <h5>{client.gender === 'M' ? 'Male' : 'Female'}</h5>
               </div>
             </div>
             <div className="form">
@@ -495,6 +494,8 @@ return (
           pageRangeDisplayed={10}
           onChange={handlePageChange}
           itemClassLast={'lastPage'}
+          hideFirstLastPages={true}
+
         />
       </div>}
 

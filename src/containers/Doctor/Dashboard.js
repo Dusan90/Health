@@ -348,6 +348,8 @@ class DoctorDashboard extends Component {
           return ex.status === "Accepted" || ex.status === "In the queue";
           // return ex.status !== "Canceled" && ex.status !== "Declined";
         });
+          // const filteredqueue = response.data.data.queue.length !== 0 && response.data.data.queue.filter(ex => ex.transaction['status'] === 'Pending')
+
         this.setState({
           waitingRoom: filterCanceled,
           exams: [...this.state.exams.concat(response.data.data.queue)],

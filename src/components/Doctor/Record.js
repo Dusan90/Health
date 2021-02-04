@@ -187,6 +187,9 @@ const Record = ({
           pageRangeDisplayed={10}
           onChange={handlePageChange}
           itemClassLast={'lastPage'}
+          hideFirstLastPages={true}
+
+
         />
       </div>
   </>

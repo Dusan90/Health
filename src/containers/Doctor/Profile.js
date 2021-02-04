@@ -22,7 +22,7 @@ const days = [
   { value: "4", label: "Friday" },
   { value: "5", label: "Saturday" },
   { value: "6", label: "Sunday" },
-  // { value: "Everyday", label: "Everyday" },
+  { value: "7", label: "Every day" },
   // { value: "Mon-Fri", label: "Mon-Fri" },
 ]
 
@@ -359,19 +359,19 @@ class DoctorProfile extends Component {
   }
 
   handleChangeTime = (e,day) =>{
-    console.log(e, day);
+    console.log(e.target.value, day);
     console.log(this.state.daysAndTimeAndDays);
     let idForPut = this.state.daysAndTimeAndDays.length !== 0 && this.state.daysAndTimeAndDays.filter(ex => ex.day === day)[0] && this.state.daysAndTimeAndDays.filter(ex => ex.day === day)[0]['day']
-    this.setState({TimeStart: e, plusClicked: true })
+    this.setState({TimeStart: e.target.value, plusClicked: true })
     if(idForPut){
       this.setState({selectForDays: idForPut})
     }
   }
 
   handleChangeTimeEnd = (e, day) =>{
-    console.log(e, day);
+    console.log(e.target.value, day);
     let idForPut = this.state.daysAndTimeAndDays.length !== 0 && this.state.daysAndTimeAndDays.filter(ex => ex.day === day)[0] && this.state.daysAndTimeAndDays.filter(ex => ex.day === day)[0]['day']
-    this.setState({TimeEnd: e, plusClicked: true})
+    this.setState({TimeEnd: e.target.value, plusClicked: true})
     if(idForPut){
       this.setState({selectForDays: idForPut})
     }
@@ -426,15 +426,17 @@ class DoctorProfile extends Component {
     // if(this.state.howManySlots !== 7 ){
     //   this.setState({howManySlots: this.state.howManySlots + 1})
     // }
-    if(this.state.daysInArray.length < 7 && !this.state.plusClicked){
-    const daysInArray = [0, 1, 2, 3, 4, 5, 6]
-    let sorted = this.state.daysInArray.sort((a,b) => b - a)
-    let sorted2 = daysInArray.sort((a,b) => b - a)
-    console.log(sorted);
-    let missing = sorted2.filter((i => a => a !== sorted[i] || !++i)(0));
-   console.log(missing, 'sta se desava ovde');
-      this.setState({daysInArray: [...this.state.daysInArray, missing[0]], plusClicked: true})
-      // this.state.daysInArray.push(missing[0])
+    if(!this.state.daysAndTime.includes(7)){
+      if(this.state.daysInArray.length < 8 && !this.state.plusClicked){
+      const daysInArray = [0, 1, 2, 3, 4, 5, 6, 7]
+      let sorted = this.state.daysInArray.sort((a,b) => b - a)
+      let sorted2 = daysInArray.sort((a,b) => b - a)
+      console.log(sorted);
+      let missing = sorted2.filter((i => a => a !== sorted[i] || !++i)(0));
+     console.log(missing, 'sta se desava ovde');
+        this.setState({daysInArray: [...this.state.daysInArray, missing[0]], plusClicked: true})
+        // this.state.daysInArray.push(missing[0])
+      }
     }
   }
 
@@ -452,9 +454,7 @@ class DoctorProfile extends Component {
   }
 
   render() {
-    console.log(this.state.selectForDays);
-    console.log(this.state.daysAndTimeAndDays);
-    console.log(this.state.daysAndTime.includes(this.state.selectForDays))
+    console.log(this.state.daysAndTimeAndDays, this.state.daysAndTime);
     return (
       <>
         <div className="header">

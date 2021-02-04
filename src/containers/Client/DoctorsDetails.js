@@ -52,7 +52,8 @@ export class DoctorsDetails extends Component {
           })
           .then((response) => {
             console.log(response, 'noviapinovitesssssssssssssssssttttttttttttt');
-            this.setState({workingHoursArray: response.data.data})
+            const sorted = response.data.data.sort((a,b) => a.day-b.day)
+            this.setState({workingHoursArray: sorted})
           })
       }
     render() {

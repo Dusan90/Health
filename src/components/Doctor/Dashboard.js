@@ -365,6 +365,7 @@ const Dashboard = ({
           pageRangeDisplayed={10}
           onChange={handlePageChange}
           itemClassLast={'lastPage'}
+          hideFirstLastPages={true}
         />
       </div>}
       {/* <div
