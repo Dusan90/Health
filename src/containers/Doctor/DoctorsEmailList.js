@@ -33,18 +33,19 @@ export class DoctorsEmailList extends Component {
         console.log(res);
 
         if (res.data.data.mail.length !== 0) {
-          const filtered = res.data.data.mail.filter(ex=>{
+          const filteredMail = res.data.data.mail.length !== 0 && res.data.data.mail.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+
+          const filtered = filteredMail.filter(ex=>{
             return ex.status === 'Pending'
           })
           this.setState({
             exams: filtered,
             loading: false,
           });
-        } else {
-          this.setState({
-            messageOnScreen: "No Email",
-            loading: false,
-          });
+           if(filteredMail.length === 0){
+            this.setState({
+              messageOnScreen: "No consultations" })
+          }
         }
       })
       .catch((error) => {

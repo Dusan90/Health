@@ -19,7 +19,8 @@ const Record = ({
   loading,
   searchByType,
   ResetonSelectChange,
-  handlePageChange
+  handlePageChange,
+  handlePage
 
 }) =>{ 
   return (
@@ -29,18 +30,27 @@ const Record = ({
       record.map(client => {
         console.log(client);
         return (
-          <div key={client.id} className="mainClien">
-            <div className="clDetails">
-          <h4>Client details </h4>
+          <div key={client.id} className="mainClienn" style={{padding: props.pageYourOn === 'clientConsul' && '0', height: props.pageYourOn === 'clientConsul' && '10px' }}>
+            {/* <div className="clDetails"> */}
+            <div className="newVideo" style={{margin: props.pageYourOn === 'clientConsul' && '0px'}}>
+          <div className='profileDoc' style={{borderBottom: props.pageYourOn === 'clientDetails' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetails')}}>
+          <h4 style={{fontWeight: props.pageYourOn === 'clientDetails' && 'bold' }}>Client details</h4>
+          </div>
+          <div className='profileDoc' style={{borderBottom: props.pageYourOn === 'clientConsul' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientConsul')}}>
+          <h4 style={{fontWeight: props.pageYourOn === 'clientConsul' && 'bold' }}>Client consultations</h4>
+          </div>
         </div>
-            <div className="client">
+          {/* <h4>Client details </h4> */}
+        {/* </div> */}
+        {props.pageYourOn === 'clientDetails' && <div>
+        <div className="client">
             <img src={client.image.includes('default') ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
               <div className="client-p">
         <p>{client.client}</p>
         <h5>Address: <span>{client.address}</span></h5>
-        <h5>E-mail: <span>{client.address}</span></h5>
-        <h5>Phone number: <span>{client.address}</span></h5>
-        <h5>Date of birth: <span>{client.address}</span></h5>
+        <h5>E-mail: <span>{client.email}</span></h5>
+        <h5>Phone number: <span>{client.phone}</span></h5>
+        <h5>Date of birth: <span>{client.birth_date}</span></h5>
         <h5>{client.gender === 'M' ? 'Male' : 'Female'}</h5>
               </div>
             </div>
@@ -60,17 +70,16 @@ const Record = ({
                <textarea
                   type="text"
                   readOnly
-                  className="address-input"
+                  className="address-input2"
                   placeholder={client.allergies}
                  id='Allergies'
                 />
          
               </div>
             </div>
-          </div>
-        );
-      })}
-
+          </div>}
+      
+{props.pageYourOn === 'clientConsul' && <div className="consAndPagi">
 {loading ? (
         <img
           src={Loading}
@@ -192,6 +201,9 @@ const Record = ({
 
         />
       </div>
+</div>}
+          </div>  );
+      })}
   </>
 )}
 

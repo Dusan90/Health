@@ -1161,11 +1161,12 @@
 
 .mainClien {
   display: flex;
+  flex-direction: column;
   // width: calc(100% - 480px) !important;
-  width: 780px;
+  width: 40% !important;
   margin: 110px 120px 40px 360px;
   background: #f2f2f2;
-  padding: 30px 30px 30px 0 !important;
+  padding: 30px;
   border-radius: 15px;
 
   position: relative;
@@ -1189,16 +1190,15 @@
   }
 
   .client {
-    // width: 50%;
-    width: 360px;
+    width: 100%;
     padding: 20px 20px 20px 20px;
     border: 1.7px solid #fa9551;
     border-radius: 15px;
-    height: 300px;
+    height: 250px;
     display: flex;
-    margin: 0 5px 0 30px;
-    justify-content: space-between;
+    margin: 0 0 20px 0 !important;
     background: white;
+    justify-content: flex-start;
 
     img {
       width: 110px;
@@ -1211,13 +1211,20 @@
     .client-p {
       display: flex;
       flex-direction: column;
-
+      text-align: left;
+      padding: 0 0 0 20px;
       p {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 20px;
+        // padding: 20px 0 0 0;
+      }
+      h5 {
+        font-weight: 900;
         color: #666666;
-        text-align: left;
-        margin: 0 0 15px 0;
+        margin: 0 0 20px 0;
         span {
-          font-weight: 900;
+          font-weight: 400;
         }
       }
     }
@@ -1226,10 +1233,9 @@
   .form {
     // padding: 20px 15px 20px 20px;
     padding: 0px !important;
-    margin: 0 0 0 5px;
+    margin: 0;
     height: 300px;
-    // width: 50%;
-    width: 360px;
+    width: 100%;
     color: #666666;
 
     .conditionss {
@@ -1244,12 +1250,16 @@
       margin: 0 0 20px 0;
       padding: 10px;
       background: white;
+      span {
+        font-size: 16px;
+      }
       textarea {
         background: transparent;
         border: none;
-        // padding: 15px 0 15px 0;
+        // padding: 15px 0 15px 0
         font-weight: 400;
         resize: none;
+        min-height: 100px;
         &::-webkit-scrollbar {
           width: 5px;
         }
@@ -1289,12 +1299,16 @@
       margin: 20px 0;
       padding: 10px;
       background: white;
+      span {
+        font-size: 16px;
+      }
       textarea {
         background: transparent;
         border: none;
         // padding: 15px 0 15px 0;
         font-weight: 400;
         resize: none;
+        min-height: 100px;
         &::-webkit-scrollbar {
           width: 5px;
         }
@@ -1324,206 +1338,238 @@
     }
   }
 }
-
-.mainTabelRecord {
-  margin: 0 auto;
-  // height: 280px;
-
-  border-radius: 15px;
-  overflow: hidden;
-
-  // width: calc(100% - 480px) !important;
-  width: 780px;
-  margin: 20px 120px 0px 360px;
+.consultMain {
   background: #f2f2f2;
-
-  .NoResultDiv {
-    color: #666666;
-    margin: 20px auto;
-    font-size: 20px;
-  }
-  .mainConsultation {
+  position: relative;
+  // padding: 30px 0px !important;
+  border-radius: 15px;
+  text-align: left;
+  margin: 110px auto 20px 360px;
+  width: 780px;
+  min-height: 350px;
+  display: flex;
+  .iconVideoo {
+    position: absolute;
+    top: -77px;
+    z-index: 20;
+    height: 35px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fa9551;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    height: 40px;
-
-    .icon_left {
-      span {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        margin: 3px 10px;
-        align-self: center;
-        text-align: center;
-        .icon1 {
-          align-self: center;
-          color: white;
-          font-size: 22px;
-          margin-top: 3px;
-        }
+    .ConsulDetails {
+      // border-bottom: 4px solid #fa9551;
+      margin-right: 45px;
+      h4 {
+        font-size: 15px;
+        color: #2cace3;
       }
-      p {
-        align-self: center;
-        margin: 0 0 0 30px;
-        color: white;
-      }
-    }
-    .sort {
-      margin: 0 10px;
-      display: flex;
-      p {
-        align-self: center;
-        margin: 0 50px 0 0;
-        text-overflow: bold;
-        color: white;
-        &:hover {
-          cursor: pointer;
-        }
-      }
-      .all {
-        margin: 0 20px 0 0;
+      &:hover {
+        cursor: pointer;
       }
     }
   }
+  .mainTabelRecord {
+    margin: 0 auto;
+    // height: 280px;
 
-  .table2 {
-    text-align: center;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    margin: 0;
-    padding: 10px;
-    color: #666666;
+    border-radius: 15px;
+    overflow: hidden;
 
-    tbody {
-      background: #f2f2f2;
-      transition: all 0.5s ease-in-out;
-      // &:hover {
-      //   background: rgb(208, 242, 253);
-      //   cursor: pointer;
-      // }
-      tr {
-        height: 40px;
-        &:hover {
-          background: #e6e6e6;
-          cursor: pointer;
-        }
+    // width: calc(100% - 480px) !important;
+    width: 780px;
+    // margin: 20px 120px 0px 360px;
+    background: #f2f2f2;
 
-        td {
-          text-align: left;
+    .NoResultDiv {
+      color: #666666;
+      margin: 20px auto;
+      font-size: 20px;
+      text-align: center;
+    }
+    .mainConsultation {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fa9551;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      height: 40px;
 
-          .finished {
-            color: #00aff0;
-            font-size: 17px;
-          }
-        }
-        .client-status {
+      .icon_left {
+        span {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin: 3px 10px;
+          align-self: center;
           text-align: center;
-          width: 100px;
-
-          &:hover {
-            .check,
-            .pendi,
-            .finished,
-            .declined {
-              display: none;
-            }
-            .status {
-              display: block;
-            }
+          .icon1 {
+            align-self: center;
+            color: white;
+            font-size: 22px;
+            margin-top: 3px;
           }
         }
-        .status {
-          display: none;
+        p {
+          align-self: center;
+          margin: 0 0 0 30px;
+          color: white;
         }
-        .created {
-          width: 300px;
+      }
+      .sort {
+        margin: 0 10px;
+        display: flex;
+        p {
+          align-self: center;
+          margin: 0 50px 0 0;
+          text-overflow: bold;
+          color: white;
+          &:hover {
+            cursor: pointer;
+          }
         }
-        .client-subject {
-          width: 300px;
-          padding: 0 0 0 30px;
+        .all {
+          margin: 0 20px 0 0;
         }
       }
     }
-    .client-head {
+
+    .table2 {
       text-align: center;
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0;
+      padding: 10px;
       color: #666666;
 
-      .client-row {
-        // height: 40px;
-        background: #b3b3b3;
-        .client-subject {
-          // text-align: center;
-          display: flex;
-          margin: 0 auto 0 30px;
-          justify-content: flex-start;
-          align-items: center;
+      tbody {
+        background: #f2f2f2;
+        transition: all 0.5s ease-in-out;
+        // &:hover {
+        //   background: rgb(208, 242, 253);
+        //   cursor: pointer;
+        // }
+        tr {
           height: 40px;
-        }
+          &:hover {
+            background: #e6e6e6;
+            cursor: pointer;
+          }
 
-        .client-type {
-          // text-align: center;
-          height: 40px;
-          padding: 0 0 0 30px;
-          width: 200px;
-          .mainExamDiv {
-            margin: 0 0 0 -5px;
-            height: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            width: 150px;
-            // .searchDiv {
-            //   display: flex;
-            //   align-items: center;
-            //   height: 40px;
-            //   margin: 0 22px 0 0;
-            // }
-            .searchIcon {
-              font-size: 20px;
-              display: flex;
-              align-items: center;
-              padding: 0 10px 0 30px;
-              height: 100%;
-              &:hover {
-                cursor: pointer;
-              }
+          td {
+            text-align: left;
+
+            .finished {
+              color: #00aff0;
+              font-size: 17px;
             }
-            select {
-              width: 80px;
-              height: 25px;
-              border: none;
-              border-radius: 5px;
-              background: #b3b3b3;
+          }
+          .client-status {
+            text-align: center;
+            width: 100px;
 
-              &::placeholder {
-                color: #666666;
-                font-size: 10px;
+            &:hover {
+              .check,
+              .pendi,
+              .finished,
+              .declined {
+                display: none;
               }
-
-              option {
-                background: white;
+              .status {
+                display: block;
               }
             }
           }
+          .status {
+            display: none;
+          }
+          .client-type {
+            width: 120px !important;
+          }
+          .created {
+            width: 120px;
+          }
+          .client-subject {
+            width: 300px;
+            padding: 0 0 0 30px;
+          }
         }
-        .client-date {
-          display: flex;
-          margin: 0;
-          justify-content: flex-start;
-          align-items: center;
-          height: 40px;
-          width: 200px;
-        }
-        .client-status {
-          text-align: center;
-          margin: 0 auto;
-          height: 40px;
+      }
+      .client-head {
+        text-align: center;
+        color: #666666;
+
+        .client-row {
+          // height: 40px;
+          background: #b3b3b3;
+          .client-subject {
+            // text-align: center;
+            display: flex;
+            margin: 0 auto 0 30px;
+            justify-content: flex-start;
+            align-items: center;
+            height: 40px;
+          }
+
+          .client-type {
+            // text-align: center;
+            height: 40px;
+            padding: 0;
+            width: 120px;
+            .mainExamDiv {
+              margin: 0 0 0 -5px;
+              height: 40px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: flex-start;
+              width: 120px;
+              // .searchDiv {
+              //   display: flex;
+              //   align-items: center;
+              //   height: 40px;
+              //   margin: 0 22px 0 0;
+              // }
+              .searchIcon {
+                font-size: 20px;
+                display: flex;
+                align-items: center;
+                padding: 0 10px 0 30px;
+                height: 100%;
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+              select {
+                width: 80px;
+                height: 25px;
+                border: none;
+                border-radius: 5px;
+                background: #b3b3b3;
+
+                &::placeholder {
+                  color: #666666;
+                  font-size: 10px;
+                }
+
+                option {
+                  background: white;
+                }
+              }
+            }
+          }
+          .client-date {
+            display: flex;
+            margin: 0;
+            justify-content: flex-start;
+            align-items: center;
+            height: 40px;
+            width: 120px;
+          }
+          .client-status {
+            text-align: center;
+            margin: 0 auto;
+            height: 40px;
+          }
         }
       }
     }

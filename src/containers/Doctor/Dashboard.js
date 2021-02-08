@@ -68,17 +68,19 @@ class DoctorDashboard extends Component {
       .get(`https://healthcarebackend.xyz/api/doctor/exams/req/`, {
         headers: { Authorization: access_token },
       })
-      .then((response) => {
-        const res = response.data.data.map((val) => {
-          return {
-            id: val.id,
-            client: val.client,
-            created: val.created,
-            subject: val.subject,
-            status: val.status,
-          };
-        });
-        let resort = res.sort(
+      .then((res) => {
+        // const res = response.data.data.map((val) => {
+        //   return {
+        //     id: val.id,
+        //     client: val.client,
+        //     created: val.created,
+        //     subject: val.subject,
+        //     status: val.status,
+        //   };
+        // });
+        const filteredMail = res.data.data.length !== 0 && res.data.data.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        console.log(filteredMail);
+        let resort = filteredMail.sort(
           (a, b) => Date.parse(b.created) - Date.parse(a.created)
         );
         this.setState({
@@ -205,21 +207,21 @@ class DoctorDashboard extends Component {
           res.data.data.mail.length !== 0 ||
           res.data.data.video.length !== 0
         ) {
-          // const filteredMail = res.data.data.mail.length !== 0 && res.data.data.mail.filter(ex => ex.transaction['status'] === 'Pending')
-          // const filteredVideo = res.data.data.video.length !== 0 && res.data.data.video.filter(ex => ex.transaction['status'] === 'Pending')
-          let combineExams = res.data.data.mail.concat(res.data.data.video);
+          const filteredMail = res.data.data.mail.length !== 0 && res.data.data.mail.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+          const filteredVideo = res.data.data.video.length !== 0 && res.data.data.video.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+          let combineExams = filteredMail.concat(filteredVideo);
           this.setState({
             exams: combineExams,
           });
 
-          let pending = res.data.data.video.filter((res) => {
+          let pending = filteredVideo.filter((res) => {
             return (
               res.status === "Pending" &&
               moment(res.appointed_date).format("MM/DD/YYYY") >=
                 moment(new Date()).format("MM/DD/YYYY")
             );
           });
-          let accepted = res.data.data.video.filter((res) => {
+          let accepted = filteredVideo.filter((res) => {
             return res.status === "Appointed";
           });
           let nowON = accepted.filter((now) => {
@@ -343,16 +345,15 @@ class DoctorDashboard extends Component {
             this.changeStatusOfPastExams(e.id);
           }
         });
+        const filteredqueue = response.data.data.queue.length !== 0 && response.data.data.queue.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
 
-        let filterCanceled = response.data.data.queue.filter((ex) => {
+        let filterCanceled = filteredqueue.filter((ex) => {
           return ex.status === "Accepted" || ex.status === "In the queue";
           // return ex.status !== "Canceled" && ex.status !== "Declined";
         });
-          // const filteredqueue = response.data.data.queue.length !== 0 && response.data.data.queue.filter(ex => ex.transaction['status'] === 'Pending')
-
         this.setState({
           waitingRoom: filterCanceled,
-          exams: [...this.state.exams.concat(response.data.data.queue)],
+          exams: [...this.state.exams.concat(filteredqueue)],
         });
       })
       .then(() => {

@@ -46,9 +46,17 @@ const Profile = ({
        let isDisabledConstant = Object.assign(ex, { isdisabled: true })
        return isDisabledConstant
      }else if(props.daysAndTime.length !== 0 && ex.value === "7"){
-      let test = Object.assign(ex, { isdisabled: true })
-      return test
-     }else{
+      let excludeAllDays = Object.assign(ex, { isdisabled: true })
+      return excludeAllDays
+     }
+     else if(props.daysAndTime.length !== 0 && props.daysAndTime.includes(JSON.parse(8))){   
+        let excludeAllDay = Object.assign(ex, { isdisabled: ex.value !== '5' && ex.value !== '6' && true })
+        return excludeAllDay
+     }else if(props.daysAndTime.length !== 0 && props.daysAndTime.some(ex => ex >= 0 && ex <= 4)){
+       let excludeMonFri = Object.assign(ex, {isdisabled: ex.value === '8' && true})
+       return excludeMonFri
+     }
+     else{
        delete ex.isdisabled
        return ex
      }
@@ -614,6 +622,38 @@ const Profile = ({
       />
     <img src={minus} alt="minusImg" onClick={(e) => {
       let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 7 && ex)
+      handleMinusImage(e, idOfday[0]['id'])
+      }}/>
+  </div>}
+
+
+  {props.daysInArray.includes(8) && <div key='8' id='8' className='workHoursDiv'>
+  <Select
+        type="text"
+        className="select-option"
+        styles={customStyles3}
+        value={selectValue}
+        options={newOptions}
+        isDisabled={props.daysAndTime.includes(8)}
+        isOptionDisabled={(option) => option.isdisabled}
+        placeholder={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 8)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 8)[0]["day"] === 8 && 'Mon-Fri'}
+        onChange={handleSelectForDays}
+      />
+     <TimeField
+       colon=":"                          
+    showSeconds={false}  
+        onChange={ (e) => handleChangeTime(e, 8)}
+        value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 8)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 8)[0]['start_hour']}
+      />
+    <p>-</p>
+    <TimeField
+      colon=":"                          
+    showSeconds={false}  
+        onChange={ (e) => handleChangeTimeEnd(e, 8)}
+        value={props.daysAndTimeAndDays.length !== 0 && props.daysAndTimeAndDays.filter(ex => ex.day === 8)[0] && props.daysAndTimeAndDays.filter(ex => ex.day === 8)[0]['end_hour']}
+      />
+    <img src={minus} alt="minusImg" onClick={(e) => {
+      let idOfday = props.daysAndTimeAndDays.filter(ex => ex.day === 8 && ex)
       handleMinusImage(e, idOfday[0]['id'])
       }}/>
   </div>}

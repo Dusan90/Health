@@ -48,6 +48,9 @@ export class DoctorsQueueList extends Component {
             exams: filtered,
             loading: false,
           });
+          if(filtered.length === 0){
+              this.setState({messageOnScreen: 'No counsultations'})
+          }
         }
       })
       .catch((err) => {
@@ -62,6 +65,7 @@ export class DoctorsQueueList extends Component {
   };
 
   render() {
+    console.log(this.state.messageOnScreen);
     return (
       <>
         <div className="header">

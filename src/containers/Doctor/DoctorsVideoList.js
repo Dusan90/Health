@@ -27,19 +27,21 @@ export class DoctorsVideoList extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
+        console.log(res);
         if (res.data.data.video.length !== 0) {
-          const filtered = res.data.data.video.filter(ex=>{
+          const filteredVideo = res.data.data.video.length !== 0 && res.data.data.video.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+
+          const filtered = filteredVideo.filter(ex=>{
             return ex.status === 'Pending'
           })
           this.setState({
             exams: filtered,
             loading: false,
           });
-        } else {
-          this.setState({
-            messageOnScreen: "No Video",
-            loading: false,
-          });
+          if(filteredVideo.length === 0){
+            this.setState({
+              messageOnScreen: "No consultations" })
+          }
         }
       })
       .catch((error) => {

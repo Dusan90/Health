@@ -44,20 +44,19 @@ class ClientVideoReq extends Component {
       excludeDate: '',
       selectedWorkingHours: [],
       transaction_id: '',
-      whichDayIsIt: ''
+      whichDayIsIt: '',
+      clickDay: ''
     };
   }
 
   handleDateChange = (date) => {
     let clickedDate = moment(date).format("YYYY-MM-DDTHH:mm:ss");
     let DDate = moment(date).format("YYYY-MM-DD");
-    console.log(clickedDate);
     let selectedWorkingHours = this.state.workingHoursArray.length !== 0 && this.state.workingHoursArray.filter(ex =>{
-      return ex.day === (moment(date).day() - 1) 
+      return ex.day === (moment(date).isoWeekday() - 1) 
     })
     this.setState({ startDate: date, reservedDate: clickedDate });
     if(this.state.workingHoursArray.length !== 0 && this.state.workingHoursArray[0]['day'] === 7){
-      console.log('duca');
       let selecteddate = moment(date).format('YYYY-MM-DD')
       let selectedDateForStart = selecteddate + 'T' + this.state.workingHoursArray[0]['start_hour']; 
       let selectedDateForEnd = selecteddate + "T" + this.state.workingHoursArray[0]['end_hour']; 
@@ -71,6 +70,14 @@ class ClientVideoReq extends Component {
       this.setState({
         selectedDateForEnd, selectedDateForStart,
         selectedWorkingHours})
+    }else if (this.state.workingHoursArray !== 0 && this.state.workingHoursArray.some(ex => ex.day === 8)){
+      const sorted = this.state.workingHoursArray.sort((a,b) => b.day - a.day)
+       let selecteddate = moment(date).format('YYYY-MM-DD')
+      let selectedDateForStart = selecteddate + 'T' + sorted[0]['start_hour']; 
+      let selectedDateForEnd = selecteddate + "T" + sorted[0]['end_hour']; 
+      this.setState({
+        selectedDateForEnd, selectedDateForStart, whichDayIsIt: sorted[0]['day'], selectedWorkingHours: []
+      })
     }else{
       this.setState({selectedDateForEnd: '', selectedDateForStart: '', selectedWorkingHours: []})
       
@@ -82,7 +89,7 @@ class ClientVideoReq extends Component {
         return null;
       }
     });
-    this.setState({ excludeTime });
+    this.setState({ excludeTime, clickDay: (moment(date).isoWeekday() - 1) });
   };
 
   handleSpeciality = (e) => {
@@ -335,7 +342,7 @@ console.log(e);
 
   render() {
     console.log(this.state.selectedDateForStart, this.state.selectedDateForEnd);
-    console.log(this.state.workingHoursArray.length !== 0 && this.state.workingHoursArray[0]['day']);
+    console.log(this.state.selectedWorkingHours);
     return (
       <>
         <div className="header">

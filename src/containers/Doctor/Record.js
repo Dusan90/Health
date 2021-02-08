@@ -19,6 +19,7 @@ class ClientRecord extends Component {
       messageIfEmpty: "",
       paginatedExams: [],
       searchedUpcomingOrPast: [],
+      pageYourOn: ''
     };
   }
 
@@ -40,9 +41,9 @@ class ClientRecord extends Component {
           record:[ response.data.data],
         });
       }).then(() =>{
-        let cronic = document.getElementById('ChronicalConditions')
+        const cronic = document.getElementById('ChronicalConditions')
         cronic.style.height = `${cronic.scrollHeight}px`
-        let alerg = document.getElementById('Allergies')
+        const alerg = document.getElementById('Allergies')
         alerg.style.height = `${alerg.scrollHeight}px`
       })
   };
@@ -57,9 +58,12 @@ class ClientRecord extends Component {
           headers: { Authorization: access_token },
         }
       )
-      .then((response) => {
-        console.log(response, "podaciiii");
-        let AllArrays = response.data.data.mail.concat(response.data.data.queue, response.data.data.video)
+      .then((res) => {
+        console.log(res, "podaciiii");
+        const filteredMail = res.data.data.mail.length !== 0 && res.data.data.mail.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        const filteredVideo = res.data.data.video.length !== 0 && res.data.data.video.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        const filteredQueue = res.data.data.queue.length !== 0 && res.data.data.queue.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        let AllArrays = filteredMail.concat(filteredVideo, filteredQueue)
 
         return this.setState({
           exams: AllArrays,
@@ -72,6 +76,11 @@ class ClientRecord extends Component {
   componentDidMount() {
     this.record();
     this.clientsExams()
+    this.setState({pageYourOn: 'clientDetails'})
+  }
+
+  handlePage = (value) =>{
+    this.setState({pageYourOn: value})
   }
 
   handleAll = () => {
@@ -329,6 +338,7 @@ class ClientRecord extends Component {
   }
 
   render() {
+    console.log(this.state.page);
     return (
       <>
         <div className="header">
@@ -366,6 +376,7 @@ class ClientRecord extends Component {
           searchByName={this.searchByName}
           ResetonSelectChange={this.ResetonSelectChange}
           handlePageChange={this.handlePageChange}
+          handlePage={this.handlePage}
         />
 
       </>

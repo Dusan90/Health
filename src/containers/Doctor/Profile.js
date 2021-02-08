@@ -23,7 +23,7 @@ const days = [
   { value: "5", label: "Saturday" },
   { value: "6", label: "Sunday" },
   { value: "7", label: "Every day" },
-  // { value: "Mon-Fri", label: "Mon-Fri" },
+  { value: "8", label: "Mon-Fri" },
 ]
 
 class DoctorProfile extends Component {
@@ -203,6 +203,7 @@ class DoctorProfile extends Component {
     });
     const jsonData = await data
     jsonData.data.success && this.handleWorkingHowrs()
+    jsonData.data.success && this.setState({plusClicked: false})
     console.log(jsonData);
    
     // jsonData.data && window.location.reload()
@@ -426,9 +427,10 @@ class DoctorProfile extends Component {
     // if(this.state.howManySlots !== 7 ){
     //   this.setState({howManySlots: this.state.howManySlots + 1})
     // }
+    if((!this.state.daysAndTime.includes(8) || this.state.daysAndTime.length !== 3)){
     if(!this.state.daysAndTime.includes(7)){
-      if(this.state.daysInArray.length < 8 && !this.state.plusClicked){
-      const daysInArray = [0, 1, 2, 3, 4, 5, 6, 7]
+      if(this.state.daysInArray.length < 9 && !this.state.plusClicked){
+      const daysInArray = [0, 1, 2, 3, 4, 5, 6, 7, 8]
       let sorted = this.state.daysInArray.sort((a,b) => b - a)
       let sorted2 = daysInArray.sort((a,b) => b - a)
       console.log(sorted);
@@ -437,6 +439,7 @@ class DoctorProfile extends Component {
         this.setState({daysInArray: [...this.state.daysInArray, missing[0]], plusClicked: true})
         // this.state.daysInArray.push(missing[0])
       }
+    }
     }
   }
 
@@ -455,6 +458,7 @@ class DoctorProfile extends Component {
 
   render() {
     console.log(this.state.daysAndTimeAndDays, this.state.daysAndTime);
+    console.log();
     return (
       <>
         <div className="header">

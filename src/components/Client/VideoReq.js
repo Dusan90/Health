@@ -231,7 +231,7 @@ const VideoReq = ({
             style={{ zIndex: props.specialSP && props.doctor_id ? 0 : 1 }}
           ></div>
           <DatePicker
-            excludeTimes={props.selectedWorkingHours.length === 0 ? [moment(new Date()).set("hour", 15).set("minute", 30)._d] : exclude}
+            excludeTimes={exclude}
             inline
             selected={props.startDate}
             onChange={handleDateChange}
@@ -243,8 +243,8 @@ const VideoReq = ({
             timeIntervals={30}
             timeCaption="time"
             fixedHeight
-            minTime={props.whichDayIsIt === 7 ? new Date(props.selectedDateForStart) : props.selectedWorkingHours.length === 0 ? moment(new Date()).set("hour", 15).set("minute", 30)._d : new Date(props.selectedDateForStart)}
-            maxTime={props.whichDayIsIt === 7 ? new Date(props.selectedDateForEnd) : props.selectedWorkingHours.length === 0 ? moment(new Date()).set("hour", 15).set("minute", 30)._d : new Date(props.selectedDateForEnd) }
+            minTime={props.whichDayIsIt === 7 ? new Date(props.selectedDateForStart) : props.whichDayIsIt === 8 && props.clickDay >= 0 && props.clickDay < 5 ? new Date(props.selectedDateForStart) : props.selectedWorkingHours.length === 0 ? moment(new Date()).set("hour", 23).set("minute", 15)._d : new Date(props.selectedDateForStart)}
+            maxTime={props.whichDayIsIt === 7 ? new Date(props.selectedDateForEnd) : props.whichDayIsIt === 8 && props.clickDay >= 0 && props.clickDay < 5 ? new Date(props.selectedDateForEnd) : props.selectedWorkingHours.length === 0 ? moment(new Date()).set("hour", 23).set("minute", 15)._d : new Date(props.selectedDateForEnd) }
             // minTime={props.startTime ? moment(new Date()).set("hour", startTimeHour).set("minute", startTimeMinute)._d : moment(new Date()).set("hour", 8).set("minute", 0)._d}
             // maxTime={props.endTime? moment(new Date()).set("hour", endTimeHour).set("minute", endTimeMinute).subtract(30, 'minute')._d : moment(new Date()).set("hour", 15).set("minute", 30)._d}
           />

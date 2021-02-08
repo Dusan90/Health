@@ -1,6 +1,6 @@
 .mainDoctorDiv {
   // width: calc(100% - 480px);
-  width: 780px;
+  width: 40%;
   min-height: 520px;
   margin: 110px 0 20px 360px;
   background: #f3f3f3;
@@ -128,31 +128,31 @@
           background: white;
 
           border: none;
-          // &::-webkit-scrollbar {
-          //   width: 5px;
-          // }
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
 
-          // &::-webkit-scrollbar-button:single-button {
-          //   // background-color: #bbbbbb;
-          //   display: block;
+          &::-webkit-scrollbar-button:single-button {
+            // background-color: #bbbbbb;
+            display: block;
 
-          //   height: 13px;
-          //   width: 16px;
-          // }
+            height: 13px;
+            width: 16px;
+          }
 
-          // &::-webkit-scrollbar-track {
-          //   background: #f1f1f1;
-          //   border-radius: 5px;
-          // }
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 5px;
+          }
 
-          // &::-webkit-scrollbar-thumb {
-          //   background: #fa9551;
-          //   border-radius: 5px;
-          // }
+          &::-webkit-scrollbar-thumb {
+            background: #fa9551;
+            border-radius: 5px;
+          }
 
-          // &::-webkit-scrollbar-thumb:hover {
-          //   background: #db8246;
-          // }
+          &::-webkit-scrollbar-thumb:hover {
+            background: #db8246;
+          }
         }
       }
       .workHours {

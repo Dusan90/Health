@@ -102,6 +102,9 @@ const Processing = ({
                 <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetail')}}>
                 <h4 style={{fontWeight: props.PageonNav === 'clientDetail' && 'bold' }}>Client details</h4>{" "}
                 </div>
+                <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetailConsult' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetailConsult')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'clientDetailConsult' && 'bold' }}>Client consultations</h4>{" "}
+                </div>
               </div>
                <div className="detail">
                 <div className='detailInfo'>
@@ -152,7 +155,7 @@ const Processing = ({
                   </p>
                   <p>
                     <span>
-                      {moment(exam.exam.created).format("MM/DD/YY")}
+                      {moment(exam.exam.created).format("MM/DD/YY HH:mm")}
                     </span>{" "}
                   </p>
                 </div>
@@ -376,15 +379,18 @@ const Processing = ({
                 <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetail')}}>
                 <h4 style={{fontWeight: props.PageonNav === 'clientDetail' && 'bold' }}>Client details</h4>{" "}
                 </div>
+                <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetailConsult' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetailConsult')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'clientDetailConsult' && 'bold' }}>Client consultations</h4>{" "}
+                </div>
               </div>
             <div className="client">
             <img src={client.image.includes('default') ? myClientProfile : `https://healthcarebackend.xyz/media/${client.image}`} alt="cliet profile" />
               <div className="client-p">
               <p>{client.client}</p>
         <h5>Address: <span>{client.address}</span></h5>
-        <h5>E-mail: <span>{client.address}</span></h5>
-        <h5>Phone number: <span>{client.address}</span></h5>
-        <h5>Date of birth: <span>{client.address}</span></h5>
+        <h5>E-mail: <span>{client.email}</span></h5>
+        <h5>Phone number: <span>{client.phone}</span></h5>
+        <h5>Date of birth: <span>{client.birth_date}</span></h5>
         <h5>{client.gender === 'M' ? 'Male' : 'Female'}</h5>
               </div>
             </div>
@@ -416,21 +422,34 @@ const Processing = ({
         );
       })}
 
-{props.PageonNav === 'clientDetail'&& loading ? (
+
+{props.PageonNav === 'clientDetailConsult'&& loading ? (
         <img
           src={Loading}
           className="loading"
           alt="loading..."
           style={{ width: "150px" }}
         />
-      ) : props.PageonNav === 'clientDetail' && !loading ? (
+      ) : props.PageonNav === 'clientDetailConsult' && !loading ? (
+        <div className="consultMain">
+           <div className="iconVideoo">
+            <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'consultDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('consultDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'consultDetail' && 'bold' }}>Consultations details</h4>{" "}
+                </div>
+                <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetail' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetail')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'clientDetail' && 'bold' }}>Client details</h4>{" "}
+                </div>
+                <div className="ConsulDetails" style={{borderBottom: props.PageonNav === 'clientDetailConsult' && '4px solid #fa9551' }} onClick={() =>{handlePage('clientDetailConsult')}}>
+                <h4 style={{fontWeight: props.PageonNav === 'clientDetailConsult' && 'bold' }}>Client consultations</h4>{" "}
+                </div>
+              </div>
         <div className="mainTabelRecord">
           <div className="mainConsultation">
             <div className="icon_left">
               <p>Consultations</p>
             </div>
           </div>
-
+          
           <table className="table2">
             <thead className="client-head">
               <tr className="client-row">
@@ -478,10 +497,10 @@ const Processing = ({
                       onClick={() => handleClick(exam.id, exam.exam_type)}
                     >
                       <td className="client-subject">{exam.subject}</td>
-                      <td className="client-subject">{exam.exam_type}</td>
+                      <td className="client-type">{exam.exam_type}</td>
                       <td className="created">
                         {exam.created && !exam.appointed_date ? (
-                          <p> {moment(exam.created).format("MM/DD/YY")}</p>
+                          <p> {moment(exam.created).format("MM/DD/YY HH:mm")}</p>
                         ) : exam.appointed_date ? (
                           <p>
                             {" "}
@@ -523,9 +542,10 @@ const Processing = ({
             <div className="NoResultDiv">{props.messageIfEmpty}</div>
           )}
         </div>
+        </div>
       ): null}
 
-      {props.PageonNav === 'clientDetail' && <div className="pagi">
+      {props.PageonNav === 'clientDetailConsult' && <div className="pagi">
            <Pagination
           activePage={props.page}
           itemsCountPerPage={10}
@@ -534,7 +554,6 @@ const Processing = ({
           onChange={handlePageChange}
           itemClassLast={'lastPage'}
           hideFirstLastPages={true}
-
 
         />
       </div>}

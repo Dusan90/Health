@@ -543,10 +543,11 @@ class DetailVideoExam extends Component {
           headers: { Authorization: access_token },
         }
       )
-      .then((response) => {
-        console.log(response, "podaciiii");
-        let AllArrays = response.data.data.mail.concat(response.data.data.queue, response.data.data.video)
-
+      .then((res) => {
+        const filteredMail = res.data.data.mail.length !== 0 && res.data.data.mail.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        const filteredVideo = res.data.data.video.length !== 0 && res.data.data.video.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        const filteredQueue = res.data.data.queue.length !== 0 && res.data.data.queue.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        let AllArrays = filteredMail.concat(filteredVideo, filteredQueue)
         return this.setState({
           exams: AllArrays,
         });

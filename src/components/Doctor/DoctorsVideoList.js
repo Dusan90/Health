@@ -84,11 +84,12 @@ const DoctorsVideoList = ({ props, handleClick }) => {
                 // }
               })}
           </table>
+           {props.messageOnScreen !== "" && (
+        <div className="NoResultDiv">{props.messageOnScreen}</div>
+      )}
         </div>
       )}
-      {/* {props.messageOnScreen !== "" && (
-        <div className="NoResultDiv">{props.messageOnScreen}</div>
-      )} */}
+     
     </div>
   );
 };
