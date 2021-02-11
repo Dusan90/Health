@@ -128,7 +128,7 @@ class ClientDashboard extends Component {
   }
 
   handleClick = (exam) => {  
-    if(exam.transaction && exam['transaction']['status'] === 'Pending'){
+    if(exam.transaction && exam['transaction']['status'] === 'Pending' && exam.status !== 'Canceled'){
       this.props.history.push({
         pathname: "/checkout",
         // search: "?query=abc",

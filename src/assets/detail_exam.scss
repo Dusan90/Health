@@ -1346,7 +1346,7 @@
   text-align: left;
   margin: 110px auto 20px 360px;
   width: 780px;
-  min-height: 350px;
+  min-height: 50px;
   display: flex;
   .iconVideoo {
     position: absolute;
@@ -1368,7 +1368,7 @@
   }
   .mainTabelRecord {
     margin: 0 auto;
-    // height: 280px;
+    min-height: 80px;
 
     border-radius: 15px;
     overflow: hidden;

@@ -132,6 +132,7 @@ const Record = ({
             </thead>
             {props.messageIfEmpty === "" &&
               props.paginatedExams.map((exam, index) => {
+                console.log(exam);
                 return (
                   <tbody key={index} className="client-body">
                     <tr

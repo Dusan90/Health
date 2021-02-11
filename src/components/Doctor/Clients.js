@@ -5,7 +5,8 @@ import myClientProfile from "../../icons/newIconsForDesign/client_picture.svg";
 import Select from 'react-select'
 import { Link } from "@material-ui/core";
 
-function Clients({ handleClient, clients, handleSort, handleSearch, props, handleDoctor }) {
+function Clients({ handleClient, clients, handleSort, handleSearch, props, handleDoctor, resetFilter }) {
+  const options = props.filteredByName.length === 0 ? props.clients : props.rfilteredByName
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -48,8 +49,9 @@ function Clients({ handleClient, clients, handleSort, handleSearch, props, handl
             type="text"
             id="doctor"
             placeholder="Choose Client"
-            options={ props.clients}
+            options={ options}
             onChange={handleDoctor}
+            onMenuOpen={resetFilter}
             value={   props.resetDoctorSelect}
             // value={specDoctor.length === 0 ? null : [resetDoctorSelect]}
           />

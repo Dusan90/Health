@@ -29,11 +29,11 @@ export class DoctorsVideoList extends Component {
       .then((res) => {
         console.log(res);
         if (res.data.data.video.length !== 0) {
-          const filteredVideo = res.data.data.video.length !== 0 && res.data.data.video.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
-
+          const filteredVideo = res.data.data.video.length !== 0 ? res.data.data.video.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
           const filtered = filteredVideo.filter(ex=>{
             return ex.status === 'Pending'
           })
+          console.log(filteredVideo, filtered);
           this.setState({
             exams: filtered,
             loading: false,
@@ -42,11 +42,15 @@ export class DoctorsVideoList extends Component {
             this.setState({
               messageOnScreen: "No consultations" })
           }
+        }else{
+          this.setState({messageOnScreen: 'No counsultations', exams: [],
+          loading: false,})
         }
       })
       .catch((error) => {
         console.log(error.response, "error");
-        this.setState({ loading: false });
+        this.setState({messageOnScreen: 'No counsultations', exams: [],
+        loading: false,})
       });
   };
 

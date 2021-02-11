@@ -38,7 +38,8 @@ const Profile = ({
   handleSubmitForWorkingHours,
   handleSelectForDays,
   handleChangeTime,
-  handleChangeTimeEnd
+  handleChangeTimeEnd,
+  handleChangeService
   // handleGenderRadio
 }) => {
   const newOptions = days.map(ex =>{
@@ -213,6 +214,7 @@ const Profile = ({
                   onBlur={ (e) => {e.target.value = ''}}
                 placeholder={doctor.organization ? doctor.organization : ''} autoComplete='nope' onChange={handleChange} id='Organization' type="text"/>
                 <button 
+                style={{display: !props.showSaveProfile && 'none'}}
                   onClick={handleSubmit}
                   className="saveChanges">Save</button>
               </div>
@@ -289,7 +291,7 @@ const Profile = ({
                     // onFocus={ (e) => {e.target.value = doctor.email_exam_price}}
                     // onBlur={ (e) => {e.target.value = ''}}
                     disabled={props.EmailVisitChecked !== 'True' && true}
-                onChange={handleChange} id='EmailVisit' value={props.EmailVisit} placeholder={doctor.email_exam_price}/>
+                onChange={handleChangeService} id='EmailVisit' value={parseFloat(props.EmailVisit).toFixed(2)} placeholder={doctor.email_exam_price}/>
                 <Select
                       type="text"
                       className="select-option"
@@ -311,7 +313,7 @@ const Profile = ({
                 // onFocus={ (e) => {e.target.value = doctor.web_exam_price}}
                 // onBlur={ (e) => {e.target.value = ''}}
                 disabled={props.VideoVisitChecked !== 'True' && true}
-                onChange={handleChange} id='VideoVisit' value={props.VideoVisit} placeholder={doctor.web_exam_price}/>
+                onChange={handleChangeService} id='VideoVisit' value={parseFloat(props.VideoVisit).toFixed(2)} placeholder={doctor.web_exam_price}/>
                 <Select
                       type="text"
                       className="select-option"
@@ -335,7 +337,7 @@ const Profile = ({
                   //  onBlur={ (e) => {e.target.value = ''}}
                    disabled={props.VideoVisitFollowUp !== 'True' && true}
                    
-                onChange={handleChange} id='VideoFollowUp' value={props.VideoFollowUp} placeholder={doctor.web_exam_follow_price}/>
+                onChange={handleChangeService} id='VideoFollowUp' value={parseFloat(props.VideoFollowUp).toFixed(2)} placeholder={doctor.web_exam_follow_price}/>
                 <Select
                       type="text"
                       className="select-option"
@@ -358,7 +360,7 @@ const Profile = ({
                   //  onFocus={ (e) => {e.target.value = doctor.waiting_room_price}}
                   //  onBlur={ (e) => {e.target.value = ''}}
                    disabled={props.WaitingRoomVisit !== 'True' && true}
-                onChange={handleChange} id='WaitingRoom' value={props.WaitingRoom} placeholder={doctor.waiting_room_price}
+                onChange={handleChangeService} id='WaitingRoom' value={parseFloat(props.WaitingRoom).toFixed(2)} placeholder={doctor.waiting_room_price}
                 />
                 <Select
                       type="text"
@@ -377,6 +379,7 @@ const Profile = ({
               
               </div>
               <button 
+              style={{display: !props.showSaveService && 'none'}}
                   onClick={handleSubmit}
                   className="saveChanges">Save</button>
             </div>

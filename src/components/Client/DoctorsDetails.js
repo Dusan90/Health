@@ -62,7 +62,7 @@ function DoctorsDetails({handleClient, doctor, handleSort, props, main}) {
                 <div>
                 <p style={{fontSize: '16px'}}><span>Working Hours </span> </p>
                   {props.workingHoursArray.map(ex =>{
-                    return <p key={ex.id}><span>{ex.day === 0 ? 'Mon: ' : ex.day === 1 ? 'Tue: ' : ex.day === 2 ? 'Wed: ' : ex.day === 3 ? 'Thu: ' : ex.day === 4 ? 'Fri: ' : ex.day === 5 ? 'Sat: ' : ex.day === 6 ? 'Sun: ' : ex.day === 7 ? 'Every day: ' : null }</span>{moment(ex.start_hour, "HH:mm:ss").format('HH:mm')} : {moment(ex.end_hour, "HH:mm:ss").format('HH:mm')}</p>
+                    return <p key={ex.id}><span>{ex.day === 0 ? 'Mon: ' : ex.day === 1 ? 'Tue: ' : ex.day === 2 ? 'Wed: ' : ex.day === 3 ? 'Thu: ' : ex.day === 4 ? 'Fri: ' : ex.day === 5 ? 'Sat: ' : ex.day === 6 ? 'Sun: ' : ex.day === 7 ? 'Every day: ': ex.day === 8 ? 'Mon-Fri: ' : null }</span>{moment(ex.start_hour, "HH:mm:ss").format('HH:mm')} : {moment(ex.end_hour, "HH:mm:ss").format('HH:mm')}</p>
                   })}
                   {/* <p><span>Mon: </span>{!startTime ? null : time}</p>
                   <p><span>Tue: </span>{!startTime ? null : time}</p>

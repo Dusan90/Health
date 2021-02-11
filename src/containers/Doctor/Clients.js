@@ -135,6 +135,10 @@ export class DoctorsClients extends Component {
 
     });
   };
+
+  resetFilter = () => {
+    this.setState({filteredByName: []})
+  }
   render() {
     console.log(this.state.clients);
 
@@ -154,6 +158,7 @@ export class DoctorsClients extends Component {
           handleSearch={this.handleSearch}
           props={this.state}
           handleDoctor={this.handleDoctor}
+          resetFilter={this.resetFilter}
         />
       </>
     );

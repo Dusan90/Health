@@ -78,7 +78,7 @@ class DoctorDashboard extends Component {
         //     status: val.status,
         //   };
         // });
-        const filteredMail = res.data.data.length !== 0 && res.data.data.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        const filteredMail = res.data.data.mail.length !== 0 ? res.data.data.mail.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
         console.log(filteredMail);
         let resort = filteredMail.sort(
           (a, b) => Date.parse(b.created) - Date.parse(a.created)
@@ -207,8 +207,8 @@ class DoctorDashboard extends Component {
           res.data.data.mail.length !== 0 ||
           res.data.data.video.length !== 0
         ) {
-          const filteredMail = res.data.data.mail.length !== 0 && res.data.data.mail.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
-          const filteredVideo = res.data.data.video.length !== 0 && res.data.data.video.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+          const filteredMail = res.data.data.mail.length !== 0 ? res.data.data.mail.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
+          const filteredVideo = res.data.data.video.length !== 0 ? res.data.data.video.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
           let combineExams = filteredMail.concat(filteredVideo);
           this.setState({
             exams: combineExams,
@@ -345,7 +345,7 @@ class DoctorDashboard extends Component {
             this.changeStatusOfPastExams(e.id);
           }
         });
-        const filteredqueue = response.data.data.queue.length !== 0 && response.data.data.queue.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        const filteredqueue = response.data.data.queue.length !== 0 ? response.data.data.queue.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
 
         let filterCanceled = filteredqueue.filter((ex) => {
           return ex.status === "Accepted" || ex.status === "In the queue";

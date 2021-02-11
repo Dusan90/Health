@@ -60,11 +60,10 @@ class ClientRecord extends Component {
       )
       .then((res) => {
         console.log(res, "podaciiii");
-        const filteredMail = res.data.data.mail.length !== 0 && res.data.data.mail.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
-        const filteredVideo = res.data.data.video.length !== 0 && res.data.data.video.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
-        const filteredQueue = res.data.data.queue.length !== 0 && res.data.data.queue.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
+        const filteredMail = res.data.data.mail.length !== 0 ? res.data.data.mail.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
+        const filteredVideo = res.data.data.video.length !== 0 ? res.data.data.video.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
+        const filteredQueue = res.data.data.queue.length !== 0 ? res.data.data.queue.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
         let AllArrays = filteredMail.concat(filteredVideo, filteredQueue)
-
         return this.setState({
           exams: AllArrays,
         });
@@ -338,7 +337,7 @@ class ClientRecord extends Component {
   }
 
   render() {
-    console.log(this.state.page);
+    console.log(this.state.exams);
     return (
       <>
         <div className="header">

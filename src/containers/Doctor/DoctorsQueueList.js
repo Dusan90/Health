@@ -52,9 +52,15 @@ export class DoctorsQueueList extends Component {
               this.setState({messageOnScreen: 'No counsultations'})
           }
         }
+        else{
+          this.setState({messageOnScreen: 'No counsultations', exams: [],
+        loading: false})
+        }
       })
       .catch((err) => {
         console.log(err.response);
+        this.setState({messageOnScreen: 'No counsultations', exams: [],
+        loading: false,})
       });
   };
 

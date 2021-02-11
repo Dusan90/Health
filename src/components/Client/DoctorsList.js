@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 import '../../assets/client/doctorsList.scss'
 
 
-function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleSpeciality, handleDoctor}) {
+function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleSpeciality, handleDoctor, resetFilter}) {
   const customStyles = {
     control: (base, state) => ({
       ...base,
@@ -70,6 +70,7 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleS
             placeholder="Choose Doctor"
             options={props.specDoctor.length === 0 ? props.doctors : props.specDoctor}
             onChange={handleDoctor}
+            onMenuOpen={resetFilter}
             value={   props.resetDoctorSelect}
             // value={specDoctor.length === 0 ? null : [resetDoctorSelect]}
           />

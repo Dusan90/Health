@@ -239,7 +239,7 @@ const Dashboard = ({
                       </td>
                       <td className="client-status">
                         {
-                          exam.transaction && exam['transaction']['status'] === 'Pending' ?
+                          exam.transaction && exam['transaction']['status'] === 'Pending' && exam.status !== 'Canceled' ?
                         <h5 style={{color: '#00aff0'}}>PAY</h5> :
                          exam.status === "Pending" ||
                         exam.status === "In the queue" ? (
@@ -260,7 +260,7 @@ const Dashboard = ({
                         ) : (
                           <img src={chek} alt="ckeck" className="check" />
                         )}
-                        <h5 style={{display:  exam.transaction && exam['transaction']['status'] === 'Pending' && 'none' }} className="status">{exam.status}</h5>
+                        <h5 style={{display:  exam.transaction && exam['transaction']['status'] === 'Pending' && exam.status !== 'Canceled' && 'none' }} className="status">{exam.status}</h5>
                       </td>
                     </tr>
                   </tbody>
@@ -383,7 +383,7 @@ const Dashboard = ({
         // </div>
       )}
 
-      {props.state.paginatedExams.length !== 0 && <div className="pagi">
+      {props.state.paginatedExams.length > 10 && <div className="pagi">
         {/* <div className="left" onClick={handleClickLeft}>
           <img src={arrowLeft} alt="arrow left" className="iconLeft" />
           

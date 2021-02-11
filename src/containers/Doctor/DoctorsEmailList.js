@@ -33,8 +33,7 @@ export class DoctorsEmailList extends Component {
         console.log(res);
 
         if (res.data.data.mail.length !== 0) {
-          const filteredMail = res.data.data.mail.length !== 0 && res.data.data.mail.filter(ex => ex.transaction ? ex.transaction['status'] !== 'Pending' : ex)
-
+          const filteredMail = res.data.data.mail.length !== 0 ? res.data.data.mail.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
           const filtered = filteredMail.filter(ex=>{
             return ex.status === 'Pending'
           })
@@ -47,10 +46,15 @@ export class DoctorsEmailList extends Component {
               messageOnScreen: "No consultations" })
           }
         }
+        else{
+          this.setState({messageOnScreen: 'No counsultations', exams: [],
+        loading: false,})
+        }
       })
       .catch((error) => {
         console.log(error.response, "error");
-        this.setState({ loading: false });
+        this.setState({messageOnScreen: 'No counsultations', exams: [],
+        loading: false,})
       });
   };
 

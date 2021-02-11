@@ -18,6 +18,7 @@ export class DoctorsList extends Component {
             specDoctor: [],
             filteredBySpec: [],
       token: sessionStorage.getItem("accessToken"),
+      resetDoctorSelect: null
         }
     }
 
@@ -137,8 +138,16 @@ export class DoctorsList extends Component {
     
         });
       };
+
+      resetFilter=() =>{
+        this.setState({
+          specialSP: null,
+          // currentSpec: null,
+          filteredBySpec: [] })
+      }
     render() {
       console.log(this.state.doctors);
+      console.log(this.state.resetDoctorSelect);
         return (
             <>
               <div className="header">
@@ -156,6 +165,7 @@ export class DoctorsList extends Component {
           handleSortBySpec={this.handleSortBySpec}
           handleSpeciality={this.handleSpeciality}
           handleDoctor={this.handleDoctor}
+          resetFilter={this.resetFilter}
           />
             </>
         )

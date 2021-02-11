@@ -67,7 +67,10 @@ class DoctorProfile extends Component {
       selectForDays: '',
       plusClicked: false,
       daysAndTimeAndDays: '',
-      idForPut: ''
+      idForPut: '',
+      showSaveProfile: false,
+      showSaveService: false,
+      showSaveHours: false
     };
   }
 
@@ -75,22 +78,22 @@ class DoctorProfile extends Component {
 
   handleSelect = (statusValue) => {
     let { value } = statusValue;
-    this.setState({ selectEmail: value });
+    this.setState({ selectEmail: value, showSaveService: true });
   };
 
   handleSelect2 = (statusValue) => {
     let { value } = statusValue;
-    this.setState({ selectVideo: value });
+    this.setState({ selectVideo: value, showSaveService: true });
   };
 
   handleSelect3 = (statusValue) => {
     let { value } = statusValue;
-    this.setState({ selectVideoFollow: value });
+    this.setState({ selectVideoFollow: value, showSaveService: true });
   };
 
   handleSelect4 = (statusValue) => {
     let { value } = statusValue;
-    this.setState({ selectWaitingRoom: value });
+    this.setState({ selectWaitingRoom: value, showSaveService: true });
   };
 
   handleSelectForDays = (statusValue) => {
@@ -347,13 +350,18 @@ class DoctorProfile extends Component {
       specialSP: e.value,
       selectedSpec: e.label,
       resetDoctorSelect: null,
+      showSaveProfile: true
     });
   };
 
   handleChange = (e) =>{
     console.log(e);
-    this.setState({[e.target.id]: e.target.value})
+    this.setState({[e.target.id]: e.target.value, showSaveProfile: true})
   } 
+
+  handleChangeService = e =>{
+    this.setState({[e.target.id]: e.target.value, showSaveService: true})
+  }
 
   handleChangeBiography = (e) =>{
     this.setState({Biography: e.target.innerHTML})
@@ -379,7 +387,7 @@ class DoctorProfile extends Component {
   }
 
   addAttach= (e) =>{
-    this.setState({attach: e.target.files[0]})
+    this.setState({attach: e.target.files[0], showSaveProfile: true})
     var output = document.querySelector('.docImage');
     output.src = URL.createObjectURL(e.target.files[0]);
   }
@@ -414,11 +422,11 @@ class DoctorProfile extends Component {
 
   handleServiceRadio = (e) =>{
     console.log(e.target.checked);
+    this.setState({showSaveService: true})
     if(e.target.checked){
       this.setState({[e.target.id]: "True"})
     }else if(!e.target.checked){
       this.setState({[e.target.id]: "False"})
-
     }
   }
 
@@ -493,6 +501,7 @@ class DoctorProfile extends Component {
           handleSelectForDays={this.handleSelectForDays}
           handleChangeTime={this.handleChangeTime}
           handleChangeTimeEnd={this.handleChangeTimeEnd}
+          handleChangeService={this.handleChangeService}
         />
       </>
     );

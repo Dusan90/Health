@@ -24,7 +24,8 @@ class ClientProfile extends Component {
       Allergies: '',
       attach: '',
       Email: '',
-      showDeleteImage: false
+      showDeleteImage: false,
+      showSave: false
     };
   }
 
@@ -119,15 +120,18 @@ const data = axios.put(url, form_data, {
   }
 
   handleGenderRadio =(value) =>{
-    this.setState({gender: value})
+    this.setState({gender: value, showSave: true})
   }
 
   handleChange = (e) =>{
     this.setState({[e.target.id]: e.target.value})
+    if(e.target.value !== ''){
+      this.setState({showSave: true})
+    }
   } 
 
   attachInput= (e) =>{
-    this.setState({attach: e.target.files[0]})
+    this.setState({attach: e.target.files[0], showSave: true})
     var output = document.querySelector('.cliImage');
     output.src = URL.createObjectURL(e.target.files[0]);
   }

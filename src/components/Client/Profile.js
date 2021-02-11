@@ -59,6 +59,7 @@ const Profile = ({
                 placeholder={client.birth_date} onChange={handleChange} id='BirthDate' type="text"/>
                
                 <button 
+                  style={{display: !props.showSave && 'none'}}
                   onClick={handleSubmit}
                   className="saveChanges">Save</button>
               </div>
@@ -94,7 +95,7 @@ const Profile = ({
               
                 </div>
               <div className="conditions">
-                Chronical conditions:{" "}
+                Chronical conditions{" "}
                 <textarea
                   type="text"
                   onFocus={ (e) => {e.target.defaultValue = client.chronical_conditions}}
@@ -105,7 +106,7 @@ const Profile = ({
                 />
               </div>
               <div  className="allergies">
-               Allergies:{" "}
+               Allergies{" "}
                 <textarea
                 style={{height: !client.image ? '178px' : '138px'}}
                   type="text"
