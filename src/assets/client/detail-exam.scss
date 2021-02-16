@@ -92,9 +92,25 @@
           margin-right: 5px;
         }
       }
+      .infoAndSquare {
+        align-items: center;
+        #imageDiv1 {
+          background: transparent;
+          border: 1.7px solid white;
+          // position: absolute;
+          width: 20px;
+          border-radius: 5px;
+          height: 20px;
+          margin: 0px 20px 0 0;
+          // display: none;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
     }
     .messageDiv {
-      min-height: 150px;
+      min-height: 160px;
       width: 100%;
       padding: 10px 15px !important;
       background: white;
@@ -104,11 +120,11 @@
       textarea {
         resize: none;
         width: 100%;
-        height: 100% !important;
+        min-height: 100px;
         border: none;
         // padding: 10px 15px;
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
+        // border-bottom-left-radius: 15px;
+        // border-bottom-right-radius: 15px;
         background: white;
 
         &::-webkit-scrollbar {
@@ -135,6 +151,48 @@
 
         &::-webkit-scrollbar-thumb:hover {
           background: #db8246;
+        }
+      }
+      .mainFileDiv {
+        border-top: 1px solid #f2f2f2;
+        height: 30px;
+        display: flex;
+        .FileDiv {
+          height: 40px;
+          p {
+            // border: 1.7px solid #00aff0;
+            color: #00aff0;
+            font-weight: bold;
+            width: 50px;
+            height: 25px;
+            border-radius: 5px;
+            text-align: start;
+            align-items: center;
+            margin: 5px 0px 0 0;
+          }
+        }
+        .fileForDownload {
+          display: flex;
+          // border: 1.7px solid #00aff0;
+          color: #00aff0;
+          width: 100px;
+          border-radius: 5px;
+          text-align: left;
+          align-items: center;
+          justify-content: flex-start;
+          height: 25px;
+          margin: 2px 0 0 0;
+          padding: 0 5px;
+          overflow: hidden;
+          white-space: nowrap;
+          p {
+            margin: 0;
+            width: 100px;
+            white-space: nowrap;
+          }
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
     }
@@ -237,6 +295,22 @@
             margin-right: 5px;
           }
         }
+        .infoAndSquare {
+          align-items: center;
+          #imageDiv1 {
+            background: transparent;
+            border: 1.7px solid white;
+            // position: absolute;
+            width: 20px;
+            border-radius: 5px;
+            height: 20px;
+            margin: 0px 20px 0 0;
+            // display: none;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
       }
       .messageDiv {
         min-height: 160px;
@@ -253,8 +327,8 @@
           background: white !important;
           border: none;
           resize: none;
-          border-bottom-left-radius: 15px;
-          border-bottom-right-radius: 15px;
+          // border-bottom-left-radius: 15px;
+          // border-bottom-right-radius: 15px;
           &::-webkit-scrollbar {
             width: 5px;
           }
@@ -288,20 +362,20 @@
           .FileDiv {
             height: 40px;
             p {
-              border: 1.7px solid #00aff0;
+              // border: 1.7px solid #00aff0;
               color: #00aff0;
               font-weight: bold;
               width: 50px;
               height: 25px;
               border-radius: 5px;
-              text-align: center;
+              text-align: start;
               align-items: center;
-              margin: 5px 10px 0 0;
+              margin: 5px 0px 0 0;
             }
           }
           .fileForDownload {
             display: flex;
-            border: 1.7px solid #00aff0;
+            // border: 1.7px solid #00aff0;
             color: #00aff0;
             width: 100px;
             border-radius: 5px;
@@ -309,7 +383,7 @@
             align-items: center;
             justify-content: flex-start;
             height: 25px;
-            margin: 5px 0 0 0;
+            margin: 2px 0 0 0;
             padding: 0 5px;
             overflow: hidden;
             white-space: nowrap;
@@ -501,22 +575,22 @@
                 height: 40px;
                 display: flex;
                 p {
-                  border: 1.7px solid #00aff0;
+                  // border: 1.7px solid #00aff0;
                   color: #00aff0;
                   font-weight: bold;
                   width: 50px;
                   height: 25px;
                   border-radius: 5px;
-                  text-align: center;
+                  text-align: start;
                   justify-content: center;
                   align-items: center;
-                  margin: 5px 10px 0 0;
+                  margin: 5px 0px 0 0;
                   text-indent: 0;
                 }
               }
               .fileForDownload {
                 display: flex;
-                border: 1.7px solid #00aff0;
+                // border: 1.7px solid #00aff0;
                 color: #00aff0;
                 width: 100px;
                 border-radius: 5px;
@@ -524,7 +598,7 @@
                 align-items: center;
                 justify-content: flex-start;
                 height: 25px;
-                margin: 5px 0 0 0;
+                margin: 2px 0 0 0;
                 padding: 0 5px;
                 overflow: hidden;
                 white-space: nowrap;
@@ -657,7 +731,7 @@
               }
               .fileForDownload {
                 display: flex;
-                border: 1.7px solid #00aff0;
+                // border: 1.7px solid #00aff0;
                 color: #00aff0;
                 width: 100px;
                 border-radius: 5px;
@@ -858,7 +932,7 @@
           }
           .fileForDownload {
             display: flex;
-            border: 1.7px solid #00aff0;
+            // border: 1.7px solid #00aff0;
             color: #00aff0;
             width: 100px;
             border-radius: 5px;

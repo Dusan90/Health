@@ -69,6 +69,7 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
+        console.log(res);
         // const res = response.data.data.map((val) => {
         //   return {
         //     id: val.id,
@@ -78,7 +79,7 @@ class DoctorDashboard extends Component {
         //     status: val.status,
         //   };
         // });
-        const filteredMail = res.data.data.mail.length !== 0 ? res.data.data.mail.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
+        const filteredMail = res.data.data.length !== 0 ? res.data.data.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
         console.log(filteredMail);
         let resort = filteredMail.sort(
           (a, b) => Date.parse(b.created) - Date.parse(a.created)
@@ -209,6 +210,7 @@ class DoctorDashboard extends Component {
         ) {
           const filteredMail = res.data.data.mail.length !== 0 ? res.data.data.mail.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
           const filteredVideo = res.data.data.video.length !== 0 ? res.data.data.video.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
+          console.log(filteredMail);
           let combineExams = filteredMail.concat(filteredVideo);
           this.setState({
             exams: combineExams,
@@ -634,7 +636,8 @@ class DoctorDashboard extends Component {
     this.paginate(pageNumber)
   }
   render() {
-   
+    console.log(this.state.exams)
+
     return (
       <>
         <div className="header">

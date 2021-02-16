@@ -21,6 +21,7 @@ const Detail = ({
   handleSubmitSend,
   handleMessage,
   newMessage,
+  handleExtendDiv
 }) =>{
   console.log(props.correspondence, 'correspodencesesdfa');
   console.log(exam, 'exaaaaaaaaaaaaam');
@@ -45,6 +46,7 @@ const Detail = ({
     </div>
     <HamburgerDiv/>
     {exam.map((exam) => {
+      console.log(exam);
       let placeholder = exam.status === "Appointed" ? "Accepted" : exam.status;
       let options =
         exam.status === "Pending" || exam.status === "Accepted"
@@ -97,11 +99,14 @@ const Detail = ({
                   <p>
                     <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.subject}
                   </p>
+                  <div className='infoAndSquare' style={{display: 'flex'}}>
                   <p>
                     <span>
                       {moment(exam.created).format("MM/DD/YY HH:mm")}
                     </span>
                   </p>
+                  <div id="imageDiv1" onClick={handleExtendDiv}></div>
+                </div>
                 </div>
                 <div className="messageDiv">
                   <textarea defaultValue={exam.message} id='messageMainText' readOnly>
@@ -109,7 +114,7 @@ const Detail = ({
                   </textarea>
                   {exam.attachment ? (
                              <div className='mainFileDiv'>
-                             <div className='FileDiv'><p>Files</p></div>
+                             <div className='FileDiv'><p>Files:</p></div>
                              {exam.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.attachments}`}} className='fileForDownload'><p>{exam.attachment.substring(exam.attachment.lastIndexOf('/') + 1)}</p></div>}
                            </div>
                           ) : null}
@@ -156,8 +161,8 @@ const Detail = ({
                           </textarea>
                           {message.attachment ? (
                              <div className='mainFileDiv'>
-                             <div className='FileDiv'><p>Files</p></div>
-                             {message.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.attachments}`}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
+                             <div className='FileDiv'><p>Files:</p></div>
+                             {message.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${message.attachments}`}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
                            </div>
                           ) : null}
                         </div>
@@ -221,14 +226,15 @@ const Detail = ({
                           )}
               </div>
                   {
-                    exam.status === "Accepted" && !props.replyClicked ? (
+                    exam.status === "Accepted" && !props.replyClicked ? 
                       <button className="newMessage" onClick={newMessage}>
                         <h1>+</h1>
                       </button>
-                    ) :  <button className='sendButtonForReplay' onClick={handleSubmitSend}>
-                    <FiSend className="replyIcon" />
-                    <span>Send</span>
-                  </button>}
+                 : props.replyClicked ? <button className='sendButtonForReplay' onClick={handleSubmitSend}>
+                 <FiSend className="replyIcon" />
+                 <span>Send</span>
+               </button> : null
+                  }
             </div>
           </div>
         </Fragment>

@@ -383,7 +383,7 @@ const Dashboard = ({
         // </div>
       )}
 
-      {props.state.paginatedExams.length > 10 && <div className="pagi">
+      {props.state.exams.length > 10 && <div className="pagi">
         {/* <div className="left" onClick={handleClickLeft}>
           <img src={arrowLeft} alt="arrow left" className="iconLeft" />
           

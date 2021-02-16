@@ -100,15 +100,31 @@ class ClientVideoExamDetail extends Component {
         });
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
+        let queue = document.getElementById('imageDiv1')
         console.log(mess);
-        if(mess.scrollHeight < 300){
+        if(mess.scrollHeight > 300){
           mess.style.height = `${mess.scrollHeight}px`
-          messageDiv.style.height = `${mess.scrollHeight + 20}px` 
+          messageDiv.style.height = `${mess.scrollHeight + 60}px` 
+          queue.style.display = 'block'
         }else{
           mess.style.height = '300px'
         }
       });
   };
+
+  handleExtendDiv = () =>{
+    let mess = document.getElementById('messageMainText')
+    let messageDiv = document.querySelector('.messageDiv')
+    let square = document.getElementById('imageDiv1')
+    console.log(mess);
+      if(mess.clientHeight > 300){
+        mess.style.height = '300px'
+        messageDiv.style.height = `${360}px`
+      }else{
+        mess.style.height = `${mess.scrollHeight}px`
+        messageDiv.style.height = `${mess.scrollHeight + 60}px`
+      }
+}
 
   componentDidMount() {
     this.detail();
@@ -353,6 +369,7 @@ class ClientVideoExamDetail extends Component {
           // cutVideo={this.cutVideo}
           // cutMic={this.cutMic}
           handleJoinRoom={this.handleJoinRoom}
+          handleExtendDiv={this.handleExtendDiv}
       
 
         />

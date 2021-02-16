@@ -23,18 +23,34 @@ class ClientQueueExamDetail extends Component {
         this.setState({ exam: [response.data.data] });
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
+        let queue = document.getElementById('imageDiv1')
         console.log(mess);
-        if(mess.scrollHeight < 300){
+        if(mess.scrollHeight > 300){
           mess.style.height = `${mess.scrollHeight}px`
-          messageDiv.style.height = `${mess.scrollHeight + 20}px` 
+          messageDiv.style.height = `${mess.scrollHeight + 60}px` 
+          queue.style.display = 'block'
         }else{
-          mess.style.height = '160px'
+          mess.style.height = '300px'
         }
       })
       .catch((error) => {
         console.log(error.response);
       });
   };
+
+  handleExtendDiv = () =>{
+    let mess = document.getElementById('messageMainText')
+    let messageDiv = document.querySelector('.messageDiv')
+    let square = document.getElementById('imageDiv1')
+    console.log(mess);
+      if(mess.clientHeight > 300){
+        mess.style.height = '300px'
+        messageDiv.style.height = `${360}px`
+      }else{
+        mess.style.height = `${mess.scrollHeight}px`
+        messageDiv.style.height = `${mess.scrollHeight + 60}px`
+      }
+}
 
   componentDidMount() {
     this.setState({ id: this.props.match.params.id });
@@ -45,7 +61,7 @@ class ClientQueueExamDetail extends Component {
     return (
       <>
 
-        <DetailQueue exam={this.state.exam} props={this.state} />
+        <DetailQueue exam={this.state.exam} props={this.state} handleExtendDiv={this.handleExtendDiv} />
        
       </>
     );

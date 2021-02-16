@@ -34,7 +34,8 @@ const DetailVideo = ({
   // cutMic,
   // handleVideoStart,
   statusValue,
-  handleJoinRoom
+  handleJoinRoom,
+  handleExtendDiv
 }) => {
   // let disabled = props.doctorsVideoId ? false : true;
 
@@ -60,6 +61,7 @@ const DetailVideo = ({
       </div>
       <HamburgerDiv/>
       {exam.map((exam) => {
+        console.log(exam);
         let placeholder =
           exam.status === "Appointed" ? "Accepted" : exam.status;
         let options =
@@ -135,16 +137,25 @@ const DetailVideo = ({
                   <p>
                     <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.subject}
                   </p>
+                  <div className='infoAndSquare' style={{display: 'flex'}}>
                   <p>
                     <span>
                       {moment(exam.created).format("MM/DD/YY")}
                     </span>
                   </p>
+                  <div id="imageDiv1" onClick={handleExtendDiv}></div>
+                </div>
                 </div>
                 <div className="messageDiv">
                   <textarea defaultValue={exam.notes} id='messageMainText' disabled={true}>
                     
                   </textarea>
+                  {exam.attachments ? (
+                             <div className='mainFileDiv'>
+                             <div className='FileDiv'><p>Files:</p></div>
+                             {exam.attachments && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.attachments}`}} className='fileForDownload'><p>{exam.attachments.substring(exam.attachments.lastIndexOf('/') + 1)}</p></div>}
+                           </div>
+                          ) : null}
                 </div>
               <div className='reportIfDeclined' style={{display:  exam.status !== 'Declined'  ? 'none' : 'block'}}>
                 <div className="subjectDiv">

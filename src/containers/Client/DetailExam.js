@@ -67,10 +67,13 @@ class ClientDetailExam extends Component {
         this.setState({ exam: [response.data.data], doctor: response.data.data.doctor });
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
+    let square = document.getElementById('imageDiv1')
+
         console.log(mess);
-        if(mess.scrollHeight < 300){
+        if(mess.scrollHeight > 300){
           mess.style.height = `${mess.scrollHeight}px`
           messageDiv.style.height = `${mess.scrollHeight + 20}px`
+          square.style.display = 'block'
         }else{
           mess.style.height = '300px'
         }
@@ -79,6 +82,20 @@ class ClientDetailExam extends Component {
         console.log(err.response);
       });
   };
+
+  handleExtendDiv = () =>{
+    let mess = document.getElementById('messageMainText')
+    let messageDiv = document.querySelector('.messageDiv')
+    let square = document.getElementById('imageDiv1')
+    console.log(mess);
+      if(mess.clientHeight > 300){
+        mess.style.height = '300px'
+        messageDiv.style.height = `${320}px`
+      }else{
+        mess.style.height = `${mess.scrollHeight}px`
+        messageDiv.style.height = `${mess.scrollHeight + 60}px`
+      }
+}
 
   componentWillUnmount() {
     this.socket.close();
@@ -329,6 +346,7 @@ class ClientDetailExam extends Component {
           newMessage={this.newMessage}
           handleReplyClick={this.handleReplyClick}
           handleSubmitSend={this.handleSubmitSend}
+          handleExtendDiv={this.handleExtendDiv}
         />
       </>
     );

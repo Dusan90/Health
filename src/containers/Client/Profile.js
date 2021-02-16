@@ -59,6 +59,7 @@ const data = axios.put(url, form_data, {
     if(jsonData.data.success){
       NotificationManager.success("Profile Updated!", "Successful!", 2000);
       window.location.reload()
+      this.setState({showSave: false})
     }
     // e.preventDefault();
     // const access_token = "Bearer ".concat(this.state.token);

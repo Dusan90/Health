@@ -6,7 +6,7 @@ import moment from "moment";
 import queueIcon from '../../icons/icon_Waiting_Room_blue.svg'
 import { HamburgerDiv } from "../Main/HamburgerDiv";
 
-const DetailQueue = ({ exam, props }) => {
+const DetailQueue = ({ exam, props, handleExtendDiv }) => {
   return (
     <>
       <div className="header">
@@ -17,6 +17,7 @@ const DetailQueue = ({ exam, props }) => {
       </div>
       <HamburgerDiv/>
       {exam.map((exam) => {
+        console.log(exam);
         return (
           <Fragment key={exam.exam.id}>
             <div className="detail-exam" style={{height: '300px'}}>
@@ -50,19 +51,25 @@ const DetailQueue = ({ exam, props }) => {
                   <p>
                     <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.exam.subject}
                   </p>
+                  <div className='infoAndSquare' style={{display: 'flex'}}>
                   <p>
                     <span>
-                      {moment(exam.exam.created).format("MM/DD/YY")}
+                    {moment(exam.exam.created).format("MM/DD/YY")}
                     </span>
                   </p>
+                  <div id="imageDiv1" onClick={handleExtendDiv}></div>
+                </div>
                 </div>
                 <div className="messageDiv">
                 <textarea defaultValue={exam.exam.notes} id='messageMainText' disabled={true}>
                     
                     </textarea>
-                  {/* <p>
-                    <span>Message:</span> {exam.exam.notes}
-                  </p> */}
+                    {exam.exam.attachments ? (
+                             <div className='mainFileDiv'>
+                             <div className='FileDiv'><p>Files:</p></div>
+                             {exam.exam.attachments && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.attachments}`}} className='fileForDownload'><p>{exam.exam.attachments.substring(exam.exam.attachments.lastIndexOf('/') + 1)}</p></div>}
+                           </div>
+                          ) : null}
                 </div>
                 <div className='reportIfDeclined' style={{display:  exam.exam.status !== 'Declined'  ? 'none' : 'block'}}>
                 <div className="subjectDiv">

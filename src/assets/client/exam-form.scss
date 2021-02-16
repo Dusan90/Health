@@ -87,6 +87,7 @@
         height: 200px;
         border: none;
         box-shadow: none;
+        overflow-x: hidden;
         // border-bottom-left-radius: 15px;
         // border-bottom-right-radius: 15px;
         resize: none;
@@ -158,7 +159,7 @@
           cursor: pointer;
         }
         .fileForDownload {
-          border: 1.7px solid #00aff0;
+          // border: 1.7px solid #00aff0;
           // position: absolute;
           left: 120px;
           border-radius: 5px;
@@ -172,6 +173,7 @@
           margin: 0 0 0 10px;
           white-space: nowrap;
           p {
+            text-align: start;
             margin: 0;
             width: 100px;
             white-space: nowrap;

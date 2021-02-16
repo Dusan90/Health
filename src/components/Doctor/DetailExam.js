@@ -43,7 +43,8 @@ const Detail = ({
   loading,
   searchByType,
   ResetonSelectChange,
-  handlePageChange
+  handlePageChange,
+  handleExtendDiv
 }) =>{
   const customStyles = {
   control: () => ({
@@ -137,19 +138,22 @@ return (
                   <p>
                     <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.subject}
                   </p>
+                  <div className='infoAndSquare' style={{display: 'flex'}}>
                   <p>
                     <span>
                       {moment(exam.appointed_date).format("MM/DD/YY")}
                     </span>{" "}
                     {moment(exam.appointed_date).format(" HH:mm")}
                   </p>
+                  <div style={{marginRight: '20px'}} onClick={handleExtendDiv} id='imageDiv1'></div>
+                  </div>
                 </div>
                 <div className="messageDiv">
                   <textarea defaultValue= {exam.message} id='messageMainText' readOnly>
                    
                   </textarea>
                   <div className='mainFileDiv'>
-                    <div className='FileDiv'><p>Files</p></div>
+                    <div className='FileDiv'><p>Files:</p></div>
                     {exam.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.attachment}`}} className='fileForDownload'><FaFileDownload/><p>{exam.attachment.substring(exam.attachment.lastIndexOf('/') + 1)}</p></div>}
                   </div>
                 </div>
@@ -197,6 +201,7 @@ return (
                 >
                   <div className="MessageCorrespondence">
                     {props.correspondence.map((message, index) => {
+                      console.log(message);
                       return (
                         <div key={message.id} style={{width: message.sender === props.doctor && "90%"}} className="Maintbody">
                           <div style={{background: message.sender === props.doctor && '#00aff0'}} className="senderMaiin">
@@ -218,8 +223,8 @@ return (
                             </textarea>
                             {message.attachment ? (
                              <div className='mainFileDiv'>
-                             <div className='FileDiv'><p>Files</p></div>
-                             {message.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.attachments}`}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
+                             <div className='FileDiv'><p>Files:</p></div>
+                             {message.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${message.attachment}`}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
                            </div>
                           ) : null}
                           </div>
@@ -285,10 +290,11 @@ return (
                         <button className="newMessage" onClick={newMessage}>
                           <h1>+</h1>
                         </button>
-                      ) : <button className='sendButtonForReplay' onClick={handleSubmitSend}>
+                      ) : props.replyClicked ? <button className='sendButtonForReplay' onClick={handleSubmitSend}>
                       <FiSend className="replyIcon" />
                       <span>Send</span>
-                    </button>}
+                    </button> : null
+                  }
               </div>
               {/* { exam.status === 'Finished' ? 
                  <button

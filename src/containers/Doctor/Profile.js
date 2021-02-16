@@ -70,7 +70,7 @@ class DoctorProfile extends Component {
       idForPut: '',
       showSaveProfile: false,
       showSaveService: false,
-      showSaveHours: false
+      
     };
   }
 
@@ -290,6 +290,7 @@ class DoctorProfile extends Component {
         NotificationManager.success("Profile Updated!", "Successful!", 2000);
         this.handleDoctorProfile();
         // window.location.reload()
+        this.setState({showSaveProfile: false, showSaveService: false})
       }
 
     }

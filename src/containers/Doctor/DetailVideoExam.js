@@ -253,10 +253,13 @@ class DetailVideoExam extends Component {
          this.clientsExams(response.data.data.client_id)
          let mess = document.getElementById('messageMainText')
          let messageDiv = document.querySelector('.messageDiv')
+        let square = document.getElementById('imageDiv1')
+
          console.log(mess);
-         if(mess.scrollHeight < 300){
+         if(mess.scrollHeight > 300){
            mess.style.height = `${mess.scrollHeight}px`
            messageDiv.style.height = `${mess.scrollHeight + 60}px` 
+           square.style.display = 'block'
          }else{
            mess.style.height = '300px'
          }
@@ -484,10 +487,50 @@ class DetailVideoExam extends Component {
           let alerg = document.getElementById('Allergies')
           alerg.style.height = `${alerg.scrollHeight}px`
     
+      }else if(value === 'consultDetail'){
+                let mess = document.getElementById('messageMainText')
+                let messageDiv = document.querySelector('.messageDiv')
+                let square = document.getElementById('imageDiv1')
+                console.log(mess);
+                if(mess.scrollHeight > 300){
+                  mess.style.height = `${mess.scrollHeight}px`
+                  messageDiv.style.height = `${mess.scrollHeight + 60}px`
+                  square.style.display= 'block'
+                }else{
+                  mess.style.height = '300px'
+                }
+      
+            let textar = [...document.querySelectorAll('.message')]
+            textar.map(ex =>{
+              if(ex.scrollHeight > 100){
+                ex.style.height = `${ex.scrollHeight}px`
+                let parentOfElement = ex.parentElement.previousSibling
+                let div = parentOfElement.lastChild
+                div.style.display = 'block'
+            
+                div.onclick = function() { 
+                ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
+              }
+            })
+          
       }
       clearInterval(test)
     }, 200);
   }
+
+  handleExtendDiv = () =>{
+    let mess = document.getElementById('messageMainText')
+    let messageDiv = document.querySelector('.messageDiv')
+    let square = document.getElementById('imageDiv1')
+    console.log(mess);
+      if(mess.clientHeight > 300){
+        mess.style.height = '300px'
+        messageDiv.style.height = `${360}px`
+      }else{
+        mess.style.height = `${mess.scrollHeight}px`
+        messageDiv.style.height = `${mess.scrollHeight + 60}px`
+      }
+}
 
 
 
@@ -750,6 +793,7 @@ class DetailVideoExam extends Component {
           searchByType={this.searchByType}
           ResetonSelectChange={this.ResetonSelectChange}
           handlePageChange={this.handlePageChange}
+          handleExtendDiv={this.handleExtendDiv}
           // handleReport={this.handleReport}
            // iconsMouseOut,
   // iconsMouseOver,

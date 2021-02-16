@@ -61,7 +61,8 @@ const Processing = ({
   searchByType,
   ResetonSelectChange,
   handlePageChange,
-  redirectThis
+  redirectThis,
+  handleExtendDiv
 }) => {
   const customStyles = {
     control: () => ({
@@ -153,18 +154,21 @@ const Processing = ({
                   <p>
                     <span style={{fontWeight: 'bold'}}>Subject:</span> {exam.exam.subject}
                   </p>
+                  <div className='infoAndSquare' style={{display: 'flex'}}>
                   <p>
                     <span>
-                      {moment(exam.exam.created).format("MM/DD/YY HH:mm")}
+                    {moment(exam.exam.created).format("MM/DD/YY HH:mm")}
                     </span>{" "}
                   </p>
+                  <div style={{marginRight: '20px'}} onClick={handleExtendDiv} id='imageDiv1'></div>
+                  </div>
                 </div>
                 <div className="messageDiv">
                   <textarea defaultValue= {exam.exam.notes} id='messageMainText' disabled={true}>
                   
                   </textarea>
                   <div className='mainFileDiv'>
-                    <div className='FileDiv'><p>Files</p></div>
+                    <div className='FileDiv'><p>Files:</p></div>
                     {exam.exam.attachments && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.attachments}`}} className='fileForDownload'><FaFileDownload/><p>{exam.exam.attachments.substring(exam.exam.attachments.lastIndexOf('/') + 1)}</p></div>}
                   </div>
 
@@ -196,25 +200,30 @@ const Processing = ({
                       onBlur={ (e) => {e.target.value = ''}}
                       onChange={report} id="textarea"></textarea>
 
-                      <div className="sendbuttonAndAtt">
-
-                      <button 
-                      // style={{display:  exam.exam.status === 'Finished' && 'none'}} 
+<div className="sendbuttonAndAtt">
+                <button 
+                      // style={{display:  exam.status === 'Finished' && 'none'}} 
                       onClick={saveReport} style={{display: !props.showSaveButton && "none"}} type='submit'>Save</button>
-                       <div className="upload-btn-wrapper" style={{display: !props.showSaveButton && "none"}}>
-                                <button className="btn">
-                                  <img src={attachIcon} alt="" />
-                                </button>
-                                <input
-                                  type="file"
-                                  name="myfile"
-                                  onChange={onChangeHandler}
-                                  multiple
-                                />
-                              </div>
-                              {props.selectedFile && <div style={{marginRight: '10px'}} className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
-                    {exam.exam.report_file && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.report_file}`}} className='fileForDownload'><p>{exam.exam.report_file.substring(exam.exam.report_file.lastIndexOf('/') + 1)}</p></div>}
-                      </div>
+                                  <div className="attachess">
+                                  <div className="upload-btn-wrapper">
+                                    <button className="btn">
+                                      <p >Add file</p>
+                                    </button>
+                                    <input
+                                      type="file"
+                                      name="myfile"
+                                      onChange={onChangeHandler}
+                                      multiple
+                                    />
+                                  </div>
+                                  {props.selectedFile && <div style={{marginRight: '10px'}} className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
+                    {exam.report_file && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.report_file}`}} className='fileForDownload'><p>{exam.report_file.substring(exam.report_file.lastIndexOf('/') + 1)}</p></div>}
+                                  {/* {props.selectedFile && <div className='fileForDownload'><p >{props.selectedFile.name}</p></div>} */}
+          {/* {props.selectedFile && props.selectedFile.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
+                                  </div>
+                                
+
+                                </div>
                 </div>
                 </div>
                 
