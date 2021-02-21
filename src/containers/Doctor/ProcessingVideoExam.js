@@ -77,13 +77,14 @@ class ProcessingVideoExam extends Component {
         let messageDiv = document.querySelector('.messageDiv')
         let queue = document.getElementById('imageDiv1')
         console.log(mess);
-        if(mess.scrollHeight > 300){
+        if(mess.scrollHeight > 100){
           mess.style.height = `${mess.scrollHeight}px`
           messageDiv.style.height = `${mess.scrollHeight + 60}px` 
           queue.style.display = 'block'
-        }else{
-          mess.style.height = '300px'
         }
+        // else{
+        //   mess.style.height = '300px'
+        // }
         this.record();
     this.clientsExams()
       })
@@ -587,13 +588,14 @@ class ProcessingVideoExam extends Component {
         let messageDiv = document.querySelector('.messageDiv')
         let square = document.getElementById('imageDiv1')
         console.log(mess);
-        if(mess.scrollHeight > 300){
+        if(mess.scrollHeight > 100){
           mess.style.height = `${mess.scrollHeight}px`
           messageDiv.style.height = `${mess.scrollHeight + 60}px`
           square.style.display= 'block'
-        }else{
-          mess.style.height = '300px'
         }
+        // else{
+        //   mess.style.height = '300px'
+        // }
 
     let textar = [...document.querySelectorAll('.message')]
     textar.map(ex =>{
@@ -618,9 +620,9 @@ class ProcessingVideoExam extends Component {
     let messageDiv = document.querySelector('.messageDiv')
     let square = document.getElementById('imageDiv1')
     console.log(mess);
-      if(mess.clientHeight > 300){
-        mess.style.height = '300px'
-        messageDiv.style.height = `${360}px`
+      if(mess.clientHeight > 100){
+        mess.style.height = '100px'
+        messageDiv.style.height = `${160}px`
       }else{
         mess.style.height = `${mess.scrollHeight}px`
         messageDiv.style.height = `${mess.scrollHeight + 60}px`
@@ -843,6 +845,7 @@ class ProcessingVideoExam extends Component {
       this.props.history.push(`/doctor/video/exam/detail/${id}/#init`);
     } else if (type === "queue") {
       this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
+      window.location.reload()
     }
   };
 

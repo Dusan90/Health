@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import "../../assets/main/navbar.scss";
 import { NotificationManager } from "react-notifications";
 import doctorOnline from "../../icons/icon_my_profile_doctor_on-line_46px.svg";
@@ -17,16 +17,69 @@ const Nav = ({
   handleDashboardClient,
   doctor,
   selectValue,
+  
 }) => {
+  const location = useLocation()
+  let firstTimelogedIn = true
   const [curentDoc, setcurentDoc] = useState({});
+  // let [firstTimeLoged, setFirstTimeLoged] = useState()
   const [nameF, setnameF] = useState({});
   const [nameL, setnameL] = useState({});
-  const handleSubmit = async (e) => {
-    let { value } = e.target;
+  const handleSubmit = async (e, value) => {
+  firstTimelogedIn = false
     const access_token = "Bearer ".concat(
       sessionStorage.getItem("accessToken")
     );
-    e.preventDefault();
+    let form_data = new FormData();
+form_data.append("user.first_name", '');
+form_data.append("user.last_name", '');
+form_data.append("user.phone", '');
+form_data.append("biography", '');
+form_data.append("email_exam_price", '');
+form_data.append("web_exam_price", '');
+form_data.append("web_exam_follow_price", '');
+form_data.append("image", '');
+form_data.append("organization", '');
+form_data.append("start_hour", '');
+form_data.append("end_hour", '');
+form_data.append("email_currency", '');
+  form_data.append("web_currency", '');
+  form_data.append("web_follow_up_currency", '');
+  form_data.append("speciality", e.speciality);
+form_data.append("status", value);
+form_data.append("waiting_room_price", '');
+form_data.append("waiting_room_currency", '');
+
+form_data.append("web_exam_status", '');
+form_data.append("email_exam_status", '');
+  form_data.append("waiting_room_status", '');
+  form_data.append("web_exam_follow_status", '');
+
+
+let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
+
+const data = axios.put(url, form_data, {
+  headers: {
+    'content-type': 'multipart/form-data',
+    Authorization: access_token,
+  }
+})
+
+
+    const jsonData = await data;
+    console.log(jsonData, "profile changed");
+    if(jsonData.data.success){
+      handleDoctorProfile();
+    }
+  };
+
+
+  const handleSubmitClicked = async (e) => {
+    let {value} = e.target
+    const access_token = "Bearer ".concat(
+      sessionStorage.getItem("accessToken")
+    );
+   e.preventDefault();
     let form_data = new FormData();
 form_data.append("user.first_name", '');
 form_data.append("user.last_name", '');
@@ -63,40 +116,11 @@ const data = axios.put(url, form_data, {
 })
 
 
-    console.log('submiting');
     const jsonData = await data;
-    console.log(jsonData, "profile changed");
     if(jsonData.data.success){
       NotificationManager.success("Profile Updated!", "Successful!", 2000);
       handleDoctorProfile();
     }
-    // const data = await fetch(
-    //   `https://healthcarebackend.xyz/api/doctor/profile/`,
-    //   {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: access_token,
-    //     },
-    //     body: JSON.stringify({
-    //       first_name: '',
-    //             last_name: '',
-    //             phone: '',
-    //             biography: '',
-    //             email_exam_price: parseInt(''),
-    //             web_exam_price: parseInt(''),
-    //             web_exam_follow_price: parseInt(''),
-    //             image: '',
-    //             status: value,
-    //     }),
-    //   }
-    // );
-    // const jsonData = await data.json();
-    // console.log(jsonData);
-    // if (jsonData.success) {
-    //   NotificationManager.success("Profile Updated!", "Successful!", 2000);
-    //   handleDoctorProfile();
-    // }
   };
 
   useEffect(() => {
@@ -105,8 +129,10 @@ const data = axios.put(url, form_data, {
     }else if(sessionStorage.getItem('is_doctor') === 'false'){
       handleClientProfile()
     }
+    
   }, []);
   const handleDoctorProfile = async () => {
+
     const access_token = "Bearer ".concat(
       sessionStorage.getItem("accessToken")
     );
@@ -115,10 +141,12 @@ const data = axios.put(url, form_data, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        location.state && location.state.detail === 'makeItOnline' && firstTimelogedIn && handleSubmit(response.data.data, 'Available');
         return setcurentDoc(response.data.data),
         setnameF(response.data.data.user.first_name),
         setnameL(response.data.data.user.last_name)
-      });
+      })
+
   };
   const handleClientProfile = async () => {
     const access_token = "Bearer ".concat(
@@ -168,7 +196,7 @@ const data = axios.put(url, form_data, {
     //   );
     // }
     selectStatus = (
-      <select style={{background: curentDoc.status === "Away" ? '#9a9a9a' : curentDoc.status === "Offline" ? 'red' : '#3cb54a' }} name="status" id="status" onChange={handleSubmit}>
+      <select style={{background: curentDoc.status === "Away" ? '#9a9a9a' : curentDoc.status === "Offline" ? 'red' : '#3cb54a' }} name="status" id="status" onChange={handleSubmitClicked}>
         <option value="">{curentDoc.status}</option>
         <option
           value="Available"

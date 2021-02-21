@@ -65,7 +65,6 @@ export class HamburgerDiv extends Component {
           headers: { Authorization: access_token },
         })
         .then((response) => {
-          console.log(response, 'from hamburger');
           const fullName = `${response.data.data.user.first_name} ${response.data.data.user.last_name} `
           return this.setState({currentDoc: response.data.data, fullName})
         });
@@ -75,7 +74,6 @@ export class HamburgerDiv extends Component {
           headers: { Authorization: access_token },
         })
         .then((response) => {
-          console.log(response);
           const fullNameClient = `${response.data.data.user.first_name} ${response.data.data.user.last_name} `
             return this.setState({currentClient: response.data.data, fullNameClient})
         });
@@ -193,7 +191,7 @@ export class HamburgerDiv extends Component {
           <h2>Settings</h2>
         </Link>
         <Link className="sideFaq"
-          to='/logout'
+          to={{pathname: '/logout', spec: this.state.currentDoc.speciality}}
             // onClick={() => this.props.history.push('/logout')}
         >
           <span className="faq">

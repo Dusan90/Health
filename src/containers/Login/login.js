@@ -91,7 +91,10 @@ class Login extends Component {
   redirectUser = () => {
     if (this.props.isLoggedIn) {
       if (this.state.is_doctor) {
-        this.props.history.push("/dashboard-doctor");
+        this.props.history.push(
+      { pathname: "/dashboard-doctor",
+      search: '?query=abc',
+      state: { detail: 'makeItOnline'}})
       } else {
         this.props.history.push("/dashboard-client");
       }

@@ -154,13 +154,22 @@
           display: flex;
           align-items: center;
           overflow: hidden;
-          width: 50px;
+          // width: 50px;
           margin: 0 0 0 10px;
           white-space: nowrap;
           p {
-            margin: 0;
-            width: 100px;
             white-space: nowrap;
+            width: 100px;
+            margin: 0;
+            color: #00aff0;
+            text-indent: 0;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &:hover {
+              text-overflow: scroll;
+              width: 280px;
+            }
           }
         }
       }

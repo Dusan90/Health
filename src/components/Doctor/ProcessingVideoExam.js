@@ -201,9 +201,6 @@ const Processing = ({
                       onChange={report} id="textarea"></textarea>
 
 <div className="sendbuttonAndAtt">
-                <button 
-                      // style={{display:  exam.status === 'Finished' && 'none'}} 
-                      onClick={saveReport} style={{display: !props.showSaveButton && "none"}} type='submit'>Save</button>
                                   <div className="attachess">
                                   <div className="upload-btn-wrapper">
                                     <button className="btn">
@@ -224,9 +221,14 @@ const Processing = ({
                                 
 
                                 </div>
-                </div>
+                                
+
                 </div>
                 
+                </div>
+                <button 
+                      // style={{display:  exam.status === 'Finished' && 'none'}} 
+                      onClick={saveReport} className='btnForReport' style={{display: !props.showSaveButton && "none"}} type='submit'>Save</button>
               </div>
               </div>
                   <div className="message-btn">

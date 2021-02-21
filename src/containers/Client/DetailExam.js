@@ -69,14 +69,15 @@ class ClientDetailExam extends Component {
         let messageDiv = document.querySelector('.messageDiv')
     let square = document.getElementById('imageDiv1')
 
-        console.log(mess);
-        if(mess.scrollHeight > 300){
+        console.log(mess.scrollHeight);
+        if(mess.scrollHeight > 100){
           mess.style.height = `${mess.scrollHeight}px`
           messageDiv.style.height = `${mess.scrollHeight + 20}px`
           square.style.display = 'block'
-        }else{
-          mess.style.height = '300px'
         }
+        // else{
+        //   mess.style.height = '300px'
+        // }
       })
       .catch((err) => {
         console.log(err.response);
@@ -88,9 +89,9 @@ class ClientDetailExam extends Component {
     let messageDiv = document.querySelector('.messageDiv')
     let square = document.getElementById('imageDiv1')
     console.log(mess);
-      if(mess.clientHeight > 300){
-        mess.style.height = '300px'
-        messageDiv.style.height = `${320}px`
+      if(mess.clientHeight > 100){
+        mess.style.height = '100px'
+        messageDiv.style.height = `${120}px`
       }else{
         mess.style.height = `${mess.scrollHeight}px`
         messageDiv.style.height = `${mess.scrollHeight + 60}px`
@@ -293,7 +294,13 @@ class ClientDetailExam extends Component {
             div.style.display = 'block'
         
             div.onclick = function() { 
-            ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
+              if(ex.clientHeight > 100){
+                ex.style.height = '100px'
+              }else{
+                ex.style.height = `${ex.scrollHeight}px`
+              }
+            }
+            // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
               // ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.clientHeight === ex.scrollHeight ? console.log('hello') : ex.scrollHeight > 300 ? ex.style.height = '300px' : ex.style.height = '100px'  };
             // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
           }

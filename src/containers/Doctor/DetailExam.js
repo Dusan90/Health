@@ -61,13 +61,14 @@ class DetailExam extends Component {
         let messageDiv = document.querySelector('.messageDiv')
         let square = document.getElementById('imageDiv1')
         console.log(mess);
-        if(mess.scrollHeight > 300){
+        if(mess.scrollHeight > 100){
           mess.style.height = `${mess.scrollHeight}px`
           messageDiv.style.height = `${mess.scrollHeight + 60}px`
           square.style.display= 'block'
-        }else{
-          mess.style.height = '300px'
         }
+        // else{
+        //   mess.style.height = '100px'
+        // }
       });
   };
 
@@ -298,7 +299,9 @@ class DetailExam extends Component {
       })
       .then(() =>{
         let textar = [...document.querySelectorAll('.message')]
+        console.log(textar);
         textar.map(ex =>{
+        
           if(ex.scrollHeight > 100){
             ex.style.height = `${ex.scrollHeight}px`
           // }
@@ -308,12 +311,15 @@ class DetailExam extends Component {
             div.style.display = 'block'
         
             div.onclick = function() { 
-            ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
-              // ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.clientHeight === ex.scrollHeight ? console.log('hello') : ex.scrollHeight > 300 ? ex.style.height = '300px' : ex.style.height = '100px'  };
-            // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
+              if(ex.clientHeight > 100){
+                ex.style.height = '100px'
+              }else{
+                ex.style.height = `${ex.scrollHeight}px`
+              }
+            }
+            // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
           }
         })
-    
       })
       .catch((error) => {
         console.log(error.response);
@@ -369,13 +375,14 @@ class DetailExam extends Component {
           let messageDiv = document.querySelector('.messageDiv')
           let square = document.getElementById('imageDiv1')
           console.log(mess);
-          if(mess.scrollHeight > 300){
+          if(mess.scrollHeight > 100){
             mess.style.height = `${mess.scrollHeight}px`
             messageDiv.style.height = `${mess.scrollHeight + 60}px`
             square.style.display= 'block'
-          }else{
-            mess.style.height = '300px'
           }
+          // else{
+          //   mess.style.height = '300px'
+          // }
       }
 
       let textar = [...document.querySelectorAll('.message')]
@@ -387,8 +394,14 @@ class DetailExam extends Component {
           div.style.display = 'block'
       
           div.onclick = function() { 
-          ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
+            if(ex.clientHeight > 100){
+              ex.style.height = '100px'
+            }else{
+              ex.style.height = `${ex.scrollHeight}px`
+            }
+          // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
         }
+      }
       })
       clearInterval(test)
     }, 200);
@@ -400,9 +413,9 @@ class DetailExam extends Component {
           let messageDiv = document.querySelector('.messageDiv')
           let square = document.getElementById('imageDiv1')
           console.log(mess);
-            if(mess.clientHeight > 300){
-              mess.style.height = '300px'
-              messageDiv.style.height = `${360}px`
+            if(mess.clientHeight > 100){
+              mess.style.height = '100px'
+              messageDiv.style.height = `${160}px`
             }else{
               mess.style.height = `${mess.scrollHeight}px`
               messageDiv.style.height = `${mess.scrollHeight + 60}px`
@@ -597,7 +610,8 @@ class DetailExam extends Component {
 
   handleClick = (id, type) => {
     if (type === "mail") {
-      this.props.history.push(`/doctor/exam/detail/${id}`);
+      this.props.history.push(`/doctor/exam/detail/${id}/`);
+      window.location.reload()
     } else if (type === "video") {
       this.props.history.push(`/doctor/video/exam/detail/${id}/#init`);
     } else if (type === "queue") {
@@ -621,21 +635,10 @@ class DetailExam extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   
 
   render() {
-  console.log(this.state.selectedFile);
+  console.log(this.state.status);
     return (
       <>
         <Detail

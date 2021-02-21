@@ -84,7 +84,6 @@ const Dashboard = ({
           <div className="pendingReq">
             {short3.length !== 0 ? (
               short3.map((shorty) => {
-                console.log(shorty);
                 return (
                     
 

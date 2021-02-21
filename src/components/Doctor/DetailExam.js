@@ -286,7 +286,7 @@ return (
                 </div>
                     {
                     // props.correspondence.length !== 0 &&
-                      exam.status === "Accepted" && !props.replyClicked ? (
+                      (props.statusValue.value === 'Accept' || exam.status === "Accepted") && !props.replyClicked ? (
                         <button className="newMessage" onClick={newMessage}>
                           <h1>+</h1>
                         </button>

@@ -40,6 +40,7 @@ class DoctorDashboard extends Component {
       searchClient: false,
       searchByTypeClick: false,
       searchType: "",
+      firstLoad: true
     };
   }
 
@@ -69,18 +70,7 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
-        console.log(res);
-        // const res = response.data.data.map((val) => {
-        //   return {
-        //     id: val.id,
-        //     client: val.client,
-        //     created: val.created,
-        //     subject: val.subject,
-        //     status: val.status,
-        //   };
-        // });
         const filteredMail = res.data.data.length !== 0 ? res.data.data.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
-        console.log(filteredMail);
         let resort = filteredMail.sort(
           (a, b) => Date.parse(b.created) - Date.parse(a.created)
         );
@@ -210,7 +200,6 @@ class DoctorDashboard extends Component {
         ) {
           const filteredMail = res.data.data.mail.length !== 0 ? res.data.data.mail.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
           const filteredVideo = res.data.data.video.length !== 0 ? res.data.data.video.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
-          console.log(filteredMail);
           let combineExams = filteredMail.concat(filteredVideo);
           this.setState({
             exams: combineExams,
@@ -317,7 +306,6 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, 'currentDoctor');
         let current = response.data.data;
         // this.peopleInWaitingRoom(current.id);
         this.connecSocket(current.id);
@@ -327,8 +315,7 @@ class DoctorDashboard extends Component {
         return this.setState({
         doctorCurent: current,
         });
-
-      });
+      })
   };
 
   peopleInWaitingRoom = async (id) => {
@@ -338,7 +325,6 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response);
         response.data.data.queue.forEach((e) => {
           if (
             moment(e.created).format("YYYY-MM-DD") !== moment(new Date()).format("YYYY-MM-DD") &&
@@ -385,7 +371,6 @@ class DoctorDashboard extends Component {
       }
     );
     const jsonData = await client.json();
-    console.log(jsonData);
     return jsonData;
   };
 
@@ -636,8 +621,6 @@ class DoctorDashboard extends Component {
     this.paginate(pageNumber)
   }
   render() {
-    console.log(this.state.exams)
-
     return (
       <>
         <div className="header">

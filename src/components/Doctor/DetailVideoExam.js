@@ -280,9 +280,7 @@ const DetailVideo = ({
                 </div> */}
 
                 <div className="sendbuttonAndAtt">
-                <button 
-                      // style={{display:  exam.status === 'Finished' && 'none'}} 
-                      onClick={saveReport} style={{display: !props.showSaveButton && "none"}} type='submit'>Save</button>
+                
                                   <div className="attachess">
                                   <div className="upload-btn-wrapper">
                                     <button className="btn">
@@ -305,7 +303,9 @@ const DetailVideo = ({
                                 </div>
                 </div>
                 </div>
-
+                <button 
+                      // style={{display:  exam.status === 'Finished' && 'none'}} 
+                      onClick={saveReport} className='btnForReport' style={{display: !props.showSaveButton && "none"}} type='submit'>Save</button>
               </div>
             </div>}
 

@@ -145,7 +145,7 @@ class Register extends Component {
 
   userRegister = async () => {
     if (this.state.userType === "client") {
-      if (this.state.confPasswordValue === this.state.passwordValue) {
+      // if (this.state.confPasswordValue === this.state.passwordValue) {
         const client = await fetch(
           "https://healthcarebackend.xyz/api/auth/register/client/",
           {
@@ -181,13 +181,14 @@ confirm_password: this.state.confPasswordValue,
           jsonData.success && this.props.history.push("/Verification");
         !jsonData.success && NotificationManager.error(`${jsonData.error ? jsonData.error[Object.keys(jsonData.error)[0]] : jsonData.message}, "Failed`)
         return jsonData;
-      } else {
-        NotificationManager.error(
-          "Confirm password does not match",
-          "Failed!",
-          4000
-        );
-      }
+      // } else {
+      //   this.setState({loading: false})
+      //   NotificationManager.error(
+      //     "Confirm password does not match",
+      //     "Failed!",
+      //     4000
+      //   );
+      // }
     } else if (this.state.userType === "doctor") {
       const doctor = await fetch(
         "https://healthcarebackend.xyz/api/auth/register/doctor/",
@@ -235,7 +236,7 @@ confirm_password: this.state.confPasswordValue,
         );
       } else {
         NotificationManager.error(`${jsonData.error ? jsonData.error[Object.keys(jsonData.error)[0]] : jsonData.message}, "Failed`)
-
+        this.setState({loading: false})
       }
       return jsonData;
     }
