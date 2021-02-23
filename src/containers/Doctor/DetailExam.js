@@ -311,7 +311,6 @@ class DetailExam extends Component {
             div.style.display = 'block'
         
             div.onclick = function() { 
-              console.log(ex.clientHeight)
               if(ex.clientHeight > 100){
                 ex.style.height = '100px'
               }else{

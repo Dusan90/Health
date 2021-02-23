@@ -92,9 +92,10 @@ class ClientDetailExam extends Component {
       if(mess.clientHeight > 100){
         mess.style.height = '100px'
         messageDiv.style.height = `${120}px`
-      }else{
+      }
+      else{
         mess.style.height = `${mess.scrollHeight}px`
-        messageDiv.style.height = `${mess.scrollHeight + 60}px`
+        messageDiv.style.height = `${mess.scrollHeight + 60}px` 
       }
 }
 
@@ -294,6 +295,7 @@ class ClientDetailExam extends Component {
             div.style.display = 'block'
         
             div.onclick = function() { 
+              console.log(ex.clientHeight)
               if(ex.clientHeight > 100){
                 ex.style.height = '100px'
               }else{
