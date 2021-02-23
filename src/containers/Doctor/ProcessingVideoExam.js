@@ -606,7 +606,13 @@ class ProcessingVideoExam extends Component {
         div.style.display = 'block'
     
         div.onclick = function() { 
-        ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
+          if(ex.clientHeight > 100){
+            ex.style.height = '100px'
+          }else{
+            ex.style.height = `${ex.scrollHeight}px`
+          }
+        }
+        // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
       }
     })
   
