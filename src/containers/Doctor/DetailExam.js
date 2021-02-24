@@ -124,11 +124,13 @@ class DetailExam extends Component {
     );
     const jsonData = await client.json();
     console.log(jsonData);
-    jsonData.success &&  this.socket.send({
-      exam_id: this.state.id,
-      changedStatus: true,
-    })
-    //  && window.location.reload()
+    if(jsonData.success){
+      this.socket.send({
+       exam_id: this.state.id,
+       changedStatus: true,
+     })
+     window.location.reload()
+    }
 
     return jsonData;
   };

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, useHistory } from "react-router-dom";
 import { createStore } from "redux";
 import { Provider as ReduxProvider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
@@ -11,6 +11,7 @@ import { userLogin, userLoggedIn } from "./actions/authActions";
 import "react-notifications/lib/notifications.css";
 import allReducers from "./reducers";
 import Routes from "./Routes";
+import axios from 'axios'
 
 class App extends Component {
   constructor(props) {
@@ -22,10 +23,64 @@ class App extends Component {
     this.sagaMiddleware = sagaMiddleware;
     this.store = store;
   }
-
+  
   componentDidMount() {
     this.checkUser();
+    window.addEventListener("beforeunload", (ev) => {  
+      ev.preventDefault();
+      this.handleSubmit()
+  })
   }
+
+  handleSubmit = async () => {
+    // let { value } = e.target;
+    const access_token = "Bearer ".concat(
+      sessionStorage.getItem("accessToken")
+    );
+    // e.preventDefault();
+    let form_data = new FormData();
+form_data.append("user.first_name", '');
+form_data.append("user.last_name", '');
+form_data.append("user.phone", '');
+form_data.append("biography", '');
+form_data.append("email_exam_price", '');
+form_data.append("web_exam_price", '');
+form_data.append("web_exam_follow_price", '');
+form_data.append("image", '');
+form_data.append("organization", '');
+form_data.append("start_hour", '');
+form_data.append("end_hour", '');
+form_data.append("email_currency", '');
+  form_data.append("web_currency", '');
+  form_data.append("web_follow_up_currency", '');
+  form_data.append("speciality", 1);
+form_data.append("status", "Offline");
+form_data.append("waiting_room_price", '');
+form_data.append("waiting_room_currency", '');
+
+form_data.append("web_exam_status", '');
+form_data.append("email_exam_status", '');
+  form_data.append("waiting_room_status", '');
+  form_data.append("web_exam_follow_status", '');
+
+
+let url = 'https://healthcarebackend.xyz/api/doctor/profile/';
+
+const data = axios.put(url, form_data, {
+  headers: {
+    'content-type': 'multipart/form-data',
+    Authorization: access_token,
+  }
+})
+
+
+    console.log('submiting');
+    const jsonData = await data;
+    console.log(jsonData, "profile changed");
+    if(jsonData.data.success){
+    }
+  };
+
 
   componentDidUpdate() {
     this.checkUser();
