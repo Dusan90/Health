@@ -22,11 +22,12 @@ const Nav = ({
   const location = useLocation()
   let firstTimelogedIn = true
   const [curentDoc, setcurentDoc] = useState({});
-  // let [firstTimeLoged, setFirstTimeLoged] = useState()
+  let [firstTimeLoged, setFirstTimeLoged] = useState(true)
   const [nameF, setnameF] = useState({});
   const [nameL, setnameL] = useState({});
   const handleSubmit = async (e, value) => {
-  firstTimelogedIn = false
+    setFirstTimeLoged(firstTimeLoged= !firstTimeLoged)
+    console.log(firstTimeLoged);
     const access_token = "Bearer ".concat(
       sessionStorage.getItem("accessToken")
     );
@@ -141,7 +142,7 @@ const data = axios.put(url, form_data, {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        location.state && location.state.detail === 'makeItOnline' && firstTimelogedIn && handleSubmit(response.data.data, 'Available');
+        location.state && location.state.detail === 'makeItOnline' && firstTimeLoged && handleSubmit(response.data.data, 'Available');
         return setcurentDoc(response.data.data),
         setnameF(response.data.data.user.first_name),
         setnameL(response.data.data.user.last_name)
