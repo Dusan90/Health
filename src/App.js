@@ -12,6 +12,8 @@ import "react-notifications/lib/notifications.css";
 import allReducers from "./reducers";
 import Routes from "./Routes";
 import axios from 'axios'
+import { NotificationManager } from "react-notifications";
+
 
 class App extends Component {
   constructor(props) {
@@ -26,10 +28,21 @@ class App extends Component {
   
   componentDidMount() {
     this.checkUser();
-    window.addEventListener("beforeunload", (ev) => {  
-      ev.preventDefault();
-      this.handleSubmit()
-  })
+
+    window.addEventListener('online', () => {
+      NotificationManager.success("You are back online", "Back online", 3000);
+
+    })
+    window.addEventListener('offline', () => {
+      NotificationManager.error("Connection is lost", "Pure Connection", 3000);
+
+    });  
+
+
+  //   window.addEventListener("beforeunload", (ev) => {  
+  //     ev.preventDefault();
+  //     this.handleSubmit()
+  // })
   }
 
   handleSubmit = async () => {

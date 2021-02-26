@@ -310,7 +310,7 @@ class ClientWaitingRoom extends Component {
   };
 
   toCheckout = async () => {
-    if(this.state.price !== "0.00" && this.state.price !== '0'
+    if(this.state.price !== "0.00"
     ){
       return this.props.history.push({
         pathname: "/checkout",
@@ -501,7 +501,7 @@ class ClientWaitingRoom extends Component {
             iD: val.id,
             label: val.doctor,
             spec: val.speciality,
-            price: val.web_exam_follow_price,
+            price: val.waiting_room_price,
             currency: val.web_follow_up_currency,
             status: val.status,
             waiting_room_status: val.waiting_room_status
@@ -516,7 +516,7 @@ class ClientWaitingRoom extends Component {
                   iD: doctor.id,
                   label: doctor.doctor,
                   spec: doctor.speciality,
-                  price: doctor.web_exam_follow_price,
+                  price: doctor.waiting_room_price,
                   currency: doctor.web_follow_up_currency,
                   status: doctor.status,
                   waiting_room_status: doctor.waiting_room_status
@@ -829,7 +829,8 @@ class ClientWaitingRoom extends Component {
   }
 
   render() {
-    console.log(this.state.attachment2);
+    console.log(this.state.price);
+    console.log(this.state.doctors)
     return (
       <>
         <div className="header">

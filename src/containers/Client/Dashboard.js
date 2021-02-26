@@ -132,7 +132,7 @@ class ClientDashboard extends Component {
       this.props.history.push({
         pathname: "/checkout",
         // search: "?query=abc",
-        state: { price: exam.price, currency: exam.currency, transaction_id: exam['transaction']['id'] },
+        state: { price: exam.price, currency: exam.currency, transaction_id: exam['transaction'] },
       });
     }else{
       if (exam.exam_type === "mail") {

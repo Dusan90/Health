@@ -417,14 +417,14 @@ class ProcessingVideoExam extends Component {
   console.log(jsonData)
   if (jsonData.data.success === true) {
     this.detail(this.props.match.params.id);
-    jsonData.data.data.exam.status === "Accepted" &&
+    jsonData.data.data.status === "Accepted" &&
       this.state.connectedall &&
       this.handleConnect();
-    jsonData.data.data.exam.status === "Finished" && window.location.reload();
+    jsonData.data.data.status === "Finished" && window.location.reload();
     connection.send(
       JSON.stringify({
         id: this.props.match.params.id,
-        status: jsonData.data.data.exam.status,
+        status: jsonData.data.data.status,
       })
     );
   }

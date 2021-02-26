@@ -81,6 +81,7 @@ class Login extends Component {
         sessionStorage.setItem("expiresIn", jsonData.data.expires_in);
         sessionStorage.setItem("is_doctor", this.state.is_doctor);
         localStorage.setItem("refreshToken", jsonData.data.refresh_token);
+        sessionStorage.setItem("firstLogin", true);
         this.props.dispatch(userLoggedIn());
       }
       this.redirectUser();
@@ -93,8 +94,9 @@ class Login extends Component {
       if (this.state.is_doctor) {
         this.props.history.push(
       { pathname: "/dashboard-doctor",
-      search: '?query=abc',
-      state: { detail: 'makeItOnline'}})
+      // search: '?query=abc',
+      // state: { detail: 'makeItOnline'}
+    })
       } else {
         this.props.history.push("/dashboard-client");
       }
