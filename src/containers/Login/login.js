@@ -81,7 +81,7 @@ class Login extends Component {
         sessionStorage.setItem("expiresIn", jsonData.data.expires_in);
         sessionStorage.setItem("is_doctor", this.state.is_doctor);
         localStorage.setItem("refreshToken", jsonData.data.refresh_token);
-        sessionStorage.setItem("firstLogin", true);
+        sessionStorage.setItem('firstTime', true)
         this.props.dispatch(userLoggedIn());
       }
       this.redirectUser();

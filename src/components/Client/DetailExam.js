@@ -231,7 +231,6 @@ const Detail = ({
                         <h1>+</h1>
                       </button>
                  : props.replyClicked ? <button className='sendButtonForReplay' onClick={handleSubmitSend}>
-                 <FiSend className="replyIcon" />
                  <span>Send</span>
                </button> : null
                   }

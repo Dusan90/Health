@@ -26,7 +26,7 @@ const Nav = ({
   const [nameF, setnameF] = useState({});
   const [nameL, setnameL] = useState({});
   const handleSubmit = async (e, value) => {
-    sessionStorage.removeItem('firstLogin')
+    sessionStorage.removeItem('firstTime')
     // setFirstTimeLoged(firstTimeLoged= !firstTimeLoged)
     // console.log(firstTimeLoged);
     const access_token = "Bearer ".concat(
@@ -123,6 +123,7 @@ const data = axios.put(url, form_data, {
     if(jsonData.data.success){
       NotificationManager.success("Profile Updated!", "Successful!", 2000);
       handleDoctorProfile();
+      sessionStorage.setItem("statusChanged", value);
     }
   };
 
@@ -145,7 +146,7 @@ const data = axios.put(url, form_data, {
       })
       .then((response) => {
         // location.state && location.state.detail === 'makeItOnline' && firstTimeLoged && 
-      sessionStorage.getItem("firstLogin") === "true" && sessionStorage.getItem("is_doctor") === "true" && handleSubmit(response.data.data, 'Available');
+      sessionStorage.getItem("firstTime") === "true" && sessionStorage.getItem("is_doctor") === "true" && handleSubmit(response.data.data, 'Available');
         return setcurentDoc(response.data.data),
         setnameF(response.data.data.user.first_name),
         setnameL(response.data.data.user.last_name)

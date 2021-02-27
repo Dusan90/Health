@@ -27,6 +27,12 @@ class App extends Component {
   }
   
   componentDidMount() {
+    if(sessionStorage.getItem('statusChanged')){
+      let status = sessionStorage.getItem('statusChanged')
+      sessionStorage.getItem('is_doctor') === 'true' && this.handleSubmit(status)
+    }else{
+      sessionStorage.getItem('is_doctor') === 'true' && this.handleSubmit('Available')
+    }
     this.checkUser();
 
     window.addEventListener('online', () => {
@@ -39,13 +45,16 @@ class App extends Component {
     });  
 
 
-  //   window.addEventListener("beforeunload", (ev) => {  
-  //     ev.preventDefault();
-  //     this.handleSubmit()
-  // })
+    window.addEventListener("unload", (ev) => {  
+      ev.preventDefault();
+      sessionStorage.getItem('is_doctor') === 'true' && this.handleSubmit('Offline')
+  })
+
+    console.log(sessionStorage.getItem('statusChanged'));
+   
   }
 
-  handleSubmit = async () => {
+  handleSubmit = async (value) => {
     // let { value } = e.target;
     const access_token = "Bearer ".concat(
       sessionStorage.getItem("accessToken")
@@ -67,7 +76,7 @@ form_data.append("email_currency", '');
   form_data.append("web_currency", '');
   form_data.append("web_follow_up_currency", '');
   form_data.append("speciality", '');
-form_data.append("status", "Offline");
+form_data.append("status", value);
 form_data.append("waiting_room_price", '');
 form_data.append("waiting_room_currency", '');
 

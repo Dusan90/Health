@@ -201,7 +201,6 @@ return (
                 >
                   <div className="MessageCorrespondence">
                     {props.correspondence.map((message, index) => {
-                      console.log(message);
                       return (
                         <div key={message.id} style={{width: message.sender === props.doctor && "90%"}} className="Maintbody">
                           <div style={{background: message.sender === props.doctor && '#00aff0'}} className="senderMaiin">
@@ -291,7 +290,6 @@ return (
                           <h1>+</h1>
                         </button>
                       ) : props.replyClicked ? <button className='sendButtonForReplay' onClick={handleSubmitSend}>
-                      <FiSend className="replyIcon" />
                       <span>Send</span>
                     </button> : null
                   }

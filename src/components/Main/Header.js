@@ -47,6 +47,8 @@ const Header =
               //   props.popUpFalse();
               //   window.location.reload()
               // }else{
+              }else{
+                window.location.reload()
               }
         };
         return (

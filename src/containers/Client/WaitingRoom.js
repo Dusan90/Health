@@ -534,18 +534,18 @@ class ClientWaitingRoom extends Component {
         let doctorFilter = this.state.doctors.filter((yrDoc) => {
           return yrDoc.iD === queDoc.doctor;
         });
-        doctorFilter.map((doctorFilter) => {
-          if (doctorFilter.status !== "Available") {
-            this.setState({ credits: false });
-            this.handleExitQueue();
-            NotificationManager.warning(
-              `Doctor is not Available at the moment`,
-              "Warning!",
-              4000
-            );
-          }
-          return null;
-        });
+        // doctorFilter.map((doctorFilter) => {
+        //   if (doctorFilter.status !== "Available") {
+        //     this.setState({ credits: false });
+        //     this.handleExitQueue();
+        //     NotificationManager.warning(
+        //       `Doctor is not Available at the moment`,
+        //       "Warning!",
+        //       4000
+        //     );
+        //   }
+        //   return null;
+        // });
       }
     });
   };
