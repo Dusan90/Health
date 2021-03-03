@@ -20,6 +20,7 @@ const InitiateExam = ({
   resetDoctorSelect,
   handleAttach,
   isClicked,
+  clearFile,
   props
 }) => {
   const customStyles = {
@@ -184,9 +185,9 @@ const InitiateExam = ({
             <button className="btnn">
               <div className='attachDiv'><p>Add file</p></div>
             </button>
-            <input type="file" name="myfile" onChange={handleAttach} multiple />
+            <input type="file" name="myfile" id='useForCleaning' onChange={handleAttach} multiple />
           </div>
-          {props.attach && <div className='fileForDownload'><p>{props.attach.name.substring(props.attach.name.lastIndexOf('/') + 1)}</p></div>}
+          {props.attach && <div className='fileForDownload'><p>{props.attach.name.substring(props.attach.name.lastIndexOf('/') + 1)}</p><a onClick={clearFile} className='deleteB'>X</a></div>}
           {/* {props.attach && props.attach.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
           </div>
         </div>

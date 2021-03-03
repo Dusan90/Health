@@ -51,7 +51,8 @@ const WaitingRoom = ({
   cutMic,
   // showExtendScreenIcon,
   resetValue,
-  handleKeyPress
+  handleKeyPress,
+  clearFile
 }) => {
   const disabled = props.credits ? false : true;
   const disabled2 = props.credits ? true : false;
@@ -252,9 +253,9 @@ const WaitingRoom = ({
             <button className="btn">
               <div className='attachDiv'><p>Add file</p></div>
             </button>
-            <input type="file" name="myfile" onChange={handleAttach} multiple />
+            <input type="file" id='useForCleaning' name="myfile" onChange={handleAttach} multiple />
           </div>
-          {props.attachment && <div className='fileForDownload'><p>{props.attachment.name.substring(props.attachment.name.lastIndexOf('/') + 1)}</p></div>}
+          {props.attachment && <div className='fileForDownload'><p>{props.attachment.name.substring(props.attachment.name.lastIndexOf('/') + 1)}</p><a onClick={clearFile} className='deleteB'>X</a></div>}
           {/* {props.attachment && props.attachment.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
 
           </div>

@@ -95,6 +95,12 @@ class ProcessingVideoExam extends Component {
       });
   };
 
+  cleanFile=() =>{
+    this.setState({selectedFile: ''})
+    document.getElementById('useForCleaning').value = ''
+  }
+
+
   handleConnect = () => {
     // e.preventDefault();
     // this.setState({
@@ -965,6 +971,7 @@ class ProcessingVideoExam extends Component {
           handleshowSave={this.handleshowSave}
           onChangeHandler={this.onChangeHandler}
           handlePage={this.handlePage}
+          cleanFile={this.cleanFile}
           
           
           

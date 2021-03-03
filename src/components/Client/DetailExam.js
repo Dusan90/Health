@@ -21,7 +21,8 @@ const Detail = ({
   handleSubmitSend,
   handleMessage,
   newMessage,
-  handleExtendDiv
+  handleExtendDiv,
+  clearFile
 }) =>{
   console.log(props.correspondence, 'correspodencesesdfa');
   console.log(exam, 'exaaaaaaaaaaaaam');
@@ -209,13 +210,14 @@ const Detail = ({
                                   <p>Add file</p>
                                 </button>
                                 <input
+                                  id='useForCleaning'
                                   type="file"
                                   name="myfile"
                                   onChange={onChangeHandler}
                                   multiple
                                 />
                               </div>
-          {props.selectedFile && <div className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
+          {props.selectedFile && <div className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p><a onClick={clearFile} className='deleteB'>X</a></div>}
           {/* {props.selectedFile && props.selectedFile.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
 
                               </div>

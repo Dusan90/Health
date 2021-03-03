@@ -71,7 +71,7 @@ function DoctorsList({handleClient, props, handleSort, handleSortBySpec, handleS
             options={props.specDoctor.length === 0 ? props.doctors : props.specDoctor}
             onChange={handleDoctor}
             onMenuOpen={resetFilter}
-            value={   props.resetDoctorSelect}
+            value={ props.resetDoctorSelect}
             // value={specDoctor.length === 0 ? null : [resetDoctorSelect]}
           />
         </div>

@@ -147,6 +147,11 @@ class ExamForm extends Component {
     }
   };
 
+  clearFile=() =>{
+    this.setState({attach: ''})
+    document.getElementById('useForCleaning').value = ''
+  }
+
   toCheckout = async () => {
     if(this.state.price !== '0.00'){
       return this.props.history.push({
@@ -242,6 +247,7 @@ class ExamForm extends Component {
           specDoctor={this.state.specDoctor}
           resetDoctorSelect={this.state.resetDoctorSelect}
           handleAttach={this.handleAttach}
+          clearFile={this.clearFile}
           // isClicked={this.state.isClicked}
         />
       </>

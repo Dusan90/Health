@@ -176,6 +176,7 @@ class ClientDetailExam extends Component {
   };
 
   onChangeHandler = (e) => {
+    console.log(e);
     // const propertyValues = Object.values(e.target.files);
 
     // this.setState({
@@ -192,6 +193,11 @@ class ClientDetailExam extends Component {
       NotificationManager.error("Empty Fields", "Failed!", 2000);
     }
   };
+
+  clearFile = () =>{
+    this.setState({selectedFile: ''})
+    document.getElementById('useForCleaning').value = ''
+  }
 
   sendMessage = async () => {
 
@@ -356,6 +362,7 @@ class ClientDetailExam extends Component {
           handleReplyClick={this.handleReplyClick}
           handleSubmitSend={this.handleSubmitSend}
           handleExtendDiv={this.handleExtendDiv}
+          clearFile={this.clearFile}
         />
       </>
     );

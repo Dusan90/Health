@@ -104,6 +104,11 @@ class DetailExam extends Component {
     // });
   };
 
+  clearFile = () =>{
+    this.setState({selectedFile: ''})
+    document.getElementById('useForCleaning').value = ''
+  }
+
   doctorExam = async (id, value) => {
     console.log(id, value);
     const access_token = "Bearer ".concat(this.state.token);
@@ -668,6 +673,7 @@ class DetailExam extends Component {
           ResetonSelectChange={this.ResetonSelectChange}
           handlePageChange={this.handlePageChange}
           handleExtendDiv={this.handleExtendDiv}
+          clearFile={this.clearFile}
         />
       </>
     );

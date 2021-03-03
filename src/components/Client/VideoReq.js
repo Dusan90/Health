@@ -18,6 +18,7 @@ const VideoReq = ({
   handleDateChange,
   props,
   handleAttach,
+  clearFile
 }) => {
   let exclude = props.excludeTime && props.excludeTime.map((hy) => {
     return new Date(hy.appointed_date);
@@ -213,9 +214,9 @@ const VideoReq = ({
             <button className="btnn">
               <div className='attachDiv'><p>Add file</p></div>
             </button>
-            <input type="file" name="myfile" onChange={handleAttach} multiple />
+            <input type="file" id='useForCleaning' name="myfile" onChange={handleAttach} multiple />
           </div>
-          {props.attachments && <div className='fileForDownload'><p>{props.attachments.name.substring(props.attachments.name.lastIndexOf('/') + 1)}</p></div>}
+          {props.attachments && <div className='fileForDownload'><p>{props.attachments.name.substring(props.attachments.name.lastIndexOf('/') + 1)}</p><a onClick={clearFile} className="deleteB">X</a></div>}
           {/* {props.attachments && props.attachments.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
           </div>
         </div>

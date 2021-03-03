@@ -273,6 +273,11 @@ class DetailVideoExam extends Component {
     }
   };
 
+  clearFile=() =>{
+    this.setState({selectedFile: ''})
+    document.getElementById('useForCleaning').value = ''
+  }
+
   handleStatus = (statusValue) => {
     this.setState({ statusValue });
     let { value } = statusValue;
@@ -795,6 +800,7 @@ class DetailVideoExam extends Component {
           handleshowSave={this.handleshowSave}
           onChangeHandler={this.onChangeHandler}
           handlePage={this.handlePage}
+          clearFile={this.clearFile}
 
 
           handleClick={this.handleClick}

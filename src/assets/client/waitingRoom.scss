@@ -186,8 +186,8 @@
           p {
             text-align: start;
             white-space: nowrap;
-            width: 100px;
-            margin: 0;
+            max-width: 100px;
+            margin: 0 2px 0 0;
             color: #00aff0;
             text-indent: 0;
             display: inline-block;
@@ -195,7 +195,19 @@
             text-overflow: ellipsis;
             &:hover {
               text-overflow: scroll;
-              width: 350px;
+              max-width: 350px;
+            }
+          }
+          .deleteB {
+            color: white;
+            background: red;
+            width: 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            &:hover {
+              cursor: pointer;
             }
           }
         }

@@ -283,6 +283,11 @@ console.log(e);
       })
   }
 
+  clearFile=()=>{
+    this.setState({attachments: ''})
+    document.getElementById('useForCleaning').value = ''
+  }
+
   componentDidMount() {
     this.handleClientProfile();
     axios
@@ -361,6 +366,7 @@ console.log(e);
           handleDateChange={this.handleDateChange}
           handleAttach={this.handleAttach}
           props={this.state}
+          clearFile={this.clearFile}
         />
       </>
     );

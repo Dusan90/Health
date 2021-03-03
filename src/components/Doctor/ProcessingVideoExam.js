@@ -62,7 +62,8 @@ const Processing = ({
   ResetonSelectChange,
   handlePageChange,
   redirectThis,
-  handleExtendDiv
+  handleExtendDiv,
+  cleanFile
 }) => {
   const customStyles = {
     control: () => ({
@@ -207,13 +208,14 @@ const Processing = ({
                                       <p >Add file</p>
                                     </button>
                                     <input
+                                      id='useForCleaning'
                                       type="file"
                                       name="myfile"
                                       onChange={onChangeHandler}
                                       multiple
                                     />
                                   </div>
-                                  {props.selectedFile && <div style={{marginRight: '10px'}} className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p></div>}
+                                  {props.selectedFile && <div style={{marginRight: '10px'}} className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p><a className='deleteB' onClick={cleanFile}>X</a></div>}
                     {exam.report_file && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.report_file}`}} className='fileForDownload'><p>{exam.report_file.substring(exam.report_file.lastIndexOf('/') + 1)}</p></div>}
                                   {/* {props.selectedFile && <div className='fileForDownload'><p >{props.selectedFile.name}</p></div>} */}
           {/* {props.selectedFile && props.selectedFile.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}

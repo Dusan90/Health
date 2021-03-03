@@ -44,7 +44,8 @@ const Detail = ({
   searchByType,
   ResetonSelectChange,
   handlePageChange,
-  handleExtendDiv
+  handleExtendDiv,
+  clearFile
 }) =>{
   const customStyles = {
   control: () => ({
@@ -268,13 +269,14 @@ return (
                                       <p >Add file</p>
                                     </button>
                                     <input
+                                      id='useForCleaning'
                                       type="file"
                                       name="myfile"
                                       onChange={onChangeHandler}
                                       multiple
                                     />
                                   </div>
-                                  {props.selectedFile && <div className='fileForDownload'><p >{props.selectedFile.name}</p></div>}
+                                  {props.selectedFile && <div className='fileForDownload'><p >{props.selectedFile.name}</p><a className='deleteB' onClick={clearFile}>X</a></div>}
           {/* {props.selectedFile && props.selectedFile.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
                                   </div>
                                 

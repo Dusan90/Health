@@ -550,6 +550,11 @@ class ClientWaitingRoom extends Component {
     });
   };
 
+  clearFile= () =>{
+    this.setState({attachment: ''})
+    document.getElementById('useForCleaning').value = ''
+  }
+
   socketStart = () => {
     navigator.mediaDevices
     .getUserMedia(
@@ -864,6 +869,7 @@ class ClientWaitingRoom extends Component {
         handleKeyPress={this.handleKeyPress}
         handleAttach={this.handleAttach}
         handleAttach2={this.handleAttach2}
+        clearFile={this.clearFile}
         />
       </>
     );
