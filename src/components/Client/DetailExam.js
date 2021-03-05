@@ -116,7 +116,7 @@ const Detail = ({
                   {exam.attachment ? (
                              <div className='mainFileDiv'>
                              <div className='FileDiv'><p>Files:</p></div>
-                             {exam.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.attachments}`}} className='fileForDownload'><p>{exam.attachment.substring(exam.attachment.lastIndexOf('/') + 1)}</p></div>}
+                             {exam.attachment && <div onClick={() => {window.open(`https://healthcarebackend.xyz${exam.attachments}`)}} className='fileForDownload'><p>{exam.attachment.substring(exam.attachment.lastIndexOf('/') + 1)}</p></div>}
                            </div>
                           ) : null}
                 </div>
@@ -163,7 +163,7 @@ const Detail = ({
                           {message.attachment ? (
                              <div className='mainFileDiv'>
                              <div className='FileDiv'><p>Files:</p></div>
-                             {message.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${message.attachments}`}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
+                             {message.attachment && <div onClick={() => {window.open(`https://healthcarebackend.xyz${message.attachments}`)}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
                            </div>
                           ) : null}
                         </div>

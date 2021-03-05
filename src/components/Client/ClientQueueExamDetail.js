@@ -67,7 +67,7 @@ const DetailQueue = ({ exam, props, handleExtendDiv }) => {
                     {exam.exam.attachments ? (
                              <div className='mainFileDiv'>
                              <div className='FileDiv'><p>Files:</p></div>
-                             {exam.exam.attachments && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.exam.attachments}`}} className='fileForDownload'><p>{exam.exam.attachments.substring(exam.exam.attachments.lastIndexOf('/') + 1)}</p></div>}
+                             {exam.exam.attachments && <div onClick={() => {window.open(`https://healthcarebackend.xyz${exam.exam.attachments}`)}} className='fileForDownload'><p>{exam.exam.attachments.substring(exam.exam.attachments.lastIndexOf('/') + 1)}</p></div>}
                            </div>
                           ) : null}
                 </div>
@@ -91,6 +91,12 @@ const DetailQueue = ({ exam, props, handleExtendDiv }) => {
                 </div>
                 <div className="messageDivReport"  >
                       <textarea name="text" disabled={ exam.exam.status === 'Finished' && true} placeholder={exam.exam.report ? exam.exam.report : 'text'} value={props.declineReason} id="textarea"></textarea>
+                      {exam.exam.report_file ? (
+                             <div className='mainFileDiv'>
+                             <div className='FileDiv'><p>Files:</p></div>
+                             {exam.exam.report_file && <div onClick={() => {window.open(`https://healthcarebackend.xyz${exam.exam.report_file}`)}} className='fileForDownload'><p>{exam.exam.report_file.substring(exam.exam.report_file.lastIndexOf('/') + 1)}</p></div>}
+                           </div>
+                          ) : null}
                 </div>
                 </div>
               </div>

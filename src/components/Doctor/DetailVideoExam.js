@@ -28,8 +28,6 @@ import { GiCheckeredFlag } from "react-icons/gi";
 import Loading from "../../icons/c+.svg";
 import Pagination from "react-js-pagination";
 
-import { FaFileDownload } from "react-icons/fa";
-
 
 const DetailVideo = ({
   exam,
@@ -228,7 +226,7 @@ const DetailVideo = ({
                   </textarea>
                   <div className='mainFileDiv'>
                     <div className='FileDiv'><p>Files:</p></div>
-                    {exam.attachments && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.attachments}`}} className='fileForDownload'><FaFileDownload/><p>{exam.attachments.substring(exam.attachments.lastIndexOf('/') + 1)}</p></div>}
+                    {exam.attachments && <div onClick={() => {window.open(`https://healthcarebackend.xyz${exam.attachments}`)}} className='fileForDownload'><p>{exam.attachments.substring(exam.attachments.lastIndexOf('/') + 1)}</p></div>}
                   </div>
                 </div>
                 <div className='reportIfDeclined' style={{display: exam.status === 'Declined' ? 'block' : 'none' &&  props.selectedStatus !== 'Decline' ? 'none' : 'block'}}>
@@ -294,7 +292,7 @@ const DetailVideo = ({
                                     />
                                   </div>
                                   {props.selectedFile && <div style={{marginRight: '10px'}} className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p><a className='deleteB' onClick={clearFile}>X</a></div>}
-                    {exam.report_file && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.report_file}`}} className='fileForDownload'><p>{exam.report_file.substring(exam.report_file.lastIndexOf('/') + 1)}</p></div>}
+                    {exam.report_file && <div onClick={() => {window.open(`https://healthcarebackend.xyz${exam.report_file}`)}} className='fileForDownload'><p>{exam.report_file.substring(exam.report_file.lastIndexOf('/') + 1)}</p></div>}
                                   {/* {props.selectedFile && <div className='fileForDownload'><p >{props.selectedFile.name}</p></div>} */}
           {/* {props.selectedFile && props.selectedFile.map(ex => <div key={ex.size} className='fileForDownload'><p >{ex.name}</p></div>)} */}
                                   </div>

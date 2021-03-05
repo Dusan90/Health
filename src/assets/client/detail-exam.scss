@@ -271,6 +271,58 @@
             background: #db8246;
           }
         }
+        .mainFileDiv {
+          border-top: 1px solid #f2f2f2;
+          height: 30px;
+          display: flex;
+          padding: 0 15px;
+          .FileDiv {
+            height: 40px;
+            p {
+              // border: 1.7px solid #00aff0;
+              color: #00aff0;
+              font-weight: bold;
+              width: 50px;
+              height: 25px;
+              border-radius: 5px;
+              text-align: start;
+              align-items: center;
+              margin: 5px 0px 0 0;
+            }
+          }
+          .fileForDownload {
+            display: flex;
+            // border: 1.7px solid #00aff0;
+            color: #00aff0;
+            // width: 100px;
+            border-radius: 5px;
+            text-align: left;
+            align-items: center;
+            justify-content: flex-start;
+            height: 25px;
+            margin: 2px 0 0 0;
+            padding: 0 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            p {
+              white-space: nowrap;
+              width: 100px;
+              margin: 0;
+              color: #00aff0;
+              text-indent: 0;
+              display: inline-block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              &:hover {
+                text-overflow: scroll;
+                width: 350px;
+              }
+            }
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
         button {
           color: white;
           background: #00aff0;
@@ -479,6 +531,58 @@
 
             &::-webkit-scrollbar-thumb:hover {
               background: #db8246;
+            }
+          }
+          .mainFileDiv {
+            border-top: 1px solid #f2f2f2;
+            height: 30px;
+            display: flex;
+            padding: 0 15px;
+            .FileDiv {
+              height: 40px;
+              p {
+                // border: 1.7px solid #00aff0;
+                color: #00aff0;
+                font-weight: bold;
+                width: 50px;
+                height: 25px;
+                border-radius: 5px;
+                text-align: start;
+                align-items: center;
+                margin: 5px 0px 0 0;
+              }
+            }
+            .fileForDownload {
+              display: flex;
+              // border: 1.7px solid #00aff0;
+              color: #00aff0;
+              // width: 100px;
+              border-radius: 5px;
+              text-align: left;
+              align-items: center;
+              justify-content: flex-start;
+              height: 25px;
+              margin: 2px 0 0 0;
+              padding: 0 5px;
+              overflow: hidden;
+              white-space: nowrap;
+              p {
+                white-space: nowrap;
+                width: 100px;
+                margin: 0;
+                color: #00aff0;
+                text-indent: 0;
+                display: inline-block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &:hover {
+                  text-overflow: scroll;
+                  width: 350px;
+                }
+              }
+              &:hover {
+                cursor: pointer;
+              }
             }
           }
         }
@@ -991,8 +1095,7 @@
               }
             }
             .deleteB {
-              color: white;
-              background: red;
+              color: gray;
               width: 20px;
               text-align: center;
               text-decoration: none;

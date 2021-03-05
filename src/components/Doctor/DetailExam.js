@@ -20,8 +20,6 @@ import { GiCheckeredFlag } from "react-icons/gi";
 import Loading from "../../icons/c+.svg";
 import Pagination from "react-js-pagination";
 
-import { FaFileDownload } from "react-icons/fa";
-
 
 const Detail = ({
   exam,
@@ -155,7 +153,7 @@ return (
                   </textarea>
                   <div className='mainFileDiv'>
                     <div className='FileDiv'><p>Files:</p></div>
-                    {exam.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${exam.attachment}`}} className='fileForDownload'><FaFileDownload/><p>{exam.attachment.substring(exam.attachment.lastIndexOf('/') + 1)}</p></div>}
+                    {exam.attachment && <div onClick={() => {window.open(`https://healthcarebackend.xyz${exam.attachment}`)}} className='fileForDownload'><p>{exam.attachment.substring(exam.attachment.lastIndexOf('/') + 1)}</p></div>}
                   </div>
                 </div>
                   <div className=''></div>
@@ -224,7 +222,7 @@ return (
                             {message.attachment ? (
                              <div className='mainFileDiv'>
                              <div className='FileDiv'><p>Files:</p></div>
-                             {message.attachment && <div onClick={() => {window.location.href =`https://healthcarebackend.xyz${message.attachment}`}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
+                             {message.attachment && <div onClick={() => {window.open(`https://healthcarebackend.xyz${message.attachment}`)}} className='fileForDownload'><p>{message.attachment.substring(message.attachment.lastIndexOf('/') + 1)}</p></div>}
                            </div>
                           ) : null}
                           </div>

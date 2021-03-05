@@ -177,6 +177,12 @@ const DetailVideo = ({
                 </div>
                 <div className="messageDivReport"  >
                       <textarea name="text" disabled={ exam.status === 'Finished' && true} placeholder={exam.report ? exam.report : 'text'} value={props.declineReason} id="textarea"></textarea>
+                   {exam.report_file ? (
+                             <div className='mainFileDiv'>
+                             <div className='FileDiv'><p>Files:</p></div>
+                             {exam.report_file && <div onClick={() => {window.open(`https://healthcarebackend.xyz${exam.report_file}`)}} className='fileForDownload'><p>{exam.report_file.substring(exam.report_file.lastIndexOf('/') + 1)}</p></div>}
+                           </div>
+                          ) : null}
                 </div>
                 </div>
 
