@@ -317,7 +317,7 @@ class ClientWaitingRoom extends Component {
         // search: "?query=abc",
         state: {
           price: this.state.price,
-          location: this.props.location.pathname,
+          // location: this.props.location.pathname,
           currency: this.state.currency,
           transaction_id: this.state.transaction_id
         },
@@ -348,7 +348,6 @@ class ClientWaitingRoom extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "people in queue");
         let filterCanceled = response.data.data.queue.filter((ex) => {
           return (
             ex.status !== "Canceled" &&
@@ -834,8 +833,6 @@ class ClientWaitingRoom extends Component {
   }
 
   render() {
-    console.log(this.state.price);
-    console.log(this.state.doctors)
     return (
       <>
         <div className="header">

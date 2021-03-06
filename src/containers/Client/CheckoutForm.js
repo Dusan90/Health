@@ -78,7 +78,6 @@ class CheckoutForm extends Component {
 
   handleChange = (change) => {
     // console.log("[change]", change);
-    console.log(change);
     this.setState({ [change.elementType]: change.complete });
     const CardElement = document.getElementById('CardElement')
     CardElement.style.backgroundColor = !this.state.cardNumber && 'white'
@@ -96,7 +95,6 @@ class CheckoutForm extends Component {
     const price = parseInt(this.props.location.state.price, 10);
     const currency = this.props.location.state.currency
     const transaction_id = this.props.location.state.transaction_id
-    console.log(price, currency, transaction_id)
     this.setState({color: 'red'})
     const CardElement = document.getElementById('CardElement')
     CardElement.style.backgroundColor = !this.state.cardNumber ? 'rgb(245, 192, 192)' : 'white'
@@ -121,7 +119,6 @@ class CheckoutForm extends Component {
       //  else {
         this.setState({loading: true})
         const result = await this.props.stripe.createPaymentMethod("card", {});
-        console.log(result.paymentMethod);
         // await this.props.stripe.createToken().then((payload) => {
         //   console.log("[token]", payload.token);
         //   this.setState({ token: payload.token });
@@ -146,7 +143,6 @@ class CheckoutForm extends Component {
 
         // await this.handleServerResponse(await response.json());
         const data = await response.json();
-        console.log(data);
           data && this.setState({loading: false})
         if (data.message === "Payment completed") {
           this.setState({ complete: true });
@@ -215,8 +211,6 @@ class CheckoutForm extends Component {
   }
 
   render() {
-    console.log(this.props.location.state);
-    console.log(this.props.location.state.price)
     const createOptions = (fontSize, padding, background) => {
       return {
         style: {

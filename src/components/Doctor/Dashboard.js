@@ -14,7 +14,6 @@ import requestEmail from "../../icons/Request-email.svg";
 import MyConsultationsBlue from "../../icons/icon_My_Consultations_blue.svg";
 import arrowDown from "../../icons/arrow_down_gray.svg";
 import arrowUp from "../../icons/arrow_up_gray.svg";
-
 import Loading from "../../icons/c+.svg";
 import moment from "moment";
 import Pagination from "react-js-pagination";
