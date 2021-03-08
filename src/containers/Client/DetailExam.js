@@ -291,15 +291,20 @@ class ClientDetailExam extends Component {
         });
       }).then(() =>{
               let textar = [...document.querySelectorAll('.message')]
+              console.log(textar, 'koj se moj desava ovde');
         textar.map(ex =>{
+          console.log('test da vidim dal ga uopste handla ovde');
           if(ex.scrollHeight > 100){
+            console.log(ex, 'ovo je da vidimo dal je veci od 100');
             ex.style.height = `${ex.scrollHeight}px`
           // }
           // if (ex.clientHeight < ex.scrollHeight){
             let parentOfElement = ex.parentElement.previousSibling
             let div = parentOfElement.lastChild
             div.style.display = 'block'
-        
+            console.log(parentOfElement, 'evo nzm bogo mi sta je ovo');
+            console.log(div, 'ovo je div koji treba da se pojavi kada se renderuje tj kvadratic');
+
             div.onclick = function() { 
               console.log(ex.clientHeight)
               if(ex.clientHeight > 100){
