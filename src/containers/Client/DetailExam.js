@@ -370,12 +370,11 @@ class ClientDetailExam extends Component {
     
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
       });
   };
 
   render() {
-    console.log(this.state.id);
     return (
       <>
         <Detail
