@@ -291,7 +291,7 @@ class ClientDetailExam extends Component {
         });
       }).then(() =>{
         let textar = [...document.querySelectorAll('.message')]
-        if(textar.length !== 0){
+        if(textar.length === 0){
           textar.map(ex =>{
             if(ex.scrollHeight > 100){
               ex.style.height = `${ex.scrollHeight}px`
@@ -326,20 +326,21 @@ class ClientDetailExam extends Component {
           })
 
         }else{
-        let textar = document.querySelector('.message')
-        console.log('da li se pokrece ovo', textar);
-        if(textar.scrollHeight > 100){
-          textar.style.height = `${textar.scrollHeight}px`
-          let parentOfElement = textar.parentElement.previousSibling
+        // let textar = document.querySelector('.message')
+        let textar = document.getElementsByClassName("message")
+        console.log('da li se pokrece ovo', textar, textar[0].scrollHeight);
+        if(textar[0].scrollHeight > 100){
+          textar[0].style.height = `${textar[0].scrollHeight}px`
+          let parentOfElement = textar[0].parentElement.previousSibling
           let div = parentOfElement.lastChild
           div.style.display = 'block'
       
           div.onclick = function() { 
-            console.log(textar.clientHeight)
-            if(textar.clientHeight > 100){
-              textar.style.height = '100px'
+            console.log(textar[0].clientHeight)
+            if(textar[0].clientHeight > 100){
+              textar[0].style.height = '100px'
             }else{
-              textar.style.height = `${textar.scrollHeight}px`
+              textar[0].style.height = `${textar[0].scrollHeight}px`
             }
           }
         }
