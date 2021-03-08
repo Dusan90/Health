@@ -291,7 +291,8 @@ class ClientDetailExam extends Component {
         });
       }).then(() =>{
         let textar = [...document.querySelectorAll('.message')]
-        if(textar.length !== 0){
+        console.log(textar);
+        if(textar && textar.length !== 0){
           textar.map(ex =>{
             if(ex.scrollHeight > 100){
               ex.style.height = `${ex.scrollHeight}px`

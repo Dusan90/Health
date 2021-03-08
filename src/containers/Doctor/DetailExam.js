@@ -307,7 +307,7 @@ class DetailExam extends Component {
       .then(() =>{
         let textar = [...document.querySelectorAll('.message')]
         console.log(textar);
-        if(textar.length !== 0){
+        if(textar && textar.length !== 0){
           textar.map(ex =>{
           
             if(ex.scrollHeight > 100){
