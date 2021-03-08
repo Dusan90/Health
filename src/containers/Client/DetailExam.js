@@ -332,6 +332,8 @@ class ClientDetailExam extends Component {
         // let textar = document.querySelector('.message')
         console.log('zaaaaaaaaaaaaaaasssssssssssssssssstooooooooooooooooooooooooooooos seeeeeeeeeee ne pokrece');
         let textar = document.getElementsByClassName("message")
+        let textar2 = document.querySelector(".message")
+        console.log('da li se bar ovo pokrece', textar2);
         console.log('da li se pokrece ovo', textar, textar[0].scrollHeight);
         if(textar[0].scrollHeight > 100){
           textar[0].style.height = `${textar[0].scrollHeight}px`
