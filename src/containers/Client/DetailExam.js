@@ -290,45 +290,59 @@ class ClientDetailExam extends Component {
           lastInArray: res[res.length - 1],
         });
       }).then(() =>{
-              let textar = document.querySelectorAll('.message')
-              let arrayOftext = Array.from(textar)
-              console.log(textar, 'koj se moj desava ovde');
-              arrayOftext.map(ex =>{
-          console.log('test da vidim dal ga uopste handla ovde');
-          if(ex.scrollHeight > 100){
-            console.log(ex, 'ovo je da vidimo dal je veci od 100');
-            ex.style.height = `${ex.scrollHeight}px`
-          // }
-          // if (ex.clientHeight < ex.scrollHeight){
-            let parentOfElement = ex.parentElement.previousSibling
-            let div = parentOfElement.lastChild
-            div.style.display = 'block'
-            console.log(parentOfElement, 'evo nzm bogo mi sta je ovo');
-            console.log(div, 'ovo je div koji treba da se pojavi kada se renderuje tj kvadratic');
-
-            div.onclick = function() { 
-              console.log(ex.clientHeight)
-              if(ex.clientHeight > 100){
-                ex.style.height = '100px'
-              }else{
-                ex.style.height = `${ex.scrollHeight}px`
+        let textar = [...document.querySelectorAll('.message')]
+        if(textar.length !== 0){
+          textar.map(ex =>{
+            if(ex.scrollHeight > 100){
+              ex.style.height = `${ex.scrollHeight}px`
+            // }
+            // if (ex.clientHeight < ex.scrollHeight){
+              let parentOfElement = ex.parentElement.previousSibling
+              let div = parentOfElement.lastChild
+              div.style.display = 'block'
+          
+              div.onclick = function() { 
+                console.log(ex.clientHeight)
+                if(ex.clientHeight > 100){
+                  ex.style.height = '100px'
+                }else{
+                  ex.style.height = `${ex.scrollHeight}px`
+                }
               }
+              // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
+                // ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.clientHeight === ex.scrollHeight ? console.log('hello') : ex.scrollHeight > 300 ? ex.style.height = '300px' : ex.style.height = '100px'  };
+              // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
             }
-            // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
-              // ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.clientHeight === ex.scrollHeight ? console.log('hello') : ex.scrollHeight > 300 ? ex.style.height = '300px' : ex.style.height = '100px'  };
-            // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
+            // if (ex.clientHeight < ex.scrollHeight){
+            //   console.log(ex);
+            //   let parentOfElement = ex.parentElement.previousSibling
+            //   let div = parentOfElement.lastChild
+            //   div.style.display = 'block'
+          
+            //   div.onclick = function() { 
+            //   console.log(ex.scrollHeight, ex.clientHeight);
+            //   ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
+            // }
+          })
+
+        }else{
+        let textar = document.querySelectorAll('.message')
+        if(textar.scrollHeight > 100){
+          textar.style.height = `${textar.scrollHeight}px`
+          let parentOfElement = textar.parentElement.previousSibling
+          let div = parentOfElement.lastChild
+          div.style.display = 'block'
+      
+          div.onclick = function() { 
+            console.log(textar.clientHeight)
+            if(textar.clientHeight > 100){
+              textar.style.height = '100px'
+            }else{
+              textar.style.height = `${textar.scrollHeight}px`
+            }
           }
-          // if (ex.clientHeight < ex.scrollHeight){
-          //   console.log(ex);
-          //   let parentOfElement = ex.parentElement.previousSibling
-          //   let div = parentOfElement.lastChild
-          //   div.style.display = 'block'
-        
-          //   div.onclick = function() { 
-          //   console.log(ex.scrollHeight, ex.clientHeight);
-          //   ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
-          // }
-        })
+        }
+        }
         // let textar = [...document.querySelectorAll('.message')]
         // textar.map(ex =>{
         //   if (ex.clientHeight < ex.scrollHeight){
