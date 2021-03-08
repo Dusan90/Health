@@ -293,6 +293,7 @@ class ClientDetailExam extends Component {
         let textar = [...document.querySelectorAll('.message')]
         console.log(textar);
         if(textar && textar.length !== 0){
+          console.log('sta se bre ovde jebeno desava');
           textar.map(ex =>{
             if(ex.scrollHeight > 100){
               ex.style.height = `${ex.scrollHeight}px`
@@ -329,6 +330,7 @@ class ClientDetailExam extends Component {
         }
         else{
         // let textar = document.querySelector('.message')
+        console.log('zaaaaaaaaaaaaaaasssssssssssssssssstooooooooooooooooooooooooooooos seeeeeeeeeee ne pokrece');
         let textar = document.getElementsByClassName("message")
         console.log('da li se pokrece ovo', textar, textar[0].scrollHeight);
         if(textar[0].scrollHeight > 100){
