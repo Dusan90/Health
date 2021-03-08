@@ -381,7 +381,6 @@ class DetailExam extends Component {
           let mess = document.getElementById('messageMainText')
           let messageDiv = document.querySelector('.messageDiv')
           let square = document.getElementById('imageDiv1')
-          console.log(mess);
           if(mess.scrollHeight > 100){
             mess.style.height = `${mess.scrollHeight}px`
             messageDiv.style.height = `${mess.scrollHeight + 60}px`
@@ -419,7 +418,8 @@ class DetailExam extends Component {
           let mess = document.getElementById('messageMainText')
           let messageDiv = document.querySelector('.messageDiv')
           let square = document.getElementById('imageDiv1')
-          console.log(mess);
+          console.log(mess.scrollHeight, mess.clientHeight);
+
             if(mess.clientHeight > 100){
               mess.style.height = '100px'
               messageDiv.style.height = `${160}px`

@@ -51,6 +51,8 @@ const Processing = ({
   handleshowSave,
   onChangeHandler,
   handlePage,
+  extendreport,
+  extendreport2,
 
 
   record,
@@ -178,9 +180,11 @@ const Processing = ({
                   <p>
                     <span>Decline reason:</span>
                   </p>
+                  <div onClick={extendreport2}  id='imageDiv3'></div>
+
                 </div>
                 <div className="messageDivReport"  >
-                      <textarea name="text" disabled={ exam.exam.status === 'Declined' && true} placeholder={exam.exam.decline_notes ? exam.exam.decline_notes : 'text'} value={props.declineReason} onChange={declineReason} id="textarea"></textarea>
+                      <textarea name="text" className='reasonTextForExtend' disabled={ exam.exam.status === 'Declined' && true} placeholder={exam.exam.decline_notes ? exam.exam.decline_notes : 'text'} value={props.declineReason} onChange={declineReason} id="textarea"></textarea>
                       <button style={{display:  exam.exam.status === 'Declined' && 'none'}} onClick={saveReason}>Save</button>
                 </div>
                 </div>
@@ -189,6 +193,7 @@ const Processing = ({
                   <p>
                     <span style={{fontWeight: 'bold'}}>Report:</span>
                   </p>
+                  <div onClick={extendreport}  id='imageDiv2'></div>
                 </div>
                 <div className="messageDivReport"  >
                       <textarea name="text" 
@@ -197,11 +202,11 @@ const Processing = ({
                       // value={props.report} 
                       onFocus={ (e) => handleshowSave(e, exam.exam.report)}
                       onBlur={ (e) => {e.target.value = ''}}
-                      onChange={report} id="textarea"></textarea>
+                      onChange={report} id="textarea" className='reportTextForExtend'></textarea>
 
 <div className="sendbuttonAndAtt">
                                   <div className="attachess">
-                                  <div className="upload-btn-wrapper">
+                                  <div className="upload-btn-wrapper" style={{display: !props.showSaveButton && "none"}}>
                                     <button className="btn">
                                       <p >Add file</p>
                                     </button>

@@ -302,6 +302,20 @@
             margin-right: 5px;
           }
         }
+        #imageDiv2,
+        #imageDiv3 {
+          background: transparent;
+          border: 1.7px solid white;
+          // position: absolute;
+          width: 20px;
+          border-radius: 5px;
+          height: 20px;
+          margin: 0px 20px 0 0;
+          // display: none;
+          &:hover {
+            cursor: pointer;
+          }
+        }
       }
       .messageDivReport {
         width: 100%;

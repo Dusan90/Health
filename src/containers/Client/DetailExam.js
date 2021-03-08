@@ -72,7 +72,7 @@ class ClientDetailExam extends Component {
         console.log(mess.scrollHeight);
         if(mess.scrollHeight > 100){
           mess.style.height = `${mess.scrollHeight}px`
-          messageDiv.style.height = `${mess.scrollHeight + 20}px`
+          messageDiv.style.height = `${mess.scrollHeight + 60}px` 
           square.style.display = 'block'
         }
         // else{

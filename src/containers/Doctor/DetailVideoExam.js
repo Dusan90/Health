@@ -261,6 +261,30 @@ class DetailVideoExam extends Component {
            messageDiv.style.height = `${mess.scrollHeight + 60}px` 
            square.style.display = 'block'
          }
+
+         if(response.data.data.report){
+          let textare = document.querySelector('.reportTextForExtend')
+          console.log(textare.scrollHeight);
+          if(textare.scrollHeight <= 130){
+            let divsquare = document.getElementById('imageDiv2')
+            divsquare.style.display = 'none'
+          }
+        }else{
+          let divsquare = document.getElementById('imageDiv2')
+          divsquare.style.display = 'none'
+        }
+
+        if(response.data.data.decline_notes){
+          let textare = document.querySelector('.reasonTextForExtend')
+          console.log(textare.scrollHeight);
+          if(textare.scrollHeight <= 130){
+            let divsquare = document.getElementById('imageDiv3')
+            divsquare.style.display = 'none'
+          }
+        }else{
+          let divsquare = document.getElementById('imageDiv3')
+          divsquare.style.display = 'none'
+        }
         //  else{
         //    mess.style.height = '300px'
         //  }
@@ -272,6 +296,30 @@ class DetailVideoExam extends Component {
       this.doctorExam( value);
     }
   };
+
+  extendreport= (e) =>{
+    console.log(e.target);
+    // const textar = document.getElementById('textarea')
+    let textar = document.querySelector('.reportTextForExtend')
+    console.log(textar.scrollHeight, textar.clientHeight);
+    if(textar.clientHeight === 130){
+      textar.style.height = `${textar.scrollHeight}px`
+    }else {
+      textar.style.height = '130px'
+    }
+  }
+
+  extendreport2= (e) =>{
+    console.log(e.target);
+    // const textar = document.getElementById('textarea')
+    let textar = document.querySelector('.reasonTextForExtend')
+    console.log(textar.scrollHeight, textar.clientHeight);
+    if(textar.clientHeight === 130){
+      textar.style.height = `${textar.scrollHeight}px`
+    }else {
+      textar.style.height = '130px'
+    }
+  }
 
   clearFile=() =>{
     this.setState({selectedFile: ''})
@@ -525,6 +573,17 @@ class DetailVideoExam extends Component {
                 // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
               }
             })
+            let textare = document.querySelector('.reportTextForExtend')
+    if(textare.scrollHeight <= 130){
+      let divsquare = document.getElementById('imageDiv2')
+      divsquare.style.display = 'none'
+    }
+
+    let textarereason = document.querySelector('.reportTextForExtend')
+    if(textarereason.scrollHeight <= 130){
+      let divsquare = document.getElementById('imageDiv3')
+      divsquare.style.display = 'none'
+    }
           
       }
       clearInterval(test)
@@ -780,6 +839,8 @@ class DetailVideoExam extends Component {
           submitValue={this.state.submitValue}
           handleSubmit={this.handleSubmit}
           props={this.state}
+          extendreport={this.extendreport}
+          extendreport2={this.extendreport2}
           // handleConnect={this.handleConnect}
           // handleVideoStart={this.handleVideoStart}
           // handleChange={this.handleChange}

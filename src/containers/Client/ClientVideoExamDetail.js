@@ -107,11 +107,58 @@ class ClientVideoExamDetail extends Component {
           messageDiv.style.height = `${mess.scrollHeight + 60}px` 
           queue.style.display = 'block'
         }
+        if(response.data.data.report){
+          let textare = document.querySelector('.reportTextForExtend')
+          console.log(textare.scrollHeight);
+          if(textare.scrollHeight <= 150){
+            let divsquare = document.getElementById('imageDiv2')
+            divsquare.style.display = 'none'
+          }
+        }else{ 
+          let divsquare = document.getElementById('imageDiv2')
+          divsquare.style.display = 'none'
+        }
+
+        if(response.data.data.decline_notes){
+          let textare = document.querySelector('.reasonTextForExtend')
+          console.log(textare.scrollHeight);
+          if(textare.scrollHeight <= 150){
+            let divsquare = document.getElementById('imageDiv3')
+            divsquare.style.display = 'none'
+          }
+        }else{
+          let divsquare = document.getElementById('imageDiv3')
+          divsquare.style.display = 'none'
+        }
         // else{
         //   mess.style.height = '300px'
         // }
       });
   };
+
+  extendreport= (e) =>{
+    console.log(e.target);
+    // const textar = document.getElementById('textarea')
+    let textar = document.querySelector('.reportTextForExtend')
+    console.log(textar.scrollHeight, textar.clientHeight);
+    if(textar.clientHeight === 150){
+      textar.style.height = `${textar.scrollHeight}px`
+    }else {
+      textar.style.height = '150px'
+    }
+  }
+  
+  extendreport2= (e) =>{
+    console.log(e.target);
+    // const textar = document.getElementById('textarea')
+    let textar = document.querySelector('.reasonTextForExtend')
+    console.log(textar.scrollHeight, textar.clientHeight);
+    if(textar.clientHeight === 150){
+      textar.style.height = `${textar.scrollHeight}px`
+    }else {
+      textar.style.height = '150px'
+    }
+  }
 
   handleExtendDiv = () =>{
     let mess = document.getElementById('messageMainText')
@@ -371,6 +418,8 @@ class ClientVideoExamDetail extends Component {
           // cutMic={this.cutMic}
           handleJoinRoom={this.handleJoinRoom}
           handleExtendDiv={this.handleExtendDiv}
+          extendreport={this.extendreport}
+          extendreport2={this.extendreport2}
       
 
         />

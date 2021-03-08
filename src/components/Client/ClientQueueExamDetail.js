@@ -6,7 +6,7 @@ import moment from "moment";
 import queueIcon from '../../icons/icon_Waiting_Room_blue.svg'
 import { HamburgerDiv } from "../Main/HamburgerDiv";
 
-const DetailQueue = ({ exam, props, handleExtendDiv }) => {
+const DetailQueue = ({ exam, props, handleExtendDiv, extendreport, extendreport2 }) => {
   return (
     <>
       <div className="header">
@@ -76,9 +76,11 @@ const DetailQueue = ({ exam, props, handleExtendDiv }) => {
                   <p>
                     <span>Decline reason:</span>
                   </p>
+                  <div onClick={extendreport2}  id='imageDiv3'></div>
+
                 </div>
                 <div className="messageDivReport"  >
-                      <textarea name="text" disabled={ exam.exam.status === 'Declined' && true} placeholder={exam.exam.decline_notes ? exam.exam.decline_notes : 'text'} value={props.declineReason} id="textarea"></textarea>
+                      <textarea name="text" className='reasonTextForExtend' disabled={ exam.exam.status === 'Declined' && true} placeholder={exam.exam.decline_notes ? exam.exam.decline_notes : 'text'} value={props.declineReason} id="textarea"></textarea>
                 </div>
                 </div>
 
@@ -88,9 +90,11 @@ const DetailQueue = ({ exam, props, handleExtendDiv }) => {
                   <p>
                     <span>Report:</span>
                   </p>
+                  <div onClick={extendreport}  id='imageDiv2'></div>
+
                 </div>
                 <div className="messageDivReport"  >
-                      <textarea name="text" disabled={ exam.exam.status === 'Finished' && true} placeholder={exam.exam.report ? exam.exam.report : 'text'} value={props.declineReason} id="textarea"></textarea>
+                      <textarea name="text" disabled={ exam.exam.status === 'Finished' && true} placeholder={exam.exam.report ? exam.exam.report : 'text'} value={props.declineReason} id="textarea" className='reportTextForExtend'></textarea>
                       {exam.exam.report_file ? (
                              <div className='mainFileDiv'>
                              <div className='FileDiv'><p>Files:</p></div>

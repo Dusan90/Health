@@ -35,7 +35,9 @@ const DetailVideo = ({
   // handleVideoStart,
   statusValue,
   handleJoinRoom,
-  handleExtendDiv
+  handleExtendDiv,
+  extendreport2,
+  extendreport
 }) => {
   // let disabled = props.doctorsVideoId ? false : true;
 
@@ -162,9 +164,11 @@ const DetailVideo = ({
                   <p>
                     <span>Decline reason:</span>
                   </p>
+                  <div onClick={extendreport2}  id='imageDiv3'></div>
+
                 </div>
                 <div className="messageDivReport"  >
-                      <textarea name="text" disabled={ exam.status === 'Declined' && true} placeholder={exam.decline_notes ? exam.decline_notes : 'text'} value={props.declineReason} id="textarea"></textarea>
+                      <textarea name="text" className='reasonTextForExtend' disabled={ exam.status === 'Declined' && true} placeholder={exam.decline_notes ? exam.decline_notes : 'text'} value={props.declineReason} id="textarea"></textarea>
                 </div>
                 </div>
 
@@ -174,9 +178,11 @@ const DetailVideo = ({
                   <p>
                     <span>Report:</span>
                   </p>
+                  <div onClick={extendreport}  id='imageDiv2'></div>
+
                 </div>
                 <div className="messageDivReport"  >
-                      <textarea name="text" disabled={ exam.status === 'Finished' && true} placeholder={exam.report ? exam.report : 'text'} value={props.declineReason} id="textarea"></textarea>
+                      <textarea name="text" className='reportTextForExtend' disabled={ exam.status === 'Finished' && true} placeholder={exam.report ? exam.report : 'text'} value={props.declineReason} id="textarea"></textarea>
                    {exam.report_file ? (
                              <div className='mainFileDiv'>
                              <div className='FileDiv'><p>Files:</p></div>

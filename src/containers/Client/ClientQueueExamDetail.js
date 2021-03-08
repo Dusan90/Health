@@ -30,6 +30,29 @@ class ClientQueueExamDetail extends Component {
           messageDiv.style.height = `${mess.scrollHeight + 60}px` 
           queue.style.display = 'block'
         }
+        if(response.data.data.exam.report){
+          let textare = document.querySelector('.reportTextForExtend')
+          console.log(textare.scrollHeight);
+          if(textare.scrollHeight <= 150){
+            let divsquare = document.getElementById('imageDiv2')
+            divsquare.style.display = 'none'
+          }
+        }else{ 
+          let divsquare = document.getElementById('imageDiv2')
+          divsquare.style.display = 'none'
+        }
+
+        if(response.data.data.exam.decline_notes){
+          let textare = document.querySelector('.reasonTextForExtend')
+          console.log(textare.scrollHeight);
+          if(textare.scrollHeight <= 150){
+            let divsquare = document.getElementById('imageDiv3')
+            divsquare.style.display = 'none'
+          }
+        }else{
+          let divsquare = document.getElementById('imageDiv3')
+          divsquare.style.display = 'none'
+        }
         // else{
         //   mess.style.height = '300px'
         // }
@@ -53,6 +76,30 @@ class ClientQueueExamDetail extends Component {
       }
 }
 
+extendreport= (e) =>{
+  console.log(e.target);
+  // const textar = document.getElementById('textarea')
+  let textar = document.querySelector('.reportTextForExtend')
+  console.log(textar.scrollHeight, textar.clientHeight);
+  if(textar.clientHeight === 150){
+    textar.style.height = `${textar.scrollHeight}px`
+  }else {
+    textar.style.height = '150px'
+  }
+}
+
+extendreport2= (e) =>{
+  console.log(e.target);
+  // const textar = document.getElementById('textarea')
+  let textar = document.querySelector('.reasonTextForExtend')
+  console.log(textar.scrollHeight, textar.clientHeight);
+  if(textar.clientHeight === 150){
+    textar.style.height = `${textar.scrollHeight}px`
+  }else {
+    textar.style.height = '150px'
+  }
+}
+
   componentDidMount() {
     this.setState({ id: this.props.match.params.id });
     this.hanldeClientQueue(this.props.match.params.id);
@@ -62,7 +109,11 @@ class ClientQueueExamDetail extends Component {
     return (
       <>
 
-        <DetailQueue exam={this.state.exam} props={this.state} handleExtendDiv={this.handleExtendDiv} />
+        <DetailQueue exam={this.state.exam} 
+        props={this.state} 
+        handleExtendDiv={this.handleExtendDiv}
+        extendreport={this.extendreport}
+        extendreport2={this.extendreport2} />
        
       </>
     );

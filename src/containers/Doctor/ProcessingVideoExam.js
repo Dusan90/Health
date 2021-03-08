@@ -50,7 +50,8 @@ class ProcessingVideoExam extends Component {
       paginatedExams: [],
       searchedUpcomingOrPast: [],
       clientID: '',
-      selectedFile: ''
+      selectedFile: '',
+      extendedclicked: false
     };
   }
 
@@ -81,6 +82,26 @@ class ProcessingVideoExam extends Component {
           mess.style.height = `${mess.scrollHeight}px`
           messageDiv.style.height = `${mess.scrollHeight + 60}px` 
           queue.style.display = 'block'
+        }
+        if(response.data.data.exam.report){
+          let textare = document.querySelector('.reportTextForExtend')
+          if(textare.scrollHeight <= 130){
+            let divsquare = document.getElementById('imageDiv2')
+            divsquare.style.display = 'none'
+          }
+        }else{
+          let divsquare = document.getElementById('imageDiv2')
+          divsquare.style.display = 'none'
+        }
+        if(response.data.data.exam.decline_notes){
+          let textare = document.querySelector('.reasonTextForExtend')
+          if(textare.scrollHeight <= 130){
+            let divsquare = document.getElementById('imageDiv3')
+            divsquare.style.display = 'none'
+          }
+        }else{
+          let divsquare = document.getElementById('imageDiv3')
+          divsquare.style.display = 'none'
         }
         // else{
         //   mess.style.height = '300px'
@@ -426,13 +447,14 @@ class ProcessingVideoExam extends Component {
     jsonData.data.data.status === "Accepted" &&
       this.state.connectedall &&
       this.handleConnect();
-    jsonData.data.data.status === "Finished" && window.location.reload();
+    
     connection.send(
       JSON.stringify({
         id: this.props.match.params.id,
         status: jsonData.data.data.status,
       })
     );
+    window.location.reload();
   }
 
   return data;
@@ -537,9 +559,31 @@ class ProcessingVideoExam extends Component {
     // e.target.style.height = `${e.target.scrollHeight}px`
   }
 
+  extendreport= (e) =>{
+    // const textar = document.getElementById('textarea')
+    let textar = document.querySelector('.reportTextForExtend')
+    console.log(textar.scrollHeight, textar.clientHeight);
+    if(textar.clientHeight === 130){
+      textar.style.height = `${textar.scrollHeight}px`
+    }else {
+      textar.style.height = '130px'
+    }
+  }
+
+  
+  extendreport2= (e) =>{
+    // const textar = document.getElementById('textarea')
+    let textar = document.querySelector('.reasonTextForExtend')
+    console.log(textar.scrollHeight, textar.clientHeight);
+    if(textar.clientHeight === 130){
+      textar.style.height = `${textar.scrollHeight}px`
+    }else {
+      textar.style.height = '130px'
+    }
+  }
+
   saveReport= () =>{
     this.statusSelecting("Finish")
-
   }
 
   // handleReport = () =>{
@@ -588,6 +632,7 @@ class ProcessingVideoExam extends Component {
           // console.log(cronic);
           // let alerg = document.getElementById('Allergies')
           // alerg.style.height = `${alerg.scrollHeight}px`
+   
     
       }else if(value === 'consultDetail'){
         let mess = document.getElementById('messageMainText')
@@ -621,6 +666,16 @@ class ProcessingVideoExam extends Component {
         // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
       }
     })
+    let textare = document.querySelector('.reportTextForExtend')
+    if(textare.scrollHeight <= 130){
+      let divsquare = document.getElementById('imageDiv2')
+      divsquare.style.display = 'none'
+    }
+    let textarereason = document.querySelector('.reasonTextForExtend')
+    if(textarereason.scrollHeight <= 130){
+      let divsquare = document.getElementById('imageDiv3')
+      divsquare.style.display = 'none'
+    }
   
 }
       clearInterval(test)
@@ -972,7 +1027,8 @@ class ProcessingVideoExam extends Component {
           onChangeHandler={this.onChangeHandler}
           handlePage={this.handlePage}
           cleanFile={this.cleanFile}
-          
+          extendreport={this.extendreport}
+          extendreport2={this.extendreport2}
           
           
           handleClick={this.handleClick}
