@@ -291,7 +291,7 @@ class ClientDetailExam extends Component {
         });
       }).then(() =>{
         let textar = [...document.querySelectorAll('.message')]
-        if(textar.length === 0){
+        if(textar.length !== 0){
           textar.map(ex =>{
             if(ex.scrollHeight > 100){
               ex.style.height = `${ex.scrollHeight}px`
@@ -325,7 +325,8 @@ class ClientDetailExam extends Component {
             // }
           })
 
-        }else{
+        }
+        else{
         // let textar = document.querySelector('.message')
         let textar = document.getElementsByClassName("message")
         console.log('da li se pokrece ovo', textar, textar[0].scrollHeight);
