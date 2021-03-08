@@ -326,7 +326,7 @@ class ClientDetailExam extends Component {
           })
 
         }else{
-        let textar = document.querySelectorAll('.message')
+        let textar = document.querySelector('.message')
         if(textar.scrollHeight > 100){
           textar.style.height = `${textar.scrollHeight}px`
           let parentOfElement = textar.parentElement.previousSibling
