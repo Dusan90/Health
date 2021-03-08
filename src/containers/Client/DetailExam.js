@@ -290,9 +290,10 @@ class ClientDetailExam extends Component {
           lastInArray: res[res.length - 1],
         });
       }).then(() =>{
-              let textar = [...document.querySelectorAll('.message')]
+              let textar = document.querySelectorAll('.message')
+              let arrayOftext = Array.from(textar)
               console.log(textar, 'koj se moj desava ovde');
-        textar.map(ex =>{
+              arrayOftext.map(ex =>{
           console.log('test da vidim dal ga uopste handla ovde');
           if(ex.scrollHeight > 100){
             console.log(ex, 'ovo je da vidimo dal je veci od 100');
