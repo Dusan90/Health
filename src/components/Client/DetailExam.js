@@ -157,8 +157,9 @@ const Detail = ({
                           className="row1"
                         >
                           <textarea id={message.id} readOnly
-                           defaultValue={message.message} className="message">
-                          
+                           defaultValue={message.message}
+                          className="message">
+                      
                           </textarea>
                           {message.attachment ? (
                              <div className='mainFileDiv'>

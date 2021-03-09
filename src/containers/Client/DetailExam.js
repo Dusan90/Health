@@ -290,10 +290,17 @@ class ClientDetailExam extends Component {
           lastInArray: res[res.length - 1],
         });
       }).then(() =>{
+        this.handleresizeing()
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+
+  handleresizeing = () =>{
+      if(this.state.correspondence.length){
         let textar = [...document.querySelectorAll('.message')]
-        console.log(textar);
         if(textar && textar.length !== 0){
-          console.log('sta se bre ovde jebeno desava');
           textar.map(ex =>{
             if(ex.scrollHeight > 100){
               ex.style.height = `${ex.scrollHeight}px`
@@ -311,29 +318,15 @@ class ClientDetailExam extends Component {
                   ex.style.height = `${ex.scrollHeight}px`
                 }
               }
-              // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
-                // ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.clientHeight === ex.scrollHeight ? console.log('hello') : ex.scrollHeight > 300 ? ex.style.height = '300px' : ex.style.height = '100px'  };
-              // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
-            }
-            // if (ex.clientHeight < ex.scrollHeight){
-            //   console.log(ex);
-            //   let parentOfElement = ex.parentElement.previousSibling
-            //   let div = parentOfElement.lastChild
-            //   div.style.display = 'block'
           
-            //   div.onclick = function() { 
-            //   console.log(ex.scrollHeight, ex.clientHeight);
-            //   ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
-            // }
+            }
+ 
           })
 
         }
         else{
         // let textar = document.querySelector('.message')
-        console.log('zaaaaaaaaaaaaaaasssssssssssssssssstooooooooooooooooooooooooooooos seeeeeeeeeee ne pokrece');
         let textar = document.getElementsByClassName("message")
-        let textar2 = document.querySelector(".message")
-        console.log('da li se bar ovo pokrece', textar2);
         console.log('da li se pokrece ovo', textar, textar[0].scrollHeight);
         if(textar[0].scrollHeight > 100){
           textar[0].style.height = `${textar[0].scrollHeight}px`
@@ -351,32 +344,11 @@ class ClientDetailExam extends Component {
           }
         }
         }
-        // let textar = [...document.querySelectorAll('.message')]
-        // textar.map(ex =>{
-        //   if (ex.clientHeight < ex.scrollHeight){
-        //     console.log(ex);
-        //     let imageDiv = document.createElement("div");
-        //     imageDiv.id = "imageDiv";
-        //     imageDiv.onclick = function() { 
-        //     ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
-
-        //       // ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' };
-
-        //     let parentOfElement = ex.parentElement.previousSibling
-        //     // parentOfElement.insertBefore(imageDiv, parentOfElement.firstChild);
-        //     console.log(parentOfElement);
-        //     parentOfElement.appendChild(imageDiv)
-
-        //   }
-        // })
-    
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+      }
+  }
 
   render() {
+    console.log(this.state.id);
     return (
       <>
         <Detail
