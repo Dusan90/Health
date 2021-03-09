@@ -290,7 +290,9 @@ class ClientDetailExam extends Component {
           lastInArray: res[res.length - 1],
         });
       }).then(() =>{
-        this.handleresizeing()
+        setTimeout(() => {
+          this.handleresizeing()
+        }, 5000);
       })
       .catch((error) => {
         console.log(error.response);
