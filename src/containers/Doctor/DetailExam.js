@@ -305,56 +305,44 @@ class DetailExam extends Component {
         // this.props.dispatch(doctor(sender_obj));
       })
       .then(() =>{
-        let textar = [...document.querySelectorAll('.message')]
-        console.log(textar);
-        if(textar && textar.length !== 0){
-          textar.map(ex =>{
-          
-            if(ex.scrollHeight > 100){
-              ex.style.height = `${ex.scrollHeight}px`
-            // }
-            // if (ex.clientHeight < ex.scrollHeight){
-              let parentOfElement = ex.parentElement.previousSibling
-              let div = parentOfElement.lastChild
-              div.style.display = 'block'
-          
-              div.onclick = function() { 
-                if(ex.clientHeight > 100){
-                  ex.style.height = '100px'
-                }else{
-                  ex.style.height = `${ex.scrollHeight}px`
-                }
-              }
-              // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
-            }
-          })
-        }
-        else{
-          // let textar = document.querySelector('.message')
-          let textar = document.getElementsByClassName("message")
-          console.log('da li se pokrece ovo', textar, textar[0].scrollHeight);
-          if(textar[0].scrollHeight > 100){
-            textar[0].style.height = `${textar[0].scrollHeight}px`
-            let parentOfElement = textar[0].parentElement.previousSibling
-            let div = parentOfElement.lastChild
-            div.style.display = 'block'
-        
-            div.onclick = function() { 
-              console.log(textar[0].clientHeight)
-              if(textar[0].clientHeight > 100){
-                textar[0].style.height = '100px'
-              }else{
-                textar[0].style.height = `${textar[0].scrollHeight}px`
-              }
-            }
-          }
-          }
+        setTimeout(() => {
+          this.handleresizeing()
+        }, 200);
       })
       .catch((error) => {
         console.log(error.response);
       
       });
   };
+
+  handleresizeing = () =>{
+    if(this.state.correspondence.length){
+      let textar = [...document.querySelectorAll('.message')]
+      console.log(textar);
+      if(textar && textar.length !== 0){
+        textar.map(ex =>{
+        
+          if(ex.scrollHeight > 100){
+            ex.style.height = `${ex.scrollHeight}px`
+          // }
+          // if (ex.clientHeight < ex.scrollHeight){
+            let parentOfElement = ex.parentElement.previousSibling
+            let div = parentOfElement.lastChild
+            div.style.display = 'block'
+        
+            div.onclick = function() { 
+              if(ex.clientHeight > 100){
+                ex.style.height = '100px'
+              }else{
+                ex.style.height = `${ex.scrollHeight}px`
+              }
+            }
+            // ex.scrollHeight === ex.clientHeight ? ex.style.height = '100px' : ex.clientHeight === 300 ? ex.style.height = '100px' : ex.scrollHeight < 300 ? ex.style.height = `${ex.scrollHeight}px` : ex.style.height = '300px' }
+          }
+        })
+      }
+    }
+  }
 
   declineReason = (e)=>{
     this.setState({declineReason: e.target.value})
@@ -667,7 +655,6 @@ class DetailExam extends Component {
   
 
   render() {
-  console.log(this.state.status);
     return (
       <>
         <Detail

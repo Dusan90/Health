@@ -72,7 +72,7 @@ const data = axios.put(url, form_data, {
   }
 
   handleLogout = (e) => {
-    this.handleSubmit();
+    sessionStorage.getItem('is_doctor') === 'true' && this.handleSubmit();
     sessionStorage.clear();
     // localStorage.clear();
     localStorage.removeItem("refreshToken");

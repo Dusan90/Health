@@ -262,9 +262,9 @@ class ClientDetailExam extends Component {
     // return jsonData;
   };
 
-  correspondence = (id) => {
+  correspondence = async (id) => {
     const access_token = "Bearer ".concat(this.state.token);
-    axios
+    await axios 
       .get(`https://healthcarebackend.xyz/api/client/exams/${id}/messages/`, {
         headers: { Authorization: access_token },
       })
@@ -292,7 +292,7 @@ class ClientDetailExam extends Component {
       }).then(() =>{
         setTimeout(() => {
           this.handleresizeing()
-        }, 500);
+        }, 200);
       })
       .catch((error) => {
         console.log(error.response);
