@@ -18,7 +18,8 @@ const VideoReq = ({
   handleDateChange,
   props,
   handleAttach,
-  clearFile
+  clearFile,
+  showDisabledMessage
 }) => {
   let exclude = props.excludeTime && props.excludeTime.map((hy) => {
     return new Date(hy.appointed_date);
@@ -229,6 +230,7 @@ const VideoReq = ({
           /> */}
           <div
             className="disabledDiv"
+            onClick={showDisabledMessage}
             style={{ zIndex: props.specialSP && props.doctor_id ? 0 : 1 }}
           ></div>
           <DatePicker

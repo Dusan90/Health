@@ -56,7 +56,7 @@ const Record = ({
             </div>
             <div className="form">
               <div className="conditionss">
-                <span>Chronical conditions:{" "}</span>
+                <span>Chronical conditions{" "}</span>
                 <textarea
                   type="text"
                   readOnly
@@ -66,7 +66,7 @@ const Record = ({
                 />
               </div>
               <div  className="allergiess">
-               <span>Allergies:{" "}</span>
+               <span>Allergies{" "}</span>
                <textarea
                   type="text"
                   readOnly

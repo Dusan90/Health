@@ -3,6 +3,7 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import axios from "axios";
 import moment from "moment";
+import '../../assets/calendar.scss'
 import {
   Inject,
   ScheduleComponent,
@@ -87,7 +88,7 @@ export class DoctorsCalendar extends Component {
           }}
         >
           <ScheduleComponent
-            currentView="Day"
+            currentView="Agenda"
             workHours={{
               highlight: true,
               start: "09:00",

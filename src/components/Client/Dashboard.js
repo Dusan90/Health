@@ -100,7 +100,7 @@ const Dashboard = ({
           style={{ width: "150px" }}
         />
       ) : (
-        props.state.paginatedExams.length !== 0 && <div className="mainTabel">
+         <div className="mainTabel">
           <div className="mainConsultation">
             <div className="icon_left">
               <p>My Consultations</p>

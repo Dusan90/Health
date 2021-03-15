@@ -218,6 +218,8 @@ const Processing = ({
                                       multiple
                                     />
                                   </div>
+                                  <p style={{display: props.showSaveButton && "none"}} className='showFiles'>Files:</p>
+
                                   {props.selectedFile && <div style={{marginRight: '10px'}} className='fileForDownload'><p>{props.selectedFile.name.substring(props.selectedFile.name.lastIndexOf('/') + 1)}</p><a className='deleteB' onClick={cleanFile}>X</a></div>}
                     {exam.exam.report_file && <div onClick={() => {window.open(`https://healthcarebackend.xyz${exam.exam.report_file}`)}} className='fileForDownload'><p>{exam.exam.report_file.substring(exam.exam.report_file.lastIndexOf('/') + 1)}</p></div>}
                                   {/* {props.selectedFile && <div className='fileForDownload'><p >{props.selectedFile.name}</p></div>} */}

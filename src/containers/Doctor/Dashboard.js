@@ -99,7 +99,7 @@ class DoctorDashboard extends Component {
       );
 
       let messageIfEmpty =
-        upcoming.length === 0 ? "No upcoming consultations" : "";
+        upcoming.length === 0 ? "No consultations to show" : "";
 
       this.setState({
         upcomingOrPast: resort,
@@ -130,7 +130,7 @@ class DoctorDashboard extends Component {
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
 
-      let messageIfEmpty = past.length === 0 ? "No past consultations" : "";
+      let messageIfEmpty = past.length === 0 ? "No consultations to show" : "";
 
       this.setState({
         upcomingOrPast: sort,
@@ -155,7 +155,7 @@ class DoctorDashboard extends Component {
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
 
-      let messageIfEmpty = all.length === 0 ? "No consultations" : "";
+      let messageIfEmpty = all.length === 0 ? "No consultations to show" : "";
 
       this.setState({
         upcomingOrPast: resortall,
@@ -306,7 +306,9 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+
         let current = response.data.data;
+        console.log(current)
         // this.peopleInWaitingRoom(current.id);
         this.connecSocket(current.id);
 
@@ -404,6 +406,7 @@ class DoctorDashboard extends Component {
       console.log("connected to port");
     };
     webs.onmessage = (event) => {
+      console.log(event);
       if (JSON.parse(event.data).statu !== "In the queue") {
         this.props.statusChangeWR(JSON.parse(event.data).id);
       }

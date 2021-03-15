@@ -161,7 +161,7 @@ class ClientDashboard extends Component {
       );
 
       let messageIfEmpty =
-        upcoming.length === 0 ? "No upcoming consultations" : "";
+        upcoming.length === 0 ? "No consultations to show" : "";
 
       this.setState({
         upcomingOrPast: resort,
@@ -194,7 +194,7 @@ class ClientDashboard extends Component {
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
 
-      let messageIfEmpty = past.length === 0 ? "No past consultations" : "";
+      let messageIfEmpty = past.length === 0 ? "No consultations to show" : "";
 
       this.setState({
         upcomingOrPast: sort,
@@ -219,7 +219,7 @@ class ClientDashboard extends Component {
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
 
-      let messageIfEmpty = all.length === 0 ? "No consultations" : "";
+      let messageIfEmpty = all.length === 0 ? "No consultations to show" : "";
 
       this.setState({
         

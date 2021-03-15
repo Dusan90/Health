@@ -443,6 +443,16 @@
               border-top: 1.7px solid #f2f2f2;
               padding: 5px 0 0 0;
               height: 40px;
+              .showFiles {
+                color: #00aff0;
+                font-weight: bold;
+                // width: 30px;
+                height: 25px;
+                border-radius: 5px;
+                text-align: start;
+                align-items: center;
+                margin: 5px 0px 0 0;
+              }
             }
           }
         }

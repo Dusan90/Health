@@ -28,7 +28,7 @@ class ClientVideoReq extends Component {
       currentSpec: '',
       resetDoctorSelect: null,
       isClicked: false,
-      startDate: new Date(),
+      startDate: '',
       reservedDate: '',
       doctorsPrice: "",
       clientId: null,
@@ -345,6 +345,10 @@ console.log(e);
     this.setState({attachments: e.target.files[0]})
   }
 
+  showDisabledMessage = () =>{
+    NotificationManager.error("Please select Doctor first", "Warning", 3000) 
+  }
+
   render() {
     console.log(this.state.selectedDateForStart, this.state.selectedDateForEnd);
     console.log(this.state.selectedWorkingHours);
@@ -367,6 +371,7 @@ console.log(e);
           handleAttach={this.handleAttach}
           props={this.state}
           clearFile={this.clearFile}
+          showDisabledMessage={this.showDisabledMessage}
         />
       </>
     );
