@@ -4,7 +4,7 @@ import Nav from "../../components/Main/Navbar";
 import Select from "react-select";
 import "../../assets/detail_exam.scss";
 import moment from "moment";
-import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
+// import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
 
 // import { FaMicrophoneAltSlash } from "react-icons/fa";
 // import { FaMicrophoneAlt } from "react-icons/fa";
@@ -16,7 +16,7 @@ import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
 // import { MdClose } from "react-icons/md";
 // import { Rnd } from "react-rnd";
 import { HamburgerDiv } from "../Main/HamburgerDiv";
-import attachIcon from '../../icons/attach_white.svg'
+// import attachIcon from '../../icons/attach_white.svg'
 
 
 
@@ -69,17 +69,17 @@ const DetailVideo = ({
 
 }) => {
   // let disabled = props.clientsVideoId === "null" ? true : false;
-  let examDate =
-    props.exam.length !== 0 ? new Date(props.exam[0].appointed_date) : null;
-  let disabled2 =
-    moment(new Date()).format("YYYY-MM-DD HH:mm") >
-      moment(examDate).subtract(15, "minutes").format("YYYY-MM-DD HH:mm") &&
-    moment(new Date()).format("YYYY-MM-DD HH:mm") <
-      moment(examDate).add(30, "minutes").format("YYYY-MM-DD HH:mm")
-    //    &&
-    // props.connectedall
-      ? false
-      : true;
+  // let examDate =
+  //   props.exam.length !== 0 ? new Date(props.exam[0].appointed_date) : null;
+  // let disabled2 =
+  //   moment(new Date()).format("YYYY-MM-DD HH:mm") >
+  //     moment(examDate).subtract(15, "minutes").format("YYYY-MM-DD HH:mm") &&
+  //   moment(new Date()).format("YYYY-MM-DD HH:mm") <
+  //     moment(examDate).add(30, "minutes").format("YYYY-MM-DD HH:mm")
+  //   //    &&
+  //   // props.connectedall
+  //     ? false
+  //     : true;
 
   const customStyles = {
     control: () => ({
@@ -441,7 +441,7 @@ const DetailVideo = ({
                       <option value="">Type</option>
                       <option value="mail">Email</option>
                       <option value="video">Video</option>
-                      <option value="queue">Waiting room</option>
+                      {/* <option value="queue">Waiting room</option> */}
                     </select>
                   </div>
                 </th>
@@ -546,92 +546,6 @@ const DetailVideo = ({
           </Fragment>
         );
       })}
-      {/* <Rnd
-        id="videoo"
-        size={{
-          width: props.width,
-          height: props.height,
-        }}
-        style={{ display: props.startVideo ? "block" : "none" }}
-        position={{ x: props.x, y: props.y }}
-        onDragStop={(e, d) => {
-          handleDragDrop(d);
-        }}
-        onResizeStop={(e, direction, ref, delta, position) => {
-          handleResize(ref, position);
-        }}
-      >
-        {" "}
-        <div id="topControler">
-          <span className="icon1" onClick={handleDivSize}>
-            <FaRegSquare />
-          </span>
-          <span className="icon2">
-            <MdClose />
-          </span>
-        </div>
-        <div id="mainChatVideo">
-          <form
-            autoComplete="off"
-            style={{ display: props.showChat ? "block" : "none" }}
-            action=""
-            id="form"
-          >
-            <pre id="messages"></pre>
-            <div className="inputMessage">
-              <input
-                type="text"
-                placeholder="Type your message..."
-                id="yourMessage"
-                value={props.value}
-                onChange={handleChange}
-                onMouseDown={enableTipeing}
-              ></input>
-              <button id="send">Send</button>
-            </div>
-          </form>
-          <div
-            id="videoChat"
-            style={{ width: props.showChat ? "50%" : "100%" }}
-            onMouseOver={iconsMouseOver}
-            onMouseOut={iconsMouseOut}
-          >
-            <div className="chatRoom" onClick={showAndHideChat}>
-              <FaRocketchat />
-            </div>
-            <div
-              id="functionality"
-              style={{ display: props.hover ? "flex" : "none" }}
-            >
-              <FaMicrophoneAltSlash
-                className="iconMic"
-                style={{ display: !props.audio ? "none" : "block" }}
-                onClick={cutMic}
-              />
-
-              <FaMicrophoneAlt
-                className="iconMicUnmute"
-                style={{ display: props.audio ? "none" : "block" }}
-                onClick={cutMic}
-              />
-
-              <FaPhoneSlash className="iconPhone" />
-
-              <FaVideoSlash
-                className="iconVideo"
-                style={{ display: !props.video ? "none" : "block" }}
-                onClick={cutVideo}
-              />
-
-              <FaVideo
-                className="iconVideoShow"
-                style={{ display: props.video ? "none" : "block" }}
-                onClick={cutVideo}
-              />
-            </div>
-          </div>
-        </div>
-      </Rnd> */}
     </>
   );
 };

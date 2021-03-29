@@ -91,10 +91,10 @@ class DoctorProfile extends Component {
     this.setState({ selectVideoFollow: value, showSaveService: true });
   };
 
-  handleSelect4 = (statusValue) => {
-    let { value } = statusValue;
-    this.setState({ selectWaitingRoom: value, showSaveService: true });
-  };
+  // handleSelect4 = (statusValue) => {
+  //   let { value } = statusValue;
+  //   this.setState({ selectWaitingRoom: value, showSaveService: true });
+  // };
 
   handleSelectForDays = (statusValue) => {
     console.log(statusValue);

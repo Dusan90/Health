@@ -4,7 +4,7 @@ import logo1 from "../../img/logo.svg";
 import { popUpFalse } from "../../actions/popUpAction";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const Header =
   sessionStorage.getItem("is_doctor") === "false"

@@ -41,8 +41,8 @@ class ClientDashboard extends Component {
   initiate = () => {
     this.props.history.push("/initiate");
   };
-  waitingRoom = () => {
-    this.props.history.push("/client/waiting-room");
+  hnlAlertClient = () => {
+    this.props.history.push("/client-alerts");
   };
   VideoReq = () => {
     this.props.history.push("/client/video-request");
@@ -259,39 +259,43 @@ class ClientDashboard extends Component {
         }
       })
       .then(() => {
-        this.WaitingRoomList();
+        // this.WaitingRoomList();
+        this.handleAll();
+        this.paginate(this.state.page);
       })
       .catch((error) => {
         console.log(error.response, "error");
         this.setState({ loading: false });
+        this.handleAll();
+        this.paginate(this.state.page);
       });
   };
 
-  WaitingRoomList = async () => {
-    const access_token = "Bearer ".concat(this.state.token);
-    axios
-      .get(`https://healthcarebackend.xyz/api/queue/client/${this.state.client.id}/list/`, {
-        headers: { Authorization: access_token },
-      })
-      .then((response) => {
-        console.log(response);
+  // WaitingRoomList = async () => {
+  //   const access_token = "Bearer ".concat(this.state.token);
+  //   axios
+  //     .get(`https://healthcarebackend.xyz/api/queue/client/${this.state.client.id}/list/`, {
+  //       headers: { Authorization: access_token },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
         
-        this.setState({
-          exams: [...this.state.exams.concat(response.data.data.queue)],
-        });
-        this.handleAll();
-        this.paginate(this.state.page);
-        // this.getUnreadMessages(this.state.client.id);
-      })
-      .catch((err) => {
-        if(err || err.response.status === 404){
-          this.handleAll();
-          this.paginate(this.state.page);
-          // this.getUnreadMessages(this.state.client.id);
-        }
-        console.log(err.response);
-      });
-  };
+  //       this.setState({
+  //         exams: [...this.state.exams.concat(response.data.data.queue)],
+  //       });
+  //       this.handleAll();
+  //       this.paginate(this.state.page);
+  //       // this.getUnreadMessages(this.state.client.id);
+  //     })
+  //     .catch((err) => {
+  //       if(err || err.response.status === 404){
+  //         this.handleAll();
+  //         this.paginate(this.state.page);
+  //         // this.getUnreadMessages(this.state.client.id);
+  //       }
+  //       console.log(err.response);
+  //     });
+  // };
 
   paginate = (page) => {
     if (this.state.searchedUpcomingOrPast.length === 0) {
@@ -618,7 +622,7 @@ class ClientDashboard extends Component {
         <HamburgerDiv />
         <Dashboard
           initiate={this.initiate}
-          waitingRoom={this.waitingRoom}
+          hnlAlertClient={this.hnlAlertClient}
           handleClick={this.handleClick}
           handleUpcoming={this.handleUpcoming}
           handlePast={this.handlePast}

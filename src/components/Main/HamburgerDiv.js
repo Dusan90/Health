@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../../assets/main/hamburgerDiv.scss";
-import MyPatientsWhite from "../../icons/My_Patients_white.svg";
-import burger from "../../icons/burger.svg";
+// import MyPatientsWhite from "../../icons/My_Patients_white.svg";
+// import burger from "../../icons/burger.svg";
 import { connect } from "react-redux";
 import {compose}  from "redux"
 import { Link, withRouter } from "react-router-dom";
@@ -9,7 +9,7 @@ import axios from 'axios'
 import doctorOnline from "../../icons/icon_my_profile_doctor_on-line_46px.svg";
 import clientOnline from "../../icons/icon_my_profile_client_on-line_46px.svg";
 import doctorOffline from "../../icons/icon_my_profile_doctor_off-line_46px.svg";
-import clientOffline from "../../icons/icon_my_profile_client_off-line_46px.svg";
+// import clientOffline from "../../icons/icon_my_profile_client_off-line_46px.svg";
 
 import Dashboard from '../../icons/sideIcons/icon_menu_my-consultations.svg'
 import MyPatients from '../../icons/sideIcons/icon_menu_my-patients.svg'
@@ -23,14 +23,14 @@ import Doctors from '../../icons/sideIcons/icon_client_menu_doctor.svg'
 
 
 // import videoImg from "../../icons/icon_Video_Appointment_white.svg";
-import consultationImg from "../../icons/icon_My-Consultations_white.png";
-import doctorsImg from "../../icons/icon_my-profile_doctor_white_23px.png";
-import clientsImg from '../../icons/icon_my_profile_client_white_23px.svg'
-import calendar from "../../icons/icon_calendar_white.svg";
-import alert from "../../icons/icon_alerts_white.svg";
-import doctorsImg2 from '../../icons/icon_doctor_2_white.svg'
+// import consultationImg from "../../icons/icon_My-Consultations_white.png";
+// import doctorsImg from "../../icons/icon_my-profile_doctor_white_23px.png";
+// import clientsImg from '../../icons/icon_my_profile_client_white_23px.svg'
+// import calendar from "../../icons/icon_calendar_white.svg";
+// import alert from "../../icons/icon_alerts_white.svg";
+// import doctorsImg2 from '../../icons/icon_doctor_2_white.svg'
 // import logOutImg from "../../icons/icon_Log_Out_white.svg";
-import settingsImg from "../../icons/icon_settings_white.svg";
+// import settingsImg from "../../icons/icon_settings_white.svg";
 // import waitingRoomImg from "../../icons/icon_Waiting_Room_white.svg";
 // import emailImg from "../../icons/icon_Email_white.svg";
 
@@ -43,7 +43,8 @@ export class HamburgerDiv extends Component {
       currentDoc: '',
       fullName: '',
       fullNameClient: '',
-      currentClient: ''
+      currentClient: '',
+      currentActive: ''
     };
   }
 
@@ -66,7 +67,7 @@ export class HamburgerDiv extends Component {
         })
         .then((response) => {
           const fullName = `${response.data.data.user.first_name} ${response.data.data.user.last_name} `
-          return this.setState({currentDoc: response.data.data, fullName})
+          return this.setState({currentDoc: response.data.data, fullName, currentActive: window.location.href})
         });
   
         sessionStorage.getItem("is_doctor") !== 'true' && axios
@@ -75,7 +76,7 @@ export class HamburgerDiv extends Component {
         })
         .then((response) => {
           const fullNameClient = `${response.data.data.user.first_name} ${response.data.data.user.last_name} `
-            return this.setState({currentClient: response.data.data, fullNameClient})
+            return this.setState({currentClient: response.data.data, fullNameClient, currentActive: window.location.href})
         });
         }
 
@@ -117,9 +118,8 @@ export class HamburgerDiv extends Component {
             {this.state.fullName}
           </p>
         </div>
-        <Link className="sideVideo"
+        <Link className={`sideVideo ${this.state.currentActive.includes('dashboard-doctor') && 'active'}`}
         to='/dashboard-doctor'
-            // onClick={() => this.props.history.push('/dashboard-doctor')}
          >
           <span className="video">
             <img src={Dashboard} alt="icon"/>
@@ -127,11 +127,8 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Dashboard</h2>
         </Link>
-        <Link className="sideEmail" 
+        <Link className={`sideEmail ${this.state.currentActive.includes('doctors-clients') && 'active'}`}
         to="/doctors-clients"
-        // onClick={hnlClick}
-        // onClick={() => this.props.history.push("/doctors-clients")}
-
         >
           <span className="email">
             <img src={MyPatients} alt="icon"/>
@@ -140,11 +137,8 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>My Patients</h2>
         </Link>
-        <Link className="sideWaitingRoom" 
+        <Link className={`sideWaitingRoom ${this.state.currentActive.includes('calendar') && 'active'}`}
         to="/doctor/calendar"
-        // onClick={hnlWaitingClick}
-        // onClick={() => this.props.history.push("/doctor/calendar")}
-
         >
           <span className="clock">
           <img src={Calendar} alt="icon"/>
@@ -153,23 +147,16 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Calendar</h2>
         </Link>
-        <div className="sideMyCounsultation" 
-        // onClick={hnlMyConsultations}
-        // onClick={() => this.props.history.push('/dashboard-doctor')}
-
+        <Link to='/doctors-alerts' className={`sideMyCounsultation ${this.state.currentActive.includes('doctors-alerts') && 'active'}`}
         >
           <span>
           <img src={Alert} alt="icon"/>
-
-            {/* <GoFileDirectory className="icon" /> */}
           </span>
           <h2>Alerts</h2>
-        </div>
+        </Link>
         <Link
         to="/doctor/profile/"
-          className="sideMyAccount"
-          // onClick={() => this.props.history.push("/doctor/profile/")}
-
+          className={`sideMyAccount ${this.state.currentActive.includes('doctor/profile') && 'active'}`}
         >
           <span>
           <img src={Profile} alt="icon"/>
@@ -178,10 +165,8 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Profile</h2>
         </Link>
-        <Link className="sideHelp"
+        <Link className={`sideHelp ${this.state.currentActive.includes('doctors-settings') && 'active'}`}
         to="/doctors-settings"
-            // onClick={() => this.props.history.push('/doctors-settings')}
-
         > 
           <span className="help">
           <img src={Settings} alt="icon"/>
@@ -192,103 +177,17 @@ export class HamburgerDiv extends Component {
         </Link>
         <Link className="sideFaq"
           to={{pathname: '/logout', spec: this.state.currentDoc.speciality}}
-            // onClick={() => this.props.history.push('/logout')}
         >
           <span className="faq">
           <img src={LogOut} alt="icon"/>
-
-            {/* <MdChatBubble className="icon" /> */}
           </span>
           <h2>Log Out</h2>
         </Link>
       </div> 
-      // <div className="hamburger">
-      //   <div className="hamNprofil">
-      //     <div className="ham" onClick={this.handleHam}>
-      //       <img src={burger} alt="burger" />
-      //     </div>
-      //     <div className="rightNavIcons">
-      //       <div>
-      //         <Link
-      //           to="/dashboard-doctor"
-      //           className="linksPatients"
-      //           //   onClick={hnlMyConsultations}
-      //         >
-      //           <img
-      //             src={consultationImg}
-      //             className="dashboardIcon"
-      //             alt="my consultation"
-      //           />
-
-      //           {this.state.hamburger && <p>Dashboard</p>}
-      //         </Link>
-      //       </div>
-      //       <div className="patientsNav">
-      //         <Link to="/doctors-clients" className="linksPatients">
-      //           <img
-      //             src={MyPatientsWhite}
-      //             className="iconNav"
-      //             alt="My patients"
-      //           />
-      //           {this.state.hamburger && <p>My Patients</p>}
-      //         </Link>
-      //       </div>
-      //       {/* <div className="calendarNav"> */}
-      //       {/* <div
-      //             style={{
-      //               display: props.state.numOfMessages === 0 ? "none" : "block",
-      //             }}
-      //           className="numOfMessages"
-      //         >
-      //           <p>{props.state.numOfMessages}</p>
-      //         </div> */}
-      //       <div>
-      //         <Link to="/doctor/calendar" className="links">
-      //           <img
-      //             src={calendar}
-      //             className="calendarIcon"
-      //             alt="My patients"
-      //           />
-      //           {this.state.hamburger && <p>Calendar</p>}
-      //         </Link>
-      //       </div>
-      //       {/* </div> */}
-      //       <div className="alertsNav">
-      //         <img src={alert} className="iconNav" alt="My patients" />
-      //         {this.state.hamburger && <p>Alerts</p>}
-      //       </div>
-      //       <div>
-      //         <Link to="/doctor/profile/" className="linksPatients">
-      //           <img
-      //             src={doctorsImg}
-      //             className="profileIcon"
-      //             alt="doctors img"
-      //           />
-      //           {this.state.hamburger && <p>Profile</p>}
-      //         </Link>
-      //       </div>
-      //       <div>
-      //         <Link to='/doctors-settings' className="linksPatients">
-      //           <img
-      //             src={settingsImg}
-      //             className="profileIcon"
-      //             alt="settings img"
-      //           />
-      //           {this.state.hamburger && <p>Settings</p>}
-      //         </Link>
-      //       </div>
-           
-      //     </div>
-      //   </div>
-      // </div>
     ) : (
 
       <div
         className="sideNav"
-        // style={{
-        //   left: this.state.hamburger ? "0px" : "-300px",
-        //   opacity: this.state.hamburger ? "0.7" : "0",
-        // }}
       >
         <div className="sideProfile">
           <div className="mainProfile">
@@ -301,23 +200,13 @@ export class HamburgerDiv extends Component {
               }
 
             </div>
-            {/* <div
-              className="onlineDot"
-              // style={{
-              //   background:
-              //     this.state.doctorCurent.status !== "Available"
-              //       ? "lightgray"
-              //       : "green",
-              // }}
-            ></div> */}
           </div>
           <p>
             {this.state.fullNameClient}
           </p>
         </div>
-        <Link className="sideVideo"
+        <Link className={`sideVideo ${this.state.currentActive.includes('dashboard-client') && 'active'}`}
         to='/dashboard-client'
-            // onClick={() => this.props.history.push("/dashboard-client")}
          >
           <span className="video">
             <img src={Dashboard} alt="icon"/>
@@ -325,11 +214,8 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Dashboard</h2>
         </Link>
-        <Link className="sideEmail" 
+        <Link className={`sideEmail ${this.state.currentActive.includes('Doctor-list') && 'active'}`}
         to="/client/Doctor-list/"
-        // onClick={hnlClick}
-        // onClick={() => this.props.history.push("/client/Doctor-list/")}
-
         >
           <span className="email">
             <img src={Doctors} alt="icon"/>
@@ -338,35 +224,16 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Doctors</h2>
         </Link>
-        {/* <div className="sideWaitingRoom" 
-       
-        onClick={() => this.props.history.push("/doctor/calendar")}
-
-        >
-          <span className="clock">
-          <img src={Calendar} alt="icon"/>
-
-         
-          </span>
-          <h2>Calendar</h2>
-        </div> */}
-        <div className="sideMyCounsultation" 
-        // onClick={hnlMyConsultations}
-        // onClick={() => this.props.history.push('/dashboard-doctor')}
-
+        <Link to='/client-alerts' className={`sideMyCounsultation ${this.state.currentActive.includes('client-alerts') && 'active'}`}
         >
           <span>
           <img src={Alert} alt="icon"/>
-
-            {/* <GoFileDirectory className="icon" /> */}
           </span>
           <h2>Alerts</h2>
-        </div>
+        </Link>
         <Link
         to="/client/profile/"
-          className="sideMyAccount"
-          // onClick={() => this.props.history.push("/client/profile/")}
-
+          className={`sideMyAccount ${this.state.currentActive.includes('client/profile') && 'active'}`}
         >
           <span>
           <img src={Profile} alt="icon"/>
@@ -375,9 +242,7 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Profile</h2>
         </Link>
-        <Link to='/client-settings' className="sideHelp"
-            // onClick={() => this.props.history.push('/client-settings')}
-
+        <Link to='/client-settings' className={`sideHelp ${this.state.currentActive.includes('client-settings') && 'active'}`}
         > 
           <span className="help">
           <img src={Settings} alt="icon"/>
@@ -396,69 +261,6 @@ export class HamburgerDiv extends Component {
           <h2>Log Out</h2>
         </Link>
       </div> 
-
-
-
-      // <div className="hamburger">
-      //   <div className="hamNprofil">
-      //     <div className="ham" onClick={this.handleHam}>
-      //       <img src={burger} alt="burger" />
-      //     </div>
-      //     <div className="rightNavIcons">
-      //     <div>
-      //         <Link
-      //           to="/dashboard-client"
-      //           className="linksPatients"
-      //           //   onClick={hnlMyConsultations}
-      //         >
-      //           <img
-      //             src={consultationImg}
-      //             className="dashboardIcon"
-      //             alt="my consultation"
-      //           />
-
-      //           {this.state.hamburger && <p>Dashboard</p>}
-      //         </Link>
-      //       </div>
-      //     <div>
-      //         <Link
-      //           to="/client/Doctor-list/"
-      //           className="linksPatients"
-      //           //   onClick={hnlMyConsultations}
-      //         >
-      //           <img
-      //             src={doctorsImg2}
-      //             className="doctorsIcon"
-      //             alt="Doctors"
-      //           />
-
-      //           {this.state.hamburger && <p>Doctors</p>}
-      //         </Link>
-      //       </div>
-           
-      //       <div>
-      //         <Link to="/client/profile/" className="linksPatients">
-      //           <img
-      //             src={clientsImg}
-      //             className="profileIcon"
-      //             alt="doctors img"
-      //           />
-      //           {this.state.hamburger && <p>Profile</p>}
-      //         </Link>
-      //       </div>
-      //       <div>
-      //         <Link to='/client-settings' className="linksPatients">
-      //           <img
-      //             src={settingsImg}
-      //             className="profileIcon"
-      //             alt="settings img"
-      //           />
-      //           {this.state.hamburger && <p>Settings</p>}
-      //         </Link>
-      //       </div>
-      //     </div>
-      //   </div>
-      // </div>
     );
   }
 }

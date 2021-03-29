@@ -1,7 +1,7 @@
 import React from "react";
 
 import moment from "moment";
-import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
+// import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
 import loading from "../../icons/c+.svg";
 import "../../assets/doctorsVideoList.scss";
 

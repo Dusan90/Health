@@ -1,6 +1,6 @@
 import React from "react";
 import "../../assets/doctors_clients.scss";
-import myPatients from "../../icons/My_Patients_blue.svg";
+// import myPatients from "../../icons/My_Patients_blue.svg";
 import myClientProfile from "../../icons/newIconsForDesign/client_picture.svg";
 import Select from 'react-select'
 import { Link } from "@material-ui/core";

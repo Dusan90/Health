@@ -1,9 +1,10 @@
-.exam {
+.exam1 {
   width: calc(100% - 480px) !important;
   margin: 110px auto 20px 360px !important;
   .mainExam {
     padding: 30px;
     display: flex;
+    justify-content: space-evenly;
     align-items: center;
     background: #f2f2f2;
     border-radius: 15px;
@@ -30,17 +31,25 @@
 
     .exam-spec {
       margin-right: 10px;
+      width: 100%;
     }
 
     .exam-doc {
       margin-right: 10px;
+      width: 100%;
     }
 
     .exam-sub {
       width: 100%;
-      input {
-        width: 100%;
+      .form-control {
         height: 33px !important;
+        border: 1.7px solid #fa9551;
+        border-radius: 10px;
+        // width: 305px;
+        width: 100%;
+        font-weight: 600;
+        background: white;
+        color: #666666;
       }
     }
   }

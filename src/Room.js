@@ -3,11 +3,11 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import './assets/main/room.scss'
 import styled from "styled-components";
-import { FaMicrophoneAltSlash } from "react-icons/fa";
-// import { FaMicrophoneAlt } from "react-icons/fa";
-import { FaVideoSlash } from "react-icons/fa";
-// import { FaVideo } from "react-icons/fa";
-import { FaPhoneSlash } from "react-icons/fa";
+// import { FaMicrophoneAltSlash } from "react-icons/fa";
+// // import { FaMicrophoneAlt } from "react-icons/fa";
+// import { FaVideoSlash } from "react-icons/fa";
+// // import { FaVideo } from "react-icons/fa";
+// import { FaPhoneSlash } from "react-icons/fa";
 import Header from "./components/Main/Header";
 import Nav from "./components/Main/Navbar";
 import { HamburgerDiv } from "./components/Main/HamburgerDiv";

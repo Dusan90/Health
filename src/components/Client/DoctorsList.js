@@ -1,6 +1,6 @@
 import React from 'react'
 import doctorImg from '../../icons/newIconsForDesign/doctor_picture.svg'
-import doctor2Img from '../../icons/icon_doctor_2_blue.svg'
+// import doctor2Img from '../../icons/icon_doctor_2_blue.svg'
 import Select from 'react-select'
 import {Link} from 'react-router-dom'
 

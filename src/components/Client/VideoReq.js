@@ -4,10 +4,10 @@ import Select from "react-select";
 // import CheckoutForm from "../../containers/Client/CheckoutForm";
 // import { Elements, StripeProvider } from "react-stripe-elements";
 import DatePicker from "react-datepicker";
-import videoIcon from "../../icons/icon_Video_Appointment_blue.svg";
+// import videoIcon from "../../icons/icon_Video_Appointment_blue.svg";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
-import arrowAttach from "../../icons/attach_white.svg";
+// import arrowAttach from "../../icons/attach_white.svg";
 
 const VideoReq = ({
   handleSpeciality,
@@ -148,7 +148,7 @@ const VideoReq = ({
   };
 
   return (
-    <div className="exam">
+    <div className="exam1">
       <div className="mainExam">
         <div className="newVideo">
           {/* <img src={videoIcon} alt="video img" /> */}

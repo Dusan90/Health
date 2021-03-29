@@ -12,7 +12,7 @@ function DoctorsDetails({handleClient, doctor, handleSort, props, main}) {
   // let end = doctor.end_hour ? doctor.end_hour.slice(0, -3) : ""
   const endTime = Number(props.endW.split(':')[0]) * 60 * 60 * 1000 + Number(props.endW.split(':')[1]) * 60 * 1000;
   console.log(startTime );
-  const time = `${moment(startTime).subtract(1, 'hour').format("HH:mm A")} - ${moment(endTime).subtract(1, 'hour').format("HH:mm A")}`
+  // const time = `${moment(startTime).subtract(1, 'hour').format("HH:mm A")} - ${moment(endTime).subtract(1, 'hour').format("HH:mm A")}`
     return (
         <div className="mainDoctorDiv">
         <div className="doctorsAbove">
@@ -50,10 +50,10 @@ function DoctorsDetails({handleClient, doctor, handleSort, props, main}) {
                   <p><span>Video follow up: </span>{doctor.web_exam_follow_price} {doctor.web_follow_up_currency}</p>
                   {doctor.web_exam_follow_status === 'True' && <button onClick={() => {main.props.history.push({pathname: '/client/video-request', state: { doctorId: doctor.id }})}}>Start</button>}
                   </div>}
-                  {doctor.waiting_room_status === 'True' &&<div>
+                  {/* {doctor.waiting_room_status === 'True' &&<div>
                   <p><span>Waiting room: </span>{doctor.waiting_room_price} {doctor.waiting_room_currency}</p>
                   {doctor.waiting_room_status === 'True' && <button onClick={() => {main.props.history.push({pathname: '/client/waiting-room', state: { doctorId: doctor.id }})}}>Start</button>}
-                  </div>}
+                  </div>} */}
                 </div>
                 </div>
             </div>

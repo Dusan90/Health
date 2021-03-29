@@ -1,0 +1,112 @@
+.mainDoctorAlerts {
+  margin: 110px auto 20px 360px !important;
+  width: calc(100% - 480px) !important;
+  padding: 30px !important;
+  background: #f2f2f2;
+  height: 500px;
+  position: relative;
+  border-radius: 15px;
+
+  .iconAlert {
+    position: absolute;
+    top: -76px;
+    left: 0;
+    z-index: 20;
+    height: 35px;
+    display: flex;
+    border-bottom: 4px solid #fa9551;
+    margin-right: 45px;
+    h4 {
+      font-weight: bold;
+      font-size: 15px;
+      color: #2cace3;
+    }
+  }
+  .loading {
+    animation: rotation 2s infinite linear;
+    position: absolute;
+    width: 70px !important;
+    top: 40%;
+    left: 45%;
+    transform: translate(-40%, -45%);
+  }
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+  .tableDiv {
+    height: 100%;
+    overflow: scroll;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      width: 1px;
+    }
+
+    .NoResultDiv {
+      color: #666666;
+      margin: 20px auto;
+      font-size: 20px;
+    }
+
+    .table2 {
+      text-align: center;
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0;
+      padding: 10px;
+      color: #666666;
+
+      tbody {
+        transition: all 0.5s ease-in-out;
+        &:hover {
+          background: rgb(255, 255, 255);
+          cursor: pointer;
+        }
+        tr {
+          height: 40px;
+          td {
+            text-align: center;
+          }
+          .created {
+            p {
+              margin: 2px 0 0 0;
+            }
+          }
+        }
+      }
+      .client-head {
+        text-align: center;
+        color: #666666;
+
+        .client-row {
+          height: 40px;
+          color: white;
+          background: #fa9551;
+          // display: flex;
+          // justify-content: space-evenly;
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+
+          .client-doctor {
+            border-top-left-radius: 15px;
+            width: 50%;
+            align-self: center;
+            text-align: center;
+          }
+          .client-date {
+            width: 50%;
+            text-align: left;
+            border-top-right-radius: 15px;
+            align-self: center;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

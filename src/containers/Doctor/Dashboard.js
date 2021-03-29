@@ -8,7 +8,7 @@ import { statusChangeWR } from "../../actions/doctorStatusWR";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
-import { NotificationManager } from "react-notifications";
+// import { NotificationManager } from "react-notifications";
 import HamburgerDiv from "../../components/Main/HamburgerDiv";
 
 class DoctorDashboard extends Component {
@@ -24,8 +24,8 @@ class DoctorDashboard extends Component {
       token: sessionStorage.getItem("accessToken"),
       pending: [],
       videoPending: [],
-      waitingRoom: [],
-      openWaitingRoom: false,
+      // waitingRoom: [],
+      // openWaitingRoom: false,
       value: "",
       doctorCurent: "",
       page: 1,
@@ -40,28 +40,10 @@ class DoctorDashboard extends Component {
       searchClient: false,
       searchByTypeClick: false,
       searchType: "",
-      firstLoad: true
+      firstLoad: true,
+      alerts: []
     };
   }
-
-  // handleClickLeft = () => {
-  //   if (this.state.page !== 1) {
-  //     this.setState({ page: this.state.page - 1 });
-  //     let test = setInterval(() => {
-  //       this.paginate(this.state.page);
-  //       clearInterval(test);
-  //     }, 10);
-  //   }
-  // };
-  // handleClickRight = () => {
-  //   if (this.state.page !== this.state.maxPages) {
-  //     this.setState({ page: this.state.page + 1 });
-  //     let test = setInterval(() => {
-  //       this.paginate(this.state.page);
-  //       clearInterval(test);
-  //     }, 10);
-  //   }
-  // };
 
   pnd = () => {
     const access_token = "Bearer ".concat(this.state.token);
@@ -193,7 +175,6 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
-        console.log(res);
         if (
           res.data.data.mail.length !== 0 ||
           res.data.data.video.length !== 0
@@ -229,15 +210,19 @@ class DoctorDashboard extends Component {
               return null;
             }
           });
+          const alerts = combineExams.filter(ex => !ex.is_read)
+          const alertSorted = [...alerts].sort((a, b) => moment(b.created) - moment(a.created))
+
           this.setState({
             videoPending: pending,
             loading: false,
             numOfMessages: nowON.length,
+            alerts: alertSorted
           });
         }
       })
       .then(() => {
-        this.peopleInWaitingRoom(this.state.doctorCurent.id);
+        // this.peopleInWaitingRoom(this.state.doctorCurent.id);
         this.handleAll();
         this.paginate(this.state.page);
         // this.getUnreadMessages(this.state.doctorCurent.id);
@@ -279,12 +264,13 @@ class DoctorDashboard extends Component {
     }
   };
 
-  handleWaitingRoom = (id) => {
-    // if (this.state.waitingRoom[0].id === id) {
-      this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
-    // } else {
-    //   NotificationManager.error(`Client is not next in line`, "Failed!", 3000);
-    // }
+  handleAlert = async (id, type) => {
+    if(type === 'mail'){
+          this.props.history.push(`/doctor/exam/detail/${id}/`);
+    }
+    if(type === 'video'){
+        this.props.history.push(`doctor/video/exam/detail/${id}/#init`);
+    }
   };
 
   hnlClick = () => {
@@ -295,8 +281,8 @@ class DoctorDashboard extends Component {
     this.props.history.push("/doctors-video-list");
   };
 
-  hnlWaitingClick = () => {
-    this.props.history.push("/doctors-queue-list");
+  hnlAlertsClick = () => {
+    this.props.history.push("/doctors-alerts");
   };
 
   handleDoctorProfile = async () => {
@@ -320,61 +306,62 @@ class DoctorDashboard extends Component {
       })
   };
 
-  peopleInWaitingRoom = async (id) => {
-    const access_token = "Bearer ".concat(this.state.token);
-    axios
-      .get(`https://healthcarebackend.xyz/api/queue/${id}/list/`, {
-        headers: { Authorization: access_token },
-      })
-      .then((response) => {
-        response.data.data.queue.forEach((e) => {
-          if (
-            moment(e.created).format("YYYY-MM-DD") !== moment(new Date()).format("YYYY-MM-DD") &&
-            e.status === "In the queue"
-          ) {
-            this.changeStatusOfPastExams(e.id);
-          }
-        });
-        const filteredqueue = response.data.data.queue.length !== 0 ? response.data.data.queue.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
+  // peopleInWaitingRoom = async (id) => {
+  //   const access_token = "Bearer ".concat(this.state.token);
+  //   axios
+  //     .get(`https://healthcarebackend.xyz/api/queue/${id}/list/`, {
+  //       headers: { Authorization: access_token },
+  //     })
+  //     .then((response) => {
+  //       console.log(response)
+  //       response.data.data.queue.forEach((e) => {
+          // if (
+          //   moment(e.created).format("YYYY-MM-DD") !== moment(new Date()).format("YYYY-MM-DD") &&
+          //   e.status === "In the queue"
+          // ) {
+          //   this.changeStatusOfPastExams(e.id);
+          // }
+        // });
+        // const filteredqueue = response.data.data.queue.length !== 0 ? response.data.data.queue.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
 
-        let filterCanceled = filteredqueue.filter((ex) => {
-          return ex.status === "Accepted" || ex.status === "In the queue";
+        // let filterCanceled = filteredqueue.filter((ex) => {
+        //   return ex.status === "Accepted" || ex.status === "In the queue";
           // return ex.status !== "Canceled" && ex.status !== "Declined";
-        });
-        this.setState({
-          waitingRoom: filterCanceled,
-          exams: [...this.state.exams.concat(filteredqueue)],
-        });
-      })
-      .then(() => {
-        this.handleAll();
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  };
+        // });
+        // this.setState({
+          // waitingRoom: filterCanceled,
+          // exams: [...this.state.exams.concat(filteredqueue)],
+        // });
+      // })
+      // .then(() => {
+      //   this.handleAll();
+      // })
+      // .catch((err) => {
+      //   console.log(err.response);
+      // });
+  // };
 
-  changeStatusOfPastExams = async (id) => {
-    const access_token = "Bearer ".concat(this.state.token);
-    const client = await fetch(
-      `https://healthcarebackend.xyz/api/queue/${id}/detail/`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: access_token,
-        },
-        body: JSON.stringify({
-          status: "Decline",
-          decline_notes: '',
-          report: '',
-          report_file: null
-        }),
-      }
-    );
-    const jsonData = await client.json();
-    return jsonData;
-  };
+  // changeStatusOfPastExams = async (id) => {
+  //   const access_token = "Bearer ".concat(this.state.token);
+  //   const client = await fetch(
+  //     `https://healthcarebackend.xyz/api/queue/${id}/detail/`,
+  //     {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: access_token,
+  //       },
+  //       body: JSON.stringify({
+  //         status: "Decline",
+  //         decline_notes: '',
+  //         report: '',
+  //         report_file: null
+  //       }),
+  //     }
+  //   );
+  //   const jsonData = await client.json();
+  //   return jsonData;
+  // };
 
   handleClickMail = (id) => {
     this.props.history.push(`/doctor/exam/detail/${id}`);
@@ -407,9 +394,9 @@ class DoctorDashboard extends Component {
     };
     webs.onmessage = (event) => {
       console.log(event);
-      if (JSON.parse(event.data).statu !== "In the queue") {
-        this.props.statusChangeWR(JSON.parse(event.data).id);
-      }
+      // if (JSON.parse(event.data).modified) {
+      //   this.setState({alert: [...this.state.alerts, JSON.parse(event.data)]})
+      // }
       this.messagesNumber();
     };
     webs.onclose = () => {
@@ -421,35 +408,6 @@ class DoctorDashboard extends Component {
     this.paginatedExams();
     this.pnd();
   };
-
-  // getUnreadMessages = async (id) => {
-  //   const access_token = "Bearer ".concat(this.state.token);
-  //   axios
-  //     .get(`https://healthcarebackend.xyz/api/exams/doctor/${id}/`, {
-  //       headers: { Authorization: access_token },
-  //     })
-  //     .then((response) => {
-  //       console.log(response, 'messages');
-  //       console.log(this.state.doctorCurent)
-  //       const unreadMessages = response.data.data.filter((ex) => {
-  //         if (ex.messages.length !== 0) {
-  //           // const sortedActivities = ex.messages.sort((a, b) => a.created - b.created)
-  //           return (
-  //             // sortedActivities[sortedActivities.length - 1].sender !==
-  //             ex.messages[0].sender_id !==
-  //             this.state.doctorCurent.id 
-  //           );
-  //         } else {
-  //           return ex;
-  //         }
-  //       });
-  //       const unreadIds = unreadMessages.map((ex) => ex.exam.id);
-  //       this.setState({ mail: unreadIds });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.response);
-  //     });
-  // };
 
   handleClientSearch = () => {
     this.setState({ searchClient: !this.state.searchClient });
@@ -640,7 +598,7 @@ class DoctorDashboard extends Component {
           hnlClick={this.hnlClick}
           hnlClick2={this.hnlClick2}
           hnlClick3={this.hnlClick3}
-          hnlWaitingClick={this.hnlWaitingClick}
+          hnlAlertsClick={this.hnlAlertsClick}
           props={this}
           handleKeyPress={this.handleKeyPress}
           handleChange={this.handleChange}
@@ -648,7 +606,7 @@ class DoctorDashboard extends Component {
           handleClickRight={this.handleClickRight}
           loading={this.state.loading}
           hnlVideoClick={this.hnlVideoClick}
-          handleWaitingRoom={this.handleWaitingRoom}
+          handleAlert={this.handleAlert}
           handleVideoPendingClick={this.handleVideoPendingClick}
           handleUpcoming={this.handleUpcoming}
           handlePast={this.handlePast}

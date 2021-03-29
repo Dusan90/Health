@@ -117,7 +117,7 @@ const Record = ({
                       <option value="">Type</option>
                       <option value="mail">Email</option>
                       <option value="video">Video</option>
-                      <option value="queue">Waiting room</option>
+                      {/* <option value="queue">Waiting room</option> */}
                     </select>
                   </div>
                 </th>

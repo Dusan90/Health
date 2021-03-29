@@ -6,12 +6,12 @@ import { GiCheckeredFlag } from "react-icons/gi";
 import chek from "../../icons/chek.svg";
 import clockIcon from "../../icons/icon_Waiting_Room_blue.svg";
 import declined from "../../icons/icon_Log_Out_blue.svg";
-import arrowLeft from "../../icons/arrow-left.svg";
-import arrowRight from "../../icons/arrow-right.svg";
+// import arrowLeft from "../../icons/arrow-left.svg";
+// import arrowRight from "../../icons/arrow-right.svg";
 import enterWaitingRoom from "../../icons/enter-waiting-room.svg";
 import makeAvideo from "../../icons/Make-a-video.svg";
 import requestEmail from "../../icons/Request-email.svg";
-import MyConsultationsBlue from "../../icons/icon_My_Consultations_blue.svg";
+// import MyConsultationsBlue from "../../icons/icon_My_Consultations_blue.svg";
 import arrowDown from "../../icons/arrow_down_gray.svg";
 import arrowUp from "../../icons/arrow_up_gray.svg";
 
@@ -22,7 +22,7 @@ import Pagination from "react-js-pagination";
 
 const Dashboard = ({
   initiate,
-  waitingRoom,
+  hnlAlertClient,
   VideoReq,
   handleClick,
   handleUpcoming,
@@ -78,7 +78,9 @@ const Dashboard = ({
             <h2 className="secondH2"> EMAIL CONSULTATION</h2>
           </div>
         </div>
-        <div className="waitRoom" onClick={() => waitingRoom()}>
+        <div className="waitRoom"
+         onClick={() => hnlAlertClient()}
+         >
           <span className="clock">
             <img
               src={enterWaitingRoom}
@@ -87,8 +89,8 @@ const Dashboard = ({
             />
           </span>
           <div>
-            <h2>Enter</h2>
-            <h2 className="secondH2"> WAITING ROOM</h2>
+            <h2>See</h2>
+            <h2 className="secondH2"> ALERTS</h2>
           </div>
         </div>
       </div>
@@ -196,7 +198,7 @@ const Dashboard = ({
                       <option value="">Type</option>
                       <option value="mail">Email</option>
                       <option value="video">Video</option>
-                      <option value="queue">Waiting room</option>
+                      {/* <option value="queue">Waiting room</option> */}
                     </select>
                   </div>
                 </th>
@@ -274,113 +276,6 @@ const Dashboard = ({
             <div className="NoResultDiv">{props.state.messageIfEmpty}</div>
           )}
         </div>
-        // <div className="mainTabel">
-        //   <div className="mainConsultation">
-        //     <div className="icon_left">
-        //       <p>My Consultations</p>
-        //     </div>
-        //     <div className="sort">
-        //       <p
-        //         className="upcoming"
-        //         style={{
-        //           fontWeight:
-        //             props.state.currentFilterClicked === "upcoming"
-        //               ? "bold"
-        //               : "300",
-        //         }}
-        //         onClick={handleUpcoming}
-        //       >
-        //         Upcoming
-        //       </p>
-        //       <p
-        //         className="past"
-        //         style={{
-        //           fontWeight:
-        //             props.state.currentFilterClicked === "past"
-        //               ? "bold"
-        //               : "300",
-        //         }}
-        //         onClick={handlePast}
-        //       >
-        //         Past
-        //       </p>
-        //       <p
-        //         className="all"
-        //         style={{
-        //           fontWeight:
-        //             props.state.currentFilterClicked === "all" ? "bold" : "300",
-        //         }}
-        //         onClick={handleAll}
-        //       >
-        //         All
-        //       </p>
-        //     </div>
-        //   </div>
-        //   {props.state.paginatedExams.length === 0 ? (
-        //     <div className="NoResultDiv">{props.state.messageIfEmpty}</div>
-        //   ) : (
-        //     <table className="table2">
-        //       <thead className="client-head">
-        //         <tr className="client-row">
-        //           <th className="client-doctor">Doctor</th>
-        //           <th className="client-subject">Subject</th>
-        //           <th className="client-subject">Type</th>
-        //           <th className="client-subject">Date</th>
-        //           <th className="client-status">Status</th>
-        //         </tr>
-        //       </thead>
-
-        //       {props.state.paginatedExams.map((exam, index) => {
-        //         if (exam === undefined) {
-        //           return null;
-        //         }
-        //         return (
-        //           <tbody key={index} className="client-body">
-        //             <tr
-        //               data-id={exam.id}
-        //               className="list-group"
-        //               style={{ fontWeight: exam.isRead && 700 }}
-        //               onClick={() => handleClick(exam.id, exam.exam_type)}
-        //             >
-        //               <td className="client-doctor">
-        //                 {!exam.doctor_name ? exam.doctor : exam.doctor_name}
-        //               </td>
-        //               <td className="client-subject">{exam.subject}</td>
-        //               <td className="client-subject">{exam.exam_type}</td>
-
-        //               <td className="created">
-        //                 {exam.created && !exam.appointed_date ? (
-        //                   <p> {moment(exam.created).format("MM/DD/YYYY")}</p>
-        //                 ) : (
-        //                   <p>
-        //                     {" "}
-        //                     {moment(exam.appointed_date).format(
-        //                       "MM/DD/YYYY HH:mm"
-        //                     )}
-        //                   </p>
-        //                 )}
-        //               </td>
-        //               <td className="client-status">
-        //                 {exam.status === "Accepted" ||
-        //                 exam.status === "Appointed" ? (
-        //                   <FaCheck className="check" />
-        //                 ) : exam.status === "Declined" ||
-        //                   exam.status === "Canceled" ? (
-        //                   <GiCancel className="declined" />
-        //                 ) : exam.status === "Finished" ? (
-        //                   <GiCheckeredFlag className="finished" />
-        //                 ) : (
-        //                   <FaRegClock className="pendi" />
-        //                 )}
-        //                 <h5 className="status">{exam.status}</h5>
-        //               </td>
-        //             </tr>
-        //           </tbody>
-        //         );
-        //       })}
-        //     </table>
-        //   )}
-        // </div>
       )}
 
       {props.state.exams.length > 10 && <div className="pagi">

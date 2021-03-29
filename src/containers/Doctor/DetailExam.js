@@ -427,7 +427,7 @@ class DetailExam extends Component {
   handleExtendDiv = () =>{
           let mess = document.getElementById('messageMainText')
           let messageDiv = document.querySelector('.messageDiv')
-          let square = document.getElementById('imageDiv1')
+          // let square = document.getElementById('imageDiv1')
           console.log(mess.scrollHeight, mess.clientHeight);
 
             if(mess.clientHeight > 100){
@@ -501,8 +501,8 @@ class DetailExam extends Component {
         console.log(res, "podaciiii");
         const filteredMail = res.data.data.mail.length !== 0 ? res.data.data.mail.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
         const filteredVideo = res.data.data.video.length !== 0 ? res.data.data.video.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
-        const filteredQueue = res.data.data.queue.length !== 0 ? res.data.data.queue.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
-        let AllArrays = filteredMail.concat(filteredVideo, filteredQueue)
+        // const filteredQueue = res.data.data.queue.length !== 0 ? res.data.data.queue.filter(ex =>  ex.transaction['status'] !== 'Pending') : []
+        let AllArrays = filteredMail.concat(filteredVideo)
 
         return this.setState({
           exams: AllArrays,

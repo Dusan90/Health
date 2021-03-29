@@ -147,6 +147,9 @@
     .sideFaq,
     .sideMyAccount,
     .sideSignOut {
+      &.active{
+        background: #fa9551 !important;
+      }
       display: flex;
       justify-content: flex-start;
       align-items: center;
@@ -240,6 +243,9 @@
   .sideFaq,
   .sideMyAccount,
   .sideSignOut {
+      &.active{
+        background: #fa9551 !important;
+      }
     display: flex;
     justify-content: flex-start;
     align-items: center;

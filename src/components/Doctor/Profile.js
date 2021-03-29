@@ -2,8 +2,8 @@ import React from "react";
 
 import "../../assets/doctor_profile.scss";
 import Select from "react-select";
-import doctorImg from '../../icons/icon_my_profile_doctor_blue_23px.svg'
-import arrowAttach from '../../icons/attach_white.svg'
+// import doctorImg from '../../icons/icon_my_profile_doctor_blue_23px.svg'
+// import arrowAttach from '../../icons/attach_white.svg'
 import addImage from '../../icons/newIconsForDesign/add-picture.svg'
 import plus from '../../icons/newIconsForDesign/plus.svg'
 import minus from '../../icons/newIconsForDesign/minus.svg'
@@ -353,7 +353,7 @@ const Profile = ({
               <input type="checkbox" checked={props.VideoVisitFollowUp === 'True' && true} name="VideoVisitFollowUp" id="VideoVisitFollowUp" onChange={(e) => handleServiceRadio(e)}/>
               <label htmlFor="VideoVisitFollowUp"></label>
               </div>
-              <div className="mainWaitingRoomVisit" style={{opacity: props.WaitingRoomVisit === 'True' && 1}}>
+              {/* <div className="mainWaitingRoomVisit" style={{opacity: props.WaitingRoomVisit === 'True' && 1}}>
               <div className='WaitingRoomVisit'>
                 <label htmlFor="WaitingRoomVisit">Waiting room</label>
                 <input type="number"
@@ -377,7 +377,7 @@ const Profile = ({
               <input type="checkbox" checked={props.WaitingRoomVisit === 'True' && true} name="WaitingRoomVisit" id="WaitingRoomVisit" onChange={(e) => handleServiceRadio(e)}/>
               <label htmlFor="WaitingRoomVisit"></label>
               
-              </div>
+              </div> */}
               <button 
               style={{display: !props.showSaveService && 'none'}}
                   onClick={handleSubmit}

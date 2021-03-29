@@ -87,7 +87,7 @@ class ClientDetailExam extends Component {
   handleExtendDiv = () =>{
     let mess = document.getElementById('messageMainText')
     let messageDiv = document.querySelector('.messageDiv')
-    let square = document.getElementById('imageDiv1')
+    // let square = document.getElementById('imageDiv1')
     console.log(mess);
       if(mess.clientHeight > 100){
         mess.style.height = '100px'

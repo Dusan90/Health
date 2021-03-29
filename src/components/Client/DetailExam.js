@@ -4,11 +4,11 @@ import Nav from "../../components/Main/Navbar";
 import "../../assets/client/detail-exam.scss";
 import Select from "react-select";
 import moment from "moment";
-import { MdReply } from "react-icons/md";
-import { FiSend } from "react-icons/fi";
+// import { MdReply } from "react-icons/md";
+// import { FiSend } from "react-icons/fi";
 import HamburgerDiv from '../Main/HamburgerDiv'
-import EmailIcon from '../../icons/icon_Email_blue.svg'
-import attachIcon from '../../icons/attach_white.svg'
+// import EmailIcon from '../../icons/icon_Email_blue.svg'
+// import attachIcon from '../../icons/attach_white.svg'
 
 
 const Detail = ({

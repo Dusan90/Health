@@ -1,8 +1,8 @@
 import React from "react";
 // import SideNavbar from '../../containers/Home/SideNav';
 import "../../assets/client/profile.scss";
-import clientIcon from '../../icons/icon_my_profile_client_blue_23px.svg'
-import arrowAttach from '../../icons/attach_white.svg'
+// import clientIcon from '../../icons/icon_my_profile_client_blue_23px.svg'
+// import arrowAttach from '../../icons/attach_white.svg'
 import addPicture from '../../icons/newIconsForDesign/add-picture.svg'
 
 const Profile = ({

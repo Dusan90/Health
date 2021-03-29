@@ -6,12 +6,12 @@ import { GiCheckeredFlag } from "react-icons/gi";
 import chek from "../../icons/chek.svg";
 import clockIcon from "../../icons/icon_Waiting_Room_blue.svg";
 import declined from "../../icons/icon_Log_Out_blue.svg";
-import arrowLeft from "../../icons/arrow-left.svg";
-import arrowRight from "../../icons/arrow-right.svg";
+// import arrowLeft from "../../icons/arrow-left.svg";
+// import arrowRight from "../../icons/arrow-right.svg";
 import enterWaitingRoom from "../../icons/enter-waiting-room.svg";
 import makeAvideo from "../../icons/Make-a-video.svg";
 import requestEmail from "../../icons/Request-email.svg";
-import MyConsultationsBlue from "../../icons/icon_My_Consultations_blue.svg";
+// import MyConsultationsBlue from "../../icons/icon_My_Consultations_blue.svg";
 import arrowDown from "../../icons/arrow_down_gray.svg";
 import arrowUp from "../../icons/arrow_up_gray.svg";
 import Loading from "../../icons/c+.svg";
@@ -30,8 +30,8 @@ const Dashboard = ({
   handleClickLeft,
   handleClickRight,
   hnlVideoClick,
-  hnlWaitingClick,
-  handleWaitingRoom,
+  hnlAlertsClick,
+  handleAlert,
   handleVideoPendingClick,
   hnlMyConsultations,
   loading,
@@ -46,18 +46,10 @@ const Dashboard = ({
   let short2 = props.state.videoPending
     ? props.state.videoPending.slice(0, 4)
     : null;
-  let short3 = props.state.waitingRoom
-    ? props.state.waitingRoom.slice(0, 4)
+  let short3 = props.state.alerts
+    ? props.state.alerts.slice(0, 4)
     : null;
-  // props.state.paginatedExams.map((ex) => {
-  //   if (props.state.mail.includes(ex.id) && ex.exam_type === "mail") {
-  //     let hello = Object.assign(ex, { isRead: true });
-  //     return hello;
-  //   } else {
-  //     let hy = Object.assign(ex, { isRead: false });
-  //     return hy;
-  //   }
-  // });
+
   return (
     <div className="testic">
       <div className="main">
@@ -65,7 +57,7 @@ const Dashboard = ({
           <h4>Dashboard</h4>
         </div>{" "}
         <div className="divClock">
-          <div className="waitRoom1" onClick={hnlWaitingClick}>
+          <div className="waitRoom1" onClick={hnlAlertsClick}>
             <span className="clock">
               <img
                 src={enterWaitingRoom}
@@ -74,37 +66,27 @@ const Dashboard = ({
               />
               {/* <GoClock className="icon" /> */}
             </span>
-            <h2>WAITING ROOM</h2>
+            <h2>ALERTS</h2>
           </div>
           <div style={{ height: "2px", background: "#00aff0" }}></div>
           <div className="requestsClock">
-            <p>{props.state.waitingRoom.length} in waiting room</p>
+            <p>
+              {props.state.alerts.length}{" "} 
+              alerts to check</p>
           </div>
           <div className="pendingReq">
-            {short3.length !== 0 ? (
-              short3.map((shorty) => {
-                return (
-                    
-
-                  <div
+             {short3.length !== 0 ? (
+              short3.map((shorty) => <div
                     key={shorty.id}
-                    onClick={() => handleWaitingRoom(shorty.id)}
+                    onClick={() => handleAlert(shorty.id, shorty.exam_type)}
                   >
                     {shorty.client},{" "}
-                    {/* {new Intl.DateTimeFormat("en-GB", {
-                      year: "numeric",
-                      month: "long",
-                      day: "2-digit"
-                    }).format(
-                      Date(shorty.estimated_start / (1000 * 60 * 60 * 24))
-                    )} */}
-                    {moment(shorty.created).add(1, 'hours').format("MM/DD/YY HH:mm")} 
+                    {moment(shorty.created).add(1, 'hours').format("MM/DD/YY HH:mm")}
                   </div>
-                );
-              })
+              )
             ) : (
-              <p>No requests</p>
-            )}
+              <p>No alerts</p>
+            )} 
           </div>
         </div>
         <div className="divVideo">
@@ -272,7 +254,7 @@ const Dashboard = ({
                       <option value="">Type</option>
                       <option value="mail">Email</option>
                       <option value="video">Video</option>
-                      <option value="queue">Waiting room</option>
+                      {/* <option value="queue">Waiting room</option> */}
                     </select>
                   </div>
                 </th>
@@ -336,9 +318,7 @@ const Dashboard = ({
                     </tr>
                   </tbody>
                 );
-                // } else {
-                //   return null;
-                // }
+
               })}
           </table>
           {props.state.messageIfEmpty !== "" && (
@@ -348,14 +328,6 @@ const Dashboard = ({
       )}
 
       {props.state.exams.length > 10 && <div className="pagi">
-        {/* <div className="left" onClick={handleClickLeft}>
-          <img src={arrowLeft} alt="arrow left" className="iconLeft" />
-       
-        </div>
-        <div className="right" onClick={handleClickRight}>
-          <img src={arrowRight} alt="arrow rigth" className="iconRight" />
-  
-        </div> */}
         <Pagination
           activePage={props.state.page}
           itemsCountPerPage={10}
@@ -366,91 +338,6 @@ const Dashboard = ({
           hideFirstLastPages={true}
         />
       </div>}
-      {/* <div
-        className="sideNav"
-        style={{
-          left: props.state.hamburger ? "0px" : "-300px",
-          opacity: props.state.hamburger ? "0.7" : "0",
-        }}
-      >
-        <div className="sideProfile">
-          <div className="mainProfile">
-            <div className="profile">
-              <GoPerson className="icon" />
-            </div>
-            <div
-              className="onlineDot"
-              style={{
-                background:
-                  props.state.doctorCurent.status !== "Available"
-                    ? "lightgray"
-                    : "green",
-              }}
-            ></div>
-          </div>
-          <p>
-            {props.state.doctorCurent.prefix} {props.state.doctorCurent.doctor}
-          </p>
-        </div>
-        <div className="sideVideo" onClick={hnlVideoClick}>
-          <span className="video">
-            <FaVideo className="icon" />
-          </span>
-          <h2>Video Appointment</h2>
-        </div>
-        <div className="sideEmail" onClick={hnlClick}>
-          <span className="email">
-            <IoIosMail className="icon" />
-          </span>
-          <h2>Email Consultation</h2>
-        </div>
-        <div className="sideWaitingRoom" onClick={hnlWaitingClick}>
-          <span className="clock">
-            <GoClock className="icon" />
-          </span>
-          <h2>Waiting Room</h2>
-        </div>
-        <div className="sideMyCounsultation" onClick={hnlMyConsultations}>
-          <span>
-            <GoFileDirectory className="icon" />
-          </span>
-          <h2>My Consultations</h2>
-        </div>
-        <div
-          className="sideMyAccount"
-          onClick={() => {
-            props.props.history.push("/doctor/profile/");
-          }}
-        >
-          <span>
-            <FaUser />
-          </span>
-          <h2>Profile</h2>
-        </div>
-        <div className="sideHelp">
-          <span className="help">
-            <IoIosSettings className="icon" />
-          </span>
-          <h2>Help</h2>
-        </div>
-        <div className="sideFaq">
-          <span className="faq">
-            <MdChatBubble className="icon" />
-          </span>
-          <h2>FAQ</h2>
-        </div>
-        <div
-          className="sideSignOut"
-          onClick={() => {
-            props.props.history.push("/logout");
-          }}
-        >
-          <span className="signOut">
-            <IoMdClose className="icon" />
-          </span>
-          <h2>Sign Out</h2>
-        </div>
-      </div> */}
     </div>
   );
 };

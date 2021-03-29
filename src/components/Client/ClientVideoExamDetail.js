@@ -14,7 +14,7 @@ import moment from "moment";
 // import { Rnd } from "react-rnd";
 import Select from "react-select";
 import HamburgerDiv from '../Main/HamburgerDiv'
-import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
+// import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
 
 
 const DetailVideo = ({

@@ -1,5 +1,5 @@
 import React from 'react'
-import settings from '../../icons/icon_settings_blue.svg'
+// import settings from '../../icons/icon_settings_blue.svg'
 import '../../assets/updateSettings.scss'
 import seen from '../../icons/password-seen.svg'
 import hidden from '../../icons/password-hidden.svg'

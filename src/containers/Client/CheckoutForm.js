@@ -26,7 +26,7 @@ class CheckoutForm extends Component {
       complete: false,
       selectedCard: true,
       selectedPal: false,
-      token: null,
+      // token: null,
       cardNumber: false,
       cardCvc: false,
       cardExpiry: false,
@@ -215,10 +215,8 @@ class CheckoutForm extends Component {
       return {
         style: {
           base: {
-            fontSize,
             color: "#666666",
             letterSpacing: "0.025em",
-            color: "#666666",
             fontSize: "14px",
             fontWeight: 'bold',
             "::placeholder": {

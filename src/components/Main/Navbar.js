@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../../assets/main/navbar.scss";
 import { NotificationManager } from "react-notifications";
-import doctorOnline from "../../icons/icon_my_profile_doctor_on-line_46px.svg";
-import clientOnline from "../../icons/icon_my_profile_client_on-line_46px.svg";
-import doctorOffline from "../../icons/icon_my_profile_doctor_off-line_46px.svg";
+// import doctorOnline from "../../icons/icon_my_profile_doctor_on-line_46px.svg";
+// import clientOnline from "../../icons/icon_my_profile_client_on-line_46px.svg";
+// import doctorOffline from "../../icons/icon_my_profile_doctor_off-line_46px.svg";
 import axios from "axios";
 
 const Nav = ({
@@ -19,10 +19,10 @@ const Nav = ({
   selectValue,
   
 }) => {
-  const location = useLocation()
-  let firstTimelogedIn = true
+  // const location = useLocation()
+  // let firstTimelogedIn = true
   const [curentDoc, setcurentDoc] = useState({});
-  let [firstTimeLoged, setFirstTimeLoged] = useState(true)
+  // let [firstTimeLoged, setFirstTimeLoged] = useState(true)
   const [nameF, setnameF] = useState({});
   const [nameL, setnameL] = useState({});
   const handleSubmit = async (e, value) => {
@@ -172,7 +172,7 @@ const data = axios.put(url, form_data, {
   //     window.open(e.target.src)
     
   // }
-  let curDoc = null;
+  // let curDoc = null;
   let selectStatus = null;
   const isDoctor = sessionStorage.getItem("is_doctor");
   if (isDoctor === "true") {

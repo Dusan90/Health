@@ -1,7 +1,7 @@
 import React from "react";
 
 import moment from "moment";
-import iconEmailBlue from "../../icons/icon_Email_blue.svg";
+// import iconEmailBlue from "../../icons/icon_Email_blue.svg";
 import loading from "../../icons/c+.svg";
 import "../../assets/doctorEmailList.scss";
 

@@ -1,8 +1,8 @@
 import React from "react";
 import Select from "react-select";
 import "../../assets/client/exam-form.scss";
-import emailIcon from "../../icons/icon_Email_blue.svg";
-import attach from "../../icons/attach_white.svg";
+// import emailIcon from "../../icons/icon_Email_blue.svg";
+// import attach from "../../icons/attach_white.svg";
 // import CheckoutForm from "../../containers/Client/CheckoutForm";
 // import { Elements, StripeProvider } from "react-stripe-elements";
 

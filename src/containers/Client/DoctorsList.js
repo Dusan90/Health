@@ -5,7 +5,7 @@ import Header from "../../components/Main/Header";
 import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 import axios from 'axios'
 import { NotificationManager } from "react-notifications";
-import { doctor } from '../../actions/examActions';
+// import { doctor } from '../../actions/examActions';
 
 
 export class DoctorsList extends Component {
@@ -129,7 +129,7 @@ export class DoctorsList extends Component {
       handleDoctor = (e) => {
         console.log(e);
         const docsSpec = this.state.specialities.filter((spec) => {return spec.label === e.spec})
-        const filterbyDoctor = this.state.filteredBySpec.filter(el => {return el.label === e.label})
+        // const filterbyDoctor = this.state.filteredBySpec.filter(el => {return el.label === e.label})
         console.log(docsSpec);
         this.setState({ resetDoctorSelect: e,
           specialSP: docsSpec[0].value,

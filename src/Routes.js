@@ -12,22 +12,24 @@ import DoctorProfile from "./containers/Doctor/Profile";
 import DoctorsProfile from "./containers/Doctor/DoctorsProfile";
 import ClientProfile from "./containers/Client/Profile";
 import DetailVideoExam from "./containers/Doctor/DetailVideoExam";
-import ProcessingVideoExam from "./containers/Doctor/ProcessingVideoExam";
+// import ProcessingVideoExam from "./containers/Doctor/ProcessingVideoExam";
 import ClientRecord from "./containers/Doctor/Record";
 import VideoReq from "./containers/Client/VideoReq";
 import ClientVideoExamDetail from "./containers/Client/ClientVideoExamDetail";
-import ClientQueueExamDetail from "./containers/Client/ClientQueueExamDetail";
+// import ClientQueueExamDetail from "./containers/Client/ClientQueueExamDetail";
+import ClientAlerts from './containers/Client/ClientAlerts'
 import ClientDetailExam from "./containers/Client/DetailExam";
 import ForgotPass from "./containers/Login/forgotPass";
 import ChangePass from "./containers/Login/changePass";
 import Activate from "./containers/Login/activate";
 import { Elements } from "react-stripe-elements";
 import Clients from "./containers/Doctor/Clients";
-import WaitingRoom from "./containers/Client/WaitingRoom";
+// import WaitingRoom from "./containers/Client/WaitingRoom";
 import DoctorsCalendar from "./containers/Doctor/DoctorsCalendar";
 import DoctorsEmailList from "./containers/Doctor/DoctorsEmailList";
 import DoctorsVideoList from "./containers/Doctor/DoctorsVideoList";
-import DoctorsQueueList from "./containers/Doctor/DoctorsQueueList";
+// import DoctorsQueueList from "./containers/Doctor/DoctorsQueueList";
+import Alerts from './containers/Doctor/Alerts'
 import { NotificationContainer } from "react-notifications";
 import { Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "./components/Routes/PrivateRoute";
@@ -75,11 +77,11 @@ export class Routes extends Component {
 
         <PrivateRoute path="/client/doc/:id" exact component={DoctorsProfile} />
 
-        <PrivateRoute
+        {/* <PrivateRoute
           path="/client/waiting-room"
           exact
           component={WaitingRoom}
-        />
+        /> */}
 
         <PrivateRoute path="/client/profile" exact component={ClientProfile} />
         <PrivateRoute
@@ -92,10 +94,15 @@ export class Routes extends Component {
           exact
           component={ClientVideoExamDetail}
         />
-        <PrivateRoute
+        {/* <PrivateRoute
           path="/client/queue/exam/detail/:id"
           exact
           component={ClientQueueExamDetail}
+        /> */}
+           <PrivateRoute
+          path="/client-alerts"
+          exact
+          component={ClientAlerts}
         />
          <PrivateRoute
           path="/client-update"
@@ -148,11 +155,11 @@ export class Routes extends Component {
           exact
           component={ClientRecord}
         />
-        <PrivateRouteDoctor
+        {/* <PrivateRouteDoctor
           path="/doctor/processing/video/exam/:id"
           exact
           component={ProcessingVideoExam}
-        />
+        /> */}
         <PrivateRouteDoctor path="/doctors-clients" exact component={Clients} />
         <PrivateRouteDoctor
           path="/doctors-email-list"
@@ -164,11 +171,17 @@ export class Routes extends Component {
           exact
           component={DoctorsVideoList}
         />
-        <PrivateRouteDoctor
+        {/* <PrivateRouteDoctor
           path="/doctors-queue-list"
           exact
           component={DoctorsQueueList}
+        /> */}
+         <PrivateRouteDoctor
+          path="/doctors-alerts"
+          exact
+          component={Alerts}
         />
+
          <PrivateRouteDoctor
           path="/doctors-settings"
           exact
