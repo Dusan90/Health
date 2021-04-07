@@ -87,11 +87,13 @@ const Dashboard = ({
               className="icon"
               alt="enter Waiting room"
             />
+            {/* <p>0</p> */}
           </span>
           <div>
             <h2>See</h2>
             <h2 className="secondH2"> ALERTS</h2>
           </div>
+          
         </div>
       </div>
       {props.state.loading ? (

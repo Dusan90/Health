@@ -147,7 +147,7 @@
     .sideFaq,
     .sideMyAccount,
     .sideSignOut {
-      &.active{
+      &.active {
         background: #fa9551 !important;
       }
       display: flex;
@@ -162,7 +162,7 @@
       padding: 10px 10px 10px 40px;
       transition: all 0.5s ease-in-out;
       &:hover {
-        background: #fa9551;
+        // background: #fa9551;
         cursor: pointer;
       }
       span {
@@ -243,9 +243,9 @@
   .sideFaq,
   .sideMyAccount,
   .sideSignOut {
-      &.active{
-        background: #fa9551 !important;
-      }
+    &.active {
+      background: #fa9551 !important;
+    }
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -256,7 +256,7 @@
     transition: all 0.5s ease-in-out;
     color: #666666;
     &:hover {
-      background: #f79451;
+      // background: #f79451;
       cursor: pointer;
     }
     span {

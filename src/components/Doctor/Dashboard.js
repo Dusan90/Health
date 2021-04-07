@@ -81,7 +81,7 @@ const Dashboard = ({
                     onClick={() => handleAlert(shorty.id, shorty.exam_type)}
                   >
                     {shorty.client},{" "}
-                    {moment(shorty.created).add(1, 'hours').format("MM/DD/YY HH:mm")}
+                    {moment.utc(shorty.created).add(2, 'hours').format("MM/DD/YY HH:mm")}
                   </div>
               )
             ) : (
@@ -140,7 +140,7 @@ const Dashboard = ({
                     onClick={() => handleClickMail(shorty.id)}
                   >
                     {shorty.client},{" "}
-                    {moment(shorty.created).add(1, 'hours').format("MM/DD/YY HH:mm")}
+                    {moment(shorty.created).add(2, 'hours').format("MM/DD/YY HH:mm")}
                   </div>
                 );
               })

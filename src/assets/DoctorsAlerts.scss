@@ -60,6 +60,8 @@
       margin: 0;
       padding: 10px;
       color: #666666;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
 
       tbody {
         transition: all 0.5s ease-in-out;
@@ -77,6 +79,8 @@
               margin: 2px 0 0 0;
             }
           }
+          .client-trash {
+          }
         }
       }
       .client-head {
@@ -89,21 +93,22 @@
           background: #fa9551;
           // display: flex;
           // justify-content: space-evenly;
-          border-top-left-radius: 15px;
-          border-top-right-radius: 15px;
 
           .client-doctor {
-            border-top-left-radius: 15px;
             width: 50%;
             align-self: center;
             text-align: center;
+            border-top-left-radius: 15px;
           }
           .client-date {
             width: 50%;
             text-align: left;
-            border-top-right-radius: 15px;
             align-self: center;
             text-align: center;
+          }
+          .client-trash {
+            width: 40px;
+            border-top-right-radius: 15px;
           }
         }
       }

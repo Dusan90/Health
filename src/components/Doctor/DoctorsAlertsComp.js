@@ -31,6 +31,7 @@ function DoctorsAlertsComp({handleClick, props }) {
               <tr className="client-row">
                 <th className="client-doctor">Alert</th>
                 <th className="client-date">Date</th>
+                <th className="client-trash"></th>
               </tr>
             </thead>
             {props.messageOnScreen === "" &&
@@ -57,6 +58,8 @@ function DoctorsAlertsComp({handleClick, props }) {
                           </p>
                         ) : null} */}
                       </td>
+                      <td className="client-trash">tra</td>
+
                     </tr>
                   </tbody>
                 );

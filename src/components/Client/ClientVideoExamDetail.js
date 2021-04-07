@@ -3,47 +3,24 @@ import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import "../../assets/client/detail-exam.scss";
 import moment from "moment";
-// import { FaMicrophoneAltSlash } from "react-icons/fa";
-// import { FaMicrophoneAlt } from "react-icons/fa";
-// import { FaVideoSlash } from "react-icons/fa";
-// import { FaVideo } from "react-icons/fa";
-// import { FaPhoneSlash } from "react-icons/fa";
-// import { FaRegSquare } from "react-icons/fa";
-// import { FaRocketchat } from "react-icons/fa";
-// import { MdClose } from "react-icons/md";
-// import { Rnd } from "react-rnd";
 import Select from "react-select";
 import HamburgerDiv from '../Main/HamburgerDiv'
-// import iconVideoBlue from "../../icons/icon_Video_Appointment_blue.svg";
 
 
 const DetailVideo = ({
   exam,
-  // handleCancel,
   props,
-  // handleChange,
-  // enableTipeing,
-  // iconsMouseOut,
-  // iconsMouseOver,
-  // handleDragDrop,
-  // handleResize,
-  // showAndHideChat,
   handleStatus,
-  // handleDivSize,
-  // cutVideo,
-  // cutMic,
-  // handleVideoStart,
   statusValue,
   handleJoinRoom,
   handleExtendDiv,
   extendreport2,
   extendreport
 }) => {
-  // let disabled = props.doctorsVideoId ? false : true;
 
   const customStyles = {
     control: () => ({
-      // none of react-select's styles are passed to <Control />
+    
       width: 160,
       border: "2px solid #fa9551",
       borderRadius: "10px",
@@ -119,13 +96,6 @@ const DetailVideo = ({
                       type="text"
                       placeholder={placeholder}
                       styles={customStyles}
-                      // isDisabled={
-                      //   exam.status === "Canceled" ||
-                      //   exam.status === "Declined" ||
-                      //   exam.status === "Finished"
-                      //     ? true
-                      //     : false
-                      // }
                       className="select-option"
                       value={statusValue}
                       options={options}
@@ -196,25 +166,14 @@ const DetailVideo = ({
 
               </div>
               {exam.status === "Appointed" || exam.status === "Accepted" ? (
-              // <div className="message-btn">
-              //   <button
-              //     className="message-link"
-              //     id="StartVideo"
-              //     disabled={disabled}
-              //     onClick={handleVideoStart}
-              //   >
-              //     Start Video
-              //   </button>
-              // </div>
               <div className="message-btn">
-              <button
-                className="message-link"
-                id="StartVideo"
-                // disabled={disabled}
-                onClick={handleJoinRoom}
-              >
-                Join now
-              </button>
+                <button
+                        className="message-link"
+                        // disabled={disabled2}
+                        onClick={ () => handleJoinRoom(exam.room['uid'])}
+                      >
+                        Join now
+                      </button>
             </div>
             ) : null}
             </div>
@@ -222,92 +181,6 @@ const DetailVideo = ({
           </Fragment>
         );
       })}
-      {/* <Rnd
-        id="videoo"
-        size={{
-          width: props.width,
-          height: props.height,
-        }}
-        style={{ display: props.startVideo ? "block" : "none" }}
-        position={{ x: props.x, y: props.y }}
-        onDragStop={(e, d) => {
-          handleDragDrop(d);
-        }}
-        onResizeStop={(e, direction, ref, delta, position) => {
-          handleResize(ref, position);
-        }}
-      >
-        {" "}
-        <div id="topControler">
-          <span className="icon1" onClick={handleDivSize}>
-            <FaRegSquare />
-          </span>
-          <span className="icon2">
-            <MdClose />
-          </span>
-        </div>
-        <div id="mainChatVideo">
-          <form
-            autoComplete="off"
-            style={{ display: props.showChat ? "block" : "none" }}
-            action=""
-            id="form"
-          >
-            <pre id="messages"></pre>
-            <div className="inputMessage">
-              <input
-                type="text"
-                placeholder="Type your message..."
-                id="yourMessage"
-                value={props.value}
-                onChange={handleChange}
-                onMouseDown={enableTipeing}
-              ></input>
-              <button id="send">Send</button>
-            </div>
-          </form>
-          <div
-            id="videoChat"
-            style={{ width: props.showChat ? "50%" : "100%" }}
-            onMouseOver={iconsMouseOver}
-            onMouseOut={iconsMouseOut}
-          >
-            <div className="chatRoom" onClick={showAndHideChat}>
-              <FaRocketchat />
-            </div>
-            <div
-              id="functionality"
-              style={{ display: props.hover ? "flex" : "none" }}
-            >
-              <FaMicrophoneAltSlash
-                className="iconMic"
-                style={{ display: !props.audio ? "none" : "block" }}
-                onClick={cutMic}
-              />
-
-              <FaMicrophoneAlt
-                className="iconMicUnmute"
-                style={{ display: props.audio ? "none" : "block" }}
-                onClick={cutMic}
-              />
-
-              <FaPhoneSlash className="iconPhone" />
-
-              <FaVideoSlash
-                className="iconVideo"
-                style={{ display: !props.video ? "none" : "block" }}
-                onClick={cutVideo}
-              />
-
-              <FaVideo
-                className="iconVideoShow"
-                style={{ display: props.video ? "none" : "block" }}
-                onClick={cutVideo}
-              />
-            </div>
-          </div>
-        </div>
-      </Rnd> */}
     </>
   );
 };

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import { connect } from "react-redux";
 import DetailVideo from "../../components/Doctor/DetailVideoExam";
 import { NotificationManager } from "react-notifications";
-// import { getJSDocThisTag } from "typescript";
 // const connection = new WebSocket("wss://healthcarebackend.xyz/wss/video/");
 
 
@@ -16,20 +14,7 @@ class DetailVideoExam extends Component {
       selectedStatus: "",
       token: sessionStorage.getItem("accessToken"),
       id: "",
-      // connected: false,
-      // startVideo: false,
-      // clientsVideoId: "",
-      // doctorsVideoId: "",
       value: "",
-      // width: 700,
-      // height: 500,
-      // x: 0,
-      // y: 0,
-      // hover: false,
-      // showChat: false,
-      // video: true,
-      // audio: true,
-      // connectedall: false,
       declineReason: "",
       report: '',
       displayReport: false,
@@ -215,10 +200,9 @@ class DetailVideoExam extends Component {
   }
 
 
-  handleJoinRoom = () => {
-    // let id = uuid();
-    // this.props.history.push(`/room/${this.props.match.params.id}`);
-    window.open(`/room/${this.props.match.params.id}`);
+  handleJoinRoom = (uid) => {    
+    this.props.history.push({pathname: `/room/${this.props.match.params.id}`,
+    state: uid});
   };
 
   handleshowSave = (e, value) =>{
@@ -228,11 +212,6 @@ class DetailVideoExam extends Component {
 
   onChangeHandler = (e) => {
     this.setState({selectedFile: e.target.files[0]})
-    // const propertyValues = Object.values(e.target.files);
-
-    // this.setState({
-    //   selectedFile: propertyValues,
-    // });
   };
 
   handlePage = (value) =>{
@@ -315,17 +294,6 @@ class DetailVideoExam extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   
   record = (id) => {
     const access_token = "Bearer ".concat(this.state.token);
@@ -345,12 +313,6 @@ class DetailVideoExam extends Component {
           record:[ response.data.data],
         });
       })
-      // .then(() =>{
-      //   let cronic = document.getElementById('ChronicalConditions')
-      //   cronic.style.height = `${cronic.scrollHeight}px`
-      //   let alerg = document.getElementById('Allergies')
-      //   alerg.style.height = `${alerg.scrollHeight}px`
-      // })
   };
 
   clientsExams = (id) => {
@@ -520,21 +482,6 @@ class DetailVideoExam extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   render() {
     return (
       <>
@@ -546,18 +493,6 @@ class DetailVideoExam extends Component {
           props={this.state}
           extendreport={this.extendreport}
           extendreport2={this.extendreport2}
-          // handleConnect={this.handleConnect}
-          // handleVideoStart={this.handleVideoStart}
-          // handleChange={this.handleChange}
-          // enableTipeing={this.enableTipeing}
-          // iconsMouseOut={this.iconsMouseOut}
-          // iconsMouseOver={this.iconsMouseOver}
-          // handleDragDrop={this.handleDragDrop}
-          // handleResize={this.handleResize}
-          // showAndHideChat={this.showAndHideChat}
-          // handleDivSize={this.handleDivSize}
-          // cutMic={this.cutMic}
-          // cutVideo={this.cutVideo}
           declineReason={this.declineReason}
           saveReason={this.saveReason}
           saveReport={this.saveReport}
@@ -575,32 +510,11 @@ class DetailVideoExam extends Component {
           ResetonSelectChange={this.ResetonSelectChange}
           handlePageChange={this.handlePageChange}
           handleExtendDiv={this.handleExtendDiv}
-          // handleReport={this.handleReport}
-           // iconsMouseOut,
-  // iconsMouseOver,
-  // handleDragDrop,
-  // handleResize,
-  // showAndHideChat,
-  // handleDivSize,
-  // cutVideo,
-  // cutMic,
-  // handleChange,
-  // enableTipeing,
-  // submitValue,
-  // handleSubmit,
-  // handleConnect,
-  // handleVideoStart,
         />
       </>
     );
   }
 }
 
-// const mapStateToProps = state => {
-//   const examID = state.getIn(["examReducer", "examID"]);
-//   return {
-//     examID
-//   };
-// };
 
 export default DetailVideoExam;

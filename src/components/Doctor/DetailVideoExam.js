@@ -188,7 +188,7 @@ const DetailVideo = ({
                        <button
                         className="message-link"
                         // disabled={disabled2}
-                        onClick={handleJoinRoom}
+                        onClick={ () => handleJoinRoom(exam.room['uid'])}
                       >
                         Join now
                       </button>
