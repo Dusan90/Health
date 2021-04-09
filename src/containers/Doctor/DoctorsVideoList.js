@@ -38,7 +38,7 @@ export class DoctorsVideoList extends Component {
             exams: filtered,
             loading: false,
           });
-          if(filteredVideo.length === 0){
+          if(filtered.length === 0){
             this.setState({
               messageOnScreen: "No consultations" })
           }
@@ -61,6 +61,7 @@ export class DoctorsVideoList extends Component {
   };
 
   render() {
+    console.log(this.state.messageOnScreen);
     return (
       <>
         <div className="header">

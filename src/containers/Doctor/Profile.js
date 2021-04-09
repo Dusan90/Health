@@ -389,9 +389,17 @@ class DoctorProfile extends Component {
   }
 
   addAttach= (e) =>{
-    this.setState({attach: e.target.files[0], showSaveProfile: true})
-    var output = document.querySelector('.docImage');
-    output.src = URL.createObjectURL(e.target.files[0]);
+    if (e.target.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)){
+      if(e.target.files[0].size > 2048000){
+      NotificationManager.error("Image size is to big", "Failed!", 2000);
+      }else{
+        this.setState({attach: e.target.files[0], showSaveProfile: true})
+        var output = document.querySelector('.docImage');
+        output.src = URL.createObjectURL(e.target.files[0]);
+      }
+    }else{
+      NotificationManager.error("File is not an image", "Failed!", 2000);
+    }
   }
 
   deletePicture = async () =>{
@@ -467,8 +475,6 @@ class DoctorProfile extends Component {
   }
 
   render() {
-    console.log(this.state.daysAndTimeAndDays, this.state.daysAndTime);
-    console.log();
     return (
       <>
         <div className="header">

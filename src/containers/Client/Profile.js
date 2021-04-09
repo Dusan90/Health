@@ -131,11 +131,41 @@ const data = axios.put(url, form_data, {
     }
   } 
 
+  // attachInput= (e) =>{
+  //   this.setState({attach: e.target.files[0], showSave: true})
+  //   var output = document.querySelector('.cliImage');
+  //   output.src = URL.createObjectURL(e.target.files[0]);
+  // }
+
   attachInput= (e) =>{
-    this.setState({attach: e.target.files[0], showSave: true})
-    var output = document.querySelector('.cliImage');
-    output.src = URL.createObjectURL(e.target.files[0]);
+    if (e.target.files[0].name.match(/.(jpg|jpeg|png|gif)$/i)){
+      if(e.target.files[0].size > 2048000){
+      NotificationManager.error("Image size is to big", "Failed!", 2000);
+      }else{
+        this.setState({attach: e.target.files[0], showSave: true})
+        var output = document.querySelector('.cliImage');
+        output.src = URL.createObjectURL(e.target.files[0]);
+      }
+    }else{
+      NotificationManager.error("File is not an image", "Failed!", 2000);
+    }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // handleImage = (e) =>{
   //   console.log(e.target);

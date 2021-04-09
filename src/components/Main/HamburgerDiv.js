@@ -48,8 +48,10 @@ export class HamburgerDiv extends Component {
   }
 
   componentDidUpdate(){
-    if(this.state.currentActive !== this.props.history.location.pathname){
-      this.setState({currentActive: this.props.history.location.pathname})
+    if(this.props.history){
+      if(this.state.currentActive !== this.props.history.location.pathname){
+        this.setState({currentActive: this.props.history.location.pathname})
+      }
     }
   }
 
