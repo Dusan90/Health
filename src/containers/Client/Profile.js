@@ -5,7 +5,7 @@ import Profile from "../../components/Client/Profile";
 import { NotificationManager } from "react-notifications";
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
-import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
+// import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 class ClientProfile extends Component {
   constructor(props) {
@@ -190,7 +190,7 @@ const data = axios.put(url, form_data, {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv/>
+        {/* <HamburgerDiv/> */}
         <Profile
           client={this.state.client}
           handleSubmit={this.handleSubmit}

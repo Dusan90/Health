@@ -7,7 +7,7 @@ import curentDoc from "../../actions/docAction";
 import { popUp } from "../../actions/popUpAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import HamburgerDiv from "../../components/Main/HamburgerDiv";
+// import HamburgerDiv from "../../components/Main/HamburgerDiv";
 
 class ClientDashboard extends Component {
   _isMounted = false;
@@ -57,7 +57,7 @@ class ClientDashboard extends Component {
       })
       .then((response) => {
         this.connect(response.data.data.id);
-        this.props.curentDoc([response.data.data.user]);
+        this.props.curentDoc(response.data.data);
         return this.setState({ client: response.data.data });
       })
       .then(() => {
@@ -619,7 +619,7 @@ class ClientDashboard extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv />
+        {/* <HamburgerDiv /> */}
         <Dashboard
           initiate={this.initiate}
           hnlAlertClient={this.hnlAlertClient}

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import DoctorsLists from '../../components/Client/DoctorsList'
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
-import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
+// import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 import axios from 'axios'
 import { NotificationManager } from "react-notifications";
 // import { doctor } from '../../actions/examActions';
@@ -156,7 +156,7 @@ export class DoctorsList extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv/>
+        {/* <HamburgerDiv/> */}
 
                 <DoctorsLists   
                 props={this.state}

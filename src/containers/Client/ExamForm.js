@@ -6,7 +6,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
-import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
+// import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 class ExamForm extends Component {
   constructor(props) {
@@ -232,7 +232,7 @@ class ExamForm extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv />
+        {/* <HamburgerDiv /> */}
         <InitiateExam
           specialities={this.state.specialities}
           subject={this.state.subject}

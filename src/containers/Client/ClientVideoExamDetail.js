@@ -28,6 +28,9 @@ class ClientVideoExamDetail extends Component {
       video: true,
       audio: true,
     };
+    this.socket = new WebSocket(
+      `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
+    );
   }
 
   handleJoinRoom = (uid) => {    
@@ -64,6 +67,11 @@ class ClientVideoExamDetail extends Component {
 
     return jsonData;
   };
+
+  componentWillUnmount() {
+    this.socket.close();
+    
+  }
 
   detail = () => {
     const access_token = "Bearer ".concat(this.state.token);
@@ -152,7 +160,20 @@ class ClientVideoExamDetail extends Component {
 
   componentDidMount() {
     this.detail();
-  }
+
+    this.socket.onopen = () => {
+      console.log("connected");
+    };
+    this.socket.onmessage = (event) => {
+      let parsedEvent = JSON.parse(event.data);
+      console.log(parsedEvent);
+      if (parsedEvent.exam_id === parseInt(this.state.id)) {
+        // window.location.reload()
+        this.detail();
+      }
+    };
+    };
+  
 
   handleDivClose = () => {
     this.setState({ startVideo: false });

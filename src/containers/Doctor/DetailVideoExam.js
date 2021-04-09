@@ -32,6 +32,9 @@ class DetailVideoExam extends Component {
       selectedFile: ''
 
     };
+    this.socket = new WebSocket(
+      `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
+    );
   }
 
   detail = async (id) => {
@@ -152,14 +155,12 @@ class DetailVideoExam extends Component {
   
   const jsonData = await data;
   console.log(jsonData)
-  if (jsonData.data.success === true) {
-    if (jsonData.data.data.status !== "Declined" && jsonData.data.data.status !== "Finished") {
-      this.props.history.push("/dashboard-doctor");
-    }else{
-  
-      NotificationManager.success("Decline reason sent", "Successful!", 2000);
+  if (jsonData.data.success === true) { 
+    this.socket.send({
+      exam_id: this.state.id,
+      changedStatus: true,
+    }) 
       window.location.reload()
-    }
   }
 
   return data;
@@ -170,6 +171,17 @@ class DetailVideoExam extends Component {
     let id = this.props.match.params.id;
     this.setState({ id: id, PageonNav: 'consultDetail' });
     this.detail(id);
+    this.socket.onopen = () => {
+      console.log("connected");
+    };
+    this.socket.onmessage = (event) => {
+      let parsedEvent = JSON.parse(event.data);
+      console.log(parsedEvent);
+      if (parsedEvent.exam_id === parseInt(id)) {
+        // window.location.reload()
+        this.detail(id);
+      }
+    };
   }
 
   declineReason = (e)=>{
@@ -455,7 +467,7 @@ class DetailVideoExam extends Component {
     if (type === "mail") {
       this.props.history.push(`/doctor/exam/detail/${id}`);
     } else if (type === "video") {
-      this.props.history.push(`/doctor/video/exam/detail/${id}/#init`);
+      this.props.history.push(`/doctor/video/exam/detail/${id}/`);
       window.location.reload()
     } else if (type === "queue") {
       this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
@@ -469,6 +481,10 @@ class DetailVideoExam extends Component {
   handlePageChange = (pageNumber) => {
     this.setState({page: pageNumber});
     this.paginate(pageNumber)
+  }
+
+  componentWillUnmount() {
+    this.socket.close();
   }
 
 

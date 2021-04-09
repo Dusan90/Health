@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
 import Setting from '../../components/Doctor/Settings';
-import { HamburgerDiv } from '../../components/Main/HamburgerDiv';
+// import { HamburgerDiv } from '../../components/Main/HamburgerDiv';
 import { NotificationManager } from "react-notifications";
 
 
@@ -61,7 +61,7 @@ export class Settings extends Component {
               <Nav />
             </div>
           </div>
-          <HamburgerDiv/>
+          {/* <HamburgerDiv/> */}
           <Setting props={this.state} handleImage={this.handleImage} userLogin={this.userLogin} handleChange={this.handleChange}/>
           </>
         )

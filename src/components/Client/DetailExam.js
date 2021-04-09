@@ -6,7 +6,7 @@ import Select from "react-select";
 import moment from "moment";
 // import { MdReply } from "react-icons/md";
 // import { FiSend } from "react-icons/fi";
-import HamburgerDiv from '../Main/HamburgerDiv'
+// import HamburgerDiv from '../Main/HamburgerDiv'
 // import EmailIcon from '../../icons/icon_Email_blue.svg'
 // import attachIcon from '../../icons/attach_white.svg'
 
@@ -45,7 +45,7 @@ const Detail = ({
         <Nav />
       </div>
     </div>
-    <HamburgerDiv/>
+    {/* <HamburgerDiv/> */}
     {exam.map((exam) => {
       console.log(exam);
       let placeholder = exam.status === "Appointed" ? "Accepted" : exam.status;

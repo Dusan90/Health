@@ -2,7 +2,7 @@ import React from 'react'
 import '../../assets/DoctorsAlerts.scss'
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import HamburgerDiv from '../Main/HamburgerDiv';
+// import HamburgerDiv from '../Main/HamburgerDiv';
 import moment from 'moment'
 import loading from "../../icons/c+.svg";
 
@@ -16,7 +16,7 @@ function DoctorsAlertsComp({handleClick, props }) {
                 <Nav />
             </div>
         </div>
-        <HamburgerDiv/>
+        {/* <HamburgerDiv/> */}
         <div className="mainDoctorAlerts">
        <div className="iconAlert">
          {/* <img src={iconVideoBlue} alt="email" /> */}

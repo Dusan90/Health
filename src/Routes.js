@@ -34,6 +34,7 @@ import { NotificationContainer } from "react-notifications";
 import { Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "./components/Routes/PrivateRoute";
 import { PrivateRouteDoctor } from "./components/Routes/PrivateRouteDoctor";
+import {Private} from './components/Routes/Private'
 import Settings from "./containers/Doctor/Settings";
 import UpdateSettings from './containers/Doctor/UpdateSettings'
 import ClientSettings from './containers/Client/Settings'
@@ -44,6 +45,7 @@ import Verification from './VerificationInfo'
 import LogOutQuestion from './LogOutQuestion'
 import Room from './Room'
 import IdleTimerContainer from './components/IdleTimerContainer'
+import { HamburgerDiv } from "./components/Main/HamburgerDiv";
 
 // import NotFound from "./containers/Home/NotFound";
 
@@ -51,6 +53,8 @@ export class Routes extends Component {
   render() {
     return (
       <>
+
+        <Route path={["/dashboard-doctor", "/initiate", "/checkout", "/client/Doctor-detail/:id/", "/client/Doctor-list", "/client/video-request", "/doctors-settings", "/client-settings", "/client-update", "/client-alerts", "/client/video/exam/detail/:id",  "/client/exam/detail/:id", "/client/doc/:id", "/client/profile", "/dashboard-client", "/room/:roomID", "/doctors-update", "/doctors-alerts", "/doctors-clients", "/doctors-email-list", "/doctors-video-list", "/doctor/profile/", "/doctor/record/:id", "/doctor/calendar", "/doctor/exam/detail/:id", "/doctor/video/exam/detail/:id"]} component={HamburgerDiv} />
         <Switch />
         <Route path="/" exact component={Main} />
         <Route path="/register" exact component={Register} />
@@ -65,7 +69,7 @@ export class Routes extends Component {
           exact
           component={ChangePass}
         />
-        <Route path="/room/:roomID" exact component={Room} />
+        <Private path="/room/:roomID" exact component={Room} />
 
         <Route path="/api/auth/activate/:id/" exact component={Activate} />
 

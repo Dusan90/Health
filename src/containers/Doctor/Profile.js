@@ -5,7 +5,7 @@ import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
 // import { connect } from "react-redux";
 import { NotificationManager } from "react-notifications";
-import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
+// import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 // import moment from 'moment'
 
 const options = [
@@ -291,6 +291,7 @@ class DoctorProfile extends Component {
         this.handleDoctorProfile();
         // window.location.reload()
         this.setState({showSaveProfile: false, showSaveService: false})
+        window.location.reload()
       }
 
     }
@@ -476,7 +477,7 @@ class DoctorProfile extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv/>
+        {/* <HamburgerDiv/> */}
         <Profile
           status={options}
           doctor={this.state.doctor}

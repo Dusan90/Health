@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import EmailList from "../../components/Doctor/DoctorsEmailList";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import HamburgerDiv from "../../components/Main/HamburgerDiv";
+// import HamburgerDiv from "../../components/Main/HamburgerDiv";
 import axios from "axios";
 import { connect } from "react-redux";
 
@@ -119,7 +119,7 @@ export class DoctorsEmailList extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv />
+        {/* <HamburgerDiv /> */}
 
         <EmailList props={this.state} handleClick={this.handleClick} />
       </>

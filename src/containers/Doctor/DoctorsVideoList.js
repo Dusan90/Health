@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import VideoList from "../../components/Doctor/DoctorsVideoList";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import HamburgerDiv from "../../components/Main/HamburgerDiv";
+// import HamburgerDiv from "../../components/Main/HamburgerDiv";
 import axios from "axios";
 
 export class DoctorsVideoList extends Component {
@@ -69,7 +69,7 @@ export class DoctorsVideoList extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv />
+        {/* <HamburgerDiv /> */}
 
         <VideoList props={this.state} handleClick={this.handleClick} />
       </>

@@ -25,6 +25,8 @@ const Room = (props) => {
   const location = useLocation()
   const params = useParams()
   const history = useHistory()
+  !location.state && history.goBack()
+
 
 
   if(doctor === 'true'){

@@ -6,7 +6,7 @@ import "../../assets/detail_exam.scss";
 import moment from "moment";
 // import { MdReply } from "react-icons/md";
 // import { FiSend } from "react-icons/fi";
-import { HamburgerDiv } from "../Main/HamburgerDiv";
+// import { HamburgerDiv } from "../Main/HamburgerDiv";
 // import iconEmailBlue from '../../icons/icon_Email_blue.svg'
 // import attachIcon from '../../icons/attach_white.svg'
 
@@ -65,7 +65,7 @@ return (
         <Nav />
       </div>
     </div>
-    <HamburgerDiv/>
+    {/* <HamburgerDiv/> */}
     {exam &&
       exam.map((exam) => {
         let placeholder =

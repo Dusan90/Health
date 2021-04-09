@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
 import Update from '../../components/Client/UpdateSettings';
-import { HamburgerDiv } from '../../components/Main/HamburgerDiv';
+// import { HamburgerDiv } from '../../components/Main/HamburgerDiv';
 import { NotificationManager } from "react-notifications";
 
 
@@ -71,7 +71,7 @@ confirm_password: this.state.ConfNewPassword
               <Nav />
             </div>
           </div>
-          <HamburgerDiv/>
+          {/* <HamburgerDiv/> */}
           <Update props={this.state} userLogin={this.userLogin} handleImage1={this.handleImage1} handleImage2={this.handleImage2} handleChange={this.handleChange}/>
           </>
         )

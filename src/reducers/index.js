@@ -8,6 +8,7 @@ import clientReducer from "../reducers/clientReducer";
 import docReducer from "../reducers/docReducer";
 import popUpReducer from "../reducers/popUpReducer";
 import doctorStatusWRReducer from "../reducers/doctorStatusWRReducer";
+import trackHistoryReducer from './trackHistoryReducer'
 
 const allReducers = combineReducers({
   authReducer,
@@ -19,6 +20,7 @@ const allReducers = combineReducers({
   docReducer,
   popUpReducer,
   doctorStatusWRReducer,
+  trackHistoryReducer
 });
 
 export default allReducers;

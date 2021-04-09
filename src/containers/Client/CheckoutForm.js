@@ -15,7 +15,7 @@ import { FaPaypal } from "react-icons/fa";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
 import PaypalButton from "./PaypalCheckout";
-import HamburgerDiv from "../../components/Main/HamburgerDiv";
+// import HamburgerDiv from "../../components/Main/HamburgerDiv";
 import Loading from "../../icons/c+.svg";
 
 
@@ -247,7 +247,7 @@ class CheckoutForm extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv />
+        {/* <HamburgerDiv /> */}
         <h1 className="mainTitle">Payment</h1>
         <p className="underTitle">Choose payment method below</p>
         <div className="mainCardDiv">

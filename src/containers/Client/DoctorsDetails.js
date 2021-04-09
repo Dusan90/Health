@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import DoctorDetail from '../../components/Client/DoctorsDetails'
 import Nav from "../../components/Main/Navbar";
 import Header from "../../components/Main/Header";
-import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
+// import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 import axios from 'axios'
 
 export class DoctorsDetails extends Component {
@@ -66,7 +66,7 @@ export class DoctorsDetails extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv/>
+        {/* <HamburgerDiv/> */}
         <DoctorDetail doctor={this.state.doctor} props={this.state} main={this}
           />
             </>

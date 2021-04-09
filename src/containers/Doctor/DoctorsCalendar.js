@@ -13,7 +13,7 @@ import {
   Month,
   Agenda,
 } from "@syncfusion/ej2-react-schedule";
-import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
+// import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 export class DoctorsCalendar extends Component {
   constructor(props) {
@@ -47,10 +47,10 @@ export class DoctorsCalendar extends Component {
       })
       .then((response) => {
         console.log(response.data.data);
-        let accepted = response.data.data.video.filter((res) => {
-          return res.status === "Appointed";
-        });
-        const newObject = accepted.map((obj) => {
+        // let accepted = response.data.data.video.filter((res) => {
+        //   return res.status === "Appointed";
+        // });
+        const newObject = response.data.data.video.map((obj) => {
           return {
             client: obj.client,
             startTime: obj.appointed_date,
@@ -60,7 +60,6 @@ export class DoctorsCalendar extends Component {
             id: obj.id,
           };
         });
-
         this.setState({
           exams: [...this.state.exams.concat(newObject)],
         });
@@ -80,7 +79,7 @@ export class DoctorsCalendar extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv/>
+        {/* <HamburgerDiv/> */}
         <div
           style={{
             width: 'calc(100% - 480px)',

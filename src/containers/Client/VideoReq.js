@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { doctor } from "../../actions/examActions";
 import { NotificationManager } from "react-notifications";
 import moment from "moment";
-import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
+// import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 class ClientVideoReq extends Component {
   constructor(props) {
@@ -63,7 +63,7 @@ class ClientVideoReq extends Component {
       this.setState({
         selectedDateForEnd, selectedDateForStart, whichDayIsIt: this.state.workingHoursArray[0]['day']
       })
-    }else if (selectedWorkingHours.length !== 0){
+    }else if (selectedWorkingHours && selectedWorkingHours.length !== 0){
       let selecteddate = moment(date).format('YYYY-MM-DD')
       let selectedDateForStart = selecteddate + 'T' + selectedWorkingHours[0]['start_hour']; 
       let selectedDateForEnd = selecteddate + "T" + selectedWorkingHours[0]['end_hour']; 
@@ -278,7 +278,6 @@ console.log(e);
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, 'noviapinovitesssssssssssssssssttttttttttttt');
         this.setState({workingHoursArray: response.data.data})
       })
   }
@@ -288,7 +287,7 @@ console.log(e);
     document.getElementById('useForCleaning').value = ''
   }
 
-  componentDidMount() {
+  componentDidMount() { 
     this.handleClientProfile();
     axios
       .get("https://healthcarebackend.xyz/api/specialities/")
@@ -360,7 +359,7 @@ console.log(e);
             <Nav />
           </div>
         </div>
-        <HamburgerDiv />
+        {/* <HamburgerDiv /> */}
         <VideoReq
           handleSpeciality={this.handleSpeciality}
           handleDoctor={this.handleDoctor}

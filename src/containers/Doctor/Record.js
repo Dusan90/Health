@@ -3,7 +3,7 @@ import axios from "axios";
 import Record from "../../components/Doctor/Record";
 import Header from "../../components/Main/Header";
 import Nav from "../../components/Main/Navbar";
-import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
+// import { HamburgerDiv } from "../../components/Main/HamburgerDiv";
 
 class ClientRecord extends Component {
   constructor(props) {
@@ -346,7 +346,7 @@ class ClientRecord extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv/>
+        {/* <HamburgerDiv/> */}
         <Record
           record={this.state.record}
           props={this.state}

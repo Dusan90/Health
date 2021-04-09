@@ -4,7 +4,7 @@ import Nav from "../../components/Main/Navbar";
 import "../../assets/client/detail-exam.scss";
 import moment from "moment";
 import Select from "react-select";
-import HamburgerDiv from '../Main/HamburgerDiv'
+// import HamburgerDiv from '../Main/HamburgerDiv'
 
 
 const DetailVideo = ({
@@ -38,7 +38,7 @@ const DetailVideo = ({
           <Nav />
         </div>
       </div>
-      <HamburgerDiv/>
+      {/* <HamburgerDiv/> */}
       {exam.map((exam) => {
         console.log(exam);
         let placeholder =

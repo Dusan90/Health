@@ -15,7 +15,7 @@ import moment from "moment";
 // import { FaRocketchat } from "react-icons/fa";
 // import { MdClose } from "react-icons/md";
 // import { Rnd } from "react-rnd";
-import { HamburgerDiv } from "../Main/HamburgerDiv";
+// import { HamburgerDiv } from "../Main/HamburgerDiv";
 // import attachIcon from '../../icons/attach_white.svg'
 
 
@@ -100,7 +100,7 @@ const DetailVideo = ({
           <Nav />
         </div>
       </div>
-      <HamburgerDiv />
+      {/* <HamburgerDiv /> */}
 
       {exam.map((exam) => {
         let placeholder =

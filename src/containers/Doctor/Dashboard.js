@@ -9,7 +9,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
 // import { NotificationManager } from "react-notifications";
-import HamburgerDiv from "../../components/Main/HamburgerDiv";
+// import HamburgerDiv from "../../components/Main/HamburgerDiv";
 
 class DoctorDashboard extends Component {
   constructor(props) {
@@ -159,7 +159,7 @@ class DoctorDashboard extends Component {
     if (type === "mail") {
       this.props.history.push(`/doctor/exam/detail/${id}`);
     } else if (type === "video") {
-      this.props.history.push(`/doctor/video/exam/detail/${id}/#init`);
+      this.props.history.push(`/doctor/video/exam/detail/${id}`);
     } else if (type === "queue") {
       this.props.history.push(`/doctor/processing/video/exam/${id}/#init`);
     }
@@ -269,7 +269,7 @@ class DoctorDashboard extends Component {
           this.props.history.push(`/doctor/exam/detail/${id}/`);
     }
     if(type === 'video'){
-        this.props.history.push(`doctor/video/exam/detail/${id}/#init`);
+        this.props.history.push(`doctor/video/exam/detail/${id}/`);
     }
   };
 
@@ -590,7 +590,7 @@ class DoctorDashboard extends Component {
             <Nav />
           </div>
         </div>
-        <HamburgerDiv props={this} />
+        {/* <HamburgerDiv props={this} /> */}
         <Dashboard
           handleClick={this.handleClick}
           handleClickMail={this.handleClickMail}

@@ -20,20 +20,6 @@ import Settings from '../../icons/sideIcons/icon_menu_settings.svg'
 import LogOut from '../../icons/sideIcons/icon_menu_log-out.svg'
 import Doctors from '../../icons/sideIcons/icon_client_menu_doctor.svg'
 
-
-
-// import videoImg from "../../icons/icon_Video_Appointment_white.svg";
-// import consultationImg from "../../icons/icon_My-Consultations_white.png";
-// import doctorsImg from "../../icons/icon_my-profile_doctor_white_23px.png";
-// import clientsImg from '../../icons/icon_my_profile_client_white_23px.svg'
-// import calendar from "../../icons/icon_calendar_white.svg";
-// import alert from "../../icons/icon_alerts_white.svg";
-// import doctorsImg2 from '../../icons/icon_doctor_2_white.svg'
-// import logOutImg from "../../icons/icon_Log_Out_white.svg";
-// import settingsImg from "../../icons/icon_settings_white.svg";
-// import waitingRoomImg from "../../icons/icon_Waiting_Room_white.svg";
-// import emailImg from "../../icons/icon_Email_white.svg";
-
 export class HamburgerDiv extends Component {
   constructor(props) {
     super(props);
@@ -56,6 +42,16 @@ export class HamburgerDiv extends Component {
   handleHam = () => {
     this.setState({ hamburger: !this.state.hamburger });
   };
+
+  currentPage = (page) =>{
+    this.setState({currentActive: page})
+  }
+
+  componentDidUpdate(){
+    if(this.state.currentActive !== this.props.history.location.pathname){
+      this.setState({currentActive: this.props.history.location.pathname})
+    }
+  }
 
   componentDidMount(){
       const access_token = "Bearer ".concat(
@@ -118,7 +114,9 @@ export class HamburgerDiv extends Component {
             {this.state.fullName}
           </p>
         </div>
-        <Link className={`sideVideo ${this.state.currentActive.includes('dashboard-doctor') && 'active'}`}
+        <Link
+        onClick={() =>this.currentPage('/dashboard-doctor')}
+        className={`sideVideo ${this.state.currentActive.includes('dashboard-doctor') && 'active'}`}
         to='/dashboard-doctor'
          >
           <span className="video">
@@ -127,7 +125,9 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Dashboard</h2>
         </Link>
-        <Link className={`sideEmail ${this.state.currentActive.includes('doctors-clients') && 'active'}`}
+        <Link
+        onClick={() =>this.currentPage("/doctors-clients")}
+        className={`sideEmail ${this.state.currentActive.includes('doctors-clients') && 'active'}`}
         to="/doctors-clients"
         >
           <span className="email">
@@ -137,7 +137,9 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>My Patients</h2>
         </Link>
-        <Link className={`sideWaitingRoom ${this.state.currentActive.includes('calendar') && 'active'}`}
+        <Link
+        onClick={() =>this.currentPage("/doctor/calendar")}
+        className={`sideWaitingRoom ${this.state.currentActive.includes('calendar') && 'active'}`}
         to="/doctor/calendar"
         >
           <span className="clock">
@@ -147,7 +149,9 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Calendar</h2>
         </Link>
-        <Link to='/doctors-alerts' className={`sideMyCounsultation ${this.state.currentActive.includes('doctors-alerts') && 'active'}`}
+        <Link
+        onClick={() =>this.currentPage('/doctors-alerts')}
+        to='/doctors-alerts' className={`sideMyCounsultation ${this.state.currentActive.includes('doctors-alerts') && 'active'}`}
         >
           <span>
           <img src={Alert} alt="icon"/>
@@ -155,6 +159,7 @@ export class HamburgerDiv extends Component {
           <h2>Alerts</h2>
         </Link>
         <Link
+        onClick={() =>this.currentPage("/doctor/profile/")}
         to="/doctor/profile/"
           className={`sideMyAccount ${this.state.currentActive.includes('doctor/profile') && 'active'}`}
         >
@@ -165,7 +170,9 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Profile</h2>
         </Link>
-        <Link className={`sideHelp ${this.state.currentActive.includes('doctors-settings') && 'active'}`}
+        <Link
+        onClick={() =>this.currentPage("/doctors-settings")}
+        className={`sideHelp ${this.state.currentActive.includes('doctors-settings') && 'active'}`}
         to="/doctors-settings"
         > 
           <span className="help">
@@ -205,7 +212,9 @@ export class HamburgerDiv extends Component {
             {this.state.fullNameClient}
           </p>
         </div>
-        <Link className={`sideVideo ${this.state.currentActive.includes('dashboard-client') && 'active'}`}
+        <Link 
+        onClick={() =>this.currentPage('/dashboard-client')}
+        className={`sideVideo ${this.state.currentActive.includes('dashboard-client') && 'active'}`}
         to='/dashboard-client'
          >
           <span className="video">
@@ -214,7 +223,9 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Dashboard</h2>
         </Link>
-        <Link className={`sideEmail ${this.state.currentActive.includes('Doctor-list') && 'active'}`}
+        <Link
+        onClick={() =>this.currentPage("/client/Doctor-list/")}
+        className={`sideEmail ${this.state.currentActive.includes('Doctor-list') && 'active'}`}
         to="/client/Doctor-list/"
         >
           <span className="email">
@@ -224,7 +235,9 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Doctors</h2>
         </Link>
-        <Link to='/client-alerts' className={`sideMyCounsultation ${this.state.currentActive.includes('client-alerts') && 'active'}`}
+        <Link 
+        onClick={() =>this.currentPage('/client-alerts')}
+        to='/client-alerts' className={`sideMyCounsultation ${this.state.currentActive.includes('client-alerts') && 'active'}`}
         >
           <span>
           <img src={Alert} alt="icon"/>
@@ -232,6 +245,7 @@ export class HamburgerDiv extends Component {
           <h2>Alerts</h2>
         </Link>
         <Link
+        onClick={() =>this.currentPage("/client/profile/")}
         to="/client/profile/"
           className={`sideMyAccount ${this.state.currentActive.includes('client/profile') && 'active'}`}
         >
@@ -242,7 +256,10 @@ export class HamburgerDiv extends Component {
           </span>
           <h2>Profile</h2>
         </Link>
-        <Link to='/client-settings' className={`sideHelp ${this.state.currentActive.includes('client-settings') && 'active'}`}
+        <Link
+        onClick={() =>this.currentPage('/client-settings')}
+        
+        to='/client-settings' className={`sideHelp ${this.state.currentActive.includes('client-settings') && 'active'}`}
         > 
           <span className="help">
           <img src={Settings} alt="icon"/>
@@ -266,9 +283,9 @@ export class HamburgerDiv extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const doctor = state.getIn(["docReducer", "doctor"]);
+  const history = state.getIn(["trackHistoryReducer", "history"]);
   return {
-    doctor,
+    history,
   };
 };
 
