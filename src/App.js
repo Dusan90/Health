@@ -49,8 +49,6 @@ class App extends Component {
       ev.preventDefault();
       sessionStorage.getItem('is_doctor') === 'true' && this.handleSubmit('Offline')
   })
-
-    console.log(sessionStorage.getItem('statusChanged'));
    
   }
 
@@ -96,9 +94,7 @@ const data = axios.put(url, form_data, {
 })
 
 
-    console.log('submiting');
     const jsonData = await data;
-    console.log(jsonData, "profile changed");
     if(jsonData.data.success){
     }
   };

@@ -16,7 +16,7 @@ export class IdleTimerContainer extends Component {
     render() {
         this.props && this.props.trackHistory(this.props)
         const onIdle = () =>{
-            
+          console.log(this.props.history.push('/logout'));
         }
         return (
             <div>

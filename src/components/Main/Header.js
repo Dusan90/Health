@@ -100,7 +100,6 @@ const Header =
 
 const mapStateToProps = (state) => {
   const popUp = state.getIn(["popUpReducer", "popUp"]);
-  console.log(popUp);
   return {
     popUp,
   };

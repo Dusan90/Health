@@ -114,7 +114,7 @@ style={{ width: "150px" }}
           </div>
         </div>
       </div>
-      <div className="register-form" autoComplete='nope'>
+      <form className="register-form" autoComplete='none'>
         <div
           className="firstLastGender"
         >
@@ -123,7 +123,7 @@ style={{ width: "150px" }}
             <input
               type="text"
               className="form-control"
-              autoComplete='nope'
+              autoComplete='none'
               name='field'
               id="firstname"
               style={{background: !props.firstNameValue && props.color && 'rgb(245, 192, 192)'  }}
@@ -138,7 +138,7 @@ style={{ width: "150px" }}
               type="text"
               className="form-control"
               id="lastname"
-              autoComplete='nope'
+              autoComplete='none'
               name='field'
               style={{background: !props.lastNameValue && props.color && 'rgb(245, 192, 192)'  }}
               value={props.lastNameValue}
@@ -155,7 +155,7 @@ style={{ width: "150px" }}
               className="form-control"
               id="email"
               style={{background: !props.emailValue && props.color && 'rgb(245, 192, 192)'  }}
-              autoComplete="nope"
+              autoComplete="none"
               name='field'
               value={props.emailValue}
               onChange={handleEmail}
@@ -167,7 +167,7 @@ style={{ width: "150px" }}
             <input
               type="text"
               className="form-control"
-              autoComplete='nope'
+              autoComplete='none'
               name='field'
               style={{background: !props.addressValue && props.color && 'rgb(245, 192, 192)'  }}
               id="address"
@@ -180,7 +180,7 @@ style={{ width: "150px" }}
                   type="number"
                   className="form-control"
                   id="phone"
-                  autoComplete='nope'
+                  autoComplete='none'
                   name='field'
                   style={{background: !props.phoneNumber && props.color && 'rgb(245, 192, 192)'  }}
                   // onFocus={changeTextToDate}
@@ -199,7 +199,7 @@ style={{ width: "150px" }}
                 <input
                   type={props.seePass1 ? 'text' : "password"}
                   className="form-control"
-                  autoComplete="nope"
+                  autoComplete="none"
                   name='field'
                   id="pwd"
                   style={{background: !props.passwordValue && props.color && 'rgb(245, 192, 192)'  }}
@@ -214,12 +214,13 @@ style={{ width: "150px" }}
                 <label htmlFor="birthdate">Birth Date</label>
                 <input
                   type="date"
-                  className="form-control"
+                  className="form-control dateOnRegister"
                   id="birthdate"
-                  autoComplete='nope'
+                  autoComplete='none'
                   name='field'
+
                   // onFocus={changeTextToDate}
-                  style={{background: !props.birthDateValue && props.color && 'rgb(245, 192, 192)'  }}
+                  style={{background: !props.birthDateValue && props.color && 'rgb(245, 192, 192)', color: props.birthDateValue && '#666666'  }}
                   value={props.birthDateValue}
                   onChange={handleBirthDate}
                 />
@@ -233,7 +234,7 @@ style={{ width: "150px" }}
                   type={props.seePass2 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
-                  autoComplete="nope"
+                  autoComplete="none"
                   name='field'
                   style={{background: !props.confPasswordValue && props.color && 'rgb(245, 192, 192)'  }}
            
@@ -250,7 +251,7 @@ style={{ width: "150px" }}
                   type="number"
                   className="form-control"
                   id="phone"
-                  autoComplete='nope'
+                  autoComplete='none'
                   name='field'
                   style={{background: !props.phoneNumber && props.color && 'rgb(245, 192, 192)'  }}
                   // onFocus={changeTextToDate}
@@ -271,7 +272,7 @@ style={{ width: "150px" }}
                      type={props.seePass1 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
-                  autoComplete="nope"
+                  autoComplete="none"
                   name='field'
                   value={props.passwordValue}
                   style={{background: !props.passwordValue && props.color && 'rgb(245, 192, 192)'  }}
@@ -287,7 +288,7 @@ style={{ width: "150px" }}
                   type="text"
                   className="form-control"
                   id="organization"
-                  autoComplete='nope'
+                  autoComplete='none'
                   name='field'
                   style={{background: !props.organization && props.color && 'rgb(245, 192, 192)'  }}
                   value={props.organization}
@@ -303,7 +304,7 @@ style={{ width: "150px" }}
                    type={props.seePass2 ? 'text' : "password"}
                   className="form-control"
                   id="pwd"
-                  autoComplete="nope"
+                  autoComplete="none"
                   name='field'
                   value={props.confPasswordValue}
                   style={{background: !props.confPasswordValue && props.color && 'rgb(245, 192, 192)'  }}
@@ -331,13 +332,14 @@ style={{ width: "150px" }}
           <button
             type="submit"
             className="btn"
+            autoComplete='on'
             // value={submitValue}
             onClick={handleSubmit}
           >
             Sign Up
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

@@ -53,9 +53,7 @@ const data = axios.put(url, form_data, {
 })
 
 
-    console.log('submiting');
     const jsonData = await data;
-    console.log(jsonData, "profile changed");
     if(jsonData.data.success){
     }
   };
@@ -124,7 +122,6 @@ const data = axios.put(url, form_data, {
 const mapStateToProps = (state) => {
   const user = state.get("user");
   const isLoggedIn = state.get("isLoggedIn");
-  console.log(isLoggedIn, user, "logOutttttttt");
 
   return {
     user,

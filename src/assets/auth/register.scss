@@ -371,6 +371,7 @@
 
             padding-right: 30px;
           }
+
           img {
             position: absolute;
             right: 5px;
@@ -400,6 +401,9 @@
           font-weight: 700;
           flex: 1;
           margin: 0;
+        }
+        .dateOnRegister {
+          color: rgb(156, 155, 155);
         }
       }
     }
