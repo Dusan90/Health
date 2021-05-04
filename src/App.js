@@ -48,6 +48,8 @@ class App extends Component {
     window.addEventListener("unload", (ev) => {  
       ev.preventDefault();
       sessionStorage.getItem('is_doctor') === 'true' && this.handleSubmit('Offline')
+      sessionStorage.removeItem('socketConnected');
+
   })
    
   }

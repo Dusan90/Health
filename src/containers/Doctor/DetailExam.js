@@ -3,6 +3,10 @@ import axios from "axios";
 // import { connect } from "react-redux";
 import Detail from "../../components/Doctor/DetailExam";
 import { NotificationManager } from "react-notifications";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { connectToWebSocket } from "../../actions/connectToWebSocketAction";
 
 class DetailExam extends Component {
   constructor(props) {
@@ -30,7 +34,7 @@ class DetailExam extends Component {
       messageIfEmpty: "",
       paginatedExams: [],
       searchedUpcomingOrPast: [],
-      exams: []
+      exams: [],
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
@@ -170,32 +174,32 @@ class DetailExam extends Component {
       .then((response) => {
         let current = response.data.data;
         // this.peopleInWaitingRoom(current.id);
-        this.connecSocket(current.id);
+
+        this.connect();
       });
   }
 
 
-  connecSocket = (id) => {
-    const webs = new WebSocket(
-      `wss://healthcarebackend.xyz/ws/dashboard/doctor/${id}/`
-    );
-
-    webs.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log("connected to port");
-    };
-    webs.onmessage = (e) => {
-      // listen to data sent from the websocket server
-      const message = JSON.parse(e.data);
-      console.log(message);
-      if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
-        console.log('da li se ovo pokrece nekako');
-        this.detail(this.state.id);
-        this.correspondence(this.state.id);
-      }
-      
-
-    };
+  connect = () => {
+    if(!sessionStorage.getItem('socketConnected')){
+      this.props.connectToWebSocket(new WebSocket(
+        `wss://healthcarebackend.xyz/ws/dashboard/doctor/${this.state.id}/`
+      ))
+      this.props.connection.onopen = () => {
+        console.log("connected to port");
+        sessionStorage.setItem('socketConnected', 'true');
+  
+      };
+    }
+      this.props.connection.onmessage = (e) => {
+        console.log(e);
+           const message = JSON.parse(e.data);
+        if (JSON.parse(e.data).modified) {
+          NotificationManager.error("Exam modified", "New Alert!", 2000);
+        }
+        if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
+          this.detail(this.state.id)
+      }}
   };
 
   
@@ -689,4 +693,15 @@ class DetailExam extends Component {
   }
 }
 
-export default DetailExam;
+const mapStateToProps = (state) => {
+  const connection = state.getIn(["connectToWebSocketReducer", "connection"]);
+  return {
+    connection,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ connectToWebSocket: connectToWebSocket }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailExam);

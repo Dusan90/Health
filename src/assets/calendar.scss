@@ -1,5 +1,16 @@
-.e-header-icon-wrapper{
-    .e-edit, .e-delete{
-        display: none !important;
-    }
+.e-header-icon-wrapper {
+  .e-edit,
+  .e-delete {
+    display: none !important;
+  }
+}
+.e-input-group {
+  .e-input {
+    display: none !important;
+  }
+}
+
+.e-event-create,
+.e-event-details {
+  display: none !important;
 }

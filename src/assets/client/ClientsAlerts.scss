@@ -59,7 +59,7 @@
       width: 100%;
       margin: 0;
       padding: 10px;
-      color: #00aff0;
+      color: #666666;
 
       tbody {
         transition: all 0.5s ease-in-out;
@@ -77,33 +77,46 @@
               margin: 2px 0 0 0;
             }
           }
+          .client-trash {
+            color: red;
+            transition: 0.5s ease-in-out;
+            &:hover {
+              background: red;
+              color: white;
+            }
+          }
         }
       }
       .client-head {
         text-align: center;
         color: #666666;
-
         .client-row {
           height: 40px;
+          width: 100%;
           color: white;
           background: #fa9551;
-          display: flex;
-          justify-content: space-evenly;
-          border-top-left-radius: 15px;
-          border-top-right-radius: 15px;
 
           .client-doctor {
+            align-self: center;
+            text-align: center;
             border-top-left-radius: 15px;
-            width: 50%;
+          }
+          .client-date {
+            text-align: left;
             align-self: center;
             text-align: center;
           }
-          .client-date {
-            width: 50%;
-            text-align: left;
-            border-top-right-radius: 15px;
+          .client-type {
             align-self: center;
             text-align: center;
+          }
+          .client-subject {
+            align-self: center;
+            text-align: center;
+          }
+          .client-trash {
+            width: 40px;
+            border-top-right-radius: 15px;
           }
         }
       }

@@ -24,8 +24,6 @@ const Detail = ({
   handleExtendDiv,
   clearFile
 }) =>{
-  console.log(props.correspondence, 'correspodencesesdfa');
-  console.log(exam, 'exaaaaaaaaaaaaam');
   const customStyles = {
     control: () => ({
       // none of react-select's styles are passed to <Control />

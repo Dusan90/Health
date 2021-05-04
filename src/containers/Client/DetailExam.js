@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import Detail from "../../components/Client/DetailExam";
 import { NotificationManager } from "react-notifications";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { connectToWebSocket } from "../../actions/connectToWebSocketAction";
+
+
 
 class ClientDetailExam extends Component {
   constructor(props) {
@@ -18,7 +24,7 @@ class ClientDetailExam extends Component {
       messageValue: "",
       selectedFile: '',
       doctor: '',
-      client: ''
+      client: '',
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
@@ -28,9 +34,9 @@ class ClientDetailExam extends Component {
   handleStatus = (statusValue) => {
     this.setState({ statusValue });
     let { value, label } = statusValue;
-    console.log(value, label);
-    this.setState({ selectedStatus: value });
+
     this.handleCancel(value);
+    this.setState({ selectedStatus: value });
   };
 
   handleCancel = async (value) => {
@@ -50,7 +56,7 @@ class ClientDetailExam extends Component {
     );
     const jsonData = await doctor.json();
     // this.toRefund();
-    console.log(jsonData);
+
     jsonData.success &&  this.props.history.push("/dashboard-client");
     return jsonData;
   };
@@ -62,14 +68,13 @@ class ClientDetailExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "detailex");
+      
 
         this.setState({ exam: [response.data.data], doctor: response.data.data.doctor });
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
     let square = document.getElementById('imageDiv1')
 
-        console.log(mess.scrollHeight);
         if(mess.scrollHeight > 100){
           mess.style.height = `${mess.scrollHeight}px`
           messageDiv.style.height = `${mess.scrollHeight + 60}px` 
@@ -88,7 +93,6 @@ class ClientDetailExam extends Component {
     let mess = document.getElementById('messageMainText')
     let messageDiv = document.querySelector('.messageDiv')
     // let square = document.getElementById('imageDiv1')
-    console.log(mess);
       if(mess.clientHeight > 100){
         mess.style.height = '100px'
         messageDiv.style.height = `${120}px`
@@ -101,7 +105,6 @@ class ClientDetailExam extends Component {
 
   componentWillUnmount() {
     this.socket.close();
-    
   }
 
   componentDidMount() {
@@ -130,34 +133,33 @@ class ClientDetailExam extends Component {
       })
       .then((response) => {
         let name = `${response.data.data.user.first_name} ${response.data.data.user.last_name}`
-        this.connect(response.data.data.id);
+        this.connect();
         return this.setState({ client: name });
       })
 
       
   }
 
-  connect = (id) => {
-    const wss = new WebSocket(
-      `wss://healthcarebackend.xyz/ws/dashboard/client/${id}/`
-    );
-
-    wss.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log("connected to test socket");
-    };
-    wss.onmessage = (e) => {
-      // listen to data sent from the websocket server
-      const message = JSON.parse(e.data);
-      console.log(message);
-      if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
-        console.log('da li se ovo pokrece nekako');
-        this.detail(this.state.id);
-        this.correspondence(this.state.id);
-      }
-      
-
-    };
+  connect = () => {
+    if(!sessionStorage.getItem('socketConnected')){
+      this.props.connectToWebSocket(new WebSocket(
+        `wss://healthcarebackend.xyz/ws/dashboard/client/${this.state.id}/`
+      ))
+      this.props.connection.onopen = () => {
+        console.log("connected to port");
+        sessionStorage.setItem('socketConnected', 'true');
+  
+      };
+    }
+      this.props.connection.onmessage = (e) => {
+        console.log(e);
+           const message = JSON.parse(e.data);
+        if (JSON.parse(e.data).modified) {
+          NotificationManager.error("Exam modified", "New Alert!", 2000);
+        }
+        if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
+          this.detail()
+      }}
   };
 
   handleMessage = (e) => {
@@ -176,7 +178,6 @@ class ClientDetailExam extends Component {
   };
 
   onChangeHandler = (e) => {
-    console.log(e);
     // const propertyValues = Object.values(e.target.files);
 
     // this.setState({
@@ -216,7 +217,6 @@ class ClientDetailExam extends Component {
     })
     
     const jsonData = await data;
-    console.log(jsonData);
     if(jsonData.data.success){
          NotificationManager.success("Message Sent", "Successful!", 2000);
       this.socket.send({
@@ -269,7 +269,6 @@ class ClientDetailExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        console.log(response, "correspondence");
 
         const res = response.data.data.map((val) => {
           return {
@@ -313,7 +312,6 @@ class ClientDetailExam extends Component {
               div.style.display = 'block'
           
               div.onclick = function() { 
-                console.log(ex.clientHeight)
                 if(ex.clientHeight > 100){
                   ex.style.height = '100px'
                 }else{
@@ -350,7 +348,6 @@ class ClientDetailExam extends Component {
   }
 
   render() {
-    console.log(this.state.id);
     return (
       <>
         <Detail
@@ -370,4 +367,15 @@ class ClientDetailExam extends Component {
   }
 }
 
-export default ClientDetailExam;
+const mapStateToProps = (state) => {
+  const connection = state.getIn(["connectToWebSocketReducer", "connection"]);
+  return {
+    connection,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ connectToWebSocket: connectToWebSocket }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClientDetailExam);

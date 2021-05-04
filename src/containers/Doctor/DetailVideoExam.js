@@ -3,6 +3,10 @@ import axios from "axios";
 import DetailVideo from "../../components/Doctor/DetailVideoExam";
 import { NotificationManager } from "react-notifications";
 // const connection = new WebSocket("wss://healthcarebackend.xyz/wss/video/");
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { connectToWebSocket } from "../../actions/connectToWebSocketAction";
 
 
 class DetailVideoExam extends Component {
@@ -29,8 +33,7 @@ class DetailVideoExam extends Component {
       paginatedExams: [],
       searchedUpcomingOrPast: [],
       exams: [],
-      selectedFile: ''
-
+      selectedFile: '',
     };
     this.socket = new WebSocket(
       `wss://healthcarebackend.xyz/ws/message/${this.props.match.params.id}/`
@@ -45,7 +48,7 @@ class DetailVideoExam extends Component {
       })
       .then((response) => {
         console.log(response, 'test');
-        this.setState({ exam: this.state.exam.concat(response.data.data), 
+        this.setState({ exam: [response.data.data], 
           clientID: response.data.data.client_id
          });
          this.record(response.data.data.client_id)
@@ -182,6 +185,10 @@ class DetailVideoExam extends Component {
         this.detail(id);
       }
     };
+    setTimeout(() => {
+      this.connect()
+    });
+
   }
 
   declineReason = (e)=>{
@@ -487,11 +494,27 @@ class DetailVideoExam extends Component {
     this.socket.close();
   }
 
-
-
-
-
-
+  connect = () => {
+    if(!sessionStorage.getItem('socketConnected')){
+      this.props.connectToWebSocket(new WebSocket(
+        `wss://healthcarebackend.xyz/ws/dashboard/doctor/${this.state.id}/`
+      ))
+      this.props.connection.onopen = () => {
+        console.log("connected to port");
+        sessionStorage.setItem('socketConnected', 'true');
+  
+      };
+    }
+      this.props.connection.onmessage = (e) => {
+        console.log(e);
+           const message = JSON.parse(e.data);
+        if (JSON.parse(e.data).modified) {
+          NotificationManager.error("Exam modified", "New Alert!", 2000);
+        }
+        if(message.id === JSON.parse(this.state.id) && message.exam_type === "video" ){
+          this.detail(this.props.match.params.id)
+      }}
+  };
 
 
 
@@ -532,5 +555,16 @@ class DetailVideoExam extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  const connection = state.getIn(["connectToWebSocketReducer", "connection"]);
+  return {
+    connection,
+  };
+};
 
-export default DetailVideoExam;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ connectToWebSocket: connectToWebSocket }, dispatch);
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailVideoExam);

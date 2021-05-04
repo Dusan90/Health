@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DetailVideo from "../../components/Client/ClientVideoExamDetail";
+import { NotificationManager } from "react-notifications";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { connectToWebSocket } from "../../actions/connectToWebSocketAction";
+
 
 // const connection = new WebSocket("wss://healthcarebackend.xyz/wss/video/");
 // var Peer = require("simple-peer");
@@ -70,7 +76,6 @@ class ClientVideoExamDetail extends Component {
 
   componentWillUnmount() {
     this.socket.close();
-    
   }
 
   detail = () => {
@@ -82,9 +87,10 @@ class ClientVideoExamDetail extends Component {
       .then((response) => {
         console.log(response.data);
         this.setState({
-          exam: this.state.exam.concat(response.data.data),
+          exam: [response.data.data],
           appointedDate: response.data.data.appointed_date,
         });
+
         let mess = document.getElementById('messageMainText')
         let messageDiv = document.querySelector('.messageDiv')
         let queue = document.getElementById('imageDiv1')
@@ -118,6 +124,28 @@ class ClientVideoExamDetail extends Component {
           divsquare.style.display = 'none'
         }
       });
+  };
+
+  connect = () => {
+    if(!sessionStorage.getItem('socketConnected')){
+      this.props.connectToWebSocket(new WebSocket(
+        `wss://healthcarebackend.xyz/ws/dashboard/client/${this.state.id}/`
+      ))
+      this.props.connection.onopen = () => {
+        console.log("connected to port");
+        sessionStorage.setItem('socketConnected', 'true');
+  
+      };
+    }
+      this.props.connection.onmessage = (e) => {
+        console.log(e);
+           const message = JSON.parse(e.data);
+        if (JSON.parse(e.data).modified) {
+          NotificationManager.error("Exam modified", "New Alert!", 2000);
+        }
+        if(message.id === JSON.parse(this.state.id) && message.exam_type === "video" ){
+          this.detail()
+      }}
   };
 
   extendreport= (e) =>{
@@ -160,7 +188,6 @@ class ClientVideoExamDetail extends Component {
 
   componentDidMount() {
     this.detail();
-
     this.socket.onopen = () => {
       console.log("connected");
     };
@@ -172,6 +199,9 @@ class ClientVideoExamDetail extends Component {
         this.detail();
       }
     };
+    setTimeout(() => {
+      this.connect()
+    });
     };
   
 
@@ -199,4 +229,15 @@ class ClientVideoExamDetail extends Component {
   }
 }
 
-export default ClientVideoExamDetail;
+const mapStateToProps = (state) => {
+  const connection = state.getIn(["connectToWebSocketReducer", "connection"]);
+  return {
+    connection,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ connectToWebSocket: connectToWebSocket }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClientVideoExamDetail);

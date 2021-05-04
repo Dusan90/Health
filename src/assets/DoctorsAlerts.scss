@@ -80,6 +80,12 @@
             }
           }
           .client-trash {
+            color: red;
+            transition: 0.5s ease-in-out;
+            &:hover {
+              background: red;
+              color: white;
+            }
           }
         }
       }
@@ -89,20 +95,25 @@
 
         .client-row {
           height: 40px;
+          width: 100%;
           color: white;
           background: #fa9551;
-          // display: flex;
-          // justify-content: space-evenly;
 
           .client-doctor {
-            width: 50%;
             align-self: center;
             text-align: center;
             border-top-left-radius: 15px;
           }
           .client-date {
-            width: 50%;
             text-align: left;
+            align-self: center;
+            text-align: center;
+          }
+          .client-type {
+            align-self: center;
+            text-align: center;
+          }
+          .client-subject {
             align-self: center;
             text-align: center;
           }

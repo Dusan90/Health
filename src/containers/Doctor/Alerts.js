@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import DoctorsAlertsComp from "../../components/Doctor/DoctorsAlertsComp";
 import axios from "axios";
 import moment from 'moment'
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { NotificationManager } from "react-notifications";
+
+
+import { connectToWebSocket } from "../../actions/connectToWebSocketAction";
 
 export class Alerts extends Component {
   constructor(props) {
@@ -16,6 +22,7 @@ export class Alerts extends Component {
 
   componentDidMount() {
     this.handleDoctorProfile();
+    
   }
 
   handleDoctorProfile = async () => {
@@ -26,6 +33,9 @@ export class Alerts extends Component {
       })
       .then((response) => {
         let current = response.data.data;
+        setTimeout(() => {
+          this.connect(current.id)
+        });
         // this.peopleInWaitingRoom(current.id);
         this.paginatedExams();
       });
@@ -34,42 +44,16 @@ export class Alerts extends Component {
   paginatedExams = async () => {
     const access_token = "Bearer ".concat(this.state.token);
     axios
-      .get(`https://healthcarebackend.xyz/api/exams/doctor/`, {
+      .get(`https://healthcarebackend.xyz/api/doctor/notifications/`, {
         headers: { Authorization: access_token },
       })
       .then((res) => {
         console.log(res);
-        if (
-          res.data.data.mail.length !== 0 ||
-          res.data.data.video.length !== 0
-        ) {
-          const filteredMail =
-            res.data.data.mail.length !== 0
-              ? res.data.data.mail.filter(
-                  (ex) => ex.transaction["status"] !== "Pending" && !ex.is_read
-                )
-              : [];
-          const filteredVideo =
-            res.data.data.video.length !== 0
-              ? res.data.data.video.filter(
-                  (ex) => ex.transaction["status"] !== "Pending" && !ex.is_read
-                )
-              : [];
-          let combineExams = filteredMail.concat(filteredVideo);
-          if (combineExams.length === 0) {
-            this.setState({ messageOnScreen: "No alerts" });
-          }
-          const alertSorted = [...combineExams].sort((a, b) => moment(b.created) - moment(a.created))
-          console.log(alertSorted);
-          this.setState({
-            exams: alertSorted,
-            loading: false,
-          });
-        }
+        this.setState({exams: res.data.data, loading: false})
       })
       .catch((error) => {
         console.log(error.response, "error");
-        this.setState({ loading: false });
+        this.setState({ loading: false, messageOnScreen: 'No alerts', exams: [] });
       });
   };
 
@@ -105,6 +89,25 @@ export class Alerts extends Component {
   //     });
   // };
 
+  connect = (id) => {
+    if(!sessionStorage.getItem('socketConnected')){
+      this.props.connectToWebSocket(new WebSocket(
+        `wss://healthcarebackend.xyz/ws/dashboard/doctor/${id}/`
+      ))
+      this.props.connection.onopen = () => {
+        console.log("connected to port");
+        sessionStorage.setItem('socketConnected', 'true');
+  
+      };
+    }
+      this.props.connection.onmessage = (e) => {
+        console.log(e.data);
+        if (JSON.parse(e.data).modified) {
+          NotificationManager.error("Exam modified", "New Alert!", 2000);
+          this.paginatedExams()
+        }
+  }}
+
   handleClick = async (id, type) => {
 
     if(type === 'mail'){
@@ -115,14 +118,38 @@ export class Alerts extends Component {
       }
   };
 
+  handleDelete = async (id) =>{
+    const access_token = "Bearer ".concat(this.state.token);
+    console.log(id);
+      let data = axios.delete(`https://healthcarebackend.xyz/api/doctor/notifications/${id}/`, {
+        headers: {
+          Authorization: access_token
+        }
+      });
+      const jsonData = await data
+      console.log(jsonData);
+      this.paginatedExams()
+  }
+
   
   render() {
     return (
       <>
-        <DoctorsAlertsComp props={this.state} handleClick={this.handleClick} />
+        <DoctorsAlertsComp props={this.state} handleClick={this.handleClick} handleDelete={this.handleDelete} />
       </>
     );
   }
 }
 
-export default Alerts;
+const mapStateToProps = (state) => {
+  const connection = state.getIn(["connectToWebSocketReducer", "connection"]);
+  return {
+    connection,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ connectToWebSocket: connectToWebSocket }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Alerts);

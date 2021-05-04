@@ -94,6 +94,7 @@ export class DoctorsCalendar extends Component {
               end: "17:00",
             }}
             selectedDate={new Date()}
+            isSlotAvailable
             eventSettings={{
               dataSource: this.state.exams,
               fields: {

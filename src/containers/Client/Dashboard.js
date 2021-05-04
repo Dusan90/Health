@@ -5,8 +5,11 @@ import Nav from "../../components/Main/Navbar";
 import Dashboard from "../../components/Client/Dashboard";
 import curentDoc from "../../actions/docAction";
 import { popUp } from "../../actions/popUpAction";
+import { connectToWebSocket } from "../../actions/connectToWebSocketAction";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { NotificationManager } from "react-notifications";
+
 // import HamburgerDiv from "../../components/Main/HamburgerDiv";
 
 class ClientDashboard extends Component {
@@ -33,7 +36,7 @@ class ClientDashboard extends Component {
       searchType: "",
       filterFiltered: [],
       searchedUpcomingOrPast: [],
-
+      wss: ''
 
     };
   }
@@ -56,7 +59,15 @@ class ClientDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
-        this.connect(response.data.data.id);
+    if(!sessionStorage.getItem('socketConnected')){
+      this.props.connectToWebSocket(new WebSocket(
+        `wss://healthcarebackend.xyz/ws/dashboard/client/${response.data.data.id}/`
+      ))
+        // this.setState({wss: new WebSocket(
+        //     `wss://healthcarebackend.xyz/ws/dashboard/client/${response.data.data.id}/`
+        //   )})
+      }
+      this.connect();
         this.props.curentDoc(response.data.data);
         return this.setState({ client: response.data.data });
       })
@@ -84,43 +95,56 @@ class ClientDashboard extends Component {
   //   }
   // };
 
-  connect = (id) => {
-    const wss = new WebSocket(
-      `wss://healthcarebackend.xyz/ws/dashboard/client/${id}/`
-    );
+  connect = () => {
+    // const wss = new WebSocket(
+    //   `wss://healthcarebackend.xyz/ws/dashboard/client/${id}/`
+    // );
+    if(!sessionStorage.getItem('socketConnected')){
+      
+      this.props.connection.onopen = () => {
+            // on connecting, do nothing but log it to the console
+            console.log("connected to dashboard socket");
+            sessionStorage.setItem('socketConnected', 'true');
 
-    wss.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log("connected to dashboard socket");
-    };
-    wss.onmessage = (e) => {
+          };
+         
+
+    }
+    this.props.connection.onmessage = (e) => {
       console.log(e);
       // listen to data sent from the websocket server
-      const message = JSON.parse(e.data);
-      message.status === "Accepted" &&
-        message.exam_type === "queue" &&
-        this.props.popUp();
+      // const message = JSON.parse(e.data);
+      // message.status === "Accepted" &&
+      //   message.exam_type === "queue" &&
+      //   this.props.popUp();
 
-      let socketExam = this.state.exams.filter((exam) => {
-        return exam.id === message.id;
-      });
-      if (socketExam.length !== 0) {
-        this.paginatedExams();
+      if (JSON.parse(e.data).modified) {
+        NotificationManager.error("Exam modified", "New Alert!", 2000);
       }
+
+      // let socketExam = this.state.exams.filter((exam) => {
+      //   return exam.id === message.id;
+      // });
+      // if (socketExam.length !== 0) {
+      // }
+      this.paginatedExams();
     };
-    wss.onclose = (e) => {
+    this.props.connection.onclose = (e) => {
       console.log(`Socket is closed`);
     };
-    wss.onerror = (err) => {
+    this.props.connection.onerror = (err) => {
       console.error(
         "Socket encountered error: ",
         err.message,
         "Closing socket"
       );
     };
+    
+   
   };
 
   componentWillUnmount() {
+   
     this._isMounted = false;
       if(window.location.pathname === "/login"){
         this.props.history.push('/logOutQuestion')
@@ -646,8 +670,16 @@ class ClientDashboard extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ curentDoc: curentDoc, popUp: popUp }, dispatch);
+
+const mapStateToProps = (state) => {
+  const connection = state.getIn(["connectToWebSocketReducer", "connection"]);
+  return {
+    connection,
+  };
 };
 
-export default connect(null, mapDispatchToProps)(ClientDashboard);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ curentDoc: curentDoc, popUp: popUp, connectToWebSocket: connectToWebSocket }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClientDashboard);

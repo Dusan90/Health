@@ -8,7 +8,8 @@ import { statusChangeWR } from "../../actions/doctorStatusWR";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
-// import { NotificationManager } from "react-notifications";
+import { NotificationManager } from "react-notifications";
+import {connectToWebSocket} from '../../actions/connectToWebSocketAction'
 // import HamburgerDiv from "../../components/Main/HamburgerDiv";
 
 class DoctorDashboard extends Component {
@@ -41,7 +42,7 @@ class DoctorDashboard extends Component {
       searchByTypeClick: false,
       searchType: "",
       firstLoad: true,
-      alerts: []
+      alerts: [],
     };
   }
 
@@ -210,14 +211,13 @@ class DoctorDashboard extends Component {
               return null;
             }
           });
-          const alerts = combineExams.filter(ex => !ex.is_read)
-          const alertSorted = [...alerts].sort((a, b) => moment(b.created) - moment(a.created))
+         
 
           this.setState({
             videoPending: pending,
             loading: false,
             numOfMessages: nowON.length,
-            alerts: alertSorted
+         
           });
         }
       })
@@ -225,10 +225,26 @@ class DoctorDashboard extends Component {
         // this.peopleInWaitingRoom(this.state.doctorCurent.id);
         this.handleAll();
         this.paginate(this.state.page);
+        this.getAlerts()
         // this.getUnreadMessages(this.state.doctorCurent.id);
       })
       .catch((error) => {
         console.log(error.response, "error");
+        this.setState({ loading: false });
+      });
+  };
+
+  getAlerts = async () => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/doctor/notifications/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((res) => {
+        const alertSorted = res.data.data.sort((a, b) => moment(b.created) - moment(a.created))
+        this.setState({alerts: alertSorted})       
+      })
+      .catch((error) => {
         this.setState({ loading: false });
       });
   };
@@ -296,8 +312,14 @@ class DoctorDashboard extends Component {
         let current = response.data.data;
         console.log(current)
         // this.peopleInWaitingRoom(current.id);
-        this.connecSocket(current.id);
-
+    if(!sessionStorage.getItem('socketConnected')){
+      this.props.connectToWebSocket(new WebSocket(
+        `wss://healthcarebackend.xyz/ws/dashboard/doctor/${current.id}/`
+      ))
+    }
+    setTimeout(() => {
+      this.connecSocket();
+    });
         this.props.curentDoc(current);
         this.paginatedExams();
         return this.setState({
@@ -378,28 +400,29 @@ class DoctorDashboard extends Component {
   }
   
   componentWillUnmount(){
+  
     if(window.location.pathname === "/login"){
       this.props.history.push('/logOutQuestion')
     }
   }
 
-  connecSocket = (id) => {
-    const webs = new WebSocket(
-      `wss://healthcarebackend.xyz/ws/dashboard/doctor/${id}/`
-    );
-
-    webs.onopen = () => {
-      // on connecting, do nothing but log it to the console
-      console.log("connected to port");
-    };
-    webs.onmessage = (event) => {
+  connecSocket = () => {
+    if(!sessionStorage.getItem('socketConnected')){
+      this.props.connection.onopen = () => {
+        // on connecting, do nothing but log it to the console
+        console.log("connected to port");
+        sessionStorage.setItem('socketConnected', 'true');
+  
+      };
+    }
+    this.props.connection.onmessage = (event) => {
       console.log(event);
-      // if (JSON.parse(event.data).modified) {
-      //   this.setState({alert: [...this.state.alerts, JSON.parse(event.data)]})
-      // }
+      if (JSON.parse(event.data).modified) {
+        NotificationManager.error("Exam modified", "New Alert!", 2000);
+      }
       this.messagesNumber();
     };
-    webs.onclose = () => {
+    this.props.connection.onclose = () => {
       console.error("disconected");
     };
   };
@@ -626,9 +649,16 @@ class DoctorDashboard extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    { curentDoc: curentDoc, statusChangeWR: statusChangeWR },
+    { curentDoc: curentDoc, statusChangeWR: statusChangeWR, connectToWebSocket: connectToWebSocket },
     dispatch
   );
 };
 
-export default connect(null, mapDispatchToProps)(DoctorDashboard);
+const mapStateToProps = (state) => {
+  const connection = state.getIn(["connectToWebSocketReducer", "connection"]);
+  return {
+    connection,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DoctorDashboard);

@@ -56,39 +56,6 @@ const Dashboard = ({
         <div className="dashboardIcon">
           <h4>Dashboard</h4>
         </div>{" "}
-        <div className="divClock">
-          <div className="waitRoom1" onClick={hnlAlertsClick}>
-            <span className="clock">
-              <img
-                src={enterWaitingRoom}
-                className="icon"
-                alt="enter Waiting room"
-              />
-              {/* <GoClock className="icon" /> */}
-            </span>
-            <h2>ALERTS</h2>
-          </div>
-          <div style={{ height: "2px", background: "#00aff0" }}></div>
-          <div className="requestsClock">
-            <p>
-              {props.state.alerts.length}{" "} 
-              alerts to check</p>
-          </div>
-          <div className="pendingReq">
-             {short3.length !== 0 ? (
-              short3.map((shorty) => <div
-                    key={shorty.id}
-                    onClick={() => handleAlert(shorty.id, shorty.exam_type)}
-                  >
-                    {shorty.client},{" "}
-                    {moment.utc(shorty.created).add(2, 'hours').format("MM/DD/YY HH:mm")}
-                  </div>
-              )
-            ) : (
-              <p>No alerts</p>
-            )} 
-          </div>
-        </div>
         <div className="divVideo">
           <div className="videoApp1" onClick={hnlVideoClick}>
             <span className="video">
@@ -147,6 +114,38 @@ const Dashboard = ({
             ) : (
               <p>No requests</p>
             )}
+          </div>
+        </div>
+        <div className="divClock">
+          <div className="waitRoom1" onClick={hnlAlertsClick}>
+            <span className="clock">
+              <img
+                src={enterWaitingRoom}
+                className="icon"
+                alt="enter Waiting room"
+              />
+              {/* <GoClock className="icon" /> */}
+            </span>
+            <h2>ALERTS</h2>
+          </div>
+          <div style={{ height: "2px", background: "#00aff0" }}></div>
+          <div className="requestsClock">
+            <p>
+              {props.state.alerts.length}{" "} 
+              alerts to check</p>
+          </div>
+          <div className="pendingReq">
+             {short3.length !== 0 ? (
+              short3.map((shorty) => <div
+                    key={shorty.id}
+                    onClick={() => handleAlert(shorty.mail ? shorty.mail : shorty.video ? shorty.video : '', shorty.mail ? 'mail' : shorty.video ? 'video' : '')}
+                  >
+                    {shorty.content.replace('Client', `${shorty.sender}`)}
+                  </div>
+              )
+            ) : (
+              <p>No alerts</p>
+            )} 
           </div>
         </div>
       </div>
