@@ -102,10 +102,10 @@ export class Alerts extends Component {
     }
       this.props.connection.onmessage = (e) => {
         console.log(e.data);
-        if (JSON.parse(e.data).modified) {
-          NotificationManager.error("Exam modified", "New Alert!", 2000);
-          this.paginatedExams()
+        if (JSON.parse(e.data).content) {
+          NotificationManager.error(`${JSON.parse(e.data).content}`, "New Alert!", 2000);
         }
+        this.paginatedExams()
   }}
 
   handleClick = async (id, type) => {

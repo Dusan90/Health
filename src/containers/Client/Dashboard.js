@@ -118,8 +118,8 @@ class ClientDashboard extends Component {
       //   message.exam_type === "queue" &&
       //   this.props.popUp();
 
-      if (JSON.parse(e.data).modified) {
-        NotificationManager.error("Exam modified", "New Alert!", 2000);
+      if (JSON.parse(e.data).content) {
+        NotificationManager.error(`${JSON.parse(e.data).content}`, "New Alert!", 2000);
       }
 
       // let socketExam = this.state.exams.filter((exam) => {

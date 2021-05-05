@@ -194,8 +194,8 @@ class DetailExam extends Component {
       this.props.connection.onmessage = (e) => {
         console.log(e);
            const message = JSON.parse(e.data);
-        if (JSON.parse(e.data).modified) {
-          NotificationManager.error("Exam modified", "New Alert!", 2000);
+        if (JSON.parse(e.data).content) {
+          NotificationManager.error(`${JSON.parse(e.data).content}`, "New Alert!", 2000);
         }
         if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
           this.detail(this.state.id)

@@ -133,7 +133,6 @@ class DoctorDashboard extends Component {
   handleAll = () => {
     let hndlAll = setInterval(() => {
       let all = this.state.exams;
-
       let resortall = all.sort(
         (a, b) => Date.parse(b.created) - Date.parse(a.created)
       );
@@ -231,6 +230,8 @@ class DoctorDashboard extends Component {
       .catch((error) => {
         console.log(error.response, "error");
         this.setState({ loading: false });
+        this.handleAll();
+
       });
   };
 
@@ -417,8 +418,8 @@ class DoctorDashboard extends Component {
     }
     this.props.connection.onmessage = (event) => {
       console.log(event);
-      if (JSON.parse(event.data).modified) {
-        NotificationManager.error("Exam modified", "New Alert!", 2000);
+      if (JSON.parse(event.data).content) {
+        NotificationManager.error(`${JSON.parse(event.data).content}`, "New Alert!", 2000);
       }
       this.messagesNumber();
     };
