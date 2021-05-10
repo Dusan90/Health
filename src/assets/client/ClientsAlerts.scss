@@ -70,16 +70,23 @@
         tr {
           height: 40px;
           td {
-            text-align: center;
+            text-align: left;
+            text-indent: 20px;
+            &.client-type {
+              text-indent: 0;
+            }
           }
           .created {
             p {
               margin: 2px 0 0 0;
             }
           }
+
           .client-trash {
             color: red;
+            text-align: center;
             transition: 0.5s ease-in-out;
+            text-indent: 0;
             &:hover {
               background: red;
               color: white;
@@ -97,22 +104,25 @@
           background: #fa9551;
 
           .client-doctor {
-            align-self: center;
-            text-align: center;
+            align-self: left;
+            text-align: left;
             border-top-left-radius: 15px;
+            text-indent: 20px;
           }
           .client-date {
             text-align: left;
-            align-self: center;
-            text-align: center;
+            align-self: left;
+            text-align: left;
+            text-indent: 20px;
           }
           .client-type {
-            align-self: center;
-            text-align: center;
+            width: 150px;
+            align-self: left;
+            text-align: left;
           }
           .client-subject {
-            align-self: center;
-            text-align: center;
+            align-self: left;
+            text-align: left;
           }
           .client-trash {
             width: 40px;

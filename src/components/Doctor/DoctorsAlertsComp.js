@@ -48,17 +48,17 @@ function DoctorsAlertsComp({handleClick, props, handleDelete }) {
                       // onClick={() => handleClick(exam.mail ? exam.mail : exam.video ? exam.video : '', exam.mail ? 'mail' : exam.video ? 'video' : '')}
                     >
                       <td 
-                      onClick={() => handleClick(exam.mail ? exam.mail : exam.video ? exam.video : '', exam.mail ? 'mail' : exam.video ? 'video' : '')}
+                      onClick={() => handleClick(exam.mail ? exam.mail : exam.video ? exam.video : '', exam.mail ? 'mail' : exam.video ? 'video' : '', exam.id)}
                       className="client-doctor">{text}</td>
                       {/* <td
                       onClick={() => handleClick(exam.mail ? exam.mail : exam.video ? exam.video : '', exam.mail ? 'mail' : exam.video ? 'video' : '')}
                       className="client-subject">{exam.subject}</td> */}
                       <td
-                      onClick={() => handleClick(exam.mail ? exam.mail : exam.video ? exam.video : '', exam.mail ? 'mail' : exam.video ? 'video' : '')}
+                      onClick={() => handleClick(exam.mail ? exam.mail : exam.video ? exam.video : '', exam.mail ? 'mail' : exam.video ? 'video' : '', exam.id)}
                       
                       className="client-type">{exam.mail ? 'Mail' : exam.video ? 'Video' : ''}</td>
                       <td
-                      onClick={() => handleClick(exam.mail ? exam.mail : exam.video ? exam.video : '', exam.mail ? 'mail' : exam.video ? 'video' : '')}
+                      onClick={() => handleClick(exam.mail ? exam.mail : exam.video ? exam.video : '', exam.mail ? 'mail' : exam.video ? 'video' : '', exam.id)}
                       
                       className="created">
                       <p> {moment(exam.created).format("MM/DD/YY HH:mm")}</p>

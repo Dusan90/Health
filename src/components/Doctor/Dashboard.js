@@ -138,7 +138,7 @@ const Dashboard = ({
              {short3.length !== 0 ? (
               short3.map((shorty) => <div
                     key={shorty.id}
-                    onClick={() => handleAlert(shorty.mail ? shorty.mail : shorty.video ? shorty.video : '', shorty.mail ? 'mail' : shorty.video ? 'video' : '')}
+                    onClick={() => handleAlert(shorty.mail ? shorty.mail : shorty.video ? shorty.video : '', shorty.mail ? 'mail' : shorty.video ? 'video' : '', shorty.id)}
                   >
                     {shorty.content.replace('Client', `${shorty.sender}`)}
                   </div>

@@ -54,6 +54,7 @@ class Login extends Component {
     });
 
     const jsonData = await data.json();
+    console.log(jsonData)
     jsonData && this.setState({loading: false})
     if (jsonData.success === false && jsonData.status_code === 400) {
       NotificationManager.error(`${jsonData.error}`, "Failed!", 3000);

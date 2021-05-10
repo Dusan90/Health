@@ -90,7 +90,7 @@ export class ClientAlerts extends Component {
           this.props.connection.onmessage = (e) => {
             console.log(e.data);
             if (JSON.parse(e.data).content) {
-              NotificationManager.error(`${JSON.parse(e.data).content}`, "New Alert!", 2000);
+              NotificationManager.info(`${JSON.parse(e.data).content}`, "New Alert!", 5000);
             }
             this.peopleInWaitingRoom();
       }}

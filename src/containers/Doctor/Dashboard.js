@@ -242,7 +242,9 @@ class DoctorDashboard extends Component {
         headers: { Authorization: access_token },
       })
       .then((res) => {
-        const alertSorted = res.data.data.sort((a, b) => moment(b.created) - moment(a.created))
+        console.log(res)
+        const filtere = res.data.data.filter(el => el.is_read === false)
+        const alertSorted = filtere.sort((a, b) => moment(b.created) - moment(a.created))
         this.setState({alerts: alertSorted})       
       })
       .catch((error) => {
@@ -281,7 +283,15 @@ class DoctorDashboard extends Component {
     }
   };
 
-  handleAlert = async (id, type) => {
+  handleAlert = async (id, type, notifId) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/doctor/notifications/${notifId}`, {
+        headers: { Authorization: access_token },
+      })
+      .then((res) => {
+        console.log(res);
+      })
     if(type === 'mail'){
           this.props.history.push(`/doctor/exam/detail/${id}/`);
     }
@@ -418,8 +428,8 @@ class DoctorDashboard extends Component {
     }
     this.props.connection.onmessage = (event) => {
       console.log(event);
-      if (JSON.parse(event.data).content) {
-        NotificationManager.error(`${JSON.parse(event.data).content}`, "New Alert!", 2000);
+      if (JSON.parse(event.data).content && !JSON.parse(event.data).is_read) {
+        NotificationManager.info(`${JSON.parse(event.data).content}`, "New Alert!", 5000);
       }
       this.messagesNumber();
     };

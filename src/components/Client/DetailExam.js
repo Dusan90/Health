@@ -45,7 +45,6 @@ const Detail = ({
     </div>
     {/* <HamburgerDiv/> */}
     {exam.map((exam) => {
-      console.log(exam);
       let placeholder = exam.status === "Appointed" ? "Accepted" : exam.status;
       let options =
         exam.status === "Pending" || exam.status === "Accepted"

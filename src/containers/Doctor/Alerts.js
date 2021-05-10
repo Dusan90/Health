@@ -49,7 +49,8 @@ export class Alerts extends Component {
       })
       .then((res) => {
         console.log(res);
-        this.setState({exams: res.data.data, loading: false})
+        const sort = res.data.data.sort((a,b) => Date.parse(b.created) - Date.parse(a.created))
+        this.setState({exams: sort, loading: false})
       })
       .catch((error) => {
         console.log(error.response, "error");
@@ -102,13 +103,21 @@ export class Alerts extends Component {
     }
       this.props.connection.onmessage = (e) => {
         console.log(e.data);
-        if (JSON.parse(e.data).content) {
-          NotificationManager.error(`${JSON.parse(e.data).content}`, "New Alert!", 2000);
+        if (JSON.parse(e.data).content && !JSON.parse(e.data).is_read) {
+          NotificationManager.info(`${JSON.parse(e.data).content}`, "New Alert!", 5000);
         }
         this.paginatedExams()
   }}
 
-  handleClick = async (id, type) => {
+  handleClick = async (id, type, notifId) => {
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/doctor/notifications/${notifId}`, {
+        headers: { Authorization: access_token },
+      })
+      .then((res) => {
+        console.log(res);
+      })
 
     if(type === 'mail'){
           this.props.history.push(`/doctor/exam/detail/${id}/`);

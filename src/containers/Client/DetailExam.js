@@ -146,7 +146,6 @@ class ClientDetailExam extends Component {
         `wss://healthcarebackend.xyz/ws/dashboard/client/${this.state.id}/`
       ))
       this.props.connection.onopen = () => {
-        console.log("connected to port");
         sessionStorage.setItem('socketConnected', 'true');
   
       };
@@ -155,7 +154,7 @@ class ClientDetailExam extends Component {
         console.log(e);
            const message = JSON.parse(e.data);
         if (JSON.parse(e.data).content) {
-          NotificationManager.error(`${JSON.parse(e.data).content}`, "New Alert!", 2000);
+          NotificationManager.info(`${JSON.parse(e.data).content}`, "New Alert!", 5000);
         }
         if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
           this.detail()
