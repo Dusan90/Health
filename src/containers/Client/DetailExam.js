@@ -57,7 +57,10 @@ class ClientDetailExam extends Component {
     const jsonData = await doctor.json();
     // this.toRefund();
 
-    jsonData.success &&  this.props.history.push("/dashboard-client");
+    jsonData.success &&  
+    setTimeout(() => {
+      this.props.history.push("/dashboard-client");
+    });
     return jsonData;
   };
 
@@ -132,18 +135,19 @@ class ClientDetailExam extends Component {
         headers: { Authorization: access_token },
       })
       .then((response) => {
+        console.log(response);
         let name = `${response.data.data.user.first_name} ${response.data.data.user.last_name}`
-        this.connect();
+        this.connect(response.data.data.id);
         return this.setState({ client: name });
       })
 
       
   }
 
-  connect = () => {
+  connect = (soid) => {
     if(!sessionStorage.getItem('socketConnected')){
       this.props.connectToWebSocket(new WebSocket(
-        `wss://healthcarebackend.xyz/ws/dashboard/client/${this.state.id}/`
+        `wss://healthcarebackend.xyz/ws/dashboard/client/${soid}/`
       ))
       this.props.connection.onopen = () => {
         sessionStorage.setItem('socketConnected', 'true');
@@ -159,6 +163,11 @@ class ClientDetailExam extends Component {
         if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
           this.detail()
       }}
+      this.props.connection.onclose = () => {
+        console.error("disconected");
+        sessionStorage.removeItem('socketConnected');
+  
+      };
   };
 
   handleMessage = (e) => {

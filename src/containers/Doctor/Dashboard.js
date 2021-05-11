@@ -435,6 +435,8 @@ class DoctorDashboard extends Component {
     };
     this.props.connection.onclose = () => {
       console.error("disconected");
+      sessionStorage.removeItem('socketConnected');
+
     };
   };
 

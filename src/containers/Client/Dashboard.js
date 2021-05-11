@@ -129,8 +129,10 @@ class ClientDashboard extends Component {
       // }
       this.paginatedExams();
     };
-    this.props.connection.onclose = (e) => {
-      console.log(`Socket is closed`);
+    this.props.connection.onclose = () => {
+      console.error("disconected");
+      sessionStorage.removeItem('socketConnected');
+
     };
     this.props.connection.onerror = (err) => {
       console.error(

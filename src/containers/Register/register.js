@@ -29,7 +29,9 @@ class Register extends Component {
       organization: '',
       seePass1: false,
       seePass2: false,
-      loading: false
+      loading: false,
+      idTypeValue: '',
+      selectedidTypeValue: ''
     };
   }
 
@@ -89,6 +91,12 @@ class Register extends Component {
     this.setState({organization: e.target.value})
   }
 
+  handleIDType = (idTypeValue) =>{
+    this.setState({ idTypeValue });
+    let { value } = idTypeValue;
+    this.setState({ selectedidTypeValue: value });
+  }
+
   handleSpec = (specValue) => {
     this.setState({ specValue });
     let { value } = specValue;
@@ -121,7 +129,8 @@ class Register extends Component {
       this.state.organization &&
       this.state.phoneNumber &&
       this.state.selectedGenderValue &&
-      this.state.selectedSpecValue
+      this.state.selectedSpecValue && 
+      this.state.selectedidTypeValue
     ) {
       this.userRegister();
       this.setState({loading: true})
@@ -219,6 +228,7 @@ confirm_password: this.state.confPasswordValue,
               gender: this.state.selectedGenderValue,
                speciality: this.state.selectedSpecValue,
                organization: this.state.organization,
+               id_type: this.state.selectedidTypeValue
             },
           }),
         }
@@ -243,7 +253,7 @@ confirm_password: this.state.confPasswordValue,
   };
 
   handleGenderRadio = (value) => {
-    this.setState({ selectedGenderValue: value });
+    this.setState({ selectedidTypeValue: value });
   };
 
   // changeTextToDate = () => {
@@ -251,7 +261,7 @@ confirm_password: this.state.confPasswordValue,
   // };
 
   render() {
-
+    console.log(this.state.idTypeValue);
     return (
       <>
         <div className="header">
@@ -273,6 +283,7 @@ confirm_password: this.state.confPasswordValue,
           handleEmailPrice={this.handleEmailPrice}
           handleWebPrice={this.handleWebPrice}
           handleSpec={this.handleSpec}
+          handleIDType= {this.handleIDType}
           handleSubmit={this.handleSubmit}
           handleGenderRadio={this.handleGenderRadio}
           handleUserType={this.handleUserType}

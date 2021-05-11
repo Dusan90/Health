@@ -46,7 +46,9 @@ export class ClientAlerts extends Component {
           })
           .then((response) => {
             console.log(response);
-            this.setState({exams: response.data.data, loading: false})
+        const sort = response.data.data.sort((a,b) => Date.parse(b.created) - Date.parse(a.created))
+
+            this.setState({exams: sort, loading: false})
           })
           .catch((err) => {
             console.log(err.response);
@@ -93,7 +95,13 @@ export class ClientAlerts extends Component {
               NotificationManager.info(`${JSON.parse(e.data).content}`, "New Alert!", 5000);
             }
             this.peopleInWaitingRoom();
-      }}
+      }
+      this.props.connection.onclose = () => {
+        console.error("disconected");
+        sessionStorage.removeItem('socketConnected');
+  
+      };
+    }
     render() {
         return (
             <>

@@ -185,9 +185,19 @@ class DetailVideoExam extends Component {
         this.detail(id);
       }
     };
-    setTimeout(() => {
-      this.connect()
-    });
+    const access_token = "Bearer ".concat(this.state.token);
+    axios
+      .get(`https://healthcarebackend.xyz/api/doctor/profile/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        let current = response.data.data;
+        // this.peopleInWaitingRoom(current.id);
+        setTimeout(() => {
+          this.connect(current.id)
+        });
+      });
+   
 
   }
 
@@ -494,10 +504,10 @@ class DetailVideoExam extends Component {
     this.socket.close();
   }
 
-  connect = () => {
+  connect = (soId) => {
     if(!sessionStorage.getItem('socketConnected')){
       this.props.connectToWebSocket(new WebSocket(
-        `wss://healthcarebackend.xyz/ws/dashboard/doctor/${this.state.id}/`
+        `wss://healthcarebackend.xyz/ws/dashboard/doctor/${soId}/`
       ))
       this.props.connection.onopen = () => {
         console.log("connected to port");
@@ -514,6 +524,11 @@ class DetailVideoExam extends Component {
         if(message.id === JSON.parse(this.state.id) && message.exam_type === "video" ){
           this.detail(this.props.match.params.id)
       }}
+      this.props.connection.onclose = () => {
+        console.error("disconected");
+        sessionStorage.removeItem('socketConnected');
+        
+      };
   };
 
 

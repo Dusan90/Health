@@ -107,6 +107,11 @@ export class Alerts extends Component {
           NotificationManager.info(`${JSON.parse(e.data).content}`, "New Alert!", 5000);
         }
         this.paginatedExams()
+        this.props.connection.onclose = () => {
+          console.error("disconected");
+          sessionStorage.removeItem('socketConnected');
+    
+        };
   }}
 
   handleClick = async (id, type, notifId) => {

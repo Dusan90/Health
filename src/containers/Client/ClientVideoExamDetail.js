@@ -69,7 +69,9 @@ class ClientVideoExamDetail extends Component {
     );
     let jsonData = await clientCancel.json();
     console.log(jsonData);
-    jsonData.success === true && this.props.history.push("/dashboard-client");
+    jsonData.success === true &&  setTimeout(() => {
+      this.props.history.push("/dashboard-client");
+    }); 
 
     return jsonData;
   };
@@ -95,7 +97,7 @@ class ClientVideoExamDetail extends Component {
         let messageDiv = document.querySelector('.messageDiv')
         let queue = document.getElementById('imageDiv1')
         console.log(mess);
-        if(mess.scrollHeight > 100){
+        if(mess && mess.scrollHeight > 100){
           mess.style.height = `${mess.scrollHeight}px`
           messageDiv.style.height = `${mess.scrollHeight + 60}px` 
           queue.style.display = 'block'
@@ -105,11 +107,15 @@ class ClientVideoExamDetail extends Component {
           console.log(textare.scrollHeight);
           if(textare.scrollHeight <= 150){
             let divsquare = document.getElementById('imageDiv2')
+          if(divsquare){
             divsquare.style.display = 'none'
+          }
           }
         }else{ 
           let divsquare = document.getElementById('imageDiv2')
-          divsquare.style.display = 'none'
+          if(divsquare){
+            divsquare.style.display = 'none'
+          }
         }
 
         if(response.data.data.decline_notes){
@@ -117,19 +123,23 @@ class ClientVideoExamDetail extends Component {
           console.log(textare.scrollHeight);
           if(textare.scrollHeight <= 150){
             let divsquare = document.getElementById('imageDiv3')
-            divsquare.style.display = 'none'
+            if(divsquare){
+              divsquare.style.display = 'none'
+            }
           }
         }else{
           let divsquare = document.getElementById('imageDiv3')
-          divsquare.style.display = 'none'
+          if(divsquare){
+            divsquare.style.display = 'none'
+          }
         }
       });
   };
 
-  connect = () => {
+  connect = (soId) => {
     if(!sessionStorage.getItem('socketConnected')){
       this.props.connectToWebSocket(new WebSocket(
-        `wss://healthcarebackend.xyz/ws/dashboard/client/${this.state.id}/`
+        `wss://healthcarebackend.xyz/ws/dashboard/client/${soId}/`
       ))
       this.props.connection.onopen = () => {
         console.log("connected to port");
@@ -146,6 +156,11 @@ class ClientVideoExamDetail extends Component {
         if(message.id === JSON.parse(this.state.id) && message.exam_type === "video" ){
           this.detail()
       }}
+      this.props.connection.onclose = () => {
+        console.error("disconected");
+        sessionStorage.removeItem('socketConnected');
+  
+      };
   };
 
   extendreport= (e) =>{
@@ -177,7 +192,7 @@ class ClientVideoExamDetail extends Component {
     let messageDiv = document.querySelector('.messageDiv')
     // let square = document.getElementById('imageDiv1')
     console.log(mess);
-      if(mess.clientHeight > 100){
+      if(mess && mess.clientHeight > 100){
         mess.style.height = '100px'
         messageDiv.style.height = `${160}px`
       }else{
@@ -199,9 +214,19 @@ class ClientVideoExamDetail extends Component {
         this.detail();
       }
     };
-    setTimeout(() => {
-      this.connect()
-    });
+    const access_token = "Bearer ".concat(this.state.token);
+
+    axios
+      .get(`https://healthcarebackend.xyz/api/client/profile/`, {
+        headers: { Authorization: access_token },
+      })
+      .then((response) => {
+        console.log(response);
+        setTimeout(() => {
+          this.connect(response.data.data.id)
+        });
+      })
+   
     };
   
 

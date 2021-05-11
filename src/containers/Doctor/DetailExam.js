@@ -174,16 +174,15 @@ class DetailExam extends Component {
       .then((response) => {
         let current = response.data.data;
         // this.peopleInWaitingRoom(current.id);
-
-        this.connect();
+        this.connect(current.id);
       });
   }
 
 
-  connect = () => {
+  connect = (soId) => {
     if(!sessionStorage.getItem('socketConnected')){
       this.props.connectToWebSocket(new WebSocket(
-        `wss://healthcarebackend.xyz/ws/dashboard/doctor/${this.state.id}/`
+        `wss://healthcarebackend.xyz/ws/dashboard/doctor/${soId}/`
       ))
       this.props.connection.onopen = () => {
         console.log("connected to port");
@@ -199,6 +198,11 @@ class DetailExam extends Component {
         if(message.id === JSON.parse(this.state.id) && message.exam_type === "mail" ){
           this.detail(this.state.id)
       }}
+      this.props.connection.onclose = () => {
+        console.error("disconected");
+        sessionStorage.removeItem('socketConnected');
+  
+      };
   };
 
   
