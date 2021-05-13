@@ -50,15 +50,21 @@ export class DoctorsCalendar extends Component {
         // let accepted = response.data.data.video.filter((res) => {
         //   return res.status === "Appointed";
         // });
-        const newObject = response.data.data.video.map((obj) => {
-          return {
-            client: obj.client,
-            startTime: obj.appointed_date,
-            endTime: moment(obj.appointed_date)
-              .add(30, "minutes")
-              .format("YYYY-MM-DD HH:mm"),
-            id: obj.id,
-          };
+        const filtered = response.data.data.video.filter(el =>{
+          if(el.status === "Finished" || el.status === "Appointed"){
+            return el
+          }
+        })
+        const newObject = filtered.map((obj) => {
+        
+            return {
+              client: obj.client,
+              startTime: obj.appointed_date,
+              endTime: moment(obj.appointed_date)
+                .add(30, "minutes")
+                .format("YYYY-MM-DD HH:mm"),
+              id: obj.id,
+            };
         });
         this.setState({
           exams: [...this.state.exams.concat(newObject)],
@@ -68,6 +74,7 @@ export class DoctorsCalendar extends Component {
         console.log(error);
       });
   };
+
   render() {
     console.log(this.state.exams);
 
@@ -87,7 +94,9 @@ export class DoctorsCalendar extends Component {
           }}
         >
           <ScheduleComponent
+            // onClick={(e) => this.testing(e)}
             currentView="Agenda"
+            readOnly={true}
             workHours={{
               highlight: true,
               start: "09:00",
@@ -96,6 +105,9 @@ export class DoctorsCalendar extends Component {
             selectedDate={new Date()}
             isSlotAvailable
             eventSettings={{
+              allowAdding: false,
+              allowDeleting: false,
+              allowEditing: false,
               dataSource: this.state.exams,
               fields: {
                 id: "id",
