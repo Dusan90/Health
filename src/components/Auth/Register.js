@@ -25,6 +25,9 @@ const RegisterUser = ({
   handleImage1,
   handleImage2,
   props,
+  handleidNumber,
+  handleOrganizationName,
+  handleOrgan_num
 }) => {
   const customStyles = {
     control: (base, state) => ({
@@ -103,8 +106,20 @@ const RegisterUser = ({
             <label htmlFor="r2" className="clientLabel">
               Client
             </label>
+            <input
+              className="organizationRadio"
+              type="checkbox"
+              name="userType"
+              id="r3"
+              value="organization"
+              checked={props.userType === "organization" ? true : false}
+              onChange={() => handleUserType("organization")}
+            />
+            <label htmlFor="r3" className="organizationLabel">
+              Organization
+            </label>
           </div>
-          <div className="gender">
+          {userType !== "organization" && <div className="gender">
             <div className="maleGender">
               <input
                 className="maleRadio"
@@ -139,11 +154,11 @@ const RegisterUser = ({
             >
               Select gender
             </p>
-          </div>
+          </div>}
         </div>
       </div>
       <form className="register-form" autoComplete="none">
-        <div className="firstLastGender">
+        {userType !== "organization" && <div className="firstLastGender">
           <div className="reg-name">
             <label htmlFor="firstname">First Name</label>
             <input
@@ -177,8 +192,8 @@ const RegisterUser = ({
               onChange={handleLastName}
             />
           </div>
-        </div>
-        <div className="regPass">
+        </div>}
+        {userType !== "organization" && <div className="regPass">
           <div className="reg-email">
             <label htmlFor="email">E-mail</label>
 
@@ -233,7 +248,7 @@ const RegisterUser = ({
               />
             </div>
           )}
-        </div>
+        </div>}
 
         {userType === "client" && (
           <>
@@ -416,25 +431,8 @@ const RegisterUser = ({
               </div>
             </div>
             <div className="doctorsIdInfo">
-              {/* <div className="prefix">
-                <label htmlFor="pwd">Confirm Password</label>
-                <div>
-                <input
-                   type={props.seePass2 ? 'text' : "password"}
-                  className="form-control"
-                  id="pwd"
-                  autoComplete="none"
-                  name='field'
-                  value={props.confPasswordValue}
-                  style={{background: !props.confPasswordValue && props.color && 'rgb(245, 192, 192)'  }}
-                  onChange={handleConfPass}
-                />
-                <img onClick={handleImage2}  src={props.seePass2 ? seen : hidden } alt="img"/>
-
-                </div>
-              </div> */}
               <div className="spec">
-                <label htmlFor="speciality">ID type</label>
+                <label htmlFor="speciality">ID</label>
                 <Select
                   type="text"
                   id="speciality"
@@ -444,9 +442,154 @@ const RegisterUser = ({
                   onChange={handleIDType}
                 />
               </div>
+              <div className="prefix">
+                <label htmlFor="id_num">ID number</label>
+                <div className="spec">
+                  <input
+                    type='number'
+                    className="form-control"
+                    id="id_num"
+                    autoComplete="none"
+                    name='field'
+                    value={props.idNumber}
+                    style={{ background: !props.idNumber && props.color && 'rgb(245, 192, 192)' }}
+                    onChange={handleidNumber}
+                  />
+                </div>
+              </div>
             </div>
           </>
         )}
+        {userType === "organization" && (<>
+          <div className="regPass">
+            <div className="reg-email">
+              <label htmlFor="organ_name">Organization name</label>
+
+              <input
+                type="text"
+                className="form-control"
+                id="organ_name"
+                style={{
+                  background:
+                    !props.organ_name && props.color && "rgb(245, 192, 192)",
+                }}
+                autoComplete="none"
+                name="field"
+                value={props.organ_name}
+                onChange={handleOrganizationName}
+              />
+            </div>
+
+            <div className="address">
+              <label htmlFor="organ_num">Registration number</label>
+              <input
+                type="number"
+                className="form-control"
+                id="organ_num"
+                autoComplete="none"
+                name="field"
+                style={{
+                  background:
+                    !props.organ_num && props.color && "rgb(245, 192, 192)",
+                }}
+                // onFocus={changeTextToDate}
+                value={props.organ_num}
+                onChange={handleOrgan_num}
+              />
+            </div>
+          </div>
+          <div className="regPass">
+            <div className="reg-email">
+              <label htmlFor="email">E-mail</label>
+
+              <input
+                type="email"
+                className="form-control"
+                id="email"
+                style={{
+                  background:
+                    !props.emailValue && props.color && "rgb(245, 192, 192)",
+                }}
+                autoComplete="none"
+                name="field"
+                value={props.emailValue}
+                onChange={handleEmail}
+              />
+            </div>
+
+            <div className="address">
+              <label htmlFor="phone">Phone number</label>
+              <input
+                type="number"
+                className="form-control"
+                id="phone"
+                autoComplete="none"
+                name="field"
+                style={{
+                  background:
+                    !props.phoneNumber && props.color && "rgb(245, 192, 192)",
+                }}
+                // onFocus={changeTextToDate}
+                value={props.phoneNumber}
+                onChange={handlePhoneNumber}
+              />
+            </div>
+          </div>
+          <div className="clientsBinfo">
+            <div className="reg-pass">
+              <label htmlFor="pwd">Password</label>
+              <div>
+                <input
+                  type={props.seePass1 ? "text" : "password"}
+                  className="form-control"
+                  id="pwd"
+                  autoComplete="none"
+                  name="field"
+                  value={props.passwordValue}
+                  style={{
+                    background:
+                      !props.passwordValue &&
+                      props.color &&
+                      "rgb(245, 192, 192)",
+                  }}
+                  onChange={handlePass}
+                />
+                <img
+                  onClick={handleImage1}
+                  src={props.seePass1 ? seen : hidden}
+                  alt="img"
+                />
+              </div>
+            </div>
+            <div className="conf-pass">
+              <label htmlFor="pwd">Confirm Password</label>
+              <div>
+                <input
+                  type={props.seePass2 ? "text" : "password"}
+                  className="form-control"
+                  id="pwd"
+                  autoComplete="none"
+                  name="field"
+                  style={{
+                    background:
+                      !props.confPasswordValue &&
+                      props.color &&
+                      "rgb(245, 192, 192)",
+                  }}
+                  value={props.confPasswordValue}
+                  onChange={handleConfPass}
+                />
+                <img
+                  onClick={handleImage2}
+                  src={props.seePass2 ? seen : hidden}
+                  alt="img"
+                />
+              </div>
+            </div>
+          </div>
+
+
+        </>)}
         <div className="register-button">
           <button
             type="submit"

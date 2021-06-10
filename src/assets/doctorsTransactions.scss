@@ -1,0 +1,92 @@
+.mainTransactionDiv {
+  display: flex;
+
+  width: 40%;
+  margin: 110px auto 20px 360px;
+  border-radius: 15px;
+  background: green !important;
+  position: relative;
+  .newVideo {
+    position: absolute;
+    top: -76px;
+    z-index: 20;
+    height: 35px;
+    display: flex;
+    .profileDoc {
+      //   border-bottom: 4px solid #fa9551;
+      margin-right: 45px;
+      h4 {
+        font-size: 15px;
+        color: #2cace3;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+.mainBancAcount {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 40%;
+  background: #f2f2f2;
+  margin: 0px auto 20px 360px;
+  padding: 30px 30px;
+  position: relative;
+  border-radius: 15px;
+  .doctor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 50%;
+    .imageAndInputDiv {
+      display: flex;
+      width: 100%;
+      position: relative;
+      input {
+        font-size: 20px;
+        width: 100%;
+        margin: 0;
+        padding-right: 30px;
+      }
+      img {
+        position: absolute;
+        right: 5px;
+        top: 10px;
+      }
+    }
+    label {
+      color: #666666;
+      margin: 0px 0 5px 0;
+    }
+    input {
+      width: 100%;
+      margin: 0 0 10px 0;
+      height: 33px;
+      border-radius: 10px;
+      border: 1.7px solid #fa9551;
+      text-indent: 20px;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .confirmPass {
+      font-size: 20px;
+    }
+    button {
+      background: #00aff0;
+      padding: 5px 15px;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      margin: 35px auto 0 0;
+    }
+  }
+}

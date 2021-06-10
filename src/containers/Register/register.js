@@ -31,16 +31,18 @@ class Register extends Component {
       seePass2: false,
       loading: false,
       idTypeValue: '',
-      selectedidTypeValue: ''
+      selectedidTypeValue: '',
+      organ_name: '',
+      organ_num: ''
     };
   }
 
-  handleImage1= () =>{
-    this.setState({seePass1: !this.state.seePass1})
+  handleImage1 = () => {
+    this.setState({ seePass1: !this.state.seePass1 })
   }
 
-  handleImage2= () =>{
-    this.setState({seePass2: !this.state.seePass2})
+  handleImage2 = () => {
+    this.setState({ seePass2: !this.state.seePass2 })
   }
 
   handleUserType = (userType) => {
@@ -84,14 +86,22 @@ class Register extends Component {
   };
 
   handlePhoneNumber = (e) => {
-    this.setState({phoneNumber: e.target.value})
+    this.setState({ phoneNumber: e.target.value })
   }
 
-  handleOrganization = (e) =>{
-    this.setState({organization: e.target.value})
+  handleOrgan_num = (e) => {
+    this.setState({ organ_num: e.target.value })
   }
 
-  handleIDType = (idTypeValue) =>{
+  handleOrganization = (e) => {
+    this.setState({ organization: e.target.value })
+  }
+
+  handleOrganizationName = (e) => {
+    this.setState({ organ_name: e.target.value })
+  }
+
+  handleIDType = (idTypeValue) => {
     this.setState({ idTypeValue });
     let { value } = idTypeValue;
     this.setState({ selectedidTypeValue: value });
@@ -115,10 +125,10 @@ class Register extends Component {
       this.state.phoneNumber &&
       this.state.addressValue &&
       this.state.birthDateValue &&
-      this.state.confPasswordValue 
+      this.state.confPasswordValue
     ) {
       this.userRegister();
-      this.setState({loading: true})
+      this.setState({ loading: true })
     } else if (
       this.state.userType === "doctor" &&
       this.state.emailValue &&
@@ -129,15 +139,25 @@ class Register extends Component {
       this.state.organization &&
       this.state.phoneNumber &&
       this.state.selectedGenderValue &&
-      this.state.selectedSpecValue && 
+      this.state.selectedSpecValue &&
       this.state.selectedidTypeValue
     ) {
       this.userRegister();
-      this.setState({loading: true})
+      this.setState({ loading: true })
 
+    } else if (this.state.userType === "organization" &&
+      this.state.organ_name &&
+      this.state.organ_num &&
+      this.state.emailValue &&
+      this.state.phoneNumber &&
+      this.state.passwordValue &&
+      this.state.confPasswordValue
+    ) {
+      this.organizationRegister();
+      this.setState({ loading: true })
     } else {
       NotificationManager.error("All Fields Are Required", "Failed!", 2000);
-      this.setState({color: 'red'})
+      this.setState({ color: 'red' })
     }
   };
 
@@ -152,44 +172,79 @@ class Register extends Component {
       });
   }
 
+  organizationRegister = async () => {
+    if (this.state.userType === "organization") {
+      const client = await fetch(
+        "https://healthcarebackend.xyz/api/auth/register/client/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: this.state.emailValue,
+            name: this.state.organ_name,
+            num: this.state.organ_num,
+            phone: this.state.phoneNumber,
+            password: this.state.passwordValue,
+            confirm_password: this.state.confPasswordValue
+          }),
+        }
+      );
+
+      const jsonData = await client.json();
+      console.log(jsonData);
+      jsonData && this.setState({ loading: false })
+      jsonData.success && NotificationManager.success(
+        "Registered successfully",
+        "Successful!",
+        4000
+      );
+      jsonData.success && this.props.history.push("/Verification");
+      !jsonData.success && NotificationManager.error(`${jsonData.error ? jsonData.error[Object.keys(jsonData.error)[0]] : jsonData.message}, "Failed`)
+      return jsonData;
+
+    }
+  }
+
   userRegister = async () => {
     if (this.state.userType === "client") {
       // if (this.state.confPasswordValue === this.state.passwordValue) {
-        const client = await fetch(
-          "https://healthcarebackend.xyz/api/auth/register/client/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: this.state.emailValue,
-              first_name: this.state.firstNameValue,
-              last_name: this.state.lastNameValue,
-              phone: this.state.phoneNumber,
-              password: this.state.passwordValue,
-confirm_password: this.state.confPasswordValue,
+      const client = await fetch(
+        "https://healthcarebackend.xyz/api/auth/register/organization/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: this.state.emailValue,
+            first_name: this.state.firstNameValue,
+            last_name: this.state.lastNameValue,
+            phone: this.state.phoneNumber,
+            password: this.state.passwordValue,
+            confirm_password: this.state.confPasswordValue,
 
-              client: {
-                gender: this.state.selectedGenderValue,
-                address: this.state.addressValue,
-                birth_date: this.state.birthDateValue,
-              },
-            }),
-          }
-        );
-        
-        const jsonData = await client.json();
-        console.log(jsonData);
-        jsonData && this.setState({loading: false})
-        jsonData.success &&  NotificationManager.success(
-          "Registered successfully",
-          "Successful!",
-          4000
-          );
-          jsonData.success && this.props.history.push("/Verification");
-        !jsonData.success && NotificationManager.error(`${jsonData.error ? jsonData.error[Object.keys(jsonData.error)[0]] : jsonData.message}, "Failed`)
-        return jsonData;
+            client: {
+              gender: this.state.selectedGenderValue,
+              address: this.state.addressValue,
+              birth_date: this.state.birthDateValue,
+            },
+          }),
+        }
+      );
+
+      const jsonData = await client.json();
+      console.log(jsonData);
+      jsonData && this.setState({ loading: false })
+      jsonData.success && NotificationManager.success(
+        "Registered successfully",
+        "Successful!",
+        4000
+      );
+      jsonData.success && this.props.history.push("/Verification");
+      !jsonData.success && NotificationManager.error(`${jsonData.error ? jsonData.error[Object.keys(jsonData.error)[0]] : jsonData.message}, "Failed`)
+      return jsonData;
       // } else {
       //   this.setState({loading: false})
       //   NotificationManager.error(
@@ -226,9 +281,9 @@ confirm_password: this.state.confPasswordValue,
             confirm_password: this.state.confPasswordValue,
             doctor: {
               gender: this.state.selectedGenderValue,
-               speciality: this.state.selectedSpecValue,
-               organization: this.state.organization,
-               id_type: this.state.selectedidTypeValue
+              speciality: this.state.selectedSpecValue,
+              organization: this.state.organization,
+              id_type: this.state.selectedidTypeValue
             },
           }),
         }
@@ -246,7 +301,7 @@ confirm_password: this.state.confPasswordValue,
         );
       } else {
         NotificationManager.error(`${jsonData.error ? jsonData.error[Object.keys(jsonData.error)[0]] : jsonData.message}, "Failed`)
-        this.setState({loading: false})
+        this.setState({ loading: false })
       }
       return jsonData;
     }
@@ -283,7 +338,7 @@ confirm_password: this.state.confPasswordValue,
           handleEmailPrice={this.handleEmailPrice}
           handleWebPrice={this.handleWebPrice}
           handleSpec={this.handleSpec}
-          handleIDType= {this.handleIDType}
+          handleIDType={this.handleIDType}
           handleSubmit={this.handleSubmit}
           handleGenderRadio={this.handleGenderRadio}
           handleUserType={this.handleUserType}
@@ -292,6 +347,8 @@ confirm_password: this.state.confPasswordValue,
           handleOrganization={this.handleOrganization}
           handleImage1={this.handleImage1}
           handleImage2={this.handleImage2}
+          handleOrganizationName={this.handleOrganizationName}
+          handleOrgan_num={this.handleOrgan_num}
         />
       </>
     );

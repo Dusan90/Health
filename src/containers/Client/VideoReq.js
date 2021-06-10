@@ -83,7 +83,7 @@ class ClientVideoReq extends Component {
       
     }
     let excludeTime = this.state.doctorsExams && this.state.doctorsExams.filter((ex) => {
-      if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate) {
+      if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate && (ex.status === 'Pending' || ex.status === 'Appointed')) {
         return ex;
       } else {
         return null;
@@ -139,7 +139,7 @@ console.log(e);
       .then(() => {
         let DDate = moment(new Date()).format("YYYY-MM-DD");
         let excludeTime =this.state.doctorsExams && this.state.doctorsExams.filter((ex) => {
-          if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate) {
+          if (moment(ex.appointed_date).format("YYYY-MM-DD") === DDate && (ex.status === 'Pending' || ex.status === 'Appointed')) {
             return ex;
           } else {
             return null;
@@ -349,8 +349,7 @@ console.log(e);
   }
 
   render() {
-    console.log(this.state.selectedDateForStart, this.state.selectedDateForEnd);
-    console.log(this.state.selectedWorkingHours);
+    console.log(this.state.excludeTime);
     return (
       <>
         <div className="header">

@@ -28,13 +28,14 @@ import Clients from "./containers/Doctor/Clients";
 import DoctorsCalendar from "./containers/Doctor/DoctorsCalendar";
 import DoctorsEmailList from "./containers/Doctor/DoctorsEmailList";
 import DoctorsVideoList from "./containers/Doctor/DoctorsVideoList";
+import DoctorsTransaction from "./containers/Doctor/DoctorsTransaction";
 // import DoctorsQueueList from "./containers/Doctor/DoctorsQueueList";
 import Alerts from './containers/Doctor/Alerts'
 import { NotificationContainer } from "react-notifications";
 import { Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "./components/Routes/PrivateRoute";
 import { PrivateRouteDoctor } from "./components/Routes/PrivateRouteDoctor";
-import {Private} from './components/Routes/Private'
+import { Private } from './components/Routes/Private'
 import Settings from "./containers/Doctor/Settings";
 import UpdateSettings from './containers/Doctor/UpdateSettings'
 import ClientSettings from './containers/Client/Settings'
@@ -54,7 +55,7 @@ export class Routes extends Component {
     return (
       <>
 
-        <Route path={["/dashboard-doctor", "/initiate", "/checkout", "/client/Doctor-detail/:id/", "/client/Doctor-list", "/client/video-request", "/doctors-settings", "/client-settings", "/client-update", "/client-alerts", "/client/video/exam/detail/:id",  "/client/exam/detail/:id", "/client/doc/:id", "/client/profile", "/dashboard-client", "/room/:roomID", "/doctors-update", "/doctors-alerts", "/doctors-clients", "/doctors-email-list", "/doctors-video-list", "/doctor/profile/", "/doctor/record/:id", "/doctor/calendar", "/doctor/exam/detail/:id", "/doctor/video/exam/detail/:id"]} component={HamburgerDiv} />
+        <Route path={["/dashboard-doctor", "/initiate", "/checkout", "/client/Doctor-detail/:id/", "/client/Doctor-list", "/client/video-request", "/doctors-settings", "/client-settings", "/client-update", "/client-alerts", "/client/video/exam/detail/:id", '/doctors-transaction', "/client/exam/detail/:id", "/client/doc/:id", "/client/profile", "/dashboard-client", "/room/:roomID", "/doctors-update", "/doctors-alerts", "/doctors-clients", "/doctors-email-list", "/doctors-video-list", "/doctor/profile/", "/doctor/record/:id", "/doctor/calendar", "/doctor/exam/detail/:id", "/doctor/video/exam/detail/:id"]} component={HamburgerDiv} />
         <Switch />
         <Route path="/" exact component={Main} />
         <Route path="/register" exact component={Register} />
@@ -103,17 +104,17 @@ export class Routes extends Component {
           exact
           component={ClientQueueExamDetail}
         /> */}
-           <PrivateRoute
+        <PrivateRoute
           path="/client-alerts"
           exact
           component={ClientAlerts}
         />
-         <PrivateRoute
+        <PrivateRoute
           path="/client-update"
           exact
           component={ClientUpdateSettings}
         />
-          <PrivateRoute
+        <PrivateRoute
           path="/client-settings"
           exact
           component={ClientSettings}
@@ -150,6 +151,14 @@ export class Routes extends Component {
         />
 
         <PrivateRouteDoctor
+          path="/doctors-transaction"
+          exact
+          component={DoctorsTransaction}
+        />
+
+
+
+        <PrivateRouteDoctor
           path="/doctor/profile/"
           exact
           component={DoctorProfile}
@@ -180,18 +189,18 @@ export class Routes extends Component {
           exact
           component={DoctorsQueueList}
         /> */}
-         <PrivateRouteDoctor
+        <PrivateRouteDoctor
           path="/doctors-alerts"
           exact
           component={Alerts}
         />
 
-         <PrivateRouteDoctor
+        <PrivateRouteDoctor
           path="/doctors-settings"
           exact
           component={Settings}
         />
-           <PrivateRouteDoctor
+        <PrivateRouteDoctor
           path="/doctors-update"
           exact
           component={UpdateSettings}
@@ -201,7 +210,7 @@ export class Routes extends Component {
         {/* <Route component={NotFound} /> */}
         {/* <Route path="/404" component={NotFound} />
         <Redirect to="/404" /> */}
-        <IdleTimerContainer/>
+        <IdleTimerContainer />
         <Switch />
 
       </>
