@@ -33,7 +33,8 @@ class Register extends Component {
       idTypeValue: '',
       selectedidTypeValue: '',
       organ_name: '',
-      organ_num: ''
+      organ_num: '',
+      idNumber: ''
     };
   }
 
@@ -76,6 +77,10 @@ class Register extends Component {
   handleBirthDate = (e) => {
     this.setState({ birthDateValue: e.target.value });
   };
+
+  handleidNumber = (e) => {
+    this.setState({ idNumber: e.target.value })
+  }
 
   handleEmailPrice = (e) => {
     this.setState({ EmailPrice: e.target.value });
@@ -140,7 +145,8 @@ class Register extends Component {
       this.state.phoneNumber &&
       this.state.selectedGenderValue &&
       this.state.selectedSpecValue &&
-      this.state.selectedidTypeValue
+      this.state.selectedidTypeValue &&
+      this.state.idNumber
     ) {
       this.userRegister();
       this.setState({ loading: true })
@@ -175,7 +181,7 @@ class Register extends Component {
   organizationRegister = async () => {
     if (this.state.userType === "organization") {
       const client = await fetch(
-        "https://healthcarebackend.xyz/api/auth/register/client/",
+        "https://healthcarebackend.xyz/api/auth/register/organization/",
         {
           method: "POST",
           headers: {
@@ -211,7 +217,7 @@ class Register extends Component {
     if (this.state.userType === "client") {
       // if (this.state.confPasswordValue === this.state.passwordValue) {
       const client = await fetch(
-        "https://healthcarebackend.xyz/api/auth/register/organization/",
+        "https://healthcarebackend.xyz/api/auth/register/client/",
         {
           method: "POST",
           headers: {
@@ -283,7 +289,8 @@ class Register extends Component {
               gender: this.state.selectedGenderValue,
               speciality: this.state.selectedSpecValue,
               organization: this.state.organization,
-              id_type: this.state.selectedidTypeValue
+              id_type: this.state.selectedidTypeValue,
+              id_number: this.state.idNumber
             },
           }),
         }
@@ -349,6 +356,7 @@ class Register extends Component {
           handleImage2={this.handleImage2}
           handleOrganizationName={this.handleOrganizationName}
           handleOrgan_num={this.handleOrgan_num}
+          handleidNumber={this.handleidNumber}
         />
       </>
     );

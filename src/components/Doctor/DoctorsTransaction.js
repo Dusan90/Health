@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-function DoctorsTransaction({ props, handlePage, handleChange, handleImage, userLogin }) {
+function DoctorsTransaction({ props, handlePage, handleChange, handleImage, userLogin, saveBankAccountNumber }) {
     return (
         <>
             <div className='mainTransactionDiv'>
@@ -18,12 +18,12 @@ function DoctorsTransaction({ props, handlePage, handleChange, handleImage, user
             {props.page === 'bankAccount' && <div className="mainBancAcount">
                 <div className="doctor">
                     <label htmlFor="Number">Bank account number</label>
-                    <input id='Number' value={props.Email} onChange={handleChange} autoComplete="off" type="number" />
+                    <input id='Number' value={props.accountNumber} onChange={handleChange} autoComplete="off" type="number" />
                     {/* <label htmlFor="Password">Password</label>
                     <div className='imageAndInputDiv'>
                         <input id='Password' value={props.Password} onChange={handleChange} autoComplete="off" type={props.seePass ? 'text' : "password"} />
                     </div> */}
-                    <button onClick={userLogin}>Save</button>
+                    <button onClick={saveBankAccountNumber}>Save</button>
                 </div>
 
             </div>}

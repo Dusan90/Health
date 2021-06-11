@@ -9,11 +9,20 @@ export class DoctorsTransaction extends Component {
         super(props);
         this.state = {
             page: 'bankAccount',
+            accountNumber: ''
         }
+    }
+
+    handleChange = (e) => {
+        this.setState({ accountNumber: e.target.value })
     }
 
     handlePage = (value) => {
         this.setState({ page: value })
+    }
+
+    saveBankAccountNumber = () => {
+        console.log('hello ');
     }
     render() {
         return (
@@ -24,7 +33,7 @@ export class DoctorsTransaction extends Component {
                         <Nav />
                     </div>
                 </div>
-                <Transaction props={this.state} handlePage={this.handlePage} />
+                <Transaction props={this.state} handlePage={this.handlePage} saveBankAccountNumber={this.saveBankAccountNumber} />
             </>
         )
     }
