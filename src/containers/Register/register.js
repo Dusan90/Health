@@ -25,8 +25,10 @@ class Register extends Component {
       specValue: "",
       selectedGenderValue: "",
       selectedSpecValue: "",
+      organizationValue: '',
       phoneNumber: '',
       organization: '',
+      organizationList: '',
       seePass1: false,
       seePass2: false,
       loading: false,
@@ -98,8 +100,11 @@ class Register extends Component {
     this.setState({ organ_num: e.target.value })
   }
 
-  handleOrganization = (e) => {
-    this.setState({ organization: e.target.value })
+  handleOrganization = (organizationValue) => {
+    // this.setState({ organization: e.target.value })
+    this.setState({ organizationValue });
+    let { value } = organizationValue;
+    this.setState({ organization: value });
   }
 
   handleOrganizationName = (e) => {
@@ -126,7 +131,7 @@ class Register extends Component {
       this.state.firstNameValue &&
       this.state.lastNameValue &&
       this.state.passwordValue &&
-      this.state.selectedGenderValue &&
+      // this.state.selectedGenderValue &&
       this.state.phoneNumber &&
       this.state.addressValue &&
       this.state.birthDateValue &&
@@ -143,7 +148,7 @@ class Register extends Component {
       this.state.confPasswordValue &&
       this.state.organization &&
       this.state.phoneNumber &&
-      this.state.selectedGenderValue &&
+      // this.state.selectedGenderValue &&
       this.state.selectedSpecValue &&
       this.state.selectedidTypeValue &&
       this.state.idNumber
@@ -152,6 +157,8 @@ class Register extends Component {
       this.setState({ loading: true })
 
     } else if (this.state.userType === "organization" &&
+      this.state.firstNameValue &&
+      this.state.lastNameValue &&
       this.state.organ_name &&
       this.state.organ_num &&
       this.state.emailValue &&
@@ -179,21 +186,26 @@ class Register extends Component {
   }
 
   organizationRegister = async () => {
+
     if (this.state.userType === "organization") {
       const client = await fetch(
-        "https://healthcarebackend.xyz/api/auth/register/organization/",
+        "https://healthcarebackend.xyz/api/backoffice/register/",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: this.state.emailValue,
+            user: {
+              first_name: this.state.firstNameValue,
+              last_name: this.state.lastNameValue,
+              email: this.state.emailValue,
+              password: this.state.passwordValue,
+              confirm_password: this.state.confPasswordValue,
+              phone: this.state.phoneNumber,
+            },
             name: this.state.organ_name,
-            num: this.state.organ_num,
-            phone: this.state.phoneNumber,
-            password: this.state.passwordValue,
-            confirm_password: this.state.confPasswordValue
+            registration_number: this.state.organ_num,
           }),
         }
       );

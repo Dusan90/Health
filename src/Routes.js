@@ -36,6 +36,7 @@ import { Route, Switch } from "react-router-dom";
 import { PrivateRoute } from "./components/Routes/PrivateRoute";
 import { PrivateRouteDoctor } from "./components/Routes/PrivateRouteDoctor";
 import { Private } from './components/Routes/Private'
+import { AdminPrivate } from './components/Routes/AdminPrivate'
 import Settings from "./containers/Doctor/Settings";
 import UpdateSettings from './containers/Doctor/UpdateSettings'
 import ClientSettings from './containers/Client/Settings'
@@ -49,6 +50,15 @@ import IdleTimerContainer from './components/IdleTimerContainer'
 import { HamburgerDiv } from "./components/Main/HamburgerDiv";
 
 // import NotFound from "./containers/Home/NotFound";
+
+
+import Admin from './admin/admin'
+import AdminLoginClass from './admin/AdminLoginClass'
+import SingleUser from './admin/SingleUser'
+import SingleOrganization from './admin/SingleOrganization'
+import ActivateAdmin from './admin/ActivateAdmin'
+
+
 
 export class Routes extends Component {
   render() {
@@ -64,6 +74,20 @@ export class Routes extends Component {
         <Route path="/forgot-password" exact component={ForgotPass} />
         <Route path="/Verification" exact component={Verification} />
         <Route path="/logOutQuestion" exact component={LogOutQuestion} />
+
+
+        <Route path='/admin' exact component={Admin} />
+        <Route path='/admin/login' exact component={AdminLoginClass} />
+        <Route path='/user/:id' exact component={SingleUser} />
+        <Route path='/organization/:id' exact component={SingleOrganization} />
+        <Route path="/api/backoffice/activate/:id/" exact component={ActivateAdmin} />
+
+
+
+
+
+
+
 
         <Route
           path="/api/auth/reset-confirm/:id/"

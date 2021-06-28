@@ -61,6 +61,22 @@ const RegisterUser = ({
     }),
   };
 
+  const customStyles3 = {
+    control: (base, state) => ({
+      ...base,
+      height: "40px",
+      border: "1.7px solid #fa9551",
+      borderRadius: "10px",
+      flex: "1",
+      fontWeight: "700",
+      marginLeft: "2px",
+      // background: "white",
+      background:
+        !props.organization && props.color && "rgb(245, 192, 192)",
+      color: "#666666",
+    }),
+  };
+
   const IDoptions = [
     { label: "Passport", value: "PASSPORT" },
     { label: "Photo ID", value: "GOV_ISSUED_PHOTO_ID" },
@@ -119,7 +135,7 @@ const RegisterUser = ({
               Organization
             </label>
           </div>
-          {userType !== "organization" && <div className="gender">
+          {/* {userType !== "organization" && <div className="gender">
             <div className="maleGender">
               <input
                 className="maleRadio"
@@ -154,11 +170,11 @@ const RegisterUser = ({
             >
               Select gender
             </p>
-          </div>}
+          </div>} */}
         </div>
       </div>
       <form className="register-form" autoComplete="none">
-        {userType !== "organization" && <div className="firstLastGender">
+        {<div className="firstLastGender">
           <div className="reg-name">
             <label htmlFor="firstname">First Name</label>
             <input
@@ -373,9 +389,9 @@ const RegisterUser = ({
                   />
                 </div>
               </div>
-              <div className="date">
+              <div className="spec">
                 <label htmlFor="organization">Organization</label>
-                <input
+                {/* <input
                   type="text"
                   className="form-control"
                   id="organization"
@@ -388,6 +404,14 @@ const RegisterUser = ({
                       "rgb(245, 192, 192)",
                   }}
                   value={props.organization}
+                  onChange={handleOrganization}
+                /> */}
+                <Select
+                  type="text"
+                  id="organization"
+                  value={props.organizationValue}
+                  options={props.organizationsList}
+                  styles={customStyles3}
                   onChange={handleOrganization}
                 />
               </div>
@@ -463,43 +487,6 @@ const RegisterUser = ({
         {userType === "organization" && (<>
           <div className="regPass">
             <div className="reg-email">
-              <label htmlFor="organ_name">Organization name</label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="organ_name"
-                style={{
-                  background:
-                    !props.organ_name && props.color && "rgb(245, 192, 192)",
-                }}
-                autoComplete="none"
-                name="field"
-                value={props.organ_name}
-                onChange={handleOrganizationName}
-              />
-            </div>
-
-            <div className="address">
-              <label htmlFor="organ_num">Registration number</label>
-              <input
-                type="number"
-                className="form-control"
-                id="organ_num"
-                autoComplete="none"
-                name="field"
-                style={{
-                  background:
-                    !props.organ_num && props.color && "rgb(245, 192, 192)",
-                }}
-                // onFocus={changeTextToDate}
-                value={props.organ_num}
-                onChange={handleOrgan_num}
-              />
-            </div>
-          </div>
-          <div className="regPass">
-            <div className="reg-email">
               <label htmlFor="email">E-mail</label>
 
               <input
@@ -532,6 +519,43 @@ const RegisterUser = ({
                 // onFocus={changeTextToDate}
                 value={props.phoneNumber}
                 onChange={handlePhoneNumber}
+              />
+            </div>
+          </div>
+          <div className="regPass">
+            <div className="reg-email">
+              <label htmlFor="organ_name">Organization name</label>
+
+              <input
+                type="text"
+                className="form-control"
+                id="organ_name"
+                style={{
+                  background:
+                    !props.organ_name && props.color && "rgb(245, 192, 192)",
+                }}
+                autoComplete="none"
+                name="field"
+                value={props.organ_name}
+                onChange={handleOrganizationName}
+              />
+            </div>
+
+            <div className="address">
+              <label htmlFor="organ_num">Registration number</label>
+              <input
+                type="number"
+                className="form-control"
+                id="organ_num"
+                autoComplete="none"
+                name="field"
+                style={{
+                  background:
+                    !props.organ_num && props.color && "rgb(245, 192, 192)",
+                }}
+                // onFocus={changeTextToDate}
+                value={props.organ_num}
+                onChange={handleOrgan_num}
               />
             </div>
           </div>

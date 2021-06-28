@@ -24,8 +24,8 @@ class Login extends Component {
     };
   }
 
-  handleImage1=()=>{
-    this.setState({seePass1: !this.state.seePass1})
+  handleImage1 = () => {
+    this.setState({ seePass1: !this.state.seePass1 })
   }
 
   handlePassword = (e) => {
@@ -34,7 +34,7 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({loading: true})
+    this.setState({ loading: true })
     this.userLogin();
     const { emailValue, rememberMe } = this.state;
     localStorage.setItem("rememberMe", rememberMe);
@@ -55,7 +55,7 @@ class Login extends Component {
 
     const jsonData = await data.json();
     console.log(jsonData)
-    jsonData && this.setState({loading: false})
+    jsonData && this.setState({ loading: false })
     if (jsonData.success === false && jsonData.status_code === 400) {
       NotificationManager.error(`${jsonData.error}`, "Failed!", 3000);
     } else if (
@@ -93,10 +93,11 @@ class Login extends Component {
     if (this.props.isLoggedIn) {
       if (this.state.is_doctor) {
         this.props.history.push(
-      { pathname: "/dashboard-doctor",
-      // search: '?query=abc',
-      // state: { detail: 'makeItOnline'}
-    })
+          {
+            pathname: "/dashboard-doctor",
+            // search: '?query=abc',
+            // state: { detail: 'makeItOnline'}
+          })
       } else {
         this.props.history.push("/dashboard-client");
       }
