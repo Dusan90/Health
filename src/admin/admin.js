@@ -157,7 +157,7 @@ function Admin({ }) {
               </table>
             )}
             {drawerClick === "Drawer2" && (
-              <table className="table2">
+              <table className="table4">
                 <thead className="client-head">
                   <tr className="client-row">
                     <th className="client-doctor2" style={{ textIndent: '30px' }}>

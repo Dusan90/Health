@@ -368,7 +368,7 @@
   }
 }
 
-.table2 {
+.table4 {
   text-align: center;
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -394,13 +394,15 @@
   .client-head {
     text-align: center;
     background-color: whitesmoke;
-    color: gray;
+    color: #666666;
 
     .client-row {
       height: 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      background: #b3b3b3;
+
       .client-doctor2 {
       }
       .client-subject2 {

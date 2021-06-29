@@ -85,7 +85,7 @@ function SingleUser() {
                 </div>
               </div>
 
-              <table className="table2">
+              <table className="table4">
                 <thead className="client-head">
                   <tr className="client-row">
                     <th className="client-doctor">
@@ -186,7 +186,7 @@ function SingleUser() {
                 </div>
               </div>
 
-              {<table className="table2">
+              {<table className="table4">
                 <thead className="client-head">
                   <tr className="client-row">
                     <th className="client-doctor">
